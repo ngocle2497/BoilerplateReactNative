@@ -1,10 +1,18 @@
 import React from 'react';
-import {Text, View} from 'react-native';
-
-export const Main = props => {
+import {View} from 'react-native';
+import {Wallpaper, Text, Screen, Button} from '../../../library/components';
+import {GlobalStyle} from '../../../themes';
+export const Main = (props: any) => {
   return (
-    <View>
-      <Text> textInComponent </Text>
+    <View style={[GlobalStyle.fullScreen, {paddingTop: 50}]}>
+      <Wallpaper />
+      <Screen
+        draw={true}
+        statusColor={'transparent'}
+        isScroll={true}
+        backgroundColor={'transparent'}>
+        <Text style={{color: 'blue'}}>demo</Text>
+      </Screen>
     </View>
   );
 };

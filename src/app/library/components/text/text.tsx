@@ -31,7 +31,7 @@ export function Text(props: TextProps) {
   );
 
   return (
-    <ReactNativeText {...rest} style={style}>
+    <ReactNativeText allowFontScaling={false} {...rest} style={style}>
       {content}
     </ReactNativeText>
   );

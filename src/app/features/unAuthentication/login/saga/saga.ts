@@ -1,5 +1,5 @@
 import { ServiceSaga } from '../../../../library/networking/index';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 import { ResponseBase, RequestBase } from '../../../../config/type';
 import { onLoginFailed, onLoginSuccess } from '../redux/action';
 import { LoginRequest } from '../../../../data/model/request';

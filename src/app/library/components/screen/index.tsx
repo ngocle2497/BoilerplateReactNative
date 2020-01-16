@@ -52,6 +52,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
     hidden = false,
     statusColor = '#ECA96A',
     draw = false,
+    drawBottom = false,
     bottomIPX = '#ffffff',
   } = props;
   const backgroundStyle = props.backgroundColor
@@ -76,7 +77,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
       <Wrapper style={[preset.inner, style, backgroundStyle]}>
         {props.children}
       </Wrapper>
-      {draw === false && (
+      {drawBottom === false && (
         <SafeAreaView style={[preset.outer0, {backgroundColor: bottomIPX}]} />
       )}
     </KeyboardAvoidingView>
@@ -92,6 +93,7 @@ function ScreenWithScrolling(props: ScreenProps) {
     hidden = false,
     statusColor = '#ECA96A',
     draw = false,
+    drawBottom = false,
     bottomIPX = '#ffffff',
   } = props;
   const backgroundStyle = props.backgroundColor
@@ -123,7 +125,7 @@ function ScreenWithScrolling(props: ScreenProps) {
           {props.children}
         </ScrollView>
       </Wrapper>
-      {props.draw === false && (
+      {drawBottom === false && (
         <SafeAreaView style={[preset.outer0, {backgroundColor: bottomIPX}]} />
       )}
     </KeyboardAvoidingView>

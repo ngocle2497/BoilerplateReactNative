@@ -1,23 +1,33 @@
 import React, {useEffect} from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {onLogin} from '../redux/action';
 import {styles} from './style';
 import {LoginState} from '../redux/type';
-export const Login = props => {
+import Splash from 'react-native-splash-screen';
+import {Wallpaper, Text, Screen, Button} from '../../../../library/components';
+import {GlobalStyle} from '../../../../themes/index';
+export const Login = (props: any) => {
   const dispatch = useDispatch();
   const {}: LoginState = useSelector((x: any) => x.LoginReducer);
   useEffect(() => {
-    dispatch(
-      onLogin({
-        url: 'api/',
-        data: {password: '123456', userName: '1234567890'},
-      }),
-    );
+    Splash.hide();
   }, []);
   return (
-    <View>
-      <Text> Login </Text>
+    <View style={[GlobalStyle.fullScreen, styles.paddingSafe]}>
+      <Wallpaper />
+      <Screen
+        draw={true}
+        statusColor={'transparent'}
+        isScroll={true}
+        backgroundColor={'transparent'}>
+        <Button
+          onPress={() => {
+            props.navigation.navigate('HOME');
+          }}>
+          <Text style={{color: 'red'}}>demo</Text>
+        </Button>
+      </Screen>
     </View>
   );
 };

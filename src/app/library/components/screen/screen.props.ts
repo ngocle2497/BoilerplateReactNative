@@ -1,5 +1,5 @@
-import {ViewStyle} from 'react-native';
-import {KeyboardOffsets, ScreenPresets} from './screen.presets';
+import { ViewStyle } from 'react-native';
+import { KeyboardOffsets, ScreenPresets } from './screen.presets';
 
 export interface ScreenProps {
   children?: React.ReactNode;
@@ -16,19 +16,21 @@ export interface ScreenProps {
 
   keyboardOffset?: KeyboardOffsets;
 
-  hidden: boolean;
+  hidden?: boolean;
 
-  statusColor: string;
+  statusColor?: string;
 
-  draw: boolean;
+  draw?: boolean;
 
-  bottomIPX: string;
+  drawBottom?: boolean;
+
+  bottomIPX?: string;
 
   outer0?: ViewStyle;
 
-  showVertical: boolean;
+  showVertical?: boolean;
 
-  showHorizontal: boolean;
+  showHorizontal?: boolean;
 
-  isScroll: boolean;
+  isScroll?: boolean;
 }

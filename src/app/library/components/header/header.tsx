@@ -2,8 +2,8 @@ import * as React from 'react';
 import {View, ViewStyle, TextStyle} from 'react-native';
 import {HeaderProps} from './header.props';
 import {Button, Icon, Text} from '../';
-import {spacing} from '../../theme';
-import {translate} from '../../i18n/';
+import {spacing} from '../../../themes';
+import {translate} from '../../../library/utils/i18n/translate';
 
 // static styles
 const ROOT: ViewStyle = {
