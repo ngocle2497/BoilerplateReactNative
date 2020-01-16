@@ -1,4 +1,4 @@
-export interface LoginResponseViewModel {
+export interface LoginResponse {
   name: string;
 
   age: number;

@@ -1,10 +1,15 @@
-import {ResponseBase} from '../../../../config/type';
-import {LoginRequestViewModel} from '../../../../data/model/request/index.js';
-import {LoginResponseViewModel} from '../../../../data/model/response';
+import { ResponseBase } from '../../../../config/type';
+import { LoginRequestViewModel } from '../../../../data/model/request/index.js';
+import { LoginResponse } from '../../../../data/model/response';
 
-export const LOGIN_FAILED = 'LOGIN_FAILED';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN = 'LOGIN';
+import { LOGIN, LOGIN_FAILED, LOGIN_START, LOGIN_SUCCESS } from './actionType';
+
+export interface LoginState {
+  data: any;
+  code: number;
+  loading: boolean;
+  msg: string;
+}
 
 export interface onLogin {
   type: typeof LOGIN;
@@ -13,12 +18,17 @@ export interface onLogin {
 
 export interface onLoginFailed {
   type: typeof LOGIN_FAILED;
-  payload: ResponseBase<LoginResponseViewModel>;
+  payload: ResponseBase<LoginResponse>;
+}
+
+export interface onLoginStart {
+  type: typeof LOGIN_START;
+  payload: ResponseBase<LoginResponse>;
 }
 
 export interface onLoginSuccess {
   type: typeof LOGIN_SUCCESS;
-  payload: ResponseBase<LoginResponseViewModel>;
+  payload: ResponseBase<LoginResponse>;
 }
 
-export type LoginActionTypes = onLoginSuccess | onLoginFailed;
+export type LoginActionTypes = onLoginSuccess | onLoginFailed | onLoginStart;

@@ -1,13 +1,13 @@
 import I18n from '../../library/utils/i18n/i18n';
-import {ERROR_NETWORK_CODE} from '../../config/index';
-import {translate} from '../../library/utils/i18n/translate';
-import {ResponseBase} from '../../config/type';
+import { ERROR_NETWORK_CODE } from '../../config/index';
+import { translate } from '../../library/utils/i18n/translate';
+import { ResponseBase } from '../../config/type';
 
 const handleData = (responseError: ResponseBase<any>) => {
   return responseError;
 };
 
-export const HandleErrorApi = status => {
+export const HandleErrorApi = (status: number) => {
   switch (status) {
     case ERROR_NETWORK_CODE:
       return handleData({

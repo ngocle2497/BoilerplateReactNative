@@ -1,13 +1,10 @@
-import {LOGIN_FAILED, LOGIN_SUCCESS, LoginActionTypes} from './type';
-interface LoginState {
-  data: any;
-  code: number;
-  loading: boolean;
-  msg: string;
-}
+import { CODE_DEFAULT } from './../../../../config/index';
+import { LoginActionTypes, LoginState } from './type'
+import { LOGIN_FAILED, LOGIN_SUCCESS, LOGIN_START } from './actionType';
+
 const initialState = {
-  data: [],
-  code: -10,
+  data: {},
+  code: CODE_DEFAULT,
   loading: false,
   msg: '',
 };
@@ -26,6 +23,11 @@ export function LoginReducer(
     case LOGIN_FAILED:
       return {
         ...state,
+      };
+    case LOGIN_START:
+      return {
+        ...state,
+        loading: true,
       };
     default:
       return state;

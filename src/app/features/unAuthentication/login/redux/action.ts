@@ -1,25 +1,25 @@
-import {RequestBase, ResponseBase, ActionBase} from './../../../../config/type';
-import {LOGIN_FAILED, LOGIN, LOGIN_SUCCESS} from './type';
-import {LoginRequestViewModel} from '../../../../data/model/request/index.js';
-import {LoginResponseViewModel} from '../../../../data/model/response';
+import { RequestBase, ResponseBase, ActionBase } from './../../../../config/type';
+import { LOGIN_FAILED, LOGIN, LOGIN_SUCCESS } from './actionType';
+import { LoginRequestViewModel } from '../../../../data/model/request/index.js';
+import { LoginResponse } from '../../../../data/model/response';
 
-export const onLogins = (
+export const onLogin = (
   action: RequestBase<LoginRequestViewModel>,
 ): ActionBase<LoginRequestViewModel> => {
   return {
     type: LOGIN,
-    payload: {password: action.data.password, userName: action.data.userName},
+    payload: { userName: action.data.userName, password: action.data.password },
   };
 };
 
 export const onLoginSuccess = (
-  action: ResponseBase<LoginResponseViewModel>,
-): ActionBase<LoginResponseViewModel> => {
-  return {type: LOGIN_SUCCESS, payload: action.data};
+  action: ResponseBase<LoginResponse>,
+): ActionBase<LoginResponse> => {
+  return { type: LOGIN_SUCCESS, payload: action.data };
 };
 
 export const onLoginFailed = (
-  action: ResponseBase<LoginResponseViewModel>,
-): ActionBase<LoginResponseViewModel> => {
-  return {type: LOGIN_FAILED, payload: action.data};
+  action: ResponseBase<LoginResponse>,
+): ActionBase<LoginResponse> => {
+  return { type: LOGIN_FAILED, payload: action.data };
 };
