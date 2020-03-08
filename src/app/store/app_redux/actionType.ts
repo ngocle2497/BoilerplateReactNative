@@ -1,0 +1,4 @@
+export const SET_INTERNET_OFF = 'SET_INTERNET_OFF'
+export const SET_INTERNET_ON = 'SET_INTERNET_ON'
+export const SET_TOKEN = 'SET_TOKEN'
+export const REMOVE_TOKEN = 'REMOVE_TOKEN'

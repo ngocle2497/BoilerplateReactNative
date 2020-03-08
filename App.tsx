@@ -1,7 +1,7 @@
 import React, {Suspense, useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {withTranslation, useTranslation} from 'react-i18next';
-import AppContainer from './src/app/navigation/index';
+import {AppContainer} from './src/app/navigation/index';
 import {Provider} from 'react-redux';
 import codePush from 'react-native-code-push';
 import {store} from './src/app/store/store';

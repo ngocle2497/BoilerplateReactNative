@@ -1,26 +1,17 @@
-import {NavigationActions, StackActions} from 'react-navigation';
+import * as React from 'react';
+import * as ScreenTypes from './screenTypes'
+export const navigationRef = React.createRef();
 
-let _navigator;
 
-function setTopLevelNavigator(navigatorRef) {
-  _navigator = navigatorRef;
+export function navigate(routeName:keyof typeof ScreenTypes, params = {}) {
+  navigationRef.current?.navigate(routeName, params);
 }
 
-function navigate(routeName, params) {
-  _navigator.dispatch(NavigationActions.navigate({routeName, params}));
+export function goBack(key) {
+  // _navigator.dispatch(NavigationActions.back({key: key}));
 }
 
-function goBack(key) {
-  _navigator.dispatch(NavigationActions.back({key: key}));
+export function replaceScreen(routeName, params) {
+  // _navigator.dispatch(StackActions.replace({routeName, params}));
 }
 
-function replaceScreen(routeName, params) {
-  _navigator.dispatch(StackActions.replace({routeName, params}));
-}
-
-export default {
-  navigate,
-  goBack,
-  replaceScreen,
-  setTopLevelNavigator,
-};

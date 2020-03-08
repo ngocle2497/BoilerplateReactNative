@@ -1,15 +1,11 @@
 import { ServiceSaga } from '../../../../library/networking/index';
 import { put } from 'redux-saga/effects';
-import { ResponseBase, RequestBase } from '../../../../config/type';
-import { onLoginFailed, onLoginSuccess } from '../redux/action';
-import { LoginRequest } from '../../../../data/model/request';
-import { LoginResponse } from '../../../../data/model/response';
-export function* onLogin(action: RequestBase<LoginRequest>) {
-  const response: ResponseBase<LoginResponse> = yield ServiceSaga.Post(action.url, action.data);
-
-  if (response.status) {
-    yield put(onLoginSuccess(response));
+import * as Action from '../redux/actionType'
+export function* onLogin({ url, payload }: { url: string, payload: any }) {
+  const response = yield ServiceSaga.Post(url, payload);
+  if (response.data) {
+    yield put({ type: Action.LOGIN_SUCCESS, payload: response.data })
   } else {
-    yield put(onLoginFailed(response));
+    yield put({ type: Action.LOGIN_FAILED, payload: { error: response.error } })
   }
 }
