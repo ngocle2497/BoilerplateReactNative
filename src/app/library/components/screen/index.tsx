@@ -16,7 +16,7 @@ export const offsets = {
 export const presets = {
   fixed: {
     outer: {
-      backgroundColor: '#FFFFFF',
+      backgroundColor: 'transparent',
       flex: 1,
       height: '100%',
     } as ViewStyle,
@@ -26,6 +26,7 @@ export const presets = {
     inner: {
       justifyContent: 'flex-start',
       alignItems: 'stretch',
+      backgroundColor:'transparent',
       flex: 1,
     } as ViewStyle,
   },
@@ -74,7 +75,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
       {draw === false && (
         <SafeAreaView style={[preset.outer0, { backgroundColor: statusColor }]} />
       )}
-      <Wrapper forceInset={props.forceInset ?? undefined} style={[preset.inner, style]}>
+      <Wrapper forceInset={props.forceInset ?? undefined} style={[preset.inner, style,backgroundStyle]}>
         {props.children}
       </Wrapper>
       {customInsetBottom === true && (

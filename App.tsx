@@ -1,20 +1,16 @@
 import React, {Suspense, useEffect, useState} from 'react';
 import {View} from 'react-native';
-import {withTranslation, useTranslation} from 'react-i18next';
+import {withTranslation} from 'react-i18next';
 import {AppContainer} from './src/app/navigation/index';
 import {Provider} from 'react-redux';
 import codePush from 'react-native-code-push';
 import {store} from './src/app/store/store';
 
-const WrappedStack = () => {
-  const {t} = useTranslation();
-  return <AppContainer screenProps={{t: t}} />;
-};
 const ReloadAppOnLanguageChange = withTranslation('common', {
   bindI18n: 'languageChanged',
   bindStore: false,
   wait: true,
-})(WrappedStack);
+})(AppContainer);
 
 const MyApp = (props: any) => {
   const [updating, setUpdating] = useState(true);

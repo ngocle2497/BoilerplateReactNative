@@ -8,7 +8,7 @@ import { Wallpaper, Text, Screen, Button } from '../../../../library/components'
 import { GlobalStyle } from '../../../../themes/index';
 import { navigate } from '../../../../navigation/navigationService'
 import { onSetToken } from '../../../../store/app_redux/action';
-export const Login = (props: any) => {
+export const Login = ({ navigation }) => {
   const dispatch = useDispatch()
   useEffect(() => {
     Splash.hide();
@@ -18,17 +18,25 @@ export const Login = (props: any) => {
       <Wallpaper />
       <Screen
         draw={true}
-        isScroll={true}
-        forceInset={{top:'always'}}
+        isScroll={false}
+        backgroundColor={'transparent'}
+        forceInset={{ top: 'always' }}
         customInsetBottom={false}>
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Button
             onPress={() => {
-              console.log("LOGGGG","asdasdgaksdaksdsah")
+              console.log("LOGGGG", "asdasdgaksdaksdsah")
               dispatch(onSetToken("token"))
             }}>
             <Text style={{ color: 'red' }}>Login</Text>
-          </Button></View>
+          </Button>
+          <Button
+            onPress={() => {
+              navigation.push("REGISTER")
+            }}>
+            <Text style={{ color: 'red' }}>Register</Text>
+          </Button>
+        </View>
       </Screen>
     </View>
   );
