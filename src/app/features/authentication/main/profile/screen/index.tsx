@@ -11,7 +11,7 @@ export const Profile = ({ navigation }) => {
     Splash.hide();
   }, []);
   return (
-    <View style={[GlobalStyle.fullScreen]}>
+    <View style={{flex:1}}>
       <Wallpaper />
       <Screen
         draw={true}

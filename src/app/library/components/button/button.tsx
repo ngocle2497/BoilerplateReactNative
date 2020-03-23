@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {TouchableOpacity} from 'react-native';
-import {Text} from '../';
-import {viewPresets, textPresets} from './button.presets';
-import {ButtonProps} from './button.props';
-import {mergeAll, flatten} from 'ramda';
+import { TouchableOpacity } from 'react-native';
+import { Text } from '../';
+import { stylesView, stylesText } from './button.presets';
+import { ButtonProps } from './button.props';
+import { mergeAll, flatten } from 'ramda';
 
 /**
  * For your text displaying needs.
@@ -19,21 +19,22 @@ export function Button(props: ButtonProps) {
     style: styleOverride,
     textStyle: textStyleOverride,
     children,
+    dependency = [],
     ...rest
   } = props;
 
   const viewStyle = mergeAll(
-    flatten([viewPresets[preset] || viewPresets.primary, styleOverride]),
+    flatten([stylesView()[preset] || stylesView().primary, styleOverride]),
   );
   const textStyle = mergeAll(
-    flatten([textPresets[preset] || textPresets.primary, textStyleOverride]),
+    flatten([stylesText()[preset] || stylesText().primary, textStyleOverride]),
   );
 
   const content = children || <Text tx={tx} text={text} style={textStyle} />;
-
-  return (
+  const dependencyList = [viewStyle,textStyle,...dependency]
+  return React.useMemo(() => (
     <TouchableOpacity style={viewStyle} {...rest}>
       {content}
     </TouchableOpacity>
-  );
+  ), dependencyList)
 }

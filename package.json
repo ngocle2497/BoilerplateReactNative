@@ -37,6 +37,7 @@
         "react-native-gesture-handler": "^1.6.0",
         "react-native-keychain": "^5.0.1",
         "react-native-reanimated": "^1.7.0",
+        "react-native-redash": "^10.0.1",
         "react-native-safe-area-context": "^0.7.3",
         "react-native-safe-area-view": "^1.0.0",
         "react-native-screens": "^2.2.0",

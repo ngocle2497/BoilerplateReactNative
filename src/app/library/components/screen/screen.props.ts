@@ -1,14 +1,6 @@
 import { ViewStyle } from 'react-native';
 import { KeyboardOffsets, ScreenPresets } from './screen.presets';
 import {ForceInsetProp} from 'react-native-safe-area-view';
-// interface ForceInsetProps {
-//   top?: SafeAreaViewForceInsetValue;
-//   bottom?: SafeAreaViewForceInsetValue;
-//   left?: SafeAreaViewForceInsetValue;
-//   right?: SafeAreaViewForceInsetValue;
-//   vertical?: SafeAreaViewForceInsetValue;
-//   horizontal?: SafeAreaViewForceInsetValue;
-// }
 export interface ScreenProps {
   children?: React.ReactNode;
 
@@ -43,4 +35,6 @@ export interface ScreenProps {
   isScroll?: boolean;
 
   forceInset?: ForceInsetProp;
+
+  dismissKeyboard?:boolean;
 }

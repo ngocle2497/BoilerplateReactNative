@@ -1,4 +1,3 @@
-export * from './bullet-item/bullet-item';
 export * from './animProcess';
 export * from './processDialog';
 export * from './button/button';

@@ -1,14 +1,27 @@
-import {StyleSheet} from 'react-native';
+import { AppTheme } from './../config/type';
+import { StyleSheet } from 'react-native';
+import { SpacingDefault } from './spacing';
+import { FontSizeDefault } from './fontSize';
+import { ColorDefault, ColorLight } from './color';
+import { FontDefault } from './typography';
 
-const GlobalStyle = StyleSheet.create({
-  fullScreen: {
-    flex: 1,
-    flexDirection: 'column',
-  },
-});
-export {GlobalStyle};
-export * from './fontSize';
-export * from './color';
-export * from './typography';
-export * from './palette';
-export * from './spacing';
+const Default: AppTheme = {
+  dark: true,
+  colors: ColorDefault,
+  spacing:SpacingDefault,
+  fontFamily:FontDefault,
+  fontSize:FontSizeDefault,
+}
+const Light: AppTheme = {
+  dark: false,
+  colors: ColorLight,
+  spacing:SpacingDefault,
+  fontFamily:FontDefault,
+  fontSize:FontSizeDefault,
+}
+export const MyAppTheme = {
+  default: Default,
+  light: Light
+}
+
+export type ThemeType = keyof typeof MyAppTheme;

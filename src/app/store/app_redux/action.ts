@@ -1,4 +1,5 @@
-import { SET_INTERNET_OFF, SET_INTERNET_ON, SET_TOKEN, REMOVE_TOKEN } from './actionType'
+import { ThemeType } from './../../themes/index';
+import { SET_INTERNET_OFF, SET_INTERNET_ON, SET_TOKEN, REMOVE_TOKEN, SET_APP_THEME } from './actionType'
 
 export const onInternetOff = () => {
     return {
@@ -23,3 +24,10 @@ export const onRemoveToken = () => {
         type: REMOVE_TOKEN,
     };
 };
+
+export const onSetAppTheme = (payload:ThemeType)=>{
+    return{
+        type: SET_APP_THEME,
+        payload
+    }
+}

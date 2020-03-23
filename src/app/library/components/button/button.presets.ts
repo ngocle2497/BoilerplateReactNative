@@ -1,54 +1,41 @@
-import {ViewStyle, TextStyle} from 'react-native';
-import {color, spacing} from '../../../themes';
-
-/**
- * All text will start off looking like this.
- */
-const BASE_VIEW: ViewStyle = {
-  paddingVertical: spacing[2],
-  paddingHorizontal: spacing[2],
-  borderRadius: 4,
-  justifyContent: 'center',
-  alignItems: 'center',
-};
-
-const BASE_TEXT: TextStyle = {
-  paddingHorizontal: spacing[3],
-};
-
-/**
- * All the variations of text styling within the app.
- *
- * You want to customize these to whatever you need in your app.
- */
-export const viewPresets = {
-  /**
-   * A smaller piece of secondard information.
-   */
-  primary: {...BASE_VIEW, backgroundColor: color.palette.orange} as ViewStyle,
-
-  /**
-   * A button without extras.
-   */
-  link: {
-    ...BASE_VIEW,
-    paddingHorizontal: 0,
-    paddingVertical: 0,
-    alignItems: 'flex-start',
-  } as ViewStyle,
-};
-
-export const textPresets = {
-  primary: {...BASE_TEXT, fontSize: 9, color: color.palette.white} as TextStyle,
-  link: {
-    ...BASE_TEXT,
-    color: color.text,
-    paddingHorizontal: 0,
-    paddingVertical: 0,
-  } as TextStyle,
-};
-
-/**
- * A list of preset names.
- */
-export type ButtonPresetNames = keyof typeof viewPresets;
+import { AppTheme } from './../../../config/type';
+import { useTheme } from '@react-navigation/native';
+import { useMemo } from 'react';
+import { StyleSheet } from 'react-native'
+export const stylesView = () => {
+  const theme: AppTheme = useTheme()
+  return useMemo(() => StyleSheet.create({
+    primary: {
+      paddingVertical: theme.spacing.smaller,
+      paddingHorizontal: theme.spacing.smaller,
+      borderRadius: 4,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: theme.colors.button,
+    },
+    link: {
+      borderRadius: 4,
+      justifyContent: 'center',
+      paddingHorizontal: 0,
+      paddingVertical: 0,
+      alignItems: 'flex-start',
+    }
+  }), [theme])
+}
+export const stylesText = () => {
+  const theme: AppTheme = useTheme()
+  return useMemo(() => StyleSheet.create({
+    primary: {
+      paddingHorizontal: theme.spacing.small,
+      fontSize: theme.fontSize.FONT_9,
+      color: theme.colors.white,
+    },
+    link: {
+      fontSize: theme.fontSize.FONT_9,
+      color: theme.colors.text,
+      paddingHorizontal: 0,
+      paddingVertical: 0,
+    }
+  }), [theme])
+}
+export type ButtonPresetNames = 'link' | 'primary';

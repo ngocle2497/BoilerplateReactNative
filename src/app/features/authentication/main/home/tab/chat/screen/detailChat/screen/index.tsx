@@ -4,14 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { styles } from './style';
 import Splash from 'react-native-splash-screen';
 import { Wallpaper, Text, Screen, Button } from '../../../../../../../../../library/components';
-import { GlobalStyle } from '../../../../../../../../../themes/index';
 export const DetailChat = ({ navigation }) => {
   const dispatch = useDispatch()
   useEffect(() => {
     Splash.hide();
   }, []);
   return (
-    <View style={[GlobalStyle.fullScreen]}>
+    <View style={{flex:1}}>
       <Wallpaper />
       <Screen
         draw={true}

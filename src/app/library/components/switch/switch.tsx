@@ -1,14 +1,17 @@
 import * as React from 'react';
 import {
   ViewStyle,
-  Animated,
-  Easing,
   TouchableWithoutFeedback,
+  StyleSheet,
 } from 'react-native';
-import {color} from '../../../themes';
-import {SwitchProps} from './switch.props';
-import {mergeAll, flatten} from 'ramda';
-
+import { SwitchProps } from './switch.props';
+import { mergeAll, flatten } from 'ramda';
+import { timing, useValues, interpolateColor, onGestureEvent } from 'react-native-redash'
+import Animated, { set, Easing, interpolate } from 'react-native-reanimated'
+import { PanGestureHandler } from 'react-native-gesture-handler'
+import { AppTheme } from '../../../config/type';
+import { useTheme } from '@react-navigation/native';
+const { useCode } = Animated;
 // dimensions
 const THUMB_SIZE = 30;
 const WIDTH = 56;
@@ -18,70 +21,54 @@ const ON_POSITION = WIDTH - THUMB_SIZE - MARGIN;
 const BORDER_RADIUS = (THUMB_SIZE * 3) / 4;
 
 // colors
-const ON_COLOR = color.primary;
-const OFF_COLOR = color.palette.offWhite;
+const ON_COLOR = '#008000';
+const OFF_COLOR = '#e6e6e6';
 const BORDER_ON_COLOR = ON_COLOR;
 const BORDER_OFF_COLOR = 'rgba(0, 0, 0, 0.1)';
 
 // animation
 const DURATION = 250;
 
-// the track always has these props
-const TRACK = {
-  height: THUMB_SIZE + MARGIN,
-  width: WIDTH,
-  borderRadius: BORDER_RADIUS,
-  borderWidth: MARGIN / 2,
-  backgroundColor: color.background,
-};
+const styles = StyleSheet.create({
+  TRACK: {
+    height: THUMB_SIZE + MARGIN,
+    width: WIDTH,
+    borderRadius: BORDER_RADIUS,
+    borderWidth: MARGIN / 2,
+  },
+  THUMB: {
+    position: 'absolute',
+    width: THUMB_SIZE,
+    height: THUMB_SIZE,
+    borderColor: BORDER_OFF_COLOR,
+    borderRadius: THUMB_SIZE / 2,
+    borderWidth: MARGIN / 2,
+    backgroundColor: '#FFFFFF',
+    shadowColor: BORDER_OFF_COLOR,
+    shadowOffset: { width: 1, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 2,
+    elevation: 2,
+  }
 
-// the thumb always has these props
-const THUMB: ViewStyle = {
-  position: 'absolute',
-  width: THUMB_SIZE,
-  height: THUMB_SIZE,
-  borderColor: BORDER_OFF_COLOR,
-  borderRadius: THUMB_SIZE / 2,
-  borderWidth: MARGIN / 2,
-  backgroundColor: color.background,
-  shadowColor: BORDER_OFF_COLOR,
-  shadowOffset: {width: 1, height: 2},
-  shadowOpacity: 1,
-  shadowRadius: 2,
-  elevation: 2,
-};
+})
 
-const enhance = (style, newStyles): any => {
+
+const enhance = (style: any, newStyles: any): any => {
   return mergeAll(flatten([style, newStyles]));
 };
-
-const makeAnimatedValue = (switchOn: any) =>
-  new Animated.Value(switchOn ? 1 : 0);
-
-export const Switch: React.FunctionComponent<SwitchProps> = props => {
-  const [timer] = React.useState<Animated.Value>(
-    makeAnimatedValue(props.value),
-  );
-  const startAnimation = React.useMemo(
-    () => (newValue: boolean) => {
-      const toValue = newValue ? 1 : 0;
-      const easing = Easing.out(Easing.circle);
-      Animated.timing(timer, {
-        toValue,
-        duration: DURATION,
-        easing,
-        useNativeDriver: true,
-      }).start();
-    },
-    [timer],
-  );
+export const Switch = (props: SwitchProps) => {
+  const [timer] = useValues([props.value === true ? 1 : 0], [])
+  const theme: AppTheme = useTheme()
+  useCode(() => [
+    set(timer, timing({ from: timer, to: props.value === true ? 1 : 0, easing: Easing.out(Easing.circle), duration: DURATION }))
+  ], [props.value])
 
   const [previousValue, setPreviousValue] = React.useState<boolean>(
     props.value,
   );
   React.useEffect(() => {
     if (props.value !== previousValue) {
-      startAnimation(props.value);
       setPreviousValue(props.value);
     }
   }, [props.value]);
@@ -90,42 +77,44 @@ export const Switch: React.FunctionComponent<SwitchProps> = props => {
     () => () => props.onToggle && props.onToggle(!props.value),
     [props.onToggle, props.value],
   );
-
-  if (!timer) {
-    return null;
-  }
-
-  const translateX = timer.interpolate({
+  const translateX = interpolate(timer, {
     inputRange: [0, 1],
     outputRange: [OFF_POSITION, ON_POSITION],
   });
-
+  const bgTrackColor = interpolateColor(timer, {
+    inputRange: [0, 1],
+    outputRange: [OFF_COLOR, ON_COLOR]
+  })
+  const borderColor = interpolateColor(timer, {
+    inputRange: [0, 1],
+    outputRange: [BORDER_OFF_COLOR, BORDER_ON_COLOR]
+  })
   const style = enhance({}, props.style);
 
-  let trackStyle = TRACK;
+  let trackStyle = styles.TRACK;
   trackStyle = enhance(trackStyle, {
-    backgroundColor: props.value ? ON_COLOR : OFF_COLOR,
-    borderColor: props.value ? BORDER_ON_COLOR : BORDER_OFF_COLOR,
+    backgroundColor: bgTrackColor,
+    borderColor: borderColor,
   });
   trackStyle = enhance(
     trackStyle,
     props.value ? props.trackOnStyle : props.trackOffStyle,
   );
 
-  let thumbStyle = THUMB;
+  let thumbStyle = styles.THUMB;
   thumbStyle = enhance(thumbStyle, {
-    transform: [{translateX}],
+    transform: [{ translateX }],
   });
   thumbStyle = enhance(
     thumbStyle,
     props.value ? props.thumbOnStyle : props.thumbOffStyle,
   );
-
-  return (
+  const dependencyList = [props.value, theme, props.thumbOffStyle, props.thumbOnStyle, props.trackOnStyle, props.trackOffStyle, ...props.dependency = []]
+  return React.useMemo(() => (
     <TouchableWithoutFeedback onPress={handlePress} style={style}>
       <Animated.View style={trackStyle}>
         <Animated.View style={thumbStyle} />
       </Animated.View>
     </TouchableWithoutFeedback>
-  );
+  ), dependencyList)
 };

@@ -8,6 +8,7 @@ const initialAppState: AppState = {
   internetState: true,
   profile: {},
   token: null,
+  theme: 'default'
 };
 interface ActionProps {
   type: keyof typeof Action;
@@ -23,6 +24,8 @@ const AppReducer = (state = initialAppState, { type, payload }: ActionProps): Ap
       return { ...state, token: payload }
     case Action.REMOVE_TOKEN:
       return { ...state, token: null }
+    case Action.SET_APP_THEME:
+      return { ...state, theme: payload }
     default:
       return state;
   }

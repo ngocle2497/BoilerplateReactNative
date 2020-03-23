@@ -1,21 +1,23 @@
-import React, { useEffect } from 'react';
-import { View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, TextInput } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { onLogin } from '../redux/action';
 import { styles } from './style';
 import Splash from 'react-native-splash-screen';
-import { Wallpaper, Text, Screen, Button } from '../../../../library/components';
-import { GlobalStyle } from '../../../../themes/index';
-import { navigate } from '../../../../navigation/navigationService'
-import { onSetToken } from '../../../../store/app_redux/action';
+import { Wallpaper, Text, Screen, Button, Switch, Checkbox, FormRow, Icon, Header, TextField } from '../../../../library/components';
+import { onSetToken, onSetAppTheme } from '../../../../store/app_redux/action';
+import AsyncStorage from '@react-native-community/async-storage';
+import { APP_THEME } from '../../../../config';
 export const Login = ({ navigation }) => {
+  const [value, setValue] = useState(false)
   const dispatch = useDispatch()
   useEffect(() => {
     Splash.hide();
   }, []);
   return (
-    <View style={[GlobalStyle.fullScreen]}>
+    <View style={{ flex: 1 }}>
       <Wallpaper />
+      <Header leftIcon={'back'} headerText={'asdas'} style={{ backgroundColor: 'red' }} />
       <Screen
         draw={true}
         isScroll={false}
@@ -24,17 +26,19 @@ export const Login = ({ navigation }) => {
         customInsetBottom={false}>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Button
-            onPress={() => {
+            onPress={async () => {
+              await AsyncStorage.setItem(APP_THEME, 'light')
               console.log("LOGGGG", "asdasdgaksdaksdsah")
-              dispatch(onSetToken("token"))
+              dispatch(onSetAppTheme('light'))
             }}>
-            <Text style={{ color: 'red' }}>Login</Text>
+            <Text>Login</Text>
           </Button>
           <Button
-            onPress={() => {
-              navigation.push("REGISTER")
+            onPress={async () => {
+              await AsyncStorage.setItem(APP_THEME, 'default')
+              dispatch(onSetAppTheme('default'))
             }}>
-            <Text style={{ color: 'red' }}>Register</Text>
+            <Text style={styles().text}>Register</Text>
           </Button>
         </View>
       </Screen>

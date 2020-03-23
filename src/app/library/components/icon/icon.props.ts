@@ -1,21 +1,14 @@
-import {ImageStyle, ViewStyle} from 'react-native';
-import {IconTypes} from '../../../assets/icon';
+import { ImageStyle, ViewStyle } from 'react-native';
+import { IconTypes } from '../../../assets/icon';
 
 export interface IconProps {
-  /**
-   * Style overrides for the icon image
-   */
-  style?: ImageStyle;
 
-  /**
-   * Style overrides for the icon container
-   */
+  style?: ImageStyle | ImageStyle[];
 
-  containerStyle?: ViewStyle;
 
-  /**
-   * The name of the icon
-   */
+  containerStyle?: ViewStyle | ViewStyle[];
 
   icon?: IconTypes;
+
+  dependency?: any[];
 }

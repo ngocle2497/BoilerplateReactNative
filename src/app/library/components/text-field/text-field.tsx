@@ -1,27 +1,27 @@
 import * as React from 'react';
-import {View, TextInput, TextStyle, ViewStyle} from 'react-native';
-import {color, spacing, typography} from '../../../themes';
-import {translate} from '../../utils/i18n/translate';
-import {Text} from '../';
-import {TextFieldProps} from './text-field.props';
-import {mergeAll, flatten} from 'ramda';
+import { View, TextInput, TextStyle, ViewStyle } from 'react-native';
+import { translate } from '../../utils/i18n/translate';
+import { Text } from '../';
+import { TextFieldProps } from './text-field.props';
+import { mergeAll, flatten } from 'ramda';
+import { useTheme } from '@react-navigation/native';
+import { AppTheme } from '../../../config/type';
 
 // the base styling for the container
 const CONTAINER: ViewStyle = {
-  paddingVertical: spacing[3],
+  paddingVertical: 12,
+  width:'100%'
 };
 
 // the base styling for the TextInput
 const INPUT: TextStyle = {
-  fontFamily: typography.primary,
-  color: color.text,
+  color: 'rgb(28, 28, 30)',
   minHeight: 44,
   fontSize: 18,
-  backgroundColor: color.palette.white,
+  backgroundColor: '#FFFFFF',
 };
 
-// currently we have no presets, but that changes quickly when you build your app.
-const PRESETS: {[name: string]: ViewStyle} = {
+const PRESETS: { [name: string]: ViewStyle } = {
   default: {},
 };
 
@@ -29,9 +29,6 @@ const enhance = (style, styleOverride) => {
   return mergeAll(flatten([style, styleOverride]));
 };
 
-/**
- * A component which has a label and an input together.
- */
 export const TextField: React.FunctionComponent<TextFieldProps> = props => {
   const {
     placeholderTx,
@@ -44,7 +41,8 @@ export const TextField: React.FunctionComponent<TextFieldProps> = props => {
     forwardedRef,
     ...rest
   } = props;
-  let containerStyle: ViewStyle = {...CONTAINER, ...PRESETS[preset]};
+  const theme: AppTheme = useTheme();
+  let containerStyle: ViewStyle = { ...CONTAINER, ...PRESETS[preset] };
   containerStyle = enhance(containerStyle, styleOverride);
 
   let inputStyle: TextStyle = INPUT;
@@ -58,8 +56,8 @@ export const TextField: React.FunctionComponent<TextFieldProps> = props => {
       <Text preset="fieldLabel" tx={labelTx} text={label} />
       <TextInput
         placeholder={actualPlaceholder}
-        placeholderTextColor={color.palette.lighterGrey}
-        underlineColorAndroid={color.transparent}
+        placeholderTextColor={theme.colors.lighterGrey}
+        underlineColorAndroid={theme.colors.transparent}
         {...rest}
         style={inputStyle}
         ref={forwardedRef}
