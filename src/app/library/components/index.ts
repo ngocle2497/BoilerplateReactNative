@@ -10,3 +10,4 @@ export * from './switch/switch';
 export * from './text/text';
 export * from './text-field/text-field';
 export * from './wallpaper/wallpaper';
+export * from './otp/otp';

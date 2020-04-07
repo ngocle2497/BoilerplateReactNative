@@ -1,5 +1,4 @@
 import { Colors } from './../config/type';
-import { palette } from './palette';
 export const ColorDefault: Colors = {
   primary: 'rgb(0, 122, 255)',
   background: 'rgb(242, 242, 242)',
@@ -19,7 +18,7 @@ export const ColorLight: Colors = {
   background: 'rgb(242, 242, 242)',
   card: 'rgb(255, 255, 255)',
   text: 'green',
-  border: 'rgb(224, 224, 224)',
+  border: 'green',
   button: 'red',
   white: 'red',
   lighterGrey: 'gray',

@@ -1,8 +1,15 @@
 import React from 'react'
-import { createStackNavigator, HeaderStyleInterpolators,TransitionSpecs,CardStyleInterpolators } from '@react-navigation/stack';
+import { createStackNavigator, HeaderStyleInterpolators, TransitionPresets, CardStyleInterpolators, StackNavigationOptions } from '@react-navigation/stack';
 import { Chat, DetailChat } from '../../../../../features/authentication/main/home/tab/'
-import {APP_SCREEN} from '../../../../screenTypes'
+import { APP_SCREEN } from '../../../../screenTypes'
 const ChatTabStack = createStackNavigator();
+
+const screenOptions: StackNavigationOptions = {
+    gestureEnabled: true,
+    headerTitleAlign: 'center',
+    headerBackTitleVisible: false,
+    ...TransitionPresets.SlideFromRightIOS
+}
 
 export const ChatTabScreen = ({ navigation, route }) => {
     if (route.state) {
@@ -10,13 +17,8 @@ export const ChatTabScreen = ({ navigation, route }) => {
             tabBarVisible: route.state.index <= 0,
         })
     }
-    return <ChatTabStack.Navigator screenOptions={{ gestureEnabled: true,
-     headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
-      headerTitleAlign: 'center', 
-      headerBackTitleVisible: true,
-      cardStyleInterpolator:CardStyleInterpolators.forHorizontalIOS
-      }} headerMode={'float'}>
-        <ChatTabStack.Screen name={APP_SCREEN.AUTHORIZE.HOME_DRAWER.CHAT_TAB.CHAT} component={Chat} options={{ title: 'Chat'}} />
-        <ChatTabStack.Screen name={APP_SCREEN.AUTHORIZE.HOME_DRAWER.CHAT_TAB.DETAIL_CHAT} component={DetailChat}/>
+    return <ChatTabStack.Navigator screenOptions={screenOptions} headerMode={'screen'}>
+        <ChatTabStack.Screen name={APP_SCREEN.AUTHORIZE.HOME_DRAWER.CHAT_TAB.CHAT} component={Chat} options={{ title: 'Chat' }} />
+        <ChatTabStack.Screen name={APP_SCREEN.AUTHORIZE.HOME_DRAWER.CHAT_TAB.DETAIL_CHAT} component={DetailChat} />
     </ChatTabStack.Navigator>
 }
