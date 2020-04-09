@@ -5,15 +5,6 @@ import { onGestureEvent, useValues, withTimingTransition, between } from 'react-
 import Animated, { interpolate, eq, useCode, cond, and, call, block, not, onChange, set } from 'react-native-reanimated';
 import { TouchableScaleProps } from './touch.props';
 
-const styles = StyleSheet.create({
-    wrap: {
-        width: 200,
-        height: 150,
-        borderRadius: 5,
-        backgroundColor: 'blue',
-    }
-})
-
 export const TouchableScale = (props: TouchableScaleProps) => {
     const { children, minScale = 0.95, onPress, onLongPress, onPressIn, onPressOut } = props
     const [state, translationY, translationX, x, y] = useValues([State.UNDETERMINED, 0, 0, 0, 0], [])
@@ -43,7 +34,7 @@ export const TouchableScale = (props: TouchableScaleProps) => {
         , [])
     return (
         <PanGestureHandler {..._onGestureHandler}>
-            <Animated.View style={[styles.wrap, { transform: [{ scale }] }]}>
+            <Animated.View style={[{ transform: [{ scale }] }]}>
                 {children}
             </Animated.View>
         </PanGestureHandler>

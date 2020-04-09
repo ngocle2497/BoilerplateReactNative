@@ -12,4 +12,3 @@ export * from './text-field/text-field';
 export * from './wallpaper/wallpaper';
 export * from './otp/otp';
 export * from './touchScale';
-export * from './ripple';
