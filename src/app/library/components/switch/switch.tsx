@@ -8,7 +8,6 @@ import { SwitchProps } from './switch.props';
 import { mergeAll, flatten } from 'ramda';
 import { timing, useValues, interpolateColor, onGestureEvent } from 'react-native-redash'
 import Animated, { set, Easing, interpolate } from 'react-native-reanimated'
-import { PanGestureHandler } from 'react-native-gesture-handler'
 import { AppTheme } from '../../../config/type';
 import { useTheme } from '@react-navigation/native';
 const { useCode } = Animated;

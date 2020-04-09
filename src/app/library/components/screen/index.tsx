@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import { ScreenProps } from './screen.props';
 import SafeAreaView from 'react-native-safe-area-view';
-import { Button } from '../button/button';
 
 export const offsets = {
   none: 0,
