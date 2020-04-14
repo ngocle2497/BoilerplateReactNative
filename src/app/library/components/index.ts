@@ -15,3 +15,4 @@ export * from './touchScale';
 export * from './image/image';
 export * from './imageRemote';
 export * from './actionSheet';
+export * from './dropdown';

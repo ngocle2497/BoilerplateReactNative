@@ -16,7 +16,9 @@ const enhance = (style: any, styleOverride?: any) => {
 
 export const ActionSheet = forwardRef((props: ActionSheetProps, ref) => {
 
-    const { onPressCancel,textCancelStyle,rootStyle, wrapCancelStyle,textOptionStyle,wrapOptionStyle, title, onPressOption, onBackDropPress, textCancel = translate('dialog:cancel'), backDropColor='rgba(0,0,0,.5)',closeOnBackDrop = false, option = [] } = props;
+    const { onPressCancel,textCancelStyle,rootStyle, wrapCancelStyle,textOptionStyle,wrapOptionStyle,
+         title, onPressOption, onBackDropPress, textCancel = translate('dialog:cancel'), 
+         backDropColor='rgba(0,0,0,.5)',closeOnBackDrop = false, option = [] } = props;
     const [actionVisible, setActionVisible] = useState(false)
     useImperativeHandle(ref, () => ({
         show: () => {

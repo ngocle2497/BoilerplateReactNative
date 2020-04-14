@@ -3,7 +3,7 @@ import { View, Dimensions } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { styles } from './style';
 import Splash from 'react-native-splash-screen';
-import { Wallpaper, Text, Screen, Button, Header } from '../../../../library/components';
+import { Wallpaper, Text, Screen, Button, Header,Dropdown } from '../../../../library/components';
 import { onSetToken, onSetAppTheme } from '../../../../store/app_redux/action';
 import { navigate, APP_SCREEN } from '../../../../navigation';
 
@@ -19,7 +19,7 @@ const dispatch = useDispatch();
       <Screen
         draw={true}
         isScroll={false}
-        backgroundColor={'#FFFFFF'}
+        backgroundColor={'transparent'}
         forceInset={{ top: 'always' }}
         customInsetBottom={false}>
 
@@ -35,6 +35,7 @@ const dispatch = useDispatch();
           }}>
             <Text style={styles().text}>Register</Text>
           </Button>
+          <Dropdown data={[{text:"Option1"},{text:"Option2"},{text:"Option21"},{text:"Option22"},{text:"Option211"},{text:"Option23"},{text:"Option5"},{text:"Option7"},{text:"Option8"},{text:"Option9"}]}/>
         </View>
       </Screen>
     </View>
