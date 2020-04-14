@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, TextInput, TextStyle, ViewStyle } from 'react-native';
 import { translate } from '../../utils/i18n/translate';
-import { Text } from '../';
+import { Text } from '..';
 import { TextFieldProps } from './text-field.props';
 import { mergeAll, flatten } from 'ramda';
 import { useTheme } from '@react-navigation/native';

@@ -30,31 +30,14 @@
         "errorOnHandle": "Một lỗi xảy ra khi xử lý dữ liệu",
         "serverError": "Lỗi máy chủ",
         "errorNetwork": "Lỗi kết nối! Vui lòng kiểm tra lại kết nối.",
-        "otpNotEnough": "Vui lòng nhập đầy đủ mã đã gửi về email",
-        "errorGetPermission": "Lỗi trong quá trình kiểm tra quyền ứng dụng",
-        "canNotLoadImage": "Không thể lấy dữ liệu từ thư viện",
-        "permissionBlock": "Vui lòng cấp quyền truy cập thư viện",
-        "permissionBlockPhoto": "Bạn cần cấp quyền truy cập dữ liệu ảnh để có thể đăng ảnh",
-        "deviceNotSupportMedia": "Thiết bị không hỗ trợ thư viện. Thử lại sau.",
-        "deviceNotSupportFindLocation": "Thiết bị không hỗ trợ xác định vị trí. Thử lại sau.",
-        "tokenForgotExpired": "Có người đã lấy lại mật khẩu, thử lại sau",
-        "pushLogout": "Tài khoản của bạn được đăng nhập ở nơi khác. Thử lại sau",
-        "errorData": "Lỗi dữ liệu máu chủ",
-        "notSupportDeepLink": "Hệ điều hành không hỗ trợ mở cửa hàng ứng dụng",
-        "notSupportCall": "Hệ điều hành không hỗ trợ gọi điện",
-        "saveAsyncFailed": "Lỗi trong qua trình ghi dữ liệu. Thử lại sau!",
-        "notSupportOpenLinkWeb": "Thiết bị không hỗ trợ mở trình duyệt. Thử lại sau!",
-        "cannotSaveImage": "Không thể lưu ảnh vào thiết bị. Thử lại sau"
+        "errorGetPermission": "Lỗi trong quá trình kiểm tra quyền ứng dụng"
     },
     "dialog": {
         "error": "Lỗi",
+        "cancel":"Đóng",
         "warning": "Cảnh báo",
-        "checkPermisstionPhoto": "Bạn cần cấp quyền truy cập dữ liệu ảnh để có thể đăng ảnh",
         "info": "Thông tin",
         "success": "Thành công",
         "loading": "Loading",
-        "uploadSuccess": "Tải ảnh lên thành công",
-        "successEditUser": "Cập nhật thông tin thành công",
-        "warningEditUser": "Cập nhật thông tin thất bại"
     }
 }

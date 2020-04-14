@@ -1,8 +1,7 @@
-import {Platform} from 'react-native';
-import {PERMISSIONS, request, check, RESULTS} from 'react-native-permissions';
-import DropDownAlert from '../../library/utils/dropDownHolder';
-import I18n from '../../library/utils/i18n/i18n';
-import {translate} from '../../library/utils/i18n/translate';
+import { Platform } from 'react-native';
+import { PERMISSIONS, request, check, RESULTS } from 'react-native-permissions';
+import { showWarning } from '../../library/utils';
+import { translate } from '../../library/utils';
 export async function useCameraPermission() {
   const status = await request(
     Platform.select({
@@ -25,7 +24,7 @@ export async function useMediaPermission() {
       ios: PERMISSIONS.IOS.MEDIA_LIBRARY,
     }),
   );
-  return {statusRead, statusWrite};
+  return { statusRead, statusWrite };
 }
 export async function useLocationPermission() {
   const status = await request(
@@ -73,7 +72,7 @@ export function checkPermission(
       }
     })
     .catch(error => {
-      DropDownAlert.showWarning(
+      showWarning(
         translate('dialog:lbTitleWarning'),
         translate('error:errorGetPermission'),
       );

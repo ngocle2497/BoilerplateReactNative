@@ -1,4 +1,4 @@
-export const HandleMsg = msg => {
+export const HandleMsg = (msg: any) => {
   switch (typeof msg) {
     case 'object':
       if (msg[Object.keys(msg)[0]][0]) {

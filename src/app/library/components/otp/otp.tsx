@@ -16,7 +16,6 @@ const styles = () => {
             width: '100%',
             justifyContent: 'center',
             alignItems: 'center',
-            paddingVertical: 5
         },
         otpView: {
             width: WIDTH_OTP,
@@ -33,6 +32,7 @@ const styles = () => {
         otpText: {
             fontSize: theme.fontSize.FONT_14,
             color: theme.colors.primary,
+            textAlignVertical:'bottom'
         },
         sizeBoxW15: {
             width: 15,
@@ -56,7 +56,6 @@ export const Otp = (props: OtpProps) => {
     const { length, defaultOtp = '', onOtpValid, onOtpInValid, dependency = [], textEntry, wrapInputActiveStyle, wrapInputStyle, containerStyle, textStyle, ...rest } = props;
     const [otp, setOtp] = useState('')
     const _onOtpChange = (text: string) => {
-        console.log(text.length)
         const textTrim = text.trim().toString()
         if (textTrim.length <= length) {
             setOtp(text.trim().toString())

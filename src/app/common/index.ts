@@ -1,8 +1,8 @@
-export * from './createFormData/index';
-export * from './customHook/index';
-export * from './handleError/index';
-export * from './handleMsg/index';
-export * from './method/index';
-export * from './requestPermission/index';
-export * from './useConsole/index';
-export * from './handleLanguage/index';
+export * from './createFormData';
+export * from './customHook';
+export * from './handleError';
+export * from './handleMsg';
+export * from './method';
+// export * from './requestPermission';
+export * from './useConsole';
+export * from './string';

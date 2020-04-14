@@ -1,14 +1,13 @@
-import {navigate} from './navigationService';
-import * as ScreenTypes from './screenTypes';
+import {navigate,APP_SCREEN} from './';
 
 export function navigateToHome(params?: object) {
-  navigate(ScreenTypes.AUTHORIZE, params);
+  navigate(APP_SCREEN.AUTHORIZE.ROOT, params);
 }
 
 export function navigateToLogin(params?: object) {
-  navigate(ScreenTypes.LOGIN, params);
+  navigate(APP_SCREEN.UN_AUTHORIZE.LOGIN, params);
 }
 
 export function navigateToSplash(params?: object) {
-  navigate(ScreenTypes.SPLASH, params);
+  navigate(APP_SCREEN.UN_AUTHORIZE.SPLASH, params);
 }

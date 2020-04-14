@@ -1,6 +1,5 @@
-import I18n from '../../library/utils/i18n/i18n';
 import { ERROR_NETWORK_CODE } from '../../config/index';
-import { translate } from '../../library/utils/i18n/translate';
+import { translate } from '../../library/utils';
 import { ResponseBase } from '../../config/type';
 
 const handleData = (responseError: ResponseBase<any>) => {

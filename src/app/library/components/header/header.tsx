@@ -3,7 +3,7 @@ import { View, ViewStyle, TextStyle, StyleSheet } from 'react-native';
 import { HeaderProps } from './header.props';
 import { Button, Icon, Text } from '../';
 import { mergeAll, flatten } from 'ramda';
-import { translate } from '../../../library/utils/i18n/translate';
+import { translate } from '../../../library/utils';
 import { AppTheme } from '../../../config/type';
 import { useTheme } from '@react-navigation/native';
 import { useSafeArea } from 'react-native-safe-area-view';

@@ -1,63 +1,58 @@
-import React, {useEffect, useRef} from 'react';
-import {View, StyleSheet, Dimensions, Animated} from 'react-native';
-const {width} = Dimensions.get('window');
+import React, { forwardRef, useImperativeHandle, useState, useMemo } from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
+import Animated, { useCode, set, interpolate, block } from 'react-native-reanimated'
+import { useValues, loop, } from 'react-native-redash'
+import { useSafeArea } from 'react-native-safe-area-view';
+const { width } = Dimensions.get('window');
+
 export interface AnimProcessProps {
-  color: string;
+  color?: string;
+  backgroundColor?: string;
+  underStatusbar?: boolean;
 }
-const percentWidth = 0.87;
-export const AnimProcess = (props: AnimProcessProps) => {
-  const {color} = props;
-  const widthAnim1 = useRef(new Animated.Value(width * percentWidth)).current;
-  const translateX1 = useRef(new Animated.Value(-width * percentWidth)).current;
-  const onRunAnim1 = () => {
-    Animated.timing(translateX1, {
-      toValue: width,
-      duration: 1000,
-    }).start(() => {
-      translateX1.setValue(-width * percentWidth);
-      onRunAnim1();
-    });
-  };
-  const onRunAnim2 = () => {
-    Animated.parallel([
-      Animated.timing(widthAnim1, {
-        toValue: width / 6,
-        duration: 1000,
-      }),
-      Animated.timing(translateX1, {
-        toValue: width,
-        duration: 1000,
-      }),
-    ]).start(() => {
-      widthAnim1.setValue(width * percentWidth);
-      translateX1.setValue(-width * percentWidth);
-      onRunAnim2();
-    });
-  };
-  useEffect(() => {
-    onRunAnim2();
-  }, []);
-  return (
-    <View style={[styles.position]}>
-      <View style={[styles.wrap]}>
-        <Animated.View
-          style={[
-            styles.wrapAnim1,
-            {
-              width: widthAnim1,
-              transform: [{translateX: translateX1}],
-              backgroundColor: color ? color : '#fdfdfd',
-            },
-          ]}
-        />
+export const AnimProcess = forwardRef((props: AnimProcessProps, ref) => {
+  const [visible, setVisible] = useState(false)
+  const inset = useSafeArea()
+  useImperativeHandle(ref, () => ({
+    visible: () => {
+      setVisible(true)
+    },
+    hidden: () => {
+      setVisible(false)
+    }
+  }))
+  const { color, backgroundColor = "transparent", underStatusbar = false } = props;
+  const [widthPercent, widthPercent2] = useValues([0, 0], [])
+  const widthAb = interpolate(widthPercent, {
+    inputRange: [0, 1],
+    outputRange: [width * 0.75, width * 0.05]
+  })
+  const translateX = interpolate(widthPercent, {
+    inputRange: [0, 1],
+    outputRange: [- width * 0.75, width * 1.5]
+  })
+
+  useCode(() => visible ? [set(widthPercent, loop({ duration: 1000 })),] : [set(widthPercent, 0),]
+    , [visible])
+  return useMemo(() => {
+    return (
+      <View style={[styles.position, { backgroundColor: backgroundColor, top: underStatusbar ? inset.top : 0 }]}>
+        <View style={[styles.wrap]}>
+          <Animated.View
+            style={[
+              styles.wrapAnim,
+              { width: widthAb, transform: [{ translateX }], backgroundColor: color ?? '#FFFFFF' },
+            ]}
+          />
+        </View>
       </View>
-    </View>
-  );
-};
+    )
+  }, [visible, props])
+
+})
 const styles = StyleSheet.create({
   position: {
     position: 'absolute',
-    backgroundColor: 'transparent',
     top: 0,
     zIndex: 999,
   },
@@ -66,7 +61,8 @@ const styles = StyleSheet.create({
     width: width,
     backgroundColor: 'transparent',
   },
-  wrapAnim1: {
+  wrapAnim: {
     height: '100%',
+    position: 'absolute'
   },
 });

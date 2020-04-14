@@ -4,7 +4,7 @@ import { HandleErrorApi } from '../../common/handleError/index';
 import { BASE_API } from './api';
 import AsyncStorage from '@react-native-community/async-storage';
 import { ERROR_NETWORK_CODE, RESULT_CODE_PUSH_OUT } from '../../config';
-import DropDownAlert from '../utils/dropDownHolder';
+import { showError } from '../utils';
 import { R } from '../../assets/value';
 import { navigateToLogin } from '../../navigation/navigationHelper';
 import { translate } from '../utils/i18n/translate';
@@ -17,7 +17,7 @@ const responseDefault: ResponseBase<any> = {
 };
 const _onPushLogout = async () => {
   await AsyncStorage.removeItem(R.strings.TOKEN);
-  DropDownAlert.showError(
+  showError(
     translate('dialog:lbTitleError'),
     translate('error:pushLogout'),
   );

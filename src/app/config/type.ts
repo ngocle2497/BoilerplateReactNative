@@ -1,7 +1,7 @@
 export interface ResponseBase<T> {
   code: number;
 
-  msg: string;
+  msg?: string | undefined | null;
 
   data?: T;
 
@@ -26,16 +26,16 @@ export interface ErrorAxios {
 }
 export interface Colors {
   primary: string,
-  primaryDarker:string;
-  line:string;
+  primaryDarker: string;
+  line: string;
   text: string;
   card: string;
   background: string,
   border: string;
-  button:string;
-  white:string;
-  transparent:string;
-  lighterGrey:string;
+  button: string;
+  white: string;
+  transparent: string;
+  lighterGrey: string;
 }
 export interface FontSize {
   FONT_4: number;

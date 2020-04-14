@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Text as ReactNativeText } from 'react-native';
 import { styles } from './text.presets';
 import { TextProps } from './text.props';
-import { translate } from '../../../library/utils/i18n/translate';
+import { translate } from '../../../library/utils';
 import { mergeAll, flatten } from 'ramda';
 
 export function Text(props: TextProps) {
