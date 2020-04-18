@@ -1,5 +1,4 @@
 import React from 'react'
-import { StyleSheet, TouchableWithoutFeedback, GestureResponderEvent } from 'react-native'
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { onGestureEvent, useValues, withTimingTransition, between } from 'react-native-redash';
 import Animated, { interpolate, eq, useCode, cond, and, call, block, not, onChange, set } from 'react-native-reanimated';

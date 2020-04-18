@@ -4,13 +4,15 @@ export const MAX_HEIGHT = 250
 
 export const styles = StyleSheet.create({
     wrap: {
-        width: '100%'
+        alignSelf:'flex-end',
+        // position:'absolute',
+        bottom:0
     },
     buttonDrop: {
         width: '100%',
         backgroundColor: '#FFFFFF',
         borderRadius: 0,
-        paddingVertical: 8,
+        paddingVertical: 18,
         paddingLeft: 5,
     },
     row: {
@@ -20,22 +22,29 @@ export const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#FFFFFF',
         overflow: 'hidden',
-        position: 'absolute',
         maxHeight: MAX_HEIGHT,
-        zIndex: 999
     },
     backDrop: {
         position: 'absolute',
+        backgroundColor:'rgba(0,0,0,.7)',
         left: 0,
-        opacity:0,
-        zIndex: 998,
+        top:0,
+        opacity:1,
+        bottom:0,
+        right:0,
     },
     root: {
         width: '100%',
-        zIndex: 999
+        justifyContent:'center',
+        alignItems:'center'
     },
     text: {
         flex: 1,
+    },
+    modal:{
+        justifyContent:'flex-end',
+        marginHorizontal:0,
+        marginVertical:0
     }
 })
 
@@ -45,6 +54,7 @@ export const stylesItem = StyleSheet.create({
         paddingVertical: 15,
         width:'100%',
         paddingLeft:5,
+        zIndex:1000,
         backgroundColor: '#FFFFFF',
         justifyContent:'flex-start',
         alignItems:'flex-start',
@@ -53,6 +63,8 @@ export const stylesItem = StyleSheet.create({
     textOption:{
         fontFamily:undefined,
         fontSize:14,
+        width:'100%',
+        zIndex:1000,
         fontWeight:'normal'
     }
 })

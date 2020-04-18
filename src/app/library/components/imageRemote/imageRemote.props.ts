@@ -1,6 +1,6 @@
 import { ImageStyle, ViewStyle } from 'react-native';
-import FastImage, { FastImageProps } from 'react-native-fast-image'
-export interface ImageRemoteProps extends FastImageProps {
+import FastImage from 'react-native-fast-image'
+export interface ImageRemoteProps {
 
   style?: ImageStyle | ImageStyle[];
 

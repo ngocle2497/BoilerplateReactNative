@@ -72,9 +72,9 @@ export const ActionSheet = forwardRef((props: ActionSheetProps, ref) => {
     return (
         <>
             <TapGestureHandler {..._onGestureHandler} enabled={actionVisible}>
-                <Animated.View pointerEvents={actionVisible ? 'auto' : 'none'} style={[styles.backDrop, {backgroundColor:backDropColor, width: width, height: height, opacity }]} />
+                <Animated.View pointerEvents={actionVisible ? 'auto' : 'none'} style={[styles.backDrop, {backgroundColor:backDropColor, width: width, height: height,opacity }]} />
             </TapGestureHandler>
-            <Animated.View onLayout={_onLayout} style={[root, { transform: [{ translateY }] }]}>
+            <Animated.View onLayout={_onLayout} style={[root, { transform: [{ translateY }],opacity }]}>
                 <View style={wrapOption}>
                     {title && (
                         React.isValidElement(title) ? title :

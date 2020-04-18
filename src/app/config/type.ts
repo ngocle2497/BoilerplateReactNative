@@ -1,4 +1,4 @@
-export interface ResponseBase<T> {
+export interface ResponseBase<T = any> {
   code: number;
 
   msg?: string | undefined | null;
@@ -7,23 +7,7 @@ export interface ResponseBase<T> {
 
   status: boolean;
 }
-export interface ResponseError {
-  data: any;
 
-  status: number;
-
-  header: any;
-}
-
-export interface ErrorAxios {
-  response?: ResponseError;
-
-  request?: any;
-
-  message?: string;
-
-  config: any;
-}
 export interface Colors {
   primary: string,
   primaryDarker: string;
