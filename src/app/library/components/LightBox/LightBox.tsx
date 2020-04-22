@@ -1,7 +1,7 @@
 import React, { useState, useRef, cloneElement, Children } from 'react'
 import { View, Animated, TouchableOpacity } from 'react-native'
-import { LightBoxProps } from './Lightbox.props'
-import { LightboxOverlay } from './LightboxOverlay'
+import { LightBoxProps } from './LightBox.props'
+import { LightBoxOverlay } from './LightBoxOverlay'
 
 
 export const LightBox = (props: LightBoxProps) => {
@@ -61,7 +61,7 @@ export const LightBox = (props: LightBoxProps) => {
                         {children && children}
                     </TouchableOpacity>
                 </Animated.View>
-                <LightboxOverlay {...getOverlayProps()} />
+                <LightBoxOverlay {...getOverlayProps()} />
             </View>
         </>
     )

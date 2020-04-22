@@ -1,5 +1,4 @@
 import { AppTheme } from './../config/type';
-import { StyleSheet } from 'react-native';
 import { SpacingDefault } from './spacing';
 import { FontSizeDefault } from './fontSize';
 import { ColorDefault, ColorLight } from './color';

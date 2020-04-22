@@ -11,11 +11,11 @@ export interface Actions {
 
 export interface FABGroupProps {
 
-    style: ViewStyle | ViewStyle[];
+    style?: ViewStyle | ViewStyle[];
 
-    icon: IconTypes;
+    icon?: IconTypes;
 
     label?: string | React.ReactNode;
 
-    actions:Actions[]
+    actions?:Actions[]
 }

@@ -4,9 +4,8 @@ import { FABGroupProps, Actions } from './FABGroup.props'
 import { useSafeArea } from 'react-native-safe-area-view'
 import { mergeAll, flatten } from 'ramda'
 import { Button, Icon } from '../../../'
-import Animated from 'react-native-reanimated'
-import { useTimingTransition, useSpringTransition } from 'react-native-redash'
-import { ButtonGroup, SIZE_BUTTON_GROUP } from './ButtonGroup'
+import {  useSpringTransition } from 'react-native-redash'
+import { ButtonGroup } from './ButtonGroup'
 export const SIZE_FAB = 60
 const styles = StyleSheet.create({
     wrap: {
@@ -52,7 +51,7 @@ const styles = StyleSheet.create({
     }
 })
 export const FABGroup = (props: FABGroupProps) => {
-    const { style, icon, label, actions = [{ icon: 'plus',label:"Thêm" }, { icon: 'plus',label:"sửa" }, { icon: 'plus',label:"Làm gì đó" }, { icon: 'plus' }] } = props;
+    const { style, icon, label, actions = [] } = props;
     const window = useWindowDimensions()
     const [isShow, setIsShow] = useState(false)
     const progress =  useSpringTransition(isShow) 

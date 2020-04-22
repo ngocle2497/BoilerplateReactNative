@@ -1,11 +1,5 @@
-import { IconTypes } from './../../../assets/icon/index';
-import { ViewStyle } from 'react-native';
-export interface FABProps {
+import { FABDefaultProps } from './components/FABDefault/FABDefault.props'
+import { FABGroupProps } from './components/FABGroup/FABGroup.props'
+export interface FABProps extends FABGroupProps, FABDefaultProps {
     type?: 'default' | 'group';
-
-    style?: ViewStyle | ViewStyle[];
-    
-    icon?:IconTypes;
-
-    label?:string| React.ReactNode;
 }

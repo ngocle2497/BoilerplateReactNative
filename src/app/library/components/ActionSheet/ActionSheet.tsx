@@ -1,5 +1,5 @@
 import React, { useState, forwardRef, useImperativeHandle } from 'react'
-import { StyleSheet, View, LayoutChangeEvent, useWindowDimensions } from 'react-native'
+import { View, LayoutChangeEvent, useWindowDimensions } from 'react-native'
 import { ActionSheetProps, OptionData } from './ActionSheet.props'
 import { Text, Button } from '..'
 import { useTimingTransition, onGestureEvent, useValues } from 'react-native-redash'
@@ -15,10 +15,10 @@ const enhance = (style: any, styleOverride?: any) => {
 };
 
 export const ActionSheet = forwardRef((props: ActionSheetProps, ref) => {
-const [t] = useTranslation()
-    const { onPressCancel,textCancelStyle,rootStyle, wrapCancelStyle,textOptionStyle,wrapOptionStyle,
-         title, onPressOption, onBackDropPress, textCancel = t('dialog:cancel'), 
-         backDropColor='rgba(0,0,0,.5)',closeOnBackDrop = false, option = [] } = props;
+    const [t] = useTranslation()
+    const { onPressCancel, textCancelStyle, rootStyle, wrapCancelStyle, textOptionStyle, wrapOptionStyle,
+        title, onPressOption, onBackDropPress, textCancel = t('dialog:cancel'),
+        backDropColor = 'rgba(0,0,0,.5)', closeOnBackDrop = false, option = [] } = props;
     const [actionVisible, setActionVisible] = useState(false)
     useImperativeHandle(ref, () => ({
         show: () => {
@@ -63,18 +63,18 @@ const [t] = useTranslation()
             onBackDropPress && onBackDropPress()
         }))
     ]), [])
-    
+
     const textOption = enhance(textOptionStyle)
-    const textCancelS = enhance(styles.textCancel,textCancelStyle)
-    const wrapOption = enhance(styles.wrapOption,wrapOptionStyle)
-    const wrapCancel = enhance(styles.wrapCancel,wrapCancelStyle)
-    const root = enhance(styles.wrap,rootStyle)
+    const textCancelS = enhance(styles.textCancel, textCancelStyle)
+    const wrapOption = enhance(styles.wrapOption, wrapOptionStyle)
+    const wrapCancel = enhance(styles.wrapCancel, wrapCancelStyle)
+    const root = enhance(styles.wrap, rootStyle)
     return (
         <>
             <TapGestureHandler {..._onGestureHandler} enabled={actionVisible}>
-                <Animated.View pointerEvents={actionVisible ? 'auto' : 'none'} style={[styles.backDrop, {backgroundColor:backDropColor, width: width, height: height,opacity }]} />
+                <Animated.View pointerEvents={actionVisible ? 'auto' : 'none'} style={[styles.backDrop, { backgroundColor: backDropColor, width: width, height: height, opacity }]} />
             </TapGestureHandler>
-            <Animated.View onLayout={_onLayout} style={[root, { transform: [{ translateY }],opacity }]}>
+            <Animated.View onLayout={_onLayout} style={[root, { transform: [{ translateY }], opacity }]}>
                 <View style={wrapOption}>
                     {title && (
                         React.isValidElement(title) ? title :

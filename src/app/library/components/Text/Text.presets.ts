@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useTheme } from '@react-navigation/native';
 import { AppTheme } from '../../../config/type';
-import { TextStyle, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const styles = () => {
   const theme: AppTheme = useTheme();

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { StyleSheet, Text, View, ViewStyle } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { SizeBoxProps } from './SizeBox.props'
 import { mergeAll, flatten } from 'ramda';
 

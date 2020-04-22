@@ -1,6 +1,6 @@
 import React, { forwardRef, useImperativeHandle, useState, useMemo } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import Animated, { useCode, set, interpolate, block } from 'react-native-reanimated'
+import Animated, { useCode, set, interpolate } from 'react-native-reanimated'
 import { useValues, loop, } from 'react-native-redash'
 import { useSafeArea } from 'react-native-safe-area-view';
 const { width } = Dimensions.get('window');

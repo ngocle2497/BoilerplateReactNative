@@ -1,4 +1,4 @@
-import { FlatListProps, LayoutChangeEvent, TextStyle, ViewStyle } from "react-native";
+import { FlatListProps, TextStyle, ViewStyle } from "react-native";
 
 
 export interface DropdownOption {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Button, Icon, Text } from '../../../'
 import { IconTypes } from '../../../../../assets/icon'
 import Animated, { interpolate } from 'react-native-reanimated'
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 
         elevation: 5,
         marginRight: 10,
-        borderRadius:5,
+        borderRadius: 5,
     },
     text: {
         fontFamily: undefined,

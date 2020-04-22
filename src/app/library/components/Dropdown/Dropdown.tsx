@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react'
-import { View, FlatList, LayoutChangeEvent } from 'react-native'
+import React, { useState } from 'react'
+import { View, FlatList } from 'react-native'
 import { DropdownProps, DropdownOption } from './Dropdown.props'
 import { Button, Text } from '..'
 import { DropItem } from './DropdownItem'

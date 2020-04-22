@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, ViewStyle, TextStyle, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { HeaderProps } from './Header.props';
 import { Button, Icon, Text } from '..';
 import { mergeAll, flatten } from 'ramda';

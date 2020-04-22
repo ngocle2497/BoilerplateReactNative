@@ -1,9 +1,8 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { FAB as FABDefault } from './components/FAB/FAB'
+import { FABDefault } from './components/FABDefault/FABDefault'
 import { FABGroup } from './components/FABGroup/FABGroup'
 import { FABProps } from './FAB.props'
-const styles = StyleSheet.create({})
+
 
 export const FAB = (props: FABProps) => {
     const { type = 'default', icon = 'plus', style = {} } = props;

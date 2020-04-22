@@ -3,9 +3,9 @@ import { ViewStyle } from 'react-native';
 export interface FABDefaultProps {
     onPress?: () => void;
     
-    style: ViewStyle | ViewStyle[];
+    style?: ViewStyle | ViewStyle[];
     
-    icon:IconTypes;
+    icon?:IconTypes;
 
     label?:string| React.ReactNode;
 }

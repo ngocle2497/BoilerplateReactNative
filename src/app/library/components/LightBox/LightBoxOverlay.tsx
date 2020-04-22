@@ -17,7 +17,7 @@ interface LightboxOverlayProps {
   children: any;
   onClose: () => void;
 }
-export const LightboxOverlay = (props: LightboxOverlayProps) => {
+export const LightBoxOverlay = (props: LightboxOverlayProps) => {
   const inset = useSafeArea()
   const [target, setTarget] = useState({
     x: 0,

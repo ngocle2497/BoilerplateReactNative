@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { FABDefaultProps } from './FABDefault.props'
 import { Button, Text, Icon } from '../../../'
 import { useSafeArea } from 'react-native-safe-area-view'
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     }
 })
 
-export const FAB = (props: FABDefaultProps) => {
+export const FABDefault = (props: FABDefaultProps) => {
     const { onPress, style, icon, label } = props;
     const inset = useSafeArea()
     const styleBase = mergeAll(flatten([styles.wrap, { right: inset.right + 15, bottom: inset.bottom + 5 }, style]))

@@ -1,5 +1,4 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
 import { DropItemProps } from './Dropdown.props'
 import { Button, Text } from '..'
 import { mergeAll, flatten } from 'ramda';

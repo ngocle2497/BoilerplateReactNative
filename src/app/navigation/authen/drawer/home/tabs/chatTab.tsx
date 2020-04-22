@@ -1,5 +1,5 @@
 import React from 'react'
-import { createStackNavigator, HeaderStyleInterpolators, TransitionPresets, CardStyleInterpolators, StackNavigationOptions } from '@react-navigation/stack';
+import { createStackNavigator, TransitionPresets, StackNavigationOptions } from '@react-navigation/stack';
 import { Chat, DetailChat } from '../../../../../features/authentication/main/home/tab/'
 import { APP_SCREEN } from '../../../../screenTypes'
 const ChatTabStack = createStackNavigator();

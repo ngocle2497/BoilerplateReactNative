@@ -5,7 +5,7 @@ import { CheckboxProps } from './Checkbox.props';
 import { mergeAll, flatten } from 'ramda';
 import { useTheme } from '@react-navigation/native';
 import { AppTheme } from '../../../config/type';
-import { Button } from '../Button';
+import { Button } from '../Button/Button';
 const DIMENSIONS = { width: 16, height: 16 };
 const styles = () => {
   const theme: AppTheme = useTheme()
