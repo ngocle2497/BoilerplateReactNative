@@ -1,15 +1,16 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Animated } from 'react-native'
 import { Button, Icon, Text } from '../../../'
 import { IconTypes } from '../../../../../assets/icon'
-import Animated, { interpolate } from 'react-native-reanimated'
 
 export const SIZE_BUTTON_GROUP = 40
+export const SPACE_BETWEEN = 10
 const styles = StyleSheet.create({
     root: {
-        position: 'absolute',
+        position: 'relative',
         flexDirection: 'row',
         justifyContent: 'flex-end',
+        zIndex: 5,
     },
     wrap: {
         width: SIZE_BUTTON_GROUP,
@@ -59,7 +60,7 @@ interface ButtonGroupProps {
 
     onPressItem?: any;
 
-    progress: Animated.Node<number>;
+    progress: Animated.Value;
 
     index: number;
 
@@ -68,11 +69,11 @@ interface ButtonGroupProps {
 
 export const ButtonGroup = (props: ButtonGroupProps) => {
     const { icon, onPress, onPressItem, index, label, progress } = props;
-    const bottom = interpolate(progress, {
+    const bottom = progress.interpolate({
         inputRange: [0, 1],
-        outputRange: [-SIZE_BUTTON_GROUP, index * SIZE_BUTTON_GROUP + (index + 1) * 10]
+        outputRange: [-(SPACE_BETWEEN + SIZE_BUTTON_GROUP), SPACE_BETWEEN]
     })
-    const opacity = interpolate(progress, {
+    const opacity = progress.interpolate({
         inputRange: [0, 0.2, 1],
         outputRange: [0, 0, 1]
     })
@@ -80,8 +81,8 @@ export const ButtonGroup = (props: ButtonGroupProps) => {
         onPress && onPress(onPressItem)
     }
     return (
-        <Animated.View style={[styles.root, { bottom, opacity }]}>
-            {label && <Animated.View style={[styles.wrapLabel, { opacity }]}>
+        <Animated.View style={[styles.root, { marginBottom: bottom, opacity }]}>
+            {label && <Animated.View style={[styles.wrapLabel]}>
                 <Text style={[styles.text]} text={label} />
             </Animated.View>}
             <Button activeOpacity={0.6} onPress={_onPress} preset={'link'} style={[styles.wrap]}>
