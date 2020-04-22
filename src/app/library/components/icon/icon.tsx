@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, Image, ImageStyle } from 'react-native';
-import { IconProps } from './icon.props';
+import { IconProps } from './Icon.props';
 import { icons } from '../../../assets/icon';
 import { mergeAll, flatten } from 'ramda';
 const ROOT: ImageStyle = {

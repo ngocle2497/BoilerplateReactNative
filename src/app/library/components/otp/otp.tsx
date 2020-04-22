@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, DependencyList } from 'react'
 import { View, StyleSheet, TextInput } from 'react-native'
-import { OtpProps } from './otp.props'
-import { Text } from '../'
+import { OtpProps } from './Otp.props'
+import { Text } from '..'
 import { mergeAll, flatten } from 'ramda';
 import { AppTheme } from '../../../config/type';
 import { useTheme } from '@react-navigation/native';
@@ -96,7 +96,6 @@ export const Otp = (props: OtpProps) => {
     );
     const dependencyList: DependencyList = [props, otp, ...dependency]
     return useMemo(() => {
-
         return (
             <View style={container}>
                 {length && Array(length).fill(0).map((item, index) => {

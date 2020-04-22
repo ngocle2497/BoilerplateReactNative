@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 // base
 async function Request(config: AxiosRequestConfig) {
-  const { token }: AppState = useSelector((x: any) => x.AppReducer);
+  const { token }: AppState = useSelector((x: any) => x.app);
   const defaultConfig: AxiosRequestConfig = {
     baseURL: BASE_API,
     timeout: TIME_OUT,
@@ -35,7 +35,7 @@ async function Post(url: string, data: object) {
 
 // post file
 async function PostWithFile(url: string, data: object) {
-  const { token }: AppState = useSelector((x: any) => x.AppReducer);
+  const { token }: AppState = useSelector((x: any) => x.app);
   let header: any = { token: token, 'Content-Type': 'multipart/form-data', };
   return await Request({ url: url, data: data, method: 'POST', headers: header })
 }

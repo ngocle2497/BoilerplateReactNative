@@ -19,7 +19,6 @@ export interface HeaderProps {
 
   titleStyle?: TextStyle | TextStyle[];
 
-  dependency?: any[];
 
   childrenLeft?: React.ReactNode;
 

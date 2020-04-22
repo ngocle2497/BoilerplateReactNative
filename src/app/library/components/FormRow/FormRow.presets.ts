@@ -1,5 +1,5 @@
 import { useTheme } from '@react-navigation/native';
-import { AppTheme } from './../../../config/type';
+import { AppTheme } from '../../../config/type';
 import { ViewStyle, StyleSheet } from 'react-native';
 import { useMemo } from 'react';
 

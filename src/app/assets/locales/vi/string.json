@@ -40,5 +40,15 @@
         "success": "Thành công",
         "loading": "Loading",
         "select":"Chọn"
+    },
+    "main":{
+        "chatTab":{
+            "tvChat":"Trò chuyện",
+            "tvTabLabel":"Trò chuyện"
+        },
+        "profileTab":{
+            "tvProfile":"Cá nhân",
+            "tvTabLabel":"Cá nhân"
+        }
     }
 }

@@ -11,6 +11,8 @@ export const ColorDefault: Colors = {
   line: 'gray',
   primaryDarker: 'darkviolet',
   transparent: 'transparent',
+  error: '#ffa700',
+  info: '#d62d20'
 
 }
 export const ColorLight: Colors = {
@@ -23,6 +25,8 @@ export const ColorLight: Colors = {
   white: 'red',
   lighterGrey: 'gray',
   line: 'gray',
-  primaryDarker: 'red', 
-  transparent: 'transparent'
+  primaryDarker: 'red',
+  transparent: 'transparent',
+  error: '#ffa700',
+  info: '#d62d20'
 }

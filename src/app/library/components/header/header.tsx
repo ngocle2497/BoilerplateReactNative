@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { View, ViewStyle, TextStyle, StyleSheet } from 'react-native';
-import { HeaderProps } from './header.props';
-import { Button, Icon, Text } from '../';
+import { HeaderProps } from './Header.props';
+import { Button, Icon, Text } from '..';
 import { mergeAll, flatten } from 'ramda';
-import { translate } from '../../../library/utils';
 import { AppTheme } from '../../../config/type';
 import { useTheme } from '@react-navigation/native';
 import { useSafeArea } from 'react-native-safe-area-view';
+import { useTranslation } from 'react-i18next';
 
 const styles = () => {
   const theme: AppTheme = useTheme();
@@ -56,9 +56,9 @@ export const Header: React.FunctionComponent<HeaderProps> = props => {
     childrenRight,
     styleLeft,
     styleRight,
-    dependency = []
   } = props;
-  const header = headerText || (headerTx && translate(headerTx)) || '';
+  const [t] = useTranslation()
+  const header = headerText || (headerTx && t(headerTx)) || '';
 
   const wrapStyle = mergeAll(flatten([styles().ROOT, style]));
   const title = mergeAll(flatten([styles().TITLE, titleStyle]));
@@ -67,8 +67,7 @@ export const Header: React.FunctionComponent<HeaderProps> = props => {
   const viewLeft = styles().LEFT;
   const viewMiddle = styles().TITLE_MIDDLE;
   const viewRight = styles().RIGHT;
-  const dependencyList = [wrapStyle, title, LEFT, RIGHT, ...dependency]
-  return React.useMemo(() => (
+  return (
     <View style={wrapStyle}>
       {leftIcon ? (
         <Button style={LEFT} preset="link" onPress={onLeftPress}>
@@ -88,5 +87,5 @@ export const Header: React.FunctionComponent<HeaderProps> = props => {
         <View style={viewRight} />
       )}
     </View>
-  ), dependencyList)
+  )
 };

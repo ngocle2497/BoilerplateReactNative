@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Text as ReactNativeText } from 'react-native';
-import { styles } from './text.presets';
-import { TextProps } from './text.props';
-import { translate } from '../../../library/utils';
+import { styles } from './Text.presets';
+import { TextProps } from './Text.props';
 import { mergeAll, flatten } from 'ramda';
+import { useTranslation } from 'react-i18next';
 
 export function Text(props: TextProps) {
   const {
@@ -13,20 +13,18 @@ export function Text(props: TextProps) {
     text,
     children,
     style: styleOverride,
-    dependency = [],
     ...rest
   } = props;
-
-  const i18nText = tx && translate(tx, txOptions);
+  const [t] = useTranslation()
+  const i18nText = tx && t(tx, txOptions);
   const content = i18nText || text || children;
 
   const style = mergeAll(
     flatten([styles()[preset] || styles().default, styleOverride]),
   );
-  const dependencyList = [props, ...dependency]
-  return React.useMemo(() => (
+  return (
     <ReactNativeText allowFontScaling={false} {...rest} style={style}>
       {content}
     </ReactNativeText>
-  ), dependencyList)
+  )
 }

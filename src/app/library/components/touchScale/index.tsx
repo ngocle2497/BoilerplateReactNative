@@ -2,7 +2,7 @@ import React from 'react'
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { onGestureEvent, useValues, withTimingTransition, between } from 'react-native-redash';
 import Animated, { interpolate, eq, useCode, cond, and, call, block, not, onChange, set } from 'react-native-reanimated';
-import { TouchableScaleProps } from './touch.props';
+import { TouchableScaleProps } from './Touch.props';
 
 export const TouchableScale = (props: TouchableScaleProps) => {
     const { children, minScale = 0.95, onPress, onLongPress, onPressIn, onPressOut } = props

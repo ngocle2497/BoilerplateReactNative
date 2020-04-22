@@ -1,13 +1,13 @@
 import React, { useState, forwardRef, useImperativeHandle } from 'react'
 import { StyleSheet, View, LayoutChangeEvent, useWindowDimensions } from 'react-native'
-import { ActionSheetProps, OptionData } from './actionSheet.props'
-import { Text, Button } from '../'
+import { ActionSheetProps, OptionData } from './ActionSheet.props'
+import { Text, Button } from '..'
 import { useTimingTransition, onGestureEvent, useValues } from 'react-native-redash'
 import { TapGestureHandler, State } from 'react-native-gesture-handler'
 import Animated, { interpolate, useCode, onChange, cond, eq, call } from 'react-native-reanimated'
-import { translate } from '../../../library/utils';
 import { mergeAll, flatten } from 'ramda';
-import { styles } from './actionSheet.presets'
+import { styles } from './ActionSheet.presets'
+import { useTranslation } from 'react-i18next'
 
 
 const enhance = (style: any, styleOverride?: any) => {
@@ -15,9 +15,9 @@ const enhance = (style: any, styleOverride?: any) => {
 };
 
 export const ActionSheet = forwardRef((props: ActionSheetProps, ref) => {
-
+const [t] = useTranslation()
     const { onPressCancel,textCancelStyle,rootStyle, wrapCancelStyle,textOptionStyle,wrapOptionStyle,
-         title, onPressOption, onBackDropPress, textCancel = translate('dialog:cancel'), 
+         title, onPressOption, onBackDropPress, textCancel = t('dialog:cancel'), 
          backDropColor='rgba(0,0,0,.5)',closeOnBackDrop = false, option = [] } = props;
     const [actionVisible, setActionVisible] = useState(false)
     useImperativeHandle(ref, () => ({

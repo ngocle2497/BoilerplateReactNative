@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {ViewStyle} from 'react-native';
-import {FormRowPresets} from './form-row.presets';
+import {FormRowPresets} from './FormRow.presets';
 
 export interface FormRowProps {
 

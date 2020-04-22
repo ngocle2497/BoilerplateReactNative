@@ -1,15 +1,15 @@
 import i18n from 'i18next';
-import {initReactI18next} from 'react-i18next';
-import {resources} from '../../../assets/locales/index';
+import { initReactI18next } from 'react-i18next';
+import { resources } from '../../../assets/locales/index';
 
 const languageDetector = {
   type: 'languageDetector',
   async: true, // flags below detection to be async
-  detect: callback => {
+  detect: (callback: any) => {
     callback('vi_VN');
   },
-  init: () => {},
-  cacheUserLanguage: () => {},
+  init: () => { },
+  cacheUserLanguage: () => { },
 };
 /**
  * Config i18n for app
@@ -25,7 +25,6 @@ i18n
     // have a common namespace used around the full app
     ns: ['common'],
     defaultNS: 'common',
-
     debug: false,
 
     // cache: {

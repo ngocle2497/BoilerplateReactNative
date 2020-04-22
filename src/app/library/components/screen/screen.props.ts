@@ -1,12 +1,9 @@
 import { ViewStyle } from 'react-native';
-import { KeyboardOffsets, ScreenPresets } from './screen.presets';
 import {ForceInsetProp} from 'react-native-safe-area-view';
 export interface ScreenProps {
   children?: React.ReactNode;
 
   style?: ViewStyle;
-
-  preset?: ScreenPresets;
 
   backgroundColor?: string;
 
@@ -14,7 +11,6 @@ export interface ScreenProps {
 
   unsafe?: boolean;
 
-  keyboardOffset?: KeyboardOffsets;
 
   hidden?: boolean;
 

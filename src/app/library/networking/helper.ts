@@ -30,12 +30,17 @@ export const handleResponseAxios = (res: any, header?: any): ResponseBase<any> |
     }
 }
 export const handleErrorAxios = (error: AxiosError): ResponseBase<any> => {
-    if (error.code === 'ECONNABORTED') { // timeout
-        return HandleErrorApi(0)
+    if(error){
+        if (error.code === 'ECONNABORTED') { // timeout
+            return HandleErrorApi(0)
+        }
+        if (error.response) {
+            return HandleErrorApi(error.response.status);
+        } else {
+            return HandleErrorApi(ERROR_NETWORK_CODE);
+        }
+    }else{
+         return HandleErrorApi(ERROR_NETWORK_CODE);
     }
-    if (error.response) {
-        return HandleErrorApi(error.response.status);
-    } else {
-        return HandleErrorApi(ERROR_NETWORK_CODE);
-    }
+
 }

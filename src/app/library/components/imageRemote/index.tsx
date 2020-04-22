@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { View, ImageStyle } from 'react-native';
 import FastImage from 'react-native-fast-image'
-import { ImageRemoteProps } from './imageRemote.props';
+import { ImageRemoteProps } from './ImageRemote.props';
 import Axios from 'axios'
 import { mergeAll, flatten } from 'ramda';
-import { Img } from '../image/image';
+import { Img } from '../Image/Image';
 const ROOT: ImageStyle = {
   resizeMode: 'contain',
 };

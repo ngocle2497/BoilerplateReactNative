@@ -8,7 +8,7 @@ import { merge } from 'ramda'
 
 // base
 function* Request(config: AxiosRequestConfig) {
-  const { token }: AppState = yield select(x => x.AppReducer);
+  const { token }: AppState = yield select((x) => x.app);
   const defaultConfig: AxiosRequestConfig = {
     baseURL: BASE_API,
     timeout: TIME_OUT,
@@ -31,12 +31,12 @@ function* Get(url: string, param?: object) {
 
 // post
 function* Post(url: string, data: object) {
-  return yield Request({ url: url, data: data, method: 'POST'})
+  return yield Request({ url: url, data: data, method: 'POST' })
 }
 
 // post file
 function* PostWithFile(url: string, data: object) {
-  const { token }: AppState = yield select(x => x.AppReducer);
+  const { token }: AppState = yield select(x => x.app);
   let header: any = { token: token, 'Content-Type': 'multipart/form-data', };
   return yield Request({ url: url, data: data, method: 'POST', headers: header })
 }
@@ -49,7 +49,7 @@ function* Put(url: string, data: object, params?: object) {
 
 // delete
 function* Delete(url: string, data: object, params?: object) {
-  return yield Request({ url: url, data: data, params: params, method: 'DELETE'})
+  return yield Request({ url: url, data: data, params: params, method: 'DELETE' })
 
 }
 export const ServiceSaga = {

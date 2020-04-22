@@ -20,13 +20,15 @@ export interface DropdownProps extends FlatListProps<DropdownOption> {
 
     textStyle?: TextStyle | TextStyle[];
 
-    buttonStyle?:ViewStyle| ViewStyle[];
+    buttonStyle?: ViewStyle | ViewStyle[];
 
-    rightChildren?:React.ReactNode;
+    rightChildren?: React.ReactNode;
 
     customItem?: (item: DropdownOption, index: number) => React.ReactNode;
 
     textItemStyle?: TextStyle | TextStyle[];
+
+    useBottomInset?: boolean;
 }
 export interface DropItemProps {
     item: DropdownOption;

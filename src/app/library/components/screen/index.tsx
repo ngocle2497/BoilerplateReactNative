@@ -7,12 +7,9 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import { ScreenProps } from './screen.props';
+import { ScreenProps } from './Screen.props';
 import SafeAreaView from 'react-native-safe-area-view';
 
-export const offsets = {
-  none: 0,
-};
 export const presets = {
   root: {
     flex: 1,
@@ -29,7 +26,6 @@ export const presets = {
     inner: {
       justifyContent: 'flex-start',
       alignItems: 'stretch',
-      backgroundColor: 'transparent',
       flex: 1,
     } as ViewStyle,
   },
@@ -50,7 +46,7 @@ export const presets = {
 const isIos = Platform.OS === 'ios';
 
 function ScreenWithoutScrolling(props: ScreenProps) {
-  const preset = presets['fixed'];
+  const preset = presets.fixed;
   const style = props.style || {};
   const {
     hidden = false,
@@ -67,7 +63,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
     <KeyboardAvoidingView
       style={[preset.outer]}
       behavior={isIos ? 'padding' : undefined}
-      keyboardVerticalOffset={offsets[props.keyboardOffset ?? 'none']}>
+      keyboardVerticalOffset={0}>
 
       <StatusBar
         hidden={hidden}
@@ -90,7 +86,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
 }
 
 function ScreenWithScrolling(props: ScreenProps) {
-  const preset = presets['scroll'];
+  const preset = presets.scroll;
   const style = props.style || {};
   const {
     showHorizontal = false,
@@ -107,33 +103,33 @@ function ScreenWithScrolling(props: ScreenProps) {
   const Wrapper = props.unsafe ? View : SafeAreaView;
 
   return (
-    <KeyboardAvoidingView
-      style={[preset.outer]}
-      behavior={isIos ? 'padding' : undefined}
-      keyboardVerticalOffset={offsets[props.keyboardOffset ?? 'none']}>
-      <StatusBar
-        hidden={hidden}
-        backgroundColor={statusColor}
-        translucent={draw}
-        barStyle={props.statusBar || 'light-content'}
-      />
-      {draw === false && (
-        <SafeAreaView style={[preset.outer0, { backgroundColor: statusColor }]} />
-      )}
-      <Wrapper forceInset={props.forceInset ?? { top: 'always' }} style={[preset.outer]}>
-        <ScrollView
-          showsVerticalScrollIndicator={showVertical}
-          showsHorizontalScrollIndicator={showHorizontal}
-          keyboardShouldPersistTaps="handled"
-          style={[preset.outer, backgroundStyle]}
-          contentContainerStyle={[preset.inner, style]}>
-          {props.children}
-        </ScrollView>
-      </Wrapper>
-      {customInsetBottom === true && (
-        <SafeAreaView style={[preset.outer0, { backgroundColor: bottomIPX }]} />
-      )}
-    </KeyboardAvoidingView>
+      <KeyboardAvoidingView
+        style={[preset.outer]}
+        behavior={isIos ? 'padding' : undefined}
+        keyboardVerticalOffset={0}>
+        <StatusBar
+          hidden={hidden}
+          backgroundColor={statusColor}
+          translucent={draw}
+          barStyle={props.statusBar || 'light-content'}
+        />
+        {draw === false && (
+          <SafeAreaView style={[preset.outer0, { backgroundColor: statusColor }]} />
+        )}
+        <Wrapper forceInset={props.forceInset ?? undefined} style={[preset.outer]}>
+          <ScrollView
+            showsVerticalScrollIndicator={showVertical}
+            showsHorizontalScrollIndicator={showHorizontal}
+            keyboardShouldPersistTaps="handled"
+            style={[preset.outer, backgroundStyle]}
+            contentContainerStyle={[preset.inner, style]}>
+            {props.children}
+          </ScrollView>
+        </Wrapper>
+        {customInsetBottom === true && (
+          <SafeAreaView style={[preset.outer0, { backgroundColor: bottomIPX }]} />
+        )}
+      </KeyboardAvoidingView>
   );
 }
 

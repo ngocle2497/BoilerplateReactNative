@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { DropItemProps } from './dropdown.props'
+import { DropItemProps } from './Dropdown.props'
 import { Button, Text } from '..'
 import { mergeAll, flatten } from 'ramda';
-import { stylesItem as styles } from './dropdown.preset'
+import { stylesItem as styles } from './Dropdown.preset'
 
 export const DropItem = ({ index, item, onPress, customItem, textItemStyle }: DropItemProps) => {
     const _onPress = () => {

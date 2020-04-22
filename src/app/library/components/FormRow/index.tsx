@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View } from 'react-native';
-import { styles } from './form-row.presets';
-import { FormRowProps } from './form-row.props';
+import { styles } from './FormRow.presets';
+import { FormRowProps } from './FormRow.props';
 import { mergeAll, flatten } from 'ramda';
 
 export const FormRow = (props: FormRowProps) => {

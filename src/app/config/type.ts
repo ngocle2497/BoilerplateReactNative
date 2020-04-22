@@ -20,6 +20,8 @@ export interface Colors {
   white: string;
   transparent: string;
   lighterGrey: string;
+  error:string;
+  info:string;
 }
 export interface FontSize {
   FONT_4: number;

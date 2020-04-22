@@ -3,11 +3,10 @@ import * as Action from './actionType'
 
 export interface LoginState {
     loading: boolean;
-    error: string | undefined | null;
+
 }
 const initialState: LoginState = {
     loading: false,
-    error: null
 }
 interface ActionProps {
     type: keyof typeof Action;
@@ -16,11 +15,11 @@ interface ActionProps {
 export const loginReducer = (state = initialState, { type, payload }: ActionProps): LoginState => {
     switch (type) {
         case Action.LOGIN_START:
-            return { ...state, loading: true, error: null }
+            return { ...state, loading: true}
         case Action.LOGIN_SUCCESS:
             return { ...state, loading: false }
         case Action.LOGIN_FAILED:
-            return { ...state, loading: false, error: payload.error }
+            return { ...state, loading: false }
         default:
             return state
     }
