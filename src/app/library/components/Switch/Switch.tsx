@@ -63,11 +63,11 @@ export const Switch = (props: SwitchProps) => {
   ], [props.value])
 
   const [previousValue, setPreviousValue] = React.useState<boolean>(
-    props.value,
+    props.value ?? false,
   );
   React.useEffect(() => {
     if (props.value !== previousValue) {
-      setPreviousValue(props.value);
+      setPreviousValue(props.value ?? false);
     }
   }, [props.value]);
 

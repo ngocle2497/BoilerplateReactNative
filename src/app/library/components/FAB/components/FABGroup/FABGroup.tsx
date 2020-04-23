@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { StyleSheet, Text, useWindowDimensions, View, Animated } from 'react-native'
+import { StyleSheet, Text, useWindowDimensions, Animated } from 'react-native'
 import { FABGroupProps, Actions } from './FABGroup.props'
 import { useSafeArea } from 'react-native-safe-area-view'
 import { mergeAll, flatten } from 'ramda'
-import { Button, Icon } from '../../../'
+import { Button, Icon, Block } from '../../../'
 import { ButtonGroup, SPACE_BETWEEN } from './ButtonGroup'
 export const SIZE_FAB = 60
 const styles = StyleSheet.create({
@@ -55,7 +55,7 @@ export const FABGroup = (props: FABGroupProps) => {
     const [isShow, setIsShow] = useState(false)
     const progress = useRef(new Animated.Value(0)).current
     const inset = useSafeArea()
-    const styleBase = mergeAll(flatten([styles.wrap, { right: inset.right + 15, height: SIZE_FAB, bottom: inset.bottom + 5 }, style]))
+    const styleBase = mergeAll(flatten([styles.wrap, { right: inset.right + 15, height: SIZE_FAB, bottom: inset.bottom + 5 }, style ?? {}]))
     const _show = () => {
         setIsShow(true)
     }
@@ -81,8 +81,8 @@ export const FABGroup = (props: FABGroupProps) => {
             <Button onPress={_show} activeOpacity={0.6} preset={'link'} style={[styleBase]}>
                 <Icon icon={icon} />{React.isValidElement(label) ? label : label && <Text style={[styles.label]} text={label} />}
             </Button>
-            {isShow === true && <View onStartShouldSetResponder={onStartShouldSetResponder} onResponderRelease={_hide} style={[styles.background, { width: window.width, height: window.height }]} />}
-            <View onStartShouldSetResponder={onStartShouldSetResponder} style={[styles.wrapAction, {
+            {isShow === true && <Block onStartShouldSetResponder={onStartShouldSetResponder} onResponderRelease={_hide} style={[styles.background, { width: window.width, height: window.height }]} />}
+            <Block onStartShouldSetResponder={onStartShouldSetResponder} style={[styles.wrapAction, {
                 right: inset.right + 25,
                 bottom: inset.bottom + SIZE_FAB + SPACE_BETWEEN / 2,
             }]}>
@@ -93,7 +93,7 @@ export const FABGroup = (props: FABGroupProps) => {
                     onPressItem={item.onPress}
                     progress={progress}
                     onPress={onPressItem} />))}
-            </View>
+            </Block>
         </>
     )
 }

@@ -3,6 +3,7 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import Animated, { useCode, set, interpolate } from 'react-native-reanimated'
 import { useValues, loop, } from 'react-native-redash'
 import { useSafeArea } from 'react-native-safe-area-view';
+import { Block } from '../Block/Block';
 const { width } = Dimensions.get('window');
 
 export interface AnimProcessProps {
@@ -36,16 +37,16 @@ export const AnimProcess = forwardRef((props: AnimProcessProps, ref) => {
     , [visible])
   return useMemo(() => {
     return (
-      <View style={[styles.position, { backgroundColor: backgroundColor, top: underStatusbar ? inset.top : 0 }]}>
-        <View style={[styles.wrap]}>
+      <Block color={backgroundColor} style={[styles.position, { top: underStatusbar ? inset.top : 0 }]}>
+        <Block style={[styles.wrap]}>
           <Animated.View
             style={[
               styles.wrapAnim,
               { width: widthAb, transform: [{ translateX }], backgroundColor: color ?? '#FFFFFF' },
             ]}
           />
-        </View>
-      </View>
+        </Block>
+      </Block>
     )
   }, [visible, props])
 

@@ -1,9 +1,10 @@
 import React from 'react'
 import { Circular } from "./Circular";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { ProgressCircleProps } from "./ProgressCircle.props";
 import { Text } from '../../../Text/Text';
 import { mergeAll, flatten } from 'ramda';
+import { Block } from '../../../Block/Block';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -37,13 +38,13 @@ export const ProgressCircle = (props: ProgressCircleProps) => {
         return progress + "";
     }
     return (
-        <View style={styles.container}>
+        <Block style={styles.container}>
             {showTextProgress && <Text style={[textStyles]} text={renderText()} />}
-            <View>
+            <Block>
                 <Circular bg={bg} fg={fg} radius={radius} progress={progress} />
-            </View>
-            <View style={styles.overlay}>
-                <View
+            </Block>
+            <Block style={styles.overlay}>
+                <Block
                     style={{
                         width: radius * 2 - strokeWidth,
                         height: radius * 2 - strokeWidth,
@@ -51,7 +52,7 @@ export const ProgressCircle = (props: ProgressCircleProps) => {
                         backgroundColor: bg,
                     }}
                 />
-            </View>
-        </View>
+            </Block>
+        </Block>
     );
 }

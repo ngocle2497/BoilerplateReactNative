@@ -1,5 +1,6 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
+import { Block } from "../../../Block/Block";
 
 interface HalfCircleProps {
     color: string;
@@ -14,19 +15,19 @@ const styles = StyleSheet.create({
 
 export const HalfCircle = ({ color, radius }: HalfCircleProps) => {
     return (
-        <View
+        <Block
             style={[styles.wrap, {
                 width: radius * 2,
                 height: radius,
             }]}>
-            <View
+            <Block
                 style={[{
                     width: radius * 2,
                     height: radius * 2,
-                    borderRadius: radius, 
+                    borderRadius: radius,
                     backgroundColor: color,
                 }]}
             />
-        </View>
+        </Block>
     );
 };

@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 })
 
 export const FABDefault = (props: FABDefaultProps) => {
-    const { onPress, style, icon, label } = props;
+    const { onPress, style = {}, icon, label } = props;
     const inset = useSafeArea()
     const styleBase = mergeAll(flatten([styles.wrap, { right: inset.right + 15, bottom: inset.bottom + 5 }, style]))
     return (

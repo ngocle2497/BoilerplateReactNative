@@ -1,7 +1,7 @@
 import React, { useState, forwardRef, useImperativeHandle } from 'react'
 import { View, LayoutChangeEvent, useWindowDimensions } from 'react-native'
 import { ActionSheetProps, OptionData } from './ActionSheet.props'
-import { Text, Button } from '..'
+import { Text, Button,Block } from '..'
 import { useTimingTransition, onGestureEvent, useValues } from 'react-native-redash'
 import { TapGestureHandler, State } from 'react-native-gesture-handler'
 import Animated, { interpolate, useCode, onChange, cond, eq, call } from 'react-native-reanimated'
@@ -75,12 +75,12 @@ export const ActionSheet = forwardRef((props: ActionSheetProps, ref) => {
                 <Animated.View pointerEvents={actionVisible ? 'auto' : 'none'} style={[styles.backDrop, { backgroundColor: backDropColor, width: width, height: height, opacity }]} />
             </TapGestureHandler>
             <Animated.View onLayout={_onLayout} style={[root, { transform: [{ translateY }], opacity }]}>
-                <View style={wrapOption}>
+                <Block style={wrapOption}>
                     {title && (
                         React.isValidElement(title) ? title :
-                            <View style={[styles.wrapTitle]}>
+                            <Block style={[styles.wrapTitle]}>
                                 <Text style={[styles.title]} text={title} />
-                            </View>)}
+                            </Block>)}
                     {option.map((item: OptionData, index: number) => {
                         return (
                             <Button style={[styles.option]} onPress={_onPress(item, index)} key={index}>
@@ -88,7 +88,7 @@ export const ActionSheet = forwardRef((props: ActionSheetProps, ref) => {
                             </Button>
                         )
                     })}
-                </View>
+                </Block>
                 <View style={wrapCancel}>
                     <Button onPress={_onCancel} style={[styles.buttonCancel]}>
                         <Text style={textCancelS} text={textCancel} />

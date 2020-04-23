@@ -12,7 +12,7 @@ export function Text(props: TextProps) {
     txOptions,
     text,
     children,
-    style: styleOverride,
+    style: styleOverride = {},
     ...rest
   } = props;
   const [t] = useTranslation()

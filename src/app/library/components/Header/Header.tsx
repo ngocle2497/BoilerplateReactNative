@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { HeaderProps } from './Header.props';
 import { Button, Icon, Text } from '..';
 import { mergeAll, flatten } from 'ramda';
@@ -7,6 +7,7 @@ import { AppTheme } from '../../../config/type';
 import { useTheme } from '@react-navigation/native';
 import { useSafeArea } from 'react-native-safe-area-view';
 import { useTranslation } from 'react-i18next';
+import { Block } from '../Block/Block';
 
 const styles = () => {
   const theme: AppTheme = useTheme();
@@ -50,12 +51,12 @@ export const Header: React.FunctionComponent<HeaderProps> = props => {
     leftIcon,
     headerText,
     headerTx,
-    style,
-    titleStyle,
+    style = {},
+    titleStyle = {},
     childrenLeft,
     childrenRight,
-    styleLeft,
-    styleRight,
+    styleLeft = {},
+    styleRight = {},
   } = props;
   const [t] = useTranslation()
   const header = headerText || (headerTx && t(headerTx)) || '';
@@ -68,24 +69,24 @@ export const Header: React.FunctionComponent<HeaderProps> = props => {
   const viewMiddle = styles().TITLE_MIDDLE;
   const viewRight = styles().RIGHT;
   return (
-    <View style={wrapStyle}>
+    <Block style={wrapStyle}>
       {leftIcon ? (
         <Button style={LEFT} preset="link" onPress={onLeftPress}>
           <Icon dependency={[]} icon={leftIcon} />
         </Button>
       ) : childrenLeft ? { childrenLeft } : (
-        <View style={viewLeft} />
+        <Block style={viewLeft} />
       )}
-      <View style={viewMiddle}>
+      <Block style={viewMiddle}>
         <Text style={title} text={header} />
-      </View>
+      </Block>
       {rightIcon ? (
         <Button style={RIGHT} preset="link" onPress={onRightPress}>
           <Icon icon={rightIcon} />
         </Button>
       ) : childrenRight ? { childrenRight } : (
-        <View style={viewRight} />
+        <Block style={viewRight} />
       )}
-    </View>
+    </Block>
   )
 };

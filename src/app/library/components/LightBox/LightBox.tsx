@@ -1,7 +1,8 @@
 import React, { useState, useRef, cloneElement, Children } from 'react'
-import { View, Animated, TouchableOpacity } from 'react-native'
+import { Animated, TouchableOpacity, View, LayoutChangeEvent } from 'react-native'
 import { LightBoxProps } from './LightBox.props'
 import { LightBoxOverlay } from './LightBoxOverlay'
+import { Button } from '../Button/Button'
 
 
 export const LightBox = (props: LightBoxProps) => {
@@ -15,10 +16,14 @@ export const LightBox = (props: LightBoxProps) => {
         x: 0,
         y: 0,
     })
-
+    const _onLayoutButton = (e: LayoutChangeEvent) => {
+        setOrigin({ ...origin, width: e.nativeEvent.layout.width })
+        console.log("BU", JSON.stringify(e.nativeEvent.layout))
+    }
     const _onOpen = () => {
         _root.current?.measure((ox: number, oy: number, width: number, height: number, px: number, py: number) => {
             setOrigin({
+                ...origin,
                 width,
                 height,
                 x: px,
@@ -57,9 +62,9 @@ export const LightBox = (props: LightBoxProps) => {
                 collapsable={false}
             >
                 <Animated.View style={{ opacity: layoutOpacity }}>
-                    <TouchableOpacity onPress={_onOpen}>
+                    <Button preset={'link'} onPress={_onOpen}>
                         {children && children}
-                    </TouchableOpacity>
+                    </Button>
                 </Animated.View>
                 <LightBoxOverlay {...getOverlayProps()} />
             </View>

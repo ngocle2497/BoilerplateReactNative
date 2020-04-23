@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import Animated, {
     Extrapolate,
     interpolate,
@@ -11,6 +11,7 @@ import Animated, {
 
 import { transformOrigin, useValues, clamp, timing } from "react-native-redash";
 import { HalfCircle } from "./HalfCircle";
+import { Block } from "../../../Block/Block";
 const { PI } = Math;
 interface CircularProps {
     progress: number;
@@ -23,10 +24,10 @@ interface CircularProps {
 }
 
 const styles = StyleSheet.create({
-    circleTop:{
+    circleTop: {
         zIndex: 1
     },
-    circleBottom:{
+    circleBottom: {
         transform: [{ rotate: "180deg" }]
     },
 })
@@ -49,7 +50,7 @@ export const Circular = ({ progress, bg, fg, radius }: CircularProps) => {
     useCode(() => [set(progressAnimated, timing({ from: progressAnimated, to: progress }))], [progress])
     return (
         <>
-            <View style={[styles.circleTop]}>
+            <Block style={[styles.circleTop]}>
                 <HalfCircle radius={radius} color={fg} />
                 <Animated.View
                     style={{
@@ -63,8 +64,8 @@ export const Circular = ({ progress, bg, fg, radius }: CircularProps) => {
                 >
                     <HalfCircle radius={radius} color={bg} />
                 </Animated.View>
-            </View>
-            <View style={[styles.circleBottom]}>
+            </Block>
+            <Block style={[styles.circleBottom]}>
                 <HalfCircle radius={radius} color={fg} />
                 <Animated.View
                     style={{
@@ -74,7 +75,7 @@ export const Circular = ({ progress, bg, fg, radius }: CircularProps) => {
                 >
                     <HalfCircle radius={radius} color={bg} />
                 </Animated.View>
-            </View>
+            </Block>
         </>
     );
 };

@@ -2,31 +2,31 @@ import React from 'react';
 import {
   Text,
   StyleSheet,
-  View,
   Modal,
   ActivityIndicator,
   Platform,
   Dimensions,
 } from 'react-native';
-import {ProcessProps} from './process.props';
-const {width} = Dimensions.get('window');
+import { ProcessProps } from './Progress.props';
+import { Block } from '../Block/Block';
+const { width } = Dimensions.get('window');
 export function ProcessDialog(props: ProcessProps) {
-  const {visible = false, message = ''} = props;
+  const { visible = false, message = '' } = props;
   return (
     <Modal
       visible={visible}
       animated={true}
       animationType={'none'}
       transparent={true}>
-      <View style={[styles.contentModal]}>
-        <View
+      <Block style={[styles.contentModal]}>
+        <Block
           style={[
             Platform.OS === 'android'
               ? styles.wrapDialogRow
               : styles.wrapDialogColumn,
           ]}>
           <ActivityIndicator
-            color={Platform.OS === 'android' ? null : '#ffffff'}
+            color={Platform.OS === 'android' ? undefined : '#ffffff'}
           />
           <Text
             style={[
@@ -34,8 +34,8 @@ export function ProcessDialog(props: ProcessProps) {
             ]}>
             {message && message} ...
           </Text>
-        </View>
-      </View>
+        </Block>
+      </Block>
     </Modal>
   );
 }
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: 'normal',
   },
-  row: {flexDirection: 'row'},
+  row: { flexDirection: 'row' },
   column: {
     flexDirection: 'column',
   },

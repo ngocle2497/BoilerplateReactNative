@@ -107,11 +107,11 @@ export const LightBoxOverlay = (props: LightboxOverlayProps) => {
         Animated.parallel([
           Animated.spring(
             panY,
-            { toValue: 0, }
+            { toValue: 0, useNativeDriver: false }
           ),
           Animated.spring(
             panX,
-            { toValue: 0, }
+            { toValue: 0, useNativeDriver: false }
           )
         ]).start(() => { setIsPanning(false) });
       }

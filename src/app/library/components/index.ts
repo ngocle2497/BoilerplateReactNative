@@ -23,4 +23,5 @@ export * from './Dropdown/Dropdown';
 export * from './LightBox/LightBox';
 export * from './FAB/FAB';
 export * from './SizeBox/SizeBox';
+export * from './Block/Block'
 

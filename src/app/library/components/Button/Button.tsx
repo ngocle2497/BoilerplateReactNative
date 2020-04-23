@@ -5,19 +5,13 @@ import { stylesView, stylesText } from './Button.presets';
 import { ButtonProps } from './Button.props';
 import { mergeAll, flatten } from 'ramda';
 
-/**
- * For your text displaying needs.
- *
- * This component is a HOC over the built-in React Native one.
- */
 export function Button(props: ButtonProps) {
-  // grab the props
   const {
     preset = 'primary',
     tx,
     text,
-    style: styleOverride,
-    textStyle: textStyleOverride,
+    style: styleOverride = {},
+    textStyle: textStyleOverride = {},
     children,
     dependency = [],
     ...rest
@@ -31,7 +25,7 @@ export function Button(props: ButtonProps) {
   );
 
   const content = children || <Text tx={tx} text={text} style={textStyle} />;
-  const dependencyList = [viewStyle,textStyle,...dependency]
+  const dependencyList = [viewStyle, textStyle, ...dependency]
   return React.useMemo(() => (
     <TouchableOpacity style={viewStyle} {...rest}>
       {content}

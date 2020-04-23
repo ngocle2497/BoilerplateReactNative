@@ -8,7 +8,7 @@ export const DropItem = ({ index, item, onPress, customItem, textItemStyle }: Dr
     const _onPress = () => {
         onPress && onPress(item, index);
     }
-    const text = mergeAll(flatten([styles.textOption, textItemStyle]));
+    const text = mergeAll(flatten([styles.textOption, textItemStyle ?? {}]));
     return (
         <Button style={[styles.row]} onPress={_onPress} activeOpacity={0.85}>
             {customItem ? customItem(item, index) : <Text style={[text]} text={item.text ?? ''} />}

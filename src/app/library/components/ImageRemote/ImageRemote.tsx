@@ -8,14 +8,14 @@ import { Img } from '../Image/Image';
 const ROOT: ImageStyle = {
   resizeMode: 'contain',
 };
-const resizeMode: ImageStyle = {
+const defaultStyle: ImageStyle = {
   resizeMode: 'contain'
 }
 export const ImageRemote = (props: ImageRemoteProps) => {
-  const { style: styleOverride, imgSource, styleDefault, resizeMode = 'contain', containerStyle, dependency = [], ...rest } = props;
+  const { style: styleOverride = {}, imgSource, styleDefault = {}, resizeMode = 'contain', containerStyle, dependency = [], ...rest } = props;
   const [url, setUrl] = React.useState('')
   const style: ImageStyle = mergeAll(flatten([ROOT, styleOverride]));
-  const styleImgDefault: ImageStyle = mergeAll(flatten([resizeMode, styleDefault]));
+  const styleImgDefault: ImageStyle = mergeAll(flatten([defaultStyle, styleDefault]));
   const dependencyList = [style, url, styleImgDefault, containerStyle, resizeMode, imgSource, ...dependency]
   React.useEffect(() => {
     Axios.get(imgSource).then((res) => {

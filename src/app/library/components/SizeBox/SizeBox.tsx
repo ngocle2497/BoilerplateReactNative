@@ -1,16 +1,17 @@
 import React, { useMemo } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, } from 'react-native'
 import { SizeBoxProps } from './SizeBox.props'
 import { mergeAll, flatten } from 'ramda';
+import { Block } from '../Block/Block';
 
 export const SizeBox = (props: SizeBoxProps) => {
     const { children, style = {}, height = 0, width = 0, backgroundColor = 'transparent' } = props;
     return useMemo(() => {
         const actualStyle = mergeAll(flatten([{ width, height, backgroundColor }, style]));
         return (
-            <View style={actualStyle}>
+            <Block style={actualStyle}>
                 {children && children}
-            </View>
+            </Block>
         )
     }, [props])
 }

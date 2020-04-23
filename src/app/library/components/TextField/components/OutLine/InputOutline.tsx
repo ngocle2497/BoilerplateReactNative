@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, TextInput, LayoutChangeEvent, Text } from 'react-native'
+import { StyleSheet, TextInput, LayoutChangeEvent } from 'react-native'
 import Animated, { interpolate } from 'react-native-reanimated'
 import { useTimingTransition } from 'react-native-redash'
 import { InputOutlineProps } from './InputOutline.props';

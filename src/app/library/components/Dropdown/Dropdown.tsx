@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
-import { View, FlatList } from 'react-native'
+import { FlatList } from 'react-native'
 import { DropdownProps, DropdownOption } from './Dropdown.props'
-import { Button, Text } from '..'
+import { Button, Text, Block } from '..'
 import { DropItem } from './DropdownItem'
 import Modal from 'react-native-modal'
 import { styles } from './Dropdown.preset'
 import { useSafeArea } from 'react-native-safe-area-view'
 import { useTranslation } from 'react-i18next'
+
 
 export const Dropdown = (props: DropdownProps) => {
     const [t] = useTranslation()
@@ -34,21 +35,21 @@ export const Dropdown = (props: DropdownProps) => {
     const _keyExtractor = (item: DropdownOption, index: number) => item.text;
     return (
         <>
-            <View style={[styles.root]} collapsable={false}>
+            <Block style={[styles.root]} collapsable={false}>
                 <Button onPress={_showDrop} activeOpacity={0.68} preset={'link'} style={[styles.buttonDrop]}>
-                    <View style={[styles.row]}>
+                    <Block style={[styles.row]}>
                         <Text style={[]} text={selectedText} />
                         {rightChildren && rightChildren}
-                    </View>
+                    </Block>
                 </Button>
                 <Modal onBackdropPress={_hideDrop} style={[styles.modal]} useNativeDriver={true} isVisible={visible} >
-                    <View style={[styles.wrap]}>
-                        <View style={[styles.wrapList, { paddingBottom: useBottomInset ? inset.bottom : 0 }]}>
+                    <Block style={[styles.wrap]}>
+                        <Block style={[styles.wrapList, { paddingBottom: useBottomInset ? inset.bottom : 0 }]}>
                             <FlatList data={data} keyExtractor={_keyExtractor} renderItem={_renderItem} />
-                        </View>
-                    </View>
+                        </Block>
+                    </Block>
                 </Modal>
-            </View>
+            </Block>
         </>
     )
 }

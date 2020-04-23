@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { HelperTextProps } from './HelperText.prop'
 import { Text } from '..'
 import { AppTheme } from '../../../config/type'
 import { useTheme } from '@react-navigation/native'
 import { mergeAll, flatten } from 'ramda'
+import { Block } from '../Block/Block'
 const styles = () => {
     const theme: AppTheme = useTheme()
     return useMemo(() => (StyleSheet.create({
@@ -34,9 +35,9 @@ export const HelperText = (props: HelperTextProps) => {
     const textStyle = mergeAll(flatten([styles().text, type === 'error' ? styles().textError : styles().textInfo]));
     return useMemo(() => {
         return (
-            <View style={[containerStyle]}>
+            <Block style={[containerStyle]}>
                 <Text numberOfLines={1} style={[textStyle]}>{visible ? (msg ?? '') : ''}</Text>
-            </View>
+            </Block>
         )
     }, [props, theme])
 }

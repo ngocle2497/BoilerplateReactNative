@@ -5,6 +5,7 @@ import { Text } from '..'
 import { mergeAll, flatten } from 'ramda';
 import { AppTheme } from '../../../config/type';
 import { useTheme } from '@react-navigation/native';
+import { Block } from '../Block/Block';
 
 const WIDTH_OTP = 32;
 const HEIGHT_OTP = 40;
@@ -32,7 +33,7 @@ const styles = () => {
         otpText: {
             fontSize: theme.fontSize.FONT_14,
             color: theme.colors.primary,
-            textAlignVertical:'bottom'
+            textAlignVertical: 'bottom'
         },
         sizeBoxW15: {
             width: 15,
@@ -53,7 +54,7 @@ const styles = () => {
 }
 
 export const Otp = (props: OtpProps) => {
-    const { length, defaultOtp = '', onOtpValid, onOtpInValid, dependency = [], textEntry, wrapInputActiveStyle, wrapInputStyle, containerStyle, textStyle, ...rest } = props;
+    const { length, defaultOtp = '', onOtpValid, onOtpInValid, dependency = [], textEntry, wrapInputActiveStyle = {}, wrapInputStyle = {}, containerStyle = {}, textStyle = {}, ...rest } = props;
     const [otp, setOtp] = useState('')
     const _onOtpChange = (text: string) => {
         const textTrim = text.trim().toString()
@@ -97,15 +98,15 @@ export const Otp = (props: OtpProps) => {
     const dependencyList: DependencyList = [props, otp, ...dependency]
     return useMemo(() => {
         return (
-            <View style={container}>
+            <Block style={container}>
                 {length && Array(length).fill(0).map((item, index) => {
                     return (
-                        <View key={index} style={row}>
-                            <View style={[wrapInput, index === otp.length && wrapInputActive]}>
+                        <Block key={index} style={row}>
+                            <Block style={[wrapInput, index === otp.length && wrapInputActive]}>
                                 <Text text={index <= otp.length - 1 ? textEntry?.charAt(0) ?? otp.charAt(index) : ''} style={text} />
-                            </View>
-                            <View style={sizeBoxW15} />
-                        </View>
+                            </Block>
+                            <Block style={sizeBoxW15} />
+                        </Block>
 
                     )
                 })}
@@ -118,7 +119,7 @@ export const Otp = (props: OtpProps) => {
                     selectionColor={'transparent'}
                     style={input}
                     {...rest} />
-            </View>
+            </Block>
         )
     }, dependencyList)
 }
