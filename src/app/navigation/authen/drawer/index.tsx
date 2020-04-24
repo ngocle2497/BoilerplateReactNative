@@ -1,6 +1,6 @@
 import React from 'react'
 import { createDrawerNavigator, DrawerNavigationOptions } from '@react-navigation/drawer';
-import { HomeBottomTabScreen } from './home/tabNavigator';
+import { HomeBottomTabScreen } from './home/TabNavigator';
 import { ProfileStackScreen } from './profile';
 import { APP_SCREEN } from '../../screenTypes'
 const MainDrawer = createDrawerNavigator();

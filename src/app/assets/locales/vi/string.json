@@ -42,13 +42,17 @@
         "select":"Chọn"
     },
     "main":{
-        "chatTab":{
-            "tvChat":"Trò chuyện",
-            "tvTabLabel":"Trò chuyện"
+        "homeTab":{
+           "tvHome":"Trang chủ"
         },
-        "profileTab":{
-            "tvProfile":"Cá nhân",
-            "tvTabLabel":"Cá nhân"
-        }
+        "likesTab":{
+            "tvLike":"Yêu thích"
+         },
+         "searchTab":{
+            "tvSearch":"Tìm kiếm"
+         },
+         "profileTab":{
+            "tvProfile":"Cá nhân"
+         }
     }
 }

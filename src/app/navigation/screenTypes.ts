@@ -10,14 +10,17 @@ export const APP_SCREEN = {
         ROOT: 'AUTHORIZE',
         HOME_DRAWER: {
             ROOT: 'HOME_DRAWER',
-            CHAT_TAB: {
-                ROOT: 'CHAT_TAB',
-                CHAT: 'CHAT',
-                DETAIL_CHAT: 'DETAIL_CHAT'
+            HOME_TAB: {
+                ROOT: 'HOME_TAB',
             },
-            NOTIFY_TAB: {
-                ROOT: 'NOTIFY_TAB',
-                NOTIFY: 'NOTIFY'
+            LIKE_TAB: {
+                ROOT: 'LIKE_TAB',
+            },
+            SEARCH_TAB: {
+                ROOT: 'SEARCH_TAB',
+            },
+            PROFILE_TAB: {
+                ROOT: 'PROFILE_TAB',
             }
         },
         PROFILE_DRAWER: {

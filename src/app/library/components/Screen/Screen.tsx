@@ -69,7 +69,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
         hidden={hidden}
         backgroundColor={statusColor}
         translucent={draw}
-        barStyle={props.statusBar || 'light-content'}
+        barStyle={props.statusBar || 'dark-content'}
       />
       {draw === false && (
         <SafeAreaView style={[preset.outer0, { backgroundColor: statusColor }]} />
@@ -111,7 +111,7 @@ function ScreenWithScrolling(props: ScreenProps) {
         hidden={hidden}
         backgroundColor={statusColor}
         translucent={draw}
-        barStyle={props.statusBar || 'light-content'}
+        barStyle={props.statusBar || 'dark-content'}
       />
       {draw === false && (
         <SafeAreaView style={[preset.outer0, { backgroundColor: statusColor }]} />

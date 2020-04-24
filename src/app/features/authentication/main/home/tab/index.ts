@@ -1,3 +1,4 @@
-export * from './chat/screen/detailChat/screen'
-export * from './chat/screen/chat/screen'
-export * from './notify/screen'
+export * from './home/screen'
+export * from './likes/screen'
+export * from './search/screen'
+export * from './profile/screen'
