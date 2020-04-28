@@ -1,8 +1,9 @@
-import React, { useMemo } from 'react'
+import React, { memo } from 'react'
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { RadioButtonProps } from './RadioButton.props'
 import { useTimingTransition, interpolateColor } from 'react-native-redash'
 import Animated, { interpolate } from 'react-native-reanimated'
+import { equals } from 'ramda'
 
 const SIZE = 30
 const ACTIVE_COLOR = '#ff00a9'
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
     }
 })
 
-export const RadioButton = (props: RadioButtonProps) => {
+const RadioButtonComponent = (props: RadioButtonProps) => {
     const { value = false, activeColor = ACTIVE_COLOR, unActiveColor = UN_ACTIVE_COLOR, strokeWidth = STROKE_WIDTH, sizeDot = SIZE - 10, onPress } = props;
     const progress = useTimingTransition(value, { duration: 100 })
     const size = interpolate(progress, {
@@ -31,7 +32,7 @@ export const RadioButton = (props: RadioButtonProps) => {
         inputRange: [0, 1],
         outputRange: [unActiveColor, activeColor]
     }, 'rgb')
-    return useMemo(() => (
+    return (
         <TouchableWithoutFeedback onPress={onPress}>
             <Animated.View style={[styles.wrap, {
                 borderColor: color, width: sizeDot + 10,
@@ -42,6 +43,7 @@ export const RadioButton = (props: RadioButtonProps) => {
                 <Animated.View pointerEvents={'none'} style={[styles.dot, { width: size, height: size, borderRadius: (sizeDot - strokeWidth) / 2, backgroundColor: color }]} />
             </Animated.View>
         </TouchableWithoutFeedback>
-    ), [props])
+    )
 }
 
+export const RadioButton = memo(RadioButtonComponent, (prevProps, nextProps) => equals(prevProps, nextProps))

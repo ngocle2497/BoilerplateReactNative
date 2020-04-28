@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { onGestureEvent, useValues, withTimingTransition, between } from 'react-native-redash';
 import Animated, { interpolate, eq, useCode, cond, and, call, block, onChange, set } from 'react-native-reanimated';
 import { TouchableScaleProps } from './Touch.props';
+import { equals } from 'ramda';
 
-export const TouchableScale = (props: TouchableScaleProps) => {
+const TouchableScaleComponent = (props: TouchableScaleProps) => {
     const { children, minScale = 0.95, onPress, onLongPress, onPressIn, onPressOut } = props
     const [state, translationY, translationX, x, y] = useValues([State.UNDETERMINED, 0, 0, 0, 0], [])
     const duration = cond(eq(state, State.BEGAN), 300, 150)
@@ -39,3 +40,4 @@ export const TouchableScale = (props: TouchableScaleProps) => {
         </PanGestureHandler>
     )
 }
+export const TouchableScale = memo(TouchableScaleComponent, (prevProps, nextProps) => equals(prevProps, nextProps))

@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Image } from 'react-native';
 import { presets } from './Wallpaper.presets';
 import { WallpaperProps } from './Wallpaper.props';
+import { equals } from 'ramda';
 
 const defaultImage = require('./bg.png');
 
-export function Wallpaper(props: WallpaperProps) {
+const WallpaperComponent = (props: WallpaperProps) => {
   // grab the props
-  const { preset = 'stretch', style: styleOverride, backgroundImage, dependency = [] } = props;
+  const { preset = 'stretch', style: styleOverride, backgroundImage } = props;
 
   // assemble the style
   const presetToUse = presets[preset] || presets.stretch;
@@ -15,6 +16,8 @@ export function Wallpaper(props: WallpaperProps) {
 
   // figure out which image to use
   const source = backgroundImage || defaultImage;
-  const dependencyList = [source, ...dependency]
-  return React.useMemo(() => <Image source={source} style={style} />, dependencyList)
+  return (
+    <Image source={source} style={style} />
+  )
 }
+export const Wallpaper = memo(WallpaperComponent, (prevProps, nextProps) => equals(prevProps, nextProps))

@@ -9,6 +9,7 @@ import {
 import { ScreenProps } from './Screen.props';
 import SafeAreaView from 'react-native-safe-area-view';
 import { Block } from '../Block/Block';
+import { equals } from 'ramda';
 
 export const presets = {
   root: {
@@ -133,7 +134,7 @@ function ScreenWithScrolling(props: ScreenProps) {
   );
 }
 
-export function Screen(props: ScreenProps) {
+function ScreenComponent(props: ScreenProps) {
   const { isScroll = false } = props;
   if (isScroll) {
     return <ScreenWithScrolling {...props} />;
@@ -141,3 +142,4 @@ export function Screen(props: ScreenProps) {
     return <ScreenWithoutScrolling {...props} />;
   }
 }
+export const Screen = React.memo(ScreenComponent, (prevProps, nextProps) => equals(prevProps, nextProps))

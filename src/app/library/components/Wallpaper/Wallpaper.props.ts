@@ -5,10 +5,8 @@ export interface WallpaperProps {
 
   style?: ImageStyle;
 
-
   backgroundImage?: string;
 
   preset?: WallpaperPresets;
 
-  dependency?: any[];
 }

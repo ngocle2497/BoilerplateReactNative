@@ -1,18 +1,19 @@
-import React, { useMemo } from 'react'
-import { StyleSheet, View } from 'react-native'
+import React, { memo } from 'react'
+import { StyleSheet } from 'react-native'
 import { DividerProps } from './Divider.props'
 import { Block } from '../'
+import { equals } from 'ramda'
 const styles = StyleSheet.create({
     wrap: {
         width: '100%'
     }
 })
 
-export const Divider = (props: DividerProps) => {
+const DividerComponent = (props: DividerProps) => {
     const { height = 2, bg = '#dfe3ee' } = props;
-    return useMemo(() => (
+    return (
         <Block height={height} color={bg} style={styles.wrap} />
-    ), [props])
+    )
 }
-
+export const Divider = memo(DividerComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
 

@@ -1,10 +1,10 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, memo } from 'react'
 import { StyleSheet } from 'react-native'
 import { HelperTextProps } from './HelperText.prop'
 import { Text } from '..'
 import { AppTheme } from '../../../config/type'
 import { useTheme } from '@react-navigation/native'
-import { mergeAll, flatten } from 'ramda'
+import { mergeAll, flatten, equals } from 'ramda'
 import { Block } from '../Block/Block'
 const styles = () => {
     const theme: AppTheme = useTheme()
@@ -27,19 +27,15 @@ const styles = () => {
         }
     })), [])
 }
-export const HelperText = (props: HelperTextProps) => {
+const HelperTextComponent = (props: HelperTextProps) => {
     const { visible, msg, type } = props;
-    const theme: AppTheme = useTheme()
     const containerStyle = styles().container;
-
     const textStyle = mergeAll(flatten([styles().text, type === 'error' ? styles().textError : styles().textInfo]));
-    return useMemo(() => {
-        return (
-            <Block style={[containerStyle]}>
-                <Text numberOfLines={1} style={[textStyle]}>{visible ? (msg ?? '') : ''}</Text>
-            </Block>
-        )
-    }, [props, theme])
+    return (
+        <Block style={[containerStyle]}>
+            <Text numberOfLines={1} style={[textStyle]}>{visible ? (msg ?? '') : ''}</Text>
+        </Block>
+    )
 }
-
+export const HelperText = memo(HelperTextComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
 

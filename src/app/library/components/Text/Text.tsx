@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Text as ReactNativeText } from 'react-native';
 import { styles } from './Text.presets';
 import { TextProps } from './Text.props';
-import { mergeAll, flatten } from 'ramda';
+import { mergeAll, flatten, equals } from 'ramda';
 import { useTranslation } from 'react-i18next';
 
-export function Text(props: TextProps) {
+const TextComponent = (props: TextProps) => {
   const {
     preset = 'default',
     tx,
@@ -28,3 +28,4 @@ export function Text(props: TextProps) {
     </ReactNativeText>
   )
 }
+export const Text = React.memo(TextComponent, (prevProps, nextProps) => equals(prevProps, nextProps))

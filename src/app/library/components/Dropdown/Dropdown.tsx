@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import { FlatList } from 'react-native'
 import { DropdownProps, DropdownOption } from './Dropdown.props'
 import { Button, Text, Block } from '..'
@@ -7,9 +7,10 @@ import Modal from 'react-native-modal'
 import { styles } from './Dropdown.preset'
 import { useSafeArea } from 'react-native-safe-area-view'
 import { useTranslation } from 'react-i18next'
+import { equals } from 'ramda'
 
 
-export const Dropdown = (props: DropdownProps) => {
+const DropdownComponent = (props: DropdownProps) => {
     const [t] = useTranslation()
     const inset = useSafeArea()
     const { onPress, textStyle, buttonStyle, textItemStyle, rightChildren,
@@ -53,5 +54,4 @@ export const Dropdown = (props: DropdownProps) => {
         </>
     )
 }
-
-
+export const Dropdown = memo(DropdownComponent, (prevProps, nextProps) => equals(prevProps, nextProps))

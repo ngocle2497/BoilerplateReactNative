@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Text } from '..';
-import { CheckboxProps } from './Checkbox.props';
-import { mergeAll, flatten } from 'ramda';
+import { CheckboxProps } from './CheckBox.props';
+import { mergeAll, flatten, equals } from 'ramda';
 import { useTheme } from '@react-navigation/native';
 import { AppTheme } from '../../../config/type';
 import { Button } from '../Button/Button';
@@ -36,7 +36,7 @@ const styles = () => {
   }), [theme])
 }
 
-export function Checkbox(props: CheckboxProps) {
+const CheckBoxComponent = (props: CheckboxProps) => {
   const numberOfLines = props.multiline ? 0 : 1;
 
   const rootStyle = mergeAll(flatten([styles().ROOT, props.style ?? {}]));
@@ -46,23 +46,25 @@ export function Checkbox(props: CheckboxProps) {
   const onPress = props.onToggle
     ? () => props.onToggle && props.onToggle(!props.value)
     : undefined;
-  const dependencyList = [rootStyle, outlineStyle, fillStyle, ...props.dependency = []]
-  return React.useMemo(() => <Button
-    activeOpacity={1}
-    preset={'link'}
-    disabled={!props.onToggle}
-    onPress={onPress}
-    style={rootStyle}>
-    <>
-      <Block style={outlineStyle}>
-        {props.value && <Block style={fillStyle} />}
-      </Block>
-      <Text
-        text={props.text}
-        tx={props.tx}
-        numberOfLines={numberOfLines}
-        style={labelStyle}
-      />
-    </>
-  </Button>, dependencyList)
+  return (
+    <Button
+      activeOpacity={1}
+      preset={'link'}
+      disabled={!props.onToggle}
+      onPress={onPress}
+      style={rootStyle}>
+      <>
+        <Block style={outlineStyle}>
+          {props.value && <Block style={fillStyle} />}
+        </Block>
+        <Text
+          text={props.text}
+          tx={props.tx}
+          numberOfLines={numberOfLines}
+          style={labelStyle}
+        />
+      </>
+    </Button>
+  )
 }
+export const CheckBox = React.memo(CheckBoxComponent, (prevProps, nextProps) => equals(prevProps, nextProps))

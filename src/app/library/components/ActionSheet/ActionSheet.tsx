@@ -1,11 +1,11 @@
-import React, { useState, forwardRef, useImperativeHandle } from 'react'
+import React, { useState, forwardRef, useImperativeHandle, memo } from 'react'
 import { View, LayoutChangeEvent, useWindowDimensions } from 'react-native'
 import { ActionSheetProps, OptionData } from './ActionSheet.props'
-import { Text, Button,Block } from '..'
+import { Text, Button, Block } from '..'
 import { useTimingTransition, onGestureEvent, useValues } from 'react-native-redash'
 import { TapGestureHandler, State } from 'react-native-gesture-handler'
 import Animated, { interpolate, useCode, onChange, cond, eq, call } from 'react-native-reanimated'
-import { mergeAll, flatten } from 'ramda';
+import { mergeAll, flatten, equals } from 'ramda';
 import { styles } from './ActionSheet.presets'
 import { useTranslation } from 'react-i18next'
 
@@ -14,7 +14,7 @@ const enhance = (style: any, styleOverride?: any) => {
     return mergeAll(flatten([style, styleOverride]));
 };
 
-export const ActionSheet = forwardRef((props: ActionSheetProps, ref) => {
+const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
     const [t] = useTranslation()
     const { onPressCancel, textCancelStyle, rootStyle, wrapCancelStyle, textOptionStyle, wrapOptionStyle,
         title, onPressOption, onBackDropPress, textCancel = t('dialog:cancel'),
@@ -98,5 +98,5 @@ export const ActionSheet = forwardRef((props: ActionSheetProps, ref) => {
         </>
     )
 })
-
+export const ActionSheet = memo(ActionSheetComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
 

@@ -5,7 +5,6 @@ export const MAX_HEIGHT = 250
 export const styles = StyleSheet.create({
     wrap: {
         alignSelf:'flex-end',
-        // position:'absolute',
         bottom:0
     },
     buttonDrop: {

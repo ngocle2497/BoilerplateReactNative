@@ -3,7 +3,7 @@ import { View, ImageStyle } from 'react-native';
 import FastImage from 'react-native-fast-image'
 import { ImageRemoteProps } from './ImageRemote.props';
 import Axios from 'axios'
-import { mergeAll, flatten } from 'ramda';
+import { mergeAll, flatten, equals } from 'ramda';
 import { Img } from '../Image/Image';
 const ROOT: ImageStyle = {
   resizeMode: 'contain',
@@ -11,7 +11,7 @@ const ROOT: ImageStyle = {
 const defaultStyle: ImageStyle = {
   resizeMode: 'contain'
 }
-export const ImageRemote = (props: ImageRemoteProps) => {
+const ImageRemoteComponent = (props: ImageRemoteProps) => {
   const { style: styleOverride = {}, imgSource, styleDefault = {}, resizeMode = 'contain', containerStyle, dependency = [], ...rest } = props;
   const [url, setUrl] = React.useState('')
   const style: ImageStyle = mergeAll(flatten([ROOT, styleOverride]));
@@ -28,7 +28,7 @@ export const ImageRemote = (props: ImageRemoteProps) => {
       setUrl('')
     })
   }, [imgSource])
-  return React.useMemo(() => (
+  return (
     <View style={containerStyle}>
       {url === '' ? <Img style={styleImgDefault} source={'default'} /> :
         <FastImage
@@ -37,5 +37,6 @@ export const ImageRemote = (props: ImageRemoteProps) => {
           source={{ uri: url }}
           {...rest} />}
     </View>
-  ), dependencyList)
+  )
 }
+export const ImageRemote = React.memo(ImageRemoteComponent, (prevProps, nextProps) => equals(prevProps, nextProps))

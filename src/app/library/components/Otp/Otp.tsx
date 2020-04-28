@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useMemo, DependencyList } from 'react'
-import { View, StyleSheet, TextInput } from 'react-native'
+import React, { useState, useEffect, useMemo, memo } from 'react'
+import { StyleSheet, TextInput } from 'react-native'
 import { OtpProps } from './Otp.props'
 import { Text } from '..'
-import { mergeAll, flatten } from 'ramda';
+import { mergeAll, flatten, equals } from 'ramda';
 import { AppTheme } from '../../../config/type';
 import { useTheme } from '@react-navigation/native';
 import { Block } from '../Block/Block';
@@ -53,8 +53,9 @@ const styles = () => {
     }), [theme])
 }
 
-export const Otp = (props: OtpProps) => {
-    const { length, defaultOtp = '', onOtpValid, onOtpInValid, dependency = [], textEntry, wrapInputActiveStyle = {}, wrapInputStyle = {}, containerStyle = {}, textStyle = {}, ...rest } = props;
+const OtpComponent = (props: OtpProps) => {
+    const { length, defaultOtp = '', onOtpValid, onOtpInValid,
+        textEntry, wrapInputActiveStyle = {}, wrapInputStyle = {}, containerStyle = {}, textStyle = {}, ...rest } = props;
     const [otp, setOtp] = useState('')
     const _onOtpChange = (text: string) => {
         const textTrim = text.trim().toString()
@@ -95,31 +96,30 @@ export const Otp = (props: OtpProps) => {
     const row = mergeAll(
         flatten([styles().row]),
     );
-    const dependencyList: DependencyList = [props, otp, ...dependency]
-    return useMemo(() => {
-        return (
-            <Block style={container}>
-                {length && Array(length).fill(0).map((item, index) => {
-                    return (
-                        <Block key={index} style={row}>
-                            <Block style={[wrapInput, index === otp.length && wrapInputActive]}>
-                                <Text text={index <= otp.length - 1 ? textEntry?.charAt(0) ?? otp.charAt(index) : ''} style={text} />
-                            </Block>
-                            <Block style={sizeBoxW15} />
-                        </Block>
 
-                    )
-                })}
-                <TextInput
-                    value={otp}
-                    autoCapitalize={'none'}
-                    autoFocus={false}
-                    underlineColorAndroid={'transparent'}
-                    onChangeText={_onOtpChange}
-                    selectionColor={'transparent'}
-                    style={input}
-                    {...rest} />
-            </Block>
-        )
-    }, dependencyList)
+    return (
+        <Block style={container}>
+            {length && Array(length).fill(0).map((item, index) => {
+                return (
+                    <Block key={index} style={row}>
+                        <Block style={[wrapInput, index === otp.length && wrapInputActive]}>
+                            <Text text={index <= otp.length - 1 ? textEntry?.charAt(0) ?? otp.charAt(index) : ''} style={text} />
+                        </Block>
+                        <Block style={sizeBoxW15} />
+                    </Block>
+
+                )
+            })}
+            <TextInput
+                value={otp}
+                autoCapitalize={'none'}
+                autoFocus={false}
+                underlineColorAndroid={'transparent'}
+                onChangeText={_onOtpChange}
+                selectionColor={'transparent'}
+                style={input}
+                {...rest} />
+        </Block>
+    )
 }
+export const Otp = memo(OtpComponent, (prevProps, nextProps) => equals(prevProps, nextProps))

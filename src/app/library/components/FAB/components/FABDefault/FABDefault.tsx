@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { StyleSheet } from 'react-native'
 import { FABDefaultProps } from './FABDefault.props'
 import { Button, Text, Icon } from '../../../'
@@ -46,5 +46,4 @@ export const FABDefault = (props: FABDefaultProps) => {
         </Button>
     )
 }
-
 

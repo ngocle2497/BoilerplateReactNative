@@ -7,6 +7,51 @@ const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const DRAG_DISMISS_THRESHOLD = 150;
 const STATUS_BAR_OFFSET = (Platform.OS === 'android' ? - StatusBar.currentHeight ?? -25 : 0);
+const styles = StyleSheet.create({
+  background: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: WINDOW_WIDTH,
+    height: WINDOW_HEIGHT,
+  },
+  textClose: {
+    color: '#FFFFFF'
+  },
+  buttonClose: {
+    position: 'absolute',
+    backgroundColor: 'transparent',
+  },
+  open: {
+    position: 'absolute',
+    // flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // Android pan handlers crash without this declaration:
+    backgroundColor: 'transparent',
+  },
+  header: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: WINDOW_WIDTH,
+    backgroundColor: 'transparent',
+  },
+  closeButton: {
+    fontSize: 35,
+    color: 'white',
+    lineHeight: 40,
+    width: 40,
+    textAlign: 'center',
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowRadius: 1.5,
+    shadowColor: 'black',
+    shadowOpacity: 0.8,
+  },
+})
 
 interface LightboxOverlayProps {
   isOpen: boolean;
@@ -133,48 +178,3 @@ export const LightBoxOverlay = (props: LightboxOverlayProps) => {
   )
 }
 
-const styles = StyleSheet.create({
-  background: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: WINDOW_WIDTH,
-    height: WINDOW_HEIGHT,
-  },
-  textClose: {
-    color: '#FFFFFF'
-  },
-  buttonClose: {
-    position: 'absolute',
-    backgroundColor: 'transparent',
-  },
-  open: {
-    position: 'absolute',
-    // flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    // Android pan handlers crash without this declaration:
-    backgroundColor: 'transparent',
-  },
-  header: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: WINDOW_WIDTH,
-    backgroundColor: 'transparent',
-  },
-  closeButton: {
-    fontSize: 35,
-    color: 'white',
-    lineHeight: 40,
-    width: 40,
-    textAlign: 'center',
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowRadius: 1.5,
-    shadowColor: 'black',
-    shadowOpacity: 0.8,
-  },
-})

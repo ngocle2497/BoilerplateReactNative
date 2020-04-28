@@ -4,7 +4,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { SwitchProps } from './Switch.props';
-import { mergeAll, flatten } from 'ramda';
+import { mergeAll, flatten, equals } from 'ramda';
 import { timing, useValues, interpolateColor } from 'react-native-redash'
 import Animated, { set, Easing, interpolate } from 'react-native-reanimated'
 import { AppTheme } from '../../../config/type';
@@ -55,9 +55,8 @@ const styles = StyleSheet.create({
 const enhance = (style: any, newStyles: any): any => {
   return mergeAll(flatten([style, newStyles]));
 };
-export const Switch = (props: SwitchProps) => {
+const SwitchComponent = (props: SwitchProps) => {
   const [timer] = useValues([props.value === true ? 1 : 0], [])
-  const theme: AppTheme = useTheme()
   useCode(() => [
     set(timer, timing({ from: timer, to: props.value === true ? 1 : 0, easing: Easing.out(Easing.circle), duration: DURATION }))
   ], [props.value])
@@ -107,12 +106,12 @@ export const Switch = (props: SwitchProps) => {
     thumbStyle,
     props.value ? props.thumbOnStyle : props.thumbOffStyle,
   );
-  const dependencyList = [props.value, theme, props.thumbOffStyle, props.thumbOnStyle, props.trackOnStyle, props.trackOffStyle, ...props.dependency = []]
-  return React.useMemo(() => (
+  return (
     <TouchableWithoutFeedback onPress={handlePress} style={style}>
       <Animated.View style={trackStyle}>
         <Animated.View style={thumbStyle} />
       </Animated.View>
     </TouchableWithoutFeedback>
-  ), dependencyList)
+  )
 };
+export const Switch = React.memo(SwitchComponent, (prevProps, nextProps) => equals(prevProps, nextProps))

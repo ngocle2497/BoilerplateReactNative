@@ -10,5 +10,4 @@ export interface ImageProps {
 
   source?: ImageTypes;
 
-  dependency?: any[];
 }

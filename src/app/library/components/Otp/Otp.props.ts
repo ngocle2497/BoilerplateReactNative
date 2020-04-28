@@ -15,8 +15,6 @@ export interface OtpProps extends TextInputProps {
 
     textEntry?: string;
 
-    dependency?: any[];
-
     onOtpValid?: Function;
 
     onOtpInValid?: Function;

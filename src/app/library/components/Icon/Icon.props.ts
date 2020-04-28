@@ -10,5 +10,4 @@ export interface IconProps {
 
   icon?: IconTypes;
 
-  dependency?: any[];
 }

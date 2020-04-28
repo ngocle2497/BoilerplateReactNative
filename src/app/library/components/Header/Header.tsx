@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { HeaderProps } from './Header.props';
 import { Button, Icon, Text } from '..';
-import { mergeAll, flatten } from 'ramda';
+import { mergeAll, flatten, equals } from 'ramda';
 import { AppTheme } from '../../../config/type';
 import { useTheme } from '@react-navigation/native';
 import { useSafeArea } from 'react-native-safe-area-view';
@@ -43,7 +43,7 @@ const styles = () => {
     , [theme, inset])
 }
 
-export const Header: React.FunctionComponent<HeaderProps> = props => {
+const HeaderComponent: React.FunctionComponent<HeaderProps> = props => {
   const {
     onLeftPress,
     onRightPress,
@@ -90,3 +90,4 @@ export const Header: React.FunctionComponent<HeaderProps> = props => {
     </Block>
   )
 };
+export const Header = React.memo(HeaderComponent, (prevProps, nextProps) => equals(prevProps, nextProps))

@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { DropItemProps } from './Dropdown.props'
 import { Button, Text } from '..'
-import { mergeAll, flatten } from 'ramda';
+import { mergeAll, flatten, equals } from 'ramda';
 import { stylesItem as styles } from './Dropdown.preset'
 
-export const DropItem = ({ index, item, onPress, customItem, textItemStyle }: DropItemProps) => {
+const DropItemComponent = ({ index, item, onPress, customItem, textItemStyle }: DropItemProps) => {
     const _onPress = () => {
         onPress && onPress(item, index);
     }
@@ -15,6 +15,6 @@ export const DropItem = ({ index, item, onPress, customItem, textItemStyle }: Dr
         </Button>
     )
 }
-
+export const DropItem = memo(DropItemComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
 
 

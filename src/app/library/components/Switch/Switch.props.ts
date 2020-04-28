@@ -17,5 +17,4 @@ export interface SwitchProps {
 
   thumbOffStyle?: ViewStyle | ViewStyle[];
 
-  dependency?: any[];
 }

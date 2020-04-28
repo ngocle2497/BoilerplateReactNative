@@ -1,11 +1,12 @@
-import React, { useState, useRef, cloneElement, Children } from 'react'
-import { Animated, TouchableOpacity, View, LayoutChangeEvent } from 'react-native'
+import React, { useState, useRef, cloneElement, Children, memo } from 'react'
+import { Animated, View, LayoutChangeEvent } from 'react-native'
 import { LightBoxProps } from './LightBox.props'
 import { LightBoxOverlay } from './LightBoxOverlay'
 import { Button } from '../Button/Button'
+import { equals } from 'ramda'
 
 
-export const LightBox = (props: LightBoxProps) => {
+const LightBoxComponent = (props: LightBoxProps) => {
     const { children, backgroundColor = 'black', renderContent, renderHeader, swipeToDismiss = true } = props;
     const _root = useRef()
     const [layoutOpacity, setlayoutOpacity] = useState(new Animated.Value(1))
@@ -16,10 +17,7 @@ export const LightBox = (props: LightBoxProps) => {
         x: 0,
         y: 0,
     })
-    const _onLayoutButton = (e: LayoutChangeEvent) => {
-        setOrigin({ ...origin, width: e.nativeEvent.layout.width })
-        console.log("BU", JSON.stringify(e.nativeEvent.layout))
-    }
+
     const _onOpen = () => {
         _root.current?.measure((ox: number, oy: number, width: number, height: number, px: number, py: number) => {
             setOrigin({
@@ -72,4 +70,4 @@ export const LightBox = (props: LightBoxProps) => {
     )
 }
 
-
+export const LightBox = memo(LightBoxComponent, (prevProps, nextProps) => equals(prevProps, nextProps))

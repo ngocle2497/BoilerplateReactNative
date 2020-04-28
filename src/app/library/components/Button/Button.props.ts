@@ -17,5 +17,4 @@ export interface ButtonProps extends TouchableOpacityProps {
 
   children?: React.ReactNode;
 
-  dependency?: any[];
 }

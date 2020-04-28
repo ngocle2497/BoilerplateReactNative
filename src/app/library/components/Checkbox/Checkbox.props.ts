@@ -18,5 +18,4 @@ export interface CheckboxProps {
 
   onToggle?: (newValue: boolean) => void;
 
-  dependency?:any[];
 }

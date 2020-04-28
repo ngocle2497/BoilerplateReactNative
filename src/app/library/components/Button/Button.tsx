@@ -3,9 +3,9 @@ import { TouchableOpacity } from 'react-native';
 import { Text } from '..';
 import { stylesView, stylesText } from './Button.presets';
 import { ButtonProps } from './Button.props';
-import { mergeAll, flatten } from 'ramda';
+import { mergeAll, flatten, equals } from 'ramda';
 
-export function Button(props: ButtonProps) {
+const ButtonComponent = (props: ButtonProps) => {
   const {
     preset = 'primary',
     tx,
@@ -13,7 +13,6 @@ export function Button(props: ButtonProps) {
     style: styleOverride = {},
     textStyle: textStyleOverride = {},
     children,
-    dependency = [],
     ...rest
   } = props;
 
@@ -25,10 +24,11 @@ export function Button(props: ButtonProps) {
   );
 
   const content = children || <Text tx={tx} text={text} style={textStyle} />;
-  const dependencyList = [viewStyle, textStyle, ...dependency]
-  return React.useMemo(() => (
+
+  return (
     <TouchableOpacity style={viewStyle} {...rest}>
       {content}
     </TouchableOpacity>
-  ), dependencyList)
+  )
 }
+export const Button = React.memo(ButtonComponent, (prevProps, nextProps) => equals(prevProps, nextProps))

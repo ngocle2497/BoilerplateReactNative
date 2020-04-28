@@ -10,5 +10,4 @@ export interface FormRowProps {
 
   preset: FormRowPresets;
 
-  dependency?:any[];
 }

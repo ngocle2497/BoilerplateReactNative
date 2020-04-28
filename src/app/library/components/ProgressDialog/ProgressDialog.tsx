@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   Text,
   StyleSheet,
@@ -9,36 +9,8 @@ import {
 } from 'react-native';
 import { ProcessProps } from './Progress.props';
 import { Block } from '../Block/Block';
+import { equals } from 'ramda';
 const { width } = Dimensions.get('window');
-export function ProcessDialog(props: ProcessProps) {
-  const { visible = false, message = '' } = props;
-  return (
-    <Modal
-      visible={visible}
-      animated={true}
-      animationType={'none'}
-      transparent={true}>
-      <Block style={[styles.contentModal]}>
-        <Block
-          style={[
-            Platform.OS === 'android'
-              ? styles.wrapDialogRow
-              : styles.wrapDialogColumn,
-          ]}>
-          <ActivityIndicator
-            color={Platform.OS === 'android' ? undefined : '#ffffff'}
-          />
-          <Text
-            style={[
-              Platform.OS === 'android' ? styles.textMsg : styles.textMsgIOS,
-            ]}>
-            {message && message} ...
-          </Text>
-        </Block>
-      </Block>
-    </Modal>
-  );
-}
 const styles = StyleSheet.create({
   contentModal: {
     flex: 1,
@@ -83,3 +55,34 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,.87)',
   },
 });
+
+const ProcessDialogComponent = (props: ProcessProps) => {
+  const { visible = false, message = '' } = props;
+  return (
+    <Modal
+      visible={visible}
+      animated={true}
+      animationType={'none'}
+      transparent={true}>
+      <Block style={[styles.contentModal]}>
+        <Block
+          style={[
+            Platform.OS === 'android'
+              ? styles.wrapDialogRow
+              : styles.wrapDialogColumn,
+          ]}>
+          <ActivityIndicator
+            color={Platform.OS === 'android' ? undefined : '#ffffff'}
+          />
+          <Text
+            style={[
+              Platform.OS === 'android' ? styles.textMsg : styles.textMsgIOS,
+            ]}>
+            {message && message} ...
+          </Text>
+        </Block>
+      </Block>
+    </Modal>
+  );
+}
+export const ProcessDialog = memo(ProcessDialogComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
