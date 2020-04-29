@@ -1,6 +1,6 @@
-import { CODE_DEFAULT, CODE_SUCCESS } from '../../../../config/index';
 import * as Action from './actionType'
-
+import { fromJS } from 'immutable';
+import { BaseRedux } from 'src/app/config/type';
 export interface LoginState {
     loading: boolean;
 
@@ -12,14 +12,14 @@ interface ActionProps {
     type: keyof typeof Action;
     payload: any;
 }
-export const loginReducer = (state = initialState, { type, payload }: ActionProps): LoginState => {
+export const loginReducer = (state: BaseRedux<LoginState> = fromJS(initialState), { type, payload }: ActionProps): BaseRedux<LoginState> => {
     switch (type) {
         case Action.LOGIN_START:
-            return { ...state, loading: true}
+            return state.set('loading', true)
         case Action.LOGIN_SUCCESS:
-            return { ...state, loading: false }
+            return state.set('loading', false)
         case Action.LOGIN_FAILED:
-            return { ...state, loading: false }
+            return state.set('loading', false)
         default:
             return state
     }

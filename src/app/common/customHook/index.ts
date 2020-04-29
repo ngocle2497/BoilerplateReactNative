@@ -1,5 +1,5 @@
-import {useEffect, useRef, useState, useMemo} from 'react';
-
+import { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 function useInterval(callback?: any, delay) {
   const savedCallback = useRef();
   useEffect(() => {
@@ -15,4 +15,8 @@ function useInterval(callback?: any, delay) {
     }
   }, [delay]);
 }
-export {useInterval};
+function createSelector<T, TSelected = unknown>(selector: (state: any) => T, equalityFn?: (left: TSelected, right: TSelected) => boolean): T {
+  const state = useSelector((x: any) => x.toJS());
+  return selector(state);
+};
+export { useInterval, createSelector };
