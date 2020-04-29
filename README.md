@@ -7,7 +7,6 @@
 		`npx react-native init <yourProjectName> --template react-native-template-typescript`
 - Copy all file and folder to your project without `package.json` file
 - Copy `dependencies` from `package.json` to your `package.json` file
-- 
 
 - Install package
 				`npm install`
