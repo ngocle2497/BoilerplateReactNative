@@ -9,13 +9,9 @@
 - Copy `dependencies` from `package.json` to your `package.json` file
 - 
 
-> if you want to update your package
->  Check your package out dated
->  - run `npm outdated`
-> -  run `npm update`
-
 - Install package
-				`npm i`
+				`npm install`
+				`yarn install`(recommended)
  - Run your app
 			   `react-native run-android/ios` or
 			   `npx react-native run-android/ios
