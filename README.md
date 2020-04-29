@@ -9,7 +9,7 @@
 - Copy `dependencies` from `package.json` to your `package.json` file
 
 - Install package
-				`npm install`
+				`npm install` or 
 				`yarn install`(recommended)
  - Run your app
 			   `react-native run-android/ios` or
