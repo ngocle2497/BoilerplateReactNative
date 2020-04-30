@@ -9,19 +9,20 @@ import AsyncStorage from "@react-native-community/async-storage";
 import { APP_THEME } from "../config";
 import { onSetAppTheme } from "../store/app_redux/action";
 import { createSelector } from "../common";
+
 export const AppContainer = () => {
-  const { token } = createSelector<AppState>((x) => x.app);
+  const { token, theme } = createSelector<AppState>((x) => x.app);
   const [loading, setLoading] = React.useState(true);
   const dispatch = useDispatch();
   const onLoadTheme = async () => {
     await AsyncStorage.getItem(APP_THEME)
       .then((val: string | null) => {
-        if (val && MyAppTheme[val]) {
+        if (val as keyof typeof MyAppTheme) {
           dispatch(onSetAppTheme(val));
         }
         setLoading(false);
       })
-      .catch((er) => {
+      .catch(() => {
         setLoading(false);
       });
   };
