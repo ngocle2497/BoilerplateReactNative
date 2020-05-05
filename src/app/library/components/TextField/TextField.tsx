@@ -5,7 +5,7 @@ import { TextFieldProps } from './TextField.props';
 import { equals } from 'ramda';
 
 
-const TextFieldComponent = (props: TextFieldProps) => {
+const TextFieldComponent: React.FunctionComponent<TextFieldProps> = props => {
   const { typeInput } = props
   return typeInput === 'flat' ? <InputFlat {...props} /> : <InputOutline {...props} />
 };

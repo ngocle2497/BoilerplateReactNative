@@ -1,7 +1,7 @@
 import React, { useMemo, memo } from 'react'
 import { StyleSheet } from 'react-native'
 import { HelperTextProps } from './HelperText.prop'
-import { Text } from '..'
+import { Text } from '../Text/Text'
 import { AppTheme } from '../../../config/type'
 import { useTheme } from '@react-navigation/native'
 import { mergeAll, flatten, equals } from 'ramda'

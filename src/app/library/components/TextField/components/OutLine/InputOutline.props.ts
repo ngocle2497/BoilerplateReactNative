@@ -8,36 +8,38 @@ export interface InputOutlineProps {
 
     labelTx?: string;
 
-    onChange?:(value:string)=>void;
+    onChange?: (value: string, keyName?: string) => void;
 
-    defaultValue?:string;
+    keyName?: string;
 
-    activeTintLabelColor?:string;
+    defaultValue?: string;
 
-    activeTintBorderColor?:string;  
-    
-    unActiveTintLabelColor?:string;
-    
-    unActiveTintBorderColor?:string;
+    activeTintLabelColor?: string;
 
-    backgroundLabelColor?:string;
+    activeTintBorderColor?: string;
 
-    disabledBorderColor?:string;
-    
-    disabledLabelColor?:string;
+    unActiveTintLabelColor?: string;
 
-    disabledInputColor?:string;
+    unActiveTintBorderColor?: string;
 
-    errorBorderColor?:string;
+    backgroundLabelColor?: string;
 
-    errorLabelColor?:string;
+    disabledBorderColor?: string;
+
+    disabledLabelColor?: string;
+
+    disabledInputColor?: string;
+
+    errorBorderColor?: string;
+
+    errorLabelColor?: string;
 
     inputStyle?: TextStyle | TextStyle[];
-    
+
     placeholderTx?: string;
 
     placeholder?: string;
 
-    placeholderColor?:string;
+    placeholderColor?: string;
 
 }

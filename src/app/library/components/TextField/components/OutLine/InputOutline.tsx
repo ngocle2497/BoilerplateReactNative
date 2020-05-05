@@ -4,7 +4,7 @@ import Animated, { interpolate } from 'react-native-reanimated'
 import { useTimingTransition } from 'react-native-redash'
 import { InputOutlineProps } from './InputOutline.props';
 import { useTranslation } from 'react-i18next';
-import { mergeAll, flatten } from 'ramda';
+import { mergeAll, flatten, equals } from 'ramda';
 
 
 const VERTICAL_PADDING = 10;
@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5,
         justifyContent: 'center',
         position: 'relative',
+
         alignItems: 'center'
     },
     input: {
@@ -34,6 +35,10 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
         zIndex: 4,
         left: 5,
+    },
+    wrapLabel: {
+        position: 'absolute',
+        left: 0
     }
 })
 
@@ -45,15 +50,23 @@ export const InputOutline = (props: InputOutlineProps) => {
         placeholderColor,
         placeholderTx,
         inputStyle = {},
+        keyName = '',
         errorBorderColor = ERROR_COLOR,
         errorLabelColor = ERROR_COLOR,
-        disabledLabelColor = UN_ACTIVE_COLOR, activeTintBorderColor = ACTIVE_COLOR, activeTintLabelColor = ACTIVE_COLOR,
-        unActiveTintBorderColor = UN_ACTIVE_COLOR, unActiveTintLabelColor = UN_ACTIVE_COLOR, disabledBorderColor = UN_ACTIVE_COLOR, disabled = false, error = undefined, backgroundLabelColor = '#FFFFFF', ...rest } = props;
+        disabledLabelColor = UN_ACTIVE_COLOR,
+        activeTintBorderColor = ACTIVE_COLOR,
+        activeTintLabelColor = ACTIVE_COLOR,
+        unActiveTintBorderColor = UN_ACTIVE_COLOR,
+        unActiveTintLabelColor = UN_ACTIVE_COLOR,
+        disabledBorderColor = UN_ACTIVE_COLOR,
+        disabled = false, error = undefined,
+        backgroundLabelColor = '#FFFFFF', ...rest } = props;
     const [sizeContainer, setSizeContainer] = useState({ height: 0 })
+    const [restored, setRestored] = useState(false)
     const [sizeText, setSizeText] = useState({ height: 0 })
     const [focused, setFocused] = useState(false)
     const [value, setValue] = useState('')
-    const progress = useTimingTransition(focused || value.length > 0)
+    const progress = useTimingTransition(focused || value.length > 0, { duration: 150 })
     const top = interpolate(progress, {
         inputRange: [0, 1],
         outputRange: [sizeContainer.height / 2 - sizeText.height / 2 - VERTICAL_PADDING / 4, 0 - sizeText.height / 4 + 3]
@@ -103,20 +116,26 @@ export const InputOutline = (props: InputOutlineProps) => {
         onChange && onChange(text)
     }
     useEffect(() => {
-        if (typeof defaultValue === 'string') {
+        onChange && onChange(value, keyName)
+    }, [value])
+    useEffect(() => {
+        if (typeof defaultValue === 'string' && !restored) {
             setValue(defaultValue)
+            setRestored(true)
         }
-    }, [props.defaultValue])
+    }, [defaultValue])
     const labelText = labelTx && t(labelTx) || label || undefined;
     const inputSty = mergeAll(flatten([styles.input, inputStyle]))
     const placeHolder = placeholderTx && t(placeholderTx) || placeholder || '';
     return (
         <Animated.View onLayout={_onLayoutContainer} style={[styles.container, { borderColor: borderColor() }]}>
-            <TextInput placeholder={focused === true ? placeHolder : ''} editable={!disabled} placeholderTextColor={placeholderColor??undefined} value={value} onChangeText={_onChangeText} onFocus={_onFocus} onBlur={_onBlur} style={inputSty} {...rest} />
-            {labelText && <Animated.Text onLayout={onLayoutText} style={[styles.text, { color: labelColor(), top, fontSize: fontLabel }]}>{labelText ?? ''}</Animated.Text>}
+            <TextInput placeholder={focused === true ? placeHolder : ''}
+                editable={!disabled} placeholderTextColor={placeholderColor ?? undefined}
+                value={value} onChangeText={_onChangeText} onFocus={_onFocus} onBlur={_onBlur} style={inputSty} {...rest} />
+            {labelText && <Animated.View pointerEvents={'none'} style={[styles.wrapLabel, { top }]}>
+                <Animated.Text onLayout={onLayoutText} style={[styles.text, { color: labelColor(), fontSize: fontLabel }]}>{labelText ?? ''}</Animated.Text>
+            </Animated.View>}
         </Animated.View>
     )
 }
-
-
 

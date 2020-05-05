@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { HeaderProps } from './Header.props';
-import { Button, Icon, Text } from '..';
+import { Button } from '../Button/Button';
+import { Text } from '../Text/Text';
+import { Icon } from '../Icon/Icon';
+import { Block } from '../Block/Block';
 import { mergeAll, flatten, equals } from 'ramda';
 import { AppTheme } from '../../../config/type';
 import { useTheme } from '@react-navigation/native';
 import { useSafeArea } from 'react-native-safe-area-view';
 import { useTranslation } from 'react-i18next';
-import { Block } from '../Block/Block';
 
 const styles = () => {
   const theme: AppTheme = useTheme();

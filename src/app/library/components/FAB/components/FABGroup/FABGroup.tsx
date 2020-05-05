@@ -3,7 +3,9 @@ import { StyleSheet, Text, useWindowDimensions, Animated } from 'react-native'
 import { FABGroupProps, Actions } from './FABGroup.props'
 import { useSafeArea } from 'react-native-safe-area-view'
 import { mergeAll, flatten } from 'ramda'
-import { Button, Icon, Block } from '../../../'
+import { Button } from '../../../Button/Button'
+import { Block } from '../../../Block/Block'
+import { Icon } from '../../../Icon/Icon'
 import { ButtonGroup, SPACE_BETWEEN } from './ButtonGroup'
 export const SIZE_FAB = 60
 const styles = StyleSheet.create({

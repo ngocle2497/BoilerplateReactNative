@@ -9,7 +9,9 @@ export interface InputFlatProps {
 
     labelTx?: string;
 
-    onChange?: (value: string) => void;
+    onChange?: (value: string, keyName?: string) => void;
+
+    keyName?: string;
 
     defaultValue?: string;
 
@@ -39,5 +41,5 @@ export interface InputFlatProps {
 
     placeholder?: string;
 
-    placeholderColor?:string;
+    placeholderColor?: string;
 }

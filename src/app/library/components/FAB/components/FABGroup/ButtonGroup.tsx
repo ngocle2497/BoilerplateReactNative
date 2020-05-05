@@ -1,6 +1,8 @@
 import React from 'react'
 import { StyleSheet, Animated } from 'react-native'
-import { Button, Icon, Text } from '../../../'
+import { Button } from '../../../Button/Button'
+import { Icon } from '../../../Icon/Icon'
+import { Text } from '../../../Text/Text'
 import { IconTypes } from '../../../../../assets/icon'
 
 export const SIZE_BUTTON_GROUP = 40

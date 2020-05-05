@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useMemo, memo } from 'react'
 import { StyleSheet, TextInput } from 'react-native'
 import { OtpProps } from './Otp.props'
-import { Text } from '..'
+import { Text } from '../Text/Text'
+import { Block } from '../Block/Block';
 import { mergeAll, flatten, equals } from 'ramda';
 import { AppTheme } from '../../../config/type';
 import { useTheme } from '@react-navigation/native';
-import { Block } from '../Block/Block';
 
 const WIDTH_OTP = 32;
 const HEIGHT_OTP = 40;

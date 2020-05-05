@@ -1,6 +1,7 @@
 import React, { memo } from 'react'
 import { DropItemProps } from './Dropdown.props'
-import { Button, Text } from '..'
+import { Button } from '../Button/Button'
+import { Text } from '../Text/Text'
 import { mergeAll, flatten, equals } from 'ramda';
 import { stylesItem as styles } from './Dropdown.preset'
 

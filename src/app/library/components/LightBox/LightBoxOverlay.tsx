@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react'
 import { StyleSheet, Modal, Animated, StatusBar, PanResponder, Dimensions, Platform } from 'react-native'
 import { useSafeArea } from 'react-native-safe-area-view'
-import { Button, Text } from '../';
+import { Button } from '../Button/Button';
+import { Text } from '../Text/Text';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;

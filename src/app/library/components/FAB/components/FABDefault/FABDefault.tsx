@@ -1,7 +1,10 @@
-import React, { memo } from 'react'
+import React from 'react'
 import { StyleSheet } from 'react-native'
 import { FABDefaultProps } from './FABDefault.props'
-import { Button, Text, Icon } from '../../../'
+import { Button } from '../../../Button/Button'
+import { Text } from '../../../Text/Text'
+import { Icon } from '../../../Icon/Icon'
+
 import { useSafeArea } from 'react-native-safe-area-view'
 import { mergeAll, flatten } from 'ramda'
 

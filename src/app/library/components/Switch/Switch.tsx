@@ -7,8 +7,6 @@ import { SwitchProps } from './Switch.props';
 import { mergeAll, flatten, equals } from 'ramda';
 import { timing, useValues, interpolateColor } from 'react-native-redash'
 import Animated, { set, Easing, interpolate } from 'react-native-reanimated'
-import { AppTheme } from '../../../config/type';
-import { useTheme } from '@react-navigation/native';
 const { useCode } = Animated;
 // dimensions
 const THUMB_SIZE = 30;

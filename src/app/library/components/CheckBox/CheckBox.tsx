@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
-import { Text } from '..';
+import { Text } from '../Text/Text';
 import { CheckboxProps } from './CheckBox.props';
 import { mergeAll, flatten, equals } from 'ramda';
 import { useTheme } from '@react-navigation/native';

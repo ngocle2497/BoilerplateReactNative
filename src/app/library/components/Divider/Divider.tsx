@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import { StyleSheet } from 'react-native'
 import { DividerProps } from './Divider.props'
-import { Block } from '../'
+import { Block } from '../Block/Block'
 import { equals } from 'ramda'
 const styles = StyleSheet.create({
     wrap: {
