@@ -1,4 +1,4 @@
-import { BaseRedux } from '../../config/type';
+import { BaseRedux } from '@config/type';
 import * as Action from './actionType';
 import { AppState } from './type';
 import { fromJS } from 'immutable'

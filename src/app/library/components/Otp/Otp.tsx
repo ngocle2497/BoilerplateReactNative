@@ -4,7 +4,7 @@ import { OtpProps } from './Otp.props'
 import { Text } from '../Text/Text'
 import { Block } from '../Block/Block';
 import { mergeAll, flatten, equals } from 'ramda';
-import { AppTheme } from '../../../config/type';
+import { AppTheme } from '@config/type';
 import { useTheme } from '@react-navigation/native';
 
 const WIDTH_OTP = 32;

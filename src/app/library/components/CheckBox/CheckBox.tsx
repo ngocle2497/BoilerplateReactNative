@@ -4,7 +4,7 @@ import { Text } from '../Text/Text';
 import { CheckboxProps } from './CheckBox.props';
 import { mergeAll, flatten, equals } from 'ramda';
 import { useTheme } from '@react-navigation/native';
-import { AppTheme } from '../../../config/type';
+import { AppTheme } from '@config/type';
 import { Button } from '../Button/Button';
 import { Block } from '../Block/Block';
 const DIMENSIONS = { width: 16, height: 16 };

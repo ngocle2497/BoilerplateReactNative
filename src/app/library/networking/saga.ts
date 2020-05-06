@@ -1,5 +1,5 @@
-import { TIME_OUT } from './../../config/index';
-import { AppState } from './../../store/app_redux/type';
+import { TIME_OUT } from '@config';
+import { AppState } from '@app_redux/type';
 import { handleResponseAxios, handleErrorAxios } from './helper'
 import Axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { BASE_API } from './api';

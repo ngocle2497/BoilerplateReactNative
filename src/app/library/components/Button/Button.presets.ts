@@ -1,4 +1,4 @@
-import { AppTheme } from '../../../config/type';
+import { AppTheme } from '@config/type';
 import { useTheme } from '@react-navigation/native';
 import { useMemo } from 'react';
 import { StyleSheet } from 'react-native'

@@ -1,4 +1,4 @@
-import { ServiceSaga } from '../../../../library/networking/index';
+import { ServiceSaga } from '@networking';
 import { put, call } from 'redux-saga/effects';
 import { onLoginStart, onLoginFailure, onLoginSuccess } from '../redux/action'
 export function* onLogin({ url, payload, onFailure, onSuccess }: { url: string, payload: any, onSuccess?: () => void, onFailure?: (msg: string) => void }) {

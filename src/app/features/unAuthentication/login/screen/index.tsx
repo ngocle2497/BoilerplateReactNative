@@ -2,9 +2,9 @@ import React from 'react';
 import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { styles } from './style';
-import { Wallpaper, Text, Screen, Button, Header, Block } from '../../../../library/components';
-import { onSetToken, onSetAppTheme } from '../../../../store/app_redux/action';
-import { navigate, APP_SCREEN } from '../../../../navigation';
+import { Wallpaper, Text, Screen, Button, Header, Block } from '@components';
+import { onSetToken, onSetAppTheme } from '@app_redux/action';
+import { navigate, APP_SCREEN } from '@navigation';
 
 
 export const Login = () => {
@@ -15,7 +15,7 @@ export const Login = () => {
       <Wallpaper />
       <Header headerText={'Login'} />
       <Screen
-        draw={true}
+        draw
         forceInset={{ top: 'never' }}>
         <Block block justifyContent={'center'} middle>
           <Button onPress={() => dispatch(onSetToken('s'))}>

@@ -28,7 +28,7 @@ export interface ScreenProps {
 
   showHorizontal?: boolean;
 
-  isScroll?: boolean;
+  scroll?: boolean;
 
   forceInset?: ForceInsetProp;
 

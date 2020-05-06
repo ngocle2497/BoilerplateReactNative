@@ -1,6 +1,6 @@
-import { ERROR_NETWORK_CODE } from '../../config/index';
-import { translate } from '../../library/utils';
-import { ResponseBase } from '../../config/type';
+import { ERROR_NETWORK_CODE } from '@config';
+import { translate } from '@utils';
+import { ResponseBase } from '@config/type';
 
 const handleData = (responseError: ResponseBase<any>) => {
   return responseError;

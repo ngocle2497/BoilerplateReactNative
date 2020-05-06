@@ -135,8 +135,8 @@ function ScreenWithScrolling(props: ScreenProps) {
 }
 
 function ScreenComponent(props: ScreenProps) {
-  const { isScroll = false } = props;
-  if (isScroll) {
+  const { scroll = false } = props;
+  if (scroll) {
     return <ScreenWithScrolling {...props} />;
   } else {
     return <ScreenWithoutScrolling {...props} />;

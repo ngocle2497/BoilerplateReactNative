@@ -2,7 +2,7 @@ import React from 'react'
 import { createDrawerNavigator, DrawerNavigationOptions } from '@react-navigation/drawer';
 import { HomeBottomTabScreen } from './home/TabNavigator';
 import { ProfileStackScreen } from './profile';
-import { APP_SCREEN } from '../../screenTypes'
+import { APP_SCREEN } from '@navigation'
 const MainDrawer = createDrawerNavigator();
 
 const screenOptions: DrawerNavigationOptions = {

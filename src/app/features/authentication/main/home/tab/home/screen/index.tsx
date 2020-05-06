@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { Screen, Block } from '../../../../../../../library/components'
+import { Screen, Block } from '@components'
 
 export const HomeTab = () => {
     return (

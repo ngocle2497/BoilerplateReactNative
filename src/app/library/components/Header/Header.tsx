@@ -6,7 +6,7 @@ import { Text } from '../Text/Text';
 import { Icon } from '../Icon/Icon';
 import { Block } from '../Block/Block';
 import { mergeAll, flatten, equals } from 'ramda';
-import { AppTheme } from '../../../config/type';
+import { AppTheme } from '@config/type';
 import { useTheme } from '@react-navigation/native';
 import { useSafeArea } from 'react-native-safe-area-view';
 import { useTranslation } from 'react-i18next';

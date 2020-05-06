@@ -1,4 +1,4 @@
-import { IconTypes } from './../../../../../assets/icon/index';
+import { IconTypes } from '@assets/icon';
 import { ViewStyle } from 'react-native';
 
 export interface Actions {

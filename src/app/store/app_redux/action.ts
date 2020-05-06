@@ -1,4 +1,4 @@
-import { ThemeType } from './../../themes/index';
+import { ThemeType } from '@theme';
 import { SET_INTERNET_OFF, SET_INTERNET_ON, SET_TOKEN, REMOVE_TOKEN, SET_APP_THEME } from './actionType'
 
 export const onInternetOff = () => {

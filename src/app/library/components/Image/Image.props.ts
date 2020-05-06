@@ -1,5 +1,5 @@
 import { ImageStyle, ViewStyle } from 'react-native';
-import { ImageTypes } from '../../../assets/image';
+import { ImageTypes } from '@assets/image';
 
 export interface ImageProps {
 

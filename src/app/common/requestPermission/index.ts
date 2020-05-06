@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 import { PERMISSIONS, request, check, RESULTS } from 'react-native-permissions';
-import { showWarning } from '../../library/utils';
-import { translate } from '../../library/utils';
+import { showWarning } from '@utils';
+import { translate } from '@utils';
 export async function useCameraPermission() {
   const status = await request(
     Platform.select({

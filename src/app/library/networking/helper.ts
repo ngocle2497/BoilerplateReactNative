@@ -1,10 +1,10 @@
-import { ResponseBase } from './../../config/type';
+import { ResponseBase } from '@config/type';
 import { AxiosError } from "axios";
 import { translate, showError, remove } from '../utils';
-import { navigateToLogin } from '../../navigation';
-import { R } from '../../assets/value';
-import { RESULT_CODE_PUSH_OUT, ERROR_NETWORK_CODE } from '../../config';
-import { HandleErrorApi } from '../../common';
+import { navigateToLogin } from '@navigation';
+import { R } from '@assets/value';
+import { RESULT_CODE_PUSH_OUT, ERROR_NETWORK_CODE } from '@config';
+import { HandleErrorApi } from '@common';
 const responseDefault: ResponseBase<any> = {
     code: -500,
     status: false,

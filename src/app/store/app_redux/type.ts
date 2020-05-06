@@ -1,4 +1,4 @@
-import { ThemeType } from './../../themes/index';
+import { ThemeType } from '@theme';
 export interface AppState {
     internetState: boolean;
     profile: any;

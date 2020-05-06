@@ -3,8 +3,7 @@ import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { styles } from './style';
 import Splash from 'react-native-splash-screen';
-import { Wallpaper, Text, Screen } from '../../../../../library/components';
-import { GlobalStyle } from '../../../../../themes/index';
+import { Wallpaper, Text, Screen } from '@components';
 export const Profile = ({ navigation }) => {
   const dispatch = useDispatch()
   useEffect(() => {
@@ -14,8 +13,7 @@ export const Profile = ({ navigation }) => {
     <View style={{flex:1}}>
       <Wallpaper />
       <Screen
-        draw={true}
-        isScroll={false}
+        draw
         backgroundColor={'#ffffff'}
         forceInset={{ top: 'always' }}
         customInsetBottom={false}>

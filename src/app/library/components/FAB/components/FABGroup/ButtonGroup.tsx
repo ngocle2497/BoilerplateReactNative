@@ -3,7 +3,7 @@ import { StyleSheet, Animated } from 'react-native'
 import { Button } from '../../../Button/Button'
 import { Icon } from '../../../Icon/Icon'
 import { Text } from '../../../Text/Text'
-import { IconTypes } from '../../../../../assets/icon'
+import { IconTypes } from '@assets/icon'
 
 export const SIZE_BUTTON_GROUP = 40
 export const SPACE_BETWEEN = 10

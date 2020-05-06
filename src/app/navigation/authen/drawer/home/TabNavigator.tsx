@@ -1,10 +1,10 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeTab, LikesTab, ProfileTab, SearchTab } from '../../../../features/authentication/main/home/tab';
-import { APP_SCREEN } from '../../../screenTypes'
+import { HomeTab, LikesTab, ProfileTab, SearchTab } from '@features/authentication/main/home/tab';
+import { APP_SCREEN } from '@navigation'
 const HomeBottomTab = createBottomTabNavigator();
 import { useTranslation } from 'react-i18next';
-import TabBarBubble, { TabsConfigsType } from '../../../../library/navigationAnimated/BottomNavigation';
+import TabBarBubble, { TabsConfigsType } from '@library/navigationAnimated/BottomNavigation';
 import IconTab from './IconTab';
 
 const tabs: TabsConfigsType = {

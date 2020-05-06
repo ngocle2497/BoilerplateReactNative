@@ -1,9 +1,7 @@
 import React from 'react'
-import { StyleSheet, Text, View, ImageStyle } from 'react-native'
-import { IconTypes } from '../../../../assets/icon'
-import { icons } from '../../../../assets/icon/'
+import { IconTypes } from '@assets/icon'
+import { icons } from '@assets/icon/'
 import Animated from 'react-native-reanimated'
-import { Icon } from '../../../../library/components'
 
 interface IconTabProps {
     icon: IconTypes;
