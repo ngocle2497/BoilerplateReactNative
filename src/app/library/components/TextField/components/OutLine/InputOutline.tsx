@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         width: '100%',
-        marginVertical: 5
+        marginVertical: 5,
+        padding:0
     },
     text: {
         position: 'absolute',
@@ -129,9 +130,12 @@ export const InputOutline = (props: InputOutlineProps) => {
     const placeHolder = placeholderTx && t(placeholderTx) || placeholder || '';
     return (
         <Animated.View onLayout={_onLayoutContainer} style={[styles.container, { borderColor: borderColor() }]}>
-            <TextInput placeholder={focused === true ? placeHolder : ''}
+            <TextInput 
+                        defaultValue={defaultValue??''}
+                        autoCorrect={false} 
+            placeholder={focused === true ? placeHolder : ''}
                 editable={!disabled} placeholderTextColor={placeholderColor ?? undefined}
-                value={value} onChangeText={_onChangeText} onFocus={_onFocus} onBlur={_onBlur} style={inputSty} {...rest} />
+            onChangeText={_onChangeText} onFocus={_onFocus} onBlur={_onBlur} style={inputSty} {...rest} />
             {labelText && <Animated.View pointerEvents={'none'} style={[styles.wrapLabel, { top }]}>
                 <Animated.Text onLayout={onLayoutText} style={[styles.text, { color: labelColor(), fontSize: fontLabel }]}>{labelText ?? ''}</Animated.Text>
             </Animated.View>}

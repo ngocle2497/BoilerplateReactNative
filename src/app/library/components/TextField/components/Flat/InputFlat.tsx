@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         width: '100%',
-        marginVertical: 5
+        padding:0,
+        marginTop:10
     },
     text: {
         position: 'absolute',
@@ -51,14 +52,14 @@ export const InputFlat = (props: InputFlatProps) => {
         unActiveTintBorderColor = UN_ACTIVE_COLOR, unActiveTintLabelColor = UN_ACTIVE_COLOR,
         disabledBorderColor = UN_ACTIVE_COLOR, disabled = false, error = undefined, ...rest } = props;
     const [sizeContainer, setSizeContainer] = useState({ height: 0 })
-    const [restored, setRestored] = useState(false)
     const [sizeText, setSizeText] = useState({ height: 0 })
     const [focused, setFocused] = useState(false)
+    const [restored, setRestored] = useState(false)
     const [value, setValue] = useState('')
     const progress = useTimingTransition(focused || value.length > 0, { duration: 150 })
     const top = interpolate(progress, {
         inputRange: [0, 1],
-        outputRange: [sizeContainer.height / 2 - sizeText.height / 2 - VERTICAL_PADDING / 4, -5]
+        outputRange: [sizeContainer.height / 2 - sizeText.height / 2 - VERTICAL_PADDING / 4,  0]
     })
     const fontLabel = interpolate(progress, {
         inputRange: [0, 1],
@@ -102,7 +103,6 @@ export const InputFlat = (props: InputFlatProps) => {
     }
     const _onChangeText = (text: string) => {
         setValue(text)
-
     }
     useEffect(() => {
         onChange && onChange(value, keyName)
@@ -118,7 +118,12 @@ export const InputFlat = (props: InputFlatProps) => {
     const inputSty = mergeAll(flatten([styles.input, inputStyle]))
     return (
         <Animated.View onLayout={_onLayoutContainer} style={[styles.container, { borderColor: borderColor() }]}>
-            <TextInput placeholder={focused === true ? placeHolder : ''} placeholderTextColor={placeholderColor ?? undefined} underlineColorAndroid={'transparent'} editable={!disabled} value={value} onChangeText={_onChangeText} onFocus={_onFocus} onBlur={_onBlur} style={inputSty} {...rest} />
+            <TextInput 
+            defaultValue={defaultValue??''}
+            autoCorrect={false} 
+            placeholder={focused === true ? placeHolder : ''} 
+            placeholderTextColor={placeholderColor ?? undefined} underlineColorAndroid={'transparent'} 
+            editable={!disabled}  onChangeText={_onChangeText} onFocus={_onFocus} onBlur={_onBlur} style={inputSty} {...rest} />
             {labelText && <Animated.View pointerEvents={'none'} style={[styles.wrapLabel, { top }]}>
                 <Animated.Text onLayout={onLayoutText} style={[styles.text, { color: labelColor(), fontSize: fontLabel }]}>{labelText ?? ''}</Animated.Text>
             </Animated.View>}
