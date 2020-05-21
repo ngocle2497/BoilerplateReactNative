@@ -2,7 +2,6 @@ import React, { memo } from 'react'
 import { FlatList, RefreshControl } from 'react-native'
 import { equals } from 'ramda'
 import { ListViewProps } from './ListView.props'
-
 const ListViewComponent = (props: ListViewProps) => {
     const { onLoadMore, onRefreshing, canLoadMore = false, refreshing = false } = props;
     const loadMore = () => {
@@ -25,6 +24,6 @@ const ListViewComponent = (props: ListViewProps) => {
     )
 }
 
-export default memo(ListViewComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
+export const ListView = memo(ListViewComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
 
 

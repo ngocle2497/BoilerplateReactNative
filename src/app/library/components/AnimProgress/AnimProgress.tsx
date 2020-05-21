@@ -32,10 +32,10 @@ const AnimProcessComponent = forwardRef((props: AnimProcessProps, ref) => {
   const [visible, setVisible] = useState(false)
   const inset = useSafeArea()
   useImperativeHandle(ref, () => ({
-    visible: () => {
+    show: () => {
       setVisible(true)
     },
-    hidden: () => {
+    hide: () => {
       setVisible(false)
     }
   }))

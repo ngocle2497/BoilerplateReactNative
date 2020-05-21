@@ -1,17 +1,20 @@
-import React, { memo } from 'react';
+import React, { memo, useState, forwardRef, useImperativeHandle } from 'react';
 import {
-  Text,
   StyleSheet,
-  Modal,
   ActivityIndicator,
   Platform,
   Dimensions,
 } from 'react-native';
-import { ProcessProps } from './Progress.props';
 import { Block } from '../Block/Block';
+import { Text } from '../Text/Text';
+import Modal from 'react-native-modal';
 import { equals } from 'ramda';
 const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
+  modal: {
+    marginHorizontal: 0,
+    marginVertical: 0
+  },
   contentModal: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,.7)',
@@ -56,14 +59,28 @@ const styles = StyleSheet.create({
   },
 });
 
-const ProcessDialogComponent = (props: ProcessProps) => {
-  const { visible = false, message = '' } = props;
+const ProgressDialogComponent = forwardRef((props, ref) => {
+  useImperativeHandle(ref, () => ({
+    show: (msg: string) => {
+      setMessage(msg);
+      setVisible(true);
+    },
+    hide: () => {
+      setVisible(true);
+    }
+  }));
+  const [visible, setVisible] = useState(false)
+  const [message, setMessage] = useState('')
+  const _onModalHide = () => {
+    setMessage('')
+  }
   return (
     <Modal
-      visible={visible}
-      animated={true}
-      animationType={'none'}
-      transparent={true}>
+      isVisible={visible}
+      backdropOpacity={0}
+      onModalHide={_onModalHide}
+      animationIn={'fadeIn'}
+      animationOut={'fadeOut'}>
       <Block style={[styles.contentModal]}>
         <Block
           style={[
@@ -74,15 +91,15 @@ const ProcessDialogComponent = (props: ProcessProps) => {
           <ActivityIndicator
             color={Platform.OS === 'android' ? undefined : '#ffffff'}
           />
-          <Text
+          {message && <Text
             style={[
               Platform.OS === 'android' ? styles.textMsg : styles.textMsgIOS,
             ]}>
-            {message && message} ...
-          </Text>
+            {message}
+          </Text>}
         </Block>
       </Block>
     </Modal>
   );
-}
-export const ProcessDialog = memo(ProcessDialogComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
+})
+export const ProgressDialog = memo(ProgressDialogComponent, (prevProps, nextProps) => equals(prevProps, nextProps))

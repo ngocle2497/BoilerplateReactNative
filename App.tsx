@@ -5,10 +5,10 @@ import DropdownAlert from 'react-native-dropdownalert'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { store } from './src/app/store';
-import { AnimProcess } from './src/app/library/components';
-import { animProgressHolder, dropDown } from './src/app/library/utils'
-import I18n from './src/app/library/utils/i18n/i18n'
-import { AppContainer } from './src/app/navigation';
+import { AnimProcess,ProgressDialog } from '@components';
+import { animProgressHolder, dropDown,dialogHolder } from '@utils'
+import I18n from '@utils/i18n/i18n'
+import { AppContainer } from '@navigation';
 
 console.disableYellowBox = true
 export const MyApp = (props: any) => {
@@ -19,6 +19,7 @@ export const MyApp = (props: any) => {
           <AppContainer />
           <DropdownAlert titleNumOfLines={1} closeInterval={2000} ref={dropDown} />
           <AnimProcess ref={animProgressHolder} underStatusbar={true} />
+          <ProgressDialog ref={dialogHolder}/>
         </Suspense>
       </Provider>
     </SafeAreaProvider>
