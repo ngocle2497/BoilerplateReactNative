@@ -6,3 +6,4 @@ export * from './method';
 // export * from './requestPermission';
 export * from './useConsole';
 export * from './string';
+export * from './scale';
