@@ -3,7 +3,7 @@ import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { RadioButtonProps } from './RadioButton.props'
 import { useTimingTransition, interpolateColor } from 'react-native-redash'
 import Animated, { interpolate } from 'react-native-reanimated'
-import { equals } from 'ramda'
+import equals from 'react-fast-compare'
 
 const SIZE = 30
 const ACTIVE_COLOR = '#ff00a9'

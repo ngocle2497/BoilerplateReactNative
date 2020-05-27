@@ -2,7 +2,7 @@ import * as React from 'react';
 import { InputFlat } from './components/Flat/InputFlat'
 import { InputOutline } from './components/OutLine/InputOutline'
 import { TextFieldProps } from './TextField.props';
-import { equals } from 'ramda';
+import equals from 'react-fast-compare';
 
 
 const TextFieldComponent: React.FunctionComponent<TextFieldProps> = props => {

@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import { StyleSheet, LayoutChangeEvent } from 'react-native'
 import { ProgressLinearProps } from './ProgressLinear.props'
 import { useValues, timing, clamp, transformOrigin } from 'react-native-redash';
 import Animated, { useCode, set, interpolate } from 'react-native-reanimated';
-
-
+import equals from 'react-fast-compare'
 
 const styles = StyleSheet.create({
     bg: {
@@ -21,7 +20,7 @@ const styles = StyleSheet.create({
     }
 })
 
-export const ProgressLinear = (props: ProgressLinearProps) => {
+export const ProgressLinearComponent = (props: ProgressLinearProps) => {
     const { progress } = props;
     const [progressAnimated] = useValues([progress], [])
     const [widthProgress, setWidthProgress] = useState(0)
@@ -43,4 +42,4 @@ export const ProgressLinear = (props: ProgressLinearProps) => {
     )
 }
 
-
+export const ProgressLinear = memo(ProgressLinearComponent, (prevProps, nextProps) => equals(prevProps, nextProps))

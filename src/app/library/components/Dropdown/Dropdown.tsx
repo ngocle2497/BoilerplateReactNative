@@ -7,7 +7,7 @@ import Modal from 'react-native-modal'
 import { styles } from './Dropdown.preset'
 import { useSafeArea } from 'react-native-safe-area-view'
 import { useTranslation } from 'react-i18next'
-import { equals } from 'ramda'
+import equals from 'react-fast-compare'
 
 
 const DropdownComponent = (props: DropdownProps) => {

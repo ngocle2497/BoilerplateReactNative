@@ -7,8 +7,6 @@ export interface ImageRemoteProps {
 
   containerStyle?: ViewStyle | ViewStyle[];
 
-  dependency?: any[];
-
   imgSource: string;
 
   resizeMode?: keyof typeof FastImage.resizeMode;

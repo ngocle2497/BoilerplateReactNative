@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import { StyleSheet } from 'react-native'
 import { DividerProps } from './Divider.props'
 import { Block } from '../Block/Block'
-import { equals } from 'ramda'
+import equals from 'react-fast-compare';
 const styles = StyleSheet.create({
     wrap: {
         width: '100%'
@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
 })
 
 const DividerComponent = (props: DividerProps) => {
-    const { height = 2, bg = '#dfe3ee' } = props;
+    const { height = StyleSheet.hairlineWidth, bg = '#dfe3ee' } = props;
     return (
         <Block height={height} color={bg} style={styles.wrap} />
     )

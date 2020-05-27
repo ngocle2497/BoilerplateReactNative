@@ -1,8 +1,8 @@
-import React, { memo } from 'react'
-import { StyleSheet, View } from 'react-native'
+import React, { memo, useMemo } from 'react'
+import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native'
 import { BlockProps } from './Block.props'
-import { mergeAll, flatten, equals } from 'ramda'
-
+import equals from 'react-fast-compare'
+import { enhance } from '@common'
 const styles = StyleSheet.create({
     block: {
         flex: 1,
@@ -14,7 +14,7 @@ const BlockComponent = (props: BlockProps) => {
         paddingVertical, width, height, border, borderWidth, borderColor,
         color, justifyContent, middle, borderRadius, shadow, style = {}, children, ...rest } = props;
 
-    const styleComponent = [
+    const styleComponent = useMemo(() => [
         block && styles.block,
         margin && { margin },
         marginLeft && { marginLeft },
@@ -45,8 +45,8 @@ const BlockComponent = (props: BlockProps) => {
 
             elevation: 5,
         },
-        mergeAll(flatten([style]))
-    ]
+        enhance([style])
+    ] as StyleProp<ViewStyle>, [props])
     return (
         <View style={styleComponent} {...rest}>
             {children}

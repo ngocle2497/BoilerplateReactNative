@@ -1,20 +1,17 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { Image } from 'react-native';
 import { presets } from './Wallpaper.presets';
 import { WallpaperProps } from './Wallpaper.props';
-import { equals } from 'ramda';
+import equals from 'react-fast-compare';
+import { enhance } from '@common';
 
 const defaultImage = require('./bg.png');
 
-const WallpaperComponent = (props: WallpaperProps) => {
-  // grab the props
-  const { preset = 'stretch', style: styleOverride, backgroundImage } = props;
+const WallpaperComponent = ({ preset = 'stretch', style: styleOverride, backgroundImage }: WallpaperProps) => {
 
-  // assemble the style
   const presetToUse = presets[preset] || presets.stretch;
-  const style = { ...presetToUse, ...styleOverride };
+  const style = useMemo(() => enhance([presetToUse, styleOverride]), [styleOverride]);
 
-  // figure out which image to use
   const source = backgroundImage || defaultImage;
   return (
     <Image source={source} style={style} />

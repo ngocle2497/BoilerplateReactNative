@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { styles } from './FormRow.presets';
 import { FormRowProps } from './FormRow.props';
-import { mergeAll, flatten, equals } from 'ramda';
+import { enhance } from '@common'
+import equals from 'react-fast-compare'
 import { Block } from '../Block/Block';
 
 const FormRowComponent = (props: FormRowProps) => {
-  const viewStyle = mergeAll(flatten([styles()[props.preset = 'soloRound'], props.style ?? {}]));
+  const viewStyle = React.useMemo(() => enhance([styles()[props.preset = 'soloRound'], props.style ?? {}]), [props.style, props.preset]);
   return (
     <Block style={viewStyle}>{props.children}</Block>
   )

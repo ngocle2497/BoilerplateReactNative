@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useMemo } from 'react'
 import { StyleSheet, TextInput, LayoutChangeEvent } from 'react-native'
 import Animated, { interpolate } from 'react-native-reanimated'
 import { useTimingTransition } from 'react-native-redash'
 import { InputOutlineProps } from './InputOutline.props';
 import { useTranslation } from 'react-i18next';
-import { mergeAll, flatten, equals } from 'ramda';
+import { enhance } from '@common'
 
 
 const VERTICAL_PADDING = 10;
@@ -126,7 +126,7 @@ export const InputOutline = (props: InputOutlineProps) => {
         }
     }, [defaultValue])
     const labelText = labelTx && t(labelTx) || label || undefined;
-    const inputSty = mergeAll(flatten([styles.input, inputStyle]))
+    const inputSty = useMemo(() => enhance([styles.input, inputStyle]), [inputStyle])
     const placeHolder = placeholderTx && t(placeholderTx) || placeholder || '';
     return (
         <Animated.View onLayout={_onLayoutContainer} style={[styles.container, { borderColor: borderColor() }]}>

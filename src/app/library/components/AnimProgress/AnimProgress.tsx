@@ -4,7 +4,7 @@ import Animated, { useCode, set, interpolate } from 'react-native-reanimated'
 import { useValues, loop, } from 'react-native-redash'
 import { useSafeArea } from 'react-native-safe-area-view';
 import { Block } from '../Block/Block';
-import { equals } from 'ramda';
+import equals from 'react-fast-compare'
 const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   position: {

@@ -12,4 +12,9 @@ export interface ListViewProps extends FlatListProps<any> {
      * @default false
      */
     refreshing?: boolean;
+
+        /**
+     * @default true
+     */
+    canRefresh?: boolean;
 }

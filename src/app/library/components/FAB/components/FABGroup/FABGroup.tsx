@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useMemo } from 'react'
 import { StyleSheet, Text, useWindowDimensions, Animated } from 'react-native'
 import { FABGroupProps, Actions } from './FABGroup.props'
 import { useSafeArea } from 'react-native-safe-area-view'
-import { mergeAll, flatten } from 'ramda'
+import { enhance } from '@common'
 import { Button } from '../../../Button/Button'
 import { Block } from '../../../Block/Block'
 import { Icon } from '../../../Icon/Icon'
@@ -57,7 +57,7 @@ export const FABGroup = (props: FABGroupProps) => {
     const [isShow, setIsShow] = useState(false)
     const progress = useRef(new Animated.Value(0)).current
     const inset = useSafeArea()
-    const styleBase = mergeAll(flatten([styles.wrap, { right: inset.right + 15, height: SIZE_FAB, bottom: inset.bottom + 5 }, style ?? {}]))
+    const styleBase = useMemo(() => enhance([styles.wrap, { right: inset.right + 15, height: SIZE_FAB, bottom: inset.bottom + 5 }, style ?? {}]), [inset, style])
     const _show = () => {
         setIsShow(true)
     }

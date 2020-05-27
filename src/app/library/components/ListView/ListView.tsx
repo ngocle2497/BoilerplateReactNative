@@ -1,9 +1,10 @@
 import React, { memo } from 'react'
 import { FlatList, RefreshControl } from 'react-native'
-import { equals } from 'ramda'
+import equals from 'react-fast-compare'
 import { ListViewProps } from './ListView.props'
+
 const ListViewComponent = (props: ListViewProps) => {
-    const { onLoadMore, onRefreshing, canLoadMore = false, refreshing = false } = props;
+    const { onLoadMore, onRefreshing, canRefresh = true, canLoadMore = false, refreshing = false } = props;
     const loadMore = () => {
         if (canLoadMore && onLoadMore && typeof onLoadMore === 'function') {
             onLoadMore()
@@ -16,7 +17,7 @@ const ListViewComponent = (props: ListViewProps) => {
     }
     return (
         <FlatList
-            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} />}
+            refreshControl={canRefresh && (<RefreshControl refreshing={refreshing} onRefresh={refresh} />)}
             onEndReached={loadMore}
             onEndReachedThreshold={0.001}
             {...props}

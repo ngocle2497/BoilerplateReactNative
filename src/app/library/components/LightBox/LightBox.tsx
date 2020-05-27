@@ -1,9 +1,9 @@
 import React, { useState, useRef, cloneElement, Children, memo } from 'react'
-import { Animated, View, LayoutChangeEvent } from 'react-native'
+import { Animated, View } from 'react-native'
 import { LightBoxProps } from './LightBox.props'
 import { LightBoxOverlay } from './LightBoxOverlay'
 import { Button } from '../Button/Button'
-import { equals } from 'ramda'
+import equals from 'react-fast-compare'
 
 
 const LightBoxComponent = (props: LightBoxProps) => {

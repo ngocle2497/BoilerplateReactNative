@@ -4,7 +4,8 @@ import { HelperTextProps } from './HelperText.prop'
 import { Text } from '../Text/Text'
 import { AppTheme } from '@config/type'
 import { useTheme } from '@react-navigation/native'
-import { mergeAll, flatten, equals } from 'ramda'
+import { enhance } from '@common'
+import equals from 'react-fast-compare'
 import { Block } from '../Block/Block'
 const styles = () => {
     const theme: AppTheme = useTheme()
@@ -30,7 +31,7 @@ const styles = () => {
 const HelperTextComponent = (props: HelperTextProps) => {
     const { visible, msg, type } = props;
     const containerStyle = styles().container;
-    const textStyle = mergeAll(flatten([styles().text, type === 'error' ? styles().textError : styles().textInfo]));
+    const textStyle = useMemo(() => enhance([styles().text, type === 'error' ? styles().textError : styles().textInfo]), []);
     return (
         <Block style={[containerStyle]}>
             <Text numberOfLines={1} style={[textStyle]}>{visible ? (msg ?? '') : ''}</Text>

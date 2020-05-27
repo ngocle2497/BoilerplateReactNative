@@ -2,7 +2,7 @@
     "scripts": {
         "android": "npx react-native run-android",
         "ios": "npx react-native run-ios",
-        "start": "npx react-native start",
+        "start": "npx react-native start --reset-cache",
         "format": "npm-run-all format:*",
         "format:js": "prettier --write {.,**}/*.js",
         "format:json": "prettier --write {.,**}/*.json",
@@ -14,7 +14,6 @@
         "aab": "cd android && ./gradlew bundleRelease && cd ..",
         "lint": "eslint index.js app --fix --ext .js,.ts,.tsx",
         "pod": "cd ios && pod install && cd ..",
-        "adb": "adb reverse tcp:9090 tcp:9090 && adb reverse tcp:3000 tcp:3000 && adb reverse tcp:9001 tcp:9001 && adb reverse tcp:8081 tcp:8081"
     },
     "dependencies": {
         "@react-native-community/async-storage": "^1.9.0",
@@ -28,7 +27,7 @@
         "axios": "^0.19.2",
         "i18next": "^19.4.4",
         "moment": "^2.24.0",
-        "ramda": "^0.27.0",
+        "react-fast-compare": "^3.1.1",
         "immutable": "^4.0.0-rc.12",
         "react-i18next": "^11.4.0",
         "react-native-modal": "^11.5.6",
@@ -55,7 +54,6 @@
         "@babel/runtime": "^7.9.2",
         "@react-native-community/eslint-config": "^1.1.0",
         "@types/jest": "^25.2.1",
-        "@types/ramda": "^0.27.4",
         "@types/react-native": "^0.62.4",
         "@types/redux-immutable":"4.0.1",
         "@types/react-redux": "^7.1.7",

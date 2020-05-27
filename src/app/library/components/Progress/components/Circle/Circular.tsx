@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { StyleSheet } from "react-native";
 import Animated, {
     Extrapolate,
@@ -13,6 +13,8 @@ import { transformOrigin, useValues, clamp, timing } from "react-native-redash";
 import { HalfCircle } from "./HalfCircle";
 import { Block } from "../../../Block/Block";
 const { PI } = Math;
+import equals from 'react-fast-compare'
+
 interface CircularProps {
     progress: number;
 
@@ -33,7 +35,7 @@ const styles = StyleSheet.create({
 })
 
 
-export const Circular = ({ progress, bg, fg, radius }: CircularProps) => {
+export const CircularComponent = ({ progress, bg, fg, radius }: CircularProps) => {
     const [progressAnimated] = useValues([progress], [])
     const actualProgress = clamp(progressAnimated, 0, 100)
     const thetaProgress = interpolate(actualProgress, {
@@ -79,3 +81,4 @@ export const Circular = ({ progress, bg, fg, radius }: CircularProps) => {
         </>
     );
 };
+export const Circular = memo(CircularComponent, (prevProps, nextProps) => equals(prevProps, nextProps))

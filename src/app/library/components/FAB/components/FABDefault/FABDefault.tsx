@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { StyleSheet } from 'react-native'
 import { FABDefaultProps } from './FABDefault.props'
 import { Button } from '../../../Button/Button'
@@ -6,7 +6,7 @@ import { Text } from '../../../Text/Text'
 import { Icon } from '../../../Icon/Icon'
 
 import { useSafeArea } from 'react-native-safe-area-view'
-import { mergeAll, flatten } from 'ramda'
+import { enhance } from '@common'
 
 const SIZE_FAB = 60
 const styles = StyleSheet.create({
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
 export const FABDefault = (props: FABDefaultProps) => {
     const { onPress, style = {}, icon, label } = props;
     const inset = useSafeArea()
-    const styleBase = mergeAll(flatten([styles.wrap, { right: inset.right + 15, bottom: inset.bottom + 5 }, style]))
+    const styleBase = useMemo(() => enhance([styles.wrap, { right: inset.right + 15, bottom: inset.bottom + 5 }, style]), [inset, style])
     return (
         <Button onPress={onPress} activeOpacity={0.6} preset={'link'} style={[styleBase]}>
             <Icon icon={icon} />{React.isValidElement(label) ? label : label && <Text style={[styles.label]} text={label} />}

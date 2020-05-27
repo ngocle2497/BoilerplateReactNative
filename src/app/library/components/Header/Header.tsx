@@ -5,7 +5,8 @@ import { Button } from '../Button/Button';
 import { Text } from '../Text/Text';
 import { Icon } from '../Icon/Icon';
 import { Block } from '../Block/Block';
-import { mergeAll, flatten, equals } from 'ramda';
+import { enhance } from '@common'
+import equals from 'react-fast-compare'
 import { AppTheme } from '@config/type';
 import { useTheme } from '@react-navigation/native';
 import { useSafeArea } from 'react-native-safe-area-view';
@@ -63,18 +64,19 @@ const HeaderComponent: React.FunctionComponent<HeaderProps> = props => {
   const [t] = useTranslation()
   const header = headerText || (headerTx && t(headerTx)) || '';
 
-  const wrapStyle = mergeAll(flatten([styles().ROOT, style]));
-  const title = mergeAll(flatten([styles().TITLE, titleStyle]));
-  const LEFT = mergeAll(flatten([styles().WRAP_ICON, styleLeft]));
-  const RIGHT = mergeAll(flatten([styles().WRAP_ICON, styleRight]));
-  const viewLeft = styles().LEFT;
-  const viewMiddle = styles().TITLE_MIDDLE;
-  const viewRight = styles().RIGHT;
+  const wrapStyle = React.useMemo(() => enhance([styles().ROOT, style]), [style]);
+  const title = React.useMemo(() => enhance([styles().TITLE, titleStyle]), [titleStyle]);
+  const LEFT = React.useMemo(() => enhance([styles().WRAP_ICON, styleLeft]), [styleLeft]);
+  const RIGHT = React.useMemo(() => enhance([styles().WRAP_ICON, styleRight]), [styleRight]);
+  const viewLeft = React.useMemo(() => styles().LEFT, []);
+  const viewMiddle = React.useMemo(() => styles().TITLE_MIDDLE, []);
+  const viewRight = React.useMemo(() => styles().RIGHT, []);
+  
   return (
     <Block style={wrapStyle}>
       {leftIcon ? (
         <Button style={LEFT} preset="link" onPress={onLeftPress}>
-          <Icon dependency={[]} icon={leftIcon} />
+          <Icon icon={leftIcon} />
         </Button>
       ) : childrenLeft ? { childrenLeft } : (
         <Block style={viewLeft} />

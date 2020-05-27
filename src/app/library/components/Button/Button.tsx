@@ -3,7 +3,8 @@ import { TouchableOpacity } from 'react-native';
 import { Text } from '../Text/Text';
 import { stylesView, stylesText } from './Button.presets';
 import { ButtonProps } from './Button.props';
-import { mergeAll, flatten, equals } from 'ramda';
+import { enhance } from '@common'
+import equals from 'react-fast-compare';
 
 const ButtonComponent = (props: ButtonProps) => {
   const {
@@ -16,12 +17,8 @@ const ButtonComponent = (props: ButtonProps) => {
     ...rest
   } = props;
 
-  const viewStyle = mergeAll(
-    flatten([stylesView()[preset] || stylesView().primary, styleOverride]),
-  );
-  const textStyle = mergeAll(
-    flatten([stylesText()[preset] || stylesText().primary, textStyleOverride]),
-  );
+  const viewStyle = React.useMemo(() => enhance([stylesView()[preset] || stylesView().primary, styleOverride]), [styleOverride]);
+  const textStyle = React.useMemo(() => enhance([stylesText()[preset] || stylesText().primary, textStyleOverride]), [styleOverride]);
 
   const content = children || <Text tx={tx} text={text} style={textStyle} />;
 

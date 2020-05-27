@@ -2,7 +2,8 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { Text } from '../Text/Text';
 import { CheckboxProps } from './CheckBox.props';
-import { mergeAll, flatten, equals } from 'ramda';
+import { enhance } from '@common'
+import equals from 'react-fast-compare';
 import { useTheme } from '@react-navigation/native';
 import { AppTheme } from '@config/type';
 import { Button } from '../Button/Button';
@@ -39,13 +40,13 @@ const styles = () => {
 const CheckBoxComponent = (props: CheckboxProps) => {
   const numberOfLines = props.multiline ? 0 : 1;
 
-  const rootStyle = mergeAll(flatten([styles().ROOT, props.style ?? {}]));
-  const outlineStyle = mergeAll(flatten([styles().OUTLINE, props.outlineStyle ?? {}]));
-  const fillStyle = mergeAll(flatten([styles().FILL, props.fillStyle ?? {}]));
-  const labelStyle = styles().LABEL
-  const onPress = props.onToggle
-    ? () => props.onToggle && props.onToggle(!props.value)
-    : undefined;
+  const rootStyle = React.useMemo(() => enhance([styles().ROOT, props.style ?? {}]), [props.style]);
+  const outlineStyle = React.useMemo(() => enhance([styles().OUTLINE, props.outlineStyle ?? {}]), [props.outlineStyle]);
+  const fillStyle = React.useMemo(() => enhance([styles().FILL, props.fillStyle ?? {}]), [props.fillStyle]);
+  const labelStyle = React.useMemo(() => styles().LABEL, [])
+  const onPress = React.useCallback(() => {
+    props.onToggle && props.onToggle(!props.value)
+  }, [props.onToggle])
   return (
     <Button
       activeOpacity={1}

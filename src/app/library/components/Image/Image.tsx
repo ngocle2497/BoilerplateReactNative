@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Image, ImageStyle } from 'react-native';
 import { ImageProps } from './Image.props';
 import { images } from '@assets/image';
-import { mergeAll, flatten, equals } from 'ramda';
+import { enhance } from '@common'
+import equals from 'react-fast-compare'
 import { Block } from '../Block/Block';
 const ROOT: ImageStyle = {
   resizeMode: 'contain',
@@ -10,7 +11,7 @@ const ROOT: ImageStyle = {
 
 const ImgComponent = (props: ImageProps) => {
   const { style: styleOverride = {}, source, containerStyle } = props;
-  const style: ImageStyle = mergeAll(flatten([ROOT, styleOverride]));
+  const style: ImageStyle = React.useMemo(() => enhance([ROOT, styleOverride]), [styleOverride]);
 
   return (
     <Block style={containerStyle}>

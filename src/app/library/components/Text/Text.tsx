@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Text as ReactNativeText } from 'react-native';
 import { styles } from './Text.presets';
 import { TextProps } from './Text.props';
-import { mergeAll, flatten, equals } from 'ramda';
+import { enhance } from '@common'
+import equals from 'react-fast-compare'
 import { useTranslation } from 'react-i18next';
 
 const TextComponent = (props: TextProps) => {
@@ -19,9 +20,7 @@ const TextComponent = (props: TextProps) => {
   const i18nText = tx && t(tx, txOptions);
   const content = i18nText || text || children;
 
-  const style = mergeAll(
-    flatten([styles()[preset] || styles().default, styleOverride]),
-  );
+  const style = React.useMemo(() => enhance([styles()[preset] || styles().default, styleOverride]), [styleOverride]);
   return (
     <ReactNativeText allowFontScaling={false} {...rest} style={style}>
       {content}

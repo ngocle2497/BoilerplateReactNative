@@ -1,7 +1,7 @@
 import React, { memo, useMemo, useCallback } from 'react'
 import { TouchableWithoutFeedback, Animated } from 'react-native';
 import { TouchableScaleProps } from './Touch.props';
-import { equals } from 'ramda';
+import equals from 'react-fast-compare';
 
 const TouchableScaleComponent = (props: TouchableScaleProps) => {
     const { children, minScale = 0.9, onPress, onLongPress, onPressIn, onPressOut } = props;

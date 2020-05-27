@@ -10,7 +10,8 @@ import {
 } from './constant';
 import { useSafeArea } from 'react-native-safe-area-view';
 import { styles } from './style'
-import { equals } from 'ramda';
+import equals from 'react-fast-compare';
+
 import BubbleTabBarItem from './item/BubbleTabBarItem'
 const BubbleTabBarComponent = (props: TabBarViewProps) => {
     const {
@@ -27,27 +28,27 @@ const BubbleTabBarComponent = (props: TabBarViewProps) => {
 
     const containerStyle = useMemo<StyleProp<ViewStyle>>(() => [
         styles.container,
-        containerStyleOverride, 
+        containerStyleOverride,
         {
-            flexDirection:'row',
+            flexDirection: 'row',
             paddingBottom: inset.bottom
         }
     ], [inset, containerStyleOverride])
     return (
         <View style={containerStyle}>
-            {routes.map(({ key, title,background, ...configs },index) => {
+            {routes.map(({ key, title, background, ...configs }, index) => {
                 return <BubbleTabBarItem
-                 key={key}
-                 index={index}
-                 selectedIndex={selectedIndex}
-                 label={title}
-                 duration={duration}
-                 easing={easing}
-                 background={background}
-                 itemInnerSpace={itemInnerSpace}
-                 itemOuterSpace={itemOuterSpace}
-                 iconSize={iconSize}
-                 {...configs} />
+                    key={key}
+                    index={index}
+                    selectedIndex={selectedIndex}
+                    label={title}
+                    duration={duration}
+                    easing={easing}
+                    background={background}
+                    itemInnerSpace={itemInnerSpace}
+                    itemOuterSpace={itemOuterSpace}
+                    iconSize={iconSize}
+                    {...configs} />
             })}
         </View>
     )

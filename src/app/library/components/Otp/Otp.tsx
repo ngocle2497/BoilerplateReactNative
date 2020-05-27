@@ -3,7 +3,8 @@ import { StyleSheet, TextInput } from 'react-native'
 import { OtpProps } from './Otp.props'
 import { Text } from '../Text/Text'
 import { Block } from '../Block/Block';
-import { mergeAll, flatten, equals } from 'ramda';
+import { enhance } from '@common'
+import equals from 'react-fast-compare'
 import { AppTheme } from '@config/type';
 import { useTheme } from '@react-navigation/native';
 
@@ -75,27 +76,13 @@ const OtpComponent = (props: OtpProps) => {
             onOtpInValid && onOtpInValid()
         }
     }, [otp])
-    const container = mergeAll(
-        flatten([styles().wrap, styles().row, containerStyle]),
-    );
-    const wrapInput = mergeAll(
-        flatten([styles().otpView, wrapInputStyle]),
-    );
-    const wrapInputActive = mergeAll(
-        flatten([styles().otpViewActive, wrapInputActiveStyle]),
-    );
-    const text = mergeAll(
-        flatten([styles().otpText, textStyle]),
-    );
-    const sizeBoxW15 = mergeAll(
-        flatten([styles().sizeBoxW15]),
-    );
-    const input = mergeAll(
-        flatten([styles().input]),
-    );
-    const row = mergeAll(
-        flatten([styles().row]),
-    );
+    const container = useMemo(() => enhance([styles().wrap, styles().row, containerStyle,]), []);
+    const wrapInput = useMemo(() => enhance([styles().otpView, wrapInputStyle]), []);
+    const wrapInputActive = useMemo(() => enhance([styles().otpViewActive, wrapInputActiveStyle]), []);
+    const text = useMemo(() => enhance([styles().otpText, textStyle]), []);
+    const sizeBoxW15 = useMemo(() => enhance([styles().sizeBoxW15]), []);
+    const input = useMemo(() => enhance([styles().input]), []);
+    const row = useMemo(() => enhance([styles().row]), []);
 
     return (
         <Block style={container}>

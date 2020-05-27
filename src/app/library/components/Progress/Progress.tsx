@@ -1,9 +1,9 @@
-import React, { useMemo, memo } from 'react'
+import React, { memo } from 'react'
 import { ProgressCircle } from './components/Circle/ProgressCircle'
 import { ProgressLinear } from './components/Linear/ProgressLinear'
 import { ProgressProps } from './Progress.props'
 import { RADIUS, STROKE_WIDTH, COLOR_BG, COLOR_FG } from './components/Circle/Constant'
-import { equals } from 'ramda'
+import equals from 'react-fast-compare'
 
 
 const ProgressComponent = (props: ProgressProps) => {

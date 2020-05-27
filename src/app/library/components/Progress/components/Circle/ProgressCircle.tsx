@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useMemo, memo } from 'react'
 import { Circular } from "./Circular";
 import { StyleSheet } from "react-native";
 import { ProgressCircleProps } from "./ProgressCircle.props";
 import { Text } from '../../../Text/Text';
-import { mergeAll, flatten } from 'ramda';
+import { enhance } from '@common'
+import equals from 'react-fast-compare'
 import { Block } from '../../../Block/Block';
 const styles = StyleSheet.create({
     container: {
@@ -25,9 +26,9 @@ const styles = StyleSheet.create({
     }
 });
 
-export const ProgressCircle = (props: ProgressCircleProps) => {
+export const ProgressCircleComponent = (props: ProgressCircleProps) => {
     const { bg, fg, radius, progress, strokeWidth, showTextProgress, textProgressStyle } = props;
-    const textStyles = mergeAll(flatten([styles.textProgress, textProgressStyle]))
+    const textStyles = useMemo(() => enhance([styles.textProgress, textProgressStyle]), [])
     const renderText = (): string => {
         if (progress < 0) {
             return 0 + "";
@@ -56,3 +57,4 @@ export const ProgressCircle = (props: ProgressCircleProps) => {
         </Block>
     );
 }
+export const ProgressCircle = memo(ProgressCircleComponent, (prevProps, nextProps) => equals(prevProps, nextProps))

@@ -9,7 +9,7 @@ import {
 import { ScreenProps } from './Screen.props';
 import SafeAreaView from 'react-native-safe-area-view';
 import { Block } from '../Block/Block';
-import { equals } from 'ramda';
+import equals from 'react-fast-compare'
 
 export const presets = {
   root: {

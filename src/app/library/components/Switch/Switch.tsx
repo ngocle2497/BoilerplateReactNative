@@ -2,9 +2,12 @@ import * as React from 'react';
 import {
   TouchableWithoutFeedback,
   StyleSheet,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
 import { SwitchProps } from './Switch.props';
-import { mergeAll, flatten, equals } from 'ramda';
+import { enhance } from '@common'
+import equals from 'react-fast-compare'
 import { timing, useValues, interpolateColor } from 'react-native-redash'
 import Animated, { set, Easing, interpolate } from 'react-native-reanimated'
 const { useCode } = Animated;
@@ -50,9 +53,7 @@ const styles = StyleSheet.create({
 })
 
 
-const enhance = (style: any, newStyles: any): any => {
-  return mergeAll(flatten([style, newStyles]));
-};
+
 const SwitchComponent = (props: SwitchProps) => {
   const [timer] = useValues([props.value === true ? 1 : 0], [])
   useCode(() => [
@@ -84,26 +85,18 @@ const SwitchComponent = (props: SwitchProps) => {
     inputRange: [0, 1],
     outputRange: [BORDER_OFF_COLOR, BORDER_ON_COLOR]
   })
-  const style = enhance({}, props.style);
+  const style = enhance([{}, props.style]);
 
-  let trackStyle = styles.TRACK;
-  trackStyle = enhance(trackStyle, {
+  const trackStyle = [styles.TRACK, {
     backgroundColor: bgTrackColor,
     borderColor: borderColor,
-  });
-  trackStyle = enhance(
-    trackStyle,
-    props.value ? props.trackOnStyle : props.trackOffStyle,
-  );
 
-  let thumbStyle = styles.THUMB;
-  thumbStyle = enhance(thumbStyle, {
+  }, props.value ? props.trackOnStyle : props.trackOffStyle] as StyleProp<Animated.AnimateStyle<ViewStyle>>;
+
+  const thumbStyle = [styles.THUMB, {
     transform: [{ translateX }],
-  });
-  thumbStyle = enhance(
-    thumbStyle,
-    props.value ? props.thumbOnStyle : props.thumbOffStyle,
-  );
+  }, props.value ? props.thumbOnStyle : props.thumbOffStyle] as StyleProp<Animated.AnimateStyle<ViewStyle>>;
+
   return (
     <TouchableWithoutFeedback onPress={handlePress} style={style}>
       <Animated.View style={trackStyle}>

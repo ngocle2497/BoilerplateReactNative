@@ -1,10 +1,10 @@
+import { StyleSheet } from 'react-native';
 import { TIME_OUT } from '@config';
 import { AppState } from '@app_redux/type';
 import { handleResponseAxios, handleErrorAxios } from './helper'
 import Axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { BASE_API } from './api';
 import { select } from 'redux-saga/effects'
-import { merge } from 'ramda'
 
 // base
 function* Request(config: AxiosRequestConfig) {
@@ -17,7 +17,7 @@ function* Request(config: AxiosRequestConfig) {
       token: token
     }
   }
-  return yield Axios.request(merge(defaultConfig, config)).then((res: any) => {
+  return yield Axios.request(StyleSheet.flatten([defaultConfig, config])).then((res: any) => {
     return handleResponseAxios(res)
   }).catch((error: AxiosError) => {
     return handleErrorAxios(error)
