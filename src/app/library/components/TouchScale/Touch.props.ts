@@ -1,4 +1,3 @@
-
 export interface TouchableScaleProps {
     children: React.ReactNode;
 
