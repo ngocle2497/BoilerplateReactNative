@@ -1,7 +1,7 @@
 import { ResponseBase } from '@config/type';
 import { AxiosError } from "axios";
 import { translate, showError, remove } from '../utils';
-import { navigateToLogin } from '@navigation';
+import { navigateToLogin } from '@navigation/navigationHelper';
 import { R } from '@assets/value';
 import { RESULT_CODE_PUSH_OUT, ERROR_NETWORK_CODE } from '@config';
 import { HandleErrorApi } from '@common';

@@ -1,6 +1,0 @@
-export * from './app_redux/action'
-export * from './app_redux/actionType'
-export * from './app_redux/type'
-export * from './store'
-export * from './allReducers'
-export * from './rootSaga'

@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux';
 import { styles } from './style';
 import { Wallpaper, Text, Screen, Button, Header, Block } from '@components';
 import { onSetToken, onSetAppTheme } from '@app_redux/action';
-import { navigate, APP_SCREEN } from '@navigation';
+import { APP_SCREEN } from '@navigation/screenTypes';
+import { navigate } from '@navigation/navigationService';
 
 
 export const Login = () => {

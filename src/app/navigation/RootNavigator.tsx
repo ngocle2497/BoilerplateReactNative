@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { UnAuthentication,APP_SCREEN, MainDrawerScreen } from './';
+import { MainDrawerScreen } from './authen/drawer/index';
+import { APP_SCREEN, } from './screenTypes';
+import { UnAuthentication } from './unAuthen/index';
 
 const RootStack = createStackNavigator();
 export const RootNavigation = ({ token }: { token: any }) => (

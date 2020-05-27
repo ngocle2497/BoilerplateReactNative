@@ -10,9 +10,9 @@ const styles = StyleSheet.create({
 })
 
 const DividerComponent = (props: DividerProps) => {
-    const { height = StyleSheet.hairlineWidth, bg = '#dfe3ee' } = props;
+    const { height = 1, bg = '#dfe3ee' } = props;
     return (
-        <Block height={height} color={bg} style={styles.wrap} />
+        <Block height={height * StyleSheet.hairlineWidth} color={bg} style={styles.wrap} />
     )
 }
 export const Divider = memo(DividerComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
