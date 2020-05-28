@@ -1,29 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { styles } from './style';
-import { Wallpaper, Text, Screen, Button, Header, Block } from '@components';
-import { onSetToken, onSetAppTheme } from '@app_redux/action';
-import { APP_SCREEN } from '@navigation/screenTypes';
+import { Wallpaper, Screen, Header, Block, Text, Button } from '@components';
+import { onSetToken } from '@store/app_redux/action';
 import { navigate } from '@navigation/navigationService';
+import { APP_SCREEN } from '@navigation/screenTypes';
 
 
 export const Login = () => {
   const dispatch = useDispatch();
-
   return (
     <View style={{ flex: 1 }}>
       <Wallpaper />
-      <Header headerText={'Login'} />
       <Screen
-        draw
+        backgroundColor={'transparent'}
         forceInset={{ top: 'never' }}>
-        <Block block justifyContent={'center'} middle>
-          <Button onPress={() => dispatch(onSetToken('s'))}>
-            <Text text={"LOGIN"} />
+        <Block block>
+          <Button onPress={() => {
+            dispatch(onSetToken('ss'))
+          }}>
+            <Text text={'Login'} />
           </Button>
-          <Button onPress={() => { navigate(APP_SCREEN.UN_AUTHORIZE.REGISTER) }}>
-            <Text text={"REGISTER"} />
+          <Button onPress={() => {
+            navigate(APP_SCREEN.UN_AUTHORIZE.REGISTER)
+          }}>
+            <Text text={'Register'} />
           </Button>
         </Block>
       </Screen>

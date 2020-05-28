@@ -91,7 +91,7 @@ export const LightBoxOverlay = (props: LightboxOverlayProps) => {
     height: openVal.interpolate({ inputRange: [0, 1], outputRange: [origin.height, WINDOW_HEIGHT] }),
   }];
   const open = () => {
-    StatusBar.setHidden(true, 'slide');
+    Platform.OS === 'ios' && StatusBar.setHidden(true, 'slide');
     panY.setValue(0);
     panX.setValue(0);
     setIsAnimating(true)
@@ -109,7 +109,7 @@ export const LightBoxOverlay = (props: LightboxOverlayProps) => {
   }
   const close = () => {
     setIsAnimating(true)
-    StatusBar.setHidden(false, 'slide');
+    Platform.OS === 'ios' && StatusBar.setHidden(false, 'slide');
     Animated.spring(
       openVal,
       { toValue: 0, useNativeDriver: false }

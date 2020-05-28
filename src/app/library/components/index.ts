@@ -25,4 +25,5 @@ export * from './FAB/FAB';
 export * from './SizeBox/SizeBox';
 export * from './Block/Block'
 export * from './ListView/ListView'
+export * from './Chat/Chat'
 

@@ -32,6 +32,9 @@
         "errorNetwork": "Lỗi kết nối! Vui lòng kiểm tra lại kết nối.",
         "errorGetPermission": "Lỗi trong quá trình kiểm tra quyền ứng dụng"
     },
+    "common":{
+        "greetingChat":"Bây giờ các bạn có thể trò chuyện với nhau"
+    },
     "dialog": {
         "error": "Lỗi",
         "cancel":"Đóng",

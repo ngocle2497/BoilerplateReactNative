@@ -1,4 +1,5 @@
 export const icons = {
+  send:require('./source/send.png'),
   back: require('./source/arrow-left.png'),
   bullet: require('./source/bullet.png'),
   close: require('./source/ic_close.png'),

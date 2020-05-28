@@ -7,11 +7,11 @@ import { Img } from '../Image/Image';
 
 const WallpaperComponent = ({ preset = 'stretch', style: styleOverride, backgroundImage = 'bg_wallpaper' }: WallpaperProps) => {
 
-  const presetToUse = presets[preset] || presets.stretch;
+  const presetToUse = presets[preset];
   const style = useMemo(() => enhance([presetToUse, styleOverride]), [styleOverride]);
 
   return (
-    <Img source={backgroundImage} style={style} />
+    <Img containerStyle={presets[preset]} source={backgroundImage} style={style} />
   )
 }
 export const Wallpaper = memo(WallpaperComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
