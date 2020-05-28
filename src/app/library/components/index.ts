@@ -19,7 +19,7 @@ export * from './TouchScale/TouchScale';
 export * from './Image/Image';
 export * from './ImageRemote/ImageRemote';
 export * from './ActionSheet/ActionSheet';
-export * from './Dropdown/Dropdown';
+export * from './Select/Select';
 export * from './LightBox/LightBox';
 export * from './FAB/FAB';
 export * from './SizeBox/SizeBox';

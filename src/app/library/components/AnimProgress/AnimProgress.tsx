@@ -1,10 +1,11 @@
 import React, { forwardRef, useImperativeHandle, useState, memo } from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import Animated, { useCode, set, interpolate } from 'react-native-reanimated'
-import { useValues, loop, } from 'react-native-redash'
+import { useValue, loop, } from 'react-native-redash'
 import { useSafeArea } from 'react-native-safe-area-view';
 import { Block } from '../Block/Block';
 import equals from 'react-fast-compare'
+
 const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   position: {
@@ -40,7 +41,7 @@ const AnimProcessComponent = forwardRef((props: AnimProcessProps, ref) => {
     }
   }))
   const { color, backgroundColor = "transparent", underStatusbar = false } = props;
-  const [widthPercent, widthPercent2] = useValues([0, 0], [])
+  const widthPercent = useValue(0)
   const widthAb = interpolate(widthPercent, {
     inputRange: [0, 1],
     outputRange: [width * 0.75, width * 0.05]

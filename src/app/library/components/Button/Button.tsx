@@ -17,8 +17,8 @@ const ButtonComponent = (props: ButtonProps) => {
     ...rest
   } = props;
 
-  const viewStyle = React.useMemo(() => enhance([stylesView()[preset] || stylesView().primary, styleOverride]), [styleOverride]);
-  const textStyle = React.useMemo(() => enhance([stylesText()[preset] || stylesText().primary, textStyleOverride]), [styleOverride]);
+  const viewStyle = React.useMemo(() => enhance([stylesView[preset], styleOverride]), [styleOverride]);
+  const textStyle = React.useMemo(() => enhance([stylesText[preset], textStyleOverride]), [styleOverride]);
 
   const content = children || <Text tx={tx} text={text} style={textStyle} />;
 

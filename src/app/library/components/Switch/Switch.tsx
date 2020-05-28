@@ -9,8 +9,8 @@ import { SwitchProps } from './Switch.props';
 import { enhance } from '@common'
 import equals from 'react-fast-compare'
 import { timing, useValues, interpolateColor } from 'react-native-redash'
-import Animated, { set, Easing, interpolate } from 'react-native-reanimated'
-const { useCode } = Animated;
+import Animated, { useCode, set, Easing, interpolate } from 'react-native-reanimated'
+
 // dimensions
 const THUMB_SIZE = 30;
 const WIDTH = 56;

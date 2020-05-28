@@ -5,7 +5,7 @@ import { handleResponseAxios, handleErrorAxios } from './helper'
 import Axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { BASE_API } from './api';
 import { useSelector } from 'react-redux';
-import { createSelector } from '@common/';
+import { createSelector } from '@common';
 
 // base
 async function Request(config: AxiosRequestConfig) {

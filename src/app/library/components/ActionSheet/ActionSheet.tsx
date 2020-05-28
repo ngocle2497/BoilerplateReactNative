@@ -82,7 +82,7 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
                     {title && (
                         React.isValidElement(title) ? title :
                             <Block style={[styles.wrapTitle]}>
-                                <Text style={[styles.title]} text={title} />
+                                <Text style={[styles.title]} text={title + ""} />
                             </Block>)}
                     {option.map((item: OptionData, index: number) => {
                         return (

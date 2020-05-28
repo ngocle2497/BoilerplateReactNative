@@ -10,6 +10,7 @@ import { Text } from '../Text/Text';
 import Modal from 'react-native-modal';
 import equals from 'react-fast-compare'
 const { width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   modal: {
     marginHorizontal: 0,

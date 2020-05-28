@@ -1,39 +1,36 @@
-import * as React from 'react'
-import { useTheme } from '@react-navigation/native';
-import { AppTheme } from '@config/type';
 import { StyleSheet } from 'react-native';
+import { FontDefault } from '@theme/typography';
+import { ColorDefault } from '@theme/color';
+import { FontSizeDefault } from '@theme/fontSize';
 
-export const styles = () => {
-  const theme: AppTheme = useTheme();
-  return React.useMemo(() => StyleSheet.create({
-    default: {
-      fontFamily: theme.fontFamily.primary,
-      color: theme.colors.text,
-      fontSize: theme.fontSize.FONT_15,
-    },
-    bold: {
-      fontFamily: theme.fontFamily.primary,
-      color: theme.colors.text,
-      fontSize: theme.fontSize.FONT_15,
-      fontWeight: 'bold'
-    },
-    header: {
-      fontFamily: theme.fontFamily.primary,
-      color: theme.colors.text,
-      fontSize: theme.fontSize.FONT_24,
-      fontWeight: 'bold'
-    },
-    fieldLabel: {
-      fontFamily: theme.fontFamily.primary,
-      fontSize: theme.fontSize.FONT_13,
-      color: theme.colors.lighterGrey
-    },
-    secondary: {
-      fontFamily: theme.fontFamily.primary,
-      fontSize: theme.fontSize.FONT_9,
-      color: theme.colors.lighterGrey
-    }
-  }), [theme])
-}
+export const styles = StyleSheet.create({
+  default: {
+    fontFamily: FontDefault.primary,
+    color: ColorDefault.text,
+    fontSize: FontSizeDefault.FONT_15,
+  },
+  bold: {
+    fontFamily: FontDefault.primary,
+    color: ColorDefault.text,
+    fontSize: FontSizeDefault.FONT_15,
+    fontWeight: 'bold'
+  },
+  header: {
+    fontFamily: FontDefault.primary,
+    color: ColorDefault.text,
+    fontSize: FontSizeDefault.FONT_24,
+    fontWeight: 'bold'
+  },
+  fieldLabel: {
+    fontFamily: FontDefault.primary,
+    fontSize: FontSizeDefault.FONT_13,
+    color: ColorDefault.lighterGrey
+  },
+  secondary: {
+    fontFamily: FontDefault.primary,
+    fontSize: FontSizeDefault.FONT_9,
+    color: ColorDefault.lighterGrey
+  }
+})
 
-export type TextPresets = 'default' | 'bold' | 'header' | 'fieldLabel' | 'secondary';
+export type TextPresets = keyof typeof styles;

@@ -1,4 +1,6 @@
 import { StyleSheet } from "react-native";
+import { FontSizeDefault } from "@theme/fontSize";
+import { FontDefault } from "@theme/typography";
 
 export const styles = StyleSheet.create({
     wrap: {
@@ -47,9 +49,9 @@ export const styles = StyleSheet.create({
         paddingVertical: 10,
     },
     title: {
-        fontSize: 13,
+        fontSize: FontSizeDefault.FONT_13,
         fontWeight: '700',
-        fontFamily: undefined,
+        fontFamily: FontDefault.primary,
         color: '#333333'
     }
 })

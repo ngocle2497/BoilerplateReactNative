@@ -20,7 +20,7 @@ const TextComponent = (props: TextProps) => {
   const i18nText = tx && t(tx, txOptions);
   const content = i18nText || text || children;
 
-  const style = React.useMemo(() => enhance([styles()[preset] || styles().default, styleOverride]), [styleOverride]);
+  const style = React.useMemo(() => enhance([styles[preset] || styles.default, styleOverride]), [styleOverride]);
   return (
     <ReactNativeText allowFontScaling={false} {...rest} style={style}>
       {content}

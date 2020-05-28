@@ -10,6 +10,7 @@ import { ScreenProps } from './Screen.props';
 import SafeAreaView from 'react-native-safe-area-view';
 import { Block } from '../Block/Block';
 import equals from 'react-fast-compare'
+import { enhance } from '@common';
 
 export const presets = {
   root: {
@@ -54,7 +55,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
     statusColor = undefined,
     draw = false,
     customInsetBottom = false,
-    bottomIPX = '#ffffff',
+    bottomIPXColor = '#ffffff',
   } = props;
   const backgroundStyle = props.backgroundColor
     ? { backgroundColor: props.backgroundColor }
@@ -80,7 +81,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
         {props.children}
       </Wrapper>
       {customInsetBottom === true && (
-        <SafeAreaView style={[preset.outer0, { backgroundColor: bottomIPX }]} />
+        <SafeAreaView style={[preset.outer0, { backgroundColor: bottomIPXColor }]} />
       )}
     </KeyboardAvoidingView>
   );
@@ -88,7 +89,6 @@ function ScreenWithoutScrolling(props: ScreenProps) {
 
 function ScreenWithScrolling(props: ScreenProps) {
   const preset = presets.scroll;
-  const style = props.style || {};
   const {
     showHorizontal = false,
     showVertical = false,
@@ -96,13 +96,15 @@ function ScreenWithScrolling(props: ScreenProps) {
     statusColor = undefined,
     draw = false,
     customInsetBottom = false,
-    bottomIPX = '#ffffff',
+    bottomIPXColor = '#ffffff',
+    style = {}
   } = props;
   const backgroundStyle = props.backgroundColor
     ? { backgroundColor: props.backgroundColor }
     : {};
   const Wrapper = props.unsafe ? Block : SafeAreaView;
 
+  const actualStyle = React.useMemo(() => enhance([preset.inner, style]), [style])
   return (
     <KeyboardAvoidingView
       style={[preset.outer]}
@@ -123,12 +125,12 @@ function ScreenWithScrolling(props: ScreenProps) {
           showsHorizontalScrollIndicator={showHorizontal}
           keyboardShouldPersistTaps="handled"
           style={[preset.outer, backgroundStyle]}
-          contentContainerStyle={[preset.inner, style]}>
+          contentContainerStyle={actualStyle}>
           {props.children}
         </ScrollView>
       </Wrapper>
       {customInsetBottom === true && (
-        <SafeAreaView style={[preset.outer0, { backgroundColor: bottomIPX }]} />
+        <SafeAreaView style={[preset.outer0, { backgroundColor: bottomIPXColor }]} />
       )}
     </KeyboardAvoidingView>
   );

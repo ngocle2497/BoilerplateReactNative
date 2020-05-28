@@ -1,19 +1,50 @@
-import { TextStyle } from 'react-native';
-export interface ProgressProps{
+import { TextStyle, StyleProp } from 'react-native';
+export interface ProgressProps {
 
-    type:'linear'|'circle';
+    /**
+     * Preset of Progress
+     * @default linear
+     */
+    type: 'linear' | 'circle';
 
-    progress:number;
+    /**
+     * Current progress
+     */
+    progress: number;
 
+    /**
+     * Background color of progress (Circle)
+     * @default #dbdbdb
+     */
     bg?: string;
 
+    /**
+     * Foreground color fo progress (Circle)
+     * @default #0057e7
+     */
     fg?: string;
 
-    strokeWidth?:number;
+    /**
+     * Stroke width (Circle)
+     * @default 20
+     */
+    strokeWidth?: number;
 
-    radius?:number;
+    /**
+     * Radios of progress (Circle)
+     * @default 80
+     */
+    radius?: number;
 
-    showTextProgress?:boolean;
+    /**
+     * Enable to show progress number (Circle)
+     * @default true
+     */
+    showTextProgress?: boolean;
 
-    textProgressStyle?: TextStyle | TextStyle[];
+    /**
+     * Overwrite text progress style (Circle)
+     * @default undefined
+     */
+    textProgressStyle?: StyleProp<TextStyle>;
 }

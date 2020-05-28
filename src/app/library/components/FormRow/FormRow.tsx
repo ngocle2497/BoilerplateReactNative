@@ -6,7 +6,7 @@ import equals from 'react-fast-compare'
 import { Block } from '../Block/Block';
 
 const FormRowComponent = (props: FormRowProps) => {
-  const viewStyle = React.useMemo(() => enhance([styles()[props.preset = 'soloRound'], props.style ?? {}]), [props.style, props.preset]);
+  const viewStyle = enhance([styles()[props.preset = 'soloRound'], props.style ?? {}])
   return (
     <Block style={viewStyle}>{props.children}</Block>
   )

@@ -5,54 +5,51 @@ import { Text } from '../Text/Text'
 import { Block } from '../Block/Block';
 import { enhance } from '@common'
 import equals from 'react-fast-compare'
-import { AppTheme } from '@config/type';
-import { useTheme } from '@react-navigation/native';
+import { ColorDefault } from '@theme/color';
+import { FontSizeDefault } from '@theme/fontSize';
 
 const WIDTH_OTP = 32;
 const HEIGHT_OTP = 40;
 
-const styles = () => {
-    const theme: AppTheme = useTheme();
-    return useMemo(() => StyleSheet.create({
-        wrap: {
-            width: '100%',
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
-        otpView: {
-            width: WIDTH_OTP,
-            height: HEIGHT_OTP,
-            borderRadius: 5,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderWidth: 1,
-            borderColor: theme.colors.border
-        },
-        otpViewActive: {
-            borderColor: theme.colors.primaryDarker
-        },
-        otpText: {
-            fontSize: theme.fontSize.FONT_14,
-            color: theme.colors.primary,
-            textAlignVertical: 'bottom'
-        },
-        sizeBoxW15: {
-            width: 15,
-        },
-        row: {
-            flexDirection: 'row'
-        },
-        input: {
-            width: '100%',
-            position: 'absolute',
-            textAlign: 'center',
-            height: HEIGHT_OTP,
-            backgroundColor: 'transparent',
-            color: 'transparent',
-            opacity: 0
-        }
-    }), [theme])
-}
+const styles = StyleSheet.create({
+    wrap: {
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    otpView: {
+        width: WIDTH_OTP,
+        height: HEIGHT_OTP,
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: ColorDefault.border
+    },
+    otpViewActive: {
+        borderColor: ColorDefault.primaryDarker
+    },
+    otpText: {
+        fontSize: FontSizeDefault.FONT_14,
+        color: ColorDefault.primary,
+        textAlignVertical: 'bottom'
+    },
+    sizeBoxW15: {
+        width: 15,
+    },
+    row: {
+        flexDirection: 'row'
+    },
+    input: {
+        width: '100%',
+        position: 'absolute',
+        textAlign: 'center',
+        height: HEIGHT_OTP,
+        backgroundColor: 'transparent',
+        color: 'transparent',
+        opacity: 0
+    }
+})
 
 const OtpComponent = (props: OtpProps) => {
     const { length, defaultOtp = '', onOtpValid, onOtpInValid,
@@ -76,13 +73,13 @@ const OtpComponent = (props: OtpProps) => {
             onOtpInValid && onOtpInValid()
         }
     }, [otp])
-    const container = useMemo(() => enhance([styles().wrap, styles().row, containerStyle,]), []);
-    const wrapInput = useMemo(() => enhance([styles().otpView, wrapInputStyle]), []);
-    const wrapInputActive = useMemo(() => enhance([styles().otpViewActive, wrapInputActiveStyle]), []);
-    const text = useMemo(() => enhance([styles().otpText, textStyle]), []);
-    const sizeBoxW15 = useMemo(() => enhance([styles().sizeBoxW15]), []);
-    const input = useMemo(() => enhance([styles().input]), []);
-    const row = useMemo(() => enhance([styles().row]), []);
+    const container = useMemo(() => enhance([styles.wrap, styles.row, containerStyle,]), []);
+    const wrapInput = useMemo(() => enhance([styles.otpView, wrapInputStyle]), []);
+    const wrapInputActive = useMemo(() => enhance([styles.otpViewActive, wrapInputActiveStyle]), []);
+    const text = useMemo(() => enhance([styles.otpText, textStyle]), []);
+    const sizeBoxW15 = useMemo(() => enhance([styles.sizeBoxW15]), []);
+    const input = useMemo(() => enhance([styles.input]), []);
+    const row = useMemo(() => enhance([styles.row]), []);
 
     return (
         <Block style={container}>

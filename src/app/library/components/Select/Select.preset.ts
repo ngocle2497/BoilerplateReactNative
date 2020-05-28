@@ -1,11 +1,13 @@
 import { StyleSheet } from "react-native"
+import { FontSizeDefault } from "@theme/fontSize"
+import { FontDefault } from "@theme/typography"
 
 export const MAX_HEIGHT = 250
 
 export const styles = StyleSheet.create({
     wrap: {
-        alignSelf:'flex-end',
-        bottom:0
+        alignSelf: 'flex-end',
+        bottom: 0
     },
     buttonDrop: {
         width: '100%',
@@ -25,25 +27,25 @@ export const styles = StyleSheet.create({
     },
     backDrop: {
         position: 'absolute',
-        backgroundColor:'rgba(0,0,0,.7)',
+        backgroundColor: 'rgba(0,0,0,.7)',
         left: 0,
-        top:0,
-        opacity:1,
-        bottom:0,
-        right:0,
+        top: 0,
+        opacity: 1,
+        bottom: 0,
+        right: 0,
     },
     root: {
         width: '100%',
-        justifyContent:'center',
-        alignItems:'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     text: {
         flex: 1,
     },
-    modal:{
-        justifyContent:'flex-end',
-        marginHorizontal:0,
-        marginVertical:0
+    modal: {
+        justifyContent: 'flex-end',
+        marginHorizontal: 0,
+        marginVertical: 0
     }
 })
 
@@ -51,19 +53,19 @@ export const stylesItem = StyleSheet.create({
     row: {
         flexDirection: 'row',
         paddingVertical: 15,
-        width:'100%',
-        paddingLeft:5,
-        zIndex:1000,
+        width: '100%',
+        paddingLeft: 5,
+        zIndex: 1000,
         backgroundColor: '#FFFFFF',
-        justifyContent:'flex-start',
-        alignItems:'flex-start',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
         borderRadius: 0,
     },
-    textOption:{
-        fontFamily:undefined,
-        fontSize:14,
-        width:'100%',
-        zIndex:1000,
-        fontWeight:'normal'
+    textOption: {
+        fontFamily: FontDefault.primary,
+        fontSize: FontSizeDefault.FONT_14,
+        width: '100%',
+        zIndex: 1000,
+        fontWeight: 'normal'
     }
 })

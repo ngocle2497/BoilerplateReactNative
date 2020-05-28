@@ -1,12 +1,12 @@
 import React, { memo, useMemo } from 'react'
-import { DropItemProps } from './Dropdown.props'
+import { SelectItemProps } from './Select.props'
 import { Button } from '../Button/Button'
 import { Text } from '../Text/Text'
 import { enhance } from '@common'
 import equals from 'react-fast-compare'
-import { stylesItem as styles } from './Dropdown.preset'
+import { stylesItem as styles } from './Select.preset'
 
-const DropItemComponent = ({ index, item, onPress, customItem, textItemStyle }: DropItemProps) => {
+const SelectItemComponent = ({ index, item, onPress, customItem, textItemStyle }: SelectItemProps) => {
     const _onPress = () => {
         onPress && onPress(item, index);
     }
@@ -17,6 +17,6 @@ const DropItemComponent = ({ index, item, onPress, customItem, textItemStyle }: 
         </Button>
     )
 }
-export const DropItem = memo(DropItemComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
+export const SelectItem = memo(SelectItemComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
 
 

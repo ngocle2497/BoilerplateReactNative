@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { StyleSheet, TextInput, LayoutChangeEvent } from 'react-native'
 import Animated, { interpolate } from 'react-native-reanimated'
 import { useTimingTransition } from 'react-native-redash'
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         marginVertical: 5,
-        padding:0
+        padding: 0
     },
     text: {
         position: 'absolute',
@@ -60,8 +60,7 @@ export const InputOutline = (props: InputOutlineProps) => {
         unActiveTintBorderColor = UN_ACTIVE_COLOR,
         unActiveTintLabelColor = UN_ACTIVE_COLOR,
         disabledBorderColor = UN_ACTIVE_COLOR,
-        disabled = false, error = undefined,
-        backgroundLabelColor = '#FFFFFF', ...rest } = props;
+        disabled = false, error = undefined, ...rest } = props;
     const [sizeContainer, setSizeContainer] = useState({ height: 0 })
     const [restored, setRestored] = useState(false)
     const [sizeText, setSizeText] = useState({ height: 0 })
@@ -130,12 +129,12 @@ export const InputOutline = (props: InputOutlineProps) => {
     const placeHolder = placeholderTx && t(placeholderTx) || placeholder || '';
     return (
         <Animated.View onLayout={_onLayoutContainer} style={[styles.container, { borderColor: borderColor() }]}>
-            <TextInput 
-                        defaultValue={defaultValue??''}
-                        autoCorrect={false} 
-            placeholder={focused === true ? placeHolder : ''}
+            <TextInput
+                defaultValue={defaultValue ?? ''}
+                autoCorrect={false}
+                placeholder={focused === true ? placeHolder : ''}
                 editable={!disabled} placeholderTextColor={placeholderColor ?? undefined}
-            onChangeText={_onChangeText} onFocus={_onFocus} onBlur={_onBlur} style={inputSty} {...rest} />
+                onChangeText={_onChangeText} onFocus={_onFocus} onBlur={_onBlur} style={inputSty} {...rest} />
             {labelText && <Animated.View pointerEvents={'none'} style={[styles.wrapLabel, { top }]}>
                 <Animated.Text onLayout={onLayoutText} style={[styles.text, { color: labelColor(), fontSize: fontLabel }]}>{labelText ?? ''}</Animated.Text>
             </Animated.View>}

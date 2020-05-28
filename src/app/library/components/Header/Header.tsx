@@ -64,14 +64,14 @@ const HeaderComponent: React.FunctionComponent<HeaderProps> = props => {
   const [t] = useTranslation()
   const header = headerText || (headerTx && t(headerTx)) || '';
 
-  const wrapStyle = React.useMemo(() => enhance([styles().ROOT, style]), [style]);
-  const title = React.useMemo(() => enhance([styles().TITLE, titleStyle]), [titleStyle]);
-  const LEFT = React.useMemo(() => enhance([styles().WRAP_ICON, styleLeft]), [styleLeft]);
-  const RIGHT = React.useMemo(() => enhance([styles().WRAP_ICON, styleRight]), [styleRight]);
-  const viewLeft = React.useMemo(() => styles().LEFT, []);
-  const viewMiddle = React.useMemo(() => styles().TITLE_MIDDLE, []);
-  const viewRight = React.useMemo(() => styles().RIGHT, []);
-  
+  const wrapStyle = enhance([styles().ROOT, style])
+  const title = enhance([styles().TITLE, titleStyle])
+  const LEFT = enhance([styles().WRAP_ICON, styleLeft])
+  const RIGHT = enhance([styles().WRAP_ICON, styleRight])
+  const viewLeft = styles().LEFT
+  const viewMiddle = styles().TITLE_MIDDLE
+  const viewRight = styles().RIGHT
+
   return (
     <Block style={wrapStyle}>
       {leftIcon ? (

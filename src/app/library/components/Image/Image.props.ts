@@ -1,13 +1,24 @@
-import { ImageStyle, ViewStyle } from 'react-native';
+import { ImageStyle, ViewStyle, StyleProp } from 'react-native';
 import { ImageTypes } from '@assets/image';
 
 export interface ImageProps {
 
-  style?: ImageStyle | ImageStyle[];
+  /**
+   * Overwrite image style
+   * @default undefined
+   */
+  style?: StyleProp<ImageStyle>;
 
+  /**
+   * Overwrite wrap image style
+   * @default undefined
+   */
+  containerStyle?: StyleProp<ViewStyle>;
 
-  containerStyle?: ViewStyle | ViewStyle[];
-
+  /**
+   * Source image(local)
+   * @default undefined
+   */
   source?: ImageTypes;
 
 }

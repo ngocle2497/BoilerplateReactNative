@@ -1,5 +1,9 @@
 import { onChangeAlias } from '../string/index';
 
 export const onSearchAllProperties = (source: Array<any>, textSearch: string | number): Array<any> => {
-    return source.filter(x => onChangeAlias(Object.values(x).join('')).search(onChangeAlias(textSearch)))
+    return source.filter(x => {
+        return Object.keys(x).some(function (key) {
+            return onChangeAlias(x[key]).search(onChangeAlias(textSearch)) !== -1;
+        })
+    })
 }

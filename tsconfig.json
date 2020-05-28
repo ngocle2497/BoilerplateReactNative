@@ -46,6 +46,7 @@
       "@config":["./src/app/config/index"],
       "@features/*":["./src/app/features/*"],
       "@components":["./src/app/library/components/index"],
+      "@library/*":["./src/app/library/*"],
       "@networking":["./src/app/library/networking/index"],
       "@utils":["./src/app/library/utils/index"],
       "@navigation/*":["./src/app/navigation/*"],

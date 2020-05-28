@@ -3,6 +3,7 @@ import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native'
 import { BlockProps } from './Block.props'
 import equals from 'react-fast-compare'
 import { enhance } from '@common'
+
 const styles = StyleSheet.create({
     block: {
         flex: 1,
@@ -27,7 +28,7 @@ const BlockComponent = (props: BlockProps) => {
         paddingVertical && { paddingVertical },
         width && { width },
         height && { height },
-        border && { borderWidth: 1, borderColor: 'gray' },
+        border && { borderWidth: StyleSheet.hairlineWidth, borderColor: '#bbb' },
         borderWidth && { borderWidth },
         borderColor && { borderColor },
         color && { backgroundColor: color },

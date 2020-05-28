@@ -1,4 +1,4 @@
-import { translate } from '../library/utils';
+import { translate } from '@utils';
 // Error
 export const required = (value: string | undefined | null) =>
   value && value.toString().trim().length > 0
