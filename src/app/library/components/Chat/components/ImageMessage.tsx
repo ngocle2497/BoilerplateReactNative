@@ -1,11 +1,9 @@
 import React, { memo } from 'react'
-import { StyleSheet, Image, View } from 'react-native'
+import { StyleSheet, Image } from 'react-native'
 import isEqual from 'react-fast-compare'
 import { ImageMessageProps } from '../Chat.props'
-import { Block } from '../../Block/Block'
-import { ImageRemote } from '../../ImageRemote/ImageRemote'
 import { scale } from '@common'
-import { LightBox } from '@library/components/LightBox/LightBox'
+import { LightBox } from '../../LightBox/LightBox'
 
 const ImageMessageComponent = ({ sourceImage = '' }: ImageMessageProps) => {
     return (

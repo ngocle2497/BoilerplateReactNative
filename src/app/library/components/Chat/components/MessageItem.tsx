@@ -2,12 +2,12 @@ import React, { memo } from 'react'
 import { StyleSheet } from 'react-native'
 import isEqual from 'react-fast-compare'
 import { MessageProps, ChatProps, SourceMessage } from '../Chat.props';
-import { Block } from '@library/components/Block/Block';
-import { Text } from '@library/components/Text/Text';
+import { Block } from '../../Block/Block';
+import { Text } from '../../Text/Text';
 import { Bubble } from './Bubble';
 import { TextMessage } from './TextMessage';
 import { ImageMessage } from './ImageMessage';
-import { ImageRemote } from '@library/components/ImageRemote/ImageRemote';
+import { ImageRemote } from '../../ImageRemote/ImageRemote';
 import { scale } from '@common';
 import { FontSizeDefault } from '@theme/fontSize';
 

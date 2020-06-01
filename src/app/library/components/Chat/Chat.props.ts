@@ -114,6 +114,13 @@ export interface ChatProps {
      * Name of your friend
      */
     nameFriend: string;
+
+    /**
+     * Render default header or not
+     * @default true
+     */
+    useHeader?:boolean;
+
     /**
      * Function of button send press
      * @default undefined

@@ -14,7 +14,7 @@ import { ImageRemote } from '../ImageRemote/ImageRemote'
 const SIZE_AVATAR = scale(20);
 const SIZE_DOT_STATUS = scale(5);
 
-const ChatComponent = ({ data, renderHeader, renderFooter, onBackPress, showAvatar = true, status = true, colorDotActive = '#5cb85c', colorDotUnActive = '#99aab5', textStatus = "Active", yourAvatar, friendAvatar, nameFriend, onSendPress }: ChatProps) => {
+const ChatComponent = ({ data, renderHeader, renderFooter, onBackPress, useHeader = true, showAvatar = true, status = true, colorDotActive = '#5cb85c', colorDotUnActive = '#99aab5', textStatus = "Active", yourAvatar, friendAvatar, nameFriend, onSendPress }: ChatProps) => {
     const [value, setValue] = useState('')
     const _renderItem = ({ item, index }: { item: MessageProps; index: number }) => {
         return (
@@ -49,7 +49,7 @@ const ChatComponent = ({ data, renderHeader, renderFooter, onBackPress, showAvat
     }
     return (
         <Block block color={'#FFFFFF'}>
-            {renderHeader ? renderHeader() : <Block style={styles.top} direction={'row'}>
+            {renderHeader ? renderHeader() : useHeader === true && <Block style={styles.top} direction={'row'}>
                 <Button onPress={_onBackPress} style={styles.buttonBack} preset={'link'}>
                     <Icon style={styles.iconBack} icon={'back'} />
                 </Button>

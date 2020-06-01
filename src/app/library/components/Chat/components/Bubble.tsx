@@ -1,7 +1,7 @@
 import React, { memo, useMemo } from 'react'
 import { StyleSheet } from 'react-native'
 import isEqual from 'react-fast-compare'
-import { Block } from '@library/components/Block/Block'
+import { Block } from '../../Block/Block'
 import { scale } from '@common'
 import { BubbleProps, MessageProps, SourceMessage } from '../Chat.props'
 
