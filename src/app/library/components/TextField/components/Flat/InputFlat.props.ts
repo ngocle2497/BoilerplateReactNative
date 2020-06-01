@@ -1,6 +1,6 @@
-import { TextStyle } from "react-native";
+import { TextStyle, TextInputProps } from "react-native";
 
-export interface InputFlatProps {
+export interface InputFlatProps extends TextInputProps {
 
     /**
      * Disable input or not

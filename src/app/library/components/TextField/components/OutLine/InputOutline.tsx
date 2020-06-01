@@ -15,7 +15,7 @@ const ERROR_COLOR = 'rgb(214,45,32)'
 const styles = StyleSheet.create({
     container: {
         paddingVertical: VERTICAL_PADDING,
-        borderWidth: 2,
+        borderWidth: StyleSheet.hairlineWidth * 2,
         borderColor: 'gray',
         width: '100%',
         borderRadius: 5,
