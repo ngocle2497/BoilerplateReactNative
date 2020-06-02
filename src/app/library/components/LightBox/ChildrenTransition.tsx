@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo, useRef } from 'react'
 import { StyleSheet, Modal, Animated, StatusBar, PanResponder, Dimensions, Platform } from 'react-native'
 import { useSafeArea } from 'react-native-safe-area-view'
 import { Button } from '../Button/Button';
 import { Text } from '../Text/Text';
+import { ChildrenTransitionProps } from './LightBox.props';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const DRAG_DISMISS_THRESHOLD = 150;
-const STATUS_BAR_OFFSET = (Platform.OS === 'android' ? - StatusBar.currentHeight ?? -25 : 0);
 const styles = StyleSheet.create({
   background: {
     position: 'absolute',
@@ -54,47 +54,46 @@ const styles = StyleSheet.create({
   },
 })
 
-interface LightboxOverlayProps {
-  isOpen: boolean;
-  origin: any;
-  renderHeader?: () => React.ReactNode;
-  swipeToDismiss: boolean;
-  backgroundColor: string;
-  children: any;
-  onClose: () => void;
-}
-export const LightBoxOverlay = (props: LightboxOverlayProps) => {
+
+export const ChildrenTransition = (props: ChildrenTransitionProps) => {
   const inset = useSafeArea()
   const [target, setTarget] = useState({
     x: 0,
     y: 0,
     opacity: 1,
   })
-  const [openVal, setOpenVal] = useState(new Animated.Value(0))
-  const [panY, setPanY] = useState(new Animated.Value(0))
-  const [panX, setPanX] = useState(new Animated.Value(0))
-  const [isAnimating, setIsAnimating] = useState(true)
-  const [isPanning, setIsPanning] = useState(false)
+  const openVal = useRef(new Animated.Value(0)).current
+  const panY = useRef(new Animated.Value(0)).current
+  const panX = useRef(new Animated.Value(0)).current
+  const [animatedRunning, setAnimatedRunning] = useState(true)
+  const [onDrag, setOnDrag] = useState(false)
   const {
-    isOpen,
     origin,
     renderHeader,
     swipeToDismiss,
     backgroundColor,
     children,
     onClose,
+    viewRef
   } = props;
   const openStyle = [styles.open, {
     left: openVal.interpolate({ inputRange: [0, 1], outputRange: [origin.x, target.x] }),
-    top: openVal.interpolate({ inputRange: [0, 1], outputRange: [origin.y + STATUS_BAR_OFFSET, target.y + STATUS_BAR_OFFSET] }),
+    top: openVal.interpolate({ inputRange: [0, 1], outputRange: [origin.y - inset.top, target.y - inset.top] }),
     width: openVal.interpolate({ inputRange: [0, 1], outputRange: [origin.width, WINDOW_WIDTH] }),
-    height: openVal.interpolate({ inputRange: [0, 1], outputRange: [origin.height, WINDOW_HEIGHT] }),
+    height: openVal.interpolate({ inputRange: [0, 1], outputRange: [origin.height, WINDOW_HEIGHT] })
   }];
   const open = () => {
     Platform.OS === 'ios' && StatusBar.setHidden(true, 'slide');
+    if (viewRef) {
+      viewRef.setNativeProps({
+        style: {
+          opacity: 0
+        }
+      })
+    }
     panY.setValue(0);
     panX.setValue(0);
-    setIsAnimating(true)
+    setAnimatedRunning(true)
     setTarget({
       x: 0,
       y: 0,
@@ -104,36 +103,41 @@ export const LightBoxOverlay = (props: LightboxOverlayProps) => {
       openVal,
       { toValue: 1, useNativeDriver: false }
     ).start(() => {
-      setIsAnimating(false)
+      setAnimatedRunning(false)
     });
   }
   const close = () => {
-    setIsAnimating(true)
+    setAnimatedRunning(true)
     Platform.OS === 'ios' && StatusBar.setHidden(false, 'slide');
     Animated.spring(
       openVal,
       { toValue: 0, useNativeDriver: false }
     ).start(() => {
-      setIsAnimating(true)
+      if (viewRef) {
+        viewRef.setNativeProps({
+          style: {
+            opacity: 1
+          }
+        })
+      }
+      setAnimatedRunning(true)
       onClose();
     });
   }
   useEffect(() => {
-    if (isOpen) {
-      open()
-    }
-  }, [isOpen])
+    open()
+  }, [])
   const panResponder = useMemo(() => PanResponder.create({
     // Ask to be the responder:
-    onStartShouldSetPanResponder: (evt, gestureState) => !isAnimating,
-    onStartShouldSetPanResponderCapture: (evt, gestureState) => !isAnimating,
-    onMoveShouldSetPanResponder: (evt, gestureState) => !isAnimating,
-    onMoveShouldSetPanResponderCapture: (evt, gestureState) => !isAnimating,
+    onStartShouldSetPanResponder: (evt, gestureState) => !animatedRunning,
+    onStartShouldSetPanResponderCapture: (evt, gestureState) => !animatedRunning,
+    onMoveShouldSetPanResponder: (evt, gestureState) => !animatedRunning,
+    onMoveShouldSetPanResponderCapture: (evt, gestureState) => !animatedRunning,
 
     onPanResponderGrant: (evt, gestureState) => {
       panY.setValue(0);
       panX.setValue(0);
-      setIsPanning(true)
+      setOnDrag(true)
     },
     onPanResponderMove: Animated.event([
       null,
@@ -142,7 +146,7 @@ export const LightBoxOverlay = (props: LightboxOverlayProps) => {
     onPanResponderTerminationRequest: (evt, gestureState) => true,
     onPanResponderRelease: (evt, gestureState) => {
       if (Math.abs(gestureState.dy) > DRAG_DISMISS_THRESHOLD) {
-        setIsPanning(false)
+        setOnDrag(false)
         setTarget({
           y: gestureState.dy,
           x: gestureState.dx,
@@ -159,15 +163,16 @@ export const LightBoxOverlay = (props: LightboxOverlayProps) => {
             panX,
             { toValue: 0, useNativeDriver: false }
           )
-        ]).start(() => { setIsPanning(false) });
+        ]).start(() => { setOnDrag(false) });
       }
     },
-  }), [isAnimating])
-  const bgOpacity = isPanning ? panY.interpolate({ inputRange: [-WINDOW_HEIGHT, 0, WINDOW_HEIGHT], outputRange: [0, 1, 0] }) : openVal.interpolate({ inputRange: [0, 0.5, 1], outputRange: [0, 0, 1] })
+  }), [animatedRunning])
+  const bgOpacity = onDrag ? panY.interpolate({ inputRange: [-WINDOW_HEIGHT, 0, WINDOW_HEIGHT], outputRange: [0, 1, 0] }) : openVal.interpolate({ inputRange: [0, 0.5, 1], outputRange: [0, 0, 1] })
+
   return (
-    <Modal transparent={true} visible={isOpen}>
+    <Modal transparent={true} visible={true}>
       <Animated.View style={[styles.background, { opacity: bgOpacity, backgroundColor: backgroundColor }]}></Animated.View>
-      <Animated.View style={[openStyle, isPanning && { top: panY, left: panX }]} {...swipeToDismiss && panResponder.panHandlers}>
+      <Animated.View style={[openStyle, onDrag && { top: panY, left: panX }]} {...swipeToDismiss && panResponder.panHandlers}>
         {children}
       </Animated.View>
       {renderHeader ? renderHeader() : <Button onPress={close} style={[styles.buttonClose, { top: inset.top + 20, left: inset.left + 20 }]}>
