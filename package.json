@@ -1,7 +1,8 @@
 {
     "scripts": {
-        "android": "npx react-native run-android",
-        "ios": "npx react-native run-ios",
+        "android": "cd android &&./gradlew clean && cd.. && npx react-native run-android ",
+        "ios": "cd ios && xcodebuild clean && cd.. && npx react-native run-ios",
+        "releaseAndroid": "npx react-native run-android --variant=release",
         "start": "npx react-native start --reset-cache",
         "format": "npm-run-all format:*",
         "format:js": "prettier --write {.,**}/*.js",

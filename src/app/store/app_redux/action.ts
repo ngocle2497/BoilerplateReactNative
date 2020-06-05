@@ -1,33 +1,26 @@
 import { ThemeType } from '@theme';
-import { SET_INTERNET_OFF, SET_INTERNET_ON, SET_TOKEN, REMOVE_TOKEN, SET_APP_THEME } from './actionType'
+import * as Action from './actionType'
 
-export const onInternetOff = () => {
-    return {
-        type: SET_INTERNET_OFF,
-    };
-};
+export const onInternetOff = () => ({
+    type: Action.SET_INTERNET_OFF,
+});
 
-export const onInternetOn = () => {
-    return {
-        type: SET_INTERNET_ON,
-    };
-};
+export const onInternetOn = () => ({
+    type: Action.SET_INTERNET_ON,
+});
+export const onLogout = () => ({
+    type: Action.LOG_OUT
+})
+export const onSetToken = (payload: any) => ({
+    type: Action.SET_TOKEN,
+    payload
+});
+export const onAppProfile = (payload: any) => ({
+    type: Action.SET_APP_PROFILE,
+    payload
+});
 
-export const onSetToken = (payload:any) => {
-    return {
-        type: SET_TOKEN,
-        payload
-    };
-};
-export const onRemoveToken = () => {
-    return {
-        type: REMOVE_TOKEN,
-    };
-};
-
-export const onSetAppTheme = (payload:ThemeType)=>{
-    return{
-        type: SET_APP_THEME,
-        payload
-    }
-}
+export const onSetAppTheme = (payload: ThemeType) => ({
+    type: Action.SET_APP_THEME,
+    payload
+})

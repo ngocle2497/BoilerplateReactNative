@@ -1,3 +1,4 @@
+import equals from 'react-fast-compare'
 export const onChangeAlias = (value: string | number): string => {
     var str = value + "";
     str = str.toLowerCase();
@@ -16,7 +17,7 @@ export const onChangeAlias = (value: string | number): string => {
     str = str.trim();
     return str;
 };
-export const PadEnd = (value: string, lengthPad: number, textEntry?: string): string => {
+export const padEnd = (value: string, lengthPad: number, textEntry?: string): string => {
     if (!value) {
         return '';
     }
@@ -31,7 +32,7 @@ export const PadEnd = (value: string, lengthPad: number, textEntry?: string): st
     str = str.slice(0, lengthPad) + Array(str.slice(lengthPad, str.length).length).fill(0).map((x: string) => textEntry ?? "*").join('');
     return str;
 }
-export const PadStart = (value: string, lengthPad: number, textEntry?: string): string => {
+export const padStart = (value: string, lengthPad: number, textEntry?: string): string => {
     if (!value) {
         return '';
     }
@@ -46,3 +47,6 @@ export const PadStart = (value: string, lengthPad: number, textEntry?: string): 
     str = Array(str.slice(lengthPad, str.length).length).fill(0).map((x: string) => textEntry ?? "*").join('') + str.slice(lengthPad);
     return str;
 }
+export const compareValue = (val1: any, val2: any) => {
+    return equals(val1, val2);
+};

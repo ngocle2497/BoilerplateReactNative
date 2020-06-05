@@ -12,7 +12,7 @@ interface ActionProps {
     type: keyof typeof Action;
     payload: any;
 }
-export const loginReducer = (state: BaseRedux<LoginState> = fromJS(initialState), { type, payload }: ActionProps): BaseRedux<LoginState> => {
+export default (state: BaseRedux<LoginState> = fromJS(initialState), { type, payload }: ActionProps): BaseRedux<LoginState> => {
     switch (type) {
         case Action.LOGIN_START:
             return state.set('loading', true)
