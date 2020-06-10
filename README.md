@@ -1,4 +1,4 @@
-## Welcome to the Base React Native
+## Welcome to the Boilerplate React Native
 
 > How to build
 - Install react native
