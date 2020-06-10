@@ -1,5 +1,5 @@
 import { ThemeType } from '@theme';
-import { SET_INTERNET_OFF, SET_INTERNET_ON, SET_TOKEN, REMOVE_TOKEN, SET_APP_THEME } from './actionType'
+import { SET_INTERNET_OFF, SET_INTERNET_ON, SET_TOKEN, LOG_OUT, SET_APP_THEME } from './actionType'
 
 export const onInternetOff = () => {
     return {
@@ -19,9 +19,9 @@ export const onSetToken = (payload:any) => {
         payload
     };
 };
-export const onRemoveToken = () => {
+export const onLogout = () => {
     return {
-        type: REMOVE_TOKEN,
+        type: LOG_OUT,
     };
 };
 

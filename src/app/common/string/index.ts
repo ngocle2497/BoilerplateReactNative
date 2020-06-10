@@ -46,3 +46,9 @@ export const PadStart = (value: string, lengthPad: number, textEntry?: string): 
     str = Array(str.slice(lengthPad, str.length).length).fill(0).map((x: string) => textEntry ?? "*").join('') + str.slice(lengthPad);
     return str;
 }
+export const replaceAll = (source = '', textReplace = '', textInstead = '') => {
+    return source.split(textReplace).join(textInstead)
+}
+export const removeHtmlTag = (source = '') => {
+    return source.replace(/<\/?[^>]+(>|$)/g, '')
+}

@@ -21,7 +21,7 @@ export const AppReducer = (state: BaseRedux<AppState> = fromJS(initialAppState),
             return state.set('internetState', false);
         case Action.SET_TOKEN:
             return state.set('token', payload);
-        case Action.REMOVE_TOKEN:
+        case Action.LOG_OUT:
             return state.set('token', null);
         case Action.SET_APP_THEME:
             return state.set('theme', payload);

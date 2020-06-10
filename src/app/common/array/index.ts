@@ -7,3 +7,9 @@ export const onSearchAllProperties = (source: Array<any>, textSearch: string | n
         })
     })
 }
+export const onCheckArray = (source: any) => {
+    if (Array.isArray(source)) {
+        return source;
+    }
+    return [];
+}
