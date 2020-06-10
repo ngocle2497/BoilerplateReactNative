@@ -27,3 +27,42 @@ export interface LightBoxProps {
      */
     renderContent?: () => React.ReactNode;
 }
+export interface ChildrenTransitionProps {
+
+    /**
+     * Reference of root view
+     */
+    viewRef:any;
+
+    /**
+     * Origin of children
+     */
+    origin: any;
+
+    /**
+     * Custom header instead icon close
+     * @default undefined
+     */
+    renderHeader?: () => React.ReactNode;
+    /**
+     * Enable swipe
+     * @default true
+     */
+    swipeToDismiss: boolean;
+
+    /**
+     * Backdrop color
+     */
+    backgroundColor: string;
+
+    /**
+     * Children copy from children LightBox
+     */
+
+    children: any;
+
+    /**
+     * Custom header instead icon close
+     */
+    onClose: () => void;
+}

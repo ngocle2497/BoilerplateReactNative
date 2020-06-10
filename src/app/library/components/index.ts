@@ -20,7 +20,7 @@ export * from './Image/Image';
 export * from './ImageRemote/ImageRemote';
 export * from './ActionSheet/ActionSheet';
 export * from './Select/Select';
-export * from './LightBox/LightBox';
+export * from './LightBox/';
 export * from './FAB/FAB';
 export * from './SizeBox/SizeBox';
 export * from './Block/Block'

@@ -1,7 +1,13 @@
 {
     "scripts": {
+<<<<<<< HEAD
         "android": "cd android && ./gradlew clean && npx react-native run-android",
         "ios": "cd ios && xcodebuild clean && npx react-native run-ios",
+=======
+        "android": "cd android &&./gradlew clean && cd.. && npx react-native run-android ",
+        "ios": "cd ios && xcodebuild clean && cd.. && npx react-native run-ios",
+        "release-android": "npx react-native run-android --variant=release",
+>>>>>>> origin/master
         "start": "npx react-native start --reset-cache",
         "format": "npm-run-all format:*",
         "format:js": "prettier --write {.,**}/*.js",
@@ -10,8 +16,13 @@
         "format:ts": "prettier --write {.,**}/*.{ts,tsx}",
         "test": "jest",
         "link": "npx react-native link",
+<<<<<<< HEAD
         "apk": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
         "aab": "cd android && ./gradlew clean && ./gradlew bundleRelease && cd ..",
+=======
+        "apk": "cd android &&./gradlew clean && ./gradlew assembleRelease && cd ..",
+        "aab": "cd android &&./gradlew clean && ./gradlew bundleRelease && cd ..",
+>>>>>>> origin/master
         "lint": "eslint index.js app --fix --ext .js,.ts,.tsx",
         "pod": "cd ios && pod install && cd .."
     },
