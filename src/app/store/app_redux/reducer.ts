@@ -21,13 +21,8 @@ export default (state: BaseRedux<AppState> = fromJS(initialAppState), { type, pa
             return state.set('internetState', false);
         case Action.SET_TOKEN:
             return state.set('token', payload);
-<<<<<<< HEAD
-        case Action.LOG_OUT:
-            return state.set('token', null);
-=======
         case Action.SET_APP_PROFILE:
             return state.set('profile', payload);
->>>>>>> origin/master
         case Action.SET_APP_THEME:
             return state.set('theme', payload);
         case Action.LOG_OUT:

@@ -47,15 +47,12 @@ export const padStart = (value: string, lengthPad: number, textEntry?: string): 
     str = Array(str.slice(lengthPad, str.length).length).fill(0).map((x: string) => textEntry ?? "*").join('') + str.slice(lengthPad);
     return str;
 }
-<<<<<<< HEAD
 export const replaceAll = (source = '', textReplace = '', textInstead = '') => {
     return source.split(textReplace).join(textInstead)
 }
 export const removeHtmlTag = (source = '') => {
     return source.replace(/<\/?[^>]+(>|$)/g, '')
 }
-=======
 export const compareValue = (val1: any, val2: any) => {
     return equals(val1, val2);
 };
->>>>>>> origin/master
