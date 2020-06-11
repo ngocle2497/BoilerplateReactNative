@@ -8,7 +8,7 @@ import { select } from 'redux-saga/effects'
 
 // base
 function* Request(config: AxiosRequestConfig) {
-  const { token }: AppState = yield select((x) => x.toJS().app);
+  const { token }: AppState = yield select((x: any) => x.toJS().app);
   const defaultConfig: AxiosRequestConfig = {
     baseURL: BASE_API,
     timeout: TIME_OUT,
@@ -36,7 +36,7 @@ function* Post(url: string, data: object) {
 
 // post file
 function* PostWithFile(url: string, data: object) {
-  const { token }: AppState = yield select(x => x.app);
+  const { token }: AppState = yield select((x: any) => x.app);
   let header: any = { token: token, 'Content-Type': 'multipart/form-data', };
   return yield Request({ url: url, data: data, method: 'POST', headers: header })
 }

@@ -91,15 +91,15 @@ type UseArray<T = any> = [T[], UseArrayActions<T>];
 
 function useArray<T = any>(initial: T[]): UseArray<T> {
   const [value, setValue] = useState(initial);
-  const push = useCallback((a) => {
-    setValue((v) => [...v, ...(Array.isArray(a) ? a : [a])]);
+  const push = useCallback((a: T[]) => {
+    setValue((v: T[]) => [...v, ...(Array.isArray(a) ? a : [a])]);
   }, []);
-  const unshift = useCallback((a) => setValue((v) => [...(Array.isArray(a) ? a : [a]), ...v]), []);
-  const pop = useCallback(() => setValue((v) => v.slice(0, -1)), []);
-  const shift = useCallback(() => setValue((v) => v.slice(1)), []);
+  const unshift = useCallback((a: T[]) => setValue((v: T[]) => [...(Array.isArray(a) ? a : [a]), ...v]), []);
+  const pop = useCallback(() => setValue((v: T[]) => v.slice(0, -1)), []);
+  const shift = useCallback(() => setValue((v: T[]) => v.slice(1)), []);
   const move = useCallback(
     (from: number, to: number) =>
-      setValue((it) => {
+      setValue((it: T[]) => {
         const copy = it.slice();
         copy.splice(to < 0 ? copy.length + to : to, 0, copy.splice(from, 1)[0]);
         return copy;
@@ -113,8 +113,8 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
     [],
   );
   const removeIndex = useCallback(
-    (index) =>
-      setValue((v) => {
+    (index: number) =>
+      setValue((v: T[]) => {
         const copy = v.slice();
         copy.splice(index, 1);
         return copy;
@@ -122,7 +122,7 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
     [],
   );
   const modifyById = useCallback(
-    (id, newValue) =>
+    (id: any, newValue: any) =>
       // @ts-ignore not every array that you will pass down will have object with id field.
       setValue((arr) => arr.map((v) => (v.id === id ? { ...v, ...newValue } : v))),
     [],
@@ -191,7 +191,7 @@ function useNumber(
   const [value, setValue] = useState<number>(initial);
   const decrease = useCallback(
     (d?: number) => {
-      setValue((aValue) => {
+      setValue((aValue: number) => {
         const decreaseBy = d !== undefined ? d : step;
         const nextValue = aValue - decreaseBy;
 
@@ -212,7 +212,7 @@ function useNumber(
   );
   const increase = useCallback(
     (i?: number) => {
-      setValue((aValue) => {
+      setValue((aValue: number) => {
         const increaseBy = i !== undefined ? i : step;
         const nextValue = aValue + increaseBy;
 
@@ -270,7 +270,7 @@ function useSetStateArray<T extends object>(initialValue: T): UseSetStateArray<T
   const [value, setValue] = useState<T>(initialValue);
   const setState = useCallback(
     (v: SetStateAction<Partial<T>>) => {
-      return setValue((oldValue) => ({
+      return setValue((oldValue: T) => ({
         ...oldValue,
         ...(typeof v === 'function' ? v(oldValue) : v),
       }));

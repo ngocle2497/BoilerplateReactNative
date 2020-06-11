@@ -5,12 +5,13 @@ import AsyncStorage from '@react-native-community/async-storage';
  *
  * @param key The key to fetch.
  */
-export async function loadString(key: string) {
+export async function loadString(key: string, defaultValue = null) {
   try {
-    return await AsyncStorage.getItem(key);
+    const res = await AsyncStorage.getItem(key);
+    return res ?? defaultValue;
   } catch {
     // not sure why this would fail... even reading the RN docs I'm unclear
-    return null;
+    return defaultValue;
   }
 }
 
@@ -66,7 +67,7 @@ export async function save(key: string, value: any) {
 export async function remove(key: string) {
   try {
     await AsyncStorage.removeItem(key);
-  } catch {}
+  } catch { }
 }
 
 /**
@@ -75,5 +76,5 @@ export async function remove(key: string) {
 export async function clear() {
   try {
     await AsyncStorage.clear();
-  } catch {}
+  } catch { }
 }

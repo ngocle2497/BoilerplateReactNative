@@ -3,7 +3,6 @@ export * from './customHook';
 export * from './handleError';
 export * from './handleMsg';
 // export * from './requestPermission';
-export * from './useConsole';
 export * from './string';
 export * from './scale';
 export * from './array';
