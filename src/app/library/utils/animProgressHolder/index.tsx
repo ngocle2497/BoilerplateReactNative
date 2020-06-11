@@ -1,10 +1,11 @@
 import { createRef } from 'react';
-export const animProgressHolder = createRef<any>();
+import { AnimProcessRef } from '@components';
+export const animProgressHolder = createRef<AnimProcessRef>();
 
 export const showLoadingAnim = () => {
     animProgressHolder.current?.show()
 }
 
-export const hiddenLoadingAnim = () => {
+export const hideLoadingAnim = () => {
     animProgressHolder.current?.hide()
 }

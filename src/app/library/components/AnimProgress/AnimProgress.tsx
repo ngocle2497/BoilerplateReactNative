@@ -67,3 +67,7 @@ const AnimProcessComponent = forwardRef((props: AnimProcessProps, ref) => {
   )
 })
 export const AnimProcess = memo(AnimProcessComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
+export interface AnimProcessRef {
+  show(): void;
+  hide(): void;
+}

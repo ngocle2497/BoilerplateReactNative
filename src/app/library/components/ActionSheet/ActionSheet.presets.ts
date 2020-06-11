@@ -3,9 +3,11 @@ import { FontSizeDefault } from "@theme/fontSize";
 import { FontDefault } from "@theme/typography";
 
 export const styles = StyleSheet.create({
+    modal: {
+        margin: 0,
+    },
     wrap: {
         position: 'absolute',
-        zIndex: 999,
         bottom: 0,
         width: '100%',
         paddingBottom: 20,
@@ -26,7 +28,7 @@ export const styles = StyleSheet.create({
     },
     option: {
         backgroundColor: 'transparent',
-        marginVertical: 5,
+        // marginVertical: 5,
     },
     wrapCancel: {
         backgroundColor: '#FFFFFF',
@@ -46,11 +48,12 @@ export const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingVertical: 10,
+        paddingVertical: 5,
     },
     title: {
         fontSize: FontSizeDefault.FONT_13,
         fontWeight: '700',
+        alignSelf: 'center',
         fontFamily: FontDefault.primary,
         color: '#333333'
     }

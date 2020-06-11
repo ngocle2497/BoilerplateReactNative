@@ -49,7 +49,7 @@ export interface ActionSheetProps {
 
     /**
      * Enable to click backdrop to close
-     * @default false
+     * @default true
      */
     closeOnBackDrop?: boolean;
 

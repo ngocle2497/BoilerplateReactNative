@@ -1,25 +1,24 @@
 import { createRef } from 'react'
+import DropdownAlert from 'react-native-dropdownalert'
 
-type TittleType = string | undefined | null;
-type MessageType = string | undefined | null;
 type CallBackType = Function | undefined | null;
 
-export const dropDown = createRef();
+export const dropDown = createRef<DropdownAlert>();
 
-export const showError = (title: TittleType, message: MessageType, callBack?: CallBackType) => {
+export const showError = (title = '', message = '', callBack?: CallBackType) => {
   dropDown.current?.alertWithType('error', title, message);
-  callBack && callBack();
+  typeof callBack === 'function' && callBack();
 }
-export const showSuccess = (title: TittleType, message: MessageType, callBack?: CallBackType) => {
+export const showSuccess = (title = '', message = '', callBack?: CallBackType) => {
   dropDown.current?.alertWithType('success', title, message);
-  callBack && callBack();
+  typeof callBack === 'function' && callBack();
 }
 
-export const showWarning = (title: TittleType, message: MessageType, callBack?: CallBackType) => {
+export const showWarning = (title = '', message = '', callBack?: CallBackType) => {
   dropDown.current?.alertWithType('warn', title, message);
-  callBack && callBack();
+  typeof callBack === 'function' && callBack();
 }
-export const showInfo = (title: TittleType, message: MessageType, callBack?: CallBackType) => {
+export const showInfo = (title = '', message = '', callBack?: CallBackType) => {
   dropDown.current?.alertWithType('info', title, message);
-  callBack && callBack();
+  typeof callBack === 'function' && callBack();
 }

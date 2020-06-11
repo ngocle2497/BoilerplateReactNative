@@ -104,3 +104,7 @@ const ProgressDialogComponent = forwardRef((props, ref) => {
   );
 })
 export const ProgressDialog = memo(ProgressDialogComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
+export interface ProgressDialogRef {
+  show(msg: string): void;
+  hide(): void;
+}
