@@ -56,3 +56,6 @@ export const removeHtmlTag = (source = '') => {
 export const compareValue = (val1: any, val2: any) => {
     return equals(val1, val2);
 };
+export const removeChar = (source = '') => {
+    return source.replace(/[^0-9]/g, '')
+}
