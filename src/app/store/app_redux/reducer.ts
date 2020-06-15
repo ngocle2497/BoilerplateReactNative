@@ -2,11 +2,14 @@ import { BaseRedux } from '@config/type';
 import * as Action from './actionType';
 import { AppState } from './type';
 import { fromJS } from 'immutable'
+import { DEV_MODE_API } from '@networking';
 const initialAppState: AppState = {
     internetState: true,
     profile: {},
     token: null,
-    theme: 'default'
+    theme: 'default',
+    appMode: 'prod',
+    appUrl: DEV_MODE_API
 };
 
 interface ActionProps {
@@ -25,8 +28,15 @@ export default (state: BaseRedux<AppState> = fromJS(initialAppState), { type, pa
             return state.set('profile', payload);
         case Action.SET_APP_THEME:
             return state.set('theme', payload);
+        case Action.SET_APP_MODE:
+            return state.set('appMode', payload);
+        case Action.SET_APP_URL:
+            return state.set('appUrl', payload);
         case Action.LOG_OUT:
-            return fromJS(initialAppState);
+            let saveState = initialAppState;
+            saveState.appMode = state.get('appMode')
+            saveState.appUrl = state.get('appUrl')
+            return fromJS(saveState);
         default:
             return state;
     }
