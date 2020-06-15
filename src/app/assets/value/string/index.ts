@@ -1,2 +1,2 @@
-const strings = { TOKEN: 'TOKEN', APP_MODE: 'APP_MODE', APP_URL: 'APP_URL' };
+const strings = { TOKEN: 'TOKEN', APP_MODE: 'APP_MODE', };
 export default strings;

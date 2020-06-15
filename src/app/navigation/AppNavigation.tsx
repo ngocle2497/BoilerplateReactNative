@@ -40,10 +40,6 @@ export const AppContainer = () => {
           break;
       }
     }
-    const appURL = await loadString(R.strings.APP_URL)
-    if (typeof appURL === 'string') {
-      dispatch(onSetAppUrl(appURL))
-    }
   }, [])
   React.useEffect(async () => {
     await _loadAppMode()

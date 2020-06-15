@@ -39,8 +39,6 @@ export default (state: BaseRedux<AppState> = fromJS(initialAppState), { type, pa
             return state.set('profile', payload);
         case Action.SET_APP_THEME:
             return state.set('theme', payload);
-        case Action.SET_APP_URL:
-            return state.set('appUrl', payload);
         case Action.SET_APP_MODE:
             const appURL = appModeToURL(payload)
             return state.set('appMode', payload).set('appUrl', appURL);

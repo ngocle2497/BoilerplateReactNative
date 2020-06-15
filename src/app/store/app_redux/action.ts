@@ -29,7 +29,3 @@ export const onSetAppMode = (payload: App_Mode) => ({
     type: Action.SET_APP_MODE,
     payload
 })
-export const onSetAppUrl = (payload: string) => ({
-    type: Action.SET_APP_URL,
-    payload
-})
