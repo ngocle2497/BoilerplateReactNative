@@ -29,8 +29,16 @@ export const AppContainer = () => {
   const [loading, setLoading] = React.useState(true);
   const _loadAppMode = React.useCallback(async () => {
     const appMode = await loadString(R.strings.APP_MODE)
-    if (typeof appMode === 'string' && appMode as App_Mode) {
-      dispatch(onSetAppMode(appMode))
+    if (typeof appMode === 'string') {
+      switch (appMode) {
+        case 'dev':
+        case 'prod':
+        case 'staging':
+          dispatch(onSetAppMode(appMode))
+          break;
+        default:
+          break;
+      }
     }
     const appURL = await loadString(R.strings.APP_URL)
     if (typeof appURL === 'string') {
