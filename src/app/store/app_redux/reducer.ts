@@ -29,10 +29,8 @@ interface ActionProps {
 }
 export default (state: BaseRedux<AppState> = fromJS(initialAppState), { type, payload }: ActionProps): BaseRedux<AppState> => {
     switch (type) {
-        case Action.SET_INTERNET_ON:
-            return state.set('internetState', true);
-        case Action.SET_INTERNET_OFF:
-            return state.set('internetState', false);
+        case Action.SET_INTERNET:
+            return state.set('internetState', payload);
         case Action.SET_TOKEN:
             return state.set('token', payload);
         case Action.SET_APP_PROFILE:

@@ -2,12 +2,9 @@ import { ThemeType } from '@theme';
 import * as Action from './actionType'
 import { App_Mode } from './type';
 
-export const onInternetOff = () => ({
-    type: Action.SET_INTERNET_OFF,
-});
-
-export const onInternetOn = () => ({
-    type: Action.SET_INTERNET_ON,
+export const onInternet = (payload: boolean) => ({
+    type: Action.SET_INTERNET,
+    payload
 });
 export const onLogout = () => ({
     type: Action.LOG_OUT
