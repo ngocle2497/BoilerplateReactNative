@@ -1,8 +1,8 @@
+import { DEV_MODE_API, PROD_MODE_API, STAGING_MODE_API } from './../../library/networking/api';
 import { BaseRedux } from '@config/type';
 import * as Action from './actionType';
-import { AppState } from './type';
+import { AppState, App_Mode } from './type';
 import { fromJS } from 'immutable'
-import { DEV_MODE_API } from '@networking';
 const initialAppState: AppState = {
     internetState: true,
     profile: {},
@@ -11,7 +11,18 @@ const initialAppState: AppState = {
     appMode: 'prod',
     appUrl: DEV_MODE_API
 };
-
+const appModeToURL = (mode: App_Mode): string => {
+    switch (mode) {
+        case 'dev':
+            return DEV_MODE_API;
+        case 'prod':
+            return PROD_MODE_API;
+        case 'staging':
+            return STAGING_MODE_API;
+        default:
+            return DEV_MODE_API;
+    }
+}
 interface ActionProps {
     type: keyof typeof Action;
     payload: any;
@@ -28,10 +39,11 @@ export default (state: BaseRedux<AppState> = fromJS(initialAppState), { type, pa
             return state.set('profile', payload);
         case Action.SET_APP_THEME:
             return state.set('theme', payload);
-        case Action.SET_APP_MODE:
-            return state.set('appMode', payload);
         case Action.SET_APP_URL:
             return state.set('appUrl', payload);
+        case Action.SET_APP_MODE:
+            const appURL = appModeToURL(payload)
+            return state.set('appMode', payload).set('appUrl', appURL);
         case Action.LOG_OUT:
             let saveState = initialAppState;
             saveState.appMode = state.get('appMode')
