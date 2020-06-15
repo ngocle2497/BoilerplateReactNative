@@ -2,7 +2,7 @@ import { ThemeType } from '@theme';
 import * as Action from './actionType'
 import { App_Mode } from './type';
 
-export const onInternet = (payload: boolean) => ({
+export const onSetInternet = (payload: boolean) => ({
     type: Action.SET_INTERNET,
     payload
 });
