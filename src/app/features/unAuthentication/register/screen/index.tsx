@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Splash from 'react-native-splash-screen';
 import { Wallpaper, Text, Screen, Button } from '@components';
-export const Register = () => {
+export const Register = ({ navigation }) => {
     const dispatch = useDispatch()
     useEffect(() => {
         Splash.hide();

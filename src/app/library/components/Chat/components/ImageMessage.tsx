@@ -3,7 +3,7 @@ import { StyleSheet, Image } from 'react-native'
 import isEqual from 'react-fast-compare'
 import { ImageMessageProps } from '../Chat.props'
 import { scale } from '@common'
-import { LightBox } from '../../LightBox/LightBox'
+import { LightBox } from '../../LightBox/index'
 
 const ImageMessageComponent = ({ sourceImage = '' }: ImageMessageProps) => {
     return (
