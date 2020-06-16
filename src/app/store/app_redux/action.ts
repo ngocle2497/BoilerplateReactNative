@@ -13,7 +13,7 @@ export const onSetToken = (payload: any) => ({
     type: Action.SET_TOKEN,
     payload
 });
-export const onAppProfile = (payload: any) => ({
+export const onSetAppProfile = (payload: any) => ({
     type: Action.SET_APP_PROFILE,
     payload
 });

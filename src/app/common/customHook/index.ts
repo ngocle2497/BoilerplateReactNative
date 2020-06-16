@@ -1,12 +1,19 @@
 import { useEffect, useRef, useState, SetStateAction, useCallback, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo'
 import { Clipboard } from 'react-native';
 type UseStateFull<T = any> = {
   value: T;
   setValue: React.Dispatch<SetStateAction<T>>;
 };
-
+function createSelector<T>(selector: (state: any) => T, equalityFn = shallowEqual): T {
+  const state = useSelector((x: any) => x.toJS(), equalityFn);
+  return selector(state);
+};
+function useRedux() {
+  const dispatch = useDispatch()
+  return { dispatch, createSelector }
+}
 //#region useInterval
 function useInterval(callback: Function, delay: number) {
   const savedCallback = useRef<Function>();
@@ -24,10 +31,6 @@ function useInterval(callback: Function, delay: number) {
   }, [delay]);
 }
 
-function createSelector<T, TSelected = unknown>(selector: (state: any) => T, equalityFn?: (left: TSelected, right: TSelected) => boolean): T {
-  const state = useSelector((x: any) => x.toJS());
-  return selector(state);
-};
 //#endregion useInterval
 
 //#region useClippy
@@ -91,15 +94,15 @@ type UseArray<T = any> = [T[], UseArrayActions<T>];
 
 function useArray<T = any>(initial: T[]): UseArray<T> {
   const [value, setValue] = useState(initial);
-  const push = useCallback((a: T[]) => {
-    setValue((v: T[]) => [...v, ...(Array.isArray(a) ? a : [a])]);
+  const push = useCallback((a) => {
+    setValue((v) => [...v, ...(Array.isArray(a) ? a : [a])]);
   }, []);
-  const unshift = useCallback((a: T[]) => setValue((v: T[]) => [...(Array.isArray(a) ? a : [a]), ...v]), []);
-  const pop = useCallback(() => setValue((v: T[]) => v.slice(0, -1)), []);
-  const shift = useCallback(() => setValue((v: T[]) => v.slice(1)), []);
+  const unshift = useCallback((a) => setValue((v) => [...(Array.isArray(a) ? a : [a]), ...v]), []);
+  const pop = useCallback(() => setValue((v) => v.slice(0, -1)), []);
+  const shift = useCallback(() => setValue((v) => v.slice(1)), []);
   const move = useCallback(
     (from: number, to: number) =>
-      setValue((it: T[]) => {
+      setValue((it) => {
         const copy = it.slice();
         copy.splice(to < 0 ? copy.length + to : to, 0, copy.splice(from, 1)[0]);
         return copy;
@@ -113,8 +116,8 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
     [],
   );
   const removeIndex = useCallback(
-    (index: number) =>
-      setValue((v: T[]) => {
+    (index) =>
+      setValue((v) => {
         const copy = v.slice();
         copy.splice(index, 1);
         return copy;
@@ -122,7 +125,7 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
     [],
   );
   const modifyById = useCallback(
-    (id: any, newValue: any) =>
+    (id, newValue) =>
       // @ts-ignore not every array that you will pass down will have object with id field.
       setValue((arr) => arr.map((v) => (v.id === id ? { ...v, ...newValue } : v))),
     [],
@@ -191,7 +194,7 @@ function useNumber(
   const [value, setValue] = useState<number>(initial);
   const decrease = useCallback(
     (d?: number) => {
-      setValue((aValue: number) => {
+      setValue((aValue) => {
         const decreaseBy = d !== undefined ? d : step;
         const nextValue = aValue - decreaseBy;
 
@@ -212,7 +215,7 @@ function useNumber(
   );
   const increase = useCallback(
     (i?: number) => {
-      setValue((aValue: number) => {
+      setValue((aValue) => {
         const increaseBy = i !== undefined ? i : step;
         const nextValue = aValue + increaseBy;
 
@@ -270,7 +273,7 @@ function useSetStateArray<T extends object>(initialValue: T): UseSetStateArray<T
   const [value, setValue] = useState<T>(initialValue);
   const setState = useCallback(
     (v: SetStateAction<Partial<T>>) => {
-      return setValue((oldValue: T) => ({
+      return setValue((oldValue) => ({
         ...oldValue,
         ...(typeof v === 'function' ? v(oldValue) : v),
       }));
@@ -298,4 +301,4 @@ function useSetState<T extends object>(initialValue: T): UseSetState<T> {
     [setState, resetState, state],
   );
 }
-export { useInterval, createSelector, useClippy, useNetWorkStatus, useArray, useBoolean, useNumber, useStateFull, usePrevious, useSetState };
+export { useInterval, useRedux, useClippy, useNetWorkStatus, useArray, useBoolean, useNumber, useStateFull, usePrevious, useSetState };
