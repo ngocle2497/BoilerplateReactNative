@@ -8,7 +8,7 @@ const initialAppState: AppState = {
     profile: {},
     token: null,
     theme: 'default',
-    appMode: 'prod',
+    appMode: 'staging',
     appUrl: DEV_MODE_API
 };
 const appModeToURL = (mode: App_Mode): string => {

@@ -1,5 +1,5 @@
-import React, { memo, forwardRef, useState, useCallback, useMemo, useEffect } from 'react'
-import { StyleSheet, StyleProp, ViewStyle, Platform, LayoutChangeEvent, FlatList, useWindowDimensions, StatusBar } from 'react-native'
+import React, { memo, forwardRef, useState, useCallback, useMemo, useEffect, useRef } from 'react'
+import { StyleSheet, StyleProp, ViewStyle, Platform, LayoutChangeEvent, FlatList, useWindowDimensions, StatusBar, View } from 'react-native'
 import isEqual from 'react-fast-compare'
 import { DropDownProps, RowDropDown } from './DropDown.props'
 import { Block } from '../Block/Block'
@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     wrapView: {
         backgroundColor: '#FFFFFF',
         borderRadius: 3,
+        width: '100%',
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderTopWidth: StyleSheet.hairlineWidth,
         borderBottomColor: 'transparent',
@@ -65,6 +66,7 @@ const styles = StyleSheet.create({
 const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
     const { height: deviceH } = useWindowDimensions()
     const inset = useSafeArea()
+    const _refDrop = useRef<View>()
     const { data, defaultValue, style, containerStyleItem, customTickIcon, activeItemStyle, activeLabelStyle, renderArrow, placeholderStyle, containerStyle, dropDownStyle, placeHolder = 'Select an item', multiple = false, multipleText = '%d items have been selected' } = props;
     const [isVisible, setIsVisible] = useState(false)
     const [selectedValue, setSelectedValue] = useState<string | Array<string>>('')
@@ -81,7 +83,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
                 setSelectedValue(selectedValue.concat(value))
             }
         } else {
-            setSelectedValue(value)
+            setSelectedValue(value === selectedValue ? '' : value)
         }
         setIsVisible(false)
     }, [selectedValue, data])
@@ -101,15 +103,10 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
 
     const _keyExtractor = (item: RowDropDown, index: number) => item.value;
 
-    const _onLayout = useCallback((e: LayoutChangeEvent) => {
-        const { height, width, x, y } = e.nativeEvent.layout;
-        setViewLayout({ height, width, x, y })
-    }, [])
-
     const _onLayoutDrop = useCallback((e: LayoutChangeEvent) => {
         const { height: DropH } = e.nativeEvent.layout;
         setDropHeight(DropH)
-    }, [])
+    }, [inset, deviceH])
 
     const _onCheckRenderBottom = useCallback((): boolean => {
         let statusbarHeight = Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : inset.top;
@@ -117,6 +114,11 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
     }, [deviceH, viewLayout, dropHeight, inset])
 
     const _onToggle = useCallback(() => {
+        if (_refDrop.current) {
+            _refDrop.current.measure((x, y, width, height, px, py) => {
+                setViewLayout({ height, width, x, y: py })
+            })
+        }
         setIsVisible(val => !val)
     }, [])
 
@@ -174,13 +176,13 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
     _onCheckRenderBottom() ? styles.dropBottomOpened : styles.dropTopOpened,
     { width: viewLayout.width, left: viewLayout.x, },
     _onCheckRenderBottom() ? { top: viewLayout.y + viewLayout.height }
-        : { bottom: deviceH - viewLayout.y - (Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : inset.top) }
+        : { bottom: deviceH - viewLayout.y - (Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 0) }
     ]) as StyleProp<ViewStyle>, [viewLayout, deviceH, inset])
 
     // render
     return (
         <>
-            <Block width={'100%'} onLayout={_onLayout} style={wrapStyle}>
+            <View ref={_refDrop} style={wrapStyle}>
                 <Button preset={'link'} onPress={_onToggle}>
                     <Block style={container} direction={'row'}>
                         <Text style={textPlaceHolderStyle} numberOfLines={1}>{getTextPlaceHolder()}</Text>
@@ -189,7 +191,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
                         </Animated.View>}
                     </Block>
                 </Button>
-            </Block>
+            </View>
             <Modal
                 backdropOpacity={0}
                 useNativeDriver={true}

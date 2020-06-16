@@ -8,6 +8,8 @@ export const icons = {
   heart:require('./source/ic_heart.png'),
   search:require('./source/ic_search.png'),
   user:require('./source/ic_user.png'),
+  arrow_down:require('./source/arrow_down.png'),
+  check: require('./source/check.png')
 };
 
 export type IconTypes = keyof typeof icons;

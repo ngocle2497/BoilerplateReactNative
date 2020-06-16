@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { styles } from './style';
-import { Wallpaper, Screen, Header, Block, Text, Button } from '@components';
+import { Wallpaper, Screen, DropDown, Block, Text, Button } from '@components';
 import { onSetToken } from '@store/app_redux/action';
 import { navigate } from '@navigation/navigationService';
 import { APP_SCREEN } from '@navigation/screenTypes';
@@ -14,9 +14,8 @@ export const Login = () => {
     <View style={{ flex: 1 }}>
       <Wallpaper />
       <Screen
-        backgroundColor={'transparent'}
-        forceInset={{ top: 'never' }}>
-        <Block block>
+        backgroundColor={'transparent'}>
+        <Block block >
           <Button onPress={() => {
             dispatch(onSetToken('ss'))
           }}>
@@ -27,6 +26,7 @@ export const Login = () => {
           }}>
             <Text text={'Register'} />
           </Button>
+  
         </Block>
       </Screen>
     </View >
