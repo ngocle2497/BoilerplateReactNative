@@ -4,6 +4,7 @@ export * from './Progress/Progress';
 export * from './Button/Button';
 export * from './RadioButton/RadioButton';
 export * from './Divider/Divider';
+export * from './DropDown/DropDown';
 export * from './CheckBox/CheckBox';
 export * from './FormRow/FormRow';
 export * from './Header/Header';
