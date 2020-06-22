@@ -14,7 +14,9 @@
         "apk": "cd android &&./gradlew clean && ./gradlew assembleRelease && cd ..",
         "aab": "cd android &&./gradlew clean && ./gradlew bundleRelease && cd ..",
         "lint": "eslint index.js app --fix --ext .js,.ts,.tsx",
-        "pod": "cd ios && pod install && cd .."
+        "pod": "cd ios && pod install && cd ..",
+        "codePushAndroid": "code-push release-react App-Android android -d Production",
+        "codePushIOS": "code-push release-react App-IOS ios -d Production"
     },
     "dependencies": {
         "@react-native-community/async-storage": "^1.11.0",
