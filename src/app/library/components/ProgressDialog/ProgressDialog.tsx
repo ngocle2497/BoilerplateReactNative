@@ -8,13 +8,13 @@ import {
 import { Block } from '../Block/Block';
 import { Text } from '../Text/Text';
 import Modal from 'react-native-modal';
-import equals from 'react-fast-compare'
+import equals from 'react-fast-compare';
 const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   modal: {
     marginHorizontal: 0,
-    marginVertical: 0
+    marginVertical: 0,
   },
   contentModal: {
     flex: 1,
@@ -68,13 +68,13 @@ const ProgressDialogComponent = forwardRef((props, ref) => {
     },
     hide: () => {
       setVisible(true);
-    }
-  }));
-  const [visible, setVisible] = useState(false)
-  const [message, setMessage] = useState('')
+    },
+  }), []);
+  const [visible, setVisible] = useState(false);
+  const [message, setMessage] = useState('');
   const _onModalHide = () => {
-    setMessage('')
-  }
+    setMessage('');
+  };
   return (
     <Modal
       isVisible={visible}
@@ -92,18 +92,23 @@ const ProgressDialogComponent = forwardRef((props, ref) => {
           <ActivityIndicator
             color={Platform.OS === 'android' ? undefined : '#ffffff'}
           />
-          {message && <Text
-            style={[
-              Platform.OS === 'android' ? styles.textMsg : styles.textMsgIOS,
-            ]}>
-            {message}
-          </Text>}
+          {message && (
+            <Text
+              style={[
+                Platform.OS === 'android' ? styles.textMsg : styles.textMsgIOS,
+              ]}>
+              {message}
+            </Text>
+          )}
         </Block>
       </Block>
     </Modal>
   );
-})
-export const ProgressDialog = memo(ProgressDialogComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
+});
+export const ProgressDialog = memo(
+  ProgressDialogComponent,
+  (prevProps, nextProps) => equals(prevProps, nextProps),
+);
 export interface ProgressDialogRef {
   show(msg: string): void;
   hide(): void;

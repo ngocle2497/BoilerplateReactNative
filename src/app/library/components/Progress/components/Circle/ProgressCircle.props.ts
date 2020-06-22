@@ -1,16 +1,16 @@
-import { TextStyle } from 'react-native';
+import {TextStyle} from 'react-native';
 export interface ProgressCircleProps {
-    progress: number;
+  progress: number;
 
-    bg: string;
+  bg: string;
 
-    fg: string;
+  fg: string;
 
-    strokeWidth: number;
+  strokeWidth: number;
 
-    radius: number;
+  radius: number;
 
-    showTextProgress: boolean;
+  showTextProgress: boolean;
 
-    textProgressStyle: TextStyle | TextStyle[];
+  textProgressStyle: TextStyle | TextStyle[];
 }

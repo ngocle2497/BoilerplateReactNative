@@ -32,30 +32,34 @@
         "errorNetwork": "Lỗi kết nối! Vui lòng kiểm tra lại kết nối.",
         "errorGetPermission": "Lỗi trong quá trình kiểm tra quyền ứng dụng"
     },
-    "common":{
-        "greetingChat":"Bây giờ các bạn có thể trò chuyện với nhau"
+    "common": {
+        "textAppMode":"Chọn chế độ sử dụng",
+        "textAppDev": "Xây dựng",
+        "textAppTest": "Kiểm thử",
+        "textAppProd": "Phát hành",
+        "greetingChat": "Bây giờ các bạn có thể trò chuyện với nhau"
     },
     "dialog": {
         "error": "Lỗi",
-        "cancel":"Đóng",
+        "cancel": "Đóng",
         "warning": "Cảnh báo",
         "info": "Thông tin",
         "success": "Thành công",
         "loading": "Loading",
-        "select":"Chọn"
+        "select": "Chọn"
     },
-    "main":{
-        "homeTab":{
-           "tvHome":"Trang chủ"
+    "main": {
+        "homeTab": {
+            "tvHome": "Trang chủ"
         },
-        "likesTab":{
-            "tvLike":"Yêu thích"
-         },
-         "searchTab":{
-            "tvSearch":"Tìm kiếm"
-         },
-         "profileTab":{
-            "tvProfile":"Cá nhân"
-         }
+        "likesTab": {
+            "tvLike": "Yêu thích"
+        },
+        "searchTab": {
+            "tvSearch": "Tìm kiếm"
+        },
+        "profileTab": {
+            "tvProfile": "Cá nhân"
+        }
     }
 }

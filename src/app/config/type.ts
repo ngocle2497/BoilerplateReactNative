@@ -1,4 +1,4 @@
-import Immutable from 'immutable'
+import Immutable from 'immutable';
 export interface ResponseBase<T = any> {
   code: number;
 
@@ -8,21 +8,21 @@ export interface ResponseBase<T = any> {
 
   status: boolean;
 }
-export interface BaseRedux<T> extends Immutable.Map<keyof T, any> { }
+export interface BaseRedux<T> extends Immutable.Map<keyof T, any> {}
 export interface Colors {
-  primary: string,
+  primary: string;
   primaryDarker: string;
   line: string;
   text: string;
   card: string;
-  background: string,
+  background: string;
   border: string;
   button: string;
   white: string;
   transparent: string;
   lighterGrey: string;
-  error:string;
-  info:string;
+  error: string;
+  info: string;
 }
 export interface FontSize {
   FONT_4: number;
@@ -57,7 +57,7 @@ export interface FontSize {
 }
 export interface FontFamily {
   primary: string;
-  secondary: string
+  secondary: string;
 }
 export interface Spacing {
   none: number;
@@ -75,5 +75,5 @@ export interface AppTheme {
   colors: Colors;
   fontSize: FontSize;
   fontFamily: FontFamily;
-  spacing: Spacing
+  spacing: Spacing;
 }

@@ -1,8 +1,7 @@
-import { ImageStyle, ViewStyle, StyleProp } from 'react-native';
-import { IconTypes } from '@assets/icon';
+import {ImageStyle, ViewStyle, StyleProp} from 'react-native';
+import {IconTypes} from '@assets/icon';
 
 export interface IconProps {
-
   /**
    * Overwrite icon style
    * @default undefined
@@ -16,9 +15,8 @@ export interface IconProps {
   containerStyle?: StyleProp<ViewStyle>;
 
   /**
-   * Icon type 
+   * Icon type
    * @default undefined
    */
   icon?: IconTypes;
-
 }

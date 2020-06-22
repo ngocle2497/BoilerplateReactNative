@@ -1,6 +1,6 @@
 import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import { resources } from '@assets/locales';
+import {initReactI18next} from 'react-i18next';
+import {resources} from '@assets/locales';
 
 const languageDetector = {
   type: 'languageDetector',
@@ -8,8 +8,8 @@ const languageDetector = {
   detect: (callback: any) => {
     callback('vi_VN');
   },
-  init: () => { },
-  cacheUserLanguage: () => { },
+  init: () => {},
+  cacheUserLanguage: () => {},
 };
 /**
  * Config i18n for app

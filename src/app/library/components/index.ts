@@ -24,7 +24,7 @@ export * from './Select/Select';
 export * from './LightBox/';
 export * from './FAB/FAB';
 export * from './SizeBox/SizeBox';
-export * from './Block/Block'
-export * from './ListView/ListView'
-export * from './Chat/Chat'
-
+export * from './Block/Block';
+export * from './ListView/ListView';
+export * from './Chat/Chat';
+export * from './AppMode/ModalAppMode';

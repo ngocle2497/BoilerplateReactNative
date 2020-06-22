@@ -1,13 +1,9 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { Screen } from '@components'
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {Screen} from '@components';
 
 export const SearchTab = () => {
-    return (
-        <Screen backgroundColor={'#e3a916'}>
+  return <Screen backgroundColor={'#e3a916'}></Screen>;
+};
 
-        </Screen>
-    )
-}
-
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

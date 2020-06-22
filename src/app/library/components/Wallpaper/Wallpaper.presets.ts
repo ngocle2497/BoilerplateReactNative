@@ -1,4 +1,4 @@
-import { ImageStyle, Dimensions } from 'react-native';
+import {ImageStyle, Dimensions} from 'react-native';
 
 const BASE: ImageStyle = {
   position: 'absolute',
@@ -9,12 +9,12 @@ const BASE: ImageStyle = {
 };
 
 export const presets = {
-  stretch: {
+  stretch: ({
     ...BASE,
     resizeMode: 'stretch',
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
-  } as unknown as ImageStyle,
+  } as unknown) as ImageStyle,
 };
 
 export type WallpaperPresets = keyof typeof presets;

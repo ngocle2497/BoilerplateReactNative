@@ -1,7 +1,7 @@
-import { StyleSheet } from 'react-native'
-import { SpacingDefault } from '@theme/spacing';
-import { ColorDefault } from '@theme/color';
-import { FontSizeDefault } from '@theme/fontSize';
+import {StyleSheet} from 'react-native';
+import {SpacingDefault} from '@theme/spacing';
+import {ColorDefault} from '@theme/color';
+import {FontSizeDefault} from '@theme/fontSize';
 export const stylesView = StyleSheet.create({
   primary: {
     paddingVertical: SpacingDefault.smaller,
@@ -17,8 +17,8 @@ export const stylesView = StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: 0,
     alignItems: 'flex-start',
-  }
-})
+  },
+});
 
 export const stylesText = StyleSheet.create({
   primary: {
@@ -31,6 +31,6 @@ export const stylesText = StyleSheet.create({
     color: ColorDefault.text,
     paddingHorizontal: 0,
     paddingVertical: 0,
-  }
-})
+  },
+});
 export type ButtonPresetNames = keyof typeof stylesView;

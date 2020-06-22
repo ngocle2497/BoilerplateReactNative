@@ -1,31 +1,30 @@
-import React, { memo } from "react";
-import { StyleSheet } from "react-native";
-import { Block } from "../../../Block/Block";
-import equals from 'react-fast-compare'
+import React, {memo} from 'react';
+import {StyleSheet} from 'react-native';
+import {Block} from '../../../Block/Block';
+import equals from 'react-fast-compare';
 interface HalfCircleProps {
-    color: string;
+  color: string;
 
-    radius: number;
+  radius: number;
 }
 const styles = StyleSheet.create({
-    wrap: {
-        overflow: "hidden",
-    },
-})
+  wrap: {
+    overflow: 'hidden',
+  },
+});
 
-export const HalfCircleComponent = ({ color, radius }: HalfCircleProps) => {
-    return (
-        <Block
-            width={radius * 2}
-            height={radius}
-            style={[styles.wrap]}>
-            <Block
-                width={radius * 2}
-                height={radius * 2}
-                borderRadius={radius}
-                color={color}
-            />
-        </Block>
-    );
+export const HalfCircleComponent = ({color, radius}: HalfCircleProps) => {
+  return (
+    <Block width={radius * 2} height={radius} style={[styles.wrap]}>
+      <Block
+        width={radius * 2}
+        height={radius * 2}
+        borderRadius={radius}
+        color={color}
+      />
+    </Block>
+  );
 };
-export const HalfCircle = memo(HalfCircleComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
+export const HalfCircle = memo(HalfCircleComponent, (prevProps, nextProps) =>
+  equals(prevProps, nextProps),
+);

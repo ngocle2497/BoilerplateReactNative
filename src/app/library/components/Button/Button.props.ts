@@ -1,5 +1,10 @@
-import { ViewStyle, TextStyle, TouchableOpacityProps, StyleProp } from 'react-native';
-import { ButtonPresetNames } from './Button.presets';
+import {
+  ViewStyle,
+  TextStyle,
+  TouchableOpacityProps,
+  StyleProp,
+} from 'react-native';
+import {ButtonPresetNames} from './Button.presets';
 
 export interface ButtonProps extends TouchableOpacityProps {
   /**
@@ -37,5 +42,4 @@ export interface ButtonProps extends TouchableOpacityProps {
    * @default undefined
    */
   children?: React.ReactNode;
-
 }

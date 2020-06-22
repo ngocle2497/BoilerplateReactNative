@@ -1,17 +1,17 @@
 export interface HelperTextProps {
-    /**
-     * Show text or not
-     * @default false
-     */
-    visible: boolean;
+  /**
+   * Show text or not
+   * @default false
+   */
+  visible: boolean;
 
-    /**
-     * Type of helper text
-     */
-    type: 'info' | 'error';
+  /**
+   * Type of helper text
+   */
+  type: 'info' | 'error';
 
-    /**
-     * Text for text component
-     */
-    msg: string;
+  /**
+   * Text for text component
+   */
+  msg: string;
 }

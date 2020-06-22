@@ -1,7 +1,6 @@
-import { ViewStyle, StyleProp } from 'react-native';
+import {ViewStyle, StyleProp} from 'react-native';
 
 export interface SwitchProps {
-
   /**
    * Current state of switch
    * @default false
@@ -43,5 +42,4 @@ export interface SwitchProps {
    * @default undefined
    */
   thumbOffStyle?: StyleProp<ViewStyle>;
-
 }

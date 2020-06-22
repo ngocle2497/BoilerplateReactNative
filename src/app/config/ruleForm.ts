@@ -1,11 +1,12 @@
-import { translate } from '@utils';
+import {translate} from '@utils';
 // Error
 export const required = (value: string | undefined | null) =>
   value && value.toString().trim().length > 0
     ? undefined
     : translate('validate:required');
-export const maxLength = (maxLength: number, msg: string) => (value: string | undefined | null) =>
-  value && value.length > maxLength ? msg : undefined;
+export const maxLength = (maxLength: number, msg: string) => (
+  value: string | undefined | null,
+) => (value && value.length > maxLength ? msg : undefined);
 
 export const minLength4 = (value: string | undefined | null) =>
   value && value.length < 4 ? 'Must be' : undefined;
@@ -13,8 +14,9 @@ export const minLength4 = (value: string | undefined | null) =>
 export const minValue = (min: number) => (value: number) =>
   value && value < min ? `Must be at least ${min}` : undefined;
 
-export const betweenLength = (min: number, max: number, msg: string) => (value: string) =>
-  (value && value.length < min) || value.length > max ? msg : undefined;
+export const betweenLength = (min: number, max: number, msg: string) => (
+  value: string,
+) => ((value && value.length < min) || value.length > max ? msg : undefined);
 export const mustGender = (msg: string) => (value: number) =>
   value != 0 && value != 1 ? msg : undefined;
 export const number = (msg: string) => (value: string | undefined | null) =>
@@ -22,12 +24,18 @@ export const number = (msg: string) => (value: string | undefined | null) =>
 
 export const isEmail = (value: string | undefined | null) =>
   value &&
-    !/^[a-z][a-z0-9%_\.]{3,32}@[a-z0-9]{3,}(\.[a-z]{3,4}){1,2}$/i.test(value)
+  !/^[a-z][a-z0-9%_\.]{3,32}@[a-z0-9]{3,}(\.[a-z]{3,4}){1,2}$/i.test(value)
     ? translate('validate:lbErrorEmail')
     : undefined;
 
-export const confirmPassword = (value: string | undefined | null, allValues: any, key: string) =>
-  value !== allValues[key] ? translate('validate:lbPasswordNotMatch') : undefined;
+export const confirmPassword = (
+  value: string | undefined | null,
+  allValues: any,
+  key: string,
+) =>
+  value !== allValues[key]
+    ? translate('validate:lbPasswordNotMatch')
+    : undefined;
 
 export const confirmPW = (value: string | undefined | null, allValues: any) =>
   value !== allValues.password
@@ -36,7 +44,7 @@ export const confirmPW = (value: string | undefined | null, allValues: any) =>
 
 export const strongPassword = (value: string | undefined | null) =>
   value &&
-    !/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\W])(?!.*['"]).{8,}$/.test(value)
+  !/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\W])(?!.*['"]).{8,}$/.test(value)
     ? 'Must like Abc@1234'
     : undefined;
 // Warning
@@ -46,9 +54,11 @@ export const isYahoo = (value: string | undefined | null) =>
     : undefined;
 
 // Normalize
-export const upper = (value: string | undefined | null) => value && value.toUpperCase();
+export const upper = (value: string | undefined | null) =>
+  value && value.toUpperCase();
 
-export const lower = (value: string | undefined | null) => value && value.toLowerCase();
+export const lower = (value: string | undefined | null) =>
+  value && value.toLowerCase();
 
 export const normalizePhone = (value: string | undefined | null) => {
   if (!value) {

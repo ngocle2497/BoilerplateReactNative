@@ -1,7 +1,6 @@
-import { ViewStyle, StyleProp } from 'react-native';
+import {ViewStyle, StyleProp} from 'react-native';
 
 export interface CheckboxProps {
-
   /**
    * Overwrite style for button
    * @default undefined
@@ -39,9 +38,8 @@ export interface CheckboxProps {
   tx?: string;
 
   /**
-   * On change function 
+   * On change function
    * @default undefined
    */
   onToggle?: (newValue: boolean) => void;
-
 }

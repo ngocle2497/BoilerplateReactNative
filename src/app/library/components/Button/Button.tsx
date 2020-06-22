@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { Text } from '../Text/Text';
-import { stylesView, stylesText } from './Button.presets';
-import { ButtonProps } from './Button.props';
-import { enhance } from '@common'
+import {TouchableOpacity} from 'react-native';
+import {Text} from '../Text/Text';
+import {stylesView, stylesText} from './Button.presets';
+import {ButtonProps} from './Button.props';
+import {enhance} from '@common';
 import equals from 'react-fast-compare';
 
 const ButtonComponent = (props: ButtonProps) => {
@@ -17,8 +17,14 @@ const ButtonComponent = (props: ButtonProps) => {
     ...rest
   } = props;
 
-  const viewStyle = React.useMemo(() => enhance([stylesView[preset], styleOverride]), [styleOverride]);
-  const textStyle = React.useMemo(() => enhance([stylesText[preset], textStyleOverride]), [styleOverride]);
+  const viewStyle = React.useMemo(
+    () => enhance([stylesView[preset], styleOverride]),
+    [styleOverride],
+  );
+  const textStyle = React.useMemo(
+    () => enhance([stylesText[preset], textStyleOverride]),
+    [styleOverride],
+  );
 
   const content = children || <Text tx={tx} text={text} style={textStyle} />;
 
@@ -26,6 +32,8 @@ const ButtonComponent = (props: ButtonProps) => {
     <TouchableOpacity style={viewStyle} {...rest}>
       {content}
     </TouchableOpacity>
-  )
-}
-export const Button = React.memo(ButtonComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
+  );
+};
+export const Button = React.memo(ButtonComponent, (prevProps, nextProps) =>
+  equals(prevProps, nextProps),
+);

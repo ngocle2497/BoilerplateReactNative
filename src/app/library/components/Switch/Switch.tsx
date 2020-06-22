@@ -5,11 +5,16 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native';
-import { SwitchProps } from './Switch.props';
-import { enhance } from '@common'
-import equals from 'react-fast-compare'
-import { timing, useValues, interpolateColor } from 'react-native-redash'
-import Animated, { useCode, set, Easing, interpolate } from 'react-native-reanimated'
+import {SwitchProps} from './Switch.props';
+import {enhance} from '@common';
+import equals from 'react-fast-compare';
+import {timing, useValues, interpolateColor} from 'react-native-redash';
+import Animated, {
+  useCode,
+  set,
+  Easing,
+  interpolate,
+} from 'react-native-reanimated';
 
 // dimensions
 const THUMB_SIZE = 30;
@@ -44,21 +49,29 @@ const styles = StyleSheet.create({
     borderWidth: MARGIN / 2,
     backgroundColor: '#FFFFFF',
     shadowColor: BORDER_OFF_COLOR,
-    shadowOffset: { width: 1, height: 2 },
+    shadowOffset: {width: 1, height: 2},
     shadowOpacity: 1,
     shadowRadius: 2,
     elevation: 2,
-  }
-
-})
-
-
+  },
+});
 
 const SwitchComponent = (props: SwitchProps) => {
-  const [timer] = useValues([props.value === true ? 1 : 0], [])
-  useCode(() => [
-    set(timer, timing({ from: timer, to: props.value === true ? 1 : 0, easing: Easing.out(Easing.circle), duration: DURATION }))
-  ], [props.value])
+  const [timer] = useValues([props.value === true ? 1 : 0], []);
+  useCode(
+    () => [
+      set(
+        timer,
+        timing({
+          from: timer,
+          to: props.value === true ? 1 : 0,
+          easing: Easing.out(Easing.circle),
+          duration: DURATION,
+        }),
+      ),
+    ],
+    [props.value],
+  );
 
   const [previousValue, setPreviousValue] = React.useState<boolean>(
     props.value ?? false,
@@ -79,23 +92,30 @@ const SwitchComponent = (props: SwitchProps) => {
   });
   const bgTrackColor = interpolateColor(timer, {
     inputRange: [0, 1],
-    outputRange: [OFF_COLOR, ON_COLOR]
-  })
+    outputRange: [OFF_COLOR, ON_COLOR],
+  });
   const borderColor = interpolateColor(timer, {
     inputRange: [0, 1],
-    outputRange: [BORDER_OFF_COLOR, BORDER_ON_COLOR]
-  })
+    outputRange: [BORDER_OFF_COLOR, BORDER_ON_COLOR],
+  });
   const style = enhance([{}, props.style]);
 
-  const trackStyle = [styles.TRACK, {
-    backgroundColor: bgTrackColor,
-    borderColor: borderColor,
+  const trackStyle = [
+    styles.TRACK,
+    {
+      backgroundColor: bgTrackColor,
+      borderColor: borderColor,
+    },
+    props.value ? props.trackOnStyle : props.trackOffStyle,
+  ] as StyleProp<Animated.AnimateStyle<ViewStyle>>;
 
-  }, props.value ? props.trackOnStyle : props.trackOffStyle] as StyleProp<Animated.AnimateStyle<ViewStyle>>;
-
-  const thumbStyle = [styles.THUMB, {
-    transform: [{ translateX }],
-  }, props.value ? props.thumbOnStyle : props.thumbOffStyle] as StyleProp<Animated.AnimateStyle<ViewStyle>>;
+  const thumbStyle = [
+    styles.THUMB,
+    {
+      transform: [{translateX}],
+    },
+    props.value ? props.thumbOnStyle : props.thumbOffStyle,
+  ] as StyleProp<Animated.AnimateStyle<ViewStyle>>;
 
   return (
     <TouchableWithoutFeedback onPress={handlePress} style={style}>
@@ -103,6 +123,8 @@ const SwitchComponent = (props: SwitchProps) => {
         <Animated.View style={thumbStyle} />
       </Animated.View>
     </TouchableWithoutFeedback>
-  )
+  );
 };
-export const Switch = React.memo(SwitchComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
+export const Switch = React.memo(SwitchComponent, (prevProps, nextProps) =>
+  equals(prevProps, nextProps),
+);

@@ -1,8 +1,7 @@
-import { ImageStyle, ViewStyle, StyleProp } from 'react-native';
-import { ImageTypes } from '@assets/image';
+import {ImageStyle, ViewStyle, StyleProp} from 'react-native';
+import {ImageTypes} from '@assets/image';
 
 export interface ImageProps {
-
   /**
    * Overwrite image style
    * @default undefined
@@ -20,5 +19,4 @@ export interface ImageProps {
    * @default undefined
    */
   source?: ImageTypes;
-
 }

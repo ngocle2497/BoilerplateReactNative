@@ -1,9 +1,8 @@
-import { ImageStyle, StyleProp } from 'react-native';
-import { WallpaperPresets } from './Wallpaper.presets';
-import { ImageTypes } from '@assets/image';
+import {ImageStyle, StyleProp} from 'react-native';
+import {WallpaperPresets} from './Wallpaper.presets';
+import {ImageTypes} from '@assets/image';
 
 export interface WallpaperProps {
-
   /**
    * Overwrite style of image
    * @default undefined
@@ -21,5 +20,4 @@ export interface WallpaperProps {
    * @default stretch
    */
   preset?: WallpaperPresets;
-
 }

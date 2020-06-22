@@ -1,8 +1,7 @@
-import { TextStyle, TextProps as TextProperties, StyleProp } from 'react-native';
-import { TextPresets } from './Text.presets';
+import {TextStyle, TextProps as TextProperties, StyleProp} from 'react-native';
+import {TextPresets} from './Text.presets';
 
 export interface TextProps extends TextProperties {
-
   /**
    * Children of text
    * @default undefined
@@ -38,5 +37,4 @@ export interface TextProps extends TextProperties {
    * @default default
    */
   preset?: TextPresets;
-
 }

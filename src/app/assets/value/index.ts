@@ -1,2 +1,2 @@
 import strings from './string/index';
-export const R = { strings };
+export const R = {strings};

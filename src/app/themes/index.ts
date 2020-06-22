@@ -1,26 +1,26 @@
-import { AppTheme } from './../config/type';
-import { SpacingDefault } from './spacing';
-import { FontSizeDefault } from './fontSize';
-import { ColorDefault, ColorLight } from './color';
-import { FontDefault } from './typography';
+import {AppTheme} from './../config/type';
+import {SpacingDefault} from './spacing';
+import {FontSizeDefault} from './fontSize';
+import {ColorDefault, ColorLight} from './color';
+import {FontDefault} from './typography';
 
 const Default: AppTheme = {
   dark: true,
   colors: ColorDefault,
-  spacing:SpacingDefault,
-  fontFamily:FontDefault,
-  fontSize:FontSizeDefault,
-}
+  spacing: SpacingDefault,
+  fontFamily: FontDefault,
+  fontSize: FontSizeDefault,
+};
 const Light: AppTheme = {
   dark: false,
   colors: ColorLight,
-  spacing:SpacingDefault,
-  fontFamily:FontDefault,
-  fontSize:FontSizeDefault,
-}
+  spacing: SpacingDefault,
+  fontFamily: FontDefault,
+  fontSize: FontSizeDefault,
+};
 export const MyAppTheme = {
   default: Default,
-  light: Light
-}
+  light: Light,
+};
 
 export type ThemeType = keyof typeof MyAppTheme;

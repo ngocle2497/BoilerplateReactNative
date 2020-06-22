@@ -1,68 +1,67 @@
 export interface LightBoxProps {
-    /**
-     * Children of light box
-     */
-    children: any;
+  /**
+   * Children of light box
+   */
+  children: any;
 
-    /**
-     * Header when light open
-     */
-    renderHeader?: (onClose?: Function) => React.ReactNode;
+  /**
+   * Header when light open
+   */
+  renderHeader?: (onClose?: Function) => React.ReactNode;
 
-    /**
-     * Background color when light box open
-     * @default black
-     */
-    backgroundColor?: string;
+  /**
+   * Background color when light box open
+   * @default black
+   */
+  backgroundColor?: string;
 
-    /**
-     * Enable swipe to dismiss
-     * @default true
-     */
-    swipeToDismiss?: boolean;
+  /**
+   * Enable swipe to dismiss
+   * @default true
+   */
+  swipeToDismiss?: boolean;
 
-    /**
-     * Over write content 
-     * @default undefined
-     */
-    renderContent?: () => React.ReactNode;
+  /**
+   * Over write content
+   * @default undefined
+   */
+  renderContent?: () => React.ReactNode;
 }
 export interface ChildrenTransitionProps {
+  /**
+   * Reference of root view
+   */
+  viewRef: any;
 
-    /**
-     * Reference of root view
-     */
-    viewRef:any;
+  /**
+   * Origin of children
+   */
+  origin: any;
 
-    /**
-     * Origin of children
-     */
-    origin: any;
+  /**
+   * Custom header instead icon close
+   * @default undefined
+   */
+  renderHeader?: () => React.ReactNode;
+  /**
+   * Enable swipe
+   * @default true
+   */
+  swipeToDismiss: boolean;
 
-    /**
-     * Custom header instead icon close
-     * @default undefined
-     */
-    renderHeader?: () => React.ReactNode;
-    /**
-     * Enable swipe
-     * @default true
-     */
-    swipeToDismiss: boolean;
+  /**
+   * Backdrop color
+   */
+  backgroundColor: string;
 
-    /**
-     * Backdrop color
-     */
-    backgroundColor: string;
+  /**
+   * Children copy from children LightBox
+   */
 
-    /**
-     * Children copy from children LightBox
-     */
+  children: any;
 
-    children: any;
-
-    /**
-     * Custom header instead icon close
-     */
-    onClose: () => void;
+  /**
+   * Custom header instead icon close
+   */
+  onClose: () => void;
 }

@@ -1,21 +1,20 @@
-import { IconTypes } from '@assets/icon';
-import { ViewStyle } from 'react-native';
+import {IconTypes} from '@assets/icon';
+import {ViewStyle} from 'react-native';
 
 export interface Actions {
-    icon: IconTypes;
+  icon: IconTypes;
 
-    label?: string;
+  label?: string;
 
-    onPress?: () => void;
+  onPress?: () => void;
 }
 
 export interface FABGroupProps {
+  style?: ViewStyle | ViewStyle[];
 
-    style?: ViewStyle | ViewStyle[];
+  icon?: IconTypes;
 
-    icon?: IconTypes;
+  label?: string | React.ReactNode;
 
-    label?: string | React.ReactNode;
-
-    actions?:Actions[]
+  actions?: Actions[];
 }

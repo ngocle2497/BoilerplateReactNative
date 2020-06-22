@@ -1,9 +1,17 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react'
-import { StyleSheet, Modal, Animated, StatusBar, PanResponder, Dimensions, Platform } from 'react-native'
-import { useSafeArea } from 'react-native-safe-area-view'
-import { Button } from '../Button/Button';
-import { Text } from '../Text/Text';
-import { ChildrenTransitionProps } from './LightBox.props';
+import React, {useState, useEffect, useMemo, useRef} from 'react';
+import {
+  StyleSheet,
+  Modal,
+  Animated,
+  StatusBar,
+  PanResponder,
+  Dimensions,
+  Platform,
+} from 'react-native';
+import {useSafeArea} from 'react-native-safe-area-view';
+import {Button} from '../Button/Button';
+import {Text} from '../Text/Text';
+import {ChildrenTransitionProps} from './LightBox.props';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
@@ -17,7 +25,7 @@ const styles = StyleSheet.create({
     height: WINDOW_HEIGHT,
   },
   textClose: {
-    color: '#FFFFFF'
+    color: '#FFFFFF',
   },
   buttonClose: {
     position: 'absolute',
@@ -52,21 +60,20 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     shadowOpacity: 0.8,
   },
-})
-
+});
 
 export const ChildrenTransition = (props: ChildrenTransitionProps) => {
-  const inset = useSafeArea()
+  const inset = useSafeArea();
   const [target, setTarget] = useState({
     x: 0,
     y: 0,
     opacity: 1,
-  })
-  const openVal = useRef(new Animated.Value(0)).current
-  const panY = useRef(new Animated.Value(0)).current
-  const panX = useRef(new Animated.Value(0)).current
-  const [animatedRunning, setAnimatedRunning] = useState(true)
-  const [onDrag, setOnDrag] = useState(false)
+  });
+  const openVal = useRef(new Animated.Value(0)).current;
+  const panY = useRef(new Animated.Value(0)).current;
+  const panX = useRef(new Animated.Value(0)).current;
+  const [animatedRunning, setAnimatedRunning] = useState(true);
+  const [onDrag, setOnDrag] = useState(false);
   const {
     origin,
     renderHeader,
@@ -74,113 +81,140 @@ export const ChildrenTransition = (props: ChildrenTransitionProps) => {
     backgroundColor,
     children,
     onClose,
-    viewRef
+    viewRef,
   } = props;
-  const openStyle = [styles.open, {
-    left: openVal.interpolate({ inputRange: [0, 1], outputRange: [origin.x, target.x] }),
-    top: openVal.interpolate({ inputRange: [0, 1], outputRange: [origin.y - inset.top, target.y - inset.top] }),
-    width: openVal.interpolate({ inputRange: [0, 1], outputRange: [origin.width, WINDOW_WIDTH] }),
-    height: openVal.interpolate({ inputRange: [0, 1], outputRange: [origin.height, WINDOW_HEIGHT] })
-  }];
+  const openStyle = [
+    styles.open,
+    {
+      left: openVal.interpolate({
+        inputRange: [0, 1],
+        outputRange: [origin.x, target.x],
+      }),
+      top: openVal.interpolate({
+        inputRange: [0, 1],
+        outputRange: [origin.y - inset.top, target.y - inset.top],
+      }),
+      width: openVal.interpolate({
+        inputRange: [0, 1],
+        outputRange: [origin.width, WINDOW_WIDTH],
+      }),
+      height: openVal.interpolate({
+        inputRange: [0, 1],
+        outputRange: [origin.height, WINDOW_HEIGHT],
+      }),
+    },
+  ];
   const open = () => {
     Platform.OS === 'ios' && StatusBar.setHidden(true, 'slide');
     if (viewRef) {
       viewRef.setNativeProps({
         style: {
-          opacity: 0
-        }
-      })
+          opacity: 0,
+        },
+      });
     }
     panY.setValue(0);
     panX.setValue(0);
-    setAnimatedRunning(true)
+    setAnimatedRunning(true);
     setTarget({
       x: 0,
       y: 0,
       opacity: 1,
     });
-    Animated.spring(
-      openVal,
-      { toValue: 1, useNativeDriver: false }
-    ).start(() => {
-      setAnimatedRunning(false)
+    Animated.spring(openVal, {toValue: 1, useNativeDriver: false}).start(() => {
+      setAnimatedRunning(false);
     });
-  }
+  };
   const close = () => {
-    setAnimatedRunning(true)
+    setAnimatedRunning(true);
     Platform.OS === 'ios' && StatusBar.setHidden(false, 'slide');
-    Animated.spring(
-      openVal,
-      { toValue: 0, useNativeDriver: false }
-    ).start(() => {
+    Animated.spring(openVal, {toValue: 0, useNativeDriver: false}).start(() => {
       if (viewRef) {
         viewRef.setNativeProps({
           style: {
-            opacity: 1
-          }
-        })
+            opacity: 1,
+          },
+        });
       }
-      setAnimatedRunning(true)
+      setAnimatedRunning(true);
       onClose();
     });
-  }
+  };
   useEffect(() => {
-    open()
-  }, [])
-  const panResponder = useMemo(() => PanResponder.create({
-    // Ask to be the responder:
-    onStartShouldSetPanResponder: (evt, gestureState) => !animatedRunning,
-    onStartShouldSetPanResponderCapture: (evt, gestureState) => !animatedRunning,
-    onMoveShouldSetPanResponder: (evt, gestureState) => !animatedRunning,
-    onMoveShouldSetPanResponderCapture: (evt, gestureState) => !animatedRunning,
+    open();
+  }, []);
+  const panResponder = useMemo(
+    () =>
+      PanResponder.create({
+        // Ask to be the responder:
+        onStartShouldSetPanResponder: (evt, gestureState) => !animatedRunning,
+        onStartShouldSetPanResponderCapture: (evt, gestureState) =>
+          !animatedRunning,
+        onMoveShouldSetPanResponder: (evt, gestureState) => !animatedRunning,
+        onMoveShouldSetPanResponderCapture: (evt, gestureState) =>
+          !animatedRunning,
 
-    onPanResponderGrant: (evt, gestureState) => {
-      panY.setValue(0);
-      panX.setValue(0);
-      setOnDrag(true)
-    },
-    onPanResponderMove: Animated.event([
-      null,
-      { dy: panY, dx: panX },
-    ]),
-    onPanResponderTerminationRequest: (evt, gestureState) => true,
-    onPanResponderRelease: (evt, gestureState) => {
-      if (Math.abs(gestureState.dy) > DRAG_DISMISS_THRESHOLD) {
-        setOnDrag(false)
-        setTarget({
-          y: gestureState.dy,
-          x: gestureState.dx,
-          opacity: 1 - Math.abs(gestureState.dy / WINDOW_HEIGHT)
-        })
-        close();
-      } else {
-        Animated.parallel([
-          Animated.spring(
-            panY,
-            { toValue: 0, useNativeDriver: false }
-          ),
-          Animated.spring(
-            panX,
-            { toValue: 0, useNativeDriver: false }
-          )
-        ]).start(() => { setOnDrag(false) });
-      }
-    },
-  }), [animatedRunning])
-  const bgOpacity = onDrag ? panY.interpolate({ inputRange: [-WINDOW_HEIGHT, 0, WINDOW_HEIGHT], outputRange: [0, 1, 0] }) : openVal.interpolate({ inputRange: [0, 0.5, 1], outputRange: [0, 0, 1] })
+        onPanResponderGrant: (evt, gestureState) => {
+          panY.setValue(0);
+          panX.setValue(0);
+          setOnDrag(true);
+        },
+        onPanResponderMove: Animated.event([null, {dy: panY, dx: panX}]),
+        onPanResponderTerminationRequest: (evt, gestureState) => true,
+        onPanResponderRelease: (evt, gestureState) => {
+          if (Math.abs(gestureState.dy) > DRAG_DISMISS_THRESHOLD) {
+            setOnDrag(false);
+            setTarget({
+              y: gestureState.dy,
+              x: gestureState.dx,
+              opacity: 1 - Math.abs(gestureState.dy / WINDOW_HEIGHT),
+            });
+            close();
+          } else {
+            Animated.parallel([
+              Animated.spring(panY, {toValue: 0, useNativeDriver: false}),
+              Animated.spring(panX, {toValue: 0, useNativeDriver: false}),
+            ]).start(() => {
+              setOnDrag(false);
+            });
+          }
+        },
+      }),
+    [animatedRunning],
+  );
+  const bgOpacity = onDrag
+    ? panY.interpolate({
+        inputRange: [-WINDOW_HEIGHT, 0, WINDOW_HEIGHT],
+        outputRange: [0, 1, 0],
+      })
+    : openVal.interpolate({inputRange: [0, 0.5, 1], outputRange: [0, 0, 1]});
 
   return (
     <Modal transparent={true} visible={true}>
-      <Animated.View style={[styles.background, { opacity: bgOpacity, backgroundColor: backgroundColor }]}></Animated.View>
-      <Animated.View style={[openStyle, onDrag && { top: panY, left: panX }]} {...swipeToDismiss && panResponder.panHandlers}>
+      <Animated.View
+        style={[
+          styles.background,
+          {opacity: bgOpacity, backgroundColor: backgroundColor},
+        ]}></Animated.View>
+      <Animated.View
+        style={[openStyle, onDrag && {top: panY, left: panX}]}
+        {...(swipeToDismiss && panResponder.panHandlers)}>
         {children}
       </Animated.View>
-      {renderHeader ? renderHeader() : <Button onPress={close} style={[styles.buttonClose, { top: inset.top + 20, left: inset.left + 20 }]}>
-        <Animated.View style={{ opacity: bgOpacity }}>
-          <Text style={[styles.textClose]} text={'X'} />
-        </Animated.View>
-      </Button>}
+      {renderHeader ? (
+        renderHeader()
+      ) : (
+        <Button
+          onPress={close}
+          style={[
+            styles.buttonClose,
+            {top: inset.top + 20, left: inset.left + 20},
+          ]}>
+          <Animated.View style={{opacity: bgOpacity}}>
+            <Text style={[styles.textClose]} text={'X'} />
+          </Animated.View>
+        </Button>
+      )}
     </Modal>
-  )
-}
-
+  );
+};

@@ -1,15 +1,15 @@
-import React, { useMemo, useCallback } from 'react';
-import { StyleSheet } from 'react-native';
+import React, {useMemo, useCallback} from 'react';
+import {StyleSheet} from 'react-native';
 import equals from 'react-fast-compare';
-import { Text } from '../Text/Text';
-import { Button } from '../Button/Button';
-import { Block } from '../Block/Block';
-import { SpacingDefault } from '@theme/spacing';
-import { ColorDefault } from '@theme/color';
-import { CheckboxProps } from './CheckBox.props';
-import { enhance } from '@common'
+import {Text} from '../Text/Text';
+import {Button} from '../Button/Button';
+import {Block} from '../Block/Block';
+import {SpacingDefault} from '@theme/spacing';
+import {ColorDefault} from '@theme/color';
+import {CheckboxProps} from './CheckBox.props';
+import {enhance} from '@common';
 
-const DIMENSIONS = { width: 16, height: 16 };
+const DIMENSIONS = {width: 16, height: 16};
 const styles = StyleSheet.create({
   ROOT: {
     flexDirection: 'row',
@@ -32,18 +32,32 @@ const styles = StyleSheet.create({
   },
   LABEL: {
     paddingLeft: SpacingDefault.smaller,
-  }
-})
+  },
+});
 
-const CheckBoxComponent = ({ fillStyle, onToggle, outlineStyle, style, text, tx, value }: CheckboxProps) => {
-
-  const _rootStyle = useMemo(() => enhance([styles.ROOT, style ?? {}]), [style]);
-  const _outlineStyle = useMemo(() => enhance([styles.OUTLINE, outlineStyle ?? {}]), [outlineStyle]);
-  const _fillStyle = useMemo(() => enhance([styles.FILL, fillStyle ?? {}]), [fillStyle]);
-  const _labelStyle = useMemo(() => styles.LABEL, [])
+const CheckBoxComponent = ({
+  fillStyle,
+  onToggle,
+  outlineStyle,
+  style,
+  text,
+  tx,
+  value,
+}: CheckboxProps) => {
+  const _rootStyle = useMemo(() => enhance([styles.ROOT, style ?? {}]), [
+    style,
+  ]);
+  const _outlineStyle = useMemo(
+    () => enhance([styles.OUTLINE, outlineStyle ?? {}]),
+    [outlineStyle],
+  );
+  const _fillStyle = useMemo(() => enhance([styles.FILL, fillStyle ?? {}]), [
+    fillStyle,
+  ]);
+  const _labelStyle = useMemo(() => styles.LABEL, []);
   const onPress = useCallback(() => {
-    onToggle && onToggle(!value)
-  }, [onToggle, value])
+    onToggle && onToggle(!value);
+  }, [onToggle, value]);
   return (
     <Button
       activeOpacity={1}
@@ -55,13 +69,11 @@ const CheckBoxComponent = ({ fillStyle, onToggle, outlineStyle, style, text, tx,
         <Block style={_outlineStyle}>
           {value && <Block style={_fillStyle} />}
         </Block>
-        <Text
-          text={text}
-          tx={tx}
-          style={_labelStyle}
-        />
+        <Text text={text} tx={tx} style={_labelStyle} />
       </>
     </Button>
-  )
-}
-export const CheckBox = React.memo(CheckBoxComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
+  );
+};
+export const CheckBox = React.memo(CheckBoxComponent, (prevProps, nextProps) =>
+  equals(prevProps, nextProps),
+);

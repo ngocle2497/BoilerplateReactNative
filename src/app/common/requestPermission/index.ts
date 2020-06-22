@@ -1,7 +1,7 @@
-import { Platform } from 'react-native';
-import { PERMISSIONS, request, check, RESULTS } from 'react-native-permissions';
-import { showWarning } from '@utils';
-import { translate } from '@utils';
+import {Platform} from 'react-native';
+import {PERMISSIONS, request, check, RESULTS} from 'react-native-permissions';
+import {showWarning} from '@utils';
+import {translate} from '@utils';
 export async function useCameraPermission() {
   const status = await request(
     Platform.select({
@@ -24,7 +24,7 @@ export async function useMediaPermission() {
       ios: PERMISSIONS.IOS.MEDIA_LIBRARY,
     }),
   );
-  return { statusRead, statusWrite };
+  return {statusRead, statusWrite};
 }
 export async function useLocationPermission() {
   const status = await request(
@@ -43,7 +43,7 @@ export function checkPermission(
   onBlocked?: Function,
 ) {
   check(permission)
-    .then(result => {
+    .then((result) => {
       switch (result) {
         case RESULTS.UNAVAILABLE:
           /*
@@ -71,7 +71,7 @@ export function checkPermission(
           break;
       }
     })
-    .catch(error => {
+    .catch((error) => {
       showWarning(
         translate('dialog:lbTitleWarning'),
         translate('error:errorGetPermission'),

@@ -66,7 +66,7 @@ export async function save(key: string, value: any) {
 export async function remove(key: string) {
   try {
     await AsyncStorage.removeItem(key);
-  } catch { }
+  } catch {}
 }
 
 /**
@@ -75,5 +75,5 @@ export async function remove(key: string) {
 export async function clear() {
   try {
     await AsyncStorage.clear();
-  } catch { }
+  } catch {}
 }

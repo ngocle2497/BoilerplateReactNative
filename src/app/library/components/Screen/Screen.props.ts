@@ -1,7 +1,6 @@
-import { ViewStyle, StyleProp } from 'react-native';
-import { ForceInsetProp } from 'react-native-safe-area-view';
+import {ViewStyle, StyleProp} from 'react-native';
+import {ForceInsetProp} from 'react-native-safe-area-view';
 export interface ScreenProps {
-
   /**
    * Children of Screen
    */
@@ -49,7 +48,7 @@ export interface ScreenProps {
   draw?: boolean;
 
   /**
-   * Enable to custom background color of inset bottom on Iphone 
+   * Enable to custom background color of inset bottom on Iphone
    * @default false
    */
   customInsetBottom?: boolean;
@@ -85,5 +84,4 @@ export interface ScreenProps {
    * @default undefined
    */
   forceInset?: ForceInsetProp;
-
 }

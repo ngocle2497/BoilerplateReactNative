@@ -1,4 +1,4 @@
-import { Colors } from './../config/type';
+import {Colors} from './../config/type';
 export const ColorDefault: Colors = {
   primary: 'rgb(0, 122, 255)',
   background: 'rgb(242, 242, 242)',
@@ -12,9 +12,8 @@ export const ColorDefault: Colors = {
   primaryDarker: 'darkviolet',
   transparent: 'transparent',
   error: '#ffa700',
-  info: '#d62d20'
-
-}
+  info: '#d62d20',
+};
 export const ColorLight: Colors = {
   primary: 'pink',
   background: 'rgb(242, 242, 242)',
@@ -28,5 +27,5 @@ export const ColorLight: Colors = {
   primaryDarker: 'red',
   transparent: 'transparent',
   error: '#ffa700',
-  info: '#d62d20'
-}
+  info: '#d62d20',
+};

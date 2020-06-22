@@ -6,11 +6,11 @@ import {
   StatusBar,
   ViewStyle,
 } from 'react-native';
-import { ScreenProps } from './Screen.props';
+import {ScreenProps} from './Screen.props';
 import SafeAreaView from 'react-native-safe-area-view';
-import { Block } from '../Block/Block';
-import equals from 'react-fast-compare'
-import { enhance } from '@common';
+import {Block} from '../Block/Block';
+import equals from 'react-fast-compare';
+import {enhance} from '@common';
 
 export const presets = {
   root: {
@@ -41,7 +41,7 @@ export const presets = {
     outer0: {
       flex: 0,
     } as ViewStyle,
-    inner: { justifyContent: 'flex-start', alignItems: 'stretch' } as ViewStyle,
+    inner: {justifyContent: 'flex-start', alignItems: 'stretch'} as ViewStyle,
   },
 };
 
@@ -58,7 +58,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
     bottomIPXColor = '#ffffff',
   } = props;
   const backgroundStyle = props.backgroundColor
-    ? { backgroundColor: props.backgroundColor }
+    ? {backgroundColor: props.backgroundColor}
     : {};
   const Wrapper = props.unsafe ? Block : SafeAreaView;
   return (
@@ -66,7 +66,6 @@ function ScreenWithoutScrolling(props: ScreenProps) {
       style={[preset.outer]}
       behavior={isIos ? 'padding' : undefined}
       keyboardVerticalOffset={0}>
-
       <StatusBar
         hidden={hidden}
         backgroundColor={statusColor}
@@ -74,14 +73,18 @@ function ScreenWithoutScrolling(props: ScreenProps) {
         barStyle={props.statusBar || 'dark-content'}
       />
       {draw === false && (
-        <SafeAreaView style={[preset.outer0, { backgroundColor: statusColor }]} />
+        <SafeAreaView style={[preset.outer0, {backgroundColor: statusColor}]} />
       )}
 
-      <Wrapper forceInset={props.forceInset ?? undefined} style={[preset.inner, style, backgroundStyle]}>
+      <Wrapper
+        forceInset={props.forceInset ?? undefined}
+        style={[preset.inner, style, backgroundStyle]}>
         {props.children}
       </Wrapper>
       {customInsetBottom === true && (
-        <SafeAreaView style={[preset.outer0, { backgroundColor: bottomIPXColor }]} />
+        <SafeAreaView
+          style={[preset.outer0, {backgroundColor: bottomIPXColor}]}
+        />
       )}
     </KeyboardAvoidingView>
   );
@@ -97,14 +100,16 @@ function ScreenWithScrolling(props: ScreenProps) {
     draw = false,
     customInsetBottom = false,
     bottomIPXColor = '#ffffff',
-    style = {}
+    style = {},
   } = props;
   const backgroundStyle = props.backgroundColor
-    ? { backgroundColor: props.backgroundColor }
+    ? {backgroundColor: props.backgroundColor}
     : {};
   const Wrapper = props.unsafe ? Block : SafeAreaView;
 
-  const actualStyle = React.useMemo(() => enhance([preset.inner, style]), [style])
+  const actualStyle = React.useMemo(() => enhance([preset.inner, style]), [
+    style,
+  ]);
   return (
     <KeyboardAvoidingView
       style={[preset.outer]}
@@ -117,9 +122,11 @@ function ScreenWithScrolling(props: ScreenProps) {
         barStyle={props.statusBar || 'dark-content'}
       />
       {draw === false && (
-        <SafeAreaView style={[preset.outer0, { backgroundColor: statusColor }]} />
+        <SafeAreaView style={[preset.outer0, {backgroundColor: statusColor}]} />
       )}
-      <Wrapper forceInset={props.forceInset ?? undefined} style={[preset.outer]}>
+      <Wrapper
+        forceInset={props.forceInset ?? undefined}
+        style={[preset.outer]}>
         <ScrollView
           showsVerticalScrollIndicator={showVertical}
           showsHorizontalScrollIndicator={showHorizontal}
@@ -130,18 +137,22 @@ function ScreenWithScrolling(props: ScreenProps) {
         </ScrollView>
       </Wrapper>
       {customInsetBottom === true && (
-        <SafeAreaView style={[preset.outer0, { backgroundColor: bottomIPXColor }]} />
+        <SafeAreaView
+          style={[preset.outer0, {backgroundColor: bottomIPXColor}]}
+        />
       )}
     </KeyboardAvoidingView>
   );
 }
 
 function ScreenComponent(props: ScreenProps) {
-  const { scroll = false } = props;
+  const {scroll = false} = props;
   if (scroll) {
     return <ScreenWithScrolling {...props} />;
   } else {
     return <ScreenWithoutScrolling {...props} />;
   }
 }
-export const Screen = React.memo(ScreenComponent, (prevProps, nextProps) => equals(prevProps, nextProps))
+export const Screen = React.memo(ScreenComponent, (prevProps, nextProps) =>
+  equals(prevProps, nextProps),
+);
