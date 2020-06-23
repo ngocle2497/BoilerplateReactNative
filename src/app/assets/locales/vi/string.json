@@ -1,65 +1,65 @@
 {
-    "error": {
-        "0": "Quá thời gian yêu cầu",
-        "400": "Lỗi trong quá trình gửi dữ liệu lên máy chủ",
-        "401": "Tài khoản chưa được xác thực",
-        "402": "Bạn đã gửi quá nhiều yêu cầu đến máy chủ",
-        "403": "Bạn không có quyền truy cập chức năng này",
-        "404": "Không tìm thấy máy chủ",
-        "405": "Request không đúng",
-        "406": "Máy chủ không thể đáp ứng yêu cầu",
-        "407": "Bạn chưa xác thực proxy",
-        "408": "Quá thời gian máy chủ xử lý",
-        "409": "Dữ liệu gửi lên không thống nhất",
-        "410": "Dữ liệu không tồn tại trên máy chủ",
-        "411": "Không thể xác định độ dài dữ liệu gửi lên",
-        "412": "Một số dữ liệu truyền lên không đúng",
-        "413": "Dữ liệu yêu cầu quá lớn, máy chủ không thể đáp ứng",
-        "414": "Đường dẫn máy chủ quá lớn",
-        "415": "Dữ liệu gửi lên không đúng định dạng",
-        "416": "Một số dữ liệu truyền lên không thể đáp ứng bởi máy chủ",
-        "417": "Máy chủ không đáp ứng yêu cầu chờ",
-        "500": "Máy chủ không hoạt động",
-        "501": "Máy chủ không thể xử lý yêu cầu",
-        "502": "Máy chủ không đáp ứng yêu cầu chờ",
-        "503": "Máy chủ quá tải hoặc đang bảo trì",
-        "504": "Máy chủ không kết nối được để lấy dữ liệu",
-        "505": "Máy chủ không hỗ trợ giao thức HTTP",
-        "haveError": "Có lỗi xảy ra. Vui lòng thử lại sau",
-        "errorOnRequest": "Một lỗi xảy ra khi gửi yêu cầu",
-        "errorOnHandle": "Một lỗi xảy ra khi xử lý dữ liệu",
-        "serverError": "Lỗi máy chủ",
-        "errorNetwork": "Lỗi kết nối! Vui lòng kiểm tra lại kết nối.",
-        "errorGetPermission": "Lỗi trong quá trình kiểm tra quyền ứng dụng"
+  "error": {
+    "0": "Quá thời gian yêu cầu",
+    "400": "Lỗi trong quá trình gửi dữ liệu lên máy chủ",
+    "401": "Tài khoản chưa được xác thực",
+    "402": "Bạn đã gửi quá nhiều yêu cầu đến máy chủ",
+    "403": "Bạn không có quyền truy cập chức năng này",
+    "404": "Không tìm thấy máy chủ",
+    "405": "Request không đúng",
+    "406": "Máy chủ không thể đáp ứng yêu cầu",
+    "407": "Bạn chưa xác thực proxy",
+    "408": "Quá thời gian máy chủ xử lý",
+    "409": "Dữ liệu gửi lên không thống nhất",
+    "410": "Dữ liệu không tồn tại trên máy chủ",
+    "411": "Không thể xác định độ dài dữ liệu gửi lên",
+    "412": "Một số dữ liệu truyền lên không đúng",
+    "413": "Dữ liệu yêu cầu quá lớn, máy chủ không thể đáp ứng",
+    "414": "Đường dẫn máy chủ quá lớn",
+    "415": "Dữ liệu gửi lên không đúng định dạng",
+    "416": "Một số dữ liệu truyền lên không thể đáp ứng bởi máy chủ",
+    "417": "Máy chủ không đáp ứng yêu cầu chờ",
+    "500": "Máy chủ không hoạt động",
+    "501": "Máy chủ không thể xử lý yêu cầu",
+    "502": "Máy chủ không đáp ứng yêu cầu chờ",
+    "503": "Máy chủ quá tải hoặc đang bảo trì",
+    "504": "Máy chủ không kết nối được để lấy dữ liệu",
+    "505": "Máy chủ không hỗ trợ giao thức HTTP",
+    "haveError": "Có lỗi xảy ra. Vui lòng thử lại sau",
+    "errorOnRequest": "Một lỗi xảy ra khi gửi yêu cầu",
+    "errorOnHandle": "Một lỗi xảy ra khi xử lý dữ liệu",
+    "serverError": "Lỗi máy chủ",
+    "errorNetwork": "Lỗi kết nối! Vui lòng kiểm tra lại kết nối.",
+    "errorGetPermission": "Lỗi trong quá trình kiểm tra quyền ứng dụng"
+  },
+  "common": {
+    "textAppMode": "Chọn chế độ sử dụng",
+    "textAppDev": "Xây dựng",
+    "textAppTest": "Kiểm thử",
+    "textAppProd": "Phát hành",
+    "greetingChat": "Bây giờ các bạn có thể trò chuyện với nhau"
+  },
+  "dialog": {
+    "error": "Lỗi",
+    "cancel": "Đóng",
+    "warning": "Cảnh báo",
+    "info": "Thông tin",
+    "success": "Thành công",
+    "loading": "Loading",
+    "select": "Chọn"
+  },
+  "main": {
+    "homeTab": {
+      "tvHome": "Trang chủ"
     },
-    "common": {
-        "textAppMode":"Chọn chế độ sử dụng",
-        "textAppDev": "Xây dựng",
-        "textAppTest": "Kiểm thử",
-        "textAppProd": "Phát hành",
-        "greetingChat": "Bây giờ các bạn có thể trò chuyện với nhau"
+    "likesTab": {
+      "tvLike": "Yêu thích"
     },
-    "dialog": {
-        "error": "Lỗi",
-        "cancel": "Đóng",
-        "warning": "Cảnh báo",
-        "info": "Thông tin",
-        "success": "Thành công",
-        "loading": "Loading",
-        "select": "Chọn"
+    "searchTab": {
+      "tvSearch": "Tìm kiếm"
     },
-    "main": {
-        "homeTab": {
-            "tvHome": "Trang chủ"
-        },
-        "likesTab": {
-            "tvLike": "Yêu thích"
-        },
-        "searchTab": {
-            "tvSearch": "Tìm kiếm"
-        },
-        "profileTab": {
-            "tvProfile": "Cá nhân"
-        }
+    "profileTab": {
+      "tvProfile": "Cá nhân"
     }
+  }
 }

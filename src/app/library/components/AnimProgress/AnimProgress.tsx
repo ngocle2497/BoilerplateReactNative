@@ -1,12 +1,12 @@
-import React, { forwardRef, useImperativeHandle, useState, memo } from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
-import Animated, { useCode, set, interpolate } from 'react-native-reanimated';
-import { useValue, loop } from 'react-native-redash';
-import { useSafeArea } from 'react-native-safe-area-view';
-import { Block } from '../Block/Block';
+import React, {forwardRef, useImperativeHandle, useState, memo} from 'react';
+import {StyleSheet, Dimensions} from 'react-native';
+import Animated, {useCode, set, interpolate} from 'react-native-reanimated';
+import {useValue, loop} from 'react-native-redash';
+import {useSafeArea} from 'react-native-safe-area-view';
+import {Block} from '../Block/Block';
 import equals from 'react-fast-compare';
 
-const { width } = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   position: {
     position: 'absolute',
@@ -32,14 +32,18 @@ export interface AnimProcessProps {
 const AnimProcessComponent = forwardRef((props: AnimProcessProps, ref) => {
   const [visible, setVisible] = useState(false);
   const inset = useSafeArea();
-  useImperativeHandle(ref, () => ({
-    show: () => {
-      setVisible(true);
-    },
-    hide: () => {
-      setVisible(false);
-    },
-  }), []);
+  useImperativeHandle(
+    ref,
+    () => ({
+      show: () => {
+        setVisible(true);
+      },
+      hide: () => {
+        setVisible(false);
+      },
+    }),
+    [],
+  );
   const {
     color,
     backgroundColor = 'transparent',
@@ -58,21 +62,21 @@ const AnimProcessComponent = forwardRef((props: AnimProcessProps, ref) => {
   useCode(
     () =>
       visible
-        ? [set(widthPercent, loop({ duration: 1000 }))]
+        ? [set(widthPercent, loop({duration: 1000}))]
         : [set(widthPercent, 0)],
     [visible],
   );
   return (
     <Block
       color={backgroundColor}
-      style={[styles.position, { top: underStatusbar ? inset.top : 0 }]}>
+      style={[styles.position, {top: underStatusbar ? inset.top : 0}]}>
       <Block style={[styles.wrap]}>
         <Animated.View
           style={[
             styles.wrapAnim,
             {
               width: widthAb,
-              transform: [{ translateX }],
+              transform: [{translateX}],
               backgroundColor: color ?? '#FFFFFF',
             },
           ]}

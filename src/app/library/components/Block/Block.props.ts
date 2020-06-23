@@ -1,7 +1,6 @@
-import {ViewStyle, ViewProps, StyleProp} from 'react-native';
+import {ViewStyle, ViewProps, StyleProp, FlexAlignType} from 'react-native';
 
 type Direction = 'row' | 'column' | 'column-reverse' | 'row-reverse';
-
 type JustifyContent =
   | 'center'
   | 'flex-end'
@@ -22,6 +21,18 @@ export interface BlockProps extends ViewProps {
    * @default undefined
    */
   margin?: number;
+
+  /**
+   * Using align items
+   * @default undefined
+   */
+  alignItems?: FlexAlignType;
+
+  /**
+   * Using align self
+   * @default undefined
+   */
+  alignSelf?: 'auto' | FlexAlignType;
 
   /**
    * Using margin left
@@ -58,6 +69,30 @@ export interface BlockProps extends ViewProps {
    * @default undefined
    */
   padding?: number;
+
+  /**
+   * Using padding top
+   * @default undefined
+   */
+  paddingTop?: number;
+
+  /**
+   * Using padding bottom
+   * @default undefined
+   */
+  paddingBottom?: number;
+
+  /**
+   * Using padding left
+   * @default undefined
+   */
+  paddingLeft?: number;
+
+  /**
+   * Using padding right
+   * @default undefined
+   */
+  paddingRight: number;
 
   /**
    * Using padding horizontal

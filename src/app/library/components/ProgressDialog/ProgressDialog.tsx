@@ -1,15 +1,15 @@
-import React, { memo, useState, forwardRef, useImperativeHandle } from 'react';
+import React, {memo, useState, forwardRef, useImperativeHandle} from 'react';
 import {
   StyleSheet,
   ActivityIndicator,
   Platform,
   Dimensions,
 } from 'react-native';
-import { Block } from '../Block/Block';
-import { Text } from '../Text/Text';
+import {Block} from '../Block/Block';
+import {Text} from '../Text/Text';
 import Modal from 'react-native-modal';
 import equals from 'react-fast-compare';
-const { width } = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   modal: {
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: 'normal',
   },
-  row: { flexDirection: 'row' },
+  row: {flexDirection: 'row'},
   column: {
     flexDirection: 'column',
   },
@@ -61,15 +61,19 @@ const styles = StyleSheet.create({
 });
 
 const ProgressDialogComponent = forwardRef((props, ref) => {
-  useImperativeHandle(ref, () => ({
-    show: (msg: string) => {
-      setMessage(msg);
-      setVisible(true);
-    },
-    hide: () => {
-      setVisible(true);
-    },
-  }), []);
+  useImperativeHandle(
+    ref,
+    () => ({
+      show: (msg: string) => {
+        setMessage(msg);
+        setVisible(true);
+      },
+      hide: () => {
+        setVisible(true);
+      },
+    }),
+    [],
+  );
   const [visible, setVisible] = useState(false);
   const [message, setMessage] = useState('');
   const _onModalHide = () => {

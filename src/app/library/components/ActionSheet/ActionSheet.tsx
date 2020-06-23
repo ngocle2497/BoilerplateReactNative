@@ -6,16 +6,16 @@ import React, {
   memo,
   useMemo,
 } from 'react';
-import { ActionSheetProps, OptionData } from './ActionSheet.props';
-import { Block } from '../Block/Block';
-import { Button } from '../Button/Button';
-import { Text } from '../Text/Text';
-import { styles } from './ActionSheet.presets';
-import { useTranslation } from 'react-i18next';
-import { enhance } from '@common';
+import {ActionSheetProps, OptionData} from './ActionSheet.props';
+import {Block} from '../Block/Block';
+import {Button} from '../Button/Button';
+import {Text} from '../Text/Text';
+import {styles} from './ActionSheet.presets';
+import {useTranslation} from 'react-i18next';
+import {enhance} from '@common';
 import equals from 'react-fast-compare';
 import Modal from 'react-native-modal';
-import { Divider } from '../Divider/Divider';
+import {Divider} from '../Divider/Divider';
 
 const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
   const [t] = useTranslation();
@@ -35,14 +35,18 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
     option = [],
   } = props;
   const [actionVisible, setActionVisible] = useState(false);
-  useImperativeHandle(ref, () => ({
-    show: () => {
-      setActionVisible(true);
-    },
-    hide: () => {
-      setActionVisible(false);
-    },
-  }), []);
+  useImperativeHandle(
+    ref,
+    () => ({
+      show: () => {
+        setActionVisible(true);
+      },
+      hide: () => {
+        setActionVisible(false);
+      },
+    }),
+    [],
+  );
   const _onPress = useCallback(
     (item: OptionData, index: number) => {
       return (e: any) => {
@@ -93,13 +97,13 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
             (React.isValidElement(title) ? (
               title
             ) : (
-                <>
-                  <Block style={[styles.wrapTitle]}>
-                    <Text style={[styles.title]} text={title + ''} />
-                  </Block>
-                  <Divider />
-                </>
-              ))}
+              <>
+                <Block style={[styles.wrapTitle]}>
+                  <Text style={[styles.title]} text={title + ''} />
+                </Block>
+                <Divider />
+              </>
+            ))}
           {option.map((item: OptionData, index: number) => {
             return (
               <Button

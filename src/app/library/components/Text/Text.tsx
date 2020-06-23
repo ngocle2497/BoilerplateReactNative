@@ -1,18 +1,54 @@
-import * as React from 'react';
-import {Text as ReactNativeText} from 'react-native';
-import {styles} from './Text.presets';
-import {TextProps} from './Text.props';
 import {enhance} from '@common';
+import {FontSizeDefault} from '@theme/fontSize';
+import {FontDefault} from '@theme/typography';
+import React, {memo, useMemo} from 'react';
 import equals from 'react-fast-compare';
 import {useTranslation} from 'react-i18next';
+import {
+  StyleProp,
+  StyleSheet,
+  Text as ReactNativeText,
+  TextStyle,
+} from 'react-native';
+import {TextProps} from './Text.props';
+
+const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
+});
 
 const TextComponent = (props: TextProps) => {
   const {
-    preset = 'default',
     tx,
     txOptions,
     text,
     children,
+    flex,
+    fontSize = 'FONT_14',
+    fontWeight,
+    fontFamily,
+    margin,
+    marginLeft,
+    marginRight,
+    marginTop,
+    marginBottom,
+    padding,
+    paddingRight,
+    paddingBottom,
+    paddingLeft,
+    paddingTop,
+    paddingHorizontal,
+    paddingVertical,
+    width,
+    height,
+    alignItems,
+    alignSelf,
+    color,
+    center,
+    textAlignVertical,
+    textTransform,
+    textAlign,
     style: styleOverride = {},
     ...rest
   } = props;
@@ -20,16 +56,73 @@ const TextComponent = (props: TextProps) => {
   const i18nText = tx && t(tx, txOptions);
   const content = i18nText || text || children;
 
-  const style = React.useMemo(
-    () => enhance([styles[preset] || styles.default, styleOverride]),
-    [styleOverride],
+  const styleComponent = useMemo(
+    () =>
+      enhance([
+        [
+          flex && styles.flex,
+          margin && {margin},
+          fontSize && {fontSize: FontSizeDefault[fontSize]},
+          fontWeight && {fontWeight},
+          fontFamily && {fontFamily: FontDefault[fontFamily]},
+          marginLeft && {marginLeft},
+          marginRight && {marginRight},
+          marginTop && {marginTop},
+          marginBottom && {marginBottom},
+          padding && {padding},
+          paddingHorizontal && {paddingHorizontal},
+          paddingRight && {paddingRight},
+          paddingBottom && {paddingBottom},
+          paddingLeft && {paddingLeft},
+          paddingTop && {paddingTop},
+          paddingVertical && {paddingVertical},
+          width && {width},
+          height && {height},
+          color && {color: color},
+          center && {textAlign: 'center'},
+          textAlign && {textAlign},
+          alignItems && {alignItems},
+          alignSelf && {alignSelf},
+          textTransform && {textTransform},
+          textAlignVertical && {textAlignVertical},
+          enhance([styleOverride]),
+        ] as StyleProp<TextStyle>,
+      ]),
+    [
+      flex,
+      fontSize,
+      fontWeight,
+      fontFamily,
+      margin,
+      marginLeft,
+      marginRight,
+      marginTop,
+      marginBottom,
+      padding,
+      paddingHorizontal,
+      paddingVertical,
+      width,
+      height,
+      color,
+      center,
+      paddingRight,
+      paddingBottom,
+      paddingLeft,
+      alignItems,
+      alignSelf,
+      paddingTop,
+      textAlignVertical,
+      textTransform,
+      textAlign,
+      styleOverride,
+    ],
   );
   return (
-    <ReactNativeText allowFontScaling={false} {...rest} style={style}>
+    <ReactNativeText allowFontScaling={false} {...rest} style={styleComponent}>
       {content}
     </ReactNativeText>
   );
 };
-export const Text = React.memo(TextComponent, (prevProps, nextProps) =>
+export const Text = memo(TextComponent, (prevProps, nextProps) =>
   equals(prevProps, nextProps),
 );
