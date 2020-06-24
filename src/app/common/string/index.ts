@@ -17,52 +17,17 @@ export const onChangeAlias = (value: string | number): string => {
   str = str.trim();
   return str;
 };
-export const padEnd = (
-  value: string,
-  lengthPad: number,
-  textEntry?: string,
-): string => {
-  if (!value) {
-    return '';
-  }
-  if (typeof value !== 'string') {
-    return '';
-  }
-  let str = value.trim();
-
-  if (str.length <= lengthPad) {
-    return str;
-  }
-  str =
-    str.slice(0, lengthPad) +
-    Array(str.slice(lengthPad, str.length).length)
-      .fill(0)
-      .map((x: string) => textEntry ?? '*')
-      .join('');
-  return str;
+export const padStart = (value, maxPad = 2, stringPad = '0') => {
+  const stringP = Array(maxPad)
+    .fill(stringPad)
+    .join('');
+  return String(stringP + value).slice(-maxPad);
 };
-export const padStart = (
-  value: string,
-  lengthPad: number,
-  textEntry?: string,
-): string => {
-  if (!value) {
-    return '';
-  }
-  if (typeof value !== 'string') {
-    return '';
-  }
-  let str = value.trim();
-
-  if (str.length <= lengthPad) {
-    return str;
-  }
-  str =
-    Array(str.slice(lengthPad, str.length).length)
-      .fill(0)
-      .map((x: string) => textEntry ?? '*')
-      .join('') + str.slice(lengthPad);
-  return str;
+export const padEnd = (value, maxPad = 2, stringPad = '1') => {
+  const stringP = Array(maxPad)
+    .fill(stringPad)
+    .join('');
+  return String(value + stringP).slice(0, maxPad);
 };
 export const replaceAll = (source = '', textReplace = '', textInstead = '') => {
   return source.split(textReplace).join(textInstead);
