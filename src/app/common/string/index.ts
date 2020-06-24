@@ -23,7 +23,7 @@ export const padStart = (value, maxPad = 2, stringPad = '0') => {
     .join('');
   return String(stringP + value).slice(-maxPad);
 };
-export const padEnd = (value, maxPad = 2, stringPad = '1') => {
+export const padEnd = (value, maxPad = 2, stringPad = '0') => {
   const stringP = Array(maxPad)
     .fill(stringPad)
     .join('');
