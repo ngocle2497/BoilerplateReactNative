@@ -14,6 +14,7 @@
             "alias": {
                 "@assets":"./src/app/assets",
                 "@common":"./src/app/common",
+                "@animated":"./src/app/common/animated",
                 "@config":"./src/app/config",
                 "@features":"./src/app/features",
                 "@library":"./src/app/library",

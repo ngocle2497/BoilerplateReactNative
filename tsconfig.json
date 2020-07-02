@@ -42,6 +42,7 @@
      "paths": {
       "@assets/*":["./src/app/assets/*"],
       "@common":["./src/app/common/index"],
+      "@animated":["./src/app/common/animated/index"],
       "@config/*":["./src/app/config/*"],
       "@config":["./src/app/config/index"],
       "@features/*":["./src/app/features/*"],
