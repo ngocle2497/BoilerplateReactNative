@@ -1,11 +1,13 @@
-import React, {useMemo, memo} from 'react';
-import {StyleSheet} from 'react-native';
-import {HelperTextProps} from './HelperText.prop';
-import {Text} from '../Text/Text';
-import {enhance} from '@common';
+import React, { useMemo, memo } from 'react';
+import { StyleSheet } from 'react-native';
+import { HelperTextProps } from './HelperText.prop';
+import { Text } from '../Text/Text';
+import { enhance } from '@common';
 import equals from 'react-fast-compare';
-import {Block} from '../Block/Block';
-import {ColorDefault} from '@theme/color';
+import { Block } from '../Block/Block';
+import { ColorDefault } from '@theme/color';
+import { useTimingTransition, mix, toRad } from 'react-native-redash';
+import Animated from 'react-native-reanimated';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,6 +16,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     width: '100%',
+    overflow: 'hidden'
   },
   textInfo: {
     color: ColorDefault.error,
@@ -27,22 +30,27 @@ const styles = StyleSheet.create({
 });
 
 const HelperTextComponent = (props: HelperTextProps) => {
-  const {visible, msg, type} = props;
-  const containerStyle = styles.container;
+  const { visible = false, msg, type } = props;
+  const progress = useTimingTransition(visible)
+  const translateY = mix(progress, -5, 0)
+  const translateX = mix(progress, -5, 0)
+  const rotateX = toRad(mix(progress, 90, 0))
   const textStyle = useMemo(
     () =>
       enhance([
         styles.text,
         type === 'error' ? styles.textError : styles.textInfo,
       ]),
-    [],
+    [type],
   );
 
   return (
-    <Block style={[containerStyle]}>
-      <Text numberOfLines={1} style={[textStyle]}>
-        {visible ? msg ?? '' : ''}
-      </Text>
+    <Block style={[styles.container]}>
+      <Animated.View style={[{ transform: [ {translateX},{translateY},{ rotateX }] }]}>
+        <Text numberOfLines={1} style={[textStyle]}>
+          {msg ?? ''}
+        </Text>
+      </Animated.View>
     </Block>
   );
 };
