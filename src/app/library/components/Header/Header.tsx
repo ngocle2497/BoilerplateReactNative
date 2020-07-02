@@ -1,29 +1,27 @@
 import * as React from 'react';
-import {StyleSheet} from 'react-native';
-import {HeaderProps} from './Header.props';
-import {Button} from '../Button/Button';
-import {Text} from '../Text/Text';
-import {Icon} from '../Icon/Icon';
-import {Block} from '../Block/Block';
-import {enhance} from '@common';
+import { StyleSheet } from 'react-native';
+import { HeaderProps } from './Header.props';
+import { Button } from '../Button/Button';
+import { Text } from '../Text/Text';
+import { Icon } from '../Icon/Icon';
+import { Block } from '../Block/Block';
+import { enhance } from '@common';
 import equals from 'react-fast-compare';
-import {AppTheme} from '@config/type';
-import {useTheme} from '@react-navigation/native';
-import {useSafeArea} from 'react-native-safe-area-view';
-import {useTranslation} from 'react-i18next';
+import { useSafeArea } from 'react-native-safe-area-view';
+import { useTranslation } from 'react-i18next';
+import { SpacingDefault } from '@theme/spacing';
 
 const styles = () => {
-  const theme: AppTheme = useTheme();
   const inset = useSafeArea();
   return React.useMemo(
     () =>
       StyleSheet.create({
         ROOT: {
           flexDirection: 'row',
-          paddingHorizontal: theme.spacing.tiny,
+          paddingHorizontal: SpacingDefault.tiny,
           alignItems: 'center',
-          paddingTop: inset.top + theme.spacing.tiny,
-          paddingBottom: theme.spacing.small,
+          paddingTop: inset.top + SpacingDefault.tiny,
+          paddingBottom: SpacingDefault.small,
           justifyContent: 'flex-start',
         },
         TITLE: {
@@ -44,7 +42,7 @@ const styles = () => {
           paddingHorizontal: 10,
         },
       }),
-    [theme, inset],
+    [inset],
   );
 };
 
@@ -81,10 +79,10 @@ const HeaderComponent: React.FunctionComponent<HeaderProps> = (props) => {
           <Icon icon={leftIcon} />
         </Button>
       ) : childrenLeft ? (
-        {childrenLeft}
+        { childrenLeft }
       ) : (
-        <Block style={viewLeft} />
-      )}
+            <Block style={viewLeft} />
+          )}
       <Block style={viewMiddle}>
         <Text style={title} text={header} />
       </Block>
@@ -93,13 +91,11 @@ const HeaderComponent: React.FunctionComponent<HeaderProps> = (props) => {
           <Icon icon={rightIcon} />
         </Button>
       ) : childrenRight ? (
-        {childrenRight}
+        { childrenRight }
       ) : (
-        <Block style={viewRight} />
-      )}
+            <Block style={viewRight} />
+          )}
     </Block>
   );
 };
-export const Header = React.memo(HeaderComponent, (prevProps, nextProps) =>
-  equals(prevProps, nextProps),
-);
+export const Header = React.memo(HeaderComponent, equals);

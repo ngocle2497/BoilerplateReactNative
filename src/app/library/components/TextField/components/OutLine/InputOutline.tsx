@@ -1,10 +1,10 @@
-import React, {useState, useEffect, useMemo} from 'react';
-import {StyleSheet, TextInput, LayoutChangeEvent} from 'react-native';
-import Animated, {interpolate} from 'react-native-reanimated';
-import {useTimingTransition} from 'react-native-redash';
-import {InputOutlineProps} from './InputOutline.props';
-import {useTranslation} from 'react-i18next';
-import {enhance} from '@common';
+import React, { useState, useEffect, useMemo, useCallback, forwardRef } from 'react';
+import { StyleSheet, TextInput, LayoutChangeEvent } from 'react-native';
+import Animated, { interpolate } from 'react-native-reanimated';
+import { useTimingTransition } from '@animated';
+import { InputOutlineProps } from './InputOutline.props';
+import { useTranslation } from 'react-i18next';
+import { enhance, onCheckType } from '@common';
 
 const VERTICAL_PADDING = 10;
 const UN_ACTIVE_COLOR = 'rgb(159,152,146)';
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const InputOutline = (props: InputOutlineProps) => {
+export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
   const [t] = useTranslation();
   const {
     defaultValue,
@@ -50,11 +50,14 @@ export const InputOutline = (props: InputOutlineProps) => {
     labelTx,
     disabledInputColor,
     placeholder,
-    onChange,
+    onTextChange,
+    onSetValueHookForm,
+    trigger,
+    nameTrigger,
     placeholderColor,
     placeholderTx,
     inputStyle = {},
-    keyName = '',
+    name = '',
     errorBorderColor = ERROR_COLOR,
     errorLabelColor = ERROR_COLOR,
     disabledLabelColor = UN_ACTIVE_COLOR,
@@ -63,13 +66,14 @@ export const InputOutline = (props: InputOutlineProps) => {
     unActiveTintBorderColor = UN_ACTIVE_COLOR,
     unActiveTintLabelColor = UN_ACTIVE_COLOR,
     disabledBorderColor = UN_ACTIVE_COLOR,
+
     disabled = false,
     error = undefined,
     ...rest
   } = props;
-  const [sizeContainer, setSizeContainer] = useState({height: 0});
+  const [sizeContainer, setSizeContainer] = useState({ height: 0 });
   const [restored, setRestored] = useState(false);
-  const [sizeText, setSizeText] = useState({height: 0});
+  const [sizeText, setSizeText] = useState({ height: 0 });
   const [focused, setFocused] = useState(false);
   const [value, setValue] = useState('');
   const progress = useTimingTransition(focused || value.length > 0, {
@@ -86,7 +90,7 @@ export const InputOutline = (props: InputOutlineProps) => {
     inputRange: [0, 1],
     outputRange: [14, 12],
   });
-  const labelColor = () => {
+  const labelColor = useCallback(() => {
     if (disabled) {
       return disabledLabelColor;
     }
@@ -97,8 +101,8 @@ export const InputOutline = (props: InputOutlineProps) => {
       return activeTintLabelColor;
     }
     return unActiveTintLabelColor;
-  };
-  const borderColor = () => {
+  }, [disabled, focused, error]);
+  const borderColor = useCallback(() => {
     if (disabled) {
       return disabledBorderColor;
     }
@@ -109,25 +113,32 @@ export const InputOutline = (props: InputOutlineProps) => {
       return activeTintBorderColor;
     }
     return unActiveTintBorderColor;
-  };
-  const _onLayoutContainer = (e: LayoutChangeEvent) => {
-    setSizeContainer({...sizeContainer, height: e.nativeEvent.layout.height});
-  };
-  const onLayoutText = (e: LayoutChangeEvent) => {
-    setSizeText({...sizeText, height: e.nativeEvent.layout.height});
-  };
-  const _onFocus = () => {
+  }, [disabled, focused, error]);
+  const _onLayoutContainer = useCallback((e: LayoutChangeEvent) => {
+    setSizeContainer({ ...sizeContainer, height: e.nativeEvent.layout.height });
+  }, []);
+  const onLayoutText = useCallback((e: LayoutChangeEvent) => {
+    setSizeText({ ...sizeText, height: e.nativeEvent.layout.height });
+  }, []);
+  const _onFocus = useCallback(() => {
     setFocused(true);
-  };
-  const _onBlur = () => {
+  }, []);
+  const _onBlur = useCallback(() => {
     setFocused(false);
-  };
+  }, []);
   const _onChangeText = (text: string) => {
     setValue(text);
-    onChange && onChange(text);
   };
   useEffect(() => {
-    onChange && onChange(value, keyName);
+    if (onTextChange && onCheckType(onTextChange, 'function')) {
+      onTextChange(name, value)
+    }
+    if (onSetValueHookForm && onCheckType(onSetValueHookForm, 'function')) {
+      onSetValueHookForm(name, value, { shouldDirty: true, shouldValidate: true })
+    }
+    if (trigger && onCheckType(trigger, 'function') && nameTrigger && onCheckType(nameTrigger, 'string')) {
+      trigger(nameTrigger)
+    }
   }, [value]);
   useEffect(() => {
     if (typeof defaultValue === 'string' && !restored) {
@@ -135,15 +146,17 @@ export const InputOutline = (props: InputOutlineProps) => {
       setRestored(true);
     }
   }, [defaultValue]);
-  const labelText = (labelTx && t(labelTx)) || label || undefined;
+
+  const labelText = useMemo(() => (labelTx && t(labelTx)) || label || undefined, [labelTx, label]);
+  const placeHolder = useMemo(() => (placeholderTx && t(placeholderTx)) || placeholder || '', [placeholder, placeholderTx]);
   const inputSty = useMemo(() => enhance([styles.input, inputStyle]), [
     inputStyle,
   ]);
-  const placeHolder = (placeholderTx && t(placeholderTx)) || placeholder || '';
+
   return (
     <Animated.View
       onLayout={_onLayoutContainer}
-      style={[styles.container, {borderColor: borderColor()}]}>
+      style={[styles.container, { borderColor: borderColor() }]}>
       <TextInput
         defaultValue={defaultValue ?? ''}
         autoCorrect={false}
@@ -157,14 +170,14 @@ export const InputOutline = (props: InputOutlineProps) => {
         {...rest}
       />
       {labelText && (
-        <Animated.View pointerEvents={'none'} style={[styles.wrapLabel, {top}]}>
+        <Animated.View pointerEvents={'none'} style={[styles.wrapLabel, { top }]}>
           <Animated.Text
             onLayout={onLayoutText}
-            style={[styles.text, {color: labelColor(), fontSize: fontLabel}]}>
+            style={[styles.text, { color: labelColor(), fontSize: fontLabel }]}>
             {labelText ?? ''}
           </Animated.Text>
         </Animated.View>
       )}
     </Animated.View>
   );
-};
+});

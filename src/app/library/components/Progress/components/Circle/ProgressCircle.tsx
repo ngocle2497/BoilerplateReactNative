@@ -1,11 +1,11 @@
-import React, {useMemo, memo} from 'react';
-import {Circular} from './Circular';
-import {StyleSheet} from 'react-native';
-import {ProgressCircleProps} from './ProgressCircle.props';
-import {Text} from '../../../Text/Text';
-import {enhance} from '@common';
+import React, { useMemo, memo } from 'react';
+import { Circular } from './Circular';
+import { StyleSheet } from 'react-native';
+import { ProgressCircleProps } from './ProgressCircle.props';
+import { Text } from '../../../Text/Text';
+import { enhance } from '@common';
 import equals from 'react-fast-compare';
-import {Block} from '../../../Block/Block';
+import { Block } from '../../../Block/Block';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -69,6 +69,5 @@ export const ProgressCircleComponent = (props: ProgressCircleProps) => {
   );
 };
 export const ProgressCircle = memo(
-  ProgressCircleComponent,
-  (prevProps, nextProps) => equals(prevProps, nextProps),
+  ProgressCircleComponent, equals
 );

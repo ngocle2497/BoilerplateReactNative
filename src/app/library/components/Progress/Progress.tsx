@@ -1,7 +1,7 @@
-import React, {memo} from 'react';
-import {ProgressCircle} from './components/Circle/ProgressCircle';
-import {ProgressLinear} from './components/Linear/ProgressLinear';
-import {ProgressProps} from './Progress.props';
+import React, { memo } from 'react';
+import { ProgressCircle } from './components/Circle/ProgressCircle';
+import { ProgressLinear } from './components/Linear/ProgressLinear';
+import { ProgressProps } from './Progress.props';
 import {
   RADIUS,
   STROKE_WIDTH,
@@ -24,19 +24,17 @@ const ProgressComponent = (props: ProgressProps) => {
   return type === 'linear' ? (
     <ProgressLinear {...props} />
   ) : (
-    <ProgressCircle
-      {...{
-        progress,
-        textProgressStyle,
-        showTextProgress,
-        bg,
-        fg,
-        radius,
-        strokeWidth,
-      }}
-    />
-  );
+      <ProgressCircle
+        {...{
+          progress,
+          textProgressStyle,
+          showTextProgress,
+          bg,
+          fg,
+          radius,
+          strokeWidth,
+        }}
+      />
+    );
 };
-export const Progress = memo(ProgressComponent, (prevProps, nextProps) =>
-  equals(prevProps, nextProps),
-);
+export const Progress = memo(ProgressComponent, equals);

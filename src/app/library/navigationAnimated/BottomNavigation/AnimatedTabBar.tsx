@@ -8,7 +8,7 @@ import {
   TabsConfigsType,
 } from './type';
 import {Route, CommonActions} from '@react-navigation/native';
-import {useValues} from 'react-native-redash';
+import {useValues} from '@animated';
 import {useCode, onChange, call, set} from 'react-native-reanimated';
 import BubbleTabBar from './bubble/BubbleTabBar';
 

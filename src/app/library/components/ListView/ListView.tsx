@@ -1,7 +1,7 @@
-import React, {memo} from 'react';
-import {FlatList, RefreshControl} from 'react-native';
+import React, { memo } from 'react';
+import { FlatList, RefreshControl } from 'react-native';
 import equals from 'react-fast-compare';
-import {ListViewProps} from './ListView.props';
+import { ListViewProps } from './ListView.props';
 
 const ListViewComponent = (props: ListViewProps) => {
   const {
@@ -35,6 +35,4 @@ const ListViewComponent = (props: ListViewProps) => {
   );
 };
 
-export const ListView = memo(ListViewComponent, (prevProps, nextProps) =>
-  equals(prevProps, nextProps),
-);
+export const ListView = memo(ListViewComponent, equals);

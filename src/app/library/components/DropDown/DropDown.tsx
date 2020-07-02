@@ -19,17 +19,17 @@ import {
   View,
 } from 'react-native';
 import isEqual from 'react-fast-compare';
-import {DropDownProps, RowDropDown} from './DropDown.props';
-import {Block} from '../Block/Block';
-import {Button} from '../Button/Button';
-import {Text} from '../Text/Text';
-import {Icon} from '../Icon/Icon';
-import Animated, {interpolate} from 'react-native-reanimated';
-import {useTimingTransition, toRad} from 'react-native-redash';
-import {enhance} from '@common';
+import { DropDownProps, RowDropDown } from './DropDown.props';
+import { Block } from '../Block/Block';
+import { Button } from '../Button/Button';
+import { Text } from '../Text/Text';
+import { Icon } from '../Icon/Icon';
+import Animated, { interpolate } from 'react-native-reanimated';
+import { useTimingTransition, toRad } from '@animated';
+import { enhance } from '@common';
 import Modal from 'react-native-modal';
-import {DropDownItem} from './DropDownItem';
-import {useSafeArea} from 'react-native-safe-area-view';
+import { DropDownItem } from './DropDownItem';
+import { useSafeArea } from 'react-native-safe-area-view';
 
 const styles = StyleSheet.create({
   placeHolder: {
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
 });
 
 const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
-  const {height: deviceH} = useWindowDimensions();
+  const { height: deviceH } = useWindowDimensions();
   const inset = useSafeArea();
   const _refDrop = useRef<View>();
   const {
@@ -141,7 +141,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
     [data, selectedValue],
   );
 
-  const _renderItem = ({item, index}: {item: RowDropDown; index: number}) => {
+  const _renderItem = ({ item, index }: { item: RowDropDown; index: number }) => {
     return (
       <DropDownItem
         {...{
@@ -161,7 +161,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
 
   const _onLayoutDrop = useCallback(
     (e: LayoutChangeEvent) => {
-      const {height: DropH} = e.nativeEvent.layout;
+      const { height: DropH } = e.nativeEvent.layout;
       setDropHeight(DropH);
     },
     [inset, deviceH],
@@ -179,7 +179,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
   const _onToggle = useCallback(() => {
     if (_refDrop.current) {
       _refDrop.current.measure((x, y, width, height, px, py) => {
-        setViewLayout({height, width, x, y: py});
+        setViewLayout({ height, width, x, y: py });
       });
     }
     setIsVisible((val) => !val);
@@ -242,9 +242,9 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
       enhance([
         styles.wrapView,
         isVisible &&
-          (_onCheckRenderBottom()
-            ? styles.wrapViewBottomOpened
-            : styles.wrapViewTopOpened),
+        (_onCheckRenderBottom()
+          ? styles.wrapViewBottomOpened
+          : styles.wrapViewTopOpened),
         style,
       ]) as StyleProp<ViewStyle>,
     [style, isVisible, deviceH, inset],
@@ -265,15 +265,15 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
         styles.dropStyle,
         dropDownStyle,
         _onCheckRenderBottom() ? styles.dropBottomOpened : styles.dropTopOpened,
-        {width: viewLayout.width, left: viewLayout.x},
+        { width: viewLayout.width, left: viewLayout.x },
         _onCheckRenderBottom()
-          ? {top: viewLayout.y + viewLayout.height}
+          ? { top: viewLayout.y + viewLayout.height }
           : {
-              bottom:
-                deviceH -
-                viewLayout.y -
-                (Platform.OS === 'android' ? StatusBar.currentHeight ?? 24 : 0),
-            },
+            bottom:
+              deviceH -
+              viewLayout.y -
+              (Platform.OS === 'android' ? StatusBar.currentHeight ?? 24 : 0),
+          },
       ]) as StyleProp<ViewStyle>,
     [viewLayout, deviceH, inset],
   );
@@ -290,10 +290,10 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
             {renderArrow ? (
               renderArrow(progress)
             ) : (
-              <Animated.View style={[{transform: [{rotate: rotate}]}]}>
-                <Icon icon={'arrow_down'} />
-              </Animated.View>
-            )}
+                <Animated.View style={[{ transform: [{ rotate: rotate }] }]}>
+                  <Icon icon={'arrow_down'} />
+                </Animated.View>
+              )}
           </Block>
         </Button>
       </View>
@@ -323,6 +323,4 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
   );
 });
 
-export const DropDown = memo(DropDownComponent, (prevProps, nextProps) =>
-  isEqual(prevProps, nextProps),
-);
+export const DropDown = memo(DropDownComponent, isEqual);

@@ -10,3 +10,4 @@ export * from "./Animations";
 export * from "./Transitions";
 export * from "./Vectors";
 export * from "./Hook";
+export * from "./Transformations";

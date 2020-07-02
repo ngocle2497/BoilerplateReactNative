@@ -137,7 +137,7 @@ export interface TextProps extends TextProperties {
    * Using padding right
    * @default undefined
    */
-  paddingRight: number;
+  paddingRight?: number;
 
   /**
    * Using padding vertical

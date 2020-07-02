@@ -1,12 +1,12 @@
-import React, {memo, useCallback, useMemo} from 'react';
-import {StyleSheet, StyleProp, ViewStyle} from 'react-native';
+import React, { memo, useCallback, useMemo } from 'react';
+import { StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import isEqual from 'react-fast-compare';
-import {ItemProps} from './DropDown.props';
-import {Block} from '../Block/Block';
-import {Button} from '../Button/Button';
-import {Text} from '../Text/Text';
-import {Icon} from '../Icon/Icon';
-import {enhance} from '@common';
+import { ItemProps } from './DropDown.props';
+import { Block } from '../Block/Block';
+import { Button } from '../Button/Button';
+import { Text } from '../Text/Text';
+import { Icon } from '../Icon/Icon';
+import { enhance } from '@common';
 
 const styles = StyleSheet.create({
   labelStyle: {
@@ -61,6 +61,5 @@ const DropDownItemComponent = ({
 };
 
 export const DropDownItem = memo(
-  DropDownItemComponent,
-  (prevProps, nextProps) => isEqual(prevProps, nextProps),
+  DropDownItemComponent, isEqual
 );

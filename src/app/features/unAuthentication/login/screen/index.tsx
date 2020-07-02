@@ -1,7 +1,7 @@
-import React, {useState, useRef} from 'react';
-import {View} from 'react-native';
-import {useDispatch} from 'react-redux';
-import {styles} from './style';
+import React, { useState, useRef } from 'react';
+import { View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { styles } from './style';
 import {
   Wallpaper,
   Screen,
@@ -10,33 +10,25 @@ import {
   Block,
   Text,
   Button,
+  AnimProcess,
 } from '@components';
-import {onSetToken} from '@store/app_redux/action';
-import {navigate} from '@navigation/navigationService';
-import {APP_SCREEN} from '@navigation/screenTypes';
+import { onSetToken } from '@store/app_redux/action';
+import { navigate } from '@navigation/navigationService';
+import { APP_SCREEN } from '@navigation/screenTypes';
+import { FormLogin } from './components';
 
 export const Login = () => {
   const dispatch = useDispatch();
   const _modalMode = useRef<ModalAppModeRef>();
+  const _onSubmit = (data: any) => {
+    dispatch(onSetToken('s'))
+  }
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Wallpaper />
       <ModalAppMode ref={_modalMode} />
-      <Screen backgroundColor={'transparent'}>
-        <Block block>
-          <Button
-            onPress={() => {
-              dispatch(onSetToken('ss'));
-            }}>
-            <Text text={'Login'} />
-          </Button>
-          <Button
-            onPress={() => {
-              navigate(APP_SCREEN.UN_AUTHORIZE.REGISTER);
-            }}>
-            <Text text={'Register'} />
-          </Button>
-        </Block>
+      <Screen scroll backgroundColor={'transparent'}>
+        <FormLogin onSubmit={_onSubmit} />
       </Screen>
     </View>
   );

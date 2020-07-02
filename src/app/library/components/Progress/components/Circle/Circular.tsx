@@ -1,5 +1,5 @@
-import React, {memo} from 'react';
-import {StyleSheet} from 'react-native';
+import React, { memo } from 'react';
+import { StyleSheet } from 'react-native';
 import Animated, {
   Extrapolate,
   interpolate,
@@ -9,10 +9,10 @@ import Animated, {
   set,
 } from 'react-native-reanimated';
 
-import {transformOrigin, useValues, clamp, timing} from 'react-native-redash';
-import {HalfCircle} from './HalfCircle';
-import {Block} from '../../../Block/Block';
-const {PI} = Math;
+import { transformOrigin, useValues, clamp, timing } from '@animated';
+import { HalfCircle } from './HalfCircle';
+import { Block } from '../../../Block/Block';
+const { PI } = Math;
 import equals from 'react-fast-compare';
 
 interface CircularProps {
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   circleBottom: {
-    transform: [{rotate: '180deg'}],
+    transform: [{ rotate: '180deg' }],
   },
 });
 
@@ -55,7 +55,7 @@ export const CircularComponent = ({
   });
   useCode(
     () => [
-      set(progressAnimated, timing({from: progressAnimated, to: progress})),
+      set(progressAnimated, timing({ from: progressAnimated, to: progress })),
     ],
     [progress],
   );
@@ -66,7 +66,7 @@ export const CircularComponent = ({
         <Animated.View
           style={{
             ...StyleSheet.absoluteFillObject,
-            transform: transformOrigin({x: 0, y: radius / 2}, {rotate: theta}),
+            transform: transformOrigin({ x: 0, y: radius / 2 }, { rotate: theta }),
             opacity,
           }}>
           <HalfCircle radius={radius} color={bg} />
@@ -77,7 +77,7 @@ export const CircularComponent = ({
         <Animated.View
           style={{
             ...StyleSheet.absoluteFillObject,
-            transform: transformOrigin({x: 0, y: radius / 2}, {rotate}),
+            transform: transformOrigin({ x: 0, y: radius / 2 }, { rotate }),
           }}>
           <HalfCircle radius={radius} color={bg} />
         </Animated.View>
@@ -85,6 +85,5 @@ export const CircularComponent = ({
     </>
   );
 };
-export const Circular = memo(CircularComponent, (prevProps, nextProps) =>
-  equals(prevProps, nextProps),
+export const Circular = memo(CircularComponent, equals
 );

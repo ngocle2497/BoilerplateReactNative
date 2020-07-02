@@ -1,15 +1,15 @@
-import React, {memo, useState, forwardRef, useImperativeHandle} from 'react';
+import React, { memo, useState, forwardRef, useImperativeHandle } from 'react';
 import {
   StyleSheet,
   ActivityIndicator,
   Platform,
   Dimensions,
 } from 'react-native';
-import {Block} from '../Block/Block';
-import {Text} from '../Text/Text';
+import { Block } from '../Block/Block';
+import { Text } from '../Text/Text';
 import Modal from 'react-native-modal';
 import equals from 'react-fast-compare';
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   modal: {
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: 'normal',
   },
-  row: {flexDirection: 'row'},
+  row: { flexDirection: 'row' },
   column: {
     flexDirection: 'column',
   },
@@ -110,8 +110,7 @@ const ProgressDialogComponent = forwardRef((props, ref) => {
   );
 });
 export const ProgressDialog = memo(
-  ProgressDialogComponent,
-  (prevProps, nextProps) => equals(prevProps, nextProps),
+  ProgressDialogComponent, equals
 );
 export interface ProgressDialogRef {
   show(msg: string): void;

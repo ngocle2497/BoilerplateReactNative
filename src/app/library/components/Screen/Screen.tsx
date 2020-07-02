@@ -6,11 +6,11 @@ import {
   StatusBar,
   ViewStyle,
 } from 'react-native';
-import {ScreenProps} from './Screen.props';
+import { ScreenProps } from './Screen.props';
 import SafeAreaView from 'react-native-safe-area-view';
-import {Block} from '../Block/Block';
+import { Block } from '../Block/Block';
 import equals from 'react-fast-compare';
-import {enhance} from '@common';
+import { enhance } from '@common';
 
 export const presets = {
   root: {
@@ -41,7 +41,7 @@ export const presets = {
     outer0: {
       flex: 0,
     } as ViewStyle,
-    inner: {justifyContent: 'flex-start', alignItems: 'stretch'} as ViewStyle,
+    inner: { justifyContent: 'flex-start', alignItems: 'stretch' } as ViewStyle,
   },
 };
 
@@ -58,7 +58,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
     bottomIPXColor = '#ffffff',
   } = props;
   const backgroundStyle = props.backgroundColor
-    ? {backgroundColor: props.backgroundColor}
+    ? { backgroundColor: props.backgroundColor }
     : {};
   const Wrapper = props.unsafe ? Block : SafeAreaView;
   return (
@@ -73,7 +73,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
         barStyle={props.statusBar || 'dark-content'}
       />
       {draw === false && (
-        <SafeAreaView style={[preset.outer0, {backgroundColor: statusColor}]} />
+        <SafeAreaView style={[preset.outer0, { backgroundColor: statusColor }]} />
       )}
 
       <Wrapper
@@ -83,7 +83,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
       </Wrapper>
       {customInsetBottom === true && (
         <SafeAreaView
-          style={[preset.outer0, {backgroundColor: bottomIPXColor}]}
+          style={[preset.outer0, { backgroundColor: bottomIPXColor }]}
         />
       )}
     </KeyboardAvoidingView>
@@ -103,7 +103,7 @@ function ScreenWithScrolling(props: ScreenProps) {
     style = {},
   } = props;
   const backgroundStyle = props.backgroundColor
-    ? {backgroundColor: props.backgroundColor}
+    ? { backgroundColor: props.backgroundColor }
     : {};
   const Wrapper = props.unsafe ? Block : SafeAreaView;
 
@@ -122,7 +122,7 @@ function ScreenWithScrolling(props: ScreenProps) {
         barStyle={props.statusBar || 'dark-content'}
       />
       {draw === false && (
-        <SafeAreaView style={[preset.outer0, {backgroundColor: statusColor}]} />
+        <SafeAreaView style={[preset.outer0, { backgroundColor: statusColor }]} />
       )}
       <Wrapper
         forceInset={props.forceInset ?? undefined}
@@ -138,7 +138,7 @@ function ScreenWithScrolling(props: ScreenProps) {
       </Wrapper>
       {customInsetBottom === true && (
         <SafeAreaView
-          style={[preset.outer0, {backgroundColor: bottomIPXColor}]}
+          style={[preset.outer0, { backgroundColor: bottomIPXColor }]}
         />
       )}
     </KeyboardAvoidingView>
@@ -146,13 +146,12 @@ function ScreenWithScrolling(props: ScreenProps) {
 }
 
 function ScreenComponent(props: ScreenProps) {
-  const {scroll = false} = props;
+  const { scroll = false } = props;
   if (scroll) {
     return <ScreenWithScrolling {...props} />;
   } else {
     return <ScreenWithoutScrolling {...props} />;
   }
 }
-export const Screen = React.memo(ScreenComponent, (prevProps, nextProps) =>
-  equals(prevProps, nextProps),
+export const Screen = React.memo(ScreenComponent, equals
 );

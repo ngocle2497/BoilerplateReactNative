@@ -1,8 +1,8 @@
-import React, {memo, useMemo} from 'react';
-import {SizeBoxProps} from './SizeBox.props';
-import {enhance} from '@common';
+import React, { memo, useMemo } from 'react';
+import { SizeBoxProps } from './SizeBox.props';
+import { enhance } from '@common';
 import equals from 'react-fast-compare';
-import {Block} from '../Block/Block';
+import { Block } from '../Block/Block';
 
 const SizeBoxComponent = (props: SizeBoxProps) => {
   const {
@@ -14,11 +14,9 @@ const SizeBoxComponent = (props: SizeBoxProps) => {
   } = props;
 
   const actualStyle = useMemo(
-    () => enhance([{width, height, backgroundColor}, style]),
+    () => enhance([{ width, height, backgroundColor }, style]),
     [props],
   );
   return <Block style={actualStyle}>{children && children}</Block>;
 };
-export const SizeBox = memo(SizeBoxComponent, (prevProps, nextProps) =>
-  equals(prevProps, nextProps),
-);
+export const SizeBox = memo(SizeBoxComponent, equals);

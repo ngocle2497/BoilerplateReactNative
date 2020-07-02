@@ -92,7 +92,7 @@ export interface BlockProps extends ViewProps {
    * Using padding right
    * @default undefined
    */
-  paddingRight: number;
+  paddingRight?: number;
 
   /**
    * Using padding horizontal

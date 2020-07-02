@@ -1,9 +1,9 @@
-import React, {memo, useMemo} from 'react';
-import {presets} from './Wallpaper.presets';
-import {WallpaperProps} from './Wallpaper.props';
+import React, { memo, useMemo } from 'react';
+import { presets } from './Wallpaper.presets';
+import { WallpaperProps } from './Wallpaper.props';
 import equals from 'react-fast-compare';
-import {enhance} from '@common';
-import {Img} from '../Image/Image';
+import { enhance } from '@common';
+import { Img } from '../Image/Image';
 
 const WallpaperComponent = ({
   preset = 'stretch',
@@ -23,6 +23,5 @@ const WallpaperComponent = ({
     />
   );
 };
-export const Wallpaper = memo(WallpaperComponent, (prevProps, nextProps) =>
-  equals(prevProps, nextProps),
+export const Wallpaper = memo(WallpaperComponent, equals
 );

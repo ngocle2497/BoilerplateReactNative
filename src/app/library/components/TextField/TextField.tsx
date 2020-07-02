@@ -1,18 +1,18 @@
-import * as React from 'react';
-import {InputFlat} from './components/Flat/InputFlat';
-import {InputOutline} from './components/OutLine/InputOutline';
-import {TextFieldProps} from './TextField.props';
+import React, { memo, forwardRef } from 'react';
+import { InputFlat } from './components/Flat/InputFlat';
+import { InputOutline } from './components/OutLine/InputOutline';
+import { TextFieldProps } from './TextField.props';
 import equals from 'react-fast-compare';
 
-const TextFieldComponent: React.FunctionComponent<TextFieldProps> = (props) => {
-  const {typeInput} = props;
+const TextFieldComponent = forwardRef<any, TextFieldProps>((props, ref) => {
+  const { typeInput } = props;
   return typeInput === 'flat' ? (
-    <InputFlat {...props} />
+    <InputFlat {...props} ref={ref} />
   ) : (
-    <InputOutline {...props} />
-  );
-};
-export const TextField = React.memo(
+      <InputOutline {...props} ref={ref} />
+    );
+});
+export const TextField = memo(
   TextFieldComponent,
-  (prevProps, nextProps) => equals(prevProps, nextProps),
+  equals
 );

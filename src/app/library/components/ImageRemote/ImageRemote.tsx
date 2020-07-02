@@ -1,12 +1,12 @@
 import * as React from 'react';
-import {ImageStyle} from 'react-native';
+import { ImageStyle } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {ImageRemoteProps} from './ImageRemote.props';
+import { ImageRemoteProps } from './ImageRemote.props';
 import Axios from 'axios';
-import {enhance} from '@common';
+import { enhance } from '@common';
 import equals from 'react-fast-compare';
-import {Img} from '../Image/Image';
-import {Block} from '../Block/Block';
+import { Img } from '../Image/Image';
+import { Block } from '../Block/Block';
 
 const ROOT: ImageStyle = {
   resizeMode: 'contain',
@@ -50,17 +50,16 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
       {url === '' ? (
         <Img style={styleImgDefault} source={'default'} />
       ) : (
-        <FastImage
-          resizeMode={resizeMode}
-          style={style}
-          source={{uri: url}}
-          {...rest}
-        />
-      )}
+          <FastImage
+            resizeMode={resizeMode}
+            style={style}
+            source={{ uri: url }}
+            {...rest}
+          />
+        )}
     </Block>
   );
 };
 export const ImageRemote = React.memo(
-  ImageRemoteComponent,
-  (prevProps, nextProps) => equals(prevProps, nextProps),
+  ImageRemoteComponent, equals
 );

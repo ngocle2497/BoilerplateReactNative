@@ -6,7 +6,7 @@ import { enhance } from '@common';
 import equals from 'react-fast-compare';
 import { Block } from '../Block/Block';
 import { ColorDefault } from '@theme/color';
-import { useTimingTransition, mix, toRad } from 'react-native-redash';
+import { useTimingTransition, mix, toRad } from '@animated';
 import Animated from 'react-native-reanimated';
 
 const styles = StyleSheet.create({

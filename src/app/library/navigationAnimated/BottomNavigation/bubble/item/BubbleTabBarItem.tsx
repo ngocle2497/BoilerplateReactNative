@@ -8,7 +8,7 @@ import {
   withTransition,
   interpolateColor,
   onGestureEvent,
-} from 'react-native-redash';
+} from '@animated';
 import {DEFAULT_ITEM_INNER_SPACE, DEFAULT_ITEM_OUTER_SPACE} from '../constant';
 import Animated, {
   add,
