@@ -9,7 +9,7 @@ import {APP_SCREEN} from '@navigation/screenTypes';
 const MainDrawer = createDrawerNavigator();
 
 const screenOptions: DrawerNavigationOptions = {
-  gestureEnabled: false,
+  // gestureEnabled: false,
 };
 
 export const MainDrawerScreen = () => (

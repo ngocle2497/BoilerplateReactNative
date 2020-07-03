@@ -7,7 +7,7 @@ import {select} from 'redux-saga/effects';
 
 // base
 function* Request(config: AxiosRequestConfig) {
-  const {token, appUrl}: AppState = yield select((x: any) => x.toJS().app);
+  const {token, appUrl}: AppState = yield select((x: any) => x.app);
   const defaultConfig: AxiosRequestConfig = {
     baseURL: appUrl,
     timeout: TIME_OUT,

@@ -6,9 +6,9 @@ import {
   useCallback,
   useMemo,
 } from 'react';
-import {useSelector, useDispatch, shallowEqual} from 'react-redux';
-import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
-import {Clipboard} from 'react-native';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
+import { Clipboard } from 'react-native';
 type UseStateFull<T = any> = {
   value: T;
   setValue: React.Dispatch<SetStateAction<T>>;
@@ -17,12 +17,12 @@ function createSelector<T>(
   selector: (state: any) => T,
   equalityFn = shallowEqual,
 ): T {
-  const state = useSelector((x: any) => x.toJS(), equalityFn);
+  const state = useSelector<any, T>((x: any) => x, equalityFn);
   return selector(state);
 }
 function useRedux() {
   const dispatch = useDispatch();
-  return {dispatch, createSelector};
+  return { dispatch, createSelector };
 }
 //#region useInterval
 function useInterval(callback: Function, delay: number) {
@@ -88,16 +88,16 @@ type UseArrayActions<T> = {
   clear: () => void;
   move: (from: number, to: number) => void;
   removeById: (
-    id: T extends {id: string}
+    id: T extends { id: string }
       ? string
-      : T extends {id: number}
+      : T extends { id: number }
       ? number
       : unknown,
   ) => void;
   modifyById: (
-    id: T extends {id: string}
+    id: T extends { id: string }
       ? string
-      : T extends {id: number}
+      : T extends { id: number }
       ? number
       : unknown,
     newValue: Partial<T>,
@@ -145,7 +145,7 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
     (id, newValue) =>
       // @ts-ignore not every array that you will pass down will have object with id field.
       setValue((arr) =>
-        arr.map((v) => (v.id === id ? {...v, ...newValue} : v)),
+        arr.map((v) => (v.id === id ? { ...v, ...newValue } : v)),
       ),
     [],
   );
@@ -193,7 +193,7 @@ function useBoolean(initial: boolean): UseBoolean {
   const toggle = useCallback(() => setValue((v) => !v), []);
   const setTrue = useCallback(() => setValue(true), []);
   const setFalse = useCallback(() => setValue(false), []);
-  const actions = useMemo(() => ({setValue, toggle, setTrue, setFalse}), [
+  const actions = useMemo(() => ({ setValue, toggle, setTrue, setFalse }), [
     setFalse,
     setTrue,
     toggle,

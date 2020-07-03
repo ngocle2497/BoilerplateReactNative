@@ -43,9 +43,14 @@ export interface InputBaseProps extends TextInputProps {
   trigger?: (name: string) => void;
 
   /**
+   * function pass to last input of form when click return key
+   */
+  onSubmit?: () => void;
+  /**
    * Name to trigger
    */
   nameTrigger?: string;
+
   /**
    * Name of key to update object when input change text
    * @default undefined

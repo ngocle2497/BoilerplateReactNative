@@ -12,7 +12,7 @@ import {
   Button,
   AnimProcess,
 } from '@components';
-import { onSetToken } from '@store/app_redux/action';
+import { onSetToken, onSetAppMode } from '@store/app_redux/action';
 import { navigate } from '@navigation/navigationService';
 import { APP_SCREEN } from '@navigation/screenTypes';
 import { FormLogin } from './components';
@@ -21,6 +21,7 @@ export const Login = () => {
   const dispatch = useDispatch();
   const _modalMode = useRef<ModalAppModeRef>();
   const _onSubmit = (data: any) => {
+    dispatch(onSetAppMode('staging'))
     dispatch(onSetToken('s'))
   }
   return (

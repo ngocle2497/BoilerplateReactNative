@@ -1,11 +1,11 @@
-import { } from 'react-hook-form'
-import { DeepMap } from 'react-hook-form/dist/types/utils';
 import { FieldErrors, FieldName, ValidationRules, SetValueConfig } from 'react-hook-form/dist/types/form';
 
 type FieldValues = Record<string, any>;
-export interface ValidationMap {
-  [key: string]: ValidationRules;
-}
+
+export type ValidationMap<T = any, Keys extends keyof T = keyof T> =
+  {
+    [K in Keys]-?: ValidationRules
+  }
 
 export interface FormProps<TFieldValues extends FieldValues = FieldValues> {
   /**
@@ -21,7 +21,7 @@ export interface FormProps<TFieldValues extends FieldValues = FieldValues> {
   /**
    * trigger function of useForm
    */
-  trigger?: (name?: FieldName<TFieldValues> | FieldName<TFieldValues>[]) => Promise<boolean>;
+  trigger?: (name?: any) => Promise<boolean>;
 
   /**
    * register function of useForm

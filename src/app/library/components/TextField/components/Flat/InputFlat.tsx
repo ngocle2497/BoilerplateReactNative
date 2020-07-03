@@ -156,11 +156,13 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
         placeholder={focused === true ? placeHolder : ''}
         placeholderTextColor={placeholderColor ?? undefined}
         underlineColorAndroid={'transparent'}
+        clearButtonMode={'always'}
         editable={!disabled}
         onChangeText={_onChangeText}
         onFocus={_onFocus}
         onBlur={_onBlur}
         style={inputSty}
+        ref={ref}
         {...rest}
       />
       {labelText && (

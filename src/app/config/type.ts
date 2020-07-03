@@ -1,4 +1,3 @@
-import Immutable from 'immutable';
 export interface ResponseBase<T = any> {
   code: number;
 
@@ -8,7 +7,6 @@ export interface ResponseBase<T = any> {
 
   status: boolean;
 }
-export interface BaseRedux<T> extends Immutable.Map<keyof T, any> {}
 export interface Colors {
   primary: string;
   primaryDarker: string;

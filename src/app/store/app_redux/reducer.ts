@@ -3,10 +3,10 @@ import {
   PROD_MODE_API,
   STAGING_MODE_API,
 } from './../../library/networking/api';
-import {BaseRedux} from '@config/type';
 import * as Action from './actionType';
-import {AppState, App_Mode} from './type';
-import {fromJS} from 'immutable';
+import { AppState, App_Mode } from './type';
+import { produce, current } from 'immer'
+
 const initialAppState: AppState = {
   internetState: true,
   profile: {},
@@ -31,28 +31,29 @@ interface ActionProps {
   type: keyof typeof Action;
   payload: any;
 }
-export default (
-  state: BaseRedux<AppState> = fromJS(initialAppState),
-  {type, payload}: ActionProps,
-): BaseRedux<AppState> => {
-  switch (type) {
-    case Action.SET_INTERNET:
-      return state.set('internetState', payload);
-    case Action.SET_TOKEN:
-      return state.set('token', payload);
-    case Action.SET_APP_PROFILE:
-      return state.set('profile', payload);
-    case Action.SET_APP_THEME:
-      return state.set('theme', payload);
-    case Action.SET_APP_MODE:
-      const appURL = appModeToURL(payload);
-      return state.set('appMode', payload).set('appUrl', appURL);
-    case Action.LOG_OUT:
-      let saveState = initialAppState;
-      saveState.appMode = state.get('appMode');
-      saveState.appUrl = state.get('appUrl');
-      return fromJS(saveState);
-    default:
-      return state;
-  }
-};
+export default
+  produce((draftState: AppState, { type, payload }: ActionProps) => {
+    switch (type) {
+      case Action.SET_INTERNET:
+        draftState.internetState = payload;
+        break;
+      case Action.SET_TOKEN:
+        draftState.token = payload;
+        break;
+      case Action.SET_APP_PROFILE:
+        draftState.profile = payload;
+        break;
+      case Action.SET_APP_THEME:
+        draftState.theme = payload;
+      case Action.SET_APP_MODE:
+        const appURL = appModeToURL(payload);
+        draftState.appUrl = appURL;
+        draftState.appMode = payload;
+        break;
+      case Action.LOG_OUT:
+        const currentState = current(draftState)
+        return { ...initialAppState, appMode: currentState.appMode, appUrl: currentState.appUrl }
+    }
+  }, initialAppState)
+
+

@@ -167,6 +167,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
         onFocus={_onFocus}
         onBlur={_onBlur}
         style={inputSty}
+        ref={ref}
         {...rest}
       />
       {labelText && (

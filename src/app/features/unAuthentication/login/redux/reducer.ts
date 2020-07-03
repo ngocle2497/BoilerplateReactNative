@@ -1,6 +1,5 @@
 import * as Action from './actionType';
-import {fromJS} from 'immutable';
-import {BaseRedux} from 'src/app/config/type';
+import {produce} from 'immer';
 export interface LoginState {
   loading: boolean;
 }
@@ -11,18 +10,16 @@ interface ActionProps {
   type: keyof typeof Action;
   payload: any;
 }
-export default (
-  state: BaseRedux<LoginState> = fromJS(initialState),
-  {type, payload}: ActionProps,
-): BaseRedux<LoginState> => {
+export default produce((state: LoginState, { type, payload }: ActionProps) => {
   switch (type) {
     case Action.LOGIN_START:
-      return state.set('loading', true);
+      state.loading = true;
+      break;
     case Action.LOGIN_SUCCESS:
-      return state.set('loading', false);
+      state.loading = false;
+      break;
     case Action.LOGIN_FAILED:
-      return state.set('loading', false);
-    default:
-      return state;
+      state.loading = false;
+      break;
   }
-};
+}, initialState);
