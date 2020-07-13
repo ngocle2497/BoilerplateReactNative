@@ -13,13 +13,6 @@ const FormComponent = ({ register, errors, trigger, rules, setValue, children, }
                 register({ name: child.props.name }, rules && rules[child.props.name]);
         });
     }, [register])
-    useEffect(() => {
-        console.log('Inputs', Inputs)
-        console.log('Inputs', children)
-        return () => {
-
-        }
-    }, [Inputs])
     return (
         <>
             {(Array.isArray(children) ? [...children] : [children]).map(
