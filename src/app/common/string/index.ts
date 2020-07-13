@@ -17,13 +17,13 @@ export const onChangeAlias = (value: string | number): string => {
   str = str.trim();
   return str;
 };
-export const padStart = (value, maxPad = 2, stringPad = '0') => {
+export const padStart = (value: any, maxPad = 2, stringPad = '0') => {
   const stringP = Array(maxPad)
     .fill(stringPad)
     .join('');
   return String(stringP + value).slice(-maxPad);
 };
-export const padEnd = (value, maxPad = 2, stringPad = '0') => {
+export const padEnd = (value: any, maxPad = 2, stringPad = '0') => {
   const stringP = Array(maxPad)
     .fill(stringPad)
     .join('');
@@ -40,4 +40,47 @@ export const compareValue = (val1: any, val2: any) => {
 };
 export const removeChar = (source = '') => {
   return source.replace(/[^0-9]/g, '');
+};
+export const trimArray = (sourceArr: Array<unknown> = []): Array<unknown> => {
+  const newArr = sourceArr.map((element: any) => {
+    if (Array.isArray(element)) {
+      return trimArray(element);
+    }
+    switch (typeof element) {
+      case 'string':
+        return element.trim();
+      case 'object':
+        return trimObject(element);
+      default:
+        return element;
+    }
+  });
+  return newArr;
+};
+
+export const trimObject = (source: any) => {
+  if (!source) {
+    return source;
+  }
+  let newObject = source;
+  Object.keys(newObject).forEach((key: string) => {
+    if (Array.isArray(newObject[key])) {
+      newObject[key] = trimArray(newObject[key]);
+    }
+    if (typeof newObject[key] === 'string') {
+      newObject[key] = newObject[key].trim();
+    }
+    if (typeof newObject[key] === 'object') {
+      newObject[key] = trimObject(newObject[key]);
+    }
+  });
+  return newObject;
+};
+export const toFullWidth = (value: any) => {
+  return (
+    value +
+    ''.replace(/[A-Za-z0-9]/g, function (s) {
+      return String.fromCharCode(s.charCodeAt(0) + 0xfee0);
+    })
+  );
 };
