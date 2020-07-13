@@ -2,7 +2,7 @@
     "scripts": {
         "android": "cd android &&./gradlew clean && cd.. && npx react-native run-android ",
         "ios": "cd ios && xcodebuild clean && cd.. && npx react-native run-ios",
-        "release-android": "npx react-native run-android --variant=release",
+        "android-release": "npx react-native run-android --variant=release",
         "start": "npx react-native start --reset-cache",
         "format": "prettier --write './src/**/*.{ts,tsx,js,json,md}'",
         "test": "jest",
@@ -11,8 +11,8 @@
         "aab": "cd android &&./gradlew clean && ./gradlew bundleRelease && cd ..",
         "lint": "eslint index.js app --fix --ext .js,.ts,.tsx",
         "pod": "cd ios && pod install && cd ..",
-        "codePushAndroid": "code-push release-react App-Android android -d Production",
-        "codePushIOS": "code-push release-react App-IOS ios -d Production"
+        "code-push-android": "code-push release-react App-Android android -d Production",
+        "code-push-ios": "code-push release-react App-IOS ios -d Production"
     },
     "dependencies": {
         "@react-native-community/async-storage": "^1.11.0",
