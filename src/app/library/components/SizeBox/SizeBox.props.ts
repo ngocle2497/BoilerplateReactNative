@@ -4,13 +4,13 @@ export interface SizeBoxProps {
    * Width of size box
    * @default 0
    */
-  width?: number;
+  width?: number | string;
 
   /**
    * Height of size box
    * @default 0
    */
-  height?: number;
+  height?: number | string;
 
   /**
    * Color of size box
