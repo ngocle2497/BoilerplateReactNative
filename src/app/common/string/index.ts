@@ -84,3 +84,26 @@ export const toFullWidth = (value: any) => {
     })
   );
 };
+interface ResultHandleTagToArrayText {
+  text: string;
+  bold: boolean;
+}
+export const onHandleTagToArrayText = (source = '', char = '#'): Array<ResultHandleTagToArrayText> => {
+  const textSplit = source.split(' ')
+  const arrText: ResultHandleTagToArrayText[] = []
+  textSplit.forEach((text: string, i: number) => {
+    const textData = { text: text, bold: false }
+    if (text[0] === char) {
+      textData.bold = true
+      arrText.push(textData)
+
+    }
+    else {
+      arrText.push({ text: text, bold: false })
+    }
+    if ((text === '' && i !== textSplit.length - 1) || i !== textSplit.length - 1) {
+      arrText.push({ text: ' ', bold: false })
+    }
+  })
+  return arrText;
+}
