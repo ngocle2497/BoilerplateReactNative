@@ -1,4 +1,4 @@
-import {ImageStyle, Dimensions} from 'react-native';
+import {ImageStyle} from 'react-native';
 
 const BASE: ImageStyle = {
   position: 'absolute',
@@ -12,8 +12,6 @@ export const presets = {
   stretch: ({
     ...BASE,
     resizeMode: 'stretch',
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
   } as unknown) as ImageStyle,
 };
 

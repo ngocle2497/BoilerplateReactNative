@@ -29,3 +29,4 @@ export * from './ListView/ListView';
 export * from './Chat/Chat';
 export * from './AppMode/ModalAppMode';
 export * from './Form/Form';
+export * from './Masonry/Masonry';
