@@ -1,21 +1,21 @@
 import React, { memo, useState, useEffect, useCallback } from 'react'
 import { StyleSheet, View, FlatList, LayoutChangeEvent, Image, RefreshControl } from 'react-native'
 import isEqual from 'react-fast-compare'
-import { MasonryProps, Dimensions, ItemColumn, Data } from './types'
+import { MasonryProps, Dimensions, ItemColumn, DataType } from './types'
 import { DEFAULT_COLUMNS, DEFAULT_CELL_SPACE } from './constants'
 import { assignObjectColumn, assignObjectIndex, onCheckNumber, containMatchingUri } from './handle'
 import { Column } from './Column'
 
-const MasonryComponent = ({ data = [], containerImageStyle, customRenderItem, refreshColor, canRefresh = false, onRefresh, refreshing = false, onEndReach, columns = DEFAULT_COLUMNS, space = DEFAULT_CELL_SPACE, onPress, customImageComponent, customImageProps, renderFooter, renderHeader }: MasonryProps) => {
+const MasonryComponent = ({ data = [], containerImageStyle, customRenderItem, refreshColor, canRefresh = false, onRefresh, refreshing = false, onEndReach, columns = DEFAULT_COLUMNS, space = DEFAULT_CELL_SPACE, onPress, renderFooter, renderHeader }: MasonryProps) => {
     const [dimensions, setDimensions] = useState<Dimensions>({ height: 0, width: 0 })
     const [dataSource, setDataSource] = useState<Array<ItemColumn[]>>([])
     const [oldColumn, setOldColumn] = useState<number>(columns)
-    const [oldData, setOldData] = useState<Data[]>([])
+    const [oldData, setOldData] = useState<DataType[]>([])
     /**
      * Convert data to multi array to multi column
      */
-    const _formatData = (_data: Data[], _columns: number, isChangeColumn = false, offset = 0) => {
-        if (_data.length == 0) {
+    const _formatData = (_data: DataType[], _columns: number, isChangeColumn = false, offset = 0) => {
+        if (_data.length <= 0 || _columns <= 0) {
             setDataSource([]);
             return;
         }
@@ -24,7 +24,8 @@ const MasonryComponent = ({ data = [], containerImageStyle, customRenderItem, re
 
         const dataOf = _data.map((cell, index) => assignObjectColumn(_columns, index, cell)).map((cell, index) => assignObjectIndex(offset + index, cell))
 
-        for (const element of dataOf) {
+        for (let index = 0; index < dataOf.length; index++) {
+            const element = dataOf[index];
             Image.getSize(element.uri, (width, height) => {
                 if (onCheckNumber(width) && onCheckNumber(height)) {
                     const dataConcat = _insertIntoColumn({
@@ -34,9 +35,9 @@ const MasonryComponent = ({ data = [], containerImageStyle, customRenderItem, re
                         }
                     }, newData);
                     newData = dataConcat
-                    setDataSource(dataConcat)
+                    setDataSource(newData)
                 }
-            }, (error) => {
+            }, (_) => {
                 console.warn('Image failed to load')
             });
         }
@@ -56,7 +57,7 @@ const MasonryComponent = ({ data = [], containerImageStyle, customRenderItem, re
         if (column) {
             // Append to existing "row"/"column"
             if (!column.find((x: ItemColumn) => x.uri === img.uri)) {
-                const newImages = [...column, img];
+                const newImages = column.concat(img);
                 dataCopy[columnIndex] = newImages;
             }
         } else {
@@ -83,21 +84,22 @@ const MasonryComponent = ({ data = [], containerImageStyle, customRenderItem, re
     }, [onRefresh])
     const _renderItem = ({ item }: { item: ItemColumn[]; index: number }) => {
         return (
-            <Column  {...{ onPress, space, containerImageStyle, customRenderItem, customImageComponent, customImageProps, renderFooter, renderHeader, dimensions, columns }} data={item} />
+            <Column  {...{ onPress, space: space < 0 ? 0 : space, containerImageStyle, customRenderItem, renderFooter, renderHeader, dimensions, columns: oldColumn }} data={item} />
         )
     }
-    const _keyExtractor = useCallback((item: ItemColumn[], index) => index.toString(), [])
+    const _keyExtractor = useCallback((_: ItemColumn[], index) => index.toString(), [dataSource])
 
     // effect
     useEffect(() => {
         if (Array.isArray(data)) {
+            const _actualColumn = columns > data.length ? data.length : columns
             const driffData = containMatchingUri(oldData, data)
             const _uniqueCount = driffData.length + data.length;
-            _formatData(driffData.length === 0 ? oldData : driffData, columns, oldColumn !== columns, _uniqueCount);
-            setOldColumn(columns)
+            _formatData(driffData.length === 0 ? oldData : driffData, _actualColumn, oldColumn !== _actualColumn, _uniqueCount);
+            setOldColumn(_actualColumn)
             setOldData(data)
         }
-    }, [data, columns])
+    }, [data, columns, space])
     return (
         <View onLayout={_onLayoutChange} style={[styles.container]}>
             <FlatList

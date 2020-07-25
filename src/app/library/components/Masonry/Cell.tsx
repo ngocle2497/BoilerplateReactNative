@@ -1,10 +1,11 @@
 import React, { memo, useMemo, useCallback } from 'react'
-import { View, TouchableOpacity, Image, StyleProp, ImageStyle, ImageProps, StyleSheet } from 'react-native'
+import { View, TouchableOpacity, StyleProp, ImageStyle, ImageProps } from 'react-native'
 import isEqual from 'react-fast-compare'
 import { CellProps } from './types'
 import { Injector } from './Injector'
+import FastImage from 'react-native-fast-image'
 
-const CellComponent = ({ onPress, containerImageStyle, data, width, height, uri, column, dimensions, customImageComponent, customImageProps, renderFooter, renderHeader }: CellProps) => {
+const CellComponent = ({ onPress, containerImageStyle, data, width, height, uri, column, dimensions, renderFooter, renderHeader }: CellProps) => {
 
     const dataBase = useMemo(() => ({ uri, width, height, data, column, actualSize: dimensions }), [uri, width, height, data, column, dimensions])
     const _onPress = useCallback(() => {
@@ -27,7 +28,7 @@ const CellComponent = ({ onPress, containerImageStyle, data, width, height, uri,
         ) : null;
     }, [dataBase, renderHeader])
 
-    const imageStyle = useMemo(() => [{ width: width, height: height, ...containerImageStyle }] as StyleProp<ImageStyle>, [width, height])
+    const imageStyle = useMemo(() => [{ width: width, height: height, minHeight: 0, minWidth: 0 }, containerImageStyle] as StyleProp<ImageStyle>, [width, height])
     const imageProps = useMemo<ImageProps>(() => ({ key: uri, data: data, resizeMethod: 'auto', source: { uri }, style: imageStyle }), [imageStyle, uri, data])
 
 
@@ -37,10 +38,8 @@ const CellComponent = ({ onPress, containerImageStyle, data, width, height, uri,
                 <View>
                     {_renderHeader()}
                     <Injector
-                        defaultComponent={Image}
-                        defaultProps={imageProps}
-                        injectant={customImageComponent}
-                        injectantProps={customImageProps} />
+                        defaultComponent={FastImage}
+                        defaultProps={imageProps} />
                     {_renderFooter()}
                 </View>
             </TouchableOpacity>

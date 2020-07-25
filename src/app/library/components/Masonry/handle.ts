@@ -1,11 +1,11 @@
 
-import { Data, ObjectColumn, ObjectIndex } from './types';
+import { DataType, ObjectColumn, ObjectIndex } from './types';
 
-export const assignObjectColumn = (nColumns: number, index: number, targetObject: Data): ObjectColumn => ({ ...targetObject, ...{ column: index % nColumns } });
+export const assignObjectColumn = (nColumns: number, index: number, targetObject: DataType): ObjectColumn => ({ ...targetObject, ...{ column: index % nColumns } });
 
 export const assignObjectIndex = (index: number, targetObject: ObjectColumn): ObjectIndex => ({ ...targetObject, ...{ index } });
 
-export const containMatchingUri = (dest: Data[], source: Data[]) => {
+export const containMatchingUri = (dest: DataType[], source: DataType[]) => {
     return source.filter(img => dest.findIndex(x => x.uri === img.uri) === -1)
 }
 

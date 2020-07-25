@@ -1,15 +1,15 @@
-import { StyleProp, ViewStyle, ImageStyle } from "react-native";
+import { StyleProp, ImageStyle } from "react-native";
 
 export interface Dimensions {
     width: number;
     height: number;
 }
 
-export interface Data {
+export interface DataType {
     uri: string;
     data?: any;
 }
-export interface DataPress {
+export interface DataPassParam {
     data: any;
     uri: string;
     actualSize: Dimensions;
@@ -18,29 +18,27 @@ export interface DataPress {
     height: number;
 }
 interface BaseProps {
-    onPress?: (data: DataPress) => void;
-    customImageComponent?: Function;
-    customImageProps?: any;
-    renderHeader?: (data: DataPress) => React.ReactNode;
-    renderFooter?: (data: DataPress) => React.ReactNode;
+    onPress?: (data: DataPassParam) => void;
+    renderHeader?: (data: DataPassParam) => React.ReactElement;
+    renderFooter?: (data: DataPassParam) => React.ReactElement;
     space?: number;
     containerImageStyle?: StyleProp<ImageStyle>;
 }
 export interface MasonryProps extends BaseProps {
-    data?: Data[];
+    data?: DataType[];
     columns?: number;
     onEndReach?: () => void;
     canRefresh?: boolean;
     onRefresh?: () => void;
     refreshing?: boolean;
     refreshColor?: string[];
-    customRenderItem?: (data: DataPress) => React.ReactElement;
+    customRenderItem?: (data: DataPassParam) => React.ReactElement;
 }
 export interface ColumnsProps extends BaseProps {
     data: Array<ItemColumn>;
     dimensions: Dimensions;
     columns: number;
-    customRenderItem?: (data: DataPress) => React.ReactElement;
+    customRenderItem?: (data: DataPassParam) => React.ReactElement;
 }
 export interface CellProps extends BaseProps {
     uri: string;
