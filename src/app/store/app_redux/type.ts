@@ -1,10 +1,17 @@
-import {ThemeType} from '@theme';
-export type App_Mode = 'prod' | 'staging' | 'dev';
+import { ThemeType } from '@theme';
+import { AppModeType } from '@networking'
 export interface AppState {
   internetState: boolean;
+
   profile: any;
+
   token: any | undefined | null;
+
+  loading: boolean;
+
   theme: ThemeType;
-  appMode: App_Mode;
+
+  appMode: AppModeType;
+
   appUrl: string;
 }

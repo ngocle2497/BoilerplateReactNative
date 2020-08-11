@@ -1,3 +1,4 @@
+import { Theme } from '@react-navigation/native'
 export interface ResponseBase<T = any> {
   code: number;
 
@@ -9,18 +10,11 @@ export interface ResponseBase<T = any> {
 }
 export interface Colors {
   primary: string;
-  primaryDarker: string;
-  line: string;
-  text: string;
-  card: string;
   background: string;
+  card: string;
+  text: string;
   border: string;
-  button: string;
-  white: string;
-  transparent: string;
-  lighterGrey: string;
-  error: string;
-  info: string;
+  notification: string;
 }
 export interface FontSize {
   FONT_4: number;
@@ -68,10 +62,5 @@ export interface Spacing {
   huge: number;
   massive: number;
 }
-export interface AppTheme {
-  dark: boolean;
-  colors: Colors;
-  fontSize: FontSize;
-  fontFamily: FontFamily;
-  spacing: Spacing;
+export interface AppTheme extends Theme {
 }

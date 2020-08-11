@@ -3,7 +3,7 @@ import Animated, { Easing } from "react-native-reanimated";
 import { State } from "react-native-gesture-handler";
 
 import { SpringConfig, TimingConfig } from "./Animations";
-import { useConst } from "./Hooks";
+import { useConst } from "./Hook";
 
 const {
   Value,

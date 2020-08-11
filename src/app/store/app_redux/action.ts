@@ -1,6 +1,6 @@
-import {ThemeType} from '@theme';
+import { ThemeType } from '@theme';
 import * as Action from './actionType';
-import {App_Mode} from './type';
+import { AppModeType } from '@networking';
 
 export const onSetInternet = (payload: boolean) => ({
   type: Action.SET_INTERNET,
@@ -22,7 +22,15 @@ export const onSetAppTheme = (payload: ThemeType) => ({
   type: Action.SET_APP_THEME,
   payload,
 });
-export const onSetAppMode = (payload: App_Mode) => ({
+export const onSetAppMode = (payload: AppModeType) => ({
   type: Action.SET_APP_MODE,
   payload,
 });
+
+export const onLoadApp = () => ({
+  type: Action.LOAD_APP,
+})
+
+export const onLoadAppEnd = () => ({
+  type: Action.LOAD_APP_END,
+})

@@ -4,18 +4,23 @@ import {
   STAGING_MODE_API,
 } from './../../library/networking/api';
 import * as Action from './actionType';
-import { AppState, App_Mode } from './type';
+import { AppState } from './type';
+import { AppModeType } from '@networking'
 import { produce, current } from 'immer'
 
 const initialAppState: AppState = {
   internetState: true,
   profile: {},
   token: null,
+  /**
+   * default true to load app
+   */
+  loading: true,
   theme: 'default',
   appMode: 'dev',
   appUrl: DEV_MODE_API,
 };
-const appModeToURL = (mode: App_Mode): string => {
+const appModeToURL = (mode: AppModeType): string => {
   switch (mode) {
     case 'dev':
       return DEV_MODE_API;
@@ -45,6 +50,10 @@ export default
         break;
       case Action.SET_APP_THEME:
         draftState.theme = payload;
+        break;
+      case Action.LOAD_APP_END:
+        draftState.loading = false;
+        break;
       case Action.SET_APP_MODE:
         const appURL = appModeToURL(payload);
         draftState.appUrl = appURL;
