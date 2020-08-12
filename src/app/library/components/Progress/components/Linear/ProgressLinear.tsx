@@ -1,8 +1,8 @@
-import React, { useState, memo } from 'react';
-import { StyleSheet, LayoutChangeEvent } from 'react-native';
-import { ProgressLinearProps } from './ProgressLinear.props';
-import { useValues, timing, clamp, transformOrigin } from '@animated';
-import Animated, { useCode, set, interpolate } from 'react-native-reanimated';
+import React, {useState, memo} from 'react';
+import {StyleSheet, LayoutChangeEvent} from 'react-native';
+import {ProgressLinearProps} from './ProgressLinear.props';
+import {useValues, timing, clamp, transformOrigin} from '@animated';
+import Animated, {useCode, set, interpolate} from 'react-native-reanimated';
 import equals from 'react-fast-compare';
 
 const styles = StyleSheet.create({
@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
 });
 
 export const ProgressLinearComponent = (props: ProgressLinearProps) => {
-  const { progress } = props;
-  const [progressAnimated] = useValues([progress], []);
+  const {progress} = props;
+  const [progressAnimated] = useValues(progress);
   const [widthProgress, setWidthProgress] = useState(0);
   const actualProgress = clamp(progressAnimated, 0, 100);
   const scaleX = interpolate(actualProgress, {
@@ -31,7 +31,7 @@ export const ProgressLinearComponent = (props: ProgressLinearProps) => {
   });
   useCode(
     () => [
-      set(progressAnimated, timing({ from: progressAnimated, to: progress })),
+      set(progressAnimated, timing({from: progressAnimated, to: progress})),
     ],
     [progress],
   );
@@ -43,13 +43,11 @@ export const ProgressLinearComponent = (props: ProgressLinearProps) => {
       <Animated.View
         style={[
           styles.fg,
-          { transform: transformOrigin({ x: -widthProgress / 2, y: 0 }, { scaleX }) },
+          {transform: transformOrigin({x: -widthProgress / 2, y: 0}, {scaleX})},
         ]}
       />
     </Animated.View>
   );
 };
 
-export const ProgressLinear = memo(
-  ProgressLinearComponent, equals
-);
+export const ProgressLinear = memo(ProgressLinearComponent, equals);

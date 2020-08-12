@@ -1,5 +1,5 @@
-import { TextInputProps, StyleProp, TextStyle } from 'react-native';
-import { SetValueConfig } from 'react-hook-form/dist/types/form';
+import {TextInputProps, StyleProp, TextStyle} from 'react-native';
+import {SetValueConfig} from 'react-hook-form/dist/types/form';
 
 export interface InputBaseProps extends TextInputProps {
   /**
@@ -35,7 +35,11 @@ export interface InputBaseProps extends TextInputProps {
    * Function on input change to call set value react hook form
    * @default undefined
    */
-  onSetValueHookForm?: (name: string, value?: string, options?: SetValueConfig) => void;
+  onSetValueHookForm?: (
+    name: string,
+    value?: string,
+    options?: SetValueConfig,
+  ) => void;
 
   /**
    * Call trigger react hook form

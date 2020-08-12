@@ -36,9 +36,7 @@ const BubbleComponent = ({
   );
 };
 
-export const Bubble = memo(BubbleComponent, (prevProps, nextProps) =>
-  isEqual(prevProps, nextProps),
-);
+export const Bubble = memo(BubbleComponent, isEqual);
 
 const styles = StyleSheet.create({
   wrap: {

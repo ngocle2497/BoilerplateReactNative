@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
-import { StyleSheet } from 'react-native';
-import { Block } from '../../../Block/Block';
+import React, {memo} from 'react';
+import {StyleSheet} from 'react-native';
+import {Block} from '../../../Block/Block';
 import equals from 'react-fast-compare';
 interface HalfCircleProps {
   color: string;
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const HalfCircleComponent = ({ color, radius }: HalfCircleProps) => {
+export const HalfCircleComponent = ({color, radius}: HalfCircleProps) => {
   return (
     <Block width={radius * 2} height={radius} style={[styles.wrap]}>
       <Block
@@ -25,5 +25,4 @@ export const HalfCircleComponent = ({ color, radius }: HalfCircleProps) => {
     </Block>
   );
 };
-export const HalfCircle = memo(HalfCircleComponent, equals
-);
+export const HalfCircle = memo(HalfCircleComponent, equals);

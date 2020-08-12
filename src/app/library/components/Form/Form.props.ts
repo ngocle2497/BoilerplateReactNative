@@ -1,11 +1,15 @@
-import { FieldErrors, FieldName, ValidationRules, SetValueConfig } from 'react-hook-form/dist/types/form';
+import {
+  FieldErrors,
+  FieldName,
+  ValidationRules,
+  SetValueConfig,
+} from 'react-hook-form/dist/types/form';
 
 type FieldValues = Record<string, any>;
 
-export type ValidationMap<T = any, Keys extends keyof T = keyof T> =
-  {
-    [K in Keys]-?: ValidationRules
-  }
+export type ValidationMap<T = any, Keys extends keyof T = keyof T> = {
+  [K in Keys]-?: ValidationRules;
+};
 
 export interface FormProps<TFieldValues extends FieldValues = FieldValues> {
   /**
@@ -26,7 +30,7 @@ export interface FormProps<TFieldValues extends FieldValues = FieldValues> {
   /**
    * register function of useForm
    */
-  register: ({ name }: { name: string }, rules?: ValidationRules) => void;
+  register: ({name}: {name: string}, rules?: ValidationRules) => void;
 
   /**
    * List errors of useForm

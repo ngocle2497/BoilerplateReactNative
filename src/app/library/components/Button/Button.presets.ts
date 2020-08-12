@@ -9,7 +9,7 @@ export const stylesView = StyleSheet.create({
     borderRadius: 4,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: ColorDefault.button,
+    backgroundColor: '#ebf2f1',
   },
   link: {
     borderRadius: 4,
@@ -24,7 +24,7 @@ export const stylesText = StyleSheet.create({
   primary: {
     paddingHorizontal: SpacingDefault.smaller,
     fontSize: FontSizeDefault.FONT_9,
-    color: ColorDefault.white,
+    color: '#FFFFFF',
   },
   link: {
     fontSize: FontSizeDefault.FONT_9,

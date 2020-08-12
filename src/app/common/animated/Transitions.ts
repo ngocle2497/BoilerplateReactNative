@@ -1,9 +1,9 @@
-import { useEffect } from "react";
-import Animated, { Easing } from "react-native-reanimated";
-import { State } from "react-native-gesture-handler";
+import {useEffect} from 'react';
+import Animated, {Easing} from 'react-native-reanimated';
+import {State} from 'react-native-gesture-handler';
 
-import { SpringConfig, TimingConfig } from "./Animations";
-import { useConst } from "./Hook";
+import {SpringConfig, TimingConfig} from './Animations';
+import {useConst} from './Hook';
 
 const {
   Value,
@@ -25,7 +25,7 @@ const defaultSpringConfig = SpringUtils.makeDefaultConfig();
 export const withTransition = (
   value: Animated.Node<number>,
   timingConfig: TimingConfig = {},
-  gestureState: Animated.Value<State> = new Value(State.UNDETERMINED)
+  gestureState: Animated.Value<State> = new Value(State.UNDETERMINED),
 ) => {
   const clock = new Clock();
   const state = {
@@ -52,7 +52,7 @@ export const withTransition = (
     cond(
       eq(gestureState, State.ACTIVE),
       [set(state.position, value)],
-      timing(clock, state, config)
+      timing(clock, state, config),
     ),
     cond(state.finished, stopClock(clock)),
     state.position,
@@ -63,7 +63,7 @@ export const withSpringTransition = (
   value: Animated.Node<number>,
   springConfig: SpringConfig = defaultSpringConfig,
   velocity: Animated.Adaptable<number> = 0,
-  gestureState: Animated.Value<State> = new Value(State.UNDETERMINED)
+  gestureState: Animated.Value<State> = new Value(State.UNDETERMINED),
 ) => {
   const clock = new Clock();
   const state = {
@@ -92,7 +92,7 @@ export const withSpringTransition = (
     cond(
       eq(gestureState, State.ACTIVE),
       [set(state.velocity, velocity), set(state.position, value)],
-      spring(clock, state, config)
+      spring(clock, state, config),
     ),
     cond(state.finished, stopClock(clock)),
     state.position,
@@ -103,11 +103,11 @@ export const withTimingTransition = withTransition;
 
 export const useTransition = (
   state: boolean | number,
-  config: TimingConfig = {}
+  config: TimingConfig = {},
 ) => {
   const value: Animated.Value<number> = useConst(() => new Value(0));
   useEffect(() => {
-    value.setValue(typeof state === "boolean" ? (state ? 1 : 0) : state);
+    value.setValue(typeof state === 'boolean' ? (state ? 1 : 0) : state);
   }, [value, state]);
   const transition = useConst(() => withTransition(value, config));
   return transition;
@@ -115,12 +115,12 @@ export const useTransition = (
 
 export const useSpringTransition = (
   state: boolean | number,
-  config: SpringConfig = defaultSpringConfig
+  config: SpringConfig = defaultSpringConfig,
 ) => {
   const value: Animated.Value<number> = useConst(() => new Value(0));
 
   useEffect(() => {
-    value.setValue(typeof state === "boolean" ? (state ? 1 : 0) : state);
+    value.setValue(typeof state === 'boolean' ? (state ? 1 : 0) : state);
   }, [value, state]);
 
   const transition = useConst(() => withSpringTransition(value, config));

@@ -1,12 +1,12 @@
-import React, { useMemo, memo } from 'react';
-import { StyleSheet } from 'react-native';
-import { HelperTextProps } from './HelperText.prop';
-import { Text } from '../Text/Text';
-import { enhance } from '@common';
+import React, {useMemo, memo} from 'react';
+import {StyleSheet} from 'react-native';
+import {HelperTextProps} from './HelperText.prop';
+import {Text} from '../Text/Text';
+import {enhance} from '@common';
 import equals from 'react-fast-compare';
-import { Block } from '../Block/Block';
-import { ColorDefault } from '@theme/color';
-import { useTimingTransition, mix, toRad } from '@animated';
+import {Block} from '../Block/Block';
+import {ColorDefault} from '@theme/color';
+import {useTimingTransition, mix, toRad} from '@animated';
 import Animated from 'react-native-reanimated';
 
 const styles = StyleSheet.create({
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     width: '100%',
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   textInfo: {
     color: ColorDefault.error,
@@ -30,11 +30,11 @@ const styles = StyleSheet.create({
 });
 
 const HelperTextComponent = (props: HelperTextProps) => {
-  const { visible = false, msg, type } = props;
-  const progress = useTimingTransition(visible)
-  const translateY = mix(progress, -5, 0)
-  const translateX = mix(progress, -5, 0)
-  const rotateX = toRad(mix(progress, 90, 0))
+  const {visible = false, msg, type} = props;
+  const progress = useTimingTransition(visible);
+  const translateY = mix(progress, -5, 0);
+  const translateX = mix(progress, -5, 0);
+  const rotateX = toRad(mix(progress, 90, 0));
   const textStyle = useMemo(
     () =>
       enhance([
@@ -46,7 +46,8 @@ const HelperTextComponent = (props: HelperTextProps) => {
 
   return (
     <Block style={[styles.container]}>
-      <Animated.View style={[{ transform: [ {translateX},{translateY},{ rotateX }] }]}>
+      <Animated.View
+        style={[{transform: [{translateX}, {translateY}, {rotateX}]}]}>
         <Text numberOfLines={1} style={[textStyle]}>
           {msg ?? ''}
         </Text>
@@ -54,6 +55,4 @@ const HelperTextComponent = (props: HelperTextProps) => {
     </Block>
   );
 };
-export const HelperText = memo(HelperTextComponent, (prevProps, nextProps) =>
-  equals(prevProps, nextProps),
-);
+export const HelperText = memo(HelperTextComponent, equals);

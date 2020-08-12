@@ -1,8 +1,8 @@
 import React, {memo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {App_Mode} from '@store/app_redux/type';
+import {AppModeType} from '@networking';
 import isEqual from 'react-fast-compare';
-const modeToString = (mode: App_Mode): string => {
+const modeToString = (mode: AppModeType): string => {
   switch (mode) {
     case 'dev':
       return 'Dev Mode';
@@ -14,7 +14,7 @@ const modeToString = (mode: App_Mode): string => {
       return '';
   }
 };
-const AppModeComponent = ({appMode}: {appMode: App_Mode}) => {
+const AppModeComponent = ({appMode}: {appMode: AppModeType}) => {
   return (
     <View pointerEvents={'none'} style={[styles.wrapMode]}>
       <Text adjustsFontSizeToFit={true} style={[styles.textMode]}>
@@ -24,9 +24,7 @@ const AppModeComponent = ({appMode}: {appMode: App_Mode}) => {
   );
 };
 
-export const AppMode = memo(AppModeComponent, (prevProps, nextProps) =>
-  isEqual(prevProps, nextProps),
-);
+export const AppMode = memo(AppModeComponent, isEqual);
 
 const styles = StyleSheet.create({
   textMode: {

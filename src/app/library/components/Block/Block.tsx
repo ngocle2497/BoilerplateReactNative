@@ -97,6 +97,4 @@ const BlockComponent = (props: BlockProps) => {
     </View>
   );
 };
-export const Block = memo(BlockComponent, (prevProps, nextProps) =>
-  equals(prevProps, nextProps),
-);
+export const Block = memo(BlockComponent, equals);

@@ -132,9 +132,7 @@ const ChatComponent = ({
   );
 };
 
-export const Chat = memo(ChatComponent, (prevProps, nextProps) =>
-  isEqual(prevProps, nextProps),
-);
+export const Chat = memo(ChatComponent, isEqual);
 
 const styles = StyleSheet.create({
   buttonBack: {

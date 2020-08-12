@@ -84,9 +84,7 @@ export const HomeBottomTabScreen = () => {
   const [t] = useTranslation();
   return (
     <HomeBottomTab.Navigator
-      tabBar={(props) => (
-        <TabBarBubble tabs={tabs} duration={500} {...props} />
-      )}>
+      tabBar={props => <TabBarBubble tabs={tabs} duration={500} {...props} />}>
       <HomeBottomTab.Screen
         options={{title: t('main:homeTab:tvHome') || undefined}}
         name={APP_SCREEN.AUTHORIZE.HOME_DRAWER.HOME_TAB.ROOT}

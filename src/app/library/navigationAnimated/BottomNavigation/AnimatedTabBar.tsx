@@ -65,7 +65,7 @@ export const AnimatedTabBar = (props: AnimatedTabBarProps) => {
   );
 
   const getRoutes = useCallback(() => {
-    return routes.map((route) => ({
+    return routes.map(route => ({
       title: getRouteTitle(route),
       key: route.key,
       ...getRouteTabConfigs(route),
@@ -95,7 +95,7 @@ export const AnimatedTabBar = (props: AnimatedTabBarProps) => {
     () =>
       onChange(
         selectedIndex,
-        call([selectedIndex], (args) => {
+        call([selectedIndex], args => {
           handleSelectedIndexChange(args[0]);
         }),
       ),

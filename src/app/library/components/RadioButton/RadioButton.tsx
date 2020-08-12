@@ -1,8 +1,8 @@
-import React, { memo } from 'react';
-import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
-import { RadioButtonProps } from './RadioButton.props';
-import { useTimingTransition, interpolateColor } from '@animated';
-import Animated, { interpolate } from 'react-native-reanimated';
+import React, {memo} from 'react';
+import {StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import {RadioButtonProps} from './RadioButton.props';
+import {useTimingTransition, interpolateColor} from '@animated';
+import Animated, {interpolate} from 'react-native-reanimated';
 import equals from 'react-fast-compare';
 
 const SIZE = 30;
@@ -30,7 +30,7 @@ const RadioButtonComponent = (props: RadioButtonProps) => {
     sizeDot = SIZE - 10,
     onPress,
   } = props;
-  const progress = useTimingTransition(value, { duration: 100 });
+  const progress = useTimingTransition(value, {duration: 100});
   const size = interpolate(progress, {
     inputRange: [0, 1],
     outputRange: [0, sizeDot - strokeWidth],
@@ -73,5 +73,4 @@ const RadioButtonComponent = (props: RadioButtonProps) => {
   );
 };
 
-export const RadioButton = memo(RadioButtonComponent, equals
-);
+export const RadioButton = memo(RadioButtonComponent, equals);

@@ -94,7 +94,7 @@ export const FABGroup = (props: FABGroupProps) => {
         <Icon icon={icon} />
         {React.isValidElement(label)
           ? label
-          : label && <Text style={[styles.label]} text={label} />}
+          : label && <Text style={[styles.label]} text={label as string} />}
       </Button>
       {isShow === true && (
         <Block

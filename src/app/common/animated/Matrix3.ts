@@ -1,42 +1,42 @@
 /* eslint-disable prefer-destructuring */
-import Animated from "react-native-reanimated";
+import Animated from 'react-native-reanimated';
 
-import { atan2 } from "./Math";
-import { Vector } from "./Vectors";
+import {atan2} from './Math';
+import {Vector} from './Vectors';
 
-const { add, multiply, sqrt, cos, sin, sub, divide, pow, tan } = Animated;
+const {add, multiply, sqrt, cos, sin, sub, divide, pow, tan} = Animated;
 
 export type Vec3 = readonly [
   Animated.Adaptable<number>,
   Animated.Adaptable<number>,
-  Animated.Adaptable<number>
+  Animated.Adaptable<number>,
 ];
 
 export type Matrix3 = readonly [Vec3, Vec3, Vec3];
 
 type Transform2dName =
-  | "translateX"
-  | "translateY"
-  | "scale"
-  | "skewX"
-  | "skewY"
-  | "scaleX"
-  | "scaleY"
-  | "rotateZ"
-  | "rotate";
+  | 'translateX'
+  | 'translateY'
+  | 'scale'
+  | 'skewX'
+  | 'skewY'
+  | 'scaleX'
+  | 'scaleY'
+  | 'rotateZ'
+  | 'rotate';
 type Transformations = {
   [Name in Transform2dName]: Animated.Adaptable<number>;
 };
 export type Transforms2d = (
-  | Pick<Transformations, "translateX">
-  | Pick<Transformations, "translateY">
-  | Pick<Transformations, "scale">
-  | Pick<Transformations, "scaleX">
-  | Pick<Transformations, "scaleY">
-  | Pick<Transformations, "skewX">
-  | Pick<Transformations, "skewY">
-  | Pick<Transformations, "rotateZ">
-  | Pick<Transformations, "rotate">
+  | Pick<Transformations, 'translateX'>
+  | Pick<Transformations, 'translateY'>
+  | Pick<Transformations, 'scale'>
+  | Pick<Transformations, 'scaleX'>
+  | Pick<Transformations, 'scaleY'>
+  | Pick<Transformations, 'skewX'>
+  | Pick<Transformations, 'skewY'>
+  | Pick<Transformations, 'rotateZ'>
+  | Pick<Transformations, 'rotate'>
 )[];
 
 const exhaustiveCheck = (a: never): never => {
@@ -101,7 +101,7 @@ export const dot3 = (row: Vec3, col: Vec3) =>
   add(
     multiply(row[0], col[0]),
     multiply(row[1], col[1]),
-    multiply(row[2], col[2])
+    multiply(row[2], col[2]),
   );
 
 export const matrixVecMul3 = (m: Matrix3, v: Vec3) =>
@@ -122,28 +122,28 @@ export const processTransform2d = (transforms: Transforms2d) =>
   transforms.reduce((acc, transform) => {
     const key = Object.keys(transform)[0] as Transform2dName;
     const value = (transform as Pick<Transformations, typeof key>)[key];
-    if (key === "translateX") {
+    if (key === 'translateX') {
       return multiply3(acc, translateXMatrix(value));
     }
-    if (key === "translateY") {
+    if (key === 'translateY') {
       return multiply3(acc, translateYMatrix(value));
     }
-    if (key === "scale") {
+    if (key === 'scale') {
       return multiply3(acc, scaleMatrix(value));
     }
-    if (key === "scaleX") {
+    if (key === 'scaleX') {
       return multiply3(acc, scaleXMatrix(value));
     }
-    if (key === "scaleY") {
+    if (key === 'scaleY') {
       return multiply3(acc, scaleYMatrix(value));
     }
-    if (key === "skewX") {
+    if (key === 'skewX') {
       return multiply3(acc, skewXMatrix(value));
     }
-    if (key === "skewY") {
+    if (key === 'skewY') {
       return multiply3(acc, skewYMatrix(value));
     }
-    if (key === "rotate" || key === "rotateZ") {
+    if (key === 'rotate' || key === 'rotateZ') {
       return multiply3(acc, rotateZMatrix(value));
     }
     return exhaustiveCheck(key);
@@ -174,12 +174,12 @@ export const decompose2d = (arg: Matrix3 | Transforms2d) => {
   const theta = divide(sub(a2, a1), 2);
   const phi = divide(add(a2, a1), 2);
   return [
-    { translateX },
-    { translateY },
-    { rotateZ: multiply(-1, theta) },
-    { scaleX },
-    { scaleY },
-    { rotateZ: multiply(-1, phi) },
+    {translateX},
+    {translateY},
+    {rotateZ: multiply(-1, theta)},
+    {scaleX},
+    {scaleY},
+    {rotateZ: multiply(-1, phi)},
   ] as const;
 };
 
@@ -215,7 +215,7 @@ interface Parameters {
   projected: Quadrilateral;
 }
 
-const basisToPoints = ({ p1, p2, p3, p4 }: Quadrilateral) => {
+const basisToPoints = ({p1, p2, p3, p4}: Quadrilateral) => {
   const m = [
     [p1.x, p2.x, p3.x],
     [p1.y, p2.y, p3.y],

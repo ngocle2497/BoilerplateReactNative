@@ -1,8 +1,8 @@
-import Animated from "react-native-reanimated";
-import { processColor } from "react-native";
+import Animated from 'react-native-reanimated';
+import {processColor} from 'react-native';
 
-import { mix } from "./Animations";
-import { clamp, fract } from "./Math";
+import {mix} from './Animations';
+import {clamp, fract} from './Math';
 
 const {
   add,
@@ -28,7 +28,7 @@ export const blue = (c: number) => c & 255;
 export const hsv2rgb = (
   h: Animated.Adaptable<number>,
   s: Animated.Adaptable<number>,
-  v: Animated.Adaptable<number>
+  v: Animated.Adaptable<number>,
 ) => {
   // vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
   const K = {
@@ -60,22 +60,22 @@ export const hsv2color = proc(
   (
     h: Animated.Adaptable<number>,
     s: Animated.Adaptable<number>,
-    v: Animated.Adaptable<number>
+    v: Animated.Adaptable<number>,
   ) => {
-    const { r, g, b } = hsv2rgb(h, s, v);
+    const {r, g, b} = hsv2rgb(h, s, v);
     return color(r, g, b);
-  }
+  },
 );
 
 export const colorForBackground = proc(
   (
     r: Animated.Adaptable<number>,
     g: Animated.Adaptable<number>,
-    b: Animated.Adaptable<number>
+    b: Animated.Adaptable<number>,
   ) => {
     const L = add(multiply(0.299, r), multiply(0.587, g), multiply(0.114, b));
     return cond(greaterThan(L, 186), color(0, 0, 0), color(255, 255, 255));
-  }
+  },
 );
 
 const rgbToHsv = (c: number) => {
@@ -107,28 +107,28 @@ const rgbToHsv = (c: number) => {
     }
     h /= 6;
   }
-  return { h, s, v };
+  return {h, s, v};
 };
 
 const interpolateColorsHSV = (
   animationValue: Animated.Adaptable<number>,
   inputRange: readonly Animated.Adaptable<number>[],
-  colors: number[]
+  colors: number[],
 ): Animated.Node<number> => {
-  const colorsAsHSV = colors.map((c) => rgbToHsv(c));
+  const colorsAsHSV = colors.map(c => rgbToHsv(c));
   const h = interpolate(animationValue, {
     inputRange,
-    outputRange: colorsAsHSV.map((c) => c.h),
+    outputRange: colorsAsHSV.map(c => c.h),
     extrapolate: Extrapolate.CLAMP,
   });
   const s = interpolate(animationValue, {
     inputRange,
-    outputRange: colorsAsHSV.map((c) => c.s),
+    outputRange: colorsAsHSV.map(c => c.s),
     extrapolate: Extrapolate.CLAMP,
   });
   const v = interpolate(animationValue, {
     inputRange,
-    outputRange: colorsAsHSV.map((c) => c.v),
+    outputRange: colorsAsHSV.map(c => c.v),
     extrapolate: Extrapolate.CLAMP,
   });
   return hsv2color(h, s, v);
@@ -137,32 +137,32 @@ const interpolateColorsHSV = (
 const interpolateColorsRGB = (
   animationValue: Animated.Adaptable<number>,
   inputRange: readonly Animated.Adaptable<number>[],
-  colors: number[]
+  colors: number[],
 ) => {
   const r = round(
     interpolate(animationValue, {
       inputRange,
-      outputRange: colors.map((c) => red(c)),
+      outputRange: colors.map(c => red(c)),
       extrapolate: Extrapolate.CLAMP,
-    })
+    }),
   );
   const g = round(
     interpolate(animationValue, {
       inputRange,
-      outputRange: colors.map((c) => green(c)),
+      outputRange: colors.map(c => green(c)),
       extrapolate: Extrapolate.CLAMP,
-    })
+    }),
   );
   const b = round(
     interpolate(animationValue, {
       inputRange,
-      outputRange: colors.map((c) => blue(c)),
+      outputRange: colors.map(c => blue(c)),
       extrapolate: Extrapolate.CLAMP,
-    })
+    }),
   );
   const a = interpolate(animationValue, {
     inputRange,
-    outputRange: colors.map((c) => opacity(c)),
+    outputRange: colors.map(c => opacity(c)),
     extrapolate: Extrapolate.CLAMP,
   });
 
@@ -177,13 +177,13 @@ interface ColorInterpolationConfig {
 export const interpolateColor = (
   value: Animated.Adaptable<number>,
   config: ColorInterpolationConfig,
-  colorSpace: "hsv" | "rgb" = "rgb"
+  colorSpace: 'hsv' | 'rgb' = 'rgb',
 ): Animated.Node<number> => {
-  const { inputRange } = config;
-  const outputRange = config.outputRange.map((c) =>
-    typeof c === "number" ? c : processColor(c)
+  const {inputRange} = config;
+  const outputRange = config.outputRange.map(c =>
+    typeof c === 'number' ? c : processColor(c),
   );
-  if (colorSpace === "hsv") {
+  if (colorSpace === 'hsv') {
     return interpolateColorsHSV(value, inputRange, outputRange);
   }
   return interpolateColorsRGB(value, inputRange, outputRange);
@@ -193,7 +193,7 @@ export const mixColor = (
   value: Animated.Adaptable<number>,
   color1: Color,
   color2: Color,
-  colorSpace: "hsv" | "rgb" = "rgb"
+  colorSpace: 'hsv' | 'rgb' = 'rgb',
 ) =>
   interpolateColor(
     value,
@@ -201,5 +201,5 @@ export const mixColor = (
       inputRange: [0, 1],
       outputRange: [color1, color2],
     },
-    colorSpace
+    colorSpace,
   );

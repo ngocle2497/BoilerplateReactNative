@@ -1,3 +1,4 @@
+import isEqual from 'react-fast-compare';
 import {
   useEffect,
   useRef,
@@ -6,24 +7,35 @@ import {
   useCallback,
   useMemo,
 } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
-import { Clipboard } from 'react-native';
+import {
+  useSelector as useReduxSelector,
+  useDispatch as useReduxDispatch,
+  shallowEqual,
+  TypedUseSelectorHook,
+} from 'react-redux';
+import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
+import {Clipboard} from 'react-native';
+import {useTheme} from '@react-navigation/native';
+import {AppTheme} from '@config/type';
+import {RootState} from '@store/allReducers';
 type UseStateFull<T = any> = {
   value: T;
   setValue: React.Dispatch<SetStateAction<T>>;
 };
-function createSelector<T>(
-  selector: (state: any) => T,
-  equalityFn = shallowEqual,
+const customSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
+
+function useSelector<T>(
+  selector: (state: RootState) => T,
+  equalityFn = isEqual,
 ): T {
-  const state = useSelector<any, T>((x: any) => x, equalityFn);
+  const state = customSelector(x => x, equalityFn);
   return selector(state);
 }
-function useRedux() {
-  const dispatch = useDispatch();
-  return { dispatch, createSelector };
+function useDispatch() {
+  const dispatch = useReduxDispatch();
+  return dispatch;
 }
+
 //#region useInterval
 function useInterval(callback: Function, delay: number) {
   const savedCallback = useRef<Function>();
@@ -88,16 +100,16 @@ type UseArrayActions<T> = {
   clear: () => void;
   move: (from: number, to: number) => void;
   removeById: (
-    id: T extends { id: string }
+    id: T extends {id: string}
       ? string
-      : T extends { id: number }
+      : T extends {id: number}
       ? number
       : unknown,
   ) => void;
   modifyById: (
-    id: T extends { id: string }
+    id: T extends {id: string}
       ? string
-      : T extends { id: number }
+      : T extends {id: number}
       ? number
       : unknown,
     newValue: Partial<T>,
@@ -108,18 +120,18 @@ type UseArray<T = any> = [T[], UseArrayActions<T>];
 
 function useArray<T = any>(initial: T[]): UseArray<T> {
   const [value, setValue] = useState(initial);
-  const push = useCallback((a) => {
-    setValue((v) => [...v, ...(Array.isArray(a) ? a : [a])]);
+  const push = useCallback(a => {
+    setValue(v => [...v, ...(Array.isArray(a) ? a : [a])]);
   }, []);
   const unshift = useCallback(
-    (a) => setValue((v) => [...(Array.isArray(a) ? a : [a]), ...v]),
+    a => setValue(v => [...(Array.isArray(a) ? a : [a]), ...v]),
     [],
   );
-  const pop = useCallback(() => setValue((v) => v.slice(0, -1)), []);
-  const shift = useCallback(() => setValue((v) => v.slice(1)), []);
+  const pop = useCallback(() => setValue(v => v.slice(0, -1)), []);
+  const shift = useCallback(() => setValue(v => v.slice(1)), []);
   const move = useCallback(
     (from: number, to: number) =>
-      setValue((it) => {
+      setValue(it => {
         const copy = it.slice();
         copy.splice(to < 0 ? copy.length + to : to, 0, copy.splice(from, 1)[0]);
         return copy;
@@ -129,12 +141,12 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
   const clear = useCallback(() => setValue(() => []), []);
   const removeById = useCallback(
     // @ts-ignore not every array that you will pass down will have object with id field.
-    (id) => setValue((arr) => arr.filter((v) => v && v.id !== id)),
+    id => setValue(arr => arr.filter(v => v && v.id !== id)),
     [],
   );
   const removeIndex = useCallback(
-    (index) =>
-      setValue((v) => {
+    index =>
+      setValue(v => {
         const copy = v.slice();
         copy.splice(index, 1);
         return copy;
@@ -144,9 +156,7 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
   const modifyById = useCallback(
     (id, newValue) =>
       // @ts-ignore not every array that you will pass down will have object with id field.
-      setValue((arr) =>
-        arr.map((v) => (v.id === id ? { ...v, ...newValue } : v)),
-      ),
+      setValue(arr => arr.map(v => (v.id === id ? {...v, ...newValue} : v))),
     [],
   );
   const actions = useMemo(
@@ -190,10 +200,10 @@ type UseBoolean = [boolean, UseBooleanActions];
 
 function useBoolean(initial: boolean): UseBoolean {
   const [value, setValue] = useState<boolean>(initial);
-  const toggle = useCallback(() => setValue((v) => !v), []);
+  const toggle = useCallback(() => setValue(v => !v), []);
   const setTrue = useCallback(() => setValue(true), []);
   const setFalse = useCallback(() => setValue(false), []);
-  const actions = useMemo(() => ({ setValue, toggle, setTrue, setFalse }), [
+  const actions = useMemo(() => ({setValue, toggle, setTrue, setFalse}), [
     setFalse,
     setTrue,
     toggle,
@@ -227,7 +237,7 @@ function useNumber(
   const [value, setValue] = useState<number>(initial);
   const decrease = useCallback(
     (d?: number) => {
-      setValue((aValue) => {
+      setValue(aValue => {
         const decreaseBy = d !== undefined ? d : step;
         const nextValue = aValue - decreaseBy;
 
@@ -248,7 +258,7 @@ function useNumber(
   );
   const increase = useCallback(
     (i?: number) => {
-      setValue((aValue) => {
+      setValue(aValue => {
         const increaseBy = i !== undefined ? i : step;
         const nextValue = aValue + increaseBy;
 
@@ -314,7 +324,7 @@ function useSetStateArray<T extends object>(
   const [value, setValue] = useState<T>(initialValue);
   const setState = useCallback(
     (v: SetStateAction<Partial<T>>) => {
-      return setValue((oldValue) => ({
+      return setValue(oldValue => ({
         ...oldValue,
         ...(typeof v === 'function' ? v(oldValue) : v),
       }));
@@ -344,9 +354,14 @@ function useSetState<T extends object>(initialValue: T): UseSetState<T> {
     [setState, resetState, state],
   );
 }
+function useStyle<T>(style: (theme: AppTheme) => T): T {
+  const theme: AppTheme = useTheme();
+  return style(theme);
+}
 export {
   useInterval,
-  useRedux,
+  useDispatch,
+  useSelector,
   useClippy,
   useNetWorkStatus,
   useArray,
@@ -355,4 +370,5 @@ export {
   useStateFull,
   usePrevious,
   useSetState,
+  useStyle,
 };

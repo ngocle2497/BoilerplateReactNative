@@ -18,15 +18,11 @@ export const onChangeAlias = (value: string | number): string => {
   return str;
 };
 export const padStart = (value: any, maxPad = 2, stringPad = '0') => {
-  const stringP = Array(maxPad)
-    .fill(stringPad)
-    .join('');
+  const stringP = Array(maxPad).fill(stringPad).join('');
   return String(stringP + value).slice(-maxPad);
 };
 export const padEnd = (value: any, maxPad = 2, stringPad = '0') => {
-  const stringP = Array(maxPad)
-    .fill(stringPad)
-    .join('');
+  const stringP = Array(maxPad).fill(stringPad).join('');
   return String(value + stringP).slice(0, maxPad);
 };
 export const replaceAll = (source = '', textReplace = '', textInstead = '') => {
@@ -88,22 +84,26 @@ interface ResultHandleTagToArrayText {
   text: string;
   bold: boolean;
 }
-export const onHandleTagToArrayText = (source = '', char = '#'): Array<ResultHandleTagToArrayText> => {
-  const textSplit = source.split(' ')
-  const arrText: ResultHandleTagToArrayText[] = []
+export const onHandleTagToArrayText = (
+  source = '',
+  char = '#',
+): Array<ResultHandleTagToArrayText> => {
+  const textSplit = source.split(' ');
+  const arrText: ResultHandleTagToArrayText[] = [];
   textSplit.forEach((text: string, i: number) => {
-    const textData = { text: text, bold: false }
+    const textData = {text: text, bold: false};
     if (text[0] === char) {
-      textData.bold = true
-      arrText.push(textData)
-
+      textData.bold = true;
+      arrText.push(textData);
+    } else {
+      arrText.push({text: text, bold: false});
     }
-    else {
-      arrText.push({ text: text, bold: false })
+    if (
+      (text === '' && i !== textSplit.length - 1) ||
+      i !== textSplit.length - 1
+    ) {
+      arrText.push({text: ' ', bold: false});
     }
-    if ((text === '' && i !== textSplit.length - 1) || i !== textSplit.length - 1) {
-      arrText.push({ text: ' ', bold: false })
-    }
-  })
+  });
   return arrText;
-}
+};

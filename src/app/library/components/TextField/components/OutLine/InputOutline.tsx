@@ -1,10 +1,16 @@
-import React, { useState, useEffect, useMemo, useCallback, forwardRef } from 'react';
-import { StyleSheet, TextInput, LayoutChangeEvent } from 'react-native';
-import Animated, { interpolate } from 'react-native-reanimated';
-import { useTimingTransition } from '@animated';
-import { InputOutlineProps } from './InputOutline.props';
-import { useTranslation } from 'react-i18next';
-import { enhance, onCheckType } from '@common';
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  forwardRef,
+} from 'react';
+import {StyleSheet, TextInput, LayoutChangeEvent} from 'react-native';
+import Animated, {interpolate} from 'react-native-reanimated';
+import {useTimingTransition} from '@animated';
+import {InputOutlineProps} from './InputOutline.props';
+import {useTranslation} from 'react-i18next';
+import {enhance, onCheckType} from '@common';
 
 const VERTICAL_PADDING = 10;
 const UN_ACTIVE_COLOR = 'rgb(159,152,146)';
@@ -71,9 +77,9 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     error = undefined,
     ...rest
   } = props;
-  const [sizeContainer, setSizeContainer] = useState({ height: 0 });
+  const [sizeContainer, setSizeContainer] = useState({height: 0});
   const [restored, setRestored] = useState(false);
-  const [sizeText, setSizeText] = useState({ height: 0 });
+  const [sizeText, setSizeText] = useState({height: 0});
   const [focused, setFocused] = useState(false);
   const [value, setValue] = useState('');
   const progress = useTimingTransition(focused || value.length > 0, {
@@ -115,10 +121,10 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     return unActiveTintBorderColor;
   }, [disabled, focused, error]);
   const _onLayoutContainer = useCallback((e: LayoutChangeEvent) => {
-    setSizeContainer({ ...sizeContainer, height: e.nativeEvent.layout.height });
+    setSizeContainer({...sizeContainer, height: e.nativeEvent.layout.height});
   }, []);
   const onLayoutText = useCallback((e: LayoutChangeEvent) => {
-    setSizeText({ ...sizeText, height: e.nativeEvent.layout.height });
+    setSizeText({...sizeText, height: e.nativeEvent.layout.height});
   }, []);
   const _onFocus = useCallback(() => {
     setFocused(true);
@@ -131,13 +137,21 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
   };
   useEffect(() => {
     if (onTextChange && onCheckType(onTextChange, 'function')) {
-      onTextChange(name, value)
+      onTextChange(name, value);
     }
     if (onSetValueHookForm && onCheckType(onSetValueHookForm, 'function')) {
-      onSetValueHookForm(name, value, { shouldDirty: true, shouldValidate: true })
+      onSetValueHookForm(name, value, {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
     }
-    if (trigger && onCheckType(trigger, 'function') && nameTrigger && onCheckType(nameTrigger, 'string')) {
-      trigger(nameTrigger)
+    if (
+      trigger &&
+      onCheckType(trigger, 'function') &&
+      nameTrigger &&
+      onCheckType(nameTrigger, 'string')
+    ) {
+      trigger(nameTrigger);
     }
   }, [value]);
   useEffect(() => {
@@ -147,8 +161,14 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     }
   }, [defaultValue]);
 
-  const labelText = useMemo(() => (labelTx && t(labelTx)) || label || undefined, [labelTx, label]);
-  const placeHolder = useMemo(() => (placeholderTx && t(placeholderTx)) || placeholder || '', [placeholder, placeholderTx]);
+  const labelText = useMemo(
+    () => (labelTx && t(labelTx)) || label || undefined,
+    [labelTx, label],
+  );
+  const placeHolder = useMemo(
+    () => (placeholderTx && t(placeholderTx)) || placeholder || '',
+    [placeholder, placeholderTx],
+  );
   const inputSty = useMemo(() => enhance([styles.input, inputStyle]), [
     inputStyle,
   ]);
@@ -156,7 +176,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
   return (
     <Animated.View
       onLayout={_onLayoutContainer}
-      style={[styles.container, { borderColor: borderColor() }]}>
+      style={[styles.container, {borderColor: borderColor()}]}>
       <TextInput
         defaultValue={defaultValue ?? ''}
         autoCorrect={false}
@@ -171,10 +191,10 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
         {...rest}
       />
       {labelText && (
-        <Animated.View pointerEvents={'none'} style={[styles.wrapLabel, { top }]}>
+        <Animated.View pointerEvents={'none'} style={[styles.wrapLabel, {top}]}>
           <Animated.Text
             onLayout={onLayoutText}
-            style={[styles.text, { color: labelColor(), fontSize: fontLabel }]}>
+            style={[styles.text, {color: labelColor(), fontSize: fontLabel}]}>
             {labelText ?? ''}
           </Animated.Text>
         </Animated.View>

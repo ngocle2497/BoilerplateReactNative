@@ -17,10 +17,7 @@ const ImageMessageComponent = ({sourceImage = ''}: ImageMessageProps) => {
   );
 };
 
-export const ImageMessage = memo(
-  ImageMessageComponent,
-  (prevProps, nextProps) => isEqual(prevProps, nextProps),
-);
+export const ImageMessage = memo(ImageMessageComponent, isEqual);
 
 const styles = StyleSheet.create({
   img: {

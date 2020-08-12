@@ -10,7 +10,7 @@ interface ActionProps {
   type: keyof typeof Action;
   payload: any;
 }
-export default produce((state: LoginState, { type, payload }: ActionProps) => {
+export default produce((state: LoginState, {type, payload}: ActionProps) => {
   switch (type) {
     case Action.LOGIN_START:
       state.loading = true;

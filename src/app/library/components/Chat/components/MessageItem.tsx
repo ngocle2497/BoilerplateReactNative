@@ -97,9 +97,7 @@ const MessageItemComponent = ({
   );
 };
 
-export const MessageItem = memo(MessageItemComponent, (prevProps, nextProps) =>
-  isEqual(prevProps, nextProps),
-);
+export const MessageItem = memo(MessageItemComponent, isEqual);
 
 const styles = StyleSheet.create({
   mine: {

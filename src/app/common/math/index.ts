@@ -9,5 +9,7 @@ export const tryParseNumber = (num: any): any => {
 };
 
 export const roundMaxFixed = (num: number, decimals: number): number => {
-  return Number(Math.round(Number(String(num + 'e' + decimals))) + 'e-' + decimals);
+  return Number(
+    Math.round(Number(String(num + 'e' + decimals))) + 'e-' + decimals,
+  );
 };

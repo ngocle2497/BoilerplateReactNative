@@ -60,7 +60,7 @@ export const FABDefault = (props: FABDefaultProps) => {
       <Icon icon={icon} />
       {React.isValidElement(label)
         ? label
-        : label && <Text style={[styles.label]} text={label} />}
+        : label && <Text style={[styles.label]} text={label as string} />}
     </Button>
   );
 };

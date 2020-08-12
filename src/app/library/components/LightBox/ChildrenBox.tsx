@@ -20,7 +20,7 @@ export const ChildrenBox = (props: LightBoxProps) => {
     renderHeader,
     swipeToDismiss = true,
   } = props;
-  const _root = useRef<View>();
+  const _root = useRef<View>(null);
   const {value: activeContext, fn: setActiveContext} = useContext<any>(
     LightBoxOverlayContext,
   );

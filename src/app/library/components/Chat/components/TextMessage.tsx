@@ -14,9 +14,7 @@ const TextMessageComponent = ({text}: TextMessageProps) => {
   );
 };
 
-export const TextMessage = memo(TextMessageComponent, (prevProps, nextProps) =>
-  isEqual(prevProps, nextProps),
-);
+export const TextMessage = memo(TextMessageComponent, isEqual);
 
 const styles = StyleSheet.create({
   text: {

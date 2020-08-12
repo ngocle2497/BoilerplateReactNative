@@ -74,6 +74,4 @@ const CheckBoxComponent = ({
     </Button>
   );
 };
-export const CheckBox = React.memo(CheckBoxComponent, (prevProps, nextProps) =>
-  equals(prevProps, nextProps),
-);
+export const CheckBox = React.memo(CheckBoxComponent, equals);

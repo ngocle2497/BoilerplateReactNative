@@ -85,9 +85,7 @@ const AnimProcessComponent = forwardRef((props: AnimProcessProps, ref) => {
     </Block>
   );
 });
-export const AnimProcess = memo(AnimProcessComponent, (prevProps, nextProps) =>
-  equals(prevProps, nextProps),
-);
+export const AnimProcess = memo(AnimProcessComponent, equals);
 export interface AnimProcessRef {
   show(): void;
   hide(): void;

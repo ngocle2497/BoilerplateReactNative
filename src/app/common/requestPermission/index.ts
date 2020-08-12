@@ -43,7 +43,7 @@ export function checkPermission(
   onBlocked?: Function,
 ) {
   check(permission)
-    .then((result) => {
+    .then(result => {
       switch (result) {
         case RESULTS.UNAVAILABLE:
           /*
@@ -71,7 +71,7 @@ export function checkPermission(
           break;
       }
     })
-    .catch((error) => {
+    .catch(error => {
       showWarning(
         translate('dialog:lbTitleWarning'),
         translate('error:errorGetPermission'),

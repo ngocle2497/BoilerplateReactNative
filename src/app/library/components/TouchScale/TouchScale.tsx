@@ -1,6 +1,6 @@
-import React, { memo, useMemo, useCallback } from 'react';
-import { TouchableWithoutFeedback, Animated } from 'react-native';
-import { TouchableScaleProps } from './Touch.props';
+import React, {memo, useMemo, useCallback} from 'react';
+import {TouchableWithoutFeedback, Animated} from 'react-native';
+import {TouchableScaleProps} from './Touch.props';
 import equals from 'react-fast-compare';
 
 const TouchableScaleComponent = (props: TouchableScaleProps) => {
@@ -44,10 +44,8 @@ const TouchableScaleComponent = (props: TouchableScaleProps) => {
       onPressIn={_onPressIn}
       onPressOut={_onPressOut}
       onPress={_onPress}>
-      <Animated.View style={[{ transform: [{ scale }] }]}>{children}</Animated.View>
+      <Animated.View style={[{transform: [{scale}]}]}>{children}</Animated.View>
     </TouchableWithoutFeedback>
   );
 };
-export const TouchableScale = memo(
-  TouchableScaleComponent, equals
-);
+export const TouchableScale = memo(TouchableScaleComponent, equals);

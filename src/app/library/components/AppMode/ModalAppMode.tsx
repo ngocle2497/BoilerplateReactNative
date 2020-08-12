@@ -12,8 +12,7 @@ import {Block} from '../Block/Block';
 import {Button} from '../Button/Button';
 import {Text} from '../Text/Text';
 import {SizeBox} from '../SizeBox/SizeBox';
-import {App_Mode, AppState} from '@store/app_redux/type';
-import {useRedux} from '@common';
+import {useSelector, useDispatch} from '@common';
 import {onSetAppMode} from '@store/app_redux/action';
 import {saveString} from '@utils';
 import {R} from '@assets/value';
@@ -21,6 +20,7 @@ import {IconTypes} from '@assets/icon';
 import {Icon} from '../Icon/Icon';
 import {Divider} from '../Divider/Divider';
 import {FontSizeDefault} from '@theme/fontSize';
+import {AppModeType} from '@networking';
 
 const styles = StyleSheet.create({
   modal: {
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
 });
 interface ButtonSelectProps {
   tx: string;
-  mode: App_Mode;
-  onPress?: (mode: App_Mode) => void;
+  mode: AppModeType;
+  onPress?: (mode: AppModeType) => void;
   icon: IconTypes;
   selected: boolean;
 }
@@ -99,13 +99,13 @@ const ModalAppModeComponent = forwardRef((props, ref) => {
     }),
     [],
   );
-  const {dispatch, createSelector} = useRedux();
-  const {appMode} = createSelector<AppState>((x) => x.app);
+  const dispatch = useDispatch();
+  const {appMode} = useSelector(x => x.app);
   const [isVisible, setIsVisible] = useState(false);
   const _hideModal = useCallback(() => {
     setIsVisible(false);
   }, []);
-  const _onButtonPress = useCallback(async (mode: App_Mode) => {
+  const _onButtonPress = useCallback(async (mode: AppModeType) => {
     _hideModal();
     await saveString(R.strings.APP_MODE, mode);
     dispatch(onSetAppMode(mode));
@@ -149,10 +149,7 @@ const ModalAppModeComponent = forwardRef((props, ref) => {
   );
 });
 
-export const ModalAppMode = memo(
-  ModalAppModeComponent,
-  (prevProps, nextProps) => isEqual(prevProps, nextProps),
-);
+export const ModalAppMode = memo(ModalAppModeComponent, isEqual);
 export interface ModalAppModeRef {
   show(): void;
   hide(): void;

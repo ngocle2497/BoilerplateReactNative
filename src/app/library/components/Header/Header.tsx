@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
-import { HeaderProps } from './Header.props';
-import { Button } from '../Button/Button';
-import { Text } from '../Text/Text';
-import { Icon } from '../Icon/Icon';
-import { Block } from '../Block/Block';
-import { enhance } from '@common';
+import {StyleSheet} from 'react-native';
+import {HeaderProps} from './Header.props';
+import {Button} from '../Button/Button';
+import {Text} from '../Text/Text';
+import {Icon} from '../Icon/Icon';
+import {Block} from '../Block/Block';
+import {enhance} from '@common';
 import equals from 'react-fast-compare';
-import { useSafeArea } from 'react-native-safe-area-view';
-import { useTranslation } from 'react-i18next';
-import { SpacingDefault } from '@theme/spacing';
+import {useSafeArea} from 'react-native-safe-area-view';
+import {useTranslation} from 'react-i18next';
+import {SpacingDefault} from '@theme/spacing';
 
 const styles = () => {
   const inset = useSafeArea();
@@ -46,7 +46,7 @@ const styles = () => {
   );
 };
 
-const HeaderComponent: React.FunctionComponent<HeaderProps> = (props) => {
+const HeaderComponent: React.FunctionComponent<HeaderProps> = props => {
   const {
     onLeftPress,
     onRightPress,
@@ -79,10 +79,10 @@ const HeaderComponent: React.FunctionComponent<HeaderProps> = (props) => {
           <Icon icon={leftIcon} />
         </Button>
       ) : childrenLeft ? (
-        { childrenLeft }
+        {childrenLeft}
       ) : (
-            <Block style={viewLeft} />
-          )}
+        <Block style={viewLeft} />
+      )}
       <Block style={viewMiddle}>
         <Text style={title} text={header} />
       </Block>
@@ -91,10 +91,10 @@ const HeaderComponent: React.FunctionComponent<HeaderProps> = (props) => {
           <Icon icon={rightIcon} />
         </Button>
       ) : childrenRight ? (
-        { childrenRight }
+        {childrenRight}
       ) : (
-            <Block style={viewRight} />
-          )}
+        <Block style={viewRight} />
+      )}
     </Block>
   );
 };

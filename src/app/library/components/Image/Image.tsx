@@ -22,6 +22,4 @@ const ImgComponent = (props: ImageProps) => {
     </Block>
   );
 };
-export const Img = React.memo(ImgComponent, (prevProps, nextProps) =>
-  equals(prevProps, nextProps),
-);
+export const Img = React.memo(ImgComponent, equals);

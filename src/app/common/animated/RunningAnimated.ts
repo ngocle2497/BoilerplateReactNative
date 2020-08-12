@@ -1,6 +1,6 @@
-import Animated, { Easing } from "react-native-reanimated";
+import Animated, {Easing} from 'react-native-reanimated';
 
-import { SpringConfig } from "./Animations";
+import {SpringConfig} from './Animations';
 
 const {
   Clock,
@@ -26,7 +26,7 @@ interface AnimateParams<S, C> {
   fn: (
     clock: Animated.Clock,
     state: S,
-    config: C
+    config: C,
   ) => Animated.Adaptable<number>;
   state: S;
   config: C;
@@ -56,7 +56,7 @@ const animate = <T extends Animation>({
   state,
   config,
   from,
-}: AnimateParams<T["state"], T["config"]>) =>
+}: AnimateParams<T['state'], T['config']>) =>
   block([
     cond(not(clockRunning(clock)), [
       set(state.finished, 0),
@@ -78,7 +78,7 @@ export interface TimingParams {
 }
 
 export const timing = (params: TimingParams) => {
-  const { clock, easing, duration, from, to } = {
+  const {clock, easing, duration, from, to} = {
     clock: new Clock(),
     easing: Easing.linear,
     duration: 250,
@@ -123,7 +123,7 @@ export interface DecayParams {
 }
 
 export const decay = (params: DecayParams) => {
-  const { clock, from, velocity, deceleration } = {
+  const {clock, from, velocity, deceleration} = {
     clock: new Clock(),
     velocity: new Value(0),
     deceleration: 0.998,
@@ -163,7 +163,7 @@ export interface SpringParams {
 }
 
 export const spring = (params: SpringParams) => {
-  const { clock, from, velocity, config: springConfig, to } = {
+  const {clock, from, velocity, config: springConfig, to} = {
     clock: new Clock(),
     velocity: new Value(0),
     from: 0,
@@ -201,7 +201,7 @@ export const spring = (params: SpringParams) => {
 export const delay = (node: Animated.Node<number>, duration: number) => {
   const clock = new Clock();
   return block([
-    timing({ clock, from: 0, to: 1, duration }),
+    timing({clock, from: 0, to: 1, duration}),
     cond(not(clockRunning(clock)), node),
   ]);
 };
@@ -215,7 +215,7 @@ export interface LoopProps {
 }
 
 export const loop = (loopConfig: LoopProps) => {
-  const { clock, easing, duration, boomerang, autoStart } = {
+  const {clock, easing, duration, boomerang, autoStart} = {
     clock: new Clock(),
     easing: Easing.linear,
     duration: 250,

@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {Wallpaper, Text, Screen} from '@components';
-import {onRemoveToken} from '@app_redux/action';
+import {onLogout} from '@app_redux/action';
 
 export const Main = (props: any) => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export const Main = (props: any) => {
         backgroundColor={'transparent'}>
         <Text
           onPress={() => {
-            dispatch(onRemoveToken());
+            dispatch(onLogout());
           }}
           style={{color: 'blue'}}>
           Logout

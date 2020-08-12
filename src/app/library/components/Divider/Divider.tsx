@@ -20,6 +20,4 @@ const DividerComponent = (props: DividerProps) => {
     />
   );
 };
-export const Divider = memo(DividerComponent, (prevProps, nextProps) =>
-  equals(prevProps, nextProps),
-);
+export const Divider = memo(DividerComponent, equals);

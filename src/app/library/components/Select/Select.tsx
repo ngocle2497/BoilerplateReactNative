@@ -1,14 +1,14 @@
-import React, { useState, memo } from 'react';
-import { FlatList } from 'react-native';
-import { SelectOption, SelectProps } from './Select.props';
-import { Text } from '../Text/Text';
-import { Block } from '../Block/Block';
-import { Button } from '../Button/Button';
-import { SelectItem } from './SelectItem';
+import React, {useState, memo} from 'react';
+import {FlatList} from 'react-native';
+import {SelectOption, SelectProps} from './Select.props';
+import {Text} from '../Text/Text';
+import {Block} from '../Block/Block';
+import {Button} from '../Button/Button';
+import {SelectItem} from './SelectItem';
 import Modal from 'react-native-modal';
-import { styles } from './Select.preset';
-import { useSafeArea } from 'react-native-safe-area-view';
-import { useTranslation } from 'react-i18next';
+import {styles} from './Select.preset';
+import {useSafeArea} from 'react-native-safe-area-view';
+import {useTranslation} from 'react-i18next';
 import equals from 'react-fast-compare';
 
 const SelectComponent = (props: SelectProps) => {
@@ -38,7 +38,7 @@ const SelectComponent = (props: SelectProps) => {
   const _hideDrop = () => {
     setVisible(false);
   };
-  const _renderItem = ({ item, index }: { item: SelectOption; index: number }) => {
+  const _renderItem = ({item, index}: {item: SelectOption; index: number}) => {
     return (
       <SelectItem
         customItem={customItem}
@@ -75,7 +75,7 @@ const SelectComponent = (props: SelectProps) => {
             <Block
               style={[
                 styles.wrapList,
-                { paddingBottom: useBottomInset ? inset.bottom : 0 },
+                {paddingBottom: useBottomInset ? inset.bottom : 0},
               ]}>
               <FlatList
                 data={data}
@@ -90,5 +90,4 @@ const SelectComponent = (props: SelectProps) => {
     </>
   );
 };
-export const Select = memo(SelectComponent, equals
-);
+export const Select = memo(SelectComponent, equals);

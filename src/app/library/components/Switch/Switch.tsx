@@ -5,10 +5,10 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native';
-import { SwitchProps } from './Switch.props';
-import { enhance } from '@common';
+import {SwitchProps} from './Switch.props';
+import {enhance} from '@common';
 import equals from 'react-fast-compare';
-import { timing, useValues, interpolateColor } from '@animated';
+import {timing, useValues, interpolateColor} from '@animated';
 import Animated, {
   useCode,
   set,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     borderWidth: MARGIN / 2,
     backgroundColor: '#FFFFFF',
     shadowColor: BORDER_OFF_COLOR,
-    shadowOffset: { width: 1, height: 2 },
+    shadowOffset: {width: 1, height: 2},
     shadowOpacity: 1,
     shadowRadius: 2,
     elevation: 2,
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
 });
 
 const SwitchComponent = (props: SwitchProps) => {
-  const [timer] = useValues([props.value === true ? 1 : 0], []);
+  const [timer] = useValues(props.value === true ? 1 : 0);
   useCode(
     () => [
       set(
@@ -112,7 +112,7 @@ const SwitchComponent = (props: SwitchProps) => {
   const thumbStyle = [
     styles.THUMB,
     {
-      transform: [{ translateX }],
+      transform: [{translateX}],
     },
     props.value ? props.thumbOnStyle : props.thumbOffStyle,
   ] as StyleProp<Animated.AnimateStyle<ViewStyle>>;

@@ -124,9 +124,7 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
     </Modal>
   );
 });
-export const ActionSheet = memo(ActionSheetComponent, (prevProps, nextProps) =>
-  equals(prevProps, nextProps),
-);
+export const ActionSheet = memo(ActionSheetComponent, equals);
 export interface ActionSheetRef {
   show(): void;
   hide(): void;

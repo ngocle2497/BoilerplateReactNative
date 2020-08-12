@@ -1,16 +1,16 @@
-import { enhance } from '@common';
-import { FontSizeDefault } from '@theme/fontSize';
-import { FontDefault } from '@theme/typography';
-import React, { memo, useMemo } from 'react';
+import {enhance} from '@common';
+import {FontSizeDefault} from '@theme/fontSize';
+import {FontDefault} from '@theme/typography';
+import React, {memo, useMemo} from 'react';
 import equals from 'react-fast-compare';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import {
   StyleProp,
   StyleSheet,
   Text as ReactNativeText,
   TextStyle,
 } from 'react-native';
-import { TextProps } from './Text.props';
+import {TextProps} from './Text.props';
 
 const styles = StyleSheet.create({
   flex: {
@@ -61,30 +61,30 @@ const TextComponent = (props: TextProps) => {
       enhance([
         [
           flex && styles.flex,
-          margin && { margin },
-          fontSize && { fontSize: FontSizeDefault[fontSize] },
-          fontWeight && { fontWeight },
-          fontFamily && { fontFamily: FontDefault[fontFamily] },
-          marginLeft && { marginLeft },
-          marginRight && { marginRight },
-          marginTop && { marginTop },
-          marginBottom && { marginBottom },
-          padding && { padding },
-          paddingHorizontal && { paddingHorizontal },
-          paddingRight && { paddingRight },
-          paddingBottom && { paddingBottom },
-          paddingLeft && { paddingLeft },
-          paddingTop && { paddingTop },
-          paddingVertical && { paddingVertical },
-          width && { width },
-          height && { height },
-          color && { color: color },
-          center && { textAlign: 'center' },
-          textAlign && { textAlign },
-          alignItems && { alignItems },
-          alignSelf && { alignSelf },
-          textTransform && { textTransform },
-          textAlignVertical && { textAlignVertical },
+          margin && {margin},
+          fontSize && {fontSize: FontSizeDefault[fontSize]},
+          fontWeight && {fontWeight},
+          fontFamily && {fontFamily: FontDefault[fontFamily]},
+          marginLeft && {marginLeft},
+          marginRight && {marginRight},
+          marginTop && {marginTop},
+          marginBottom && {marginBottom},
+          padding && {padding},
+          paddingHorizontal && {paddingHorizontal},
+          paddingRight && {paddingRight},
+          paddingBottom && {paddingBottom},
+          paddingLeft && {paddingLeft},
+          paddingTop && {paddingTop},
+          paddingVertical && {paddingVertical},
+          width && {width},
+          height && {height},
+          color && {color: color},
+          center && {textAlign: 'center'},
+          textAlign && {textAlign},
+          alignItems && {alignItems},
+          alignSelf && {alignSelf},
+          textTransform && {textTransform},
+          textAlignVertical && {textAlignVertical},
           enhance([styleOverride]),
         ] as StyleProp<TextStyle>,
       ]),

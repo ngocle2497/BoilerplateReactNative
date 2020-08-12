@@ -1,4 +1,4 @@
-import Animated, { diff, lessThan, or } from "react-native-reanimated";
+import Animated, {diff, lessThan, or} from 'react-native-reanimated';
 import {
   FlingGestureHandlerEventExtra,
   ForceTouchGestureHandlerEventExtra,
@@ -9,11 +9,11 @@ import {
   RotationGestureHandlerEventExtra,
   State,
   TapGestureHandlerEventExtra,
-} from "react-native-gesture-handler";
-import { Platform } from "react-native";
+} from 'react-native-gesture-handler';
+import {Platform} from 'react-native';
 
-import { snapPoint } from "./Animations";
-import { vec } from "./Vectors";
+import {snapPoint} from './Animations';
+import {vec} from './Vectors';
 
 const {
   proc,
@@ -41,9 +41,9 @@ const {
 
 // See: https://github.com/kmagiera/react-native-gesture-handler/issues/553
 export const pinchBegan = proc((state: Animated.Node<State>) =>
-  Platform.OS === "android"
+  Platform.OS === 'android'
     ? cond(eq(diff(state), State.ACTIVE - State.BEGAN), eq(state, State.ACTIVE))
-    : eq(state, State.BEGAN)
+    : eq(state, State.BEGAN),
 );
 
 export const pinchActive = proc(
@@ -51,44 +51,44 @@ export const pinchActive = proc(
     and(
       eq(state, State.ACTIVE),
       eq(numberOfPointers, 2),
-      Platform.OS === "android" ? not(pinchBegan(state)) : 1
-    )
+      Platform.OS === 'android' ? not(pinchBegan(state)) : 1,
+    ),
 );
 
 export const pinchEnd = proc(
   (state: Animated.Node<State>, numberOfPointers: Animated.Node<number>) =>
-    Platform.OS === "android"
+    Platform.OS === 'android'
       ? or(eq(state, State.END), lessThan(numberOfPointers, 2))
-      : eq(state, State.END)
+      : eq(state, State.END),
 );
 
 export const withScaleOffset = (
   value: Animated.Node<number>,
   state: Animated.Node<State>,
-  offset: Animated.Value<number> = new Value(1)
+  offset: Animated.Value<number> = new Value(1),
 ) =>
   cond(
     eq(state, State.END),
     [set(offset, multiply(offset, value)), offset],
-    multiply(offset, value)
+    multiply(offset, value),
   );
 
 export const withOffset = (
   value: Animated.Node<number>,
   state: Animated.Node<State>,
-  offset: Animated.Value<number> = new Value(0)
+  offset: Animated.Value<number> = new Value(0),
 ) =>
   cond(
     eq(state, State.END),
     [set(offset, add(offset, value)), offset],
-    add(offset, value)
+    add(offset, value),
   );
 
 interface PrivateSpringConfig extends Animated.SpringConfig {
   toValue: Animated.Value<number>;
 }
 
-type SpringConfig = Omit<Animated.SpringConfig, "toValue">;
+type SpringConfig = Omit<Animated.SpringConfig, 'toValue'>;
 
 export interface WithSpringParams {
   value: Animated.Adaptable<number>;
@@ -156,7 +156,7 @@ export const withSpring = (props: WithSpringParams) => {
         set(springState.time, 0),
         set(
           config.toValue,
-          snapPoint(springState.position, velocity, snapPoints)
+          snapPoint(springState.position, velocity, snapPoints),
         ),
         startClock(clock),
       ]),
@@ -176,7 +176,7 @@ interface WithDecayParams {
 }
 
 export const withDecay = (config: WithDecayParams) => {
-  const { value, velocity, state, offset, deceleration } = {
+  const {value, velocity, state, offset, deceleration} = {
     offset: new Value(0),
     deceleration: 0.998,
     ...config,
@@ -204,7 +204,7 @@ export const withDecay = (config: WithDecayParams) => {
         set(decayState.time, 0),
         startClock(clock),
       ]),
-      reDecay(clock, decayState, { deceleration }),
+      reDecay(clock, decayState, {deceleration}),
       cond(decayState.finished, finishDecay),
     ]),
     decayState.position,
@@ -234,12 +234,12 @@ type NativeEvent = GestureHandlerStateChangeNativeEvent &
     | ForceTouchGestureHandlerEventExtra
   );
 
-type Adaptable<T> = { [P in keyof T]: Animated.Adaptable<T[P]> };
+type Adaptable<T> = {[P in keyof T]: Animated.Adaptable<T[P]>};
 
 export const onGestureEvent = (
-  nativeEvent: Partial<Adaptable<NativeEvent>>
+  nativeEvent: Partial<Adaptable<NativeEvent>>,
 ) => {
-  const gestureEvent = event([{ nativeEvent }]);
+  const gestureEvent = event([{nativeEvent}]);
   return {
     onHandlerStateChange: gestureEvent,
     onGestureEvent: gestureEvent,
@@ -330,7 +330,7 @@ export const rotationGestureHandler = () => {
 export const scrollHandler = () => {
   const x = new Value(0);
   const y = new Value(0);
-  const onScroll = onScrollEvent({ x, y });
+  const onScroll = onScrollEvent({x, y});
   return {
     x,
     y,
@@ -343,7 +343,7 @@ export const scrollHandler = () => {
 
 export const debugGestureState = (
   label: string,
-  state: Animated.Node<State>
+  state: Animated.Node<State>,
 ) => {
   const d = (value: string): Animated.Node<number> =>
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -353,20 +353,20 @@ export const debugGestureState = (
     state,
     cond(
       eq(state, State.UNDETERMINED),
-      d("UNDETERMINED"),
+      d('UNDETERMINED'),
       cond(
         eq(state, State.BEGAN),
-        d("BEGAN"),
+        d('BEGAN'),
         cond(
           eq(state, State.ACTIVE),
-          d("ACTIVE"),
+          d('ACTIVE'),
           cond(
             eq(state, State.END),
-            d("END"),
-            cond(eq(state, State.CANCELLED), d("CANCELLED"), d("FAILED"))
-          )
-        )
-      )
-    )
+            d('END'),
+            cond(eq(state, State.CANCELLED), d('CANCELLED'), d('FAILED')),
+          ),
+        ),
+      ),
+    ),
   );
 };

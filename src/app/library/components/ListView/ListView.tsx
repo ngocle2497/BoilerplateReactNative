@@ -1,7 +1,7 @@
-import React, { memo } from 'react';
-import { FlatList, RefreshControl } from 'react-native';
+import React, {memo} from 'react';
+import {FlatList, RefreshControl} from 'react-native';
 import equals from 'react-fast-compare';
-import { ListViewProps } from './ListView.props';
+import {ListViewProps} from './ListView.props';
 
 const ListViewComponent = (props: ListViewProps) => {
   const {
@@ -24,9 +24,9 @@ const ListViewComponent = (props: ListViewProps) => {
   return (
     <FlatList
       refreshControl={
-        canRefresh && (
+        canRefresh ? (
           <RefreshControl refreshing={refreshing} onRefresh={refresh} />
-        )
+        ) : undefined
       }
       onEndReached={loadMore}
       onEndReachedThreshold={0.001}

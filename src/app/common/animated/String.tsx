@@ -1,6 +1,6 @@
-import Animated from "react-native-reanimated";
+import Animated from 'react-native-reanimated';
 
-const { concat } = Animated;
+const {concat} = Animated;
 
 export type Concatable =
   | Animated.Adaptable<string>
@@ -15,7 +15,7 @@ export const string = (
   }
   const result = values.reduce<Concatable[]>(
     (acc, v, idx) => [...acc, strings[idx], v],
-    []
+    [],
   );
   result.push(strings[strings.length - 1]);
   return concat(...result);

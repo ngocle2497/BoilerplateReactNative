@@ -26,7 +26,10 @@ const ButtonComponent = (props: ButtonProps) => {
     [styleOverride],
   );
 
-  const content = children || <Text tx={tx} text={text} style={textStyle} />;
+  const content = React.useMemo(
+    () => children || <Text tx={tx} text={text} style={textStyle} />,
+    [tx, textStyle, children, text],
+  );
 
   return (
     <TouchableOpacity style={viewStyle} {...rest}>
@@ -34,6 +37,4 @@ const ButtonComponent = (props: ButtonProps) => {
     </TouchableOpacity>
   );
 };
-export const Button = React.memo(ButtonComponent, (prevProps, nextProps) =>
-  equals(prevProps, nextProps),
-);
+export const Button = React.memo(ButtonComponent, equals);
