@@ -24,6 +24,7 @@
                 "@navigation":"./src/app/navigation",
                 "@store":"./src/app/store",
                 "@theme":"./src/app/themes",
+                "@transition":"./src/app/transition",
                 "@app_redux":"./src/app/store/app_redux"
             }
           }
