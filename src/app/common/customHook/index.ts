@@ -10,18 +10,20 @@ import {
 import {
   useSelector as useReduxSelector,
   useDispatch as useReduxDispatch,
-  shallowEqual,
   TypedUseSelectorHook,
 } from 'react-redux';
-import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
-import {Clipboard} from 'react-native';
-import {useTheme} from '@react-navigation/native';
-import {AppTheme} from '@config/type';
-import {RootState} from '@store/allReducers';
+import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
+import { Clipboard } from 'react-native';
+import { useTheme } from '@react-navigation/native';
+import { AppTheme } from '@config/type';
+import { RootState } from '@store/allReducers';
+import { requestAnimation } from '@transition';
+
 type UseStateFull<T = any> = {
   value: T;
   setValue: React.Dispatch<SetStateAction<T>>;
 };
+
 const customSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
 
 function useSelector<T>(
@@ -34,6 +36,16 @@ function useSelector<T>(
 function useDispatch() {
   const dispatch = useReduxDispatch();
   return dispatch;
+}
+function useAnimationState<T>(initialValue: T): [T, (newValue: T, withAnimation?: boolean) => void] {
+  const [value, setValue] = useState<T>(initialValue)
+  const setState = (newValue: T, withAnimation = false) => {
+    if (withAnimation) {
+      requestAnimation()
+    }
+    setValue(newValue)
+  }
+  return [value, setState]
 }
 
 //#region useInterval
@@ -53,9 +65,10 @@ function useInterval(callback: Function, delay: number) {
   }, [delay]);
 }
 
-//#endregion useInterval
+//#endregion
 
 //#region useClippy
+
 type ClipboardTuple = [string, (clipboard: string) => void];
 function useClippy(): ClipboardTuple {
   const [clipboard, setClipboard] = useState<string>('');
@@ -69,9 +82,10 @@ function useClippy(): ClipboardTuple {
   });
   return [clipboard, syncClipboard];
 }
-//#endregion useClippy
+//#endregion
 
 //#region useNetWorkStatus
+
 type NetInfoTuple = [boolean, boolean];
 function useNetWorkStatus(): NetInfoTuple {
   const [status, setStatus] = useState<boolean>(false);
@@ -87,9 +101,10 @@ function useNetWorkStatus(): NetInfoTuple {
   }, []);
   return [status, canAccess];
 }
-//#endregion useNetWorkStatus
+//#endregion
 
 //#region useArray
+
 type UseArrayActions<T> = {
   setValue: UseStateFull<T[]>['setValue'];
   add: (value: T | T[]) => void;
@@ -100,16 +115,16 @@ type UseArrayActions<T> = {
   clear: () => void;
   move: (from: number, to: number) => void;
   removeById: (
-    id: T extends {id: string}
+    id: T extends { id: string }
       ? string
-      : T extends {id: number}
+      : T extends { id: number }
       ? number
       : unknown,
   ) => void;
   modifyById: (
-    id: T extends {id: string}
+    id: T extends { id: string }
       ? string
-      : T extends {id: number}
+      : T extends { id: number }
       ? number
       : unknown,
     newValue: Partial<T>,
@@ -156,7 +171,7 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
   const modifyById = useCallback(
     (id, newValue) =>
       // @ts-ignore not every array that you will pass down will have object with id field.
-      setValue(arr => arr.map(v => (v.id === id ? {...v, ...newValue} : v))),
+      setValue(arr => arr.map(v => (v.id === id ? { ...v, ...newValue } : v))),
     [],
   );
   const actions = useMemo(
@@ -187,9 +202,11 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
   );
   return [value, actions];
 }
-//#endregion useArray
+
+//#endregion
 
 //#region useBoolean
+
 type UseBooleanActions = {
   setValue: React.Dispatch<SetStateAction<boolean>>;
   toggle: () => void;
@@ -203,16 +220,18 @@ function useBoolean(initial: boolean): UseBoolean {
   const toggle = useCallback(() => setValue(v => !v), []);
   const setTrue = useCallback(() => setValue(true), []);
   const setFalse = useCallback(() => setValue(false), []);
-  const actions = useMemo(() => ({setValue, toggle, setTrue, setFalse}), [
+  const actions = useMemo(() => ({ setValue, toggle, setTrue, setFalse }), [
     setFalse,
     setTrue,
     toggle,
   ]);
   return useMemo(() => [value, actions], [actions, value]);
 }
-//#endregion useBoolean
+
+//#endregion
 
 //#region useNumber
+
 type UseNumberActions = {
   setValue: React.Dispatch<SetStateAction<number>>;
   increase: (value?: number) => void;
@@ -286,9 +305,10 @@ function useNumber(
   );
   return [value, actions];
 }
-//#endregion useNumber
+//#endregion
 
 //#region useStateFull
+
 function useStateFull<T = any>(initial: T): UseStateFull<T> {
   const [value, setValue] = useState(initial);
   return useMemo(
@@ -299,9 +319,11 @@ function useStateFull<T = any>(initial: T): UseStateFull<T> {
     [value],
   );
 }
-//#endregion useStateFull
+
+//#endregion
 
 //#region usePrevious
+
 function usePrevious<T = any>(value: T): T | undefined {
   const ref = useRef<T>();
   useEffect(() => {
@@ -309,7 +331,9 @@ function usePrevious<T = any>(value: T): T | undefined {
   }, [value]);
   return ref.current;
 }
-//#endregion usePrevious
+
+//#endregion 
+
 type UseSetArrayStateAction<T extends object> = React.Dispatch<
   SetStateAction<Partial<T>>
 >;
@@ -371,4 +395,5 @@ export {
   usePrevious,
   useSetState,
   useStyle,
+  useAnimationState
 };
