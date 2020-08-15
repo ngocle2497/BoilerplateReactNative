@@ -5,10 +5,10 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native';
-import {SwitchProps} from './Switch.props';
-import {enhance} from '@common';
+import { SwitchProps } from './Switch.props';
+import { enhance } from '@common';
 import equals from 'react-fast-compare';
-import {timing, useValues, interpolateColor} from '@animated';
+import { timing, useValues, interpolateColor } from '@animated';
 import Animated, {
   useCode,
   set,
@@ -49,42 +49,43 @@ const styles = StyleSheet.create({
     borderWidth: MARGIN / 2,
     backgroundColor: '#FFFFFF',
     shadowColor: BORDER_OFF_COLOR,
-    shadowOffset: {width: 1, height: 2},
+    shadowOffset: { width: 1, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 2,
     elevation: 2,
   },
 });
 
-const SwitchComponent = (props: SwitchProps) => {
-  const [timer] = useValues(props.value === true ? 1 : 0);
+const SwitchComponent = ({ onToggle, style: overwriteStyle, thumbOffStyle, thumbOnStyle, trackOffStyle,
+  trackOnStyle, value }: SwitchProps) => {
+  const [timer] = useValues(value === true ? 1 : 0);
   useCode(
     () => [
       set(
         timer,
         timing({
           from: timer,
-          to: props.value === true ? 1 : 0,
+          to: value === true ? 1 : 0,
           easing: Easing.out(Easing.circle),
           duration: DURATION,
         }),
       ),
     ],
-    [props.value],
+    [value],
   );
 
   const [previousValue, setPreviousValue] = React.useState<boolean>(
-    props.value ?? false,
+    value ?? false,
   );
   React.useEffect(() => {
-    if (props.value !== previousValue) {
-      setPreviousValue(props.value ?? false);
+    if (value !== previousValue) {
+      setPreviousValue(value ?? false);
     }
-  }, [props.value]);
+  }, [value]);
 
   const handlePress = React.useMemo(
-    () => () => props.onToggle && props.onToggle(!props.value),
-    [props.onToggle, props.value],
+    () => () => onToggle && onToggle(!value),
+    [onToggle, value],
   );
   const translateX = interpolate(timer, {
     inputRange: [0, 1],
@@ -98,24 +99,24 @@ const SwitchComponent = (props: SwitchProps) => {
     inputRange: [0, 1],
     outputRange: [BORDER_OFF_COLOR, BORDER_ON_COLOR],
   });
-  const style = enhance([{}, props.style]);
+  const style = React.useMemo(() => enhance([{}, overwriteStyle]), [overwriteStyle]);
 
-  const trackStyle = [
+  const trackStyle = React.useMemo(() => [
     styles.TRACK,
     {
       backgroundColor: bgTrackColor,
       borderColor: borderColor,
     },
-    props.value ? props.trackOnStyle : props.trackOffStyle,
-  ] as StyleProp<Animated.AnimateStyle<ViewStyle>>;
+    value ? trackOnStyle : trackOffStyle,
+  ] as StyleProp<Animated.AnimateStyle<ViewStyle>>, []);
 
-  const thumbStyle = [
+  const thumbStyle = React.useMemo(() => [
     styles.THUMB,
     {
-      transform: [{translateX}],
+      transform: [{ translateX }],
     },
-    props.value ? props.thumbOnStyle : props.thumbOffStyle,
-  ] as StyleProp<Animated.AnimateStyle<ViewStyle>>;
+    value ? thumbOnStyle : thumbOffStyle,
+  ] as StyleProp<Animated.AnimateStyle<ViewStyle>>, []);
 
   return (
     <TouchableWithoutFeedback onPress={handlePress} style={style}>
