@@ -382,6 +382,25 @@ function useStyle<T>(style: (theme: AppTheme) => T): T {
   const theme: AppTheme = useTheme();
   return style(theme);
 }
+//#region useStateWithCallback
+function useAsyncState<T>(initialValue: T): [T, (newValue: T, callback?: (newState: T) => void) => void] {
+  const [state, setState] = useState(initialValue)
+  const _callback = useRef<(newState: T) => void>()
+  const _setState = (newValue: T, callback?: (newState: T) => void) => {
+    if (callback) {
+      _callback.current = callback
+    }
+    setState(newValue)
+  }
+  useEffect(() => {
+    if (typeof _callback.current === 'function') {
+      _callback.current(state)
+      _callback.current = undefined
+    }
+  }, [state])
+  return [state, _setState]
+}
+//#endregion
 export {
   useInterval,
   useDispatch,
@@ -395,5 +414,6 @@ export {
   usePrevious,
   useSetState,
   useStyle,
-  useAnimationState
+  useAnimationState,
+  useAsyncState,
 };
