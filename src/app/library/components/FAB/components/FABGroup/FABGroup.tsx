@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect, useMemo} from 'react';
 import {StyleSheet, Text, useWindowDimensions, Animated} from 'react-native';
 import {FABGroupProps, Actions} from './FABGroup.props';
-import {useSafeArea} from 'react-native-safe-area-view';
+import {useSafeArea} from 'react-native-safe-area-context';
 import {enhance} from '@common';
 import {Button} from '../../../Button/Button';
 import {Block} from '../../../Block/Block';

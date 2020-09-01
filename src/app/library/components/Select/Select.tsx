@@ -7,7 +7,7 @@ import {Button} from '../Button/Button';
 import {SelectItem} from './SelectItem';
 import Modal from 'react-native-modal';
 import {styles} from './Select.preset';
-import {useSafeArea} from 'react-native-safe-area-view';
+import {useSafeArea} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 import equals from 'react-fast-compare';
 

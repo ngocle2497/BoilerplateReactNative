@@ -7,7 +7,7 @@ import {Icon} from '../Icon/Icon';
 import {Block} from '../Block/Block';
 import {enhance} from '@common';
 import equals from 'react-fast-compare';
-import {useSafeArea} from 'react-native-safe-area-view';
+import {useSafeArea} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 import {SpacingDefault} from '@theme/spacing';
 

@@ -1,5 +1,6 @@
 import {ViewStyle, StyleProp} from 'react-native';
-import {ForceInsetProp} from 'react-native-safe-area-view';
+import { Edge } from 'react-native-safe-area-context';
+
 export interface ScreenProps {
   /**
    * Children of Screen
@@ -83,5 +84,5 @@ export interface ScreenProps {
    * Inset for safe area view
    * @default undefined
    */
-  forceInset?: ForceInsetProp;
+  forceInset?: Edge[];
 }

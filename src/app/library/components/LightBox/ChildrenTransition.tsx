@@ -8,7 +8,7 @@ import {
   Dimensions,
   Platform,
 } from 'react-native';
-import {useSafeArea} from 'react-native-safe-area-view';
+import {useSafeArea} from 'react-native-safe-area-context';
 import {Button} from '../Button/Button';
 import {Text} from '../Text/Text';
 import {ChildrenTransitionProps} from './LightBox.props';

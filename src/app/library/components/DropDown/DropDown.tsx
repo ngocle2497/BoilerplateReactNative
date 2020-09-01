@@ -29,7 +29,7 @@ import {useTimingTransition, toRad} from '@animated';
 import {enhance} from '@common';
 import Modal from 'react-native-modal';
 import {DropDownItem} from './DropDownItem';
-import {useSafeArea} from 'react-native-safe-area-view';
+import {useSafeArea} from 'react-native-safe-area-context';
 
 const styles = StyleSheet.create({
   placeHolder: {

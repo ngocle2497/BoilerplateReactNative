@@ -2,7 +2,7 @@ import React, {forwardRef, useImperativeHandle, useState, memo} from 'react';
 import {StyleSheet, Dimensions} from 'react-native';
 import Animated, {useCode, set, interpolate} from 'react-native-reanimated';
 import {useValue, loop} from '@animated';
-import {useSafeArea} from 'react-native-safe-area-view';
+import {useSafeArea} from 'react-native-safe-area-context';
 import {Block} from '../Block/Block';
 import equals from 'react-fast-compare';
 

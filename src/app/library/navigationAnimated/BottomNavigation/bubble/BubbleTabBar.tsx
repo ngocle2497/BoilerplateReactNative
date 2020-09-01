@@ -1,5 +1,5 @@
 import React, {useMemo, memo} from 'react';
-import {StyleSheet, Text, View, StyleProp, ViewStyle} from 'react-native';
+import {View, StyleProp, ViewStyle} from 'react-native';
 import {TabBarViewProps} from '../type';
 import {
   DEFAULT_ITEM_ANIMATION_DURATION,
@@ -8,7 +8,7 @@ import {
   DEFAULT_ITEM_OUTER_SPACE,
   DEFAULT_ITEM_ICON_SIZE,
 } from './constant';
-import {useSafeArea} from 'react-native-safe-area-view';
+import {useSafeArea} from 'react-native-safe-area-context';
 import {styles} from './style';
 import equals from 'react-fast-compare';
 

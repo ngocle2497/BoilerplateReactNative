@@ -9,7 +9,7 @@ import { Transitioning } from 'react-native-reanimated';
 import { _transitionApp, transition } from './src/app/transition/TransitionService';
 import { I18nextProvider } from 'react-i18next';
 
-console.disableYellowBox = true;
+// console.disableYellowBox = true;
 const styles = StyleSheet.create({
   root: {
     flex: 1

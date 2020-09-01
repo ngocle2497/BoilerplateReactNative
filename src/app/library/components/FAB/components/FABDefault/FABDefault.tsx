@@ -5,7 +5,7 @@ import {Button} from '../../../Button/Button';
 import {Text} from '../../../Text/Text';
 import {Icon} from '../../../Icon/Icon';
 
-import {useSafeArea} from 'react-native-safe-area-view';
+import {useSafeArea} from 'react-native-safe-area-context';
 import {enhance} from '@common';
 
 const SIZE_FAB = 60;
