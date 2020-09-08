@@ -1,6 +1,7 @@
-import {ViewStyle, ViewProps, StyleProp, FlexAlignType} from 'react-native';
+import { ViewStyle, ViewProps, StyleProp, FlexAlignType, FlexStyle, StyleSheet } from 'react-native';
 
 type Direction = 'row' | 'column' | 'column-reverse' | 'row-reverse';
+
 type JustifyContent =
   | 'center'
   | 'flex-end'
@@ -9,7 +10,88 @@ type JustifyContent =
   | 'space-between'
   | 'space-evenly';
 
+type Position = 'absolute' | 'relative';
+
+type FlexWrap = 'wrap' | 'nowrap' | 'wrap-reverse';
+
+type OverFlow = 'visible' | 'hidden' | 'scroll';
+
+export type ShadowConfig = {
+  shadowColor?: string;
+  shadowOffset?: {
+    width?: number,
+    height?: number;
+  },
+  shadowOpacity?: number;
+  shadowRadius?: number;
+  elevation?: number;
+}
 export interface BlockProps extends ViewProps {
+
+  flexWrap?: FlexWrap;
+
+  left?: number | string;
+
+  right?: number | string;
+
+  bottom?: number | string;
+
+  top?: number | string;
+
+  zIndex?: number;
+
+  overflow?: OverFlow;
+
+  borderBottomWidth?: number;
+
+  borderEndWidth?: number | string;
+
+  borderLeftWidth?: number;
+
+  borderRightWidth?: number;
+
+  borderStartWidth?: number | string;
+
+  borderTopWidth?: number;
+
+  borderBottomColor?: string;
+
+  borderBottomEndRadius?: number;
+
+  borderBottomLeftRadius?: number;
+
+  borderBottomRightRadius?: number;
+
+  borderBottomStartRadius?: number;
+
+  borderEndColor?: string;
+
+  borderLeftColor?: string;
+
+  borderRightColor?: string;
+
+  borderStartColor?: string;
+
+  borderStyle?: 'solid' | 'dotted' | 'dashed';
+
+  borderTopColor?: string;
+
+  borderTopEndRadius?: number;
+
+  borderTopLeftRadius?: number;
+
+  borderTopRightRadius?: number;
+
+  borderTopStartRadius?: number;
+
+  opacity?: number;
+
+  /**
+   * Config position
+   * @default undefined
+   */
+  position?: Position;
+
   /**
    * Enable to using {flex:1}
    * @default undefined
@@ -21,6 +103,12 @@ export interface BlockProps extends ViewProps {
    * @default undefined
    */
   margin?: number;
+
+  /**
+   * overwrite flex box
+   */
+  flex?: number;
+
 
   /**
    * Using align items
@@ -165,6 +253,11 @@ export interface BlockProps extends ViewProps {
    * @default undefined
    */
   shadow?: boolean;
+
+  /**
+   * Overwrite shadow
+   */
+  shadowConfig?: ShadowConfig;
 
   /**
    * Overwrite style for Block
