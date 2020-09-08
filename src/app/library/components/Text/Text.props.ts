@@ -25,6 +25,12 @@ type TextAlign = 'auto' | 'left' | 'right' | 'center' | 'justify';
 type TextTransform = 'none' | 'capitalize' | 'uppercase' | 'lowercase';
 
 export interface TextProps extends TextProperties {
+  fontStyle?: 'normal' | 'italic';
+
+  letterSpacing?: number;
+  
+  lineHeight?: number;
+  
   /**
    * Children of text
    * @default undefined
