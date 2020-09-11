@@ -19,10 +19,10 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   textInfo: {
-    color: ColorDefault.error,
+    color: ColorDefault.info,
   },
   textError: {
-    color: ColorDefault.info,
+    color: ColorDefault.error,
   },
   text: {
     fontWeight: 'normal',

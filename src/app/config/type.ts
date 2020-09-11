@@ -102,5 +102,4 @@ export interface Spacing {
   huge: number;
   massive: number;
 }
-
-export type AppTheme = Omit<Theme, 'colors'> & { colors: Partial<Colors> }
+export type AppTheme = Theme & { colors: Partial<Colors> }
