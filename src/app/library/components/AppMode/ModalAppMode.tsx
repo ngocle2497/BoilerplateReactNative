@@ -5,22 +5,22 @@ import React, {
   useState,
   useCallback,
 } from 'react';
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import isEqual from 'react-fast-compare';
 import Modal from 'react-native-modal';
-import {Block} from '../Block/Block';
-import {Button} from '../Button/Button';
-import {Text} from '../Text/Text';
-import {SizeBox} from '../SizeBox/SizeBox';
-import {useSelector, useDispatch} from '@common';
-import {onSetAppMode} from '@store/app_redux/action';
-import {saveString} from '@utils';
-import {R} from '@assets/value';
-import {IconTypes} from '@assets/icon';
-import {Icon} from '../Icon/Icon';
-import {Divider} from '../Divider/Divider';
-import {FontSizeDefault} from '@theme/fontSize';
-import {AppModeType} from '@networking';
+import { Block } from '../Block/Block';
+import { Button } from '../Button/Button';
+import { Text } from '../Text/Text';
+import { SizeBox } from '../SizeBox/SizeBox';
+import { useSelector, useDispatch } from '@common';
+import { onSetAppMode } from '@store/app_redux/action';
+import { saveString } from '@utils';
+import { R } from '@assets/value';
+import { IconTypes } from '@assets/icon';
+import { Icon } from '../Icon/Icon';
+import { Divider } from '../Divider/Divider';
+import { FontSizeDefault } from '@theme/fontSize';
+import { AppModeType } from '@networking';
 
 const styles = StyleSheet.create({
   modal: {
@@ -68,9 +68,9 @@ const ButtonSelect = ({
         paddingHorizontal={10}
         justifyContent={'center'}
         middle>
-        <Icon {...{icon}} />
+        <Icon {...{ icon }} />
         <SizeBox width={10} />
-        <Text numberOfLines={1} style={[styles.textMode]} {...{tx}} />
+        <Text numberOfLines={1} style={[styles.textMode]} {...{ tx }} />
         {selected && <Icon icon={'check'} />}
       </Block>
     </Button>
@@ -86,7 +86,7 @@ const Spacing = () => {
     </>
   );
 };
-const ModalAppModeComponent = forwardRef((props, ref) => {
+const ModalAppModeComponent = forwardRef((_: any, ref: any) => {
   useImperativeHandle(
     ref,
     () => ({
@@ -100,7 +100,7 @@ const ModalAppModeComponent = forwardRef((props, ref) => {
     [],
   );
   const dispatch = useDispatch();
-  const {appMode} = useSelector(x => x.app);
+  const { appMode } = useSelector(x => x.app);
   const [isVisible, setIsVisible] = useState(false);
   const _hideModal = useCallback(() => {
     setIsVisible(false);
@@ -109,7 +109,7 @@ const ModalAppModeComponent = forwardRef((props, ref) => {
     _hideModal();
     await saveString(R.strings.APP_MODE, mode);
     dispatch(onSetAppMode(mode));
-  }, []);
+  }, [_hideModal, dispatch]);
   return (
     <Modal
       style={[styles.modal]}
