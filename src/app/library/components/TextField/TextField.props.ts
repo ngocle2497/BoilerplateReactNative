@@ -1,5 +1,5 @@
-import {TextInputProps, StyleProp, TextStyle} from 'react-native';
-import {SetValueConfig} from 'react-hook-form/dist/types/form';
+import { TextInputProps, StyleProp, TextStyle, ViewStyle } from 'react-native';
+import { SetValueConfig } from 'react-hook-form/dist/types/form';
 
 export interface InputBaseProps extends TextInputProps {
   /**
@@ -121,6 +121,11 @@ export interface InputBaseProps extends TextInputProps {
    */
   errorLabelColor?: string;
 
+  /**
+   * Overwrite container input style
+   * @default undefined
+   */
+  containerStyle?: StyleProp<ViewStyle>;
   /**
    * Overwrite input style
    * @default undefined

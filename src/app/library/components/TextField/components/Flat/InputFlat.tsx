@@ -5,12 +5,12 @@ import React, {
   useCallback,
   forwardRef,
 } from 'react';
-import {StyleSheet, TextInput, LayoutChangeEvent} from 'react-native';
-import Animated, {interpolate} from 'react-native-reanimated';
-import {useTimingTransition} from '@animated';
-import {InputFlatProps} from './InputFlat.props';
-import {useTranslation} from 'react-i18next';
-import {enhance, onCheckType} from '@common';
+import { StyleSheet, TextInput, LayoutChangeEvent } from 'react-native';
+import Animated, { interpolate } from 'react-native-reanimated';
+import { useTimingTransition } from '@animated';
+import { InputFlatProps } from './InputFlat.props';
+import { useTranslation } from 'react-i18next';
+import { enhance, onCheckType } from '@common';
 
 const VERTICAL_PADDING = 5;
 const UN_ACTIVE_COLOR = 'rgb(159,152,146)';
@@ -70,10 +70,11 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
     disabledBorderColor = UN_ACTIVE_COLOR,
     disabled = false,
     error = undefined,
+    containerStyle = {},
     ...rest
   } = props;
-  const [sizeContainer, setSizeContainer] = useState({height: 0});
-  const [sizeText, setSizeText] = useState({height: 0});
+  const [sizeContainer, setSizeContainer] = useState({ height: 0 });
+  const [sizeText, setSizeText] = useState({ height: 0 });
   const [focused, setFocused] = useState(false);
   const [restored, setRestored] = useState(false);
   const [value, setValue] = useState('');
@@ -116,10 +117,10 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
     return unActiveTintBorderColor;
   }, [disabled, focused, error]);
   const _onLayoutContainer = useCallback((e: LayoutChangeEvent) => {
-    setSizeContainer({...sizeContainer, height: e.nativeEvent.layout.height});
+    setSizeContainer({ ...sizeContainer, height: e.nativeEvent.layout.height });
   }, []);
   const onLayoutText = useCallback((e: LayoutChangeEvent) => {
-    setSizeText({...sizeText, height: e.nativeEvent.layout.height});
+    setSizeText({ ...sizeText, height: e.nativeEvent.layout.height });
   }, []);
   const _onFocus = useCallback(() => {
     setFocused(true);
@@ -166,10 +167,13 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
   const inputSty = useMemo(() => enhance([styles.input, inputStyle]), [
     inputStyle,
   ]);
+  const containerSty = useMemo(() => enhance([styles.container, containerStyle]), [
+    inputStyle,
+  ]);
   return (
     <Animated.View
       onLayout={_onLayoutContainer}
-      style={[styles.container, {borderColor: borderColor()}]}>
+      style={[containerSty, { borderColor: borderColor() }]}>
       <TextInput
         defaultValue={defaultValue ?? ''}
         autoCorrect={false}
@@ -186,10 +190,10 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
         {...rest}
       />
       {labelText && (
-        <Animated.View pointerEvents={'none'} style={[styles.wrapLabel, {top}]}>
+        <Animated.View pointerEvents={'none'} style={[styles.wrapLabel, { top }]}>
           <Animated.Text
             onLayout={onLayoutText}
-            style={[styles.text, {color: labelColor(), fontSize: fontLabel}]}>
+            style={[styles.text, { color: labelColor(), fontSize: fontLabel }]}>
             {labelText ?? ''}
           </Animated.Text>
         </Animated.View>
