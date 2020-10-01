@@ -52,8 +52,8 @@
       "@networking": ["./src/app/library/networking/index"],
       "@navigation/*": ["./src/app/navigation/*"],
       "@store/*": ["./src/app/store/*"],
-      "@theme/*": ["./src/app/themes/*"],
       "@theme": ["./src/app/themes/index"],
+      "@theme/*": ["./src/app/themes/*"],
       "@transition": ["./src/app/transition/index"],
       "@app_redux/*": ["./src/app/store/app_redux/*"]
     } /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */,
