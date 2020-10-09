@@ -21,6 +21,7 @@ import { Icon } from '../Icon/Icon';
 import { Divider } from '../Divider/Divider';
 import { FontSizeDefault } from '@theme/fontSize';
 import { AppModeType } from '@networking';
+import { APP_MODE } from '@config';
 
 const styles = StyleSheet.create({
   modal: {
@@ -121,26 +122,26 @@ const ModalAppModeComponent = forwardRef((_: any, ref: any) => {
         <Block style={[styles.contentModal]}>
           <Text style={[styles.title]} tx={'common:textAppMode'} />
           <ButtonSelect
-            selected={appMode === 'dev'}
+            selected={appMode === APP_MODE.DEV}
             icon={'app_dev'}
             onPress={_onButtonPress}
-            mode={'dev'}
+            mode={APP_MODE.DEV as AppModeType}
             tx={'common:textAppDev'}
           />
           <Spacing />
           <ButtonSelect
-            selected={appMode === 'staging'}
+            selected={appMode === APP_MODE.STAGING}
             icon={'app_test'}
             onPress={_onButtonPress}
-            mode={'staging'}
+            mode={APP_MODE.STAGING as AppModeType}
             tx={'common:textAppTest'}
           />
           <Spacing />
           <ButtonSelect
-            selected={appMode === 'prod'}
+            selected={appMode === APP_MODE.PROD}
             icon={'app_prod'}
             onPress={_onButtonPress}
-            mode={'prod'}
+            mode={APP_MODE.PROD as AppModeType}
             tx={'common:textAppProd'}
           />
         </Block>
