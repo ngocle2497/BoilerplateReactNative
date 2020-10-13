@@ -103,3 +103,8 @@ export interface Spacing {
   massive: number;
 }
 export type AppTheme = Theme & { colors: Partial<Colors> }
+
+export type RootStackParamList = {
+  HOME_SCREEN: { data: Array<any> };
+};
+
