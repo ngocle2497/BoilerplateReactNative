@@ -8,7 +8,7 @@ export const ProfileStackScreen = () => {
   return (
     <ProfileStack.Navigator>
       <ProfileStack.Screen
-        name={APP_SCREEN.AUTHORIZE.PROFILE_DRAWER.PROFILE}
+        name={APP_SCREEN.PROFILE}
         component={Profile}
       />
     </ProfileStack.Navigator>

@@ -1,30 +1,37 @@
-export const APP_SCREEN = {
-  UN_AUTHORIZE: {
-    ROOT: 'UN_AUTHORIZE',
-    SPLASH: 'SPLASH',
-    LOGIN: 'LOGIN',
-    REGISTER: 'REGISTER',
-  },
-  AUTHORIZE: {
-    ROOT: 'AUTHORIZE',
-    HOME_DRAWER: {
-      ROOT: 'HOME_DRAWER',
-      HOME_TAB: {
-        ROOT: 'HOME_TAB',
-      },
-      LIKE_TAB: {
-        ROOT: 'LIKE_TAB',
-      },
-      SEARCH_TAB: {
-        ROOT: 'SEARCH_TAB',
-      },
-      PROFILE_TAB: {
-        ROOT: 'PROFILE_TAB',
-      },
-    },
-    PROFILE_DRAWER: {
-      ROOT: 'PROFILE_DRAWER',
-      PROFILE: 'PROFILE',
-    },
-  },
+
+
+export enum APP_SCREEN {
+  UN_AUTHORIZE = "UN_AUTHORIZE",
+  SPLASH = 'SPLASH',
+  LOGIN = 'LOGIN',
+  REGISTER = 'REGISTER',
+
+  AUTHORIZE = "AUTHORIZE",
+  HOME_DRAWER = "HOME_DRAWER",
+  HOME_TAB = "HOME_TAB",
+  LIKE_TAB = "LIKE_TAB",
+  SEARCH_TAB = "SEARCH_TAB",
+  PROFILE_TAB = "PROFILE_TAB",
+
+  PROFILE_DRAWER = "PROFILE_DRAWER",
+  PROFILE = 'PROFILE',
+
+};
+
+export type RootStackParamList = {
+  [APP_SCREEN.UN_AUTHORIZE]: undefined,
+  [APP_SCREEN.SPLASH]: undefined,
+  [APP_SCREEN.LOGIN]: undefined,
+  [APP_SCREEN.REGISTER]: undefined,
+
+  [APP_SCREEN.AUTHORIZE]: undefined,
+
+  [APP_SCREEN.HOME_DRAWER]: undefined,
+  [APP_SCREEN.HOME_TAB]: undefined,
+  [APP_SCREEN.LIKE_TAB]: undefined,
+  [APP_SCREEN.SEARCH_TAB]: undefined,
+  [APP_SCREEN.PROFILE_TAB]: undefined,
+
+  [APP_SCREEN.PROFILE_DRAWER]: undefined,
+  [APP_SCREEN.PROFILE]: undefined,
 };

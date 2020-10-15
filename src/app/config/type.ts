@@ -104,7 +104,4 @@ export interface Spacing {
 }
 export type AppTheme = Theme & { colors: Partial<Colors> }
 
-export type RootStackParamList = {
-  HOME_SCREEN: { data: Array<any> };
-};
 
