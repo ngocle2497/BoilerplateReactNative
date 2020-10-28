@@ -181,12 +181,12 @@ export const interpolateColor = (
 ): Animated.Node<number> => {
   const {inputRange} = config;
   const outputRange = config.outputRange.map(c =>
-    typeof c === 'number' ? c : processColor(c),
+    typeof c === 'number' ? c : processColor(c as string),
   );
   if (colorSpace === 'hsv') {
-    return interpolateColorsHSV(value, inputRange, outputRange);
+    return interpolateColorsHSV(value, inputRange, outputRange as number[]);
   }
-  return interpolateColorsRGB(value, inputRange, outputRange);
+  return interpolateColorsRGB(value, inputRange, outputRange as number[]);
 };
 
 export const mixColor = (

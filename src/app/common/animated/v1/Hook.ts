@@ -9,7 +9,7 @@ import {
   tapGestureHandler,
   scrollHandler,
 } from './Gesture';
-import {Vector, vec} from './Vectors';
+import {vec} from './Vectors';
 import {loop} from './RunningAnimated';
 
 const {Clock, Value, diff, set, useCode, debug, block} = Animated;
@@ -17,8 +17,6 @@ const {Clock, Value, diff, set, useCode, debug, block} = Animated;
 export const useConst = <T>(initialValue: T | (() => T)): T => {
   const ref = useRef<{value: T}>();
   if (ref.current === undefined) {
-    // Box the value in an object so we can tell if it's initialized even if the initializer
-    // returns/is undefined
     ref.current = {
       value:
         typeof initialValue === 'function'
@@ -34,11 +32,15 @@ export const useGestureHandler = (
 ) => useConst(() => onGestureEvent(nativeEvent));
 
 export const usePanGestureHandler = () => useConst(() => panGestureHandler());
+
 export const useRotationGestureHandler = () =>
   useConst(() => rotationGestureHandler());
+
 export const usePinchGestureHandler = () =>
   useConst(() => pinchGestureHandler());
+
 export const useTapGestureHandler = () => useConst(() => tapGestureHandler());
+
 export const useScrollHandler = () => useConst(() => scrollHandler());
 
 type Atomic = string | number | boolean;
@@ -46,25 +48,6 @@ type Atomic = string | number | boolean;
 export const useVector = (
   ...defaultValues: Parameters<typeof vec.createValue>
 ) => useConst(() => vec.createValue(...defaultValues));
-
-type P = Parameters<typeof vec.createValue>;
-type R = Vector<Animated.Value<number>>;
-type UseVectors = {
-  (...v: [P]): [R];
-  (...v: [P, P]): [R, R];
-  (...v: [P, P, P]): [R, R, R];
-  (...v: [P, P, P, P]): [R, R, R, R];
-  (...v: [P, P, P, P, P]): [R, R, R, R, R];
-  (...v: [P, P, P, P, P, P]): [R, R, R, R, R, R];
-  (...v: P[]): R[];
-};
-
-export const useVectors = (((
-  ...defaultValues: Parameters<typeof vec.createValue>[]
-) =>
-  useConst(() =>
-    defaultValues.map(values => vec.createValue(...values)),
-  )) as unknown) as UseVectors;
 
 export const useClock = () => useConst(() => new Clock());
 
@@ -124,19 +107,8 @@ type UseValues = {
 export const useValues = ((<V extends Atomic>(...values: [V, ...V[]]) =>
   useConst(() => values.map(v => new Value(v)))) as unknown) as UseValues;
 
-export const useClocks = (numberOfClocks: number): Animated.Clock[] =>
-  useConst(() => new Array(numberOfClocks).fill(0).map(() => new Clock()));
-
 export const useDiff = (node: Animated.Node<number>) => {
   const dDiff = useValue(0);
   useCode(() => set(dDiff, diff(node)), [dDiff, node]);
   return dDiff;
-};
-
-export const useDebug = (values: {[key: string]: Animated.Node<number>}) => {
-  const keys = Object.keys(values);
-  useCode(() => block(keys.map(name => debug(name, values[name]))), [
-    keys,
-    values,
-  ]);
 };

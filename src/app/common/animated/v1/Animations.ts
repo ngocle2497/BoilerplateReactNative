@@ -1,7 +1,6 @@
 import Animated, {block, defined} from 'react-native-reanimated';
 
 import {clamp, max, min} from './Math';
-import {Matrix3, Transforms2d, decompose2d} from './Matrix3';
 
 const {
   Value,
@@ -31,46 +30,6 @@ export const mix = proc(
   ) => add(x, multiply(value, sub(y, x))),
 );
 
-export const step = proc(
-  (value: Animated.Adaptable<number>, edge: Animated.Adaptable<number>) =>
-    lessThan(value, edge),
-);
-
-export const smoothstep = proc(
-  (
-    value: Animated.Adaptable<number>,
-    edge0: Animated.Adaptable<number>,
-    edge1: Animated.Adaptable<number>,
-  ) => {
-    const t = clamp(divide(sub(value, edge0), sub(edge1, edge0)), 0, 1);
-    return multiply(t, t, sub(3, multiply(2, t)));
-  },
-);
-
-export const tween2d = (
-  value: Animated.Node<number>,
-  t1: Matrix3 | Transforms2d,
-  t2: Matrix3 | Transforms2d,
-) => {
-  const d1 = decompose2d(t1);
-  const d2 = decompose2d(t2);
-  const translateX = mix(value, d1[0].translateX, d2[0].translateX);
-  const translateY = mix(value, d1[1].translateY, d2[1].translateY);
-  const skewX = mix(value, d1[2].rotateZ, d2[2].rotateZ);
-  const scaleX = mix(value, d1[3].scaleX, d2[3].scaleX);
-  const scaleY = mix(value, d1[4].scaleY, d2[4].scaleY);
-  const rotateZ = mix(value, d1[5].rotateZ, d2[5].rotateZ);
-  return [
-    {translateX},
-    {translateY},
-    {rotateZ: skewX},
-    {scaleX},
-    {scaleY},
-    {rotateZ},
-  ] as const;
-};
-
-// currently diffClamp() from reanimated seems currently buggy because of proc()
 export const diff = (v: Animated.Node<number>) => {
   const stash = new Value(0);
   const prev = new Value<number>();

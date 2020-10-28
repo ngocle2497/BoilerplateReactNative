@@ -112,23 +112,6 @@ export const atan2 = proc(
   },
 );
 
-export const cubicBezier = proc(
-  (
-    t: Animated.Adaptable<number>,
-    p0: Animated.Adaptable<number>,
-    p1: Animated.Adaptable<number>,
-    p2: Animated.Adaptable<number>,
-    p3: Animated.Adaptable<number>,
-  ): Animated.Node<number> => {
-    const term = sub(1, t);
-    const a = multiply(1, pow(term, 3), pow(t, 0), p0);
-    const b = multiply(3, pow(term, 2), pow(t, 1), p1);
-    const c = multiply(3, pow(term, 1), pow(t, 2), p2);
-    const d = multiply(1, pow(term, 0), pow(t, 3), p3);
-    return add(a, b, c, d);
-  },
-);
-
 export const round = proc(
   (
     value: Animated.Adaptable<number>,

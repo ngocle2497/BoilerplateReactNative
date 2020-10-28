@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import Animated, {Easing} from 'react-native-reanimated';
+import Animated, {EasingNode} from 'react-native-reanimated';
 import {State} from 'react-native-gesture-handler';
 
 import {SpringConfig, TimingConfig} from './Animations';
@@ -37,7 +37,7 @@ export const withTransition = (
   const config = {
     toValue: new Value(0),
     duration: 250,
-    easing: Easing.linear,
+    easing: EasingNode.linear,
     ...timingConfig,
   };
   return block([

@@ -1,7 +1,7 @@
 import React, {memo, forwardRef} from 'react';
 import {Block, TextField} from '@components';
 import isEqual from 'react-fast-compare';
-import {FieldError} from 'react-hook-form/dist/types/form';
+import {FieldError} from 'react-hook-form';
 
 interface InputProps {
   name: string;

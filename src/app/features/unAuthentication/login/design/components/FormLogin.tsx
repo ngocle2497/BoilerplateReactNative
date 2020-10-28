@@ -1,13 +1,11 @@
-import React, {memo, useMemo} from 'react';
-import {StyleSheet, Text, View, Button} from 'react-native';
+import React, { memo, useMemo } from 'react';
+import { StyleSheet, Button } from 'react-native';
 import isEqual from 'react-fast-compare';
-import {Form} from '@components';
-import {ValidationMap} from '@library/components/Form/Form.props';
-import {useForm} from 'react-hook-form';
-
-import {Input} from './Input';
-import {onCheckType} from '@common';
-import {ValidationRules} from 'react-hook-form/dist/types/form';
+import { Form } from '@components';
+import { ValidationMap } from '@library/components/Form/Form.props';
+import { useForm } from 'react-hook-form';
+import { Input } from './Input';
+import { onCheckType } from '@common';
 
 type FormValue = {
   name: string;
@@ -19,7 +17,7 @@ interface FormLoginProps {
   onSubmit: (data: FormValue) => void;
 }
 
-const FormLoginComponent = ({onSubmit}: FormLoginProps) => {
+const FormLoginComponent = ({ onSubmit }: FormLoginProps) => {
   const {
     register,
     setValue,
@@ -31,9 +29,9 @@ const FormLoginComponent = ({onSubmit}: FormLoginProps) => {
   const rules = useMemo(
     () =>
       ({
-        name: {required: {value: true, message: 'Name is required'}},
+        name: { required: { value: true, message: 'Name is required' } },
         repassword: {
-          required: {value: true, message: 'Confirm is required'},
+          required: { value: true, message: 'Confirm is required' },
           validate: (val: any) =>
             onCheckType(getValues().password, 'undefined') ||
             onCheckType(getValues().repassword, 'undefined') ||
@@ -48,7 +46,7 @@ const FormLoginComponent = ({onSubmit}: FormLoginProps) => {
   };
   return (
     <>
-      <Form {...{register, setValue, trigger, rules, errors}}>
+      <Form {...{ register, setValue, trigger, rules, errors }}>
         <Input name={'name'} label={'Name'} />
         <Input
           nameTrigger={'repassword'}
@@ -69,4 +67,4 @@ const FormLoginComponent = ({onSubmit}: FormLoginProps) => {
 
 export const FormLogin = memo(FormLoginComponent, isEqual);
 
-const styles = StyleSheet.create({});
+

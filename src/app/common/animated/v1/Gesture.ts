@@ -39,7 +39,6 @@ const {
   debug,
 } = Animated;
 
-// See: https://github.com/kmagiera/react-native-gesture-handler/issues/553
 export const pinchBegan = proc((state: Animated.Node<State>) =>
   Platform.OS === 'android'
     ? cond(eq(diff(state), State.ACTIVE - State.BEGAN), eq(state, State.ACTIVE))
@@ -339,34 +338,4 @@ export const scrollHandler = () => {
       scrollEventThrottle: 1,
     },
   };
-};
-
-export const debugGestureState = (
-  label: string,
-  state: Animated.Node<State>,
-) => {
-  const d = (value: string): Animated.Node<number> =>
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    debug(label, new Value(value));
-  return onChange(
-    state,
-    cond(
-      eq(state, State.UNDETERMINED),
-      d('UNDETERMINED'),
-      cond(
-        eq(state, State.BEGAN),
-        d('BEGAN'),
-        cond(
-          eq(state, State.ACTIVE),
-          d('ACTIVE'),
-          cond(
-            eq(state, State.END),
-            d('END'),
-            cond(eq(state, State.CANCELLED), d('CANCELLED'), d('FAILED')),
-          ),
-        ),
-      ),
-    ),
-  );
 };
