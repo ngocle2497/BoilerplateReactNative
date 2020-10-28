@@ -1,5 +1,5 @@
 import {ViewStyle, StyleProp} from 'react-native';
-import { Edge } from 'react-native-safe-area-context';
+import {Edge} from 'react-native-safe-area-context';
 
 export interface ScreenProps {
   /**

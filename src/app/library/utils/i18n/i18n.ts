@@ -1,8 +1,8 @@
-import i18n, { LanguageDetectorAsyncModule } from 'i18next';
+import i18n, {LanguageDetectorAsyncModule} from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import {resources} from '@assets/locales';
 
-const languageDetector:LanguageDetectorAsyncModule = {
+const languageDetector: LanguageDetectorAsyncModule = {
   type: 'languageDetector',
   async: true, // flags below detection to be async
   detect: (callback: any) => {

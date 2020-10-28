@@ -12,12 +12,12 @@ import {
   useDispatch as useReduxDispatch,
   TypedUseSelectorHook,
 } from 'react-redux';
-import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
-import { Clipboard } from 'react-native';
-import { useTheme } from '@react-navigation/native';
-import { AppTheme } from '@config/type';
-import { RootState } from '@store/allReducers';
-import { requestAnimation } from '@transition';
+import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
+import {Clipboard} from 'react-native';
+import {useTheme} from '@react-navigation/native';
+import {AppTheme} from '@config/type';
+import {RootState} from '@store/allReducers';
+import {requestAnimation} from '@transition';
 
 type UseStateFull<T = any> = {
   value: T;
@@ -37,15 +37,17 @@ function useDispatch() {
   const dispatch = useReduxDispatch();
   return dispatch;
 }
-function useAnimationState<T>(initialValue: T): [T, (newValue: T, withAnimation?: boolean) => void] {
-  const [value, setValue] = useState<T>(initialValue)
+function useAnimationState<T>(
+  initialValue: T,
+): [T, (newValue: T, withAnimation?: boolean) => void] {
+  const [value, setValue] = useState<T>(initialValue);
   const setState = (newValue: T, withAnimation = false) => {
     if (withAnimation) {
-      requestAnimation()
+      requestAnimation();
     }
-    setValue(newValue)
-  }
-  return [value, setState]
+    setValue(newValue);
+  };
+  return [value, setState];
 }
 
 //#region useInterval
@@ -115,16 +117,16 @@ type UseArrayActions<T> = {
   clear: () => void;
   move: (from: number, to: number) => void;
   removeById: (
-    id: T extends { id: string }
+    id: T extends {id: string}
       ? string
-      : T extends { id: number }
+      : T extends {id: number}
       ? number
       : unknown,
   ) => void;
   modifyById: (
-    id: T extends { id: string }
+    id: T extends {id: string}
       ? string
-      : T extends { id: number }
+      : T extends {id: number}
       ? number
       : unknown,
     newValue: Partial<T>,
@@ -171,7 +173,7 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
   const modifyById = useCallback(
     (id, newValue) =>
       // @ts-ignore not every array that you will pass down will have object with id field.
-      setValue(arr => arr.map(v => (v.id === id ? { ...v, ...newValue } : v))),
+      setValue(arr => arr.map(v => (v.id === id ? {...v, ...newValue} : v))),
     [],
   );
   const actions = useMemo(
@@ -220,7 +222,7 @@ function useBoolean(initial: boolean): UseBoolean {
   const toggle = useCallback(() => setValue(v => !v), []);
   const setTrue = useCallback(() => setValue(true), []);
   const setFalse = useCallback(() => setValue(false), []);
-  const actions = useMemo(() => ({ setValue, toggle, setTrue, setFalse }), [
+  const actions = useMemo(() => ({setValue, toggle, setTrue, setFalse}), [
     setFalse,
     setTrue,
     toggle,
@@ -332,7 +334,7 @@ function usePrevious<T = any>(value: T): T | undefined {
   return ref.current;
 }
 
-//#endregion 
+//#endregion
 
 type UseSetArrayStateAction<T extends object> = React.Dispatch<
   SetStateAction<Partial<T>>
@@ -383,22 +385,24 @@ function useStyle<T>(style: (theme: AppTheme) => T): T {
   return style(theme);
 }
 //#region useStateWithCallback
-function useAsyncState<T>(initialValue: T): [T, (newValue: T, callback?: (newState: T) => void) => void] {
-  const [state, setState] = useState(initialValue)
-  const _callback = useRef<(newState: T) => void>()
+function useAsyncState<T>(
+  initialValue: T,
+): [T, (newValue: T, callback?: (newState: T) => void) => void] {
+  const [state, setState] = useState(initialValue);
+  const _callback = useRef<(newState: T) => void>();
   const _setState = (newValue: T, callback?: (newState: T) => void) => {
     if (callback) {
-      _callback.current = callback
+      _callback.current = callback;
     }
-    setState(newValue)
-  }
+    setState(newValue);
+  };
   useEffect(() => {
     if (typeof _callback.current === 'function') {
-      _callback.current(state)
-      _callback.current = undefined
+      _callback.current(state);
+      _callback.current = undefined;
     }
-  }, [state])
-  return [state, _setState]
+  }, [state]);
+  return [state, _setState];
 }
 //#endregion
 export {

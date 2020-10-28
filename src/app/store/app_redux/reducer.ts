@@ -4,9 +4,9 @@ import {
   STAGING_MODE_API,
 } from './../../library/networking/api';
 import * as Action from './actionType';
-import { AppState } from './type';
-import { AppModeType } from '@networking';
-import { produce, current } from 'immer';
+import {AppState} from './type';
+import {AppModeType} from '@networking';
+import {produce, current} from 'immer';
 
 const initialAppState: AppState = {
   internetState: true,
@@ -36,7 +36,7 @@ interface ActionProps {
   type: keyof typeof Action;
   payload: any;
 }
-export default produce((draftState: AppState, { type, payload }: ActionProps) => {
+export default produce((draftState: AppState, {type, payload}: ActionProps) => {
   switch (type) {
     case Action.SET_INTERNET:
       draftState.internetState = payload;

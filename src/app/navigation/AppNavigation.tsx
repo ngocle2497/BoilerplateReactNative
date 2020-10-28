@@ -6,7 +6,7 @@ import {useSelector, useDispatch} from '@common';
 import {ProgressDialog} from '@components';
 import {dialogHolder} from '@utils';
 import {onLoadApp} from '@store/app_redux/action';
-import {AppMode} from '../library/components/AppMode/AppMode';
+import {AppMode} from '@library/components/AppMode/AppMode';
 import {MyAppTheme} from '@theme';
 
 export const AppContainer = () => {

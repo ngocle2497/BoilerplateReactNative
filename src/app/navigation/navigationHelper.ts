@@ -1,5 +1,5 @@
-import { navigate } from './navigationService';
-import { APP_SCREEN } from './screenTypes';
+import {navigate} from './navigationService';
+import {APP_SCREEN} from './screenTypes';
 
 export function navigateToHome() {
   navigate(APP_SCREEN.AUTHORIZE);

@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { NavigationContainerRef } from '@react-navigation/native';
-import { RootStackParamList } from './screenTypes';
+import {NavigationContainerRef} from '@react-navigation/native';
+import {RootStackParamList} from './screenTypes';
 export const navigationRef = React.createRef<NavigationContainerRef>();
 
-export function navigate<RouteName extends keyof RootStackParamList>
-  (...arg: undefined extends RootStackParamList[RouteName] ?
-    [RouteName] | [RouteName, RootStackParamList[RouteName]] :
-    [RouteName, RootStackParamList[RouteName]]) {
+export function navigate<RouteName extends keyof RootStackParamList>(
+  ...arg: undefined extends RootStackParamList[RouteName]
+    ? [RouteName] | [RouteName, RootStackParamList[RouteName]]
+    : [RouteName, RootStackParamList[RouteName]]
+) {
   navigationRef.current?.navigate(arg[0], arg.length > 1 ? arg[1] : undefined);
 }
 

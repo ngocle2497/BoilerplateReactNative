@@ -28,9 +28,9 @@ export interface TextProps extends TextProperties {
   fontStyle?: 'normal' | 'italic';
 
   letterSpacing?: number;
-  
+
   lineHeight?: number;
-  
+
   /**
    * Children of text
    * @default undefined

@@ -1,4 +1,11 @@
-import { ViewStyle, ViewProps, StyleProp, FlexAlignType, FlexStyle, StyleSheet } from 'react-native';
+import {
+  ViewStyle,
+  ViewProps,
+  StyleProp,
+  FlexAlignType,
+  FlexStyle,
+  StyleSheet,
+} from 'react-native';
 
 type Direction = 'row' | 'column' | 'column-reverse' | 'row-reverse';
 
@@ -19,15 +26,14 @@ type OverFlow = 'visible' | 'hidden' | 'scroll';
 export type ShadowConfig = {
   shadowColor?: string;
   shadowOffset?: {
-    width?: number,
+    width?: number;
     height?: number;
-  },
+  };
   shadowOpacity?: number;
   shadowRadius?: number;
   elevation?: number;
-}
+};
 export interface BlockProps extends ViewProps {
-
   flexWrap?: FlexWrap;
 
   left?: number | string;
@@ -108,7 +114,6 @@ export interface BlockProps extends ViewProps {
    * overwrite flex box
    */
   flex?: number;
-
 
   /**
    * Using align items

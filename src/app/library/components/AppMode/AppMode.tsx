@@ -1,8 +1,8 @@
-import React, { memo } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { AppModeType } from '@networking';
+import React, {memo} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {AppModeType} from '@networking';
 import isEqual from 'react-fast-compare';
-import { APP_MODE } from '@config';
+import {APP_MODE} from '@config';
 const modeToString = (mode: AppModeType): string => {
   switch (mode) {
     case APP_MODE.DEV:
@@ -15,7 +15,7 @@ const modeToString = (mode: AppModeType): string => {
       return '';
   }
 };
-const AppModeComponent = ({ appMode }: { appMode: AppModeType }) => {
+const AppModeComponent = ({appMode}: {appMode: AppModeType}) => {
   return (
     <View pointerEvents={'none'} style={[styles.wrapMode]}>
       <Text adjustsFontSizeToFit={true} style={[styles.textMode]}>
@@ -52,6 +52,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
-    transform: [{ rotate: '45deg' }, { translateX: 30 }],
+    transform: [{rotate: '45deg'}, {translateX: 30}],
   },
 });

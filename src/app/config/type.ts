@@ -1,4 +1,4 @@
-import { Theme } from '@react-navigation/native';
+import {Theme} from '@react-navigation/native';
 export interface ResponseBase<T = any> {
   code: number;
 
@@ -9,7 +9,6 @@ export interface ResponseBase<T = any> {
   status: boolean;
 }
 export interface Colors {
-
   primary: string;
 
   background: string;
@@ -25,10 +24,8 @@ export interface Colors {
   error: string;
 
   info: string;
-
 }
 export interface FontSize {
-
   FONT_4: number;
 
   FONT_5: number;
@@ -102,6 +99,4 @@ export interface Spacing {
   huge: number;
   massive: number;
 }
-export type AppTheme = Theme & { colors: Partial<Colors> }
-
-
+export type AppTheme = Theme & {colors: Partial<Colors>};

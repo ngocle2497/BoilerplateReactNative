@@ -1,5 +1,5 @@
-import { TextInputProps, StyleProp, TextStyle, ViewStyle } from 'react-native';
-import { SetValueConfig } from 'react-hook-form/dist/types/form';
+import {TextInputProps, StyleProp, TextStyle, ViewStyle} from 'react-native';
+import {SetValueConfig} from 'react-hook-form/dist/types/form';
 
 export interface InputBaseProps extends TextInputProps {
   /**
