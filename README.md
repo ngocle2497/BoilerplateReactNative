@@ -3,7 +3,7 @@
 > How to build
 
 - Install react native
-  https://facebook.github.io/react-native/docs/getting-started
+  https://reactnative.dev/docs/getting-started
 - Create new project
   `npx react-native init <yourProjectName> --template react-native-template-typescript`
 - Copy all file and folder to your project without `package.json` file
