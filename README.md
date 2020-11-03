@@ -11,7 +11,6 @@
 
 - Install package
   `npm install` or
-  `yarn install`(recommended)
+  `yarn`(recommended)
 - Run your app
-  `react-native run-android/ios` or
-  `npx react-native run-android/ios`yarn-android/ios`or`npm run-android/ios`
+  `npx react-native run-android/ios` `yarn android/ios `or `npm run android/ios`
