@@ -1,4 +1,4 @@
-import {Theme} from '@react-navigation/native';
+import { Theme } from '@react-navigation/native';
 export interface ResponseBase<T = any> {
   code: number;
 
@@ -99,4 +99,9 @@ export interface Spacing {
   huge: number;
   massive: number;
 }
-export type AppTheme = Theme & {colors: Partial<Colors>};
+export type AppTheme = Theme & { colors: Partial<Colors> };
+
+export enum SLICE_NAME {
+  APP = 'APP',
+  LOGIN = 'LOGIN'
+}

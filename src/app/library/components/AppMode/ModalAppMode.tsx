@@ -13,7 +13,7 @@ import {Button} from '../Button/Button';
 import {Text} from '../Text/Text';
 import {SizeBox} from '../SizeBox/SizeBox';
 import {useSelector, useDispatch} from '@common';
-import {onSetAppMode} from '@store/app_redux/action';
+import {onSetAppMode} from '@store/app_redux/reducer';
 import {saveString} from '@utils';
 import {R} from '@assets/value';
 import {IconTypes} from '@assets/icon';

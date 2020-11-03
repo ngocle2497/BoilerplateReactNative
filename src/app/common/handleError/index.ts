@@ -15,7 +15,7 @@ export const HandleErrorApi = (status: number) => {
         data: null,
         status: false,
       });
-    case 0:
+    case 200:
       return handleData({
         code: status,
         msg: translate('error:0'),

@@ -1,11 +1,22 @@
-import {createStore, applyMiddleware} from 'redux';
-import {allReducer} from './allReducers';
+import { allReducer } from './allReducers';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
-import {rootSaga} from './rootSagas';
+import { rootSaga } from './rootSagas';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 
+const devMode = __DEV__;
 const sagaMiddleware = createSagaMiddleware();
-let store = createStore(allReducer, applyMiddleware(sagaMiddleware, logger));
-
-sagaMiddleware.run(rootSaga);
-export {store};
+const middleware = [...getDefaultMiddleware(), sagaMiddleware];
+if (devMode) {
+    middleware.push(logger)
+}
+const storeConfig = () => {
+    const store = configureStore({
+        reducer: allReducer,
+        devTools: devMode,
+        middleware
+    });
+    sagaMiddleware.run(rootSaga);
+    return store;
+};
+export const store = storeConfig();

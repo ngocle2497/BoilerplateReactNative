@@ -1,7 +1,7 @@
-import app from './app_redux/reducer';
-import login from '../features/unAuthentication/login/redux/reducer';
-import {combineReducers} from 'redux';
+import { appReducer } from './app_redux/reducer';
+import { loginReducer } from '../features/unAuthentication/login/redux/reducer';
+import { combineReducers } from '@reduxjs/toolkit';
 
-export const allReducer = combineReducers({app, login});
+export const allReducer = combineReducers({ app: appReducer, login: loginReducer });
 
 export type RootState = ReturnType<typeof allReducer>;

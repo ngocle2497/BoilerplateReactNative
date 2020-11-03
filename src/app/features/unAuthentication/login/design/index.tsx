@@ -1,7 +1,7 @@
 import React, { useRef, memo } from 'react';
 import isEqual from 'react-fast-compare';
 import { Wallpaper, Screen, ModalAppMode, ModalAppModeRef, Block } from '@components';
-import { onSetToken, onSetAppMode } from '@store/app_redux/action';
+import { onSetToken, onSetAppMode } from '@store/app_redux/reducer';
 import { FormLogin } from './components';
 import { useDispatch } from '@common';
 import { StackScreenProps } from '@react-navigation/stack';

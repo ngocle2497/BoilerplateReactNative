@@ -3,10 +3,11 @@ import {
   PROD_MODE_API,
   STAGING_MODE_API,
 } from './../../library/networking/api';
-import * as Action from './actionType';
-import {AppState} from './type';
-import {AppModeType} from '@networking';
-import {produce, current} from 'immer';
+import { AppState } from './type';
+import { AppModeType } from '@networking';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { SLICE_NAME } from '@config/type';
+import { ThemeType } from '@theme';
 
 const initialAppState: AppState = {
   internetState: true,
@@ -15,7 +16,7 @@ const initialAppState: AppState = {
   /**
    * default true to load app
    */
-  loading: true,
+  loading: false,
   theme: 'default',
   appMode: 'dev',
   appUrl: DEV_MODE_API,
@@ -32,38 +33,37 @@ const appModeToURL = (mode: AppModeType): string => {
       return DEV_MODE_API;
   }
 };
-interface ActionProps {
-  type: keyof typeof Action;
-  payload: any;
-}
-export default produce((draftState: AppState, {type, payload}: ActionProps) => {
-  switch (type) {
-    case Action.SET_INTERNET:
-      draftState.internetState = payload;
-      break;
-    case Action.SET_TOKEN:
-      draftState.token = payload;
-      break;
-    case Action.SET_APP_PROFILE:
-      draftState.profile = payload;
-      break;
-    case Action.SET_APP_THEME:
-      draftState.theme = payload;
-      break;
-    case Action.LOAD_APP_END:
-      draftState.loading = false;
-      break;
-    case Action.SET_APP_MODE:
+
+const appSlice = createSlice({
+  name: SLICE_NAME.APP, initialState: initialAppState, reducers: {
+    onSetInternet: (state, { payload }: PayloadAction<boolean>) => {
+      state.internetState = payload
+    },
+    onSetToken: (state, { payload }: PayloadAction<string>) => {
+      state.token = payload
+    },
+    onSetAppProfile: (state, { payload }: PayloadAction<any>) => {
+      state.profile = payload
+    },
+    onSetAppTheme: (state, { payload }: PayloadAction<ThemeType>) => {
+      state.theme = payload
+    },
+    onLoadApp: (state) => {
+      state.loading = true
+    },
+    onLoadAppEnd: (state) => {
+      state.loading = false
+    },
+    onSetAppMode: (state, { payload }: PayloadAction<AppModeType>) => {
       const appURL = appModeToURL(payload);
-      draftState.appUrl = appURL;
-      draftState.appMode = payload;
-      break;
-    case Action.LOG_OUT:
-      const currentState = current(draftState);
-      return {
-        ...initialAppState,
-        appMode: currentState.appMode,
-        appUrl: currentState.appUrl,
-      };
+      state.appUrl = appURL;
+      state.appMode = payload;
+    },
+    onLogout: (state) => {
+      state.token = null;
+      state.profile = {};
+    }
   }
-}, initialAppState);
+})
+export const appReducer = appSlice.reducer
+export const { onLogout, onLoadApp, onLoadAppEnd, onSetAppMode, onSetAppProfile, onSetAppTheme, onSetInternet, onSetToken } = appSlice.actions

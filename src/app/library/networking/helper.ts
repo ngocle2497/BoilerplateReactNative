@@ -1,13 +1,14 @@
-import {ResponseBase} from '@config/type';
-import {AxiosError} from 'axios';
-import {translate} from '../utils';
+import { ResponseBase } from '@config/type';
+import { AxiosError, AxiosResponse } from 'axios';
+import { translate } from '../utils';
 import {
   RESULT_CODE_PUSH_OUT,
   ERROR_NETWORK_CODE,
   STATUS_TIME_OUT,
   CODE_TIME_OUT,
+  CODE_SUCCESS,
 } from '@config';
-import {HandleErrorApi} from '@common';
+import { HandleErrorApi } from '@common';
 const responseDefault: ResponseBase<any> = {
   code: -500,
   status: false,
@@ -21,9 +22,9 @@ export const _onPushLogout = async () => {
    * do something to logout
    */
 };
-export const handleResponseAxios = (res: any): ResponseBase<any> => {
+export const handleResponseAxios = (res: AxiosResponse): ResponseBase<any> => {
   if (res.data) {
-    return res.data;
+    return { code: CODE_SUCCESS, status: true, data: res.data, msg: null };
   }
   return responseDefault;
 };

@@ -1,25 +1,32 @@
 import * as Action from './actionType';
-import {produce} from 'immer';
+import { createAction, createSlice } from '@reduxjs/toolkit';
+import { SLICE_NAME } from '@config/type';
 export interface LoginState {
   loading: boolean;
 }
 const initialState: LoginState = {
   loading: false,
 };
-interface ActionProps {
-  type: keyof typeof Action;
-  payload: any;
-}
-export default produce((state: LoginState, {type, payload}: ActionProps) => {
-  switch (type) {
-    case Action.LOGIN_START:
+const loginSlice = createSlice({
+  name: SLICE_NAME.LOGIN,
+  initialState: initialState,
+  reducers: {
+    onLoginStart: (state) => {
       state.loading = true;
-      break;
-    case Action.LOGIN_SUCCESS:
-      state.loading = false;
-      break;
-    case Action.LOGIN_FAILED:
-      state.loading = false;
-      break;
+
+    },
+    onLoginEnd: (state) => {
+      state.loading = false
+    }
   }
-}, initialState);
+})
+const onLogin = createAction(Action.LOGIN, (url: string, body: any, onSucceeded: () => void, onFailure: (msg: string) => void) => ({
+  payload: {
+    url,
+    body,
+    onSucceeded,
+    onFailure
+  }
+}))
+export const actions = { ...loginSlice.actions, onLogin }
+export const loginReducer = loginSlice.reducer
