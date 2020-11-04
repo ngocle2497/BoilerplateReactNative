@@ -13,8 +13,8 @@
         "aab": "cd android &&./gradlew clean && ./gradlew bundleRelease && cd ..",
         "lint": "eslint index.js app --fix --ext .js,.ts,.tsx",
         "pod": "cd ios && pod install && cd ..",
-        "code-push-android": "code-push release-react App-Android android -d Production",
-        "code-push-ios": "code-push release-react App-IOS ios -d Production"
+        "code-push-android": "appcenter codepush release-react -a lhngoc2497-gmail.com/BoilerPlate-A -d Production",
+        "code-push-ios": "appcenter codepush release-react -a lhngoc2497-gmail.com/BoilerPlate-IOS -d Production"
     },
     "dependencies": {
         "@react-native-community/async-storage": "^1.12.1",
