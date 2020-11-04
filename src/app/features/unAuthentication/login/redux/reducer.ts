@@ -3,9 +3,11 @@ import { createAction, createSlice } from '@reduxjs/toolkit';
 import { SLICE_NAME } from '@config/type';
 export interface LoginState {
   loading: boolean;
+  count: number;
 }
 const initialState: LoginState = {
   loading: false,
+  count: 0
 };
 const loginSlice = createSlice({
   name: SLICE_NAME.LOGIN,
@@ -17,6 +19,9 @@ const loginSlice = createSlice({
     },
     onLoginEnd: (state) => {
       state.loading = false
+    },
+    reset: () => {
+      return { ...initialState }
     }
   }
 })
