@@ -6,7 +6,7 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 
 const devMode = __DEV__;
 const sagaMiddleware = createSagaMiddleware();
-const middleware = [...getDefaultMiddleware(), sagaMiddleware];
+const middleware = [...getDefaultMiddleware({serializableCheck:false}), sagaMiddleware];
 if (devMode) {
     middleware.push(logger)
 }

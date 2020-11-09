@@ -9,3 +9,7 @@ export * from './array';
 export * from './handle';
 export * from './method';
 export * from './math';
+/**
+ * Firebase
+ */
+export * from './firebase';

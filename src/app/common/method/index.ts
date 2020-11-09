@@ -1,4 +1,4 @@
-import {showError, translate} from '@utils';
+import { translate } from '@utils';
 
 type TypesBase =
   | 'bigint'
@@ -11,7 +11,7 @@ type TypesBase =
   | 'undefined';
 
 export const onShowErrorBase = (msg: string) => {
-  showError(translate('dialog:error'), msg);
+  alert(msg)
 };
 export const onCheckType = (source: any, type: TypesBase) => {
   return typeof source === type;
