@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input: {
-    flex: 1,
     width: '100%',
     padding: 0,
     marginTop: 10,
@@ -169,7 +168,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
   ]);
   const containerSty = useMemo(
     () => enhance([styles.container, containerStyle]),
-    [inputStyle],
+    [containerStyle],
   );
   return (
     <Animated.View

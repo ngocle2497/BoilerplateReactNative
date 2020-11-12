@@ -1,15 +1,17 @@
-import React, {memo, useState, forwardRef, useImperativeHandle} from 'react';
+import React, { memo, useState, forwardRef, useImperativeHandle } from 'react';
 import {
   StyleSheet,
   ActivityIndicator,
   Platform,
   Dimensions,
 } from 'react-native';
-import {Block} from '../Block/Block';
-import {Text} from '../Text/Text';
+import { Block } from '../Block/Block';
+import { Text } from '../Text/Text';
 import Modal from 'react-native-modal';
 import equals from 'react-fast-compare';
-const {width} = Dimensions.get('window');
+import { AppTheme } from '@config/type';
+import { useTheme } from '@react-navigation/native';
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   modal: {
@@ -37,7 +39,7 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: 'normal',
   },
-  row: {flexDirection: 'row'},
+  row: { flexDirection: 'row' },
   column: {
     flexDirection: 'column',
   },
@@ -69,11 +71,12 @@ const ProgressDialogComponent = forwardRef((props, ref) => {
         setVisible(true);
       },
       hide: () => {
-        setVisible(true);
+        setVisible(false);
       },
     }),
     [],
   );
+  const theme: AppTheme = useTheme()
   const [visible, setVisible] = useState(false);
   const [message, setMessage] = useState('');
   const _onModalHide = () => {
@@ -85,6 +88,7 @@ const ProgressDialogComponent = forwardRef((props, ref) => {
       backdropOpacity={0}
       onModalHide={_onModalHide}
       animationIn={'fadeIn'}
+      style={[styles.modal]}
       animationOut={'fadeOut'}>
       <Block style={[styles.contentModal]}>
         <Block
@@ -94,7 +98,7 @@ const ProgressDialogComponent = forwardRef((props, ref) => {
               : styles.wrapDialogColumn,
           ]}>
           <ActivityIndicator
-            color={Platform.OS === 'android' ? undefined : '#ffffff'}
+            color={Platform.OS === 'android' ? theme.colors.primary : '#ffffff'}
           />
           {message && (
             <Text

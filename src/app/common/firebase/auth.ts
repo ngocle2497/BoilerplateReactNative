@@ -12,3 +12,7 @@ export const onLoginWithEmailAndPassword = async (email: string, password: strin
             return error
         })
 }
+export const onCheckLoggedIn = (callback: (user: FirebaseAuthTypes.User | null) => void) => {
+    firebaseAuth()
+        .onAuthStateChanged(callback)
+}
