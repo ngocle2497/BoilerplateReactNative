@@ -1,7 +1,7 @@
 {
     "scripts": {
-        "android": "cd android &&./gradlew clean && cd.. && npx react-native run-android ",
-        "ios": "cd ios && xcodebuild clean && cd.. && npx react-native run-ios",
+        "android": "cd android &&./gradlew clean && cd .. && npx react-native run-android ",
+        "ios": "cd ios && xcodebuild clean && cd .. && npx react-native run-ios",
         "yarn-ios":"yarn && yarn pod",
         "android-release": "npx react-native run-android --variant=release",
         "start": "npx react-native start --reset-cache",
