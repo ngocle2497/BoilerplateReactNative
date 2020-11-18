@@ -83,6 +83,16 @@ export interface FontSize {
   FONT_31: number;
 
   FONT_32: number;
+
+  FONT_33: number;
+
+  FONT_34: number;
+
+  FONT_35: number;
+
+  FONT_36: number;
+
+  FONT_37: number;
 }
 export interface FontFamily {
   primary: string;

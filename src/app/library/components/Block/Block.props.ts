@@ -3,8 +3,6 @@ import {
   ViewProps,
   StyleProp,
   FlexAlignType,
-  FlexStyle,
-  StyleSheet,
 } from 'react-native';
 
 type Direction = 'row' | 'column' | 'column-reverse' | 'row-reverse';

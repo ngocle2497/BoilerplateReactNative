@@ -1,7 +1,7 @@
-import {StyleSheet} from 'react-native';
-import {SpacingDefault} from '@theme/spacing';
-import {ColorDefault} from '@theme/color';
-import {FontSizeDefault} from '@theme/fontSize';
+import { StyleSheet } from 'react-native';
+import { SpacingDefault } from '@theme/spacing';
+import { ColorDefault } from '@theme/color';
+import { FontSizeDefault } from '@theme/fontSize';
 export const stylesView = StyleSheet.create({
   primary: {
     paddingVertical: SpacingDefault.smaller,
@@ -13,10 +13,8 @@ export const stylesView = StyleSheet.create({
   },
   link: {
     borderRadius: 4,
-    justifyContent: 'center',
     paddingHorizontal: 0,
     paddingVertical: 0,
-    alignItems: 'flex-start',
   },
 });
 

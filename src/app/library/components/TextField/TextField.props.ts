@@ -1,5 +1,5 @@
-import {TextInputProps, StyleProp, TextStyle, ViewStyle} from 'react-native';
-import {SetValueConfig} from 'react-hook-form/dist/types/form';
+import { TextInputProps, StyleProp, TextStyle, ViewStyle } from 'react-native';
+import { SetValueConfig } from 'react-hook-form/dist/types/form';
 
 export interface InputBaseProps extends TextInputProps {
   /**
@@ -149,6 +149,11 @@ export interface InputBaseProps extends TextInputProps {
    * @default undefined
    */
   placeholderColor?: string;
+
+  /**
+   * Children right input.(ex:Icon show/hide password)
+   */
+  rightChildren?: React.ReactNode;
 }
 
 export interface TextFieldProps extends InputBaseProps {

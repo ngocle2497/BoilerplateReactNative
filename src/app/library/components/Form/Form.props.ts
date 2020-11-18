@@ -34,5 +34,5 @@ export interface FormProps<TFieldValues extends FieldValues = FieldValues> {
   /**
    * setValue function of useForm
    */
-  setValue: (name: string, value?: any, options?: SetValueConfig) => void;
+  setValue: (name: any, value?: any, options?: SetValueConfig) => void;
 }

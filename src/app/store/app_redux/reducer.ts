@@ -2,7 +2,7 @@ import {
   DEV_MODE_API,
   PROD_MODE_API,
   STAGING_MODE_API,
-} from './../../library/networking/api';
+} from '@networking';
 import { AppState } from './type';
 import { AppModeType } from '@networking';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -17,6 +17,7 @@ const initialAppState: AppState = {
    * default true to load app
    */
   loading: false,
+  showDialog: false,
   theme: 'default',
   appMode: 'dev',
   appUrl: DEV_MODE_API,
@@ -54,6 +55,12 @@ const appSlice = createSlice({
     onLoadAppEnd: (state) => {
       state.loading = false
     },
+    onStartProcess: (state) => {
+      state.showDialog = true;
+    },
+    onEndProcess: (state) => {
+      state.showDialog = false;
+    },
     onSetAppMode: (state, { payload }: PayloadAction<AppModeType>) => {
       const appURL = appModeToURL(payload);
       state.appUrl = appURL;
@@ -62,8 +69,8 @@ const appSlice = createSlice({
     onLogout: (state) => {
       state.token = null;
       state.profile = {};
-    }
+    },
   }
 })
 export const appReducer = appSlice.reducer
-export const { onLogout, onLoadApp, onLoadAppEnd, onSetAppMode, onSetAppProfile, onSetAppTheme, onSetInternet, onSetToken } = appSlice.actions
+export const { onLogout, onStartProcess, onEndProcess, onLoadApp, onLoadAppEnd, onSetAppMode, onSetAppProfile, onSetAppTheme, onSetInternet, onSetToken } = appSlice.actions

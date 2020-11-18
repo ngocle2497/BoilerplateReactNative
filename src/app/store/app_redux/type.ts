@@ -1,5 +1,5 @@
-import {ThemeType} from '@theme';
-import {AppModeType} from '@networking';
+import { ThemeType } from '@theme';
+import { AppModeType } from '@networking';
 export interface AppState {
   internetState: boolean;
 
@@ -8,6 +8,8 @@ export interface AppState {
   token: any | undefined | null;
 
   loading: boolean;
+
+  showDialog: boolean;
 
   theme: ThemeType;
 

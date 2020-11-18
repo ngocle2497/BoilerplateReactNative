@@ -1,5 +1,5 @@
 import React, { memo, useMemo } from 'react';
-import { StyleSheet, Button } from 'react-native';
+import { Button } from 'react-native';
 import isEqual from 'react-fast-compare';
 import { Form } from '@components';
 import { ValidationMap } from '@library/components/Form/Form.props';

@@ -5,12 +5,13 @@ import React, {
   useCallback,
   forwardRef,
 } from 'react';
-import {StyleSheet, TextInput, LayoutChangeEvent} from 'react-native';
-import Animated, {interpolate} from 'react-native-reanimated';
-import {useTimingTransition} from '@animated';
-import {InputFlatProps} from './InputFlat.props';
-import {useTranslation} from 'react-i18next';
-import {enhance, onCheckType} from '@common';
+import { StyleSheet, TextInput, LayoutChangeEvent } from 'react-native';
+import Animated, { interpolate } from 'react-native-reanimated';
+import { useTimingTransition } from '@animated';
+import { InputFlatProps } from './InputFlat.props';
+import { useTranslation } from 'react-i18next';
+import { enhance, onCheckType } from '@common';
+import { Block } from '@library/components/Block/Block';
 
 const VERTICAL_PADDING = 5;
 const UN_ACTIVE_COLOR = 'rgb(159,152,146)';
@@ -69,11 +70,12 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
     disabledBorderColor = UN_ACTIVE_COLOR,
     disabled = false,
     error = undefined,
+    rightChildren = undefined,
     containerStyle = {},
     ...rest
   } = props;
-  const [sizeContainer, setSizeContainer] = useState({height: 0});
-  const [sizeText, setSizeText] = useState({height: 0});
+  const [sizeContainer, setSizeContainer] = useState({ height: 0 });
+  const [sizeText, setSizeText] = useState({ height: 0 });
   const [focused, setFocused] = useState(false);
   const [restored, setRestored] = useState(false);
   const [value, setValue] = useState('');
@@ -116,10 +118,10 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
     return unActiveTintBorderColor;
   }, [disabled, focused, error]);
   const _onLayoutContainer = useCallback((e: LayoutChangeEvent) => {
-    setSizeContainer({...sizeContainer, height: e.nativeEvent.layout.height});
+    setSizeContainer({ ...sizeContainer, height: e.nativeEvent.layout.height });
   }, []);
   const onLayoutText = useCallback((e: LayoutChangeEvent) => {
-    setSizeText({...sizeText, height: e.nativeEvent.layout.height});
+    setSizeText({ ...sizeText, height: e.nativeEvent.layout.height });
   }, []);
   const _onFocus = useCallback(() => {
     setFocused(true);
@@ -173,27 +175,30 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
   return (
     <Animated.View
       onLayout={_onLayoutContainer}
-      style={[containerSty, {borderColor: borderColor()}]}>
-      <TextInput
-        defaultValue={defaultValue ?? ''}
-        autoCorrect={false}
-        placeholder={focused === true ? placeHolder : ''}
-        placeholderTextColor={placeholderColor ?? undefined}
-        underlineColorAndroid={'transparent'}
-        clearButtonMode={'always'}
-        editable={!disabled}
-        onChangeText={_onChangeText}
-        onFocus={_onFocus}
-        onBlur={_onBlur}
-        style={inputSty}
-        ref={ref}
-        {...rest}
-      />
+      style={[containerSty, { borderColor: borderColor() }]}>
+      <Block direction={'row'}>
+        <TextInput
+          defaultValue={defaultValue ?? ''}
+          autoCorrect={false}
+          placeholder={focused === true ? placeHolder : ''}
+          placeholderTextColor={placeholderColor ?? undefined}
+          underlineColorAndroid={'transparent'}
+          clearButtonMode={'always'}
+          editable={!disabled}
+          onChangeText={_onChangeText}
+          onFocus={_onFocus}
+          onBlur={_onBlur}
+          style={inputSty}
+          ref={ref}
+          {...rest}
+        />
+        {rightChildren}
+      </Block>
       {labelText && (
-        <Animated.View pointerEvents={'none'} style={[styles.wrapLabel, {top}]}>
+        <Animated.View pointerEvents={'none'} style={[styles.wrapLabel, { top }]}>
           <Animated.Text
             onLayout={onLayoutText}
-            style={[styles.text, {color: labelColor(), fontSize: fontLabel}]}>
+            style={[styles.text, { color: labelColor(), fontSize: fontLabel }]}>
             {labelText ?? ''}
           </Animated.Text>
         </Animated.View>

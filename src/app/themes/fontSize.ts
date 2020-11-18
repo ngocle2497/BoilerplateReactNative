@@ -1,5 +1,5 @@
-import {FontSize} from './../config/type';
-import {moderateScale} from '@common';
+import { FontSize } from './../config/type';
+import { moderateScale } from '@common';
 export const FontSizeDefault: FontSize = {
   FONT_4: moderateScale(4),
   FONT_5: moderateScale(5),
@@ -30,5 +30,10 @@ export const FontSizeDefault: FontSize = {
   FONT_30: moderateScale(30),
   FONT_31: moderateScale(31),
   FONT_32: moderateScale(32),
+  FONT_33: moderateScale(33),
+  FONT_34: moderateScale(34),
+  FONT_35: moderateScale(35),
+  FONT_36: moderateScale(36),
+  FONT_37: moderateScale(37),
 };
 export type FontSizeTypes = keyof typeof FontSizeDefault;

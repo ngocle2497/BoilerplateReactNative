@@ -13,13 +13,6 @@ const loginSlice = createSlice({
   name: SLICE_NAME.LOGIN,
   initialState: initialState,
   reducers: {
-    onLoginStart: (state) => {
-      state.loading = true;
-
-    },
-    onLoginEnd: (state) => {
-      state.loading = false
-    },
     reset: () => {
       return { ...initialState }
     }

@@ -1,8 +1,7 @@
-import { HandleErrorApi } from '@common';
 import { StyleSheet } from 'react-native';
-import { TIME_OUT, RESULT_CODE_PUSH_OUT, CODE_TIME_OUT } from '@config';
+import { TIME_OUT, RESULT_CODE_PUSH_OUT } from '@config';
 import { AppState } from '@app_redux/type';
-import { race, delay, select } from 'redux-saga/effects';
+import { select } from 'redux-saga/effects';
 import { handleResponseAxios, handleErrorAxios, _onPushLogout } from './helper';
 import Axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { RootState } from '@store/allReducers';
@@ -59,10 +58,9 @@ function* Put(url: string, data: object, params?: object) {
 }
 
 // delete
-function* Delete(url: string, data: object, params?: object) {
+function* Delete(url: string, params?: object) {
   return yield Request({
     url: url,
-    data: data,
     params: params,
     method: 'DELETE',
   });

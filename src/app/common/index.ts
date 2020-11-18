@@ -9,6 +9,7 @@ export * from './array';
 export * from './handle';
 export * from './method';
 export * from './math';
+export * from './redux';
 /**
  * Firebase
  */

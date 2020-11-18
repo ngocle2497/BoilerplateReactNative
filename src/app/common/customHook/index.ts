@@ -9,34 +9,26 @@ import {
 } from 'react';
 import {
   useSelector as useReduxSelector,
-  useDispatch as useReduxDispatch,
-  TypedUseSelectorHook,
 } from 'react-redux';
-import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
-import {Clipboard} from 'react-native';
-import {useTheme} from '@react-navigation/native';
-import {AppTheme} from '@config/type';
-import {RootState} from '@store/allReducers';
-import {requestAnimation} from '@transition';
+import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
+import { useTheme } from '@react-navigation/native';
+import { AppTheme } from '@config/type';
+import { RootState } from '@store/allReducers';
+import { requestAnimation } from '@transition';
 
 type UseStateFull<T = any> = {
   value: T;
   setValue: React.Dispatch<SetStateAction<T>>;
 };
 
-const customSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
-
 function useSelector<T>(
   selector: (state: RootState) => T,
   equalityFn = isEqual,
 ): T {
-  const state = customSelector(x => x, equalityFn);
+  const state = useReduxSelector<RootState, RootState>(x => x, equalityFn);
   return selector(state);
 }
-function useDispatch() {
-  const dispatch = useReduxDispatch();
-  return dispatch;
-}
+
 function useAnimationState<T>(
   initialValue: T,
 ): [T, (newValue: T, withAnimation?: boolean) => void] {
@@ -69,22 +61,6 @@ function useInterval(callback: Function, delay: number) {
 
 //#endregion
 
-//#region useClippy
-
-type ClipboardTuple = [string, (clipboard: string) => void];
-function useClippy(): ClipboardTuple {
-  const [clipboard, setClipboard] = useState<string>('');
-  const syncClipboard = (text: any) => {
-    Clipboard.setString(text);
-  };
-  useEffect(() => {
-    Clipboard.getString().then((val: string) => {
-      setClipboard(val);
-    });
-  });
-  return [clipboard, syncClipboard];
-}
-//#endregion
 
 //#region useNetWorkStatus
 
@@ -117,16 +93,16 @@ type UseArrayActions<T> = {
   clear: () => void;
   move: (from: number, to: number) => void;
   removeById: (
-    id: T extends {id: string}
+    id: T extends { id: string }
       ? string
-      : T extends {id: number}
+      : T extends { id: number }
       ? number
       : unknown,
   ) => void;
   modifyById: (
-    id: T extends {id: string}
+    id: T extends { id: string }
       ? string
-      : T extends {id: number}
+      : T extends { id: number }
       ? number
       : unknown,
     newValue: Partial<T>,
@@ -173,7 +149,7 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
   const modifyById = useCallback(
     (id, newValue) =>
       // @ts-ignore not every array that you will pass down will have object with id field.
-      setValue(arr => arr.map(v => (v.id === id ? {...v, ...newValue} : v))),
+      setValue(arr => arr.map(v => (v.id === id ? { ...v, ...newValue } : v))),
     [],
   );
   const actions = useMemo(
@@ -222,7 +198,7 @@ function useBoolean(initial: boolean): UseBoolean {
   const toggle = useCallback(() => setValue(v => !v), []);
   const setTrue = useCallback(() => setValue(true), []);
   const setFalse = useCallback(() => setValue(false), []);
-  const actions = useMemo(() => ({setValue, toggle, setTrue, setFalse}), [
+  const actions = useMemo(() => ({ setValue, toggle, setTrue, setFalse }), [
     setFalse,
     setTrue,
     toggle,
@@ -407,7 +383,6 @@ function useAsyncState<T>(
 //#endregion
 export {
   useInterval,
-  useDispatch,
   useSelector,
   useClippy,
   useNetWorkStatus,
