@@ -1,4 +1,4 @@
-import {ImageStyle, ViewStyle, StyleProp} from 'react-native';
+import { ImageStyle, ViewStyle, StyleProp } from 'react-native';
 import FastImage from 'react-native-fast-image';
 export interface ImageRemoteProps {
   /**
@@ -16,17 +16,29 @@ export interface ImageRemoteProps {
   /**
    * (Required) Url of image
    */
-  imgSource: string;
+  source: string;
+
+  /**
+   * Source thumb(lazy load)
+   * @default source
+   */
+  sourceThumb?: string
+
+  /**
+   * Element when image load start
+   * @default element with color #bbb
+   */
+  childrenOnload?:React.ReactNode;
+
+  /**
+   * Element when image load error
+   * @default element with color #bbb
+   */
+  childrenError?:React.ReactNode;
 
   /**
    * Resize mode of image
    * @default contain
    */
   resizeMode?: keyof typeof FastImage.resizeMode;
-
-  /**
-   * Style default for image when imgSource error
-   * @default undefined
-   */
-  styleDefault?: StyleProp<ImageStyle>;
 }

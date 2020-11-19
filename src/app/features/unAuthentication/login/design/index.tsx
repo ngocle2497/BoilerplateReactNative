@@ -3,7 +3,7 @@ import isEqual from 'react-fast-compare';
 import { Wallpaper, Screen, ModalAppMode, ModalAppModeRef, Block } from '@components';
 import { onSetToken, onSetAppMode } from '@store/app_redux/reducer';
 import { FormLogin } from './components';
-import { dispatch, useSelector } from '@common';
+import { dispatch } from '@common';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList, APP_SCREEN } from '@navigation/screenTypes';
 

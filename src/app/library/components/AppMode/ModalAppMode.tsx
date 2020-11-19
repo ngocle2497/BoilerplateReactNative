@@ -12,7 +12,7 @@ import {Block} from '../Block/Block';
 import {Button} from '../Button/Button';
 import {Text} from '../Text/Text';
 import {SizeBox} from '../SizeBox/SizeBox';
-import {useSelector, useDispatch} from '@common';
+import {dispatch, useSelector} from '@common';
 import {onSetAppMode} from '@store/app_redux/reducer';
 import {saveString} from '@utils';
 import {R} from '@assets/value';
@@ -100,7 +100,6 @@ const ModalAppModeComponent = forwardRef((_: any, ref: any) => {
     }),
     [],
   );
-  const dispatch = useDispatch();
   const {appMode} = useSelector(x => x.app);
   const [isVisible, setIsVisible] = useState(false);
   const _hideModal = useCallback(() => {

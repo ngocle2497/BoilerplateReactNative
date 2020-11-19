@@ -384,7 +384,6 @@ function useAsyncState<T>(
 export {
   useInterval,
   useSelector,
-  useClippy,
   useNetWorkStatus,
   useArray,
   useBoolean,
