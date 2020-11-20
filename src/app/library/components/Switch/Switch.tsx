@@ -1,20 +1,16 @@
-import * as React from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import {
   TouchableWithoutFeedback,
   StyleSheet,
-  StyleProp,
-  ViewStyle,
 } from 'react-native';
-import {SwitchProps} from './Switch.props';
-import {enhance} from '@common';
+import { SwitchProps } from './Switch.props';
 import equals from 'react-fast-compare';
-import {timing, useValues, interpolateColor} from '@animated';
+import { interpolateColor, useTimingTransition } from '@animated';
 import Animated, {
-  useCode,
-  set,
-  Easing,
   interpolate,
+  Extrapolate,
 } from 'react-native-reanimated';
+import { onCheckType } from '@common';
 
 // dimensions
 const THUMB_SIZE = 30;
@@ -27,120 +23,59 @@ const BORDER_RADIUS = (THUMB_SIZE * 3) / 4;
 // colors
 const ON_COLOR = '#008000';
 const OFF_COLOR = '#e6e6e6';
-const BORDER_ON_COLOR = ON_COLOR;
 const BORDER_OFF_COLOR = 'rgba(0, 0, 0, 0.1)';
 
-// animation
-const DURATION = 250;
-
 const styles = StyleSheet.create({
-  TRACK: {
-    height: THUMB_SIZE + MARGIN,
+  track: {
     width: WIDTH,
+    height: THUMB_SIZE + MARGIN,
     borderRadius: BORDER_RADIUS,
     borderWidth: MARGIN / 2,
   },
-  THUMB: {
+  thumb: {
     position: 'absolute',
     width: THUMB_SIZE,
     height: THUMB_SIZE,
     borderColor: BORDER_OFF_COLOR,
     borderRadius: THUMB_SIZE / 2,
-    borderWidth: MARGIN / 2,
     backgroundColor: '#FFFFFF',
     shadowColor: BORDER_OFF_COLOR,
-    shadowOffset: {width: 1, height: 2},
+    shadowOffset: { width: 1, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 2,
     elevation: 2,
-  },
+  }
 });
 
 const SwitchComponent = ({
   onToggle,
-  style: overwriteStyle,
-  thumbOffStyle,
-  thumbOnStyle,
-  trackOffStyle,
-  trackOnStyle,
-  value,
+  initialValue = false
 }: SwitchProps) => {
-  const [timer] = useValues(value === true ? 1 : 0);
-  useCode(
-    () => [
-      set(
-        timer,
-        timing({
-          from: timer,
-          to: value === true ? 1 : 0,
-          easing: Easing.out(Easing.circle),
-          duration: DURATION,
-        }),
-      ),
-    ],
-    [value],
-  );
-
-  const [previousValue, setPreviousValue] = React.useState<boolean>(
-    value ?? false,
-  );
-  React.useEffect(() => {
-    if (value !== previousValue) {
-      setPreviousValue(value ?? false);
-    }
-  }, [value]);
-
-  const handlePress = React.useMemo(() => () => onToggle && onToggle(!value), [
-    onToggle,
-    value,
-  ]);
-  const translateX = interpolate(timer, {
+  const [value, setValue] = useState<boolean>(initialValue)
+  const progress = useTimingTransition(value)
+  const translateX = interpolate(progress, {
     inputRange: [0, 1],
     outputRange: [OFF_POSITION, ON_POSITION],
-  });
-  const bgTrackColor = interpolateColor(timer, {
+    extrapolate: Extrapolate.CLAMP
+  })
+  const backgroundColor = interpolateColor(progress, {
     inputRange: [0, 1],
     outputRange: [OFF_COLOR, ON_COLOR],
-  });
-  const borderColor = interpolateColor(timer, {
-    inputRange: [0, 1],
-    outputRange: [BORDER_OFF_COLOR, BORDER_ON_COLOR],
-  });
-  const style = React.useMemo(() => enhance([{}, overwriteStyle]), [
-    overwriteStyle,
-  ]);
-
-  const trackStyle = React.useMemo(
-    () =>
-      [
-        styles.TRACK,
-        {
-          backgroundColor: bgTrackColor,
-          borderColor: borderColor,
-        },
-        value ? trackOnStyle : trackOffStyle,
-      ] as StyleProp<Animated.AnimateStyle<ViewStyle>>,
-    [],
-  );
-
-  const thumbStyle = React.useMemo(
-    () =>
-      [
-        styles.THUMB,
-        {
-          transform: [{translateX}],
-        },
-        value ? thumbOnStyle : thumbOffStyle,
-      ] as StyleProp<Animated.AnimateStyle<ViewStyle>>,
-    [],
-  );
-
+  })
+  const _onToggle = useCallback(() => {
+    setValue(v => !v)
+  }, [])
+  useEffect(() => {
+    if (onToggle && onCheckType(onToggle, 'function')) {
+      onToggle(value)
+    }
+  }, [value])
   return (
-    <TouchableWithoutFeedback onPress={handlePress} style={style}>
-      <Animated.View style={trackStyle}>
-        <Animated.View style={thumbStyle} />
+    <TouchableWithoutFeedback onPress={_onToggle}>
+      <Animated.View style={[styles.track, { backgroundColor }]}>
+        <Animated.View style={[styles.thumb, { transform: [{ translateX }] }]} />
       </Animated.View>
     </TouchableWithoutFeedback>
-  );
+  )
 };
-export const Switch = React.memo(SwitchComponent, equals);
+export const Switch = memo(SwitchComponent, equals);
