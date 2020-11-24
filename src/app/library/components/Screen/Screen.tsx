@@ -1,154 +1,176 @@
-import * as React from 'react';
+import React, { memo, useMemo } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
   StatusBar,
-  ViewStyle,
+  StyleSheet,
 } from 'react-native';
-import {ScreenProps} from './Screen.props';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {Block} from '../Block/Block';
+import { ScreenProps } from './Screen.props';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Block } from '../Block/Block';
 import equals from 'react-fast-compare';
-import {enhance} from '@common';
+import { enhance } from '@common';
 
-export const presets = {
+const styles = StyleSheet.create({
   root: {
     flex: 1,
+    backgroundColor: 'transparent'
+  },
+  outer: {
     backgroundColor: 'transparent',
-  } as ViewStyle,
-  fixed: {
-    outer: {
-      backgroundColor: 'transparent',
-      flex: 1,
-    } as ViewStyle,
-    outer0: {
-      flex: 0,
-    } as ViewStyle,
-    inner: {
-      justifyContent: 'flex-start',
-      alignItems: 'stretch',
-      flex: 1,
-    } as ViewStyle,
+    flex: 1,
   },
-
-  scroll: {
-    outer: {
-      backgroundColor: 'transparent',
-      flex: 1,
-      height: '100%',
-    } as ViewStyle,
-    outer0: {
-      flex: 0,
-    } as ViewStyle,
-    inner: {justifyContent: 'flex-start', alignItems: 'stretch'} as ViewStyle,
+  insetBottom: {
+    bottom: 0
   },
-};
+  insetLeft: {
+    left: 0
+  },
+  insetTop: {
+    top: 0
+  },
+  insetRight: {
+    right: 0
+  },
+  inner: {
+    justifyContent: 'flex-start',
+    flex: 1,
+    width: '100%',
+  }
+})
 
 const isIos = Platform.OS === 'ios';
 
 function ScreenWithoutScrolling(props: ScreenProps) {
-  const preset = presets.fixed;
+  const inset = useSafeAreaInsets()
   const style = props.style || {};
   const {
     hidden = false,
     statusColor = undefined,
     draw = false,
-    customInsetBottom = false,
-    bottomIPXColor = '#ffffff',
+    bottomInsetColor = '#ffffff',
+    forceInset,
+    unsafe,
+    children,
+    statusBar,
+    backgroundColor,
+    leftInsetColor = '#ffffff',
+    rightInsetColor = '#ffffff',
   } = props;
-  const backgroundStyle = props.backgroundColor
-    ? {backgroundColor: props.backgroundColor}
-    : {};
-  const Wrapper = props.unsafe ? Block : SafeAreaView;
+
+  const backgroundStyle = useMemo(() => backgroundColor
+    ? { backgroundColor }
+    : {}, [backgroundColor]);
+
+  const Wrapper = unsafe ? Block : SafeAreaView;
+
   return (
     <KeyboardAvoidingView
-      style={[preset.outer]}
+      style={[styles.outer]}
       behavior={isIos ? 'padding' : undefined}
       keyboardVerticalOffset={0}>
       <StatusBar
         hidden={hidden}
         backgroundColor={statusColor}
         translucent={draw}
-        barStyle={props.statusBar || 'dark-content'}
+        barStyle={statusBar || 'dark-content'}
       />
-      {draw === false && (
-        <SafeAreaView style={[preset.outer0, {backgroundColor: statusColor}]} />
+      {!unsafe && (!forceInset || (forceInset && forceInset.includes('top'))) && isIos && (
+        <Block color={statusColor} position={'absolute'} height={inset.top} width={'100%'} />
       )}
-
+      {!unsafe && (!forceInset || (forceInset && forceInset.includes('left'))) && isIos && (
+        <Block color={leftInsetColor} position={'absolute'} style={[styles.insetLeft]} width={inset.left} height={'100%'} />
+      )}
+      {!unsafe && (!forceInset || (forceInset && forceInset.includes('right'))) && isIos && (
+        <Block color={rightInsetColor} position={'absolute'} style={[styles.insetRight]} width={inset.right} height={'100%'} />
+      )}
+      {!unsafe && (!forceInset || (forceInset && forceInset.includes('bottom'))) && isIos && (
+        <Block color={bottomInsetColor} style={[styles.insetBottom]} position={'absolute'} height={inset.bottom} width={'100%'} />
+      )}
       <Wrapper
-        edges={props.forceInset ?? undefined}
-        style={[preset.inner, style, backgroundStyle]}>
-        {props.children}
+        edges={forceInset ?? undefined}
+        style={[styles.inner, style, backgroundStyle]}>
+        {children}
       </Wrapper>
-      {customInsetBottom === true && (
-        <SafeAreaView
-          style={[preset.outer0, {backgroundColor: bottomIPXColor}]}
-        />
-      )}
     </KeyboardAvoidingView>
   );
 }
 
 function ScreenWithScrolling(props: ScreenProps) {
-  const preset = presets.scroll;
+  const inset = useSafeAreaInsets()
   const {
     showHorizontal = false,
     showVertical = false,
     hidden = false,
     statusColor = undefined,
+    statusBar,
     draw = false,
-    customInsetBottom = false,
-    bottomIPXColor = '#ffffff',
+    bottomInsetColor = '#ffffff',
+    backgroundColor,
     style = {},
+    forceInset,
+    unsafe = false,
+    children,
+    leftInsetColor = '#ffffff',
+    rightInsetColor = '#ffffff',
   } = props;
-  const backgroundStyle = props.backgroundColor
-    ? {backgroundColor: props.backgroundColor}
-    : {};
-  const Wrapper = props.unsafe ? Block : SafeAreaView;
 
-  const actualStyle = React.useMemo(() => enhance([preset.inner, style]), [
+  const backgroundStyle = useMemo(() => backgroundColor
+    ? { backgroundColor }
+    : {}, [backgroundColor]);
+
+  const actualStyle = useMemo(() => enhance([styles.inner, style]), [
     style,
   ]);
+
+  const Wrapper = unsafe ? Block : SafeAreaView;
   return (
     <KeyboardAvoidingView
-      style={[preset.outer]}
+      style={[styles.root]}
       behavior={isIos ? 'padding' : undefined}
       keyboardVerticalOffset={0}>
       <StatusBar
         hidden={hidden}
         backgroundColor={statusColor}
         translucent={draw}
-        barStyle={props.statusBar || 'dark-content'}
+        barStyle={statusBar || 'dark-content'}
       />
-      {draw === false && (
-        <SafeAreaView style={[preset.outer0, {backgroundColor: statusColor}]} />
+      {!unsafe && (!forceInset || (forceInset && forceInset.includes('top'))) && isIos && (
+        <Block color={statusColor} position={'absolute'} height={inset.top} width={'100%'} />
       )}
-      <Wrapper edges={props.forceInset ?? undefined} style={[preset.outer]}>
-        <ScrollView
-          showsVerticalScrollIndicator={showVertical}
-          showsHorizontalScrollIndicator={showHorizontal}
-          keyboardShouldPersistTaps="handled"
-          style={[preset.outer, backgroundStyle]}
-          contentContainerStyle={actualStyle}>
-          {props.children}
-        </ScrollView>
+      {!unsafe && (!forceInset || (forceInset && forceInset.includes('left'))) && isIos && (
+        <Block color={leftInsetColor} position={'absolute'} style={[styles.insetLeft]} width={inset.left} height={'100%'} />
+      )}
+      {!unsafe && (!forceInset || (forceInset && forceInset.includes('right'))) && isIos && (
+        <Block color={rightInsetColor} position={'absolute'} style={[styles.insetRight]} width={inset.right} height={'100%'} />
+      )}
+      {!unsafe && (!forceInset || (forceInset && forceInset.includes('bottom'))) && isIos && (
+        <Block color={bottomInsetColor} style={[styles.insetBottom]} position={'absolute'} height={inset.bottom} width={'100%'} />
+      )}
+      <Wrapper edges={forceInset ?? undefined} style={[styles.inner]}>
+        <Block block>
+          <ScrollView
+            showsVerticalScrollIndicator={showVertical}
+            showsHorizontalScrollIndicator={showHorizontal}
+            keyboardShouldPersistTaps="handled"
+            style={[styles.outer, backgroundStyle]}
+            contentContainerStyle={actualStyle}>
+            {children}
+          </ScrollView>
+        </Block>
       </Wrapper>
-      {customInsetBottom === true && (
-        <SafeAreaView
-          style={[preset.outer0, {backgroundColor: bottomIPXColor}]}
-        />
-      )}
+
     </KeyboardAvoidingView>
   );
 }
 
 function ScreenComponent(props: ScreenProps) {
-  const {scroll = false} = props;
+  const { scroll = false } = props;
   if (scroll) {
     return <ScreenWithScrolling {...props} />;
   } else {
     return <ScreenWithoutScrolling {...props} />;
   }
 }
-export const Screen = React.memo(ScreenComponent, equals);
+export const Screen = memo(ScreenComponent, equals);

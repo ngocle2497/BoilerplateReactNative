@@ -1,5 +1,5 @@
-import {ViewStyle, StyleProp} from 'react-native';
-import {Edge} from 'react-native-safe-area-context';
+import { ViewStyle, StyleProp } from 'react-native';
+import { Edge } from 'react-native-safe-area-context';
 
 export interface ScreenProps {
   /**
@@ -48,19 +48,24 @@ export interface ScreenProps {
    */
   draw?: boolean;
 
-  /**
-   * Enable to custom background color of inset bottom on Iphone
-   * @default false
-   */
-  customInsetBottom?: boolean;
 
   /**
-   * Color of inset bottom IPhone when customInsetBottom set to true
+   * Color of inset bottom IPhone
    * @default #ffffff
    */
-  bottomIPXColor?: string;
+  bottomInsetColor?: string;
 
-  outer0?: ViewStyle;
+  /**
+   * Color of inset left IPhone 
+   * @default #ffffff
+   */
+  leftInsetColor?: string
+
+    /**
+   * Color of inset left IPhone 
+   * @default #ffffff
+   */
+  rightInsetColor?: string
 
   /**
    * Show vertical indicator or not (using when scroll equal true)
@@ -85,4 +90,5 @@ export interface ScreenProps {
    * @default undefined
    */
   forceInset?: Edge[];
+
 }
