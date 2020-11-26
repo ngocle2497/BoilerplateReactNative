@@ -363,10 +363,10 @@ function useStyle<T>(style: (theme: AppTheme) => T): T {
 //#region useStateWithCallback
 function useAsyncState<T>(
   initialValue: T,
-): [T, (newValue: T, callback?: (newState: T) => void) => void] {
+): [T, (newValue: SetStateAction<T>, callback?: (newState: T) => void) => void] {
   const [state, setState] = useState(initialValue);
   const _callback = useRef<(newState: T) => void>();
-  const _setState = (newValue: T, callback?: (newState: T) => void) => {
+  const _setState = (newValue: SetStateAction<T>, callback?: (newState: T) => void) => {
     if (callback) {
       _callback.current = callback;
     }
