@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {TextInput, TextStyle} from 'react-native';
 import Animated from 'react-native-reanimated';
 
@@ -9,7 +9,7 @@ interface TextProps {
   style?: TextStyle;
 }
 
-const ReText = (props: TextProps) => {
+export const ReText = (props: TextProps) => {
   const {text, style} = {style: {}, ...props};
   return (
     <AnimatedTextInput
@@ -19,5 +19,3 @@ const ReText = (props: TextProps) => {
     />
   );
 };
-
-export default ReText;

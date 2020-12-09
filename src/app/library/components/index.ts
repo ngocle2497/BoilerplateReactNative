@@ -30,3 +30,4 @@ export * from './AppMode/ModalAppMode';
 export * from './Form/Form';
 export * from './Masonry/Masonry';
 export * from './SnackBar/SnackBar';
+export * from './Slider/Slider';

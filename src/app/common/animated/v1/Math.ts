@@ -55,9 +55,9 @@ export const clamp = proc(
 );
 
 export const between = (
-  value: Animated.Node<number>,
-  lowerBound: Animated.Adaptable<number>,
-  upperBound: Animated.Adaptable<number>,
+  value: Animated.Node<number> | number,
+  lowerBound: Animated.Adaptable<number> | number,
+  upperBound: Animated.Adaptable<number> | number,
   inclusive = true,
 ) => {
   if (inclusive) {
@@ -91,7 +91,7 @@ export const toDeg = proc(
 export const atan2 = proc(
   (y: Animated.Adaptable<number>, x: Animated.Adaptable<number>) => {
     const a = atan(divide(y, x));
-    const {PI} = Math;
+    const { PI } = Math;
     return cond(
       greaterThan(x, 0),
       a,
