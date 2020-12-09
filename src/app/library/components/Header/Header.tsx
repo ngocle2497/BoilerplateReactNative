@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useMemo, memo } from 'react';
 import {StyleSheet} from 'react-native';
 import {HeaderProps} from './Header.props';
 import {Button} from '../Button/Button';
@@ -13,7 +13,7 @@ import {SpacingDefault} from '@theme/spacing';
 
 const styles = () => {
   const inset = useSafeArea();
-  return React.useMemo(
+  return useMemo(
     () =>
       StyleSheet.create({
         ROOT: {
@@ -98,4 +98,4 @@ const HeaderComponent: React.FunctionComponent<HeaderProps> = props => {
     </Block>
   );
 };
-export const Header = React.memo(HeaderComponent, equals);
+export const Header = memo(HeaderComponent, equals);

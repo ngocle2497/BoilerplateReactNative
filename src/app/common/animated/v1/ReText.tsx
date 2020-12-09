@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {TextInput, TextStyle} from 'react-native';
 import Animated from 'react-native-reanimated';
 

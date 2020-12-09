@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useMemo, memo } from 'react';
 import { ImageStyle } from 'react-native';
 import { ImageProps } from './Image.props';
 import { images } from '@assets/image';
@@ -12,7 +12,7 @@ const ROOT: ImageStyle = {
 
 const ImgComponent = (props: ImageProps) => {
   const { style: styleOverride = {}, resizeMode = 'cover', source, containerStyle } = props;
-  const style = React.useMemo(
+  const style = useMemo(
     () => enhance([ROOT, styleOverride]),
     [styleOverride],
   );
@@ -23,4 +23,4 @@ const ImgComponent = (props: ImageProps) => {
     </Block>
   );
 };
-export const Img = React.memo(ImgComponent, equals);
+export const Img = memo(ImgComponent, equals);

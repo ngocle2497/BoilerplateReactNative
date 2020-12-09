@@ -3,8 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from './navigationService';
 import { RootNavigation } from './RootNavigator';
 import { useSelector, AppDispatch, dispatch } from '@common';
-import { ProgressDialog } from '@components';
-import { dialogHolder, hideLoading, showLoading } from '@utils';
+import { ProgressDialog, SnackBar } from '@components';
+import { dialogHolder, hideLoading, showLoading, snackBarHolder } from '@utils';
 import { onLoadApp } from '@store/app_redux/reducer';
 import { AppMode } from '@library/components/AppMode/AppMode';
 import { MyAppTheme } from '@theme';
@@ -28,6 +28,7 @@ export const AppContainer = () => {
           <>
             <RootNavigation token={token} />
             <ProgressDialog ref={dialogHolder} />
+            <SnackBar ref={snackBarHolder} />
             {appMode !== 'prod' && <AppMode {...{ appMode }} />}
           </>
         )}
