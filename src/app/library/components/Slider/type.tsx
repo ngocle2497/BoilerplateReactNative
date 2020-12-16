@@ -1,13 +1,5 @@
 
-type TypeSlider = 'linear' | 'range'
-
 export interface SliderProps {
-    /**
-     * Type of slider
-     * @default linear
-     */
-    type?: TypeSlider;
-
     /**
      * Min value of slider
      * @default 0
