@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 })
 
 
-const Slider_LinearComponent = ({ lowerBound = LOWER_BOUND, upperBound = UPPER_BOUND, initialLinear = 50, onChangeLinear }: Omit<SliderProps, 'type'>) => {
+const Slider_LinearComponent = ({ lowerBound = LOWER_BOUND, upperBound = UPPER_BOUND, initialLinear = 50, onChangeLinear }: SliderProps) => {
     if (lowerBound >= upperBound) {
         throw Error("lowerBound must be less than upperBound")
     }
