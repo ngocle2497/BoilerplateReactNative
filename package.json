@@ -17,7 +17,7 @@
         "code-push-ios": "appcenter codepush release-react -a lhngoc2497-gmail.com/BoilerPlate-IOS -d Production"
     },
     "dependencies": {
-        "@react-native-community/async-storage": "^1.12.1",
+        "react-native-sensitive-info": "^6.0.0-alpha.9",
         "@react-native-community/masked-view": "^0.1.10",
         "@react-native-community/blur": "^3.6.0",
         "@react-native-community/netinfo": "^5.9.7",
