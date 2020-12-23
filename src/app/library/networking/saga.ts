@@ -6,8 +6,8 @@ import { handleResponseAxios, handleErrorAxios, _onPushLogout } from './helper';
 import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { RootState } from '@store/allReducers';
 import { ApiConstants } from './api';
-import { store } from '@store/store';
 import { onSetToken } from '@store/app_redux/reducer';
+import { dispatch } from '@common';
 
 const tokenKeyHeader = 'authorization'
 let refreshTokenRequest: Promise<any> | null = null
@@ -23,7 +23,7 @@ AxiosInstance.interceptors.response.use(response => response, async function (er
     if (newToken === null) {
       return Promise.reject(error)
     }
-    store.dispatch(onSetToken(newToken))
+    dispatch(onSetToken(newToken))
     originalRequest.headers[tokenKeyHeader] = newToken
     return AxiosInstance(originalRequest)
   }
