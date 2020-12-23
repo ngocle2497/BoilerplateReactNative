@@ -10,4 +10,5 @@ export type AppModeType = keyof typeof APP_MODE_URL;
 
 export const ApiConstants = {
   LOGIN: '',
+  REFRESH_TOKEN: '',
 };

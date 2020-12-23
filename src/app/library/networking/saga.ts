@@ -3,8 +3,37 @@ import { TIME_OUT, RESULT_CODE_PUSH_OUT } from '@config';
 import { AppState } from '@app_redux/type';
 import { select } from 'redux-saga/effects';
 import { handleResponseAxios, handleErrorAxios, _onPushLogout } from './helper';
-import Axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { RootState } from '@store/allReducers';
+import { ApiConstants } from './api';
+import { store } from '@store/store';
+import { onSetToken } from '@store/app_redux/reducer';
+
+const tokenKeyHeader = 'authorization'
+let refreshTokenRequest: Promise<any> | null = null
+const AxiosInstance = Axios.create({})
+
+AxiosInstance.interceptors.response.use(response => response, async function (error) {
+  const originalRequest = error.config;
+  if (error && error.response && (error.response.status === 403 || error.response.status === 401) && !originalRequest._retry) {
+    originalRequest._retry = true;
+    refreshTokenRequest = refreshTokenRequest ? refreshTokenRequest : refreshToken(originalRequest)
+    const newToken = await refreshTokenRequest
+    refreshTokenRequest = null
+    if (newToken === null) {
+      return Promise.reject(error)
+    }
+    store.dispatch(onSetToken(newToken))
+    originalRequest.headers[tokenKeyHeader] = newToken
+    return AxiosInstance(originalRequest)
+  }
+  return Promise.reject(error);
+})
+
+// refresh token
+async function refreshToken(originalRequest: any) {
+  return AxiosInstance.get(ApiConstants.REFRESH_TOKEN, originalRequest).then((res: AxiosResponse) => res.data.data).catch(() => null)
+}
 
 // base
 function* Request(config: AxiosRequestConfig, isCheckOut = true) {
@@ -14,10 +43,10 @@ function* Request(config: AxiosRequestConfig, isCheckOut = true) {
     timeout: TIME_OUT,
     headers: {
       'Content-Type': 'application/json',
-      token: token,
+      [tokenKeyHeader]: token,
     },
   };
-  return yield Axios.request(StyleSheet.flatten([defaultConfig, config]))
+  return yield AxiosInstance.request(StyleSheet.flatten([defaultConfig, config]))
     .then((res: any) => {
       const result = handleResponseAxios(res);
       return result;
