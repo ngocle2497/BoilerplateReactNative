@@ -1,24 +1,25 @@
-import React, { useMemo, memo } from 'react';
-import { Image, ImageStyle } from 'react-native';
+import React, { memo, useMemo } from 'react';
+import { ImageStyle, TouchableOpacity } from 'react-native';
 import { IconProps } from './Icon.props';
 import { icons } from '@assets/icon';
 import { enhance } from '@common';
 import equals from 'react-fast-compare';
-import { Block } from '../Block/Block';
+import FastImage from 'react-native-fast-image';
+const SIZE = 24
 const ROOT: ImageStyle = {
-  resizeMode: 'contain',
+  resizeMode: 'cover',
 };
 
 const IconComponent = (props: IconProps) => {
-  const { style: styleOverride = {}, icon, containerStyle } = props;
-  const style: ImageStyle = useMemo(
-    () => enhance([ROOT, styleOverride]),
-    [styleOverride],
+  const { size = SIZE, icon, onPress, color } = props;
+  const style: ImageStyle = useMemo<ImageStyle>(
+    () => enhance([ROOT, { tintColor: color ?? undefined, width: size, height: size } as ImageStyle]),
+    [size, color],
   );
   return (
-    <Block style={containerStyle}>
-      <Image style={style} source={icons[icon ?? 'close']} />
-    </Block>
+    <TouchableOpacity disabled={typeof onPress !== 'function'} onPress={onPress}>
+      <FastImage style={style} source={icons[icon ?? 'default']} />
+    </TouchableOpacity>
   );
 };
 export const Icon = memo(IconComponent, equals);
