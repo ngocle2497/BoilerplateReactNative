@@ -13,12 +13,12 @@ const ROOT: ImageStyle = {
 const IconComponent = (props: IconProps) => {
   const { size = SIZE, icon, onPress, color } = props;
   const style: ImageStyle = useMemo<ImageStyle>(
-    () => enhance([ROOT, { tintColor: color ?? undefined, width: size, height: size } as ImageStyle]),
-    [size, color],
+    () => enhance([ROOT, { width: size, height: size } as ImageStyle]),
+    [size],
   );
   return (
     <TouchableOpacity disabled={typeof onPress !== 'function'} onPress={onPress}>
-      <FastImage style={style} source={icons[icon ?? 'default']} />
+      <FastImage style={style} tintColor={color} source={icons[icon ?? 'default']} />
     </TouchableOpacity>
   );
 };
