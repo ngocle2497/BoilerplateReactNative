@@ -6,7 +6,7 @@
   https://reactnative.dev/docs/getting-started
 - Create new project
   `npx react-native init <yourProjectName> --template react-native-template-typescript`
-- Copy `package.json` to your `package.json` file
+- Merge `package.json` to your `package.json` file
 
 - Install package
   `npm install` or
