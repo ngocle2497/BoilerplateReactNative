@@ -180,7 +180,7 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
   );
   return [value, actions];
 }
-
+const [value,actions] = useArray([])
 //#endregion
 
 //#region useBoolean
