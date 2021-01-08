@@ -159,11 +159,11 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
   }, [defaultValue]);
   const labelText = useMemo(
     () => (labelTx && t(labelTx)) || label || undefined,
-    [labelTx, label],
+    [labelTx, label, t],
   );
   const placeHolder = useMemo(
     () => (placeholderTx && t(placeholderTx)) || placeholder || '',
-    [placeholder, placeholderTx],
+    [placeholder, placeholderTx, t],
   );
   const inputSty = useMemo(() => enhance([styles.input, inputStyle]), [
     inputStyle,
