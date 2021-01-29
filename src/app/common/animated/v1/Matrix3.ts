@@ -1,8 +1,8 @@
 /* eslint-disable prefer-destructuring */
-import Animated from 'react-native-reanimated';
+import Animated from "react-native-reanimated";
 
-import {atan2} from './Math';
-import {Vector} from './Vectors';
+import {atan2} from "./Math";
+import {Vector} from "./Vectors";
 
 const {add, multiply, sqrt, cos, sin, sub, divide, pow, tan} = Animated;
 
@@ -15,28 +15,28 @@ export type Vec3 = readonly [
 export type Matrix3 = readonly [Vec3, Vec3, Vec3];
 
 type Transform2dName =
-  | 'translateX'
-  | 'translateY'
-  | 'scale'
-  | 'skewX'
-  | 'skewY'
-  | 'scaleX'
-  | 'scaleY'
-  | 'rotateZ'
-  | 'rotate';
+  | "translateX"
+  | "translateY"
+  | "scale"
+  | "skewX"
+  | "skewY"
+  | "scaleX"
+  | "scaleY"
+  | "rotateZ"
+  | "rotate";
 type Transformations = {
   [Name in Transform2dName]: Animated.Adaptable<number>;
 };
 export type Transforms2d = (
-  | Pick<Transformations, 'translateX'>
-  | Pick<Transformations, 'translateY'>
-  | Pick<Transformations, 'scale'>
-  | Pick<Transformations, 'scaleX'>
-  | Pick<Transformations, 'scaleY'>
-  | Pick<Transformations, 'skewX'>
-  | Pick<Transformations, 'skewY'>
-  | Pick<Transformations, 'rotateZ'>
-  | Pick<Transformations, 'rotate'>
+  | Pick<Transformations, "translateX">
+  | Pick<Transformations, "translateY">
+  | Pick<Transformations, "scale">
+  | Pick<Transformations, "scaleX">
+  | Pick<Transformations, "scaleY">
+  | Pick<Transformations, "skewX">
+  | Pick<Transformations, "skewY">
+  | Pick<Transformations, "rotateZ">
+  | Pick<Transformations, "rotate">
 )[];
 
 const exhaustiveCheck = (a: never): never => {
@@ -122,28 +122,28 @@ export const processTransform2d = (transforms: Transforms2d) =>
   transforms.reduce((acc, transform) => {
     const key = Object.keys(transform)[0] as Transform2dName;
     const value = (transform as Pick<Transformations, typeof key>)[key];
-    if (key === 'translateX') {
+    if (key === "translateX") {
       return multiply3(acc, translateXMatrix(value));
     }
-    if (key === 'translateY') {
+    if (key === "translateY") {
       return multiply3(acc, translateYMatrix(value));
     }
-    if (key === 'scale') {
+    if (key === "scale") {
       return multiply3(acc, scaleMatrix(value));
     }
-    if (key === 'scaleX') {
+    if (key === "scaleX") {
       return multiply3(acc, scaleXMatrix(value));
     }
-    if (key === 'scaleY') {
+    if (key === "scaleY") {
       return multiply3(acc, scaleYMatrix(value));
     }
-    if (key === 'skewX') {
+    if (key === "skewX") {
       return multiply3(acc, skewXMatrix(value));
     }
-    if (key === 'skewY') {
+    if (key === "skewY") {
       return multiply3(acc, skewYMatrix(value));
     }
-    if (key === 'rotate' || key === 'rotateZ') {
+    if (key === "rotate" || key === "rotateZ") {
       return multiply3(acc, rotateZMatrix(value));
     }
     return exhaustiveCheck(key);

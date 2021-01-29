@@ -1,6 +1,6 @@
-import Animated, {block, defined} from 'react-native-reanimated';
+import Animated, {block, defined} from "react-native-reanimated";
 
-import {clamp, max, min} from './Math';
+import {max, min} from "./Math";
 
 const {
   Value,
@@ -19,8 +19,8 @@ const {
   proc,
 } = Animated;
 
-export type SpringConfig = Partial<Omit<Animated.SpringConfig, 'toValue'>>;
-export type TimingConfig = Partial<Omit<Animated.TimingConfig, 'toValue'>>;
+export type SpringConfig = Partial<Omit<Animated.SpringConfig, "toValue">>;
+export type TimingConfig = Partial<Omit<Animated.TimingConfig, "toValue">>;
 
 export const mix = proc(
   (
@@ -76,7 +76,7 @@ export const snapPoint = (
 ) => {
   const point = add(value, multiply(0.2, velocity));
   const diffPoint = (p: Animated.Adaptable<number>) => abs(sub(point, p));
-  const deltas = points.map(p => diffPoint(p));
+  const deltas = points.map((p) => diffPoint(p));
   const minDelta = min(...deltas);
   return points.reduce(
     (acc, p) => cond(eq(diffPoint(p), minDelta), p, acc),

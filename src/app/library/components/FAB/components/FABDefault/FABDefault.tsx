@@ -1,12 +1,13 @@
-import React, {useMemo} from 'react';
-import {StyleSheet} from 'react-native';
-import {FABDefaultProps} from './FABDefault.props';
-import {Button} from '../../../Button/Button';
-import {Text} from '../../../Text/Text';
-import {Icon} from '../../../Icon/Icon';
+import React, {useMemo} from "react";
+import {StyleSheet} from "react-native";
+import {useSafeArea} from "react-native-safe-area-context";
+import {enhance} from "@common";
 
-import {useSafeArea} from 'react-native-safe-area-context';
-import {enhance} from '@common';
+import {Button} from "../../../Button/Button";
+import {Text} from "../../../Text/Text";
+import {Icon} from "../../../Icon/Icon";
+
+import {FABDefaultProps} from "./FABDefault.props";
 
 const SIZE_FAB = 60;
 const styles = StyleSheet.create({
@@ -14,14 +15,14 @@ const styles = StyleSheet.create({
     minWidth: SIZE_FAB,
     minHeight: SIZE_FAB,
     borderRadius: SIZE_FAB / 2,
-    backgroundColor: '#fe00f6',
-    position: 'absolute',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#fe00f6",
+    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
     paddingHorizontal: 10,
     paddingVertical: 5,
-    flexDirection: 'row',
-    shadowColor: '#000',
+    flexDirection: "row",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 3,
@@ -32,8 +33,8 @@ const styles = StyleSheet.create({
     elevation: 7,
   },
   label: {
-    color: '#FFFFFF',
-    fontWeight: 'normal',
+    color: "#FFFFFF",
+    fontWeight: "normal",
     fontFamily: undefined,
     paddingLeft: 5,
   },
@@ -55,7 +56,7 @@ export const FABDefault = (props: FABDefaultProps) => {
     <Button
       onPress={onPress}
       activeOpacity={0.6}
-      preset={'link'}
+      preset={"link"}
       style={[styleBase]}>
       <Icon icon={icon} />
       {React.isValidElement(label)

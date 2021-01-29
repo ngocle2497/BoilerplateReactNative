@@ -1,5 +1,6 @@
-import React, {createContext, useState} from 'react';
-import {ChildrenTransition} from './ChildrenTransition';
+import React, {createContext, useState} from "react";
+
+import {ChildrenTransition} from "./ChildrenTransition";
 
 export const LightBoxOverlayContext = createContext(null);
 

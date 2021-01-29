@@ -50,6 +50,7 @@
       "@utils": ["./src/app/library/utils/index"],
       "@library/*": ["./src/app/library/*"],
       "@networking": ["./src/app/library/networking/index"],
+      "@networking/*": ["./src/app/library/networking/*"],
       "@navigation/*": ["./src/app/navigation/*"],
       "@store/*": ["./src/app/store/*"],
       "@theme": ["./src/app/themes/index"],

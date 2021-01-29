@@ -1,7 +1,15 @@
-import {Platform} from 'react-native';
-import {PERMISSIONS, request, check, RESULTS} from 'react-native-permissions';
-import {showWarning} from '@utils';
-import {translate} from '@utils';
+/* eslint-disable @typescript-eslint/ban-types */
+import {Platform} from "react-native";
+import {
+  PERMISSIONS,
+  Permission,
+  request,
+  check,
+  RESULTS,
+} from "react-native-permissions";
+
+type Result = "unavailable" | "denied" | "blocked" | "granted" | "limited";
+
 export async function useCameraPermission() {
   const status = await request(
     Platform.select({
@@ -36,14 +44,14 @@ export async function useLocationPermission() {
   return status;
 }
 export function checkPermission(
-  permission,
+  permission: Permission,
   onUnAvailable?: Function,
   onDenied?: Function,
   onGranted?: Function,
   onBlocked?: Function,
 ) {
   check(permission)
-    .then(result => {
+    .then((result: Result) => {
       switch (result) {
         case RESULTS.UNAVAILABLE:
           /*
@@ -71,10 +79,5 @@ export function checkPermission(
           break;
       }
     })
-    .catch(error => {
-      showWarning(
-        translate('dialog:lbTitleWarning'),
-        translate('error:errorGetPermission'),
-      );
-    });
+    .catch(() => {});
 }

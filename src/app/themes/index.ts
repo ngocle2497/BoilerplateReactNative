@@ -1,5 +1,6 @@
-import {AppTheme} from '@config/type';
-import {ColorDefault, ColorDark} from './color';
+import {AppTheme} from "@config/type";
+
+import {ColorDefault, ColorDark} from "./color";
 
 const Default: AppTheme = {
   dark: false,

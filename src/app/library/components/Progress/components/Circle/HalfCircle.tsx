@@ -1,7 +1,8 @@
-import React, {memo} from 'react';
-import {StyleSheet} from 'react-native';
-import {Block} from '../../../Block/Block';
-import equals from 'react-fast-compare';
+import React, {memo} from "react";
+import {StyleSheet} from "react-native";
+import equals from "react-fast-compare";
+
+import {Block} from "../../../Block/Block";
 interface HalfCircleProps {
   color: string;
 
@@ -9,7 +10,7 @@ interface HalfCircleProps {
 }
 const styles = StyleSheet.create({
   wrap: {
-    overflow: 'hidden',
+    overflow: "hidden",
   },
 });
 

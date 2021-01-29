@@ -1,4 +1,7 @@
-import isEqual from 'react-fast-compare';
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-undef */
+import isEqual from "react-fast-compare";
 import {
   useEffect,
   useRef,
@@ -6,15 +9,13 @@ import {
   SetStateAction,
   useCallback,
   useMemo,
-} from 'react';
-import {
-  useSelector as useReduxSelector,
-} from 'react-redux';
-import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
-import { useTheme } from '@react-navigation/native';
-import { AppTheme } from '@config/type';
-import { RootState } from '@store/allReducers';
-import { requestAnimation } from '@transition';
+} from "react";
+import {useSelector as useReduxSelector} from "react-redux";
+import NetInfo, {NetInfoState} from "@react-native-community/netinfo";
+import {useTheme} from "@react-navigation/native";
+import {AppTheme} from "@config/type";
+import {RootState} from "@store/allReducers";
+import {requestAnimation} from "@transition";
 
 type UseStateFull<T = any> = {
   value: T;
@@ -25,7 +26,7 @@ function useSelector<T>(
   selector: (state: RootState) => T,
   equalityFn = isEqual,
 ): T {
-  const state = useReduxSelector<RootState, RootState>(x => x, equalityFn);
+  const state = useReduxSelector<RootState, RootState>((x) => x, equalityFn);
   return selector(state);
 }
 
@@ -53,14 +54,13 @@ function useInterval(callback: Function, delay: number) {
       savedCallback.current && savedCallback.current();
     }
     if (delay !== null) {
-      let id = setInterval(tick, delay);
+      const id = setInterval(tick, delay);
       return () => clearInterval(id);
     }
   }, [delay]);
 }
 
 //#endregion
-
 
 //#region useNetWorkStatus
 
@@ -84,7 +84,7 @@ function useNetWorkStatus(): NetInfoTuple {
 //#region useArray
 
 type UseArrayActions<T> = {
-  setValue: UseStateFull<T[]>['setValue'];
+  setValue: UseStateFull<T[]>["setValue"];
   add: (value: T | T[]) => void;
   push: (value: T | T[]) => void;
   pop: () => void;
@@ -93,16 +93,16 @@ type UseArrayActions<T> = {
   clear: () => void;
   move: (from: number, to: number) => void;
   removeById: (
-    id: T extends { id: string }
+    id: T extends {id: string}
       ? string
-      : T extends { id: number }
+      : T extends {id: number}
       ? number
       : unknown,
   ) => void;
   modifyById: (
-    id: T extends { id: string }
+    id: T extends {id: string}
       ? string
-      : T extends { id: number }
+      : T extends {id: number}
       ? number
       : unknown,
     newValue: Partial<T>,
@@ -113,18 +113,18 @@ type UseArray<T = any> = [T[], UseArrayActions<T>];
 
 function useArray<T = any>(initial: T[]): UseArray<T> {
   const [value, setValue] = useState(initial);
-  const push = useCallback(a => {
-    setValue(v => [...v, ...(Array.isArray(a) ? a : [a])]);
+  const push = useCallback((a) => {
+    setValue((v) => [...v, ...(Array.isArray(a) ? a : [a])]);
   }, []);
   const unshift = useCallback(
-    a => setValue(v => [...(Array.isArray(a) ? a : [a]), ...v]),
+    (a) => setValue((v) => [...(Array.isArray(a) ? a : [a]), ...v]),
     [],
   );
-  const pop = useCallback(() => setValue(v => v.slice(0, -1)), []);
-  const shift = useCallback(() => setValue(v => v.slice(1)), []);
+  const pop = useCallback(() => setValue((v) => v.slice(0, -1)), []);
+  const shift = useCallback(() => setValue((v) => v.slice(1)), []);
   const move = useCallback(
     (from: number, to: number) =>
-      setValue(it => {
+      setValue((it) => {
         const copy = it.slice();
         copy.splice(to < 0 ? copy.length + to : to, 0, copy.splice(from, 1)[0]);
         return copy;
@@ -133,13 +133,12 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
   );
   const clear = useCallback(() => setValue(() => []), []);
   const removeById = useCallback(
-    // @ts-ignore not every array that you will pass down will have object with id field.
-    id => setValue(arr => arr.filter(v => v && v.id !== id)),
+    (id) => setValue((arr) => arr.filter((v: any) => v && v.id !== id)),
     [],
   );
   const removeIndex = useCallback(
-    index =>
-      setValue(v => {
+    (index) =>
+      setValue((v) => {
         const copy = v.slice();
         copy.splice(index, 1);
         return copy;
@@ -148,8 +147,9 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
   );
   const modifyById = useCallback(
     (id, newValue) =>
-      // @ts-ignore not every array that you will pass down will have object with id field.
-      setValue(arr => arr.map(v => (v.id === id ? { ...v, ...newValue } : v))),
+      setValue((arr) =>
+        arr.map((v: any) => (v.id === id ? {...v, ...newValue} : v)),
+      ),
     [],
   );
   const actions = useMemo(
@@ -180,7 +180,6 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
   );
   return [value, actions];
 }
-const [value,actions] = useArray([])
 //#endregion
 
 //#region useBoolean
@@ -195,10 +194,10 @@ type UseBoolean = [boolean, UseBooleanActions];
 
 function useBoolean(initial: boolean): UseBoolean {
   const [value, setValue] = useState<boolean>(initial);
-  const toggle = useCallback(() => setValue(v => !v), []);
+  const toggle = useCallback(() => setValue((v) => !v), []);
   const setTrue = useCallback(() => setValue(true), []);
   const setFalse = useCallback(() => setValue(false), []);
-  const actions = useMemo(() => ({ setValue, toggle, setTrue, setFalse }), [
+  const actions = useMemo(() => ({setValue, toggle, setTrue, setFalse}), [
     setFalse,
     setTrue,
     toggle,
@@ -234,7 +233,7 @@ function useNumber(
   const [value, setValue] = useState<number>(initial);
   const decrease = useCallback(
     (d?: number) => {
-      setValue(aValue => {
+      setValue((aValue) => {
         const decreaseBy = d !== undefined ? d : step;
         const nextValue = aValue - decreaseBy;
 
@@ -255,7 +254,7 @@ function useNumber(
   );
   const increase = useCallback(
     (i?: number) => {
-      setValue(aValue => {
+      setValue((aValue) => {
         const increaseBy = i !== undefined ? i : step;
         const nextValue = aValue + increaseBy;
 
@@ -326,14 +325,14 @@ function useSetStateArray<T extends object>(
   const [value, setValue] = useState<T>(initialValue);
   const setState = useCallback(
     (v: SetStateAction<Partial<T>>) => {
-      return setValue(oldValue => ({
+      return setValue((oldValue) => ({
         ...oldValue,
-        ...(typeof v === 'function' ? v(oldValue) : v),
+        ...(typeof v === "function" ? v(oldValue) : v),
       }));
     },
     [setValue],
   );
-  const resetState = useCallback(() => setValue(initialValue), []);
+  const resetState = useCallback(() => setValue(initialValue), [initialValue]);
 
   return [value, setState, resetState];
 }
@@ -363,17 +362,23 @@ function useStyle<T>(style: (theme: AppTheme) => T): T {
 //#region useStateWithCallback
 function useAsyncState<T>(
   initialValue: T,
-): [T, (newValue: SetStateAction<T>, callback?: (newState: T) => void) => void] {
+): [
+  T,
+  (newValue: SetStateAction<T>, callback?: (newState: T) => void) => void,
+] {
   const [state, setState] = useState(initialValue);
   const _callback = useRef<(newState: T) => void>();
-  const _setState = (newValue: SetStateAction<T>, callback?: (newState: T) => void) => {
+  const _setState = (
+    newValue: SetStateAction<T>,
+    callback?: (newState: T) => void,
+  ) => {
     if (callback) {
       _callback.current = callback;
     }
     setState(newValue);
   };
   useEffect(() => {
-    if (typeof _callback.current === 'function') {
+    if (typeof _callback.current === "function") {
       _callback.current(state);
       _callback.current = undefined;
     }

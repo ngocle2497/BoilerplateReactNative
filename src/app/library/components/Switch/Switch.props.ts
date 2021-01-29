@@ -1,6 +1,4 @@
-import { ViewStyle, StyleProp } from 'react-native';
-
-type type = 'android' | 'ios'
+type type = "android" | "ios";
 
 export interface SwitchProps {
   /**

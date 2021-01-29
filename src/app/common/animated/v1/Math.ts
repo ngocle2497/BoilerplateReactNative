@@ -1,4 +1,4 @@
-import Animated from 'react-native-reanimated';
+import Animated from "react-native-reanimated";
 
 const {
   eq,
@@ -91,7 +91,7 @@ export const toDeg = proc(
 export const atan2 = proc(
   (y: Animated.Adaptable<number>, x: Animated.Adaptable<number>) => {
     const a = atan(divide(y, x));
-    const { PI } = Math;
+    const {PI} = Math;
     return cond(
       greaterThan(x, 0),
       a,

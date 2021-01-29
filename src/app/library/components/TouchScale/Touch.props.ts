@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable no-undef */
 export interface TouchableScaleProps {
   /**
    * Children of Touchable

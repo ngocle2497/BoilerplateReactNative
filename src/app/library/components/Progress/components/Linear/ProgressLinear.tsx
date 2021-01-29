@@ -1,22 +1,23 @@
-import React, {useState, memo} from 'react';
-import {StyleSheet, LayoutChangeEvent} from 'react-native';
-import {ProgressLinearProps} from './ProgressLinear.props';
-import {useValues, timing, clamp, transformOrigin} from '@animated';
-import Animated, {useCode, set, interpolate} from 'react-native-reanimated';
-import equals from 'react-fast-compare';
+import React, {useState, memo} from "react";
+import {StyleSheet, LayoutChangeEvent} from "react-native";
+import {useValues, timing, clamp, transformOrigin} from "@animated";
+import Animated, {useCode, set, interpolate} from "react-native-reanimated";
+import equals from "react-fast-compare";
+
+import {ProgressLinearProps} from "./ProgressLinear.props";
 
 const styles = StyleSheet.create({
   bg: {
-    width: '100%',
+    width: "100%",
     height: 4,
-    backgroundColor: '#dbdbdb',
+    backgroundColor: "#dbdbdb",
     marginVertical: 3,
   },
   fg: {
-    backgroundColor: '#0057e7',
+    backgroundColor: "#0057e7",
     left: 0,
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
 });
 

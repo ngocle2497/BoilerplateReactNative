@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/ban-types */
 export interface LightBoxProps {
   /**
    * Children of light box

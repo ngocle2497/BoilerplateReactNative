@@ -1,4 +1,4 @@
-import Animated, {diff, lessThan, or} from 'react-native-reanimated';
+import Animated, {diff, lessThan, or} from "react-native-reanimated";
 import {
   FlingGestureHandlerEventExtra,
   ForceTouchGestureHandlerEventExtra,
@@ -9,11 +9,11 @@ import {
   RotationGestureHandlerEventExtra,
   State,
   TapGestureHandlerEventExtra,
-} from 'react-native-gesture-handler';
-import {Platform} from 'react-native';
+} from "react-native-gesture-handler";
+import {Platform} from "react-native";
 
-import {snapPoint} from './Animations';
-import {vec} from './Vectors';
+import {snapPoint} from "./Animations";
+import {vec} from "./Vectors";
 
 const {
   proc,
@@ -35,12 +35,10 @@ const {
   call,
   decay: reDecay,
   spring: reSpring,
-  onChange,
-  debug,
 } = Animated;
 
 export const pinchBegan = proc((state: Animated.Node<State>) =>
-  Platform.OS === 'android'
+  Platform.OS === "android"
     ? cond(eq(diff(state), State.ACTIVE - State.BEGAN), eq(state, State.ACTIVE))
     : eq(state, State.BEGAN),
 );
@@ -50,13 +48,13 @@ export const pinchActive = proc(
     and(
       eq(state, State.ACTIVE),
       eq(numberOfPointers, 2),
-      Platform.OS === 'android' ? not(pinchBegan(state)) : 1,
+      Platform.OS === "android" ? not(pinchBegan(state)) : 1,
     ),
 );
 
 export const pinchEnd = proc(
   (state: Animated.Node<State>, numberOfPointers: Animated.Node<number>) =>
-    Platform.OS === 'android'
+    Platform.OS === "android"
       ? or(eq(state, State.END), lessThan(numberOfPointers, 2))
       : eq(state, State.END),
 );
@@ -87,7 +85,7 @@ interface PrivateSpringConfig extends Animated.SpringConfig {
   toValue: Animated.Value<number>;
 }
 
-type SpringConfig = Omit<Animated.SpringConfig, 'toValue'>;
+type SpringConfig = Omit<Animated.SpringConfig, "toValue">;
 
 export interface WithSpringParams {
   value: Animated.Adaptable<number>;

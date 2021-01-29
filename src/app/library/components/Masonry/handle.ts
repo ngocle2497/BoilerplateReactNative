@@ -1,4 +1,4 @@
-import {DataType, ObjectColumn, ObjectIndex} from './types';
+import {DataType, ObjectColumn, ObjectIndex} from "./types";
 
 export const assignObjectColumn = (
   nColumns: number,
@@ -12,7 +12,9 @@ export const assignObjectIndex = (
 ): ObjectIndex => ({...targetObject, ...{index}});
 
 export const containMatchingUri = (dest: DataType[], source: DataType[]) => {
-  return source.filter(img => dest.findIndex(x => x.uri === img.uri) === -1);
+  return source.filter(
+    (img) => dest.findIndex((x) => x.uri === img.uri) === -1,
+  );
 };
 
 export const onCheckNumber = (num: any) => {

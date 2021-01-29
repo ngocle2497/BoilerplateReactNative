@@ -1,5 +1,5 @@
-import { ImageStyle, ViewStyle, StyleProp } from 'react-native';
-import FastImage from 'react-native-fast-image';
+import {ImageStyle, ViewStyle, StyleProp} from "react-native";
+import FastImage from "react-native-fast-image";
 export interface ImageRemoteProps {
   /**
    * Overwrite image style
@@ -22,19 +22,19 @@ export interface ImageRemoteProps {
    * Source thumb(lazy load)
    * @default source
    */
-  sourceThumb?: string
+  sourceThumb?: string;
 
   /**
    * Element when image load start
    * @default element with color #bbb
    */
-  childrenOnload?:React.ReactNode;
+  childrenOnload?: React.ReactNode;
 
   /**
    * Element when image load error
    * @default element with color #bbb
    */
-  childrenError?:React.ReactNode;
+  childrenError?: React.ReactNode;
 
   /**
    * Resize mode of image

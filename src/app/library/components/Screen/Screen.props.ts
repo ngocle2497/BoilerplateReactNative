@@ -1,5 +1,6 @@
-import { ViewStyle, StyleProp } from 'react-native';
-import { Edge } from 'react-native-safe-area-context';
+/* eslint-disable no-undef */
+import {ViewStyle, StyleProp} from "react-native";
+import {Edge} from "react-native-safe-area-context";
 
 export interface ScreenProps {
   /**
@@ -23,7 +24,7 @@ export interface ScreenProps {
    * Status bar style
    * @default dark-content
    */
-  statusBar?: 'light-content' | 'dark-content';
+  statusBar?: "light-content" | "dark-content";
 
   /**
    * Using safe area on ios
@@ -48,7 +49,6 @@ export interface ScreenProps {
    */
   draw?: boolean;
 
-
   /**
    * Color of inset bottom IPhone
    * @default #ffffff
@@ -56,16 +56,16 @@ export interface ScreenProps {
   bottomInsetColor?: string;
 
   /**
-   * Color of inset left IPhone 
+   * Color of inset left IPhone
    * @default #ffffff
    */
-  leftInsetColor?: string
+  leftInsetColor?: string;
 
-    /**
-   * Color of inset left IPhone 
+  /**
+   * Color of inset left IPhone
    * @default #ffffff
    */
-  rightInsetColor?: string
+  rightInsetColor?: string;
 
   /**
    * Show vertical indicator or not (using when scroll equal true)
@@ -90,5 +90,4 @@ export interface ScreenProps {
    * @default undefined
    */
   forceInset?: Edge[];
-
 }

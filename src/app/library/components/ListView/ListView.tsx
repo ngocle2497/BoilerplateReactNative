@@ -1,7 +1,8 @@
-import React, {memo} from 'react';
-import {FlatList, RefreshControl} from 'react-native';
-import equals from 'react-fast-compare';
-import {ListViewProps} from './ListView.props';
+import React, {memo} from "react";
+import {FlatList, RefreshControl} from "react-native";
+import equals from "react-fast-compare";
+
+import {ListViewProps} from "./ListView.props";
 
 const ListViewComponent = (props: ListViewProps) => {
   const {
@@ -12,12 +13,12 @@ const ListViewComponent = (props: ListViewProps) => {
     refreshing = false,
   } = props;
   const loadMore = () => {
-    if (canLoadMore && onLoadMore && typeof onLoadMore === 'function') {
+    if (canLoadMore && onLoadMore && typeof onLoadMore === "function") {
       onLoadMore();
     }
   };
   const refresh = () => {
-    if (onRefreshing && typeof onRefreshing === 'function') {
+    if (onRefreshing && typeof onRefreshing === "function") {
       onRefreshing();
     }
   };

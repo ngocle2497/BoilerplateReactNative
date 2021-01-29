@@ -1,4 +1,4 @@
-import React, {memo, useState, useEffect, useCallback} from 'react';
+import React, {memo, useState, useEffect, useCallback} from "react";
 import {
   StyleSheet,
   View,
@@ -6,17 +6,19 @@ import {
   LayoutChangeEvent,
   Image,
   RefreshControl,
-} from 'react-native';
-import isEqual from 'react-fast-compare';
-import {MasonryProps, Dimensions, ItemColumn, DataType} from './types';
-import {DEFAULT_COLUMNS, DEFAULT_CELL_SPACE} from './constants';
+  ListRenderItemInfo,
+} from "react-native";
+import isEqual from "react-fast-compare";
+
+import {MasonryProps, Dimensions, ItemColumn, DataType} from "./types";
+import {DEFAULT_COLUMNS, DEFAULT_CELL_SPACE} from "./constants";
 import {
   assignObjectColumn,
   assignObjectIndex,
   onCheckNumber,
   containMatchingUri,
-} from './handle';
-import {Column} from './Column';
+} from "./handle";
+import {Column} from "./Column";
 
 const MasonryComponent = ({
   data = [],
@@ -43,6 +45,7 @@ const MasonryComponent = ({
   /**
    * Convert data to multi array to multi column
    */
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const _formatData = (
     _data: DataType[],
     _columns: number,
@@ -80,8 +83,8 @@ const MasonryComponent = ({
             setDataSource(newData);
           }
         },
-        _ => {
-          console.warn('Image failed to load');
+        (_) => {
+          console.warn("Image failed to load");
         },
       );
     }
@@ -92,7 +95,7 @@ const MasonryComponent = ({
    * @returns Array
    */
   const _insertIntoColumn = (img: ItemColumn, dataSet: Array<ItemColumn[]>) => {
-    let dataCopy = dataSet.slice();
+    const dataCopy = dataSet.slice();
     const columnIndex = img.column;
 
     const column = dataSet[columnIndex];
@@ -123,16 +126,16 @@ const MasonryComponent = ({
   );
 
   const _onHandleEndReach = useCallback(() => {
-    if (typeof onEndReach === 'function') {
+    if (typeof onEndReach === "function") {
       onEndReach();
     }
   }, [onEndReach]);
   const _onRefresh = useCallback(() => {
-    if (typeof onRefresh === 'function') {
+    if (typeof onRefresh === "function") {
       onRefresh();
     }
   }, [onRefresh]);
-  const _renderItem = ({item}: {item: ItemColumn[]; index: number}) => {
+  const _renderItem = ({item}: ListRenderItemInfo<ItemColumn[]>) => {
     return (
       <Column
         {...{
@@ -151,7 +154,7 @@ const MasonryComponent = ({
   };
   const _keyExtractor = useCallback(
     (_: ItemColumn[], index) => index.toString(),
-    [dataSource],
+    [],
   );
 
   // effect
@@ -169,7 +172,7 @@ const MasonryComponent = ({
       setOldColumn(_actualColumn);
       setOldData(data);
     }
-  }, [data, columns, space]);
+  }, [data, columns, space, oldData, _formatData, oldColumn]);
   return (
     <View onLayout={_onLayoutChange} style={[styles.container]}>
       <FlatList
@@ -203,8 +206,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    width: '100%',
+    justifyContent: "space-between",
+    flexDirection: "row",
+    width: "100%",
   },
 });

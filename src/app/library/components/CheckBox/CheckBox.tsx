@@ -1,28 +1,30 @@
-import React, {useMemo, useCallback} from 'react';
-import {StyleSheet} from 'react-native';
-import equals from 'react-fast-compare';
-import {Text} from '../Text/Text';
-import {Button} from '../Button/Button';
-import {Block} from '../Block/Block';
-import {SpacingDefault} from '@theme/spacing';
-import {ColorDefault} from '@theme/color';
-import {CheckboxProps} from './CheckBox.props';
-import {enhance} from '@common';
+import React, {useMemo, useCallback} from "react";
+import {StyleSheet} from "react-native";
+import equals from "react-fast-compare";
+import {SpacingDefault} from "@theme/spacing";
+import {ColorDefault} from "@theme/color";
+import {enhance} from "@common";
+
+import {Text} from "../Text/Text";
+import {Button} from "../Button/Button";
+import {Block} from "../Block/Block";
+
+import {CheckboxProps} from "./CheckBox.props";
 
 const DIMENSIONS = {width: 16, height: 16};
 const styles = StyleSheet.create({
   ROOT: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingVertical: SpacingDefault.tiny,
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
   OUTLINE: {
     ...DIMENSIONS,
     marginTop: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: ColorDefault.primaryDarker,
+    borderColor: ColorDefault.primary,
     borderRadius: 1,
   },
   FILL: {
@@ -61,7 +63,7 @@ const CheckBoxComponent = ({
   return (
     <Button
       activeOpacity={1}
-      preset={'link'}
+      preset={"link"}
       disabled={!onToggle}
       onPress={onPress}
       style={_rootStyle}>

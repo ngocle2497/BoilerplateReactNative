@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo, useRef} from 'react';
+import React, {useState, useEffect, useMemo, useRef, useCallback} from "react";
 import {
   StyleSheet,
   Modal,
@@ -7,63 +7,45 @@ import {
   PanResponder,
   Dimensions,
   Platform,
-} from 'react-native';
-import {useSafeArea} from 'react-native-safe-area-context';
-import {Button} from '../Button/Button';
-import {Text} from '../Text/Text';
-import {ChildrenTransitionProps} from './LightBox.props';
+} from "react-native";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
-const WINDOW_HEIGHT = Dimensions.get('window').height;
-const WINDOW_WIDTH = Dimensions.get('window').width;
+import {Button} from "../Button/Button";
+import {Text} from "../Text/Text";
+
+import {ChildrenTransitionProps} from "./LightBox.props";
+
+const WINDOW_HEIGHT = Dimensions.get("window").height;
+const WINDOW_WIDTH = Dimensions.get("window").width;
 const DRAG_DISMISS_THRESHOLD = 150;
+
 const styles = StyleSheet.create({
   background: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     width: WINDOW_WIDTH,
     height: WINDOW_HEIGHT,
   },
   textClose: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
   },
   buttonClose: {
-    position: 'absolute',
-    backgroundColor: 'transparent',
+    position: "absolute",
+    backgroundColor: "transparent",
   },
   open: {
-    position: 'absolute',
+    position: "absolute",
     // flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     // Android pan handlers crash without this declaration:
-    backgroundColor: 'transparent',
-  },
-  header: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: WINDOW_WIDTH,
-    backgroundColor: 'transparent',
-  },
-  closeButton: {
-    fontSize: 35,
-    color: 'white',
-    lineHeight: 40,
-    width: 40,
-    textAlign: 'center',
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowRadius: 1.5,
-    shadowColor: 'black',
-    shadowOpacity: 0.8,
+    backgroundColor: "transparent",
   },
 });
 
 export const ChildrenTransition = (props: ChildrenTransitionProps) => {
-  const inset = useSafeArea();
+  const inset = useSafeAreaInsets();
   const [target, setTarget] = useState({
     x: 0,
     y: 0,
@@ -104,8 +86,9 @@ export const ChildrenTransition = (props: ChildrenTransitionProps) => {
       }),
     },
   ];
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const open = () => {
-    Platform.OS === 'ios' && StatusBar.setHidden(true, 'slide');
+    Platform.OS === "ios" && StatusBar.setHidden(true, "slide");
     if (viewRef) {
       viewRef.setNativeProps({
         style: {
@@ -125,9 +108,9 @@ export const ChildrenTransition = (props: ChildrenTransitionProps) => {
       setAnimatedRunning(false);
     });
   };
-  const close = () => {
+  const close = useCallback(() => {
     setAnimatedRunning(true);
-    Platform.OS === 'ios' && StatusBar.setHidden(false, 'slide');
+    Platform.OS === "ios" && StatusBar.setHidden(false, "slide");
     Animated.spring(openVal, {toValue: 0, useNativeDriver: false}).start(() => {
       if (viewRef) {
         viewRef.setNativeProps({
@@ -139,29 +122,31 @@ export const ChildrenTransition = (props: ChildrenTransitionProps) => {
       setAnimatedRunning(true);
       onClose();
     });
-  };
+  }, [onClose, openVal, viewRef]);
+
   useEffect(() => {
     open();
-  }, []);
+  }, [open]);
+
   const panResponder = useMemo(
     () =>
       PanResponder.create({
         // Ask to be the responder:
-        onStartShouldSetPanResponder: (evt, gestureState) => !animatedRunning,
-        onStartShouldSetPanResponderCapture: (evt, gestureState) =>
+        onStartShouldSetPanResponder: (_evt, _gestureState) => !animatedRunning,
+        onStartShouldSetPanResponderCapture: (_evt, _gestureState) =>
           !animatedRunning,
-        onMoveShouldSetPanResponder: (evt, gestureState) => !animatedRunning,
-        onMoveShouldSetPanResponderCapture: (evt, gestureState) =>
+        onMoveShouldSetPanResponder: (_evt, _gestureState) => !animatedRunning,
+        onMoveShouldSetPanResponderCapture: (_evt, _gestureState) =>
           !animatedRunning,
 
-        onPanResponderGrant: (evt, gestureState) => {
+        onPanResponderGrant: (_evt, _gestureState) => {
           panY.setValue(0);
           panX.setValue(0);
           setOnDrag(true);
         },
         onPanResponderMove: Animated.event([null, {dy: panY, dx: panX}]),
-        onPanResponderTerminationRequest: (evt, gestureState) => true,
-        onPanResponderRelease: (evt, gestureState) => {
+        onPanResponderTerminationRequest: (_evt, _gestureState) => true,
+        onPanResponderRelease: (_evt, gestureState) => {
           if (Math.abs(gestureState.dy) > DRAG_DISMISS_THRESHOLD) {
             setOnDrag(false);
             setTarget({
@@ -180,14 +165,17 @@ export const ChildrenTransition = (props: ChildrenTransitionProps) => {
           }
         },
       }),
-    [animatedRunning],
+    [animatedRunning, close, panX, panY],
   );
   const bgOpacity = onDrag
     ? panY.interpolate({
         inputRange: [-WINDOW_HEIGHT, 0, WINDOW_HEIGHT],
         outputRange: [0, 1, 0],
       })
-    : openVal.interpolate({inputRange: [0, 0.5, 1], outputRange: [0, 0, 1]});
+    : openVal.interpolate({
+        inputRange: [0, 0.5, 1],
+        outputRange: [0, 0, 1],
+      });
 
   return (
     <Modal transparent={true} visible={true}>
@@ -195,7 +183,8 @@ export const ChildrenTransition = (props: ChildrenTransitionProps) => {
         style={[
           styles.background,
           {opacity: bgOpacity, backgroundColor: backgroundColor},
-        ]}></Animated.View>
+        ]}
+      />
       <Animated.View
         style={[openStyle, onDrag && {top: panY, left: panX}]}
         {...(swipeToDismiss && panResponder.panHandlers)}>
@@ -211,7 +200,7 @@ export const ChildrenTransition = (props: ChildrenTransitionProps) => {
             {top: inset.top + 20, left: inset.left + 20},
           ]}>
           <Animated.View style={{opacity: bgOpacity}}>
-            <Text style={[styles.textClose]} text={'X'} />
+            <Text style={[styles.textClose]} text={"X"} />
           </Animated.View>
         </Button>
       )}

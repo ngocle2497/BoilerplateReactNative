@@ -1,24 +1,35 @@
-import { Platform, StyleSheet } from 'react-native';
-import RNSInfo from 'react-native-sensitive-info';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {Platform, StyleSheet} from "react-native";
+import RNSInfo from "react-native-sensitive-info";
 
-const appName = "APP_Name"
-const storeName = Platform.select({ ios: 'keyChain', android: 'sharePreferences' })
-const dateCreateApp = new Date(2020, 10, 10, 0, 0, 0, 0)
-const AppKey = String(dateCreateApp) + appName + storeName
+const appName = "APP_Name";
+const storeName = Platform.select({
+  ios: "keyChain",
+  android: "sharePreferences",
+});
+const dateCreateApp = new Date(2020, 10, 10, 0, 0, 0, 0);
+const AppKey = String(dateCreateApp) + appName + storeName;
 
 const optionRNSensitive: RNSInfo.RNSensitiveInfoOptions = {
   sharedPreferencesName: AppKey,
-  keychainService: AppKey
-}
+  keychainService: AppKey,
+};
 
 /**
  * Loads a string from storage.
  *
  * @param key The key to fetch.
  */
-export async function loadString(key: string, option?: RNSInfo.RNSensitiveInfoOptions) {
+export async function loadString(
+  key: string,
+  option?: RNSInfo.RNSensitiveInfoOptions,
+) {
   try {
-    return await RNSInfo.getItem(key, StyleSheet.flatten([optionRNSensitive, option]));
+    return await RNSInfo.getItem(
+      key,
+      StyleSheet.flatten([optionRNSensitive, option]),
+    );
   } catch {
     // not sure why this would fail... even reading the RN docs I'm unclear
     return null;
@@ -31,9 +42,17 @@ export async function loadString(key: string, option?: RNSInfo.RNSensitiveInfoOp
  * @param key The key to fetch.
  * @param value The value to store.
  */
-export async function saveString(key: string, value: string, option?: RNSInfo.RNSensitiveInfoOptions) {
+export async function saveString(
+  key: string,
+  value: string,
+  option?: RNSInfo.RNSensitiveInfoOptions,
+) {
   try {
-    await RNSInfo.setItem(key, value, StyleSheet.flatten([optionRNSensitive, option]));
+    await RNSInfo.setItem(
+      key,
+      value,
+      StyleSheet.flatten([optionRNSensitive, option]),
+    );
     return true;
   } catch {
     return false;
@@ -45,10 +64,16 @@ export async function saveString(key: string, value: string, option?: RNSInfo.RN
  *
  * @param key The key to fetch.
  */
-export async function load(key: string, option?: RNSInfo.RNSensitiveInfoOptions) {
+export async function load(
+  key: string,
+  option?: RNSInfo.RNSensitiveInfoOptions,
+) {
   try {
-    const almostThere = await RNSInfo.getItem(key, StyleSheet.flatten([optionRNSensitive, option]));
-    return typeof almostThere === 'string' ? JSON.parse(almostThere) : null;
+    const almostThere = await RNSInfo.getItem(
+      key,
+      StyleSheet.flatten([optionRNSensitive, option]),
+    );
+    return typeof almostThere === "string" ? JSON.parse(almostThere) : null;
   } catch {
     return null;
   }
@@ -60,9 +85,17 @@ export async function load(key: string, option?: RNSInfo.RNSensitiveInfoOptions)
  * @param key The key to fetch.
  * @param value The value to store.
  */
-export async function save(key: string, value: any, option?: RNSInfo.RNSensitiveInfoOptions) {
+export async function save(
+  key: string,
+  value: any,
+  option?: RNSInfo.RNSensitiveInfoOptions,
+) {
   try {
-    await RNSInfo.setItem(key, JSON.stringify(value), StyleSheet.flatten([optionRNSensitive, option]));
+    await RNSInfo.setItem(
+      key,
+      JSON.stringify(value),
+      StyleSheet.flatten([optionRNSensitive, option]),
+    );
     return true;
   } catch {
     return false;
@@ -74,13 +107,21 @@ export async function save(key: string, value: any, option?: RNSInfo.RNSensitive
  *
  * @param key The key to kill.
  */
-export async function remove(key: string, option?: RNSInfo.RNSensitiveInfoOptions) {
+export async function remove(
+  key: string,
+  option?: RNSInfo.RNSensitiveInfoOptions,
+) {
   try {
-    await RNSInfo.deleteItem(key, StyleSheet.flatten([optionRNSensitive, option]));
-  } catch { }
+    await RNSInfo.deleteItem(
+      key,
+      StyleSheet.flatten([optionRNSensitive, option]),
+    );
+  } catch {}
 }
-const createSensitiveStorage = (paramOption: RNSInfo.RNSensitiveInfoOptions = {}) => {
-  const options = StyleSheet.flatten([optionRNSensitive, paramOption])
+const createSensitiveStorage = (
+  paramOption: RNSInfo.RNSensitiveInfoOptions = {},
+) => {
+  const options = StyleSheet.flatten([optionRNSensitive, paramOption]);
   // react-native-sensitive-info returns different a different structure on iOS
   // than it does on Android.
   //
@@ -104,7 +145,7 @@ const createSensitiveStorage = (paramOption: RNSInfo.RNSensitiveInfoOptions = {}
   // keys.
   const extractKeys = Platform.select({
     ios: (items: any) => items[0].map((item: any) => item.key),
-    android: Object.keys
+    android: Object.keys,
   });
 
   const noop = (...args: any[]) => null;
@@ -115,7 +156,10 @@ const createSensitiveStorage = (paramOption: RNSInfo.RNSensitiveInfoOptions = {}
         // getItem() returns `null` on Android and `undefined` on iOS;
         // explicitly return `null` here as `undefined` causes an exception
         // upstream.
-        let result: null | string | undefined = await RNSInfo.getItem(key, options);
+        let result: null | string | undefined = await RNSInfo.getItem(
+          key,
+          options,
+        );
 
         if (typeof result === "undefined") {
           result = null;
@@ -160,10 +204,10 @@ const createSensitiveStorage = (paramOption: RNSInfo.RNSensitiveInfoOptions = {}
         callback(error);
         throw error;
       }
-    }
+    },
   };
-}
+};
 export const reduxPersistStorage = createSensitiveStorage({
   keychainService: AppKey,
-  sharedPreferencesName: AppKey
+  sharedPreferencesName: AppKey,
 });

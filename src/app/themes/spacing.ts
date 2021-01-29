@@ -1,4 +1,5 @@
-import {Spacing} from './../config/type';
+import {Spacing} from "../config/type";
+
 export const SpacingDefault: Spacing = {
   none: 0,
   tiny: 4,

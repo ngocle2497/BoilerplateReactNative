@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, {
   useState,
   useRef,
@@ -6,37 +7,38 @@ import React, {
   useEffect,
   useContext,
   useCallback,
-} from 'react';
-import {View} from 'react-native';
-import {LightBoxProps} from './LightBox.props';
-import {Button} from '../Button/Button';
-import {LightBoxOverlayContext} from './Context';
+} from "react";
+import {View} from "react-native";
+
+import {Button} from "../Button/Button";
+
+import {LightBoxProps} from "./LightBox.props";
+import {LightBoxOverlayContext} from "./Context";
 
 export const ChildrenBox = (props: LightBoxProps) => {
   const {
     children,
-    backgroundColor = 'black',
+    backgroundColor = "black",
     renderContent,
     renderHeader,
     swipeToDismiss = true,
   } = props;
   const _root = useRef<View>(null);
-  const {value: activeContext, fn: setActiveContext} = useContext<any>(
-    LightBoxOverlayContext,
-  );
+  const {fn: setActiveContext} = useContext<any>(LightBoxOverlayContext);
   const [activeChild, setActiveChild] = useState<any>({});
   const _onOpen = useCallback(() => {
     setActiveContext(activeChild);
-  }, [activeChild]);
+  }, [activeChild, setActiveContext]);
   const _onClose = useCallback(() => {
     setActiveContext(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const getContent = useCallback(() => {
     if (renderContent) {
       return renderContent();
     }
     return cloneElement(Children.only(children), {});
-  }, [renderContent]);
+  }, [children, renderContent]);
   useEffect(() => {
     _root.current?.measure(
       (
@@ -63,10 +65,18 @@ export const ChildrenBox = (props: LightBoxProps) => {
         });
       },
     );
-  }, [props, _root]);
+  }, [
+    props,
+    _root,
+    renderHeader,
+    swipeToDismiss,
+    backgroundColor,
+    getContent,
+    _onClose,
+  ]);
   return (
     <View ref={_root} collapsable={false}>
-      <Button preset={'link'} onPress={_onOpen}>
+      <Button preset={"link"} onPress={_onOpen}>
         {children && children}
       </Button>
     </View>

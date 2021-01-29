@@ -1,5 +1,6 @@
-import Animated from 'react-native-reanimated';
-import {useRef} from 'react';
+/* eslint-disable @typescript-eslint/ban-types */
+import Animated from "react-native-reanimated";
+import {useRef} from "react";
 
 import {
   onGestureEvent,
@@ -8,18 +9,18 @@ import {
   rotationGestureHandler,
   tapGestureHandler,
   scrollHandler,
-} from './Gesture';
-import {vec} from './Vectors';
-import {loop} from './RunningAnimated';
+} from "./Gesture";
+import {vec} from "./Vectors";
+import {loop} from "./RunningAnimated";
 
-const {Clock, Value, diff, set, useCode, debug, block} = Animated;
+const {Clock, Value, diff, set, useCode} = Animated;
 
 export const useConst = <T>(initialValue: T | (() => T)): T => {
   const ref = useRef<{value: T}>();
   if (ref.current === undefined) {
     ref.current = {
       value:
-        typeof initialValue === 'function'
+        typeof initialValue === "function"
           ? (initialValue as Function)()
           : initialValue,
     };
@@ -105,7 +106,7 @@ type UseValues = {
 };
 
 export const useValues = ((<V extends Atomic>(...values: [V, ...V[]]) =>
-  useConst(() => values.map(v => new Value(v)))) as unknown) as UseValues;
+  useConst(() => values.map((v) => new Value(v)))) as unknown) as UseValues;
 
 export const useDiff = (node: Animated.Node<number>) => {
   const dDiff = useValue(0);

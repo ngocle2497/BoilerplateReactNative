@@ -1,3 +1,3 @@
-import {InputBaseProps} from '../../TextField.props';
+import {InputBaseProps} from "../../TextField.props";
 
-export interface InputFlatProps extends InputBaseProps {}
+export type InputFlatProps = InputBaseProps;

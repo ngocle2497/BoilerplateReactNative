@@ -1,31 +1,33 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-undef */
 import {
   TextStyle,
   TextProps as TextProperties,
   StyleProp,
   FlexAlignType,
-} from 'react-native';
-import {FontSizeTypes} from '@theme/fontSize';
-import {FontFamily} from '@theme/typography';
+} from "react-native";
+import {FontSizeTypes} from "@theme/fontSize";
+import {FontFamily} from "@theme/typography";
 
 type FontWeight =
-  | 'normal'
-  | 'bold'
-  | '100'
-  | '200'
-  | '300'
-  | '400'
-  | '500'
-  | '600'
-  | '700'
-  | '800'
-  | '900'
+  | "normal"
+  | "bold"
+  | "100"
+  | "200"
+  | "300"
+  | "400"
+  | "500"
+  | "600"
+  | "700"
+  | "800"
+  | "900"
   | undefined;
-type VerticalAlign = 'auto' | 'bottom' | 'center' | 'top' | undefined;
-type TextAlign = 'auto' | 'left' | 'right' | 'center' | 'justify';
-type TextTransform = 'none' | 'capitalize' | 'uppercase' | 'lowercase';
+type VerticalAlign = "auto" | "bottom" | "center" | "top" | undefined;
+type TextAlign = "auto" | "left" | "right" | "center" | "justify";
+type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase";
 
 export interface TextProps extends TextProperties {
-  fontStyle?: 'normal' | 'italic';
+  fontStyle?: "normal" | "italic";
 
   letterSpacing?: number;
 
@@ -47,7 +49,7 @@ export interface TextProps extends TextProperties {
    * Option of i18n
    * @default undefined
    */
-  txOptions?: object;
+  txOptions?: any;
 
   /**
    * Using text string instead i18n
@@ -191,7 +193,7 @@ export interface TextProps extends TextProperties {
    * Using align self
    * @default undefined
    */
-  alignSelf?: 'auto' | FlexAlignType;
+  alignSelf?: "auto" | FlexAlignType;
 
   /**
    * Overwrite textAlignVertical

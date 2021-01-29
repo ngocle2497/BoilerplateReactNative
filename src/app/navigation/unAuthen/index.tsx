@@ -1,8 +1,9 @@
-import React from 'react';
-import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
-import {Login} from '@features/unAuthentication/login/design';
-import {Register} from '@features/unAuthentication/register/design';
-import {APP_SCREEN} from '../screenTypes';
+import React from "react";
+import {createStackNavigator, TransitionPresets} from "@react-navigation/stack";
+import {Login} from "@features/unAuthentication/login/design";
+import {Register} from "@features/unAuthentication/register/design";
+
+import {APP_SCREEN} from "../screenTypes";
 
 const Stack = createStackNavigator();
 

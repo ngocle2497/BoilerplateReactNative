@@ -1,9 +1,9 @@
-import {useEffect} from 'react';
-import Animated, {Easing} from 'react-native-reanimated';
-import {State} from 'react-native-gesture-handler';
+import {useEffect} from "react";
+import Animated, {Easing} from "react-native-reanimated";
+import {State} from "react-native-gesture-handler";
 
-import {SpringConfig, TimingConfig} from './Animations';
-import {useConst} from './Hook';
+import {SpringConfig, TimingConfig} from "./Animations";
+import {useConst} from "./Hook";
 
 const {
   Value,
@@ -107,7 +107,7 @@ export const useTransition = (
 ) => {
   const value: Animated.Value<number> = useConst(() => new Value(0));
   useEffect(() => {
-    value.setValue(typeof state === 'boolean' ? (state ? 1 : 0) : state);
+    value.setValue(typeof state === "boolean" ? (state ? 1 : 0) : state);
   }, [value, state]);
   const transition = useConst(() => withTransition(value, config));
   return transition;
@@ -120,7 +120,7 @@ export const useSpringTransition = (
   const value: Animated.Value<number> = useConst(() => new Value(0));
 
   useEffect(() => {
-    value.setValue(typeof state === 'boolean' ? (state ? 1 : 0) : state);
+    value.setValue(typeof state === "boolean" ? (state ? 1 : 0) : state);
   }, [value, state]);
 
   const transition = useConst(() => withSpringTransition(value, config));

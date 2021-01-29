@@ -1,35 +1,40 @@
-import React, { useMemo, memo } from 'react';
-import {StyleSheet} from 'react-native';
-import {HeaderProps} from './Header.props';
-import {Button} from '../Button/Button';
-import {Text} from '../Text/Text';
-import {Icon} from '../Icon/Icon';
-import {Block} from '../Block/Block';
-import {enhance} from '@common';
-import equals from 'react-fast-compare';
-import {useSafeArea} from 'react-native-safe-area-context';
-import {useTranslation} from 'react-i18next';
-import {SpacingDefault} from '@theme/spacing';
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable react-native/no-unused-styles */
+import React, {useMemo, memo} from "react";
+import {StyleSheet} from "react-native";
+import {enhance} from "@common";
+import equals from "react-fast-compare";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {useTranslation} from "react-i18next";
+import {SpacingDefault} from "@theme/spacing";
+
+import {Block} from "../Block/Block";
+import {Icon} from "../Icon/Icon";
+import {Text} from "../Text/Text";
+import {Button} from "../Button/Button";
+
+import {HeaderProps} from "./Header.props";
 
 const styles = () => {
-  const inset = useSafeArea();
+  const inset = useSafeAreaInsets();
   return useMemo(
     () =>
       StyleSheet.create({
         ROOT: {
-          flexDirection: 'row',
+          flexDirection: "row",
           paddingHorizontal: SpacingDefault.tiny,
-          alignItems: 'center',
+          alignItems: "center",
           paddingTop: inset.top + SpacingDefault.tiny,
           paddingBottom: SpacingDefault.small,
-          justifyContent: 'flex-start',
+          justifyContent: "flex-start",
         },
         TITLE: {
-          textAlign: 'center',
+          textAlign: "center",
         },
         TITLE_MIDDLE: {
           flex: 1,
-          justifyContent: 'center',
+          justifyContent: "center",
         },
         LEFT: {
           width: 32,
@@ -46,7 +51,7 @@ const styles = () => {
   );
 };
 
-const HeaderComponent: React.FunctionComponent<HeaderProps> = props => {
+const HeaderComponent: React.FunctionComponent<HeaderProps> = (props) => {
   const {
     onLeftPress,
     onRightPress,
@@ -62,7 +67,7 @@ const HeaderComponent: React.FunctionComponent<HeaderProps> = props => {
     styleRight = {},
   } = props;
   const [t] = useTranslation();
-  const header = headerText || (headerTx && t(headerTx)) || '';
+  const header = headerText || (headerTx && t(headerTx)) || "";
 
   const wrapStyle = enhance([styles().ROOT, style]);
   const title = enhance([styles().TITLE, titleStyle]);

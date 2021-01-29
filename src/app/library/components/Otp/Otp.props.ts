@@ -1,4 +1,4 @@
-import {TextInputProps, ViewStyle, TextStyle, StyleProp} from 'react-native';
+import {TextInputProps, ViewStyle, TextStyle, StyleProp} from "react-native";
 
 export interface OtpProps extends TextInputProps {
   /**

@@ -1,5 +1,6 @@
-import {IconTypes} from '@assets/icon';
-import {ViewStyle} from 'react-native';
+/* eslint-disable no-undef */
+import {IconTypes} from "@assets/icon";
+import {ViewStyle} from "react-native";
 export interface FABDefaultProps {
   onPress?: () => void;
 

@@ -1,7 +1,6 @@
-import { IconTypes } from '@assets/icon';
+import {IconTypes} from "@assets/icon";
 
 export interface IconProps {
-
   /**
    * Size of Icon
    * @default 24
@@ -12,7 +11,7 @@ export interface IconProps {
    * Tint color of icon
    * @default undefined
    */
-  color?: string
+  color?: string;
 
   /**
    * Allow onPress to icon

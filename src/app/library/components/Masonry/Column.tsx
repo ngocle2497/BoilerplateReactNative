@@ -1,9 +1,17 @@
-import React, {memo, useState, useEffect, useMemo, useCallback} from 'react';
-import {View, StyleProp, ViewStyle, FlatList} from 'react-native';
-import isEqual from 'react-fast-compare';
-import {ColumnsProps, Dimensions, CellProps, ItemColumn} from './types';
-import {Cell} from './Cell';
-import {DEFAULT_COLUMNS, DEFAULT_CELL_SPACE} from './constants';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {memo, useState, useEffect, useMemo, useCallback} from "react";
+import {
+  View,
+  StyleProp,
+  ViewStyle,
+  FlatList,
+  ListRenderItemInfo,
+} from "react-native";
+import isEqual from "react-fast-compare";
+
+import {ColumnsProps, Dimensions, CellProps, ItemColumn} from "./types";
+import {Cell} from "./Cell";
+import {DEFAULT_COLUMNS, DEFAULT_CELL_SPACE} from "./constants";
 
 const ColumnComponent = ({
   data,
@@ -51,19 +59,26 @@ const ColumnComponent = ({
   };
 
   const _keyExtractor = useCallback(
-    (item: CellProps) => 'IMAGE_' + item.uri,
+    (item: CellProps) => "IMAGE_" + item.uri,
     [],
   );
 
-  const _renderItem = ({item}: {item: CellProps; index: number}) => {
-    const {height, width, uri, data, column, dimensions} = item;
+  const _renderItem = ({item}: ListRenderItemInfo<CellProps>) => {
+    const {
+      height,
+      width,
+      uri,
+      data: dataItem,
+      column,
+      dimensions: dimensionsItem,
+    } = item;
     const propsBase = {
       uri,
       width,
       height,
-      data,
+      data: dataItem,
       column,
-      actualSize: dimensions,
+      actualSize: dimensionsItem,
     };
     return !customRenderItem ? (
       <Cell
@@ -86,14 +101,14 @@ const ColumnComponent = ({
   }, [space]);
 
   const containerStyle = useMemo(
-    () => [{width: columnWidth, overflow: 'hidden'}] as StyleProp<ViewStyle>,
+    () => [{width: columnWidth, overflow: "hidden"}] as StyleProp<ViewStyle>,
     [columnWidth],
   );
 
   useEffect(() => {
     const images = _resizeImage();
     setDataSource(images);
-  }, [data, dimensions, columns, columnWidth, space]);
+  }, [data, dimensions, columns, columnWidth, space, _resizeImage]);
 
   return (
     <View style={containerStyle}>
@@ -104,7 +119,7 @@ const ColumnComponent = ({
         ItemSeparatorComponent={_renderSpace}
         keyExtractor={_keyExtractor}
         bounces={false}
-        overScrollMode={'never'}
+        overScrollMode={"never"}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       />

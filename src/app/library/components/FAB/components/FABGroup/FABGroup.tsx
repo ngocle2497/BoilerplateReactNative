@@ -1,27 +1,31 @@
-import React, {useState, useRef, useEffect, useMemo} from 'react';
-import {StyleSheet, Text, useWindowDimensions, Animated} from 'react-native';
-import {FABGroupProps, Actions} from './FABGroup.props';
-import {useSafeArea} from 'react-native-safe-area-context';
-import {enhance} from '@common';
-import {Button} from '../../../Button/Button';
-import {Block} from '../../../Block/Block';
-import {Icon} from '../../../Icon/Icon';
-import {ButtonGroup, SPACE_BETWEEN} from './ButtonGroup';
+/* eslint-disable @typescript-eslint/ban-types */
+import React, {useState, useRef, useEffect, useMemo} from "react";
+import {StyleSheet, Text, useWindowDimensions, Animated} from "react-native";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {enhance} from "@common";
+
+import {Button} from "../../../Button/Button";
+import {Block} from "../../../Block/Block";
+import {Icon} from "../../../Icon/Icon";
+
+import {FABGroupProps, Actions} from "./FABGroup.props";
+import {ButtonGroup, SPACE_BETWEEN} from "./ButtonGroup";
+
 export const SIZE_FAB = 60;
 const styles = StyleSheet.create({
   wrap: {
     minWidth: SIZE_FAB,
     height: SIZE_FAB,
     borderRadius: SIZE_FAB / 2,
-    backgroundColor: '#fe00f6',
-    position: 'absolute',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#fe00f6",
+    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
     paddingHorizontal: 10,
     paddingVertical: 5,
-    flexDirection: 'row',
+    flexDirection: "row",
     zIndex: 3,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 3,
@@ -32,23 +36,23 @@ const styles = StyleSheet.create({
     elevation: 7,
   },
   label: {
-    color: '#FFFFFF',
-    fontWeight: 'normal',
+    color: "#FFFFFF",
+    fontWeight: "normal",
     fontFamily: undefined,
     paddingLeft: 5,
   },
   background: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     zIndex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
   },
   wrapAction: {
-    position: 'absolute',
+    position: "absolute",
     zIndex: 2,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
   },
 });
 export const FABGroup = (props: FABGroupProps) => {
@@ -56,7 +60,7 @@ export const FABGroup = (props: FABGroupProps) => {
   const window = useWindowDimensions();
   const [isShow, setIsShow] = useState(false);
   const progress = useRef(new Animated.Value(0)).current;
-  const inset = useSafeArea();
+  const inset = useSafeAreaInsets();
   const styleBase = useMemo(
     () =>
       enhance([
@@ -89,7 +93,7 @@ export const FABGroup = (props: FABGroupProps) => {
       <Button
         onPress={_show}
         activeOpacity={0.6}
-        preset={'link'}
+        preset={"link"}
         style={[styleBase]}>
         <Icon icon={icon} />
         {React.isValidElement(label)

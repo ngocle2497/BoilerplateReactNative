@@ -1,15 +1,16 @@
-import React, {memo, useMemo, useCallback} from 'react';
+import React, {memo, useMemo, useCallback} from "react";
 import {
   View,
   TouchableOpacity,
   StyleProp,
   ImageStyle,
   ImageProps,
-} from 'react-native';
-import isEqual from 'react-fast-compare';
-import {CellProps} from './types';
-import {Injector} from './Injector';
-import FastImage from 'react-native-fast-image';
+} from "react-native";
+import isEqual from "react-fast-compare";
+import FastImage from "react-native-fast-image";
+
+import {CellProps} from "./types";
+import {Injector} from "./Injector";
 
 const CellComponent = ({
   onPress,
@@ -28,7 +29,7 @@ const CellComponent = ({
     [uri, width, height, data, column, dimensions],
   );
   const _onPress = useCallback(() => {
-    if (typeof onPress === 'function') {
+    if (typeof onPress === "function") {
       onPress(dataBase);
     }
   }, [onPress, dataBase]);
@@ -39,7 +40,7 @@ const CellComponent = ({
 
   const _renderFooter = useCallback(() => {
     return renderFooter ? renderFooter(dataBase) : null;
-  }, [dataBase, renderHeader]);
+  }, [dataBase, renderFooter]);
 
   const imageStyle = useMemo(
     () =>
@@ -47,13 +48,13 @@ const CellComponent = ({
         {width: width, height: height, minHeight: 0, minWidth: 0},
         containerImageStyle,
       ] as StyleProp<ImageStyle>,
-    [width, height],
+    [width, height, containerImageStyle],
   );
   const imageProps = useMemo<ImageProps>(
     () => ({
       key: uri,
       data: data,
-      resizeMethod: 'auto',
+      resizeMethod: "auto",
       source: {uri},
       style: imageStyle,
     }),
@@ -64,7 +65,7 @@ const CellComponent = ({
     <View>
       <TouchableOpacity
         onPress={_onPress}
-        activeOpacity={typeof onPress === 'function' ? 0.6 : 1}>
+        activeOpacity={typeof onPress === "function" ? 0.6 : 1}>
         <View>
           {_renderHeader()}
           <Injector defaultComponent={FastImage} defaultProps={imageProps} />

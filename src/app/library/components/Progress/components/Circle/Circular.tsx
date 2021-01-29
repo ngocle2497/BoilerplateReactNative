@@ -1,5 +1,5 @@
-import React, {memo} from 'react';
-import {StyleSheet} from 'react-native';
+import React, {memo} from "react";
+import {StyleSheet} from "react-native";
 import Animated, {
   Extrapolate,
   interpolate,
@@ -7,13 +7,15 @@ import Animated, {
   multiply,
   useCode,
   set,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
+import equals from "react-fast-compare";
+import {transformOrigin, useValues, clamp, timing} from "@animated";
 
-import {transformOrigin, useValues, clamp, timing} from '@animated';
-import {HalfCircle} from './HalfCircle';
-import {Block} from '../../../Block/Block';
+import {Block} from "../../../Block/Block";
+
+import {HalfCircle} from "./HalfCircle";
+
 const {PI} = Math;
-import equals from 'react-fast-compare';
 
 interface CircularProps {
   progress: number;
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   circleBottom: {
-    transform: [{rotate: '180deg'}],
+    transform: [{rotate: "180deg"}],
   },
 });
 

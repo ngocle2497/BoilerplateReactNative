@@ -1,4 +1,7 @@
-import {StyleProp, ImageStyle} from 'react-native';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable no-undef */
+import {StyleProp, ImageStyle} from "react-native";
 
 export interface Dimensions {
   width: number;

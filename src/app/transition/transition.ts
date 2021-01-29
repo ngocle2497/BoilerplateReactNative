@@ -1,10 +1,10 @@
-import {TransitionPreset} from '@react-navigation/stack/src/types';
+import {TransitionPreset} from "@react-navigation/stack/src/types";
 const DURATION_OPEN = 300;
 const DURATION_CLOSE = 300;
 
 const scaleBeforeSlideNext: TransitionPreset = {
-  gestureDirection: 'horizontal',
-  headerStyleInterpolator: ({}) => ({}),
+  gestureDirection: "horizontal",
+  headerStyleInterpolator: () => ({}),
   cardStyleInterpolator: ({current, layouts, next}) => ({
     cardStyle: {
       transform: [
@@ -25,7 +25,7 @@ const scaleBeforeSlideNext: TransitionPreset = {
       ],
     },
     overlayStyle: {
-      backgroundColor: 'black',
+      backgroundColor: "black",
       opacity: current.progress.interpolate({
         inputRange: [0, 1],
         outputRange: [0, 0.5],
@@ -33,13 +33,13 @@ const scaleBeforeSlideNext: TransitionPreset = {
     },
   }),
   transitionSpec: {
-    open: {animation: 'timing', config: {duration: DURATION_OPEN}},
-    close: {animation: 'timing', config: {duration: DURATION_CLOSE}},
+    open: {animation: "timing", config: {duration: DURATION_OPEN}},
+    close: {animation: "timing", config: {duration: DURATION_CLOSE}},
   },
 };
 const rotateFromRight: TransitionPreset = {
-  gestureDirection: 'horizontal',
-  headerStyleInterpolator: ({}) => ({}),
+  gestureDirection: "horizontal",
+  headerStyleInterpolator: () => ({}),
   cardStyleInterpolator: ({current, next, layouts}) => ({
     cardStyle: {
       transform: [
@@ -58,24 +58,24 @@ const rotateFromRight: TransitionPreset = {
           rotate: next
             ? next.progress.interpolate({
                 inputRange: [0, 1],
-                outputRange: ['0deg', '-40deg'],
+                outputRange: ["0deg", "-40deg"],
               })
             : current.progress.interpolate({
                 inputRange: [0, 1],
-                outputRange: ['40deg', '0deg'],
+                outputRange: ["40deg", "0deg"],
               }),
         },
       ],
     },
   }),
   transitionSpec: {
-    open: {animation: 'timing', config: {}},
-    close: {animation: 'timing', config: {}},
+    open: {animation: "timing", config: {}},
+    close: {animation: "timing", config: {}},
   },
 };
 const flipBook: TransitionPreset = {
-  gestureDirection: 'horizontal',
-  headerStyleInterpolator: ({}) => ({}),
+  gestureDirection: "horizontal",
+  headerStyleInterpolator: () => ({}),
   cardStyleInterpolator: ({current, layouts}) => ({
     cardStyle: {
       transform: [
@@ -86,7 +86,7 @@ const flipBook: TransitionPreset = {
         {
           rotateY: current.progress.interpolate({
             inputRange: [0, 1],
-            outputRange: ['-270deg', '-360deg'],
+            outputRange: ["-270deg", "-360deg"],
           }),
         },
         {
@@ -95,7 +95,7 @@ const flipBook: TransitionPreset = {
       ],
     },
     overlayStyle: {
-      backgroundColor: 'black',
+      backgroundColor: "black",
       opacity: current.progress.interpolate({
         inputRange: [0, 1],
         outputRange: [0, 0.8],
@@ -103,13 +103,13 @@ const flipBook: TransitionPreset = {
     },
   }),
   transitionSpec: {
-    open: {animation: 'timing', config: {duration: DURATION_OPEN}},
-    close: {animation: 'timing', config: {duration: DURATION_CLOSE}},
+    open: {animation: "timing", config: {duration: DURATION_OPEN}},
+    close: {animation: "timing", config: {duration: DURATION_CLOSE}},
   },
 };
 
 const scaleY: TransitionPreset = {
-  gestureDirection: 'vertical',
+  gestureDirection: "vertical",
   headerStyleInterpolator: ({}) => ({}),
   cardStyleInterpolator: ({current}) => ({
     cardStyle: {
@@ -124,7 +124,7 @@ const scaleY: TransitionPreset = {
       ],
     },
     overlayStyle: {
-      backgroundColor: 'black',
+      backgroundColor: "black",
       opacity: current.progress.interpolate({
         inputRange: [0, 1],
         outputRange: [0, 0.8],
@@ -132,8 +132,8 @@ const scaleY: TransitionPreset = {
     },
   }),
   transitionSpec: {
-    open: {animation: 'timing', config: {duration: DURATION_OPEN}},
-    close: {animation: 'timing', config: {duration: DURATION_CLOSE}},
+    open: {animation: "timing", config: {duration: DURATION_OPEN}},
+    close: {animation: "timing", config: {duration: DURATION_CLOSE}},
   },
 };
 export const TransitionPresets = {

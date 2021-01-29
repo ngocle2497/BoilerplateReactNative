@@ -1,11 +1,13 @@
-import React, { memo, useMemo } from 'react';
-import { Button } from 'react-native';
-import isEqual from 'react-fast-compare';
-import { Form } from '@components';
-import { ValidationMap } from '@library/components/Form/Form.props';
-import { useForm } from 'react-hook-form';
-import { Input } from './Input';
-import { onCheckType } from '@common';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, {memo, useMemo} from "react";
+import {Button} from "react-native";
+import isEqual from "react-fast-compare";
+import {Form} from "@components";
+// eslint-disable-next-line import/extensions
+import {ValidationMap} from "@library/components/Form/Form.props";
+import {useForm} from "react-hook-form";
+
+import {Input} from "./Input";
 
 type FormValue = {
   name: string;
@@ -17,7 +19,7 @@ interface FormLoginProps {
   onSubmit: (data: FormValue) => void;
 }
 
-const FormLoginComponent = ({ onSubmit }: FormLoginProps) => {
+const FormLoginComponent = ({onSubmit}: FormLoginProps) => {
   const {
     register,
     setValue,
@@ -25,46 +27,42 @@ const FormLoginComponent = ({ onSubmit }: FormLoginProps) => {
     getValues,
     errors,
     handleSubmit,
-  } = useForm<FormValue>({});
+  } = useForm<FormValue>();
   const rules = useMemo(
     () =>
       ({
-        name: { required: { value: true, message: 'Name is required' } },
+        name: {required: {value: true, message: "Name is required"}},
+        password: {required: {value: true, message: "Password is required"}},
         repassword: {
-          required: { value: true, message: 'Confirm is required' },
+          required: {value: true, message: "Confirm is required"},
           validate: (val: any) =>
-            onCheckType(getValues().password, 'undefined') ||
-            onCheckType(getValues().repassword, 'undefined') ||
-            val === getValues().password ||
-            'Passwords do not match',
+            val === getValues().password || "Passwords do not match",
         },
       } as ValidationMap<FormValue>),
-    [],
+    [getValues],
   );
   const onSubmitKey = () => {
     handleSubmit(onSubmit)();
   };
   return (
     <>
-      <Form {...{ register, setValue, trigger, rules, errors }}>
-        <Input name={'name'} label={'Name'} />
+      <Form {...{register, getValues, setValue, trigger, rules, errors}}>
+        <Input name={"name"} label={"Name"} />
         <Input
-          nameTrigger={'repassword'}
-          name={'password'}
-          label={'Password'}
+          nameTrigger={"repassword"}
+          name={"password"}
+          label={"Password"}
         />
         <Input
           onSubmit={onSubmitKey}
-          nameTrigger={'password'}
-          name={'repassword'}
-          label={'Confirm Password'}
+          nameTrigger={"password"}
+          name={"repassword"}
+          label={"Confirm Password"}
         />
-        <Button title={'Submit'} onPress={handleSubmit(onSubmit)} />
+        <Button title={"Submit"} onPress={handleSubmit(onSubmit)} />
       </Form>
     </>
   );
 };
 
 export const FormLogin = memo(FormLoginComponent, isEqual);
-
-

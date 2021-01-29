@@ -6,7 +6,7 @@ import React, {
   useMemo,
   useEffect,
   useRef,
-} from 'react';
+} from "react";
 import {
   StyleSheet,
   StyleProp,
@@ -17,19 +17,22 @@ import {
   useWindowDimensions,
   StatusBar,
   View,
-} from 'react-native';
-import isEqual from 'react-fast-compare';
-import {DropDownProps, RowDropDown} from './DropDown.props';
-import {Block} from '../Block/Block';
-import {Button} from '../Button/Button';
-import {Text} from '../Text/Text';
-import {Icon} from '../Icon/Icon';
-import Animated, {interpolate} from 'react-native-reanimated';
-import {useTimingTransition, toRad} from '@animated';
-import {enhance} from '@common';
-import Modal from 'react-native-modal';
-import {DropDownItem} from './DropDownItem';
-import {useSafeArea} from 'react-native-safe-area-context';
+  ListRenderItemInfo,
+} from "react-native";
+import isEqual from "react-fast-compare";
+import Animated, {interpolate} from "react-native-reanimated";
+import {useTimingTransition, toRad} from "@animated";
+import {enhance} from "@common";
+import Modal from "react-native-modal";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+
+import {Block} from "../Block/Block";
+import {Button} from "../Button/Button";
+import {Text} from "../Text/Text";
+import {Icon} from "../Icon/Icon";
+
+import {DropDownItem} from "./DropDownItem";
+import {DropDownProps, RowDropDown} from "./DropDown.props";
 
 const styles = StyleSheet.create({
   placeHolder: {
@@ -37,27 +40,27 @@ const styles = StyleSheet.create({
     paddingRight: 5,
   },
   wrapView: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderRadius: 3,
-    width: '100%',
+    width: "100%",
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: 'transparent',
-    borderTopColor: 'transparent',
+    borderBottomColor: "transparent",
+    borderTopColor: "transparent",
   },
   wrapViewBottomOpened: {
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
-    borderBottomColor: '#bbb',
+    borderBottomColor: "#bbb",
   },
   wrapViewTopOpened: {
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
-    borderTopColor: '#bbb',
+    borderTopColor: "#bbb",
   },
   dropStyle: {
-    backgroundColor: '#FFFFFF',
-    position: 'absolute',
+    backgroundColor: "#FFFFFF",
+    position: "absolute",
     minHeight: 50,
     maxHeight: 250,
     paddingHorizontal: 10,
@@ -80,9 +83,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
+const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   const {height: deviceH} = useWindowDimensions();
-  const inset = useSafeArea();
+  const inset = useSafeAreaInsets();
   const _refDrop = useRef<View>(null);
   const {
     data,
@@ -96,13 +99,13 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
     placeholderStyle,
     containerStyle,
     dropDownStyle,
-    placeHolder = 'Select an item',
+    placeHolder = "Select an item",
     multiple = false,
-    multipleText = '%d items have been selected',
+    multipleText = "%d items have been selected",
   } = props;
   const [isVisible, setIsVisible] = useState(false);
   const [selectedValue, setSelectedValue] = useState<string | Array<string>>(
-    '',
+    "",
   );
   const [viewLayout, setViewLayout] = useState({
     width: 0,
@@ -115,33 +118,33 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
   const onPressItem = useCallback(
     (value: string) => {
       if (multiple && Array.isArray(selectedValue)) {
-        const item = selectedValue.find(x => x === value);
+        const item = selectedValue.find((x) => x === value);
         if (item) {
-          setSelectedValue(selectedValue.filter(x => x !== value));
+          setSelectedValue(selectedValue.filter((x) => x !== value));
         } else {
           setSelectedValue(selectedValue.concat(value));
         }
       } else {
-        setSelectedValue(value === selectedValue ? '' : value);
+        setSelectedValue(value === selectedValue ? "" : value);
       }
       setIsVisible(false);
     },
-    [selectedValue, data],
+    [multiple, selectedValue],
   );
 
   const _onCheckSelected = useCallback(
     (item: RowDropDown): boolean => {
       if (multiple && Array.isArray(selectedValue)) {
-        const itemSelect = selectedValue.find(x => x === item.value);
+        const itemSelect = selectedValue.find((x) => x === item.value);
         return itemSelect !== undefined;
       } else {
         return selectedValue === item.value;
       }
     },
-    [data, selectedValue],
+    [multiple, selectedValue],
   );
 
-  const _renderItem = ({item, index}: {item: RowDropDown; index: number}) => {
+  const _renderItem = ({item}: ListRenderItemInfo<RowDropDown>) => {
     return (
       <DropDownItem
         {...{
@@ -157,19 +160,16 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
     );
   };
 
-  const _keyExtractor = (item: RowDropDown, index: number) => item.value;
+  const _keyExtractor = (item: RowDropDown) => item.value;
 
-  const _onLayoutDrop = useCallback(
-    (e: LayoutChangeEvent) => {
-      const {height: DropH} = e.nativeEvent.layout;
-      setDropHeight(DropH);
-    },
-    [inset, deviceH],
-  );
+  const _onLayoutDrop = useCallback((e: LayoutChangeEvent) => {
+    const {height: DropH} = e.nativeEvent.layout;
+    setDropHeight(DropH);
+  }, []);
 
   const _onCheckRenderBottom = useCallback((): boolean => {
-    let statusbarHeight =
-      Platform.OS === 'android' ? StatusBar.currentHeight ?? 24 : inset.top;
+    const statusbarHeight =
+      Platform.OS === "android" ? StatusBar.currentHeight ?? 24 : inset.top;
     return (
       deviceH - (viewLayout.y + statusbarHeight + viewLayout.height) >
       dropHeight + 50
@@ -182,7 +182,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
         setViewLayout({height, width, x, y: py});
       });
     }
-    setIsVisible(val => !val);
+    setIsVisible((val) => !val);
   }, []);
 
   const _onHideDrop = useCallback(() => {
@@ -195,24 +195,24 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
         return placeHolder;
       }
       if (selectedValue.length === 1) {
-        const item = data.find(x => x.value === selectedValue[0]);
+        const item = data.find((x) => x.value === selectedValue[0]);
         if (item) {
           return item.label;
         }
         return placeHolder;
       }
-      return multipleText.replace('%d', selectedValue.length + '');
+      return multipleText.replace("%d", selectedValue.length + "");
     } else {
       if (selectedValue.length <= 0) {
         return placeHolder;
       }
-      const item = data.find(x => x.value === selectedValue);
+      const item = data.find((x) => x.value === selectedValue);
       if (item) {
         return item.label;
       }
       return placeHolder;
     }
-  }, [selectedValue, placeHolder, multipleText, multiple]);
+  }, [multiple, selectedValue, multipleText, placeHolder, data]);
 
   // animated
   const progress = useTimingTransition(isVisible);
@@ -225,17 +225,17 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
 
   // effect
   useEffect(() => {
-    if (typeof defaultValue === 'string') {
+    if (typeof defaultValue === "string") {
       setSelectedValue(defaultValue);
     } else if (
       Array.isArray(defaultValue) &&
-      defaultValue.every(x => typeof x === 'string')
+      defaultValue.every((x) => typeof x === "string")
     ) {
       setSelectedValue(defaultValue);
     } else {
-      setSelectedValue(multiple ? [] : '');
+      setSelectedValue(multiple ? [] : "");
     }
-  }, [defaultValue]);
+  }, [defaultValue, multiple]);
   // style
   const wrapStyle = useMemo(
     () =>
@@ -247,7 +247,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
             : styles.wrapViewTopOpened),
         style,
       ]) as StyleProp<ViewStyle>,
-    [style, isVisible, deviceH, inset],
+    [isVisible, _onCheckRenderBottom, style],
   );
   const container = useMemo(
     () =>
@@ -272,18 +272,26 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
               bottom:
                 deviceH -
                 viewLayout.y -
-                (Platform.OS === 'android' ? StatusBar.currentHeight ?? 24 : 0),
+                (Platform.OS === "android" ? StatusBar.currentHeight ?? 24 : 0),
             },
       ]) as StyleProp<ViewStyle>,
-    [viewLayout, deviceH, inset],
+    [
+      dropDownStyle,
+      _onCheckRenderBottom,
+      viewLayout.width,
+      viewLayout.x,
+      viewLayout.y,
+      viewLayout.height,
+      deviceH,
+    ],
   );
 
   // render
   return (
     <>
       <View ref={_refDrop} style={wrapStyle}>
-        <Button preset={'link'} onPress={_onToggle}>
-          <Block style={container} direction={'row'}>
+        <Button preset={"link"} onPress={_onToggle}>
+          <Block style={container} direction={"row"}>
             <Text style={textPlaceHolderStyle} numberOfLines={1}>
               {getTextPlaceHolder()}
             </Text>
@@ -291,7 +299,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
               renderArrow(progress)
             ) : (
               <Animated.View style={[{transform: [{rotate: rotate}]}]}>
-                <Icon icon={'arrow_down'} />
+                <Icon icon={"arrow_down"} />
               </Animated.View>
             )}
           </Block>
@@ -305,8 +313,8 @@ const DropDownComponent = forwardRef((props: DropDownProps, ref) => {
         onBackButtonPress={_onHideDrop}
         onBackdropPress={_onHideDrop}
         removeClippedSubviews={true}
-        animationIn={'fadeIn'}
-        animationOut={'fadeOut'}
+        animationIn={"fadeIn"}
+        animationOut={"fadeOut"}
         style={[styles.modal]}
         isVisible={isVisible}>
         <Block onLayout={_onLayoutDrop} style={contentModalStyle}>

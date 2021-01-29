@@ -1,23 +1,24 @@
-import React, {memo} from 'react';
-import {StyleSheet, TouchableWithoutFeedback} from 'react-native';
-import {RadioButtonProps} from './RadioButton.props';
-import {useTimingTransition, interpolateColor} from '@animated';
-import Animated, {interpolate} from 'react-native-reanimated';
-import equals from 'react-fast-compare';
+import React, {memo} from "react";
+import {StyleSheet, TouchableWithoutFeedback} from "react-native";
+import {useTimingTransition, interpolateColor} from "@animated";
+import Animated, {interpolate} from "react-native-reanimated";
+import equals from "react-fast-compare";
+
+import {RadioButtonProps} from "./RadioButton.props";
 
 const SIZE = 30;
-const ACTIVE_COLOR = '#ff00a9';
-const UN_ACTIVE_COLOR = '#999999';
+const ACTIVE_COLOR = "#ff00a9";
+const UN_ACTIVE_COLOR = "#999999";
 const STROKE_WIDTH = 3;
 const styles = StyleSheet.create({
   wrap: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
   },
   dot: {
-    position: 'absolute',
-    alignSelf: 'center',
+    position: "absolute",
+    alignSelf: "center",
   },
 });
 
@@ -41,7 +42,7 @@ const RadioButtonComponent = (props: RadioButtonProps) => {
       inputRange: [0, 1],
       outputRange: [unActiveColor, activeColor],
     },
-    'rgb',
+    "rgb",
   );
   return (
     <TouchableWithoutFeedback onPress={onPress}>
@@ -57,7 +58,7 @@ const RadioButtonComponent = (props: RadioButtonProps) => {
           },
         ]}>
         <Animated.View
-          pointerEvents={'none'}
+          pointerEvents={"none"}
           style={[
             styles.dot,
             {

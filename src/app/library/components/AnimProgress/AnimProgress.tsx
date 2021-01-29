@@ -1,26 +1,27 @@
-import React, {forwardRef, useImperativeHandle, useState, memo} from 'react';
-import {StyleSheet, Dimensions} from 'react-native';
-import Animated, {useCode, set, interpolate} from 'react-native-reanimated';
-import {useValue, loop} from '@animated';
-import {useSafeArea} from 'react-native-safe-area-context';
-import {Block} from '../Block/Block';
-import equals from 'react-fast-compare';
+import React, {forwardRef, useImperativeHandle, useState, memo} from "react";
+import {StyleSheet, Dimensions} from "react-native";
+import Animated, {useCode, set, interpolate} from "react-native-reanimated";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import equals from "react-fast-compare";
+import {useValue, loop} from "@animated";
 
-const {width} = Dimensions.get('window');
+import {Block} from "../Block/Block";
+
+const {width} = Dimensions.get("window");
 const styles = StyleSheet.create({
   position: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     zIndex: 999,
   },
   wrap: {
     height: 3,
     width: width,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
   },
   wrapAnim: {
-    height: '100%',
-    position: 'absolute',
+    height: "100%",
+    position: "absolute",
   },
 });
 
@@ -31,7 +32,7 @@ export interface AnimProcessProps {
 }
 const AnimProcessComponent = forwardRef((props: AnimProcessProps, ref) => {
   const [visible, setVisible] = useState(false);
-  const inset = useSafeArea();
+  const inset = useSafeAreaInsets();
   useImperativeHandle(
     ref,
     () => ({
@@ -46,7 +47,7 @@ const AnimProcessComponent = forwardRef((props: AnimProcessProps, ref) => {
   );
   const {
     color,
-    backgroundColor = 'transparent',
+    backgroundColor = "transparent",
     underStatusbar = false,
   } = props;
   const widthPercent = useValue(0);
@@ -77,7 +78,7 @@ const AnimProcessComponent = forwardRef((props: AnimProcessProps, ref) => {
             {
               width: widthAb,
               transform: [{translateX}],
-              backgroundColor: color ?? '#FFFFFF',
+              backgroundColor: color ?? "#FFFFFF",
             },
           ]}
         />

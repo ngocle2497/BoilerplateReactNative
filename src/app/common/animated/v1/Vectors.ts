@@ -1,9 +1,9 @@
-import Animated from 'react-native-reanimated';
+import Animated from "react-native-reanimated";
 
-import {clamp as clamp1} from './Math';
+import {clamp as clamp1} from "./Math";
 
 const {Value, block} = Animated;
-type Dimension = 'x' | 'y';
+type Dimension = "x" | "y";
 type Fn = (...args: Animated.Adaptable<number>[]) => Animated.Node<number>;
 type Adaptable = Vector | Animated.Adaptable<number>;
 type SingleArgOp<T extends Adaptable = Adaptable> = [T];
@@ -33,16 +33,16 @@ const createValue = (x = 0, y?: number) =>
   create(new Value(x), new Value(y ?? x));
 
 const isAdaptable = (value: Adaptable): value is Animated.Adaptable<number> =>
-  typeof value === 'number' ||
+  typeof value === "number" ||
   value instanceof Animated.Node ||
   value instanceof Animated.Value;
 
 const get = (vectors: Adaptable[], dimension: Dimension) =>
-  vectors.map(vector => (isAdaptable(vector) ? vector : vector[dimension]));
+  vectors.map((vector) => (isAdaptable(vector) ? vector : vector[dimension]));
 
 const apply = (fn: Fn, ...vectors: Adaptable[]) => ({
-  x: fn(...get(vectors, 'x')),
-  y: fn(...get(vectors, 'y')),
+  x: fn(...get(vectors, "x")),
+  y: fn(...get(vectors, "y")),
 });
 
 const add = (...vectors: BinArgOp) => apply(Animated.add, ...vectors);

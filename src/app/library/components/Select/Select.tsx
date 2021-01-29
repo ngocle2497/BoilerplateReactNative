@@ -1,26 +1,27 @@
-import React, {useState, memo} from 'react';
-import {FlatList} from 'react-native';
-import {SelectOption, SelectProps} from './Select.props';
-import {Text} from '../Text/Text';
-import {Block} from '../Block/Block';
-import {Button} from '../Button/Button';
-import {SelectItem} from './SelectItem';
-import Modal from 'react-native-modal';
-import {styles} from './Select.preset';
-import {useSafeArea} from 'react-native-safe-area-context';
-import {useTranslation} from 'react-i18next';
-import equals from 'react-fast-compare';
+import React, {useState, memo} from "react";
+import {FlatList, ListRenderItemInfo} from "react-native";
+import Modal from "react-native-modal";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {useTranslation} from "react-i18next";
+import equals from "react-fast-compare";
+
+import {Text} from "../Text/Text";
+import {Block} from "../Block/Block";
+import {Button} from "../Button/Button";
+
+import {SelectItem} from "./SelectItem";
+import {styles} from "./Select.preset";
+import {SelectOption, SelectProps} from "./Select.props";
 
 const SelectComponent = (props: SelectProps) => {
   const [t] = useTranslation();
-  const inset = useSafeArea();
+  const inset = useSafeAreaInsets();
   const {
     onPress,
     textItemStyle,
     rightChildren,
     useBottomInset = true,
-    defaultSelect = t('dialog:select'),
-    backDropColor = 'rgba(0,0,0,.5)',
+    defaultSelect = t("dialog:select"),
     customItem = undefined,
     data = [],
     ...rest
@@ -38,7 +39,7 @@ const SelectComponent = (props: SelectProps) => {
   const _hideDrop = () => {
     setVisible(false);
   };
-  const _renderItem = ({item, index}: {item: SelectOption; index: number}) => {
+  const _renderItem = ({item, index}: ListRenderItemInfo<SelectOption>) => {
     return (
       <SelectItem
         customItem={customItem}
@@ -49,7 +50,7 @@ const SelectComponent = (props: SelectProps) => {
       />
     );
   };
-  const _keyExtractor = (item: SelectOption, index: number) =>
+  const _keyExtractor = (item: SelectOption) =>
     item.text +
     new Date().getTime().toString() +
     Math.floor(Math.random() * Math.floor(new Date().getTime())).toString();
@@ -59,7 +60,7 @@ const SelectComponent = (props: SelectProps) => {
         <Button
           onPress={_showDrop}
           activeOpacity={0.68}
-          preset={'link'}
+          preset={"link"}
           style={[styles.buttonDrop]}>
           <Block style={[styles.row]}>
             <Text style={[]} text={selectedText} />

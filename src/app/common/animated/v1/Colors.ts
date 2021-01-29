@@ -1,8 +1,9 @@
-import Animated from 'react-native-reanimated';
-import {processColor} from 'react-native';
+/* eslint-disable no-bitwise */
+import Animated from "react-native-reanimated";
+import {processColor} from "react-native";
 
-import {mix} from './Animations';
-import {clamp, fract} from './Math';
+import {mix} from "./Animations";
+import {clamp, fract} from "./Math";
 
 const {
   add,
@@ -115,20 +116,20 @@ const interpolateColorsHSV = (
   inputRange: readonly Animated.Adaptable<number>[],
   colors: number[],
 ): Animated.Node<number> => {
-  const colorsAsHSV = colors.map(c => rgbToHsv(c));
+  const colorsAsHSV = colors.map((c) => rgbToHsv(c));
   const h = interpolate(animationValue, {
     inputRange,
-    outputRange: colorsAsHSV.map(c => c.h),
+    outputRange: colorsAsHSV.map((c) => c.h),
     extrapolate: Extrapolate.CLAMP,
   });
   const s = interpolate(animationValue, {
     inputRange,
-    outputRange: colorsAsHSV.map(c => c.s),
+    outputRange: colorsAsHSV.map((c) => c.s),
     extrapolate: Extrapolate.CLAMP,
   });
   const v = interpolate(animationValue, {
     inputRange,
-    outputRange: colorsAsHSV.map(c => c.v),
+    outputRange: colorsAsHSV.map((c) => c.v),
     extrapolate: Extrapolate.CLAMP,
   });
   return hsv2color(h, s, v);
@@ -142,27 +143,27 @@ const interpolateColorsRGB = (
   const r = round(
     interpolate(animationValue, {
       inputRange,
-      outputRange: colors.map(c => red(c)),
+      outputRange: colors.map((c) => red(c)),
       extrapolate: Extrapolate.CLAMP,
     }),
   );
   const g = round(
     interpolate(animationValue, {
       inputRange,
-      outputRange: colors.map(c => green(c)),
+      outputRange: colors.map((c) => green(c)),
       extrapolate: Extrapolate.CLAMP,
     }),
   );
   const b = round(
     interpolate(animationValue, {
       inputRange,
-      outputRange: colors.map(c => blue(c)),
+      outputRange: colors.map((c) => blue(c)),
       extrapolate: Extrapolate.CLAMP,
     }),
   );
   const a = interpolate(animationValue, {
     inputRange,
-    outputRange: colors.map(c => opacity(c)),
+    outputRange: colors.map((c) => opacity(c)),
     extrapolate: Extrapolate.CLAMP,
   });
 
@@ -177,13 +178,13 @@ interface ColorInterpolationConfig {
 export const interpolateColor = (
   value: Animated.Adaptable<number>,
   config: ColorInterpolationConfig,
-  colorSpace: 'hsv' | 'rgb' = 'rgb',
+  colorSpace: "hsv" | "rgb" = "rgb",
 ): Animated.Node<number> => {
   const {inputRange} = config;
-  const outputRange = config.outputRange.map(c =>
-    typeof c === 'number' ? c : processColor(c as string),
+  const outputRange = config.outputRange.map((c) =>
+    typeof c === "number" ? c : processColor(c as string),
   );
-  if (colorSpace === 'hsv') {
+  if (colorSpace === "hsv") {
     return interpolateColorsHSV(value, inputRange, outputRange as number[]);
   }
   return interpolateColorsRGB(value, inputRange, outputRange as number[]);
@@ -193,7 +194,7 @@ export const mixColor = (
   value: Animated.Adaptable<number>,
   color1: Color,
   color2: Color,
-  colorSpace: 'hsv' | 'rgb' = 'rgb',
+  colorSpace: "hsv" | "rgb" = "rgb",
 ) =>
   interpolateColor(
     value,

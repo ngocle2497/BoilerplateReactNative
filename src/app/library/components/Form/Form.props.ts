@@ -1,8 +1,12 @@
-import { FieldErrors, SetValueConfig, ValidationRules } from 'react-hook-form'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-undef */
+import {FieldErrors, SetValueConfig, RegisterOptions} from "react-hook-form";
+import {TextInput} from "react-native";
+
 type FieldValues = Record<string, any>;
 
 export type ValidationMap<T = any, Keys extends keyof T = keyof T> = {
-  [K in Keys]-?: ValidationRules;
+  [K in Keys]-?: RegisterOptions;
 };
 
 export interface FormProps<TFieldValues extends FieldValues = FieldValues> {
@@ -24,7 +28,7 @@ export interface FormProps<TFieldValues extends FieldValues = FieldValues> {
   /**
    * register function of useForm
    */
-  register: ({ name }: { name: string }, rules?: ValidationRules) => void;
+  register: ({name}: {name: string}, rules?: RegisterOptions) => void;
 
   /**
    * List errors of useForm
@@ -35,4 +39,16 @@ export interface FormProps<TFieldValues extends FieldValues = FieldValues> {
    * setValue function of useForm
    */
   setValue: (name: any, value?: any, options?: SetValueConfig) => void;
+
+  /**
+   * getValue function of useForm
+   */
+  getValues: () => TFieldValues;
+}
+
+export interface ChildProps
+  extends Pick<FormProps, "setValue" | "getValues" | "trigger" | "errors"> {
+  child: JSX.Element;
+  Inputs: React.MutableRefObject<TextInput[]>;
+  i: number;
 }
