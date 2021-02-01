@@ -20,11 +20,15 @@ import {
   ListRenderItemInfo,
 } from "react-native";
 import isEqual from "react-fast-compare";
-import Animated, {interpolate} from "react-native-reanimated";
-import {useTimingTransition, toRad} from "@animated";
+import Animated, {
+  interpolate,
+  useAnimatedStyle,
+  useDerivedValue,
+} from "react-native-reanimated";
 import {enhance} from "@common";
 import Modal from "react-native-modal";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {useInterpolate, useMix, useSharedTransition} from "@animated";
 
 import {Block} from "../Block/Block";
 import {Button} from "../Button/Button";
@@ -61,7 +65,7 @@ const styles = StyleSheet.create({
   dropStyle: {
     backgroundColor: "#FFFFFF",
     position: "absolute",
-    minHeight: 50,
+    // minHeight: 50,
     maxHeight: 250,
     paddingHorizontal: 10,
   },
@@ -76,6 +80,7 @@ const styles = StyleSheet.create({
   wrapPlaceholder: {
     paddingHorizontal: 10,
     paddingVertical: 10,
+    alignItems: "center",
   },
   modal: {
     marginHorizontal: 0,
@@ -215,13 +220,8 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   }, [multiple, selectedValue, multipleText, placeHolder, data]);
 
   // animated
-  const progress = useTimingTransition(isVisible);
-  const rotate = toRad(
-    interpolate(progress, {
-      inputRange: [0, 1],
-      outputRange: [0, -180],
-    }),
-  );
+  const progress = useSharedTransition(isVisible);
+  const rotate = useMix(progress, 0, -180);
 
   // effect
   useEffect(() => {
@@ -286,6 +286,13 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
     ],
   );
 
+  const arrowStyle = useAnimatedStyle(
+    () => ({
+      transform: [{rotate: `${rotate.value}deg`}],
+    }),
+    [],
+  );
+
   // render
   return (
     <>
@@ -298,7 +305,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
             {renderArrow ? (
               renderArrow(progress)
             ) : (
-              <Animated.View style={[{transform: [{rotate: rotate}]}]}>
+              <Animated.View style={[arrowStyle]}>
                 <Icon icon={"arrow_down"} />
               </Animated.View>
             )}

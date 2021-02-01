@@ -3,13 +3,14 @@ import {StyleProp, StyleSheet} from "react-native";
 import FastImage, {ImageStyle} from "react-native-fast-image";
 import {enhance} from "@common";
 import equals from "react-fast-compare";
-import Animated, {set, useCode, useValue} from "react-native-reanimated";
+import Animated, {useAnimatedStyle} from "react-native-reanimated";
 import {BlurView} from "@react-native-community/blur";
-import {mix, timing, useTimingTransition} from "@animated";
+import {useSharedTransition} from "@animated";
 
 import {Block} from "../Block/Block";
 
 import {ImageRemoteProps} from "./ImageRemote.props";
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -42,9 +43,9 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
   const [loadThumbSucceeded, setLoadThumbSucceeded] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
 
-  const opacityImg = useValue(0);
-  const opacityBlur = mix(opacityImg, 1, 0);
-  const opacityOnLoad = useTimingTransition(!loadThumbSucceeded);
+  const opacityImg = useSharedTransition(loadSucceeded);
+  const opacityBlur = useSharedTransition(loadThumbSucceeded);
+  const opacityOnLoad = useSharedTransition(!loadThumbSucceeded);
 
   const _onLoadImageStart = useCallback(() => {
     setError(false);
@@ -70,18 +71,24 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
     () => enhance([styles.img, styleOverride]),
     [styleOverride],
   );
-  useCode(
-    () => loadSucceeded && [set(opacityImg, timing({from: opacityImg, to: 1}))],
-    [loadSucceeded],
-  );
+
+  const imageStyle = useAnimatedStyle(() => ({
+    opacity: opacityImg.value,
+  }));
+
+  const imageOnloadStyle = useAnimatedStyle(() => ({
+    opacity: opacityOnLoad.value,
+  }));
+  const imageBlurStyle = useAnimatedStyle(() => ({
+    opacity: opacityBlur.value,
+  }));
 
   return (
     <Block style={container}>
-      <Animated.View style={[styles.viewOnLoad, {opacity: opacityOnLoad}]}>
+      <Animated.View style={[styles.viewOnLoad, imageOnloadStyle]}>
         {childrenOnload}
       </Animated.View>
-      <Animated.View
-        style={[StyleSheet.absoluteFillObject, {opacity: opacityBlur}]}>
+      <Animated.View style={[StyleSheet.absoluteFillObject, imageBlurStyle]}>
         <Animated.View style={[StyleSheet.absoluteFillObject]}>
           <FastImage
             resizeMode={resizeMode}
@@ -93,8 +100,7 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
         </Animated.View>
         <BlurView blurType={"light"} style={[StyleSheet.absoluteFillObject]} />
       </Animated.View>
-      <Animated.View
-        style={[StyleSheet.absoluteFillObject, {opacity: opacityImg}]}>
+      <Animated.View style={[StyleSheet.absoluteFillObject, imageStyle]}>
         <FastImage
           onLoadStart={_onLoadImageStart}
           resizeMode={resizeMode}

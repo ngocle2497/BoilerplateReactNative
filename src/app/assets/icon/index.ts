@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export const icons = {
   app_dev: require("./source/app_dev.png"),
   app_test: require("./source/app_test.png"),

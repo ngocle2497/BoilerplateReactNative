@@ -1,8 +1,13 @@
-import React, {memo} from "react";
+import React, {memo, useCallback, useEffect, useMemo, useState} from "react";
 import {StyleSheet, TouchableWithoutFeedback} from "react-native";
-import {useTimingTransition, interpolateColor} from "@animated";
-import Animated, {interpolate} from "react-native-reanimated";
+import {
+  useSharedTransition,
+  useInterpolate,
+  useInterpolateColor,
+} from "@animated";
+import Animated, {useAnimatedStyle} from "react-native-reanimated";
 import equals from "react-fast-compare";
+import {onCheckType} from "@common";
 
 import {RadioButtonProps} from "./RadioButton.props";
 
@@ -24,51 +29,56 @@ const styles = StyleSheet.create({
 
 const RadioButtonComponent = (props: RadioButtonProps) => {
   const {
-    value = false,
+    defaultValue = false,
     activeColor = ACTIVE_COLOR,
     unActiveColor = UN_ACTIVE_COLOR,
     strokeWidth = STROKE_WIDTH,
     sizeDot = SIZE - 10,
-    onPress,
+    onToggle,
   } = props;
-  const progress = useTimingTransition(value, {duration: 100});
-  const size = interpolate(progress, {
-    inputRange: [0, 1],
-    outputRange: [0, sizeDot - strokeWidth],
-  });
-  const color = interpolateColor(
+  const [value, setValue] = useState<boolean>(defaultValue);
+
+  const _onPress = useCallback(() => {
+    setValue((v) => !v);
+  }, []);
+
+  const progress = useSharedTransition(value, {duration: 200});
+  const size = useInterpolate(progress, [0, 1], [0, sizeDot - strokeWidth]);
+  const color = useInterpolateColor(
     progress,
-    {
-      inputRange: [0, 1],
-      outputRange: [unActiveColor, activeColor],
-    },
-    "rgb",
+    [0, 1],
+    [unActiveColor, activeColor],
   );
+  const wrapStyle = useMemo(
+    () => ({
+      width: sizeDot + 10,
+      height: sizeDot + 10,
+      borderRadius: (sizeDot + 10) / 2,
+      borderWidth: strokeWidth,
+    }),
+    [sizeDot, strokeWidth],
+  );
+  const wrapAnimaStyle = useAnimatedStyle(() => ({
+    borderColor: color.value as string,
+  }));
+  const dotStyle = useAnimatedStyle(() => ({
+    width: size.value,
+    height: size.value,
+    borderRadius: (sizeDot - strokeWidth) / 2,
+    backgroundColor: color.value as string,
+  }));
+
+  useEffect(() => {
+    if (onToggle && onCheckType(onToggle, "function")) {
+      onToggle(value);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
-      <Animated.View
-        style={[
-          styles.wrap,
-          {
-            borderColor: color,
-            width: sizeDot + 10,
-            height: sizeDot + 10,
-            borderRadius: (sizeDot + 10) / 2,
-            borderWidth: strokeWidth,
-          },
-        ]}>
-        <Animated.View
-          pointerEvents={"none"}
-          style={[
-            styles.dot,
-            {
-              width: size,
-              height: size,
-              borderRadius: (sizeDot - strokeWidth) / 2,
-              backgroundColor: color,
-            },
-          ]}
-        />
+    <TouchableWithoutFeedback onPress={_onPress}>
+      <Animated.View style={[styles.wrap, wrapStyle, wrapAnimaStyle]}>
+        <Animated.View pointerEvents={"none"} style={[styles.dot, dotStyle]} />
       </Animated.View>
     </TouchableWithoutFeedback>
   );

@@ -8,9 +8,9 @@ import {Block} from "../../../Block/Block";
 
 import {ProgressCircleProps} from "./ProgressCircle.props";
 import {Circular} from "./Circular";
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     paddingVertical: 5,
     paddingHorizontal: 5,
     justifyContent: "center",
@@ -55,14 +55,20 @@ export const ProgressCircleComponent = (props: ProgressCircleProps) => {
     <Block style={styles.container}>
       {showTextProgress && <Text style={[textStyles]} text={renderText()} />}
       <Block>
-        <Circular bg={bg} fg={fg} radius={radius} progress={progress} />
+        <Circular
+          strokeWidth={strokeWidth}
+          bg={bg}
+          fg={fg}
+          radius={radius}
+          progress={progress}
+        />
       </Block>
       <Block style={styles.overlay}>
         <Block
           style={{
             width: radius * 2 - strokeWidth,
             height: radius * 2 - strokeWidth,
-            borderRadius: radius - strokeWidth / 2,
+            borderRadius: radius + strokeWidth / 2,
             backgroundColor: bg,
           }}
         />

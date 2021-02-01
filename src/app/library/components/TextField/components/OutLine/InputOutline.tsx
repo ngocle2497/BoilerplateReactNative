@@ -7,7 +7,7 @@ import React, {
   forwardRef,
 } from "react";
 import {StyleSheet, TextInput, LayoutChangeEvent} from "react-native";
-import Animated, {interpolate} from "react-native-reanimated";
+import Animated, {interpolateNode} from "react-native-reanimated";
 import {useTimingTransition} from "@animated";
 import {useTranslation} from "react-i18next";
 import {enhance, onCheckType} from "@common";
@@ -89,7 +89,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     duration: 150,
   });
 
-  const top = interpolate(progress, {
+  const top = interpolateNode(progress, {
     inputRange: [0, 1],
     outputRange: [
       sizeContainer.height / 2 - sizeText.height / 2 - VERTICAL_PADDING / 4,
@@ -97,7 +97,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     ],
   });
 
-  const fontLabel = interpolate(progress, {
+  const fontLabel = interpolateNode(progress, {
     inputRange: [0, 1],
     outputRange: [14, 12],
   });

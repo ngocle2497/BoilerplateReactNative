@@ -2,14 +2,19 @@
 import {
   between,
   clamp,
+  sharedClamp,
   timing,
   usePanGestureHandler,
   withOffset,
 } from "@animated";
-import React, {memo, useCallback, useState} from "react";
+import React, {memo, useCallback, useEffect, useState} from "react";
 import isEqual from "react-fast-compare";
 import {View, LayoutChangeEvent, StyleSheet} from "react-native";
-import {PanGestureHandler, State} from "react-native-gesture-handler";
+import {
+  PanGestureHandler,
+  PanGestureHandlerGestureEvent,
+  State,
+} from "react-native-gesture-handler";
 import Animated, {
   abs,
   add,
@@ -20,11 +25,18 @@ import Animated, {
   eq,
   multiply,
   onChange,
+  runOnJS,
   set,
   sub,
+  useAnimatedGestureHandler,
+  useAnimatedStyle,
   useCode,
+  useDerivedValue,
+  useSharedValue,
   useValue,
   Value,
+  withSpring,
+  withTiming,
 } from "react-native-reanimated";
 import {onCheckType} from "@common";
 
@@ -79,20 +91,28 @@ const Slider_LinearComponent = ({
     throw Error("lowerBound must be less than upperBound");
   }
   const [width, setWidth] = useState<number>(0);
-  const offset = new Value(0);
-  const initialTranslateX = useValue(-THUMB_SIZE);
-  const {gestureHandler, state, translation} = usePanGestureHandler();
-  const translateX = cond(
-    eq(state, State.UNDETERMINED),
-    initialTranslateX,
-    clamp(
-      withOffset(translation.x, state, offset),
-      -THUMB_SIZE,
+
+  const translationX = useSharedValue(0);
+
+  const translateX = useDerivedValue(() =>
+    sharedClamp(
+      translationX.value,
+      lowerBound - THUMB_SIZE,
       width - THUMB_SIZE,
     ),
   );
 
-  const rightTrack = sub(width, translateX, THUMB_SIZE);
+  const gestureHandler = useAnimatedGestureHandler<
+    PanGestureHandlerGestureEvent,
+    {startX: number}
+  >({
+    onStart: (_, ctx) => {
+      ctx.startX = translationX.value;
+    },
+    onActive: (event, ctx) => {
+      translationX.value = ctx.startX + event.translationX;
+    },
+  });
 
   const _onLayout = useCallback(
     ({
@@ -104,61 +124,25 @@ const Slider_LinearComponent = ({
     },
     [],
   );
-
-  useCode(
-    () =>
-      onChange(translateX, [
-        call(
-          [
-            multiply(
-              divide(add(translateX, THUMB_SIZE), width),
-              abs(sub(upperBound, lowerBound)),
-            ),
-          ],
-          (arg) => {
-            if (onChangeLinear && onCheckType(onChangeLinear, "function")) {
-              onChangeLinear(parseFloat(parseFloat(String(arg[0])).toFixed(1)));
-            }
-          },
-        ),
-      ]),
-    [translateX],
-  );
-
-  useCode(
-    () => [
-      cond(
-        and(
-          eq(state, State.UNDETERMINED),
-          eq(between(initialLinear, lowerBound, upperBound), 1),
-        ),
-        [
-          set(
-            offset,
-            sub(multiply(width, divide(initialLinear, upperBound)), THUMB_SIZE),
-          ),
-          set(
-            initialTranslateX,
-            timing({
-              from: initialTranslateX,
-              to: sub(
-                multiply(width, divide(initialLinear, upperBound)),
-                THUMB_SIZE,
-              ),
-            }),
-          ),
-        ],
-      ),
-    ],
-    [width, state],
-  );
+  useEffect(() => {
+    console.log("object");
+  }, [translateX.value]);
+  useEffect(() => {
+    translationX.value = withSpring(
+      (initialLinear / upperBound) * width - THUMB_SIZE,
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [width]);
+  const thumbStyle = useAnimatedStyle(() => ({
+    transform: [{translateX: translateX.value}],
+  }));
 
   return (
     <View onLayout={_onLayout} style={[styles.root]}>
       <View style={[styles.container]}>
-        <Animated.View style={[styles.track, {right: rightTrack}]} />
-        <PanGestureHandler {...gestureHandler}>
-          <Animated.View style={[styles.thumb, {transform: [{translateX}]}]} />
+        <Animated.View style={[styles.track]} />
+        <PanGestureHandler onGestureEvent={gestureHandler}>
+          <Animated.View style={[styles.thumb, thumbStyle]} />
         </PanGestureHandler>
       </View>
       <View style={[styles.wrapValue]}>

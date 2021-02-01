@@ -2,7 +2,7 @@ import React, {memo, useCallback, useEffect, useState} from "react";
 import {TouchableWithoutFeedback, StyleSheet} from "react-native";
 import equals from "react-fast-compare";
 import {interpolateColor, mix, useTimingTransition} from "@animated";
-import Animated, {interpolate, Extrapolate} from "react-native-reanimated";
+import Animated, {interpolateNode, Extrapolate} from "react-native-reanimated";
 import {onCheckType} from "@common";
 
 import {SwitchProps} from "./Switch.props";
@@ -51,7 +51,7 @@ const SwitchComponent = ({
   const [value, setValue] = useState<boolean>(initialValue);
   const progress = useTimingTransition(value);
   const opacity = mix(useTimingTransition(disable), 1, 0.5);
-  const translateX = interpolate(progress, {
+  const translateX = interpolateNode(progress, {
     inputRange: [0, 1],
     outputRange: [OFF_POSITION, ON_POSITION],
     extrapolate: Extrapolate.CLAMP,
@@ -60,9 +60,11 @@ const SwitchComponent = ({
     inputRange: [0, 1],
     outputRange: [OFF_COLOR, ON_COLOR],
   });
+
   const _onToggle = useCallback(() => {
     setValue((v) => !v);
   }, []);
+
   useEffect(() => {
     if (onToggle && onCheckType(onToggle, "function")) {
       onToggle(value);

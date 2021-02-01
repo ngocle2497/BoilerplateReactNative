@@ -20,10 +20,16 @@ export interface CheckboxProps {
   fillStyle?: StyleProp<ViewStyle>;
 
   /**
-   * Current state of check box
+   * Disable checkbox
    * @default undefined
    */
-  value?: boolean;
+  disable?: boolean;
+
+  /**
+   * Default value of checkbox
+   * @default undefined
+   */
+  initialValue?: boolean;
 
   /**
    * Text to display

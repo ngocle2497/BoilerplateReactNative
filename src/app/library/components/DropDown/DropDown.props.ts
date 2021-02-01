@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-undef */
 import {StyleProp, ViewStyle, TextStyle} from "react-native";
 import Animated from "react-native-reanimated";
@@ -11,7 +12,7 @@ export interface RowDropDown {
   /**
    * item pass to call back function when click one item dropdown or set selected
    */
-  value: string;
+  value: string | number | any;
 }
 
 export interface ItemProps {
@@ -122,7 +123,7 @@ export interface DropDownProps
    * Overwrite animated arrow component
    * @default undefined
    */
-  renderArrow?: (progress: Animated.Node<number>) => React.ReactNode;
+  renderArrow?: (progress: Animated.SharedValue<number>) => React.ReactNode;
 
   /**
    * Disables the component.

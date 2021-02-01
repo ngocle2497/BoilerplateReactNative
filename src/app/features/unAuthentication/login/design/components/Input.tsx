@@ -3,12 +3,14 @@ import {TextField} from "@components";
 import isEqual from "react-fast-compare";
 import {FieldError} from "react-hook-form";
 
+import {FormValue} from "./FormLogin";
+
 interface InputProps {
-  name: string;
+  name: keyof FormValue;
   label: string;
   error?: FieldError | undefined;
   onSubmit?: () => void;
-  nameTrigger?: string;
+  nameTrigger?: keyof FormValue;
 }
 
 const InputComponent = forwardRef<any, InputProps>(

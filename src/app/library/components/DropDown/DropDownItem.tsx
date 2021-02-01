@@ -15,6 +15,12 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingRight: 5,
   },
+  container: {
+    alignItems: "center",
+  },
+  wrapIcon: {
+    minHeight: 24,
+  },
 });
 
 const DropDownItemComponent = ({
@@ -40,12 +46,22 @@ const DropDownItemComponent = ({
     [activeLabelStyle],
   );
   const label = useMemo(
-    () => enhance([styles.labelStyle, labelStyle]) as StyleProp<ViewStyle>,
-    [labelStyle],
+    () =>
+      enhance([
+        styles.labelStyle,
+        labelStyle,
+        selected && activeLabel,
+      ]) as StyleProp<ViewStyle>,
+    [activeLabel, labelStyle, selected],
   );
   const container = useMemo(
-    () => enhance([containerStyleItem]) as StyleProp<ViewStyle>,
-    [containerStyleItem],
+    () =>
+      enhance([
+        styles.container,
+        containerStyleItem,
+        selected && activeContainer,
+      ]) as StyleProp<ViewStyle>,
+    [activeContainer, containerStyleItem, selected],
   );
   return (
     <Button onPress={_onItemPress} preset={"link"}>
@@ -53,10 +69,12 @@ const DropDownItemComponent = ({
         width={"100%"}
         paddingVertical={5}
         direction={"row"}
-        style={[container, selected && activeContainer]}>
-        <Text style={[label, selected && activeLabel]}>{item.label}</Text>
-        {selected &&
-          (customTickIcon ? customTickIcon() : <Icon icon={"check"} />)}
+        style={[container]}>
+        <Text style={[label]}>{item.label}</Text>
+        <Block style={[styles.wrapIcon]}>
+          {selected &&
+            (customTickIcon ? customTickIcon() : <Icon icon={"check"} />)}
+        </Block>
       </Block>
     </Button>
   );

@@ -1,7 +1,22 @@
 import React, {useState, memo} from "react";
 import {StyleSheet, LayoutChangeEvent} from "react-native";
-import {useValues, timing, clamp, transformOrigin} from "@animated";
-import Animated, {useCode, set, interpolate} from "react-native-reanimated";
+import {
+  useValues,
+  timing,
+  useShareClamp,
+  transformOrigin,
+  useInterpolate,
+  sharedTransformOrigin,
+} from "@animated";
+import Animated, {
+  useCode,
+  set,
+  interpolateNode,
+  useSharedValue,
+  useDerivedValue,
+  useAnimatedStyle,
+  withTiming,
+} from "react-native-reanimated";
 import equals from "react-fast-compare";
 
 import {ProgressLinearProps} from "./ProgressLinear.props";
@@ -23,30 +38,27 @@ const styles = StyleSheet.create({
 
 export const ProgressLinearComponent = (props: ProgressLinearProps) => {
   const {progress} = props;
-  const [progressAnimated] = useValues(progress);
+
   const [widthProgress, setWidthProgress] = useState(0);
-  const actualProgress = clamp(progressAnimated, 0, 100);
-  const scaleX = interpolate(actualProgress, {
-    inputRange: [0, 100],
-    outputRange: [0, 1],
-  });
-  useCode(
-    () => [
-      set(progressAnimated, timing({from: progressAnimated, to: progress})),
-    ],
-    [progress],
-  );
+
+  const progressAnimated = useDerivedValue(() => withTiming(progress));
+  const actualProgress = useShareClamp(progressAnimated, 0, 100);
+  const scaleX = useInterpolate(actualProgress, [0, 100], [0, 1]);
+
   const _onLayoutBg = (e: LayoutChangeEvent) => {
     setWidthProgress(e.nativeEvent.layout.width);
   };
+
+  const foregroundStyle = useAnimatedStyle(() => ({
+    transform: sharedTransformOrigin(
+      {x: -widthProgress / 2, y: 0},
+      {scaleX: scaleX.value},
+    ),
+  }));
+
   return (
     <Animated.View onLayout={_onLayoutBg} style={[styles.bg]}>
-      <Animated.View
-        style={[
-          styles.fg,
-          {transform: transformOrigin({x: -widthProgress / 2, y: 0}, {scaleX})},
-        ]}
-      />
+      <Animated.View style={[styles.fg, foregroundStyle]} />
     </Animated.View>
   );
 };

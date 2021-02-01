@@ -9,7 +9,7 @@ import {useForm} from "react-hook-form";
 
 import {Input} from "./Input";
 
-type FormValue = {
+export type FormValue = {
   name: string;
   password: string;
   repassword: string;
