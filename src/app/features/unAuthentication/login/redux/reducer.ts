@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {createAction, createSlice} from "@reduxjs/toolkit";
-import {SLICE_NAME} from "@config/type";
+import {createAction, createSlice} from '@reduxjs/toolkit';
+import {SLICE_NAME} from '@config/type';
 
-import * as Action from "./actionType";
+import * as Action from './actionType';
 export interface LoginState {
   loading: boolean;
   count: number;
@@ -17,6 +17,9 @@ const loginSlice = createSlice({
   reducers: {
     reset: () => {
       return {...initialState};
+    },
+    onStart: () => {
+      /// TODO
     },
   },
 });

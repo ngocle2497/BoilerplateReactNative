@@ -1,52 +1,55 @@
-import React, {useState, memo} from "react";
-import {StyleSheet, LayoutChangeEvent} from "react-native";
-import {useValues, timing, clamp, transformOrigin} from "@animated";
-import Animated, {useCode, set, interpolate} from "react-native-reanimated";
-import equals from "react-fast-compare";
+import React, {useState, memo} from 'react';
+import {StyleSheet, LayoutChangeEvent} from 'react-native';
+import {useShareClamp, useInterpolate, sharedTiming} from '@animated';
+import Animated, {
+  useDerivedValue,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
+import equals from 'react-fast-compare';
 
-import {ProgressLinearProps} from "./ProgressLinear.props";
+import {ProgressLinearProps} from './ProgressLinear.props';
 
 const styles = StyleSheet.create({
   bg: {
-    width: "100%",
+    width: '100%',
+    flex: 1,
     height: 4,
-    backgroundColor: "#dbdbdb",
+    backgroundColor: '#dbdbdb',
     marginVertical: 3,
+    borderRadius: 50,
+    overflow: 'hidden',
   },
   fg: {
-    backgroundColor: "#0057e7",
-    left: 0,
-    width: "100%",
-    height: "100%",
+    backgroundColor: '#0057e7',
+    borderRadius: 50,
+    flex: 1,
   },
 });
 
 export const ProgressLinearComponent = (props: ProgressLinearProps) => {
   const {progress} = props;
-  const [progressAnimated] = useValues(progress);
+
   const [widthProgress, setWidthProgress] = useState(0);
-  const actualProgress = clamp(progressAnimated, 0, 100);
-  const scaleX = interpolate(actualProgress, {
-    inputRange: [0, 100],
-    outputRange: [0, 1],
-  });
-  useCode(
-    () => [
-      set(progressAnimated, timing({from: progressAnimated, to: progress})),
-    ],
-    [progress],
+
+  const progressAnimated = useDerivedValue(() => sharedTiming(progress));
+  const actualProgress = useShareClamp(progressAnimated, 0, 100);
+  const translateX = useInterpolate(
+    actualProgress,
+    [0, 100],
+    [-widthProgress, 0],
   );
+
   const _onLayoutBg = (e: LayoutChangeEvent) => {
     setWidthProgress(e.nativeEvent.layout.width);
   };
+
+  const foregroundStyle = useAnimatedStyle(() => ({
+    transform: [{translateX: translateX.value}],
+  }));
+
   return (
     <Animated.View onLayout={_onLayoutBg} style={[styles.bg]}>
-      <Animated.View
-        style={[
-          styles.fg,
-          {transform: transformOrigin({x: -widthProgress / 2, y: 0}, {scaleX})},
-        ]}
-      />
+      <Animated.View style={[styles.fg, foregroundStyle]} />
     </Animated.View>
   );
 };

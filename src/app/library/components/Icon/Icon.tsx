@@ -1,30 +1,28 @@
-import React, {memo, useMemo} from "react";
-import {ImageStyle, TouchableOpacity} from "react-native";
-import {icons} from "@assets/icon";
-import {enhance} from "@common";
-import equals from "react-fast-compare";
-import FastImage from "react-native-fast-image";
+import React, {memo, useMemo} from 'react';
+import {StyleProp, TouchableOpacity} from 'react-native';
+import {icons} from '@assets/icon';
+import {enhance} from '@common';
+import equals from 'react-fast-compare';
+import FastImage, {ImageStyle} from 'react-native-fast-image';
 
-import {IconProps} from "./Icon.props";
+import {IconProps} from './Icon.props';
 const SIZE = 24;
-const ROOT: ImageStyle = {
-  resizeMode: "cover",
-};
 
 const IconComponent = (props: IconProps) => {
-  const {size = SIZE, icon, onPress, color} = props;
-  const style: ImageStyle = useMemo<ImageStyle>(
-    () => enhance([ROOT, {width: size, height: size} as ImageStyle]),
+  const {size = SIZE, icon, resizeMode = 'contain', onPress, color} = props;
+  const style: StyleProp<ImageStyle> = useMemo<StyleProp<ImageStyle>>(
+    () => enhance([{width: size, height: size} as StyleProp<ImageStyle>]),
     [size],
   );
   return (
     <TouchableOpacity
-      disabled={typeof onPress !== "function"}
+      disabled={typeof onPress !== 'function'}
       onPress={onPress}>
       <FastImage
         style={style}
         tintColor={color}
-        source={icons[icon ?? "default"]}
+        resizeMode={resizeMode}
+        source={icons[icon]}
       />
     </TouchableOpacity>
   );

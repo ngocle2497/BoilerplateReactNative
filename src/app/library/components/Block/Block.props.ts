@@ -1,21 +1,21 @@
 /* eslint-disable no-undef */
-import {ViewStyle, ViewProps, StyleProp, FlexAlignType} from "react-native";
+import {ViewStyle, ViewProps, StyleProp, FlexAlignType} from 'react-native';
 
-type Direction = "row" | "column" | "column-reverse" | "row-reverse";
+type Direction = 'row' | 'column' | 'column-reverse' | 'row-reverse';
 
 type JustifyContent =
-  | "center"
-  | "flex-end"
-  | "flex-start"
-  | "space-around"
-  | "space-between"
-  | "space-evenly";
+  | 'center'
+  | 'flex-end'
+  | 'flex-start'
+  | 'space-around'
+  | 'space-between'
+  | 'space-evenly';
 
-type Position = "absolute" | "relative";
+type Position = 'absolute' | 'relative';
 
-type FlexWrap = "wrap" | "nowrap" | "wrap-reverse";
+type FlexWrap = 'wrap' | 'nowrap' | 'wrap-reverse';
 
-type OverFlow = "visible" | "hidden" | "scroll";
+type OverFlow = 'visible' | 'hidden' | 'scroll';
 
 export type ShadowConfig = {
   shadowColor?: string;
@@ -72,7 +72,7 @@ export interface BlockProps extends ViewProps {
 
   borderStartColor?: string;
 
-  borderStyle?: "solid" | "dotted" | "dashed";
+  borderStyle?: 'solid' | 'dotted' | 'dashed';
 
   borderTopColor?: string;
 
@@ -119,7 +119,7 @@ export interface BlockProps extends ViewProps {
    * Using align self
    * @default undefined
    */
-  alignSelf?: "auto" | FlexAlignType;
+  alignSelf?: 'auto' | FlexAlignType;
 
   /**
    * Using margin left

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {onChangeAlias} from "../string/index";
+import {onChangeAlias} from '../string/index';
 
 export const onSearchAllProperties = (
   source: Array<any>,

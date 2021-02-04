@@ -4,25 +4,25 @@ import React, {
   useImperativeHandle,
   useState,
   useCallback,
-} from "react";
-import {StyleSheet} from "react-native";
-import isEqual from "react-fast-compare";
-import Modal from "react-native-modal";
-import {FontSizeDefault} from "@theme/fontSize";
-import {AppModeType} from "@networking";
-import {APP_MODE} from "@config";
-import {dispatch, useSelector} from "@common";
-import {onSetAppMode} from "@store/app_redux/reducer";
-import {saveString} from "@utils";
-import {R} from "@assets/value";
-import {IconTypes} from "@assets/icon";
+} from 'react';
+import {StyleSheet} from 'react-native';
+import isEqual from 'react-fast-compare';
+import Modal from 'react-native-modal';
+import {FontSizeDefault} from '@theme/fontSize';
+import {AppModeType} from '@networking';
+import {APP_MODE} from '@config';
+import {dispatch, useSelector} from '@common';
+import {onSetAppMode} from '@store/app_redux/reducer';
+import {saveString} from '@utils';
+import {R} from '@assets/value';
+import {IconTypes} from '@assets/icon';
 
-import {Block} from "../Block/Block";
-import {Button} from "../Button/Button";
-import {Text} from "../Text/Text";
-import {SizeBox} from "../SizeBox/SizeBox";
-import {Icon} from "../Icon/Icon";
-import {Divider} from "../Divider/Divider";
+import {Block} from '../Block/Block';
+import {Button} from '../Button/Button';
+import {Text} from '../Text/Text';
+import {SizeBox} from '../SizeBox/SizeBox';
+import {Icon} from '../Icon/Icon';
+import {Divider} from '../Divider/Divider';
 
 const styles = StyleSheet.create({
   modal: {
@@ -30,10 +30,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 0,
   },
   contentModal: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: '#FFFFFF',
     paddingHorizontal: 0,
     paddingVertical: 15,
-    alignItems: "center",
+    alignItems: 'center',
   },
   textMode: {
     flex: 1,
@@ -59,21 +59,21 @@ const ButtonSelect = ({
   selected = false,
 }: ButtonSelectProps) => {
   const _onPress = useCallback(() => {
-    if (typeof onPress === "function") {
+    if (typeof onPress === 'function') {
       onPress(mode);
     }
   }, [mode, onPress]);
   return (
-    <Button onPress={_onPress} preset={"link"}>
+    <Button onPress={_onPress} preset={'link'}>
       <Block
-        direction={"row"}
+        direction={'row'}
         paddingHorizontal={10}
-        justifyContent={"center"}
+        justifyContent={'center'}
         middle>
         <Icon {...{icon}} />
         <SizeBox width={10} />
         <Text numberOfLines={1} style={[styles.textMode]} {...{tx}} />
-        {selected && <Icon icon={"check"} />}
+        {selected && <Icon icon={'check'} />}
       </Block>
     </Button>
   );
@@ -121,31 +121,31 @@ const ModalAppModeComponent = forwardRef((_: any, ref: any) => {
       onBackdropPress={_hideModal}
       onBackButtonPress={_hideModal}
       isVisible={isVisible}>
-      <Block block justifyContent={"flex-end"}>
+      <Block block justifyContent={'flex-end'}>
         <Block style={[styles.contentModal]}>
-          <Text style={[styles.title]} tx={"common:textAppMode"} />
+          <Text style={[styles.title]} tx={'common:textAppMode'} />
           <ButtonSelect
             selected={appMode === APP_MODE.DEV}
-            icon={"app_dev"}
+            icon={'app_dev'}
             onPress={_onButtonPress}
             mode={APP_MODE.DEV as AppModeType}
-            tx={"common:textAppDev"}
+            tx={'common:textAppDev'}
           />
           <Spacing />
           <ButtonSelect
             selected={appMode === APP_MODE.STAGING}
-            icon={"app_test"}
+            icon={'app_test'}
             onPress={_onButtonPress}
             mode={APP_MODE.STAGING as AppModeType}
-            tx={"common:textAppTest"}
+            tx={'common:textAppTest'}
           />
           <Spacing />
           <ButtonSelect
             selected={appMode === APP_MODE.PROD}
-            icon={"app_prod"}
+            icon={'app_prod'}
             onPress={_onButtonPress}
             mode={APP_MODE.PROD as AppModeType}
-            tx={"common:textAppProd"}
+            tx={'common:textAppProd'}
           />
         </Block>
       </Block>

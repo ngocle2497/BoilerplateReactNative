@@ -1,9 +1,9 @@
-import createSagaMiddleware from "redux-saga";
-import logger from "redux-logger";
-import {configureStore, getDefaultMiddleware} from "@reduxjs/toolkit";
+import createSagaMiddleware from 'redux-saga';
+import logger from 'redux-logger';
+import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
 
-import {rootSaga} from "./rootSagas";
-import {allReducer} from "./allReducers";
+import {rootSaga} from './rootSagas';
+import {allReducer} from './allReducers';
 /**
  * Use this instead storage of reduxPersist
  *

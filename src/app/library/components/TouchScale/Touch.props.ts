@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable no-undef */
-export interface TouchableScaleProps {
+import {
+  StyleProp,
+  TouchableWithoutFeedbackProps,
+  ViewStyle,
+} from 'react-native';
+export interface TouchableScaleProps extends TouchableWithoutFeedbackProps {
   /**
    * Children of Touchable
    */
@@ -13,26 +18,8 @@ export interface TouchableScaleProps {
   minScale?: number;
 
   /**
-   * On Press of touch
+   * Custom container style
    * @default undefined
    */
-  onPress?: Function;
-
-  /**
-   * On Long Press of touch
-   * @default undefined
-   */
-  onLongPress?: Function;
-
-  /**
-   * On Press In of touch
-   * @default undefined
-   */
-  onPressIn?: Function;
-
-  /**
-   * On Press Out of touch
-   * @default undefined
-   */
-  onPressOut?: Function;
+  containerStyle?: StyleProp<ViewStyle>;
 }

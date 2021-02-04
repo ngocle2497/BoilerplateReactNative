@@ -1,27 +1,36 @@
-import React, {forwardRef, useImperativeHandle, useState, memo} from "react";
-import {StyleSheet, Dimensions} from "react-native";
-import Animated, {useCode, set, interpolate} from "react-native-reanimated";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
-import equals from "react-fast-compare";
-import {useValue, loop} from "@animated";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {forwardRef, useImperativeHandle, memo, useEffect} from 'react';
+import {StyleSheet, Dimensions} from 'react-native';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  interpolate,
+  withRepeat,
+  useDerivedValue,
+} from 'react-native-reanimated';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import equals from 'react-fast-compare';
+import {useAnimationState} from '@common';
+import {sharedTiming} from '@animated';
 
-import {Block} from "../Block/Block";
+import {Block} from '../Block/Block';
 
-const {width} = Dimensions.get("window");
+const {width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   position: {
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     zIndex: 999,
   },
   wrap: {
     height: 3,
     width: width,
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
   },
   wrapAnim: {
-    height: "100%",
-    position: "absolute",
+    height: '100%',
+    right: 0,
+    position: 'absolute',
   },
 });
 
@@ -31,7 +40,8 @@ export interface AnimProcessProps {
   underStatusbar?: boolean;
 }
 const AnimProcessComponent = forwardRef((props: AnimProcessProps, ref) => {
-  const [visible, setVisible] = useState(false);
+  // state
+  const [visible, setVisible] = useAnimationState(false);
   const inset = useSafeAreaInsets();
   useImperativeHandle(
     ref,
@@ -45,43 +55,65 @@ const AnimProcessComponent = forwardRef((props: AnimProcessProps, ref) => {
     }),
     [],
   );
-  const {
-    color,
-    backgroundColor = "transparent",
-    underStatusbar = false,
-  } = props;
-  const widthPercent = useValue(0);
-  const widthAb = interpolate(widthPercent, {
-    inputRange: [0, 1],
-    outputRange: [width * 0.75, width * 0.05],
-  });
-  const translateX = interpolate(widthPercent, {
-    inputRange: [0, 1],
-    outputRange: [-width * 0.75, width * 1.5],
-  });
+  const {color, backgroundColor = 'transparent', underStatusbar = true} = props;
+  // reanimated
+  const widthPercent = useSharedValue(0);
 
-  useCode(
-    () =>
-      visible
-        ? [set(widthPercent, loop({duration: 1000}))]
-        : [set(widthPercent, 0)],
-    [visible],
+  const width1 = useDerivedValue(() =>
+    interpolate(widthPercent.value, [0, 0.12], [width, 0]),
   );
+
+  const translateX1 = useDerivedValue(() =>
+    interpolate(
+      widthPercent.value,
+      [0, 0.2, 0.5],
+      [-width, width * 1.75, width * 2],
+    ),
+  );
+
+  const width2 = useDerivedValue(() =>
+    interpolate(widthPercent.value, [0, 0.5, 1], [width, width, 0]),
+  );
+
+  const translateX2 = useDerivedValue(() =>
+    interpolate(
+      widthPercent.value,
+      [0, 0.2, 0.4, 1],
+      [-width, -width, width * 1.5, width * 2],
+    ),
+  );
+  // reanimated style
+  const style1 = useAnimatedStyle(() => ({
+    width: width1.value,
+    transform: [{translateX: translateX1.value}],
+    backgroundColor: color ?? '#FFFFFF',
+  }));
+  const style2 = useAnimatedStyle(() => ({
+    width: width2.value,
+    transform: [{translateX: translateX2.value}],
+    backgroundColor: color ?? '#FFFFFF',
+  }));
+  // effect
+  useEffect(() => {
+    if (visible) {
+      widthPercent.value = withRepeat(
+        sharedTiming(1, {duration: 3500}),
+        -1,
+        false,
+      );
+    } else {
+      widthPercent.value = 0;
+    }
+  }, [visible]);
+
+  //render
   return (
     <Block
       color={backgroundColor}
       style={[styles.position, {top: underStatusbar ? inset.top : 0}]}>
       <Block style={[styles.wrap]}>
-        <Animated.View
-          style={[
-            styles.wrapAnim,
-            {
-              width: widthAb,
-              transform: [{translateX}],
-              backgroundColor: color ?? "#FFFFFF",
-            },
-          ]}
-        />
+        <Animated.View style={[styles.wrapAnim, style1]} />
+        <Animated.View style={[styles.wrapAnim, style2]} />
       </Block>
     </Block>
   );

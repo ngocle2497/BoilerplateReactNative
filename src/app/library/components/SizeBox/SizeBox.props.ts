@@ -1,4 +1,4 @@
-import {ViewStyle, StyleProp} from "react-native";
+import {ViewStyle, StyleProp} from 'react-native';
 export interface SizeBoxProps {
   /**
    * Width of size box

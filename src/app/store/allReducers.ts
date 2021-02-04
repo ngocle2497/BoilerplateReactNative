@@ -1,8 +1,8 @@
-import {combineReducers} from "@reduxjs/toolkit";
+import {combineReducers} from '@reduxjs/toolkit';
 
-import {loginReducer} from "../features/unAuthentication/login/redux/reducer";
+import {loginReducer} from '../features/unAuthentication/login/redux/reducer';
 
-import {appReducer} from "./app_redux/reducer";
+import {appReducer} from './app_redux/reducer';
 
 export const allReducer = combineReducers({
   app: appReducer,

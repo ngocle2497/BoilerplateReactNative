@@ -1,5 +1,5 @@
-import {createRef} from "react";
-import {AnimProcessRef} from "@components";
+import {createRef} from 'react';
+import {AnimProcessRef} from '@components';
 export const animProgressHolder = createRef<AnimProcessRef>();
 
 export const showLoadingAnim = () => {

@@ -1,29 +1,16 @@
-import React, {memo} from "react";
-import {StyleSheet, Image} from "react-native";
-import isEqual from "react-fast-compare";
-import {scale} from "@common";
+import React, {memo} from 'react';
+import isEqual from 'react-fast-compare';
+import {Block} from '@library/components/Block/Block';
 
-import {ImageMessageProps} from "../Chat.props";
-import {LightBox} from "../../LightBox/index";
+import {ImageMessageProps} from '../Chat.props';
+import {LightBox} from '../../LightBox/LightBox';
 
-const ImageMessageComponent = ({sourceImage = ""}: ImageMessageProps) => {
+const ImageMessageComponent = ({sourceImage = ''}: ImageMessageProps) => {
   return (
-    <LightBox>
-      <Image
-        style={[styles.img]}
-        resizeMode={"cover"}
-        source={{uri: sourceImage}}
-      />
-    </LightBox>
+    <Block width={150} height={180}>
+      <LightBox source={{uri: sourceImage}} />
+    </Block>
   );
 };
 
 export const ImageMessage = memo(ImageMessageComponent, isEqual);
-
-const styles = StyleSheet.create({
-  img: {
-    resizeMode: "cover",
-    width: scale(150),
-    height: scale(180),
-  },
-});

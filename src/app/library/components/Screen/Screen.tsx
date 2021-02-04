@@ -1,26 +1,26 @@
-import React, {memo, useMemo} from "react";
+import React, {memo, useMemo} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
   StatusBar,
   StyleSheet,
-} from "react-native";
-import {SafeAreaView, useSafeAreaInsets} from "react-native-safe-area-context";
-import equals from "react-fast-compare";
-import {enhance} from "@common";
+} from 'react-native';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import equals from 'react-fast-compare';
+import {enhance} from '@common';
 
-import {Block} from "../Block/Block";
+import {Block} from '../Block/Block';
 
-import {ScreenProps} from "./Screen.props";
+import {ScreenProps} from './Screen.props';
 
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
   },
   outer: {
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
     flex: 1,
   },
   insetBottom: {
@@ -33,13 +33,13 @@ const styles = StyleSheet.create({
     right: 0,
   },
   inner: {
-    justifyContent: "flex-start",
+    justifyContent: 'flex-start',
     flex: 1,
-    width: "100%",
+    width: '100%',
   },
 });
 
-const isIos = Platform.OS === "ios";
+const isIos = Platform.OS === 'ios';
 
 function ScreenWithoutScrolling(props: ScreenProps) {
   const inset = useSafeAreaInsets();
@@ -48,14 +48,14 @@ function ScreenWithoutScrolling(props: ScreenProps) {
     hidden = false,
     statusColor = undefined,
     draw = false,
-    bottomInsetColor = "#ffffff",
+    bottomInsetColor = '#ffffff',
     forceInset,
     unsafe,
     children,
     statusBar,
     backgroundColor,
-    leftInsetColor = "#ffffff",
-    rightInsetColor = "#ffffff",
+    leftInsetColor = '#ffffff',
+    rightInsetColor = '#ffffff',
   } = props;
 
   const backgroundStyle = useMemo(
@@ -68,55 +68,55 @@ function ScreenWithoutScrolling(props: ScreenProps) {
   return (
     <KeyboardAvoidingView
       style={[styles.outer]}
-      behavior={isIos ? "padding" : undefined}
+      behavior={isIos ? 'padding' : undefined}
       keyboardVerticalOffset={0}>
       <StatusBar
         hidden={hidden}
         backgroundColor={statusColor}
         translucent={draw}
-        barStyle={statusBar || "dark-content"}
+        barStyle={statusBar || 'dark-content'}
       />
       {!unsafe &&
-        (!forceInset || (forceInset && forceInset.includes("top"))) &&
+        (!forceInset || (forceInset && forceInset.includes('top'))) &&
         isIos && (
           <Block
             color={statusColor}
-            position={"absolute"}
+            position={'absolute'}
             height={inset.top}
-            width={"100%"}
+            width={'100%'}
           />
         )}
       {!unsafe &&
-        (!forceInset || (forceInset && forceInset.includes("left"))) &&
+        (!forceInset || (forceInset && forceInset.includes('left'))) &&
         isIos && (
           <Block
             color={leftInsetColor}
-            position={"absolute"}
+            position={'absolute'}
             style={[styles.insetLeft]}
             width={inset.left}
-            height={"100%"}
+            height={'100%'}
           />
         )}
       {!unsafe &&
-        (!forceInset || (forceInset && forceInset.includes("right"))) &&
+        (!forceInset || (forceInset && forceInset.includes('right'))) &&
         isIos && (
           <Block
             color={rightInsetColor}
-            position={"absolute"}
+            position={'absolute'}
             style={[styles.insetRight]}
             width={inset.right}
-            height={"100%"}
+            height={'100%'}
           />
         )}
       {!unsafe &&
-        (!forceInset || (forceInset && forceInset.includes("bottom"))) &&
+        (!forceInset || (forceInset && forceInset.includes('bottom'))) &&
         isIos && (
           <Block
             color={bottomInsetColor}
             style={[styles.insetBottom]}
-            position={"absolute"}
+            position={'absolute'}
             height={inset.bottom}
-            width={"100%"}
+            width={'100%'}
           />
         )}
       <Wrapper
@@ -137,14 +137,14 @@ function ScreenWithScrolling(props: ScreenProps) {
     statusColor = undefined,
     statusBar,
     draw = false,
-    bottomInsetColor = "#ffffff",
+    bottomInsetColor = '#ffffff',
     backgroundColor,
     style = {},
     forceInset,
     unsafe = false,
     children,
-    leftInsetColor = "#ffffff",
-    rightInsetColor = "#ffffff",
+    leftInsetColor = '#ffffff',
+    rightInsetColor = '#ffffff',
   } = props;
 
   const backgroundStyle = useMemo(
@@ -152,61 +152,61 @@ function ScreenWithScrolling(props: ScreenProps) {
     [backgroundColor],
   );
 
-  const actualStyle = useMemo(() => enhance([styles.inner, style]), [style]);
+  const actualStyle = useMemo(() => enhance([style]), [style]);
 
   const Wrapper = unsafe ? Block : SafeAreaView;
   return (
     <KeyboardAvoidingView
       style={[styles.root]}
-      behavior={isIos ? "padding" : undefined}
+      behavior={isIos ? 'padding' : undefined}
       keyboardVerticalOffset={0}>
       <StatusBar
         hidden={hidden}
         backgroundColor={statusColor}
         translucent={draw}
-        barStyle={statusBar || "dark-content"}
+        barStyle={statusBar || 'dark-content'}
       />
       {!unsafe &&
-        (!forceInset || (forceInset && forceInset.includes("top"))) &&
+        (!forceInset || (forceInset && forceInset.includes('top'))) &&
         isIos && (
           <Block
             color={statusColor}
-            position={"absolute"}
+            position={'absolute'}
             height={inset.top}
-            width={"100%"}
+            width={'100%'}
           />
         )}
       {!unsafe &&
-        (!forceInset || (forceInset && forceInset.includes("left"))) &&
+        (!forceInset || (forceInset && forceInset.includes('left'))) &&
         isIos && (
           <Block
             color={leftInsetColor}
-            position={"absolute"}
+            position={'absolute'}
             style={[styles.insetLeft]}
             width={inset.left}
-            height={"100%"}
+            height={'100%'}
           />
         )}
       {!unsafe &&
-        (!forceInset || (forceInset && forceInset.includes("right"))) &&
+        (!forceInset || (forceInset && forceInset.includes('right'))) &&
         isIos && (
           <Block
             color={rightInsetColor}
-            position={"absolute"}
+            position={'absolute'}
             style={[styles.insetRight]}
             width={inset.right}
-            height={"100%"}
+            height={'100%'}
           />
         )}
       {!unsafe &&
-        (!forceInset || (forceInset && forceInset.includes("bottom"))) &&
+        (!forceInset || (forceInset && forceInset.includes('bottom'))) &&
         isIos && (
           <Block
             color={bottomInsetColor}
             style={[styles.insetBottom]}
-            position={"absolute"}
+            position={'absolute'}
             height={inset.bottom}
-            width={"100%"}
+            width={'100%'}
           />
         )}
       <Wrapper edges={forceInset ?? undefined} style={[styles.inner]}>

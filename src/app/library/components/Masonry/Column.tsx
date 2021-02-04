@@ -1,17 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {memo, useState, useEffect, useMemo, useCallback} from "react";
+import React, {memo, useState, useEffect, useMemo, useCallback} from 'react';
 import {
   View,
   StyleProp,
   ViewStyle,
   FlatList,
   ListRenderItemInfo,
-} from "react-native";
-import isEqual from "react-fast-compare";
+} from 'react-native';
+import isEqual from 'react-fast-compare';
 
-import {ColumnsProps, Dimensions, CellProps, ItemColumn} from "./types";
-import {Cell} from "./Cell";
-import {DEFAULT_COLUMNS, DEFAULT_CELL_SPACE} from "./constants";
+import {ColumnsProps, Dimensions, CellProps, ItemColumn} from './types';
+import {Cell} from './Cell';
+import {DEFAULT_COLUMNS, DEFAULT_CELL_SPACE} from './constants';
 
 const ColumnComponent = ({
   data,
@@ -59,7 +59,7 @@ const ColumnComponent = ({
   };
 
   const _keyExtractor = useCallback(
-    (item: CellProps) => "IMAGE_" + item.uri,
+    (item: CellProps) => 'IMAGE_' + item.uri,
     [],
   );
 
@@ -101,7 +101,7 @@ const ColumnComponent = ({
   }, [space]);
 
   const containerStyle = useMemo(
-    () => [{width: columnWidth, overflow: "hidden"}] as StyleProp<ViewStyle>,
+    () => [{width: columnWidth, overflow: 'hidden'}] as StyleProp<ViewStyle>,
     [columnWidth],
   );
 
@@ -119,7 +119,7 @@ const ColumnComponent = ({
         ItemSeparatorComponent={_renderSpace}
         keyExtractor={_keyExtractor}
         bounces={false}
-        overScrollMode={"never"}
+        overScrollMode={'never'}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       />

@@ -1,21 +1,19 @@
-import React, {memo} from "react";
-import {StyleSheet} from "react-native";
+import React, {memo, useMemo} from 'react';
+import {StyleSheet, ViewStyle} from 'react-native';
 import Animated, {
   Extrapolate,
-  interpolate,
-  lessThan,
-  multiply,
-  useCode,
-  set,
-} from "react-native-reanimated";
-import equals from "react-fast-compare";
-import {transformOrigin, useValues, clamp, timing} from "@animated";
+  useDerivedValue,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
+import equals from 'react-fast-compare';
+import {sharedTiming, useInterpolate, useRadian} from '@animated';
+import {enhance} from '@common';
 
-import {Block} from "../../../Block/Block";
+import {Block} from '../../../Block/Block';
 
-import {HalfCircle} from "./HalfCircle";
+import {STROKE_WIDTH} from './Constant';
 
-const {PI} = Math;
+const EMPTY_COLOR = 'red';
 
 interface CircularProps {
   progress: number;
@@ -25,66 +23,98 @@ interface CircularProps {
   fg: string;
 
   radius: number;
+
+  strokeWidth: number;
 }
 
 const styles = StyleSheet.create({
-  circleTop: {
-    zIndex: 1,
+  empty: {
+    borderColor: EMPTY_COLOR,
+    justifyContent: 'center',
+    alignItems: 'center',
+    transform: [{rotate: '-135deg'}],
   },
-  circleBottom: {
-    transform: [{rotate: "180deg"}],
+  indicator: {
+    position: 'absolute',
+    borderLeftColor: 'green',
+    borderTopColor: 'green',
+    borderBottomColor: 'transparent',
+    borderRightColor: 'transparent',
+  },
+  cover: {
+    position: 'absolute',
+    borderLeftColor: EMPTY_COLOR,
+    borderTopColor: EMPTY_COLOR,
+    borderBottomColor: 'transparent',
+    borderRightColor: 'transparent',
   },
 });
 
 export const CircularComponent = ({
   progress,
-  bg,
-  fg,
   radius,
+  fg,
+  bg,
 }: CircularProps) => {
-  const [progressAnimated] = useValues(progress);
-  const actualProgress = clamp(progressAnimated, 0, 100);
-  const thetaProgress = interpolate(actualProgress, {
-    inputRange: [0, 100],
-    outputRange: [0, 1],
-  });
-  const theta = multiply(thetaProgress, 2 * PI);
-  const opacity = lessThan(theta, PI);
-  const rotate = interpolate(theta, {
-    inputRange: [PI, 2 * PI],
-    outputRange: [0, PI],
-    extrapolate: Extrapolate.CLAMP,
-  });
-  useCode(
-    () => [
-      set(progressAnimated, timing({from: progressAnimated, to: progress})),
-    ],
-    [progress],
+  const progressAnimated = useDerivedValue(() => sharedTiming(progress));
+  const firstRotate = useRadian(
+    useInterpolate(progressAnimated, [0, 50], [0, 180], Extrapolate.CLAMP),
   );
+  const secondRotate = useRadian(
+    useInterpolate(progressAnimated, [0, 100], [0, 360], Extrapolate.CLAMP),
+  );
+  const secondOpacity = useInterpolate(
+    progressAnimated,
+    [0, 49.9999999, 50, 100],
+    [0, 0, 1, 1],
+    Extrapolate.CLAMP,
+  );
+
+  const baseStyle = useMemo<ViewStyle>(
+    () => ({
+      width: radius * 2,
+      height: radius * 2,
+      borderRadius: radius,
+      borderWidth: STROKE_WIDTH,
+    }),
+    [radius],
+  );
+
+  const emptyStyle = useMemo<ViewStyle>(
+    () => enhance([baseStyle, styles.empty, {borderColor: bg}]) as ViewStyle,
+    [baseStyle, bg],
+  );
+  const coverStyle = useMemo<ViewStyle>(
+    () =>
+      enhance([
+        baseStyle,
+        styles.cover,
+        {borderLeftColor: bg, borderTopColor: bg},
+      ]) as ViewStyle,
+    [baseStyle, bg],
+  );
+  const indicatorStyle = useMemo<ViewStyle>(
+    () =>
+      enhance([
+        baseStyle,
+        styles.indicator,
+        {borderLeftColor: fg, borderTopColor: fg},
+      ]) as ViewStyle,
+    [baseStyle, fg],
+  );
+  const firstIndicatorStyle = useAnimatedStyle(() => ({
+    transform: [{rotate: firstRotate.value}],
+  }));
+  const secondIndicatorStyle = useAnimatedStyle(() => ({
+    transform: [{rotate: secondRotate.value}],
+    opacity: secondOpacity.value,
+  }));
   return (
-    <>
-      <Block style={[styles.circleTop]}>
-        <HalfCircle radius={radius} color={fg} />
-        <Animated.View
-          style={{
-            ...StyleSheet.absoluteFillObject,
-            transform: transformOrigin({x: 0, y: radius / 2}, {rotate: theta}),
-            opacity,
-          }}>
-          <HalfCircle radius={radius} color={bg} />
-        </Animated.View>
-      </Block>
-      <Block style={[styles.circleBottom]}>
-        <HalfCircle radius={radius} color={fg} />
-        <Animated.View
-          style={{
-            ...StyleSheet.absoluteFillObject,
-            transform: transformOrigin({x: 0, y: radius / 2}, {rotate}),
-          }}>
-          <HalfCircle radius={radius} color={bg} />
-        </Animated.View>
-      </Block>
-    </>
+    <Block style={[emptyStyle]}>
+      <Animated.View style={[indicatorStyle, firstIndicatorStyle]} />
+      <Animated.View style={[coverStyle]} />
+      <Animated.View style={[indicatorStyle, secondIndicatorStyle]} />
+    </Block>
   );
 };
 export const Circular = memo(CircularComponent, equals);

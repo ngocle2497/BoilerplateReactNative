@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
-import React, {memo, useCallback, useEffect, useState} from "react";
-import {TextInput, Keyboard} from "react-native";
-import isEqual from "react-fast-compare";
-import {onCheckType} from "@common";
+import React, {memo, useCallback, useEffect, useState} from 'react';
+import {TextInput, Keyboard} from 'react-native';
+import isEqual from 'react-fast-compare';
+import {onCheckType} from '@common';
 
-import {ChildProps, FormProps} from "./Form.props";
+import {ChildProps, FormProps} from './Form.props';
 
 const Child = ({
   child,
@@ -23,7 +23,7 @@ const Child = ({
         ? formatInput[index + 1].focus()
         : formatInput[index].blur();
     } else {
-      if (onCheckType(child.props.onSubmit, "function")) {
+      if (onCheckType(child.props.onSubmit, 'function')) {
         child.props.onSubmit();
       }
       Keyboard.dismiss();
@@ -31,7 +31,7 @@ const Child = ({
   }, [Inputs, child.props, i]);
   return React.createElement(child.type, {
     ...{
-      returnKeyType: i + 1 < Inputs.current.length ? "next" : "send",
+      returnKeyType: i + 1 < Inputs.current.length ? 'next' : 'send',
       ...child.props,
       ref: (e: TextInput) => {
         Inputs.current[i] = e;

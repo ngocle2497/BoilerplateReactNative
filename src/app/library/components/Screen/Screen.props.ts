@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
-import {ViewStyle, StyleProp} from "react-native";
-import {Edge} from "react-native-safe-area-context";
+import {ViewStyle, StyleProp} from 'react-native';
+import {Edge} from 'react-native-safe-area-context';
 
 export interface ScreenProps {
   /**
@@ -24,7 +24,7 @@ export interface ScreenProps {
    * Status bar style
    * @default dark-content
    */
-  statusBar?: "light-content" | "dark-content";
+  statusBar?: 'light-content' | 'dark-content';
 
   /**
    * Using safe area on ios

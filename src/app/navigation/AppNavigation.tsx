@@ -1,14 +1,22 @@
-import React, {useEffect} from "react";
-import {NavigationContainer} from "@react-navigation/native";
-import {useSelector, AppDispatch, dispatch} from "@common";
-import {ProgressDialog, SnackBar} from "@components";
-import {dialogHolder, hideLoading, showLoading, snackBarHolder} from "@utils";
-import {onLoadApp} from "@store/app_redux/reducer";
-import {AppMode} from "@library/components/AppMode/AppMode";
-import {MyAppTheme} from "@theme";
+import React, {useEffect} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {useSelector, AppDispatch, dispatch} from '@common';
+import {AnimProcess, ProgressDialog, SnackBar} from '@components';
+import {
+  dialogHolder,
+  animProgressHolder,
+  hideLoading,
+  showLoading,
+  snackBarHolder,
+  imageTransitionHolder,
+} from '@utils';
+import {onLoadApp} from '@store/app_redux/reducer';
+import {AppMode} from '@library/components/AppMode/AppMode';
+import {MyAppTheme} from '@theme';
 
-import {RootNavigation} from "./RootNavigator";
-import {navigationRef} from "./navigationService";
+import {RootNavigation} from './RootNavigator';
+import {navigationRef} from './navigationService';
+import {ImageTransition} from '@library/components/LightBox/ImageTransition';
 
 export const AppContainer = () => {
   const {token, appMode, loading, showDialog, theme} = useSelector(
@@ -32,7 +40,9 @@ export const AppContainer = () => {
             <RootNavigation token={token} />
             <ProgressDialog ref={dialogHolder} />
             <SnackBar ref={snackBarHolder} />
-            {appMode !== "prod" && <AppMode {...{appMode}} />}
+            <AnimProcess ref={animProgressHolder} />
+            <ImageTransition ref={imageTransitionHolder} />
+            {appMode !== 'prod' && <AppMode {...{appMode}} />}
           </>
         )}
         <AppDispatch />

@@ -1,5 +1,5 @@
-import {IconTypes} from "@assets/icon";
-
+import {IconTypes} from '@assets/icon';
+import {ResizeMode} from 'react-native-fast-image';
 export interface IconProps {
   /**
    * Size of Icon
@@ -23,5 +23,11 @@ export interface IconProps {
    * Icon type
    * @default undefined
    */
-  icon?: IconTypes;
+  icon: IconTypes;
+
+  /**
+   * Custom resizeMode
+   * @default contain
+   */
+  resizeMode?: ResizeMode;
 }

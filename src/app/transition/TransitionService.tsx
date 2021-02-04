@@ -1,5 +1,5 @@
-import React, {createRef} from "react";
-import {TransitioningView, Transition} from "react-native-reanimated";
+import React, {createRef} from 'react';
+import {TransitioningView, Transition} from 'react-native-reanimated';
 export const _transitionApp = createRef<TransitioningView>();
 
 const DURATION = 150;

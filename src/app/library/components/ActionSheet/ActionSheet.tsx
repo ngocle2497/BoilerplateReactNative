@@ -5,19 +5,19 @@ import React, {
   useCallback,
   memo,
   useMemo,
-} from "react";
-import {useTranslation} from "react-i18next";
-import {enhance} from "@common";
-import equals from "react-fast-compare";
-import Modal from "react-native-modal";
+} from 'react';
+import {useTranslation} from 'react-i18next';
+import {enhance} from '@common';
+import equals from 'react-fast-compare';
+import Modal from 'react-native-modal';
 
-import {Block} from "../Block/Block";
-import {Button} from "../Button/Button";
-import {Text} from "../Text/Text";
-import {Divider} from "../Divider/Divider";
+import {Block} from '../Block/Block';
+import {Button} from '../Button/Button';
+import {Text} from '../Text/Text';
+import {Divider} from '../Divider/Divider';
 
-import {ActionSheetProps, OptionData} from "./ActionSheet.props";
-import {styles} from "./ActionSheet.presets";
+import {ActionSheetProps, OptionData} from './ActionSheet.props';
+import {styles} from './ActionSheet.presets';
 
 const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
   const [t] = useTranslation();
@@ -31,8 +31,8 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
     title,
     onPressOption,
     onBackDropPress,
-    textCancel = t("dialog:cancel"),
-    backDropColor = "rgba(0,0,0,.5)",
+    textCancel = t('dialog:cancel'),
+    backDropColor = 'rgba(0,0,0,.5)',
     closeOnBackDrop = true,
     option = [],
   } = props;
@@ -64,7 +64,7 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
   }, [onPressCancel]);
 
   const _onBackDropPress = useCallback(() => {
-    typeof onBackDropPress === "function" && onBackDropPress();
+    typeof onBackDropPress === 'function' && onBackDropPress();
     closeOnBackDrop === true && setActionVisible(false);
   }, [closeOnBackDrop, onBackDropPress]);
 
@@ -101,7 +101,7 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
             ) : (
               <>
                 <Block style={[styles.wrapTitle]}>
-                  <Text style={[styles.title]} text={title + ""} />
+                  <Text style={[styles.title]} text={title + ''} />
                 </Block>
                 <Divider />
               </>

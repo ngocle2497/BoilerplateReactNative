@@ -1,13 +1,13 @@
 export interface RadioButtonProps {
   /**
-   * Current state of radio button
+   * Default state of radio button
    */
-  value: boolean;
+  value?: boolean;
 
   /**
    * On radio button press
    */
-  onPress: () => void;
+  onToggle?: (value: boolean) => void;
 
   /**
    * Color when value equal true

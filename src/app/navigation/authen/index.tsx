@@ -1,7 +1,7 @@
-import React from "react";
-import {Home} from "@features/authentication/home";
-import {APP_SCREEN} from "@navigation/screenTypes";
-import {createStackNavigator} from "@react-navigation/stack";
+import React from 'react';
+import {Home} from '@features/authentication/home';
+import {APP_SCREEN} from '@navigation/screenTypes';
+import {createStackNavigator} from '@react-navigation/stack';
 
 const MainDrawer = createStackNavigator();
 

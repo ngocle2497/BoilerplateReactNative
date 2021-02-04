@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-undef */
-import isEqual from "react-fast-compare";
+import isEqual from 'react-fast-compare';
 import {
   useEffect,
   useRef,
@@ -9,13 +9,13 @@ import {
   SetStateAction,
   useCallback,
   useMemo,
-} from "react";
-import {useSelector as useReduxSelector} from "react-redux";
-import NetInfo, {NetInfoState} from "@react-native-community/netinfo";
-import {useTheme} from "@react-navigation/native";
-import {AppTheme} from "@config/type";
-import {RootState} from "@store/allReducers";
-import {requestAnimation} from "@transition";
+} from 'react';
+import {useSelector as useReduxSelector} from 'react-redux';
+import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
+import {useTheme} from '@react-navigation/native';
+import {AppTheme} from '@config/type';
+import {RootState} from '@store/allReducers';
+import {requestAnimation} from '@transition';
 
 type UseStateFull<T = any> = {
   value: T;
@@ -84,7 +84,7 @@ function useNetWorkStatus(): NetInfoTuple {
 //#region useArray
 
 type UseArrayActions<T> = {
-  setValue: UseStateFull<T[]>["setValue"];
+  setValue: UseStateFull<T[]>['setValue'];
   add: (value: T | T[]) => void;
   push: (value: T | T[]) => void;
   pop: () => void;
@@ -327,7 +327,7 @@ function useSetStateArray<T extends object>(
     (v: SetStateAction<Partial<T>>) => {
       return setValue((oldValue) => ({
         ...oldValue,
-        ...(typeof v === "function" ? v(oldValue) : v),
+        ...(typeof v === 'function' ? v(oldValue) : v),
       }));
     },
     [setValue],
@@ -378,7 +378,7 @@ function useAsyncState<T>(
     setState(newValue);
   };
   useEffect(() => {
-    if (typeof _callback.current === "function") {
+    if (typeof _callback.current === 'function') {
       _callback.current(state);
       _callback.current = undefined;
     }

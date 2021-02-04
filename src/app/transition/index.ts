@@ -1,2 +1,2 @@
-export * from "./TransitionService";
-export * from "./transition";
+export * from './TransitionService';
+export * from './transition';

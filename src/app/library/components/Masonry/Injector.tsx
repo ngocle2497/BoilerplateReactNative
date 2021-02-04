@@ -1,7 +1,7 @@
-import React, {memo} from "react";
-import isEqual from "react-fast-compare";
+import React, {memo} from 'react';
+import isEqual from 'react-fast-compare';
 
-import {InjectorProps} from "./types";
+import {InjectorProps} from './types';
 
 const InjectorComponent = ({
   defaultComponent: DefaultComponent,

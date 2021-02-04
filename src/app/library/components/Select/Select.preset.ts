@@ -1,33 +1,32 @@
-import {StyleSheet} from "react-native";
-import {FontSizeDefault} from "@theme/fontSize";
-import {FontDefault} from "@theme/typography";
+import {StyleSheet} from 'react-native';
+import {FontSizeDefault} from '@theme/fontSize';
 
 export const MAX_HEIGHT = 250;
 
 export const styles = StyleSheet.create({
   wrap: {
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
     bottom: 0,
   },
   buttonDrop: {
-    width: "100%",
-    backgroundColor: "#FFFFFF",
+    width: '100%',
+    backgroundColor: '#FFFFFF',
     borderRadius: 0,
-    paddingVertical: 18,
+    paddingVertical: 10,
     paddingLeft: 5,
   },
   row: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   wrapList: {
-    width: "100%",
-    backgroundColor: "#FFFFFF",
-    overflow: "hidden",
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+    overflow: 'hidden',
     maxHeight: MAX_HEIGHT,
   },
   backDrop: {
-    position: "absolute",
-    backgroundColor: "rgba(0,0,0,.7)",
+    position: 'absolute',
+    backgroundColor: 'rgba(0,0,0,.7)',
     left: 0,
     top: 0,
     opacity: 1,
@@ -35,15 +34,16 @@ export const styles = StyleSheet.create({
     right: 0,
   },
   root: {
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
+    width: '100%',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   text: {
     flex: 1,
   },
   modal: {
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
     marginHorizontal: 0,
     marginVertical: 0,
   },
@@ -51,21 +51,20 @@ export const styles = StyleSheet.create({
 
 export const stylesItem = StyleSheet.create({
   row: {
-    flexDirection: "row",
+    flexDirection: 'row',
     paddingVertical: 15,
-    width: "100%",
+    width: '100%',
     paddingLeft: 5,
     zIndex: 1000,
-    backgroundColor: "#FFFFFF",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
+    backgroundColor: '#FFFFFF',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     borderRadius: 0,
   },
   textOption: {
-    fontFamily: FontDefault.primary,
     fontSize: FontSizeDefault.FONT_14,
-    width: "100%",
+    width: '100%',
     zIndex: 1000,
-    fontWeight: "normal",
+    fontWeight: 'normal',
   },
 });

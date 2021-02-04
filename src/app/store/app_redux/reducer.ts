@@ -3,12 +3,12 @@ import {
   PROD_MODE_API,
   STAGING_MODE_API,
   AppModeType,
-} from "@networking/api";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {SLICE_NAME} from "@config/type";
-import {ThemeType} from "@theme";
+} from '@networking/api';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {SLICE_NAME} from '@config/type';
+import {ThemeType} from '@theme';
 
-import {AppState} from "./type";
+import {AppState} from './type';
 
 const initialAppState: AppState = {
   internetState: true,
@@ -19,17 +19,17 @@ const initialAppState: AppState = {
    */
   loading: false,
   showDialog: false,
-  theme: "default",
-  appMode: "dev",
+  theme: 'default',
+  appMode: 'dev',
   appUrl: DEV_MODE_API,
 };
 const appModeToURL = (mode: AppModeType): string => {
   switch (mode) {
-    case "dev":
+    case 'dev':
       return DEV_MODE_API;
-    case "prod":
+    case 'prod':
       return PROD_MODE_API;
-    case "staging":
+    case 'staging':
       return STAGING_MODE_API;
     default:
       return DEV_MODE_API;

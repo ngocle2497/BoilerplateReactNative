@@ -1,14 +1,16 @@
-import React, {memo, forwardRef} from "react";
-import {TextField} from "@components";
-import isEqual from "react-fast-compare";
-import {FieldError} from "react-hook-form";
+import React, {memo, forwardRef} from 'react';
+import {TextField} from '@components';
+import isEqual from 'react-fast-compare';
+import {FieldError} from 'react-hook-form';
+
+import {FormValue} from './FormLogin';
 
 interface InputProps {
-  name: string;
+  name: keyof FormValue;
   label: string;
   error?: FieldError | undefined;
   onSubmit?: () => void;
-  nameTrigger?: string;
+  nameTrigger?: keyof FormValue;
 }
 
 const InputComponent = forwardRef<any, InputProps>(
@@ -21,7 +23,7 @@ const InputComponent = forwardRef<any, InputProps>(
         error={error?.message !== undefined}
         label={label}
         name={name}
-        typeInput={"flat"}
+        typeInput={'flat'}
         {...rest}
       />
     );
