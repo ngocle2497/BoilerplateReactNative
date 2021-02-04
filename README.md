@@ -17,6 +17,6 @@
 - Run your app
   `npx react-native run-android/ios` or `yarn android/ios `or `npm run android/ios`
 - <h2>Notes</h2>
-  This boilerplate uses libraries [react-native-reanimated v2](https://docs.swmansion.com/react-native-reanimated/docs) and [react-native-gesture-handle](https://github.com/software-mansion/react-native-gesture-handler). Please follow their installation instructions.
++ This boilerplate uses libraries [react native reanimated](https://docs.swmansion.com/react-native-reanimated/docs) and [react-native-gesture-handle](https://github.com/software-mansion/react-native-gesture-handler). Please follow their installation instructions.
 - <h3>Preview</h3>
 <img src="./preview.gif">
