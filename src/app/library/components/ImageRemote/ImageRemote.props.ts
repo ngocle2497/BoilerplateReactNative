@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
-import {ViewStyle, StyleProp} from "react-native";
-import FastImage, {ImageStyle} from "react-native-fast-image";
+import {ViewStyle, StyleProp} from 'react-native';
+import FastImage, {ImageStyle} from 'react-native-fast-image';
 export interface ImageRemoteProps {
   /**
    * Overwrite image style

@@ -1,4 +1,4 @@
-import {DataType, ObjectColumn, ObjectIndex} from "./types";
+import {DataType, ObjectColumn, ObjectIndex} from './types';
 
 export const assignObjectColumn = (
   nColumns: number,

@@ -1,17 +1,17 @@
-import {enhance} from "@common";
-import {FontSizeDefault} from "@theme/fontSize";
-import {FontDefault} from "@theme/typography";
-import React, {memo, useMemo} from "react";
-import equals from "react-fast-compare";
-import {useTranslation} from "react-i18next";
+import {enhance} from '@common';
+import {FontSizeDefault} from '@theme/fontSize';
+import {FontDefault} from '@theme/typography';
+import React, {memo, useMemo} from 'react';
+import equals from 'react-fast-compare';
+import {useTranslation} from 'react-i18next';
 import {
   StyleProp,
   StyleSheet,
   Text as ReactNativeText,
   TextStyle,
-} from "react-native";
+} from 'react-native';
 
-import {TextProps} from "./Text.props";
+import {TextProps} from './Text.props';
 
 const styles = StyleSheet.create({
   flex: {
@@ -26,7 +26,7 @@ const TextComponent = (props: TextProps) => {
     text,
     children,
     flex,
-    fontSize = "FONT_13",
+    fontSize = 'FONT_13',
     fontWeight,
     fontFamily,
     margin,
@@ -87,7 +87,7 @@ const TextComponent = (props: TextProps) => {
           width && {width},
           height && {height},
           color && {color: color},
-          center && {textAlign: "center"},
+          center && {textAlign: 'center'},
           textAlign && {textAlign},
           alignItems && {alignItems},
           alignSelf && {alignSelf},

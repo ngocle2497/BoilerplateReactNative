@@ -1,33 +1,33 @@
-import React, {useMemo, useCallback, useState, useEffect} from "react";
-import {StyleSheet} from "react-native";
-import equals from "react-fast-compare";
-import {SpacingDefault} from "@theme/spacing";
-import {ColorDefault} from "@theme/color";
-import {enhance, onCheckType} from "@common";
+import React, {useMemo, useCallback, useState, useEffect} from 'react';
+import {StyleSheet} from 'react-native';
+import equals from 'react-fast-compare';
+import {SpacingDefault} from '@theme/spacing';
+import {ColorDefault} from '@theme/color';
+import {enhance, onCheckType} from '@common';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
+import {sharedTiming} from '@animated';
 
-import {Text} from "../Text/Text";
-import {Button} from "../Button/Button";
-import {Block} from "../Block/Block";
+import {Text} from '../Text/Text';
+import {Button} from '../Button/Button';
+import {Block} from '../Block/Block';
 
-import {CheckboxProps} from "./CheckBox.props";
+import {CheckboxProps} from './CheckBox.props';
 
 const DIMENSIONS = {width: 16, height: 16};
 const styles = StyleSheet.create({
   ROOT: {
-    flexDirection: "row",
+    flexDirection: 'row',
     paddingVertical: SpacingDefault.tiny,
-    alignSelf: "flex-start",
+    alignSelf: 'flex-start',
   },
   OUTLINE: {
     ...DIMENSIONS,
     marginTop: 2,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: ColorDefault.primary,
     borderRadius: 1,
@@ -76,11 +76,11 @@ const CheckBoxComponent = ({
   }, []);
 
   useEffect(() => {
-    if (onToggle && onCheckType(onToggle, "function")) {
+    if (onToggle && onCheckType(onToggle, 'function')) {
       onToggle(localValue);
     }
-    scale.value = withTiming(localValue ? 1 : 0, {duration: 150});
-    opacity.value = withTiming(localValue ? 1 : 0, {duration: 150});
+    scale.value = sharedTiming(localValue ? 1 : 0, {duration: 150});
+    opacity.value = sharedTiming(localValue ? 1 : 0, {duration: 150});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localValue, onToggle]);
 
@@ -92,7 +92,7 @@ const CheckBoxComponent = ({
   return (
     <Button
       activeOpacity={1}
-      preset={"link"}
+      preset={'link'}
       disabled={disable}
       onPress={onPress}
       style={_rootStyle}>

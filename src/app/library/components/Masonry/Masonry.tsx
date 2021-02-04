@@ -1,4 +1,4 @@
-import React, {memo, useState, useEffect, useCallback} from "react";
+import React, {memo, useState, useEffect, useCallback} from 'react';
 import {
   StyleSheet,
   View,
@@ -7,18 +7,18 @@ import {
   Image,
   RefreshControl,
   ListRenderItemInfo,
-} from "react-native";
-import isEqual from "react-fast-compare";
+} from 'react-native';
+import isEqual from 'react-fast-compare';
 
-import {MasonryProps, Dimensions, ItemColumn, DataType} from "./types";
-import {DEFAULT_COLUMNS, DEFAULT_CELL_SPACE} from "./constants";
+import {MasonryProps, Dimensions, ItemColumn, DataType} from './types';
+import {DEFAULT_COLUMNS, DEFAULT_CELL_SPACE} from './constants';
 import {
   assignObjectColumn,
   assignObjectIndex,
   onCheckNumber,
   containMatchingUri,
-} from "./handle";
-import {Column} from "./Column";
+} from './handle';
+import {Column} from './Column';
 
 const MasonryComponent = ({
   data = [],
@@ -84,7 +84,7 @@ const MasonryComponent = ({
           }
         },
         (_) => {
-          console.warn("Image failed to load");
+          console.warn('Image failed to load');
         },
       );
     }
@@ -126,12 +126,12 @@ const MasonryComponent = ({
   );
 
   const _onHandleEndReach = useCallback(() => {
-    if (typeof onEndReach === "function") {
+    if (typeof onEndReach === 'function') {
       onEndReach();
     }
   }, [onEndReach]);
   const _onRefresh = useCallback(() => {
-    if (typeof onRefresh === "function") {
+    if (typeof onRefresh === 'function') {
       onRefresh();
     }
   }, [onRefresh]);
@@ -206,8 +206,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    justifyContent: "space-between",
-    flexDirection: "row",
-    width: "100%",
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    width: '100%',
   },
 });

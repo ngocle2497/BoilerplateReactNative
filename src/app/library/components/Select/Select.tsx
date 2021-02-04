@@ -1,17 +1,17 @@
-import React, {useState, memo} from "react";
-import {FlatList, ListRenderItemInfo} from "react-native";
-import Modal from "react-native-modal";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {useTranslation} from "react-i18next";
-import equals from "react-fast-compare";
+import React, {useState, memo} from 'react';
+import {FlatList, ListRenderItemInfo} from 'react-native';
+import Modal from 'react-native-modal';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
+import equals from 'react-fast-compare';
 
-import {Text} from "../Text/Text";
-import {Block} from "../Block/Block";
-import {Button} from "../Button/Button";
+import {Text} from '../Text/Text';
+import {Block} from '../Block/Block';
+import {Button} from '../Button/Button';
 
-import {SelectItem} from "./SelectItem";
-import {styles} from "./Select.preset";
-import {SelectOption, SelectProps} from "./Select.props";
+import {SelectItem} from './SelectItem';
+import {styles} from './Select.preset';
+import {SelectOption, SelectProps} from './Select.props';
 
 const SelectComponent = (props: SelectProps) => {
   const [t] = useTranslation();
@@ -21,7 +21,7 @@ const SelectComponent = (props: SelectProps) => {
     textItemStyle,
     rightChildren,
     useBottomInset = true,
-    defaultSelect = t("dialog:select"),
+    defaultSelect = t('dialog:select'),
     customItem = undefined,
     data = [],
     ...rest
@@ -60,7 +60,7 @@ const SelectComponent = (props: SelectProps) => {
         <Button
           onPress={_showDrop}
           activeOpacity={0.68}
-          preset={"link"}
+          preset={'link'}
           style={[styles.buttonDrop]}>
           <Block style={[styles.row]}>
             <Text style={[]} text={selectedText} />
@@ -69,7 +69,9 @@ const SelectComponent = (props: SelectProps) => {
         </Button>
         <Modal
           onBackdropPress={_hideDrop}
+          onBackButtonPress={_hideDrop}
           style={[styles.modal]}
+          backdropOpacity={0.3}
           useNativeDriver={true}
           isVisible={visible}>
           <Block style={[styles.wrap]}>

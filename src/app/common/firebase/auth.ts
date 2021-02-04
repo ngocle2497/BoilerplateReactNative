@@ -1,4 +1,4 @@
-import firebaseAuth, {FirebaseAuthTypes} from "@react-native-firebase/auth";
+import firebaseAuth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 export const onLoginWithEmailAndPassword = async (
   email: string,

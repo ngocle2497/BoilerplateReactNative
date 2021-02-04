@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {StyleSheet} from "react-native";
-import {TIME_OUT, RESULT_CODE_PUSH_OUT} from "@config";
-import {AppState} from "@app_redux/type";
-import {select} from "redux-saga/effects";
-import Axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from "axios";
-import {RootState} from "@store/allReducers";
-import {onSetToken} from "@store/app_redux/reducer";
-import {dispatch} from "@common";
+import {StyleSheet} from 'react-native';
+import {TIME_OUT, RESULT_CODE_PUSH_OUT} from '@config';
+import {AppState} from '@app_redux/type';
+import {select} from 'redux-saga/effects';
+import Axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
+import {RootState} from '@store/allReducers';
+import {onSetToken} from '@store/app_redux/reducer';
+import {dispatch} from '@common';
 
-import {ApiConstants} from "./api";
-import {handleResponseAxios, handleErrorAxios, _onPushLogout} from "./helper";
+import {ApiConstants} from './api';
+import {handleResponseAxios, handleErrorAxios, _onPushLogout} from './helper';
 
-const tokenKeyHeader = "authorization";
+const tokenKeyHeader = 'authorization';
 let refreshTokenRequest: Promise<any> | null = null;
 const AxiosInstance = Axios.create({});
 
@@ -56,7 +56,7 @@ function* Request(config: AxiosRequestConfig, isCheckOut = true) {
     baseURL: appUrl,
     timeout: TIME_OUT,
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       [tokenKeyHeader]: token,
     },
   };
@@ -82,24 +82,24 @@ function* Request(config: AxiosRequestConfig, isCheckOut = true) {
 }
 // get
 function* Get(url: string, param?: any) {
-  return yield Request({url: url, params: param, method: "GET"});
+  return yield Request({url: url, params: param, method: 'GET'});
 }
 
 // post
 function* Post(url: string, data: any) {
-  return yield Request({url: url, data: data, method: "POST"});
+  return yield Request({url: url, data: data, method: 'POST'});
 }
 
 // post file
 function* PostWithFile(url: string, data: any) {
   const {token}: AppState = yield select((x: RootState) => x.app);
-  const header: any = {token: token, "Content-Type": "multipart/form-data"};
-  return yield Request({url: url, data: data, method: "POST", headers: header});
+  const header: any = {token: token, 'Content-Type': 'multipart/form-data'};
+  return yield Request({url: url, data: data, method: 'POST', headers: header});
 }
 
 // put
 function* Put(url: string, data: any, params?: any) {
-  return yield Request({url: url, data: data, params: params, method: "PUT"});
+  return yield Request({url: url, data: data, params: params, method: 'PUT'});
 }
 
 // delete
@@ -107,7 +107,7 @@ function* Delete(url: string, params?: any) {
   return yield Request({
     url: url,
     params: params,
-    method: "DELETE",
+    method: 'DELETE',
   });
 }
 export const ServiceSaga = {

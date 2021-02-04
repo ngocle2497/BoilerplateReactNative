@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {FlatListProps, TextStyle, StyleProp} from "react-native";
+import {FlatListProps, TextStyle, StyleProp} from 'react-native';
 
 export interface SelectOption {
   /**

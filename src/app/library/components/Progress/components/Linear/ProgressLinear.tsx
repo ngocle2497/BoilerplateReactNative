@@ -1,38 +1,28 @@
-import React, {useState, memo} from "react";
-import {StyleSheet, LayoutChangeEvent} from "react-native";
-import {
-  useValues,
-  timing,
-  useShareClamp,
-  transformOrigin,
-  useInterpolate,
-  sharedTransformOrigin,
-} from "@animated";
+import React, {useState, memo} from 'react';
+import {StyleSheet, LayoutChangeEvent} from 'react-native';
+import {useShareClamp, useInterpolate, sharedTiming} from '@animated';
 import Animated, {
-  useCode,
-  set,
-  interpolateNode,
-  useSharedValue,
   useDerivedValue,
   useAnimatedStyle,
-  withTiming,
-} from "react-native-reanimated";
-import equals from "react-fast-compare";
+} from 'react-native-reanimated';
+import equals from 'react-fast-compare';
 
-import {ProgressLinearProps} from "./ProgressLinear.props";
+import {ProgressLinearProps} from './ProgressLinear.props';
 
 const styles = StyleSheet.create({
   bg: {
-    width: "100%",
+    width: '100%',
+    flex: 1,
     height: 4,
-    backgroundColor: "#dbdbdb",
+    backgroundColor: '#dbdbdb',
     marginVertical: 3,
+    borderRadius: 50,
+    overflow: 'hidden',
   },
   fg: {
-    backgroundColor: "#0057e7",
-    left: 0,
-    width: "100%",
-    height: "100%",
+    backgroundColor: '#0057e7',
+    borderRadius: 50,
+    flex: 1,
   },
 });
 
@@ -41,19 +31,20 @@ export const ProgressLinearComponent = (props: ProgressLinearProps) => {
 
   const [widthProgress, setWidthProgress] = useState(0);
 
-  const progressAnimated = useDerivedValue(() => withTiming(progress));
+  const progressAnimated = useDerivedValue(() => sharedTiming(progress));
   const actualProgress = useShareClamp(progressAnimated, 0, 100);
-  const scaleX = useInterpolate(actualProgress, [0, 100], [0, 1]);
+  const translateX = useInterpolate(
+    actualProgress,
+    [0, 100],
+    [-widthProgress, 0],
+  );
 
   const _onLayoutBg = (e: LayoutChangeEvent) => {
     setWidthProgress(e.nativeEvent.layout.width);
   };
 
   const foregroundStyle = useAnimatedStyle(() => ({
-    transform: sharedTransformOrigin(
-      {x: -widthProgress / 2, y: 0},
-      {scaleX: scaleX.value},
-    ),
+    transform: [{translateX: translateX.value}],
   }));
 
   return (

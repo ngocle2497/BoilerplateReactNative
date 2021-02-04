@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
-export type MessageType = "text" | "image";
-export type SourceMessage = "mine" | "friend";
+export type MessageType = 'text' | 'image';
+export type SourceMessage = 'mine' | 'friend';
 
 export interface TextMessageProps {
   /**

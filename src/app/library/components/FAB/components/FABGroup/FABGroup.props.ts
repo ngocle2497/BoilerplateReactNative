@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
-import {IconTypes} from "@assets/icon";
-import {ViewStyle} from "react-native";
+import {IconTypes} from '@assets/icon';
+import {ViewStyle} from 'react-native';
 
 export interface Actions {
   icon: IconTypes;

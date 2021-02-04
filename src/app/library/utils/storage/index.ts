@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {Platform, StyleSheet} from "react-native";
-import RNSInfo from "react-native-sensitive-info";
+import {Platform, StyleSheet} from 'react-native';
+import RNSInfo from 'react-native-sensitive-info';
 
-const appName = "APP_Name";
+const appName = 'APP_Name';
 const storeName = Platform.select({
-  ios: "keyChain",
-  android: "sharePreferences",
+  ios: 'keyChain',
+  android: 'sharePreferences',
 });
 const dateCreateApp = new Date(2020, 10, 10, 0, 0, 0, 0);
 const AppKey = String(dateCreateApp) + appName + storeName;
@@ -73,7 +73,7 @@ export async function load(
       key,
       StyleSheet.flatten([optionRNSensitive, option]),
     );
-    return typeof almostThere === "string" ? JSON.parse(almostThere) : null;
+    return typeof almostThere === 'string' ? JSON.parse(almostThere) : null;
   } catch {
     return null;
   }
@@ -161,7 +161,7 @@ const createSensitiveStorage = (
           options,
         );
 
-        if (typeof result === "undefined") {
+        if (typeof result === 'undefined') {
           result = null;
         }
 

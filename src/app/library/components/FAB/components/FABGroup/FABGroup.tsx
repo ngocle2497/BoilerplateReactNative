@@ -1,15 +1,19 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import React, {useState, useRef, useEffect, useMemo} from "react";
-import {StyleSheet, Text, useWindowDimensions, Animated} from "react-native";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {enhance} from "@common";
+import React, {useState, useMemo, useCallback, memo} from 'react';
+import {StyleSheet, useWindowDimensions} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {enhance, onCheckType} from '@common';
+import {useMix, useRadian, useSharedSpringTransition} from '@animated';
+import isEqual from 'react-fast-compare';
+import {Text} from '@library/components/Text/Text';
+import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 
-import {Button} from "../../../Button/Button";
-import {Block} from "../../../Block/Block";
-import {Icon} from "../../../Icon/Icon";
+import {Button} from '../../../Button/Button';
+import {Block} from '../../../Block/Block';
+import {Icon} from '../../../Icon/Icon';
 
-import {FABGroupProps, Actions} from "./FABGroup.props";
-import {ButtonGroup, SPACE_BETWEEN} from "./ButtonGroup";
+import {FABGroupProps, Actions} from './FABGroup.props';
+import {ButtonGroup, SPACE_BETWEEN} from './ButtonGroup';
 
 export const SIZE_FAB = 60;
 const styles = StyleSheet.create({
@@ -17,15 +21,15 @@ const styles = StyleSheet.create({
     minWidth: SIZE_FAB,
     height: SIZE_FAB,
     borderRadius: SIZE_FAB / 2,
-    backgroundColor: "#fe00f6",
-    position: "absolute",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: '#fe00f6',
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: 10,
     paddingVertical: 5,
-    flexDirection: "row",
+    flexDirection: 'row',
     zIndex: 3,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 3,
@@ -36,31 +40,51 @@ const styles = StyleSheet.create({
     elevation: 7,
   },
   label: {
-    color: "#FFFFFF",
-    fontWeight: "normal",
+    color: '#FFFFFF',
+    fontWeight: 'normal',
     fontFamily: undefined,
     paddingLeft: 5,
   },
   background: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
     zIndex: 1,
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
   },
   wrapAction: {
-    position: "absolute",
+    position: 'absolute',
     zIndex: 2,
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
   },
 });
-export const FABGroup = (props: FABGroupProps) => {
-  const {style, icon, label, actions = []} = props;
+const FABGroupComponent = (props: FABGroupProps) => {
+  const {style, icon = 'plus', label, actions = []} = props;
+  // state
   const window = useWindowDimensions();
   const [isShow, setIsShow] = useState(false);
-  const progress = useRef(new Animated.Value(0)).current;
+  const progress = useSharedSpringTransition(isShow);
+  const rotateIcon = useRadian(useMix(progress, 0, 45));
   const inset = useSafeAreaInsets();
+
+  // function
+  const _onToggle = () => {
+    setIsShow((v) => !v);
+  };
+  const _onHide = () => {
+    setIsShow(false);
+  };
+  const onStartShouldSetResponder = useCallback(() => true, []);
+
+  const onPressItem = useCallback((onPressAction?: () => void) => {
+    setIsShow(false);
+    if (onPressAction && onCheckType(onPressAction, 'function')) {
+      onPressAction();
+    }
+  }, []);
+
+  // style
   const styleBase = useMemo(
     () =>
       enhance([
@@ -70,32 +94,20 @@ export const FABGroup = (props: FABGroupProps) => {
       ]),
     [inset, style],
   );
-  const _show = () => {
-    setIsShow(true);
-  };
-  const _hide = () => {
-    setIsShow(false);
-  };
-  const onStartShouldSetResponder = () => true;
-  const onPressItem = (onPressAction: Function) => {
-    setIsShow(false);
-
-    onPressAction && onPressAction();
-  };
-  useEffect(() => {
-    Animated.spring(progress, {
-      toValue: isShow ? 1 : 0,
-      useNativeDriver: false,
-    }).start();
-  }, [isShow]);
+  const iconAnimatedStyle = useAnimatedStyle(() => ({
+    transform: [{rotate: rotateIcon.value}],
+  }));
+  // render
   return (
     <>
       <Button
-        onPress={_show}
-        activeOpacity={0.6}
-        preset={"link"}
+        onPress={_onToggle}
+        activeOpacity={0.8}
+        preset={'link'}
         style={[styleBase]}>
-        <Icon icon={icon} />
+        <Animated.View style={iconAnimatedStyle}>
+          <Icon icon={icon} />
+        </Animated.View>
         {React.isValidElement(label)
           ? label
           : label && <Text style={[styles.label]} text={label as string} />}
@@ -103,7 +115,7 @@ export const FABGroup = (props: FABGroupProps) => {
       {isShow === true && (
         <Block
           onStartShouldSetResponder={onStartShouldSetResponder}
-          onResponderRelease={_hide}
+          onResponderRelease={_onHide}
           style={[
             styles.background,
             {width: window.width, height: window.height},
@@ -121,6 +133,7 @@ export const FABGroup = (props: FABGroupProps) => {
         ]}>
         {actions.map((item: Actions, index: number) => (
           <ButtonGroup
+            key={index}
             index={index}
             icon={item.icon}
             label={item.label}
@@ -133,3 +146,4 @@ export const FABGroup = (props: FABGroupProps) => {
     </>
   );
 };
+export const FABGroup = memo(FABGroupComponent, isEqual);

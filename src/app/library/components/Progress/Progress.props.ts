@@ -1,10 +1,10 @@
-import {TextStyle, StyleProp} from "react-native";
+import {TextStyle, StyleProp} from 'react-native';
 export interface ProgressProps {
   /**
    * Preset of Progress
    * @default linear
    */
-  type: "linear" | "circle";
+  type: 'linear' | 'circle';
 
   /**
    * Current progress

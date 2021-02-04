@@ -1,16 +1,16 @@
-import React, {useMemo, memo} from "react";
-import {TouchableOpacity} from "react-native";
-import {enhance} from "@common";
-import equals from "react-fast-compare";
+import React, {useMemo, memo} from 'react';
+import {TouchableOpacity} from 'react-native';
+import {enhance} from '@common';
+import equals from 'react-fast-compare';
 
-import {Text} from "../Text/Text";
+import {Text} from '../Text/Text';
 
-import {stylesView, stylesText} from "./Button.presets";
-import {ButtonProps} from "./Button.props";
+import {stylesView, stylesText} from './Button.presets';
+import {ButtonProps} from './Button.props';
 
 const ButtonComponent = (props: ButtonProps) => {
   const {
-    preset = "primary",
+    preset = 'primary',
     tx,
     text,
     style: styleOverride = {},

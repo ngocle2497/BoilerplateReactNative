@@ -1,12 +1,12 @@
-import React, {memo, useMemo} from "react";
-import {enhance} from "@common";
-import equals from "react-fast-compare";
+import React, {memo, useMemo} from 'react';
+import {enhance} from '@common';
+import equals from 'react-fast-compare';
 
-import {Button} from "../Button/Button";
-import {Text} from "../Text/Text";
+import {Button} from '../Button/Button';
+import {Text} from '../Text/Text';
 
-import {SelectItemProps} from "./Select.props";
-import {stylesItem as styles} from "./Select.preset";
+import {SelectItemProps} from './Select.props';
+import {stylesItem as styles} from './Select.preset';
 
 const SelectItemComponent = ({
   index,
@@ -27,7 +27,7 @@ const SelectItemComponent = ({
       {customItem ? (
         customItem(item, index)
       ) : (
-        <Text style={[text]} text={item.text ?? ""} />
+        <Text style={[text]} text={item.text ?? ''} />
       )}
     </Button>
   );

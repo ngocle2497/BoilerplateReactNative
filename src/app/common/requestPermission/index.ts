@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import {Platform} from "react-native";
+import {Platform} from 'react-native';
 import {
   PERMISSIONS,
   Permission,
   request,
   check,
   RESULTS,
-} from "react-native-permissions";
+} from 'react-native-permissions';
 
-type Result = "unavailable" | "denied" | "blocked" | "granted" | "limited";
+type Result = 'unavailable' | 'denied' | 'blocked' | 'granted' | 'limited';
 
 export async function useCameraPermission() {
   const status = await request(

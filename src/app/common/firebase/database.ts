@@ -1,10 +1,10 @@
-import database, {FirebaseDatabaseTypes} from "@react-native-firebase/database";
+import database, {FirebaseDatabaseTypes} from '@react-native-firebase/database';
 
-import {onCheckType} from "../method";
+import {onCheckType} from '../method';
 export async function getDatabase<T = any>(ref: string): Promise<Array<T>> {
   return await database()
     .ref(ref)
-    .once("value")
+    .once('value')
     .then((snap) => {
       return snap.val();
     })
@@ -18,8 +18,8 @@ export function onListenDataChange(
 ) {
   database()
     .ref(ref)
-    .on("value", (snapshot: FirebaseDatabaseTypes.DataSnapshot) => {
-      if (onCheckType(onChange, "function")) {
+    .on('value', (snapshot: FirebaseDatabaseTypes.DataSnapshot) => {
+      if (onCheckType(onChange, 'function')) {
         onChange(snapshot.val());
       }
     });

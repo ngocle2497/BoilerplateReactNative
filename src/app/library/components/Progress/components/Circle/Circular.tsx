@@ -1,20 +1,19 @@
-import React, {memo, useMemo} from "react";
-import {StyleSheet, ViewStyle} from "react-native";
+import React, {memo, useMemo} from 'react';
+import {StyleSheet, ViewStyle} from 'react-native';
 import Animated, {
   Extrapolate,
   useDerivedValue,
-  withTiming,
   useAnimatedStyle,
-} from "react-native-reanimated";
-import equals from "react-fast-compare";
-import {useInterpolate, useRadian} from "@animated";
-import {enhance} from "@common";
+} from 'react-native-reanimated';
+import equals from 'react-fast-compare';
+import {sharedTiming, useInterpolate, useRadian} from '@animated';
+import {enhance} from '@common';
 
-import {Block} from "../../../Block/Block";
+import {Block} from '../../../Block/Block';
 
-import {STROKE_WIDTH} from "./Constant";
+import {STROKE_WIDTH} from './Constant';
 
-const EMPTY_COLOR = "red";
+const EMPTY_COLOR = 'red';
 
 interface CircularProps {
   progress: number;
@@ -31,23 +30,23 @@ interface CircularProps {
 const styles = StyleSheet.create({
   empty: {
     borderColor: EMPTY_COLOR,
-    justifyContent: "center",
-    alignItems: "center",
-    transform: [{rotate: "-135deg"}],
+    justifyContent: 'center',
+    alignItems: 'center',
+    transform: [{rotate: '-135deg'}],
   },
   indicator: {
-    position: "absolute",
-    borderLeftColor: "green",
-    borderTopColor: "green",
-    borderBottomColor: "transparent",
-    borderRightColor: "transparent",
+    position: 'absolute',
+    borderLeftColor: 'green',
+    borderTopColor: 'green',
+    borderBottomColor: 'transparent',
+    borderRightColor: 'transparent',
   },
   cover: {
-    position: "absolute",
+    position: 'absolute',
     borderLeftColor: EMPTY_COLOR,
     borderTopColor: EMPTY_COLOR,
-    borderBottomColor: "transparent",
-    borderRightColor: "transparent",
+    borderBottomColor: 'transparent',
+    borderRightColor: 'transparent',
   },
 });
 
@@ -57,7 +56,7 @@ export const CircularComponent = ({
   fg,
   bg,
 }: CircularProps) => {
-  const progressAnimated = useDerivedValue(() => withTiming(progress));
+  const progressAnimated = useDerivedValue(() => sharedTiming(progress));
   const firstRotate = useRadian(
     useInterpolate(progressAnimated, [0, 50], [0, 180], Extrapolate.CLAMP),
   );

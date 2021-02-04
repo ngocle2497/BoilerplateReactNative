@@ -1,60 +1,79 @@
-import React, {memo, useMemo, useCallback} from "react";
-import {TouchableWithoutFeedback, Animated} from "react-native";
-import equals from "react-fast-compare";
+import React, {memo, useCallback} from 'react';
+import {
+  GestureResponderEvent,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from 'react-native';
+import equals from 'react-fast-compare';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
+import {onCheckType} from '@common';
+import {sharedTiming} from '@animated';
 
-import {TouchableScaleProps} from "./Touch.props";
+import {TouchableScaleProps} from './Touch.props';
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 const TouchableScaleComponent = (props: TouchableScaleProps) => {
+  // props
   const {
     children,
     minScale = 0.9,
-    onPress,
-    onLongPress,
+    containerStyle: overwriteContainerStyle,
     onPressIn,
     onPressOut,
+    ...rest
   } = props;
-  const scale = useMemo(() => new Animated.Value(1), []);
 
-  const runAnimated = useCallback(
-    (value: number) => {
-      Animated.timing(scale, {
-        toValue: value,
-        duration: 150,
-        useNativeDriver: true,
-      }).start();
+  // reanimated
+  const scale = useSharedValue(1);
+
+  // function
+  const _onPressIn = useCallback(
+    (e: GestureResponderEvent) => {
+      scale.value = sharedTiming(minScale, {duration: 150});
+      if (onPressIn && onCheckType(onPressIn, 'function')) {
+        onPressIn(e);
+      }
     },
-    [scale],
+    [minScale, onPressIn, scale],
+  );
+  const _onPressOut = useCallback(
+    (e: GestureResponderEvent) => {
+      scale.value = sharedTiming(1, {duration: 150});
+      if (onPressOut && onCheckType(onPressOut, 'function')) {
+        onPressOut(e);
+      }
+    },
+    [onPressOut, scale],
   );
 
-  const _onPressIn = useCallback(() => {
-    runAnimated(minScale);
-    onPressIn && onPressIn();
-  }, [minScale, onPressIn, runAnimated]);
+  //reanimated style
+  const containerAnimatedStyle = useAnimatedStyle(() => ({
+    transform: [{scale: scale.value}],
+  }));
 
-  const _onLongPress = useCallback(() => {
-    if (typeof onLongPress === "function") {
-      runAnimated(1);
-      onLongPress();
-    }
-  }, [onLongPress, runAnimated]);
-
-  const _onPressOut = useCallback(() => {
-    runAnimated(1);
-    onPressOut && onPressOut();
-  }, [onPressOut, runAnimated]);
-
-  const _onPress = useCallback(() => {
-    runAnimated(1);
-    onPress && onPress();
-  }, [onPress, runAnimated]);
-
+  // render
   return (
     <TouchableWithoutFeedback
-      onLongPress={_onLongPress}
+      {...rest}
       onPressIn={_onPressIn}
-      onPressOut={_onPressOut}
-      onPress={_onPress}>
-      <Animated.View style={[{transform: [{scale}]}]}>{children}</Animated.View>
+      onPressOut={_onPressOut}>
+      <Animated.View
+        style={[
+          styles.container,
+          overwriteContainerStyle,
+          containerAnimatedStyle,
+        ]}>
+        {children}
+      </Animated.View>
     </TouchableWithoutFeedback>
   );
 };

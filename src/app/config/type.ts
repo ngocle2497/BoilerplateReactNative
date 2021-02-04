@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-shadow */
-import {Theme} from "@react-navigation/native";
+import {Theme} from '@react-navigation/native';
 export interface ResponseBase<T = any> {
   code: number;
 
@@ -114,6 +114,6 @@ export interface Spacing {
 export type AppTheme = Theme & {colors: Partial<Colors>};
 
 export enum SLICE_NAME {
-  APP = "APP",
-  LOGIN = "LOGIN",
+  APP = 'APP',
+  LOGIN = 'LOGIN',
 }

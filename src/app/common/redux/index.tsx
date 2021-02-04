@@ -1,7 +1,7 @@
-import React, {forwardRef, createRef, memo, useImperativeHandle} from "react";
-import isEqual from "react-fast-compare";
-import {useDispatch} from "react-redux";
-import {Action} from "redux";
+import React, {forwardRef, createRef, memo, useImperativeHandle} from 'react';
+import isEqual from 'react-fast-compare';
+import {useDispatch} from 'react-redux';
+import {Action} from 'redux';
 
 type ActionBase = Action<string>;
 

@@ -2,7 +2,7 @@ export interface RadioButtonProps {
   /**
    * Default state of radio button
    */
-  defaultValue?: boolean;
+  value?: boolean;
 
   /**
    * On radio button press

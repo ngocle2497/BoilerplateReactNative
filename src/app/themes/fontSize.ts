@@ -1,6 +1,6 @@
-import {moderateScale} from "@common";
+import {moderateScale} from '@common';
 
-import {FontSize} from "../config/type";
+import {FontSize} from '../config/type';
 export const FontSizeDefault: FontSize = {
   FONT_4: moderateScale(4),
   FONT_5: moderateScale(5),

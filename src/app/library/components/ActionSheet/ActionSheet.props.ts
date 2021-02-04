@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable no-undef */
-import {TextStyle, ViewStyle, StyleProp} from "react-native";
+import {TextStyle, ViewStyle, StyleProp} from 'react-native';
 
 export interface OptionData {
   /**

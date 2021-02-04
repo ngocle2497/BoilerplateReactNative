@@ -1,10 +1,10 @@
-import Animated from "react-native-reanimated";
+import Animated from 'react-native-reanimated';
 
 export const sharedTransformOrigin = (
   {x, y}: {x: number; y: number},
   ...transformations: Animated.AnimatedTransform
 ): Animated.AnimatedTransform => {
-  "worklet";
+  'worklet';
   return [
     {translateX: x},
     {translateY: y},

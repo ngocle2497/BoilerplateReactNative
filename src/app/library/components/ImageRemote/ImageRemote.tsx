@@ -1,15 +1,15 @@
-import React, {memo, useCallback, useMemo, useState} from "react";
-import {StyleProp, StyleSheet} from "react-native";
-import FastImage, {ImageStyle} from "react-native-fast-image";
-import {enhance} from "@common";
-import equals from "react-fast-compare";
-import Animated, {useAnimatedStyle} from "react-native-reanimated";
-import {BlurView} from "@react-native-community/blur";
-import {useSharedTransition} from "@animated";
+import React, {memo, useCallback, useMemo, useState} from 'react';
+import {StyleProp, StyleSheet} from 'react-native';
+import FastImage, {ImageStyle} from 'react-native-fast-image';
+import {enhance} from '@common';
+import equals from 'react-fast-compare';
+import Animated, {useAnimatedStyle} from 'react-native-reanimated';
+import {BlurView} from '@react-native-community/blur';
+import {useSharedTransition} from '@animated';
 
-import {Block} from "../Block/Block";
+import {Block} from '../Block/Block';
 
-import {ImageRemoteProps} from "./ImageRemote.props";
+import {ImageRemoteProps} from './ImageRemote.props';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,11 +20,11 @@ const styles = StyleSheet.create({
   },
   viewError: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "#bbb",
+    backgroundColor: '#bbb',
   },
   viewOnLoad: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "#bbb",
+    backgroundColor: '#bbb',
   },
 });
 const ImageRemoteComponent = (props: ImageRemoteProps) => {
@@ -32,7 +32,7 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
     style: styleOverride = {},
     source,
     sourceThumb = source,
-    resizeMode = "cover",
+    resizeMode = 'cover',
     containerStyle,
     childrenError,
     childrenOnload,
@@ -98,7 +98,7 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
             {...rest}
           />
         </Animated.View>
-        <BlurView blurType={"light"} style={[StyleSheet.absoluteFillObject]} />
+        <BlurView blurType={'light'} style={[StyleSheet.absoluteFillObject]} />
       </Animated.View>
       <Animated.View style={[StyleSheet.absoluteFillObject, imageStyle]}>
         <FastImage

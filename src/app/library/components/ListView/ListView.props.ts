@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
-import {FlatListProps} from "react-native";
+import {FlatListProps} from 'react-native';
 
 export interface ListViewProps extends FlatListProps<any> {
   /**

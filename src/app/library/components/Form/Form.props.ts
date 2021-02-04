@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-undef */
-import {FieldErrors, SetValueConfig, RegisterOptions} from "react-hook-form";
-import {TextInput} from "react-native";
+import {FieldErrors, SetValueConfig, RegisterOptions} from 'react-hook-form';
+import {TextInput} from 'react-native';
 
 type FieldValues = Record<string, any>;
 
@@ -47,7 +47,7 @@ export interface FormProps<TFieldValues extends FieldValues = FieldValues> {
 }
 
 export interface ChildProps
-  extends Pick<FormProps, "setValue" | "getValues" | "trigger" | "errors"> {
+  extends Pick<FormProps, 'setValue' | 'getValues' | 'trigger' | 'errors'> {
   child: JSX.Element;
   Inputs: React.MutableRefObject<TextInput[]>;
   i: number;

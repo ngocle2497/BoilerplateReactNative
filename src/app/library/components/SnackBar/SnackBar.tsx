@@ -4,15 +4,14 @@ import React, {
   useCallback,
   useImperativeHandle,
   useState,
-} from "react";
-import isEqual from "react-fast-compare";
-import {StyleSheet} from "react-native";
-import Animated from "react-native-reanimated";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
+} from 'react';
+import isEqual from 'react-fast-compare';
+import {StyleSheet, View} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-import {DURATION_HIDE} from "./constants";
-import {SnackItem} from "./SnackBarItem";
-import {Item, SnackBarProps, TypeMessage} from "./type";
+import {DURATION_HIDE} from './constants';
+import {SnackItem} from './SnackBarItem';
+import {Item, SnackBarProps, TypeMessage} from './type';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,16 +21,18 @@ const styles = StyleSheet.create({
 });
 
 const SnackBarComponent = forwardRef((props: SnackBarProps, ref) => {
-  const inset = useSafeAreaInsets();
-
   useImperativeHandle(
     ref,
     () => ({
-      show: (
-        msg: string,
-        interval: number = DURATION_HIDE,
-        type: TypeMessage = "success",
-      ) => {
+      show: ({
+        interval = DURATION_HIDE,
+        msg,
+        type = 'success',
+      }: {
+        msg: string;
+        interval: number;
+        type: TypeMessage;
+      }) => {
         setData((d) =>
           d.concat([
             {
@@ -46,8 +47,11 @@ const SnackBarComponent = forwardRef((props: SnackBarProps, ref) => {
     }),
     [],
   );
-  const [data, setData] = useState<Item[]>([]);
 
+  // state
+  const [data, setData] = useState<Item[]>([]);
+  const inset = useSafeAreaInsets();
+  // function
   const _onPop = useCallback((item: Item) => {
     setData((d) => d.filter((x) => x.id !== item.id));
   }, []);
@@ -59,19 +63,20 @@ const SnackBarComponent = forwardRef((props: SnackBarProps, ref) => {
     [_onPop, props],
   );
 
+  // render
   return (
-    <Animated.View
-      pointerEvents={"box-none"}
+    <View
+      pointerEvents={'box-none'}
       style={[
         StyleSheet.absoluteFillObject,
         styles.container,
         {marginTop: inset.top},
       ]}>
       {data.map(_renderItem)}
-    </Animated.View>
+    </View>
   );
 });
 export type SnackBarRef = {
-  show: (msg: string, interval?: number, type?: TypeMessage) => void;
+  show: (data: {msg: string; interval?: number; type?: TypeMessage}) => void;
 };
 export const SnackBar = memo(SnackBarComponent, isEqual);

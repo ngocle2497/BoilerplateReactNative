@@ -5,53 +5,58 @@ import React, {
   useMemo,
   useCallback,
   forwardRef,
-} from "react";
-import {StyleSheet, TextInput, LayoutChangeEvent} from "react-native";
-import Animated, {interpolateNode} from "react-native-reanimated";
-import {useTimingTransition} from "@animated";
-import {useTranslation} from "react-i18next";
-import {enhance, onCheckType} from "@common";
-import {Block} from "@library/components/Block/Block";
+} from 'react';
+import {StyleSheet, TextInput, LayoutChangeEvent} from 'react-native';
+import Animated, {
+  useAnimatedStyle,
+  useDerivedValue,
+} from 'react-native-reanimated';
+import {useInterpolate, useSharedTransition} from '@animated';
+import {useTranslation} from 'react-i18next';
+import {enhance, onCheckType} from '@common';
+import {Block} from '@library/components/Block/Block';
 
-import {InputOutlineProps} from "./InputOutline.props";
+import {InputOutlineProps} from './InputOutline.props';
 
 const VERTICAL_PADDING = 10;
-const UN_ACTIVE_COLOR = "rgb(159,152,146)";
-const ACTIVE_COLOR = "rgb(0,87,231)";
-const ERROR_COLOR = "rgb(214,45,32)";
+const UN_ACTIVE_COLOR = 'rgb(159,152,146)';
+const ACTIVE_COLOR = 'rgb(0,87,231)';
+const ERROR_COLOR = 'rgb(214,45,32)';
 
 const styles = StyleSheet.create({
   container: {
     paddingVertical: VERTICAL_PADDING,
     borderWidth: StyleSheet.hairlineWidth * 2,
-    borderColor: "gray",
-    width: "100%",
+    borderColor: 'gray',
+    width: '100%',
+    flex: 1,
     borderRadius: 5,
     paddingHorizontal: 5,
-    justifyContent: "center",
-    position: "relative",
+    justifyContent: 'center',
+    position: 'relative',
 
-    alignItems: "center",
+    alignItems: 'center',
   },
   input: {
-    width: "100%",
+    width: '100%',
     marginVertical: 5,
     padding: 0,
+    borderBottomColor: 'transparent',
   },
   text: {
-    position: "absolute",
-    alignSelf: "flex-start",
+    position: 'absolute',
+    alignSelf: 'flex-start',
     zIndex: 4,
     left: 5,
   },
   wrapLabel: {
-    position: "absolute",
+    position: 'absolute',
     left: 0,
   },
 });
 
 export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
-  const [t] = useTranslation();
+  // props
   const {
     defaultValue,
     label,
@@ -64,7 +69,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     placeholderColor,
     placeholderTx,
     inputStyle = {},
-    name = "",
+    name = '',
     errorBorderColor = ERROR_COLOR,
     errorLabelColor = ERROR_COLOR,
     disabledLabelColor = UN_ACTIVE_COLOR,
@@ -79,71 +84,57 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     error = undefined,
     ...rest
   } = props;
+  // state
+  const [t] = useTranslation();
   const [sizeContainer, setSizeContainer] = useState({height: 0});
   const [restored, setRestored] = useState(false);
   const [sizeText, setSizeText] = useState({height: 0});
   const [focused, setFocused] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
 
-  const progress = useTimingTransition(focused || value.length > 0, {
+  // reanimated
+  const progress = useSharedTransition(focused || value.length > 0, {
     duration: 150,
   });
 
-  const top = interpolateNode(progress, {
-    inputRange: [0, 1],
-    outputRange: [
+  const top = useInterpolate(
+    progress,
+    [0, 1],
+    [
       sizeContainer.height / 2 - sizeText.height / 2 - VERTICAL_PADDING / 4,
       0 - sizeText.height / 4 + 3,
     ],
-  });
+  );
 
-  const fontLabel = interpolateNode(progress, {
-    inputRange: [0, 1],
-    outputRange: [14, 12],
-  });
+  const fontLabel = useInterpolate(progress, [0, 1], [14, 11]);
 
-  const labelColor = useCallback(() => {
-    if (disabled) {
-      return disabledLabelColor;
+  const labelColor = useDerivedValue(() => {
+    switch (true) {
+      case disabled:
+        return disabledLabelColor;
+      case error:
+        return errorLabelColor;
+      case focused:
+        return activeTintLabelColor;
+      default:
+        return unActiveTintLabelColor;
     }
-    if (error) {
-      return errorLabelColor;
-    }
-    if (focused) {
-      return activeTintLabelColor;
-    }
-    return unActiveTintLabelColor;
-  }, [
-    disabled,
-    error,
-    focused,
-    unActiveTintLabelColor,
-    disabledLabelColor,
-    errorLabelColor,
-    activeTintLabelColor,
-  ]);
+  }, [disabled, error, focused]);
 
-  const borderColor = useCallback(() => {
-    if (disabled) {
-      return disabledBorderColor;
+  const borderColor = useDerivedValue(() => {
+    switch (true) {
+      case disabled:
+        return disabledBorderColor;
+      case error:
+        return errorBorderColor;
+      case focused:
+        return activeTintBorderColor;
+      default:
+        return unActiveTintBorderColor;
     }
-    if (error) {
-      return errorBorderColor;
-    }
-    if (focused) {
-      return activeTintBorderColor;
-    }
-    return unActiveTintBorderColor;
-  }, [
-    disabled,
-    error,
-    focused,
-    unActiveTintBorderColor,
-    disabledBorderColor,
-    errorBorderColor,
-    activeTintBorderColor,
-  ]);
+  }, [disabled, error, focused]);
 
+  // function
   const _onLayoutContainer = useCallback(
     (e: LayoutChangeEvent) => {
       setSizeContainer({...sizeContainer, height: e.nativeEvent.layout.height});
@@ -170,11 +161,12 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     setValue(text);
   }, []);
 
+  // effect
   useEffect(() => {
-    if (onTextChange && onCheckType(onTextChange, "function")) {
+    if (onTextChange && onCheckType(onTextChange, 'function')) {
       onTextChange(name, value);
     }
-    if (onSetValueHookForm && onCheckType(onSetValueHookForm, "function")) {
+    if (onSetValueHookForm && onCheckType(onSetValueHookForm, 'function')) {
       onSetValueHookForm(name, value, {
         shouldDirty: true,
         shouldValidate: true,
@@ -182,45 +174,67 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     }
     if (
       trigger &&
-      onCheckType(trigger, "function") &&
+      onCheckType(trigger, 'function') &&
       nameTrigger &&
-      onCheckType(nameTrigger, "string")
+      onCheckType(nameTrigger, 'string')
     ) {
       trigger(nameTrigger);
     }
   }, [name, nameTrigger, onSetValueHookForm, onTextChange, trigger, value]);
+
   useEffect(() => {
-    if (typeof defaultValue === "string" && !restored) {
+    if (typeof defaultValue === 'string' && !restored) {
       setValue(defaultValue);
       setRestored(true);
     }
   }, [defaultValue, restored]);
 
+  // style
   const labelText = useMemo(
     () => (labelTx && t(labelTx)) || label || undefined,
     [labelTx, label, t],
   );
+
   const placeHolder = useMemo(
-    () => (placeholderTx && t(placeholderTx)) || placeholder || "",
+    () => (placeholderTx && t(placeholderTx)) || placeholder || '',
     [placeholder, placeholderTx, t],
   );
+
   const inputSty = useMemo(() => enhance([styles.input, inputStyle]), [
     inputStyle,
   ]);
+
   const containerSty = useMemo(
     () => enhance([styles.container, containerStyle]),
     [containerStyle],
   );
+
+  // reanimated style
+  const wrapLabelStyle = useAnimatedStyle(() => ({
+    top: top.value,
+  }));
+
+  const labelStyle = useAnimatedStyle(() => ({
+    fontSize: fontLabel.value,
+    color: labelColor.value,
+  }));
+
+  const containerAnimatedStyle = useAnimatedStyle(() => ({
+    borderColor: borderColor.value,
+  }));
+
+  // render
   return (
     <Animated.View
       onLayout={_onLayoutContainer}
-      style={[containerSty, {borderColor: borderColor()}]}>
-      <Block direction={"row"}>
+      style={[containerSty, containerAnimatedStyle]}>
+      <Block direction={'row'}>
         <TextInput
-          defaultValue={defaultValue ?? ""}
+          defaultValue={defaultValue ?? ''}
           autoCorrect={false}
-          placeholder={focused === true ? placeHolder : ""}
+          placeholder={focused === true ? placeHolder : ''}
           editable={!disabled}
+          selectionColor={activeTintBorderColor}
           placeholderTextColor={placeholderColor ?? undefined}
           onChangeText={_onChangeText}
           onFocus={_onFocus}
@@ -232,11 +246,13 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
         {rightChildren}
       </Block>
       {labelText && (
-        <Animated.View pointerEvents={"none"} style={[styles.wrapLabel, {top}]}>
+        <Animated.View
+          pointerEvents={'none'}
+          style={[styles.wrapLabel, wrapLabelStyle]}>
           <Animated.Text
             onLayout={onLayoutText}
-            style={[styles.text, {color: labelColor(), fontSize: fontLabel}]}>
-            {labelText ?? ""}
+            style={[styles.text, labelStyle]}>
+            {labelText ?? ''}
           </Animated.Text>
         </Animated.View>
       )}

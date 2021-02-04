@@ -1,18 +1,18 @@
-import React, {useMemo, memo} from "react";
-import {StyleProp} from "react-native";
-import {images} from "@assets/image";
-import {enhance} from "@common";
-import equals from "react-fast-compare";
-import FastImage, {ImageStyle} from "react-native-fast-image";
+import React, {useMemo, memo} from 'react';
+import {StyleProp} from 'react-native';
+import {images} from '@assets/image';
+import {enhance} from '@common';
+import equals from 'react-fast-compare';
+import FastImage, {ImageStyle} from 'react-native-fast-image';
 
-import {Block} from "../Block/Block";
+import {Block} from '../Block/Block';
 
-import {ImageProps} from "./Image.props";
+import {ImageProps} from './Image.props';
 
 const ImgComponent = (props: ImageProps) => {
   const {
     style: styleOverride = {},
-    resizeMode = "cover",
+    resizeMode = 'cover',
     source,
     containerStyle,
   } = props;
@@ -25,7 +25,7 @@ const ImgComponent = (props: ImageProps) => {
       <FastImage
         style={style}
         resizeMode={resizeMode}
-        source={images[source ?? "default"]}
+        source={images[source ?? 'default']}
       />
     </Block>
   );

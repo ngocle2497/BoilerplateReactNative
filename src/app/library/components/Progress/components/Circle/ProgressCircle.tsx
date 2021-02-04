@@ -1,30 +1,30 @@
-import React, {useMemo, memo} from "react";
-import {StyleSheet} from "react-native";
-import {enhance} from "@common";
-import equals from "react-fast-compare";
+import React, {useMemo, memo} from 'react';
+import {StyleSheet} from 'react-native';
+import {enhance} from '@common';
+import equals from 'react-fast-compare';
 
-import {Text} from "../../../Text/Text";
-import {Block} from "../../../Block/Block";
+import {Text} from '../../../Text/Text';
+import {Block} from '../../../Block/Block';
 
-import {ProgressCircleProps} from "./ProgressCircle.props";
-import {Circular} from "./Circular";
+import {ProgressCircleProps} from './ProgressCircle.props';
+import {Circular} from './Circular';
 
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 5,
     paddingHorizontal: 5,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   textProgress: {
-    position: "absolute",
+    position: 'absolute',
     zIndex: 3,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
 });
 
@@ -44,12 +44,12 @@ export const ProgressCircleComponent = (props: ProgressCircleProps) => {
   );
   const renderText = (): string => {
     if (progress < 0) {
-      return 0 + "";
+      return 0 + '';
     }
     if (progress > 100) {
-      return 100 + "";
+      return 100 + '';
     }
-    return progress + "";
+    return progress + '';
   };
   return (
     <Block style={styles.container}>

@@ -1,15 +1,15 @@
-import React, {memo} from "react";
-import equals from "react-fast-compare";
+import React, {memo} from 'react';
+import equals from 'react-fast-compare';
 
-import {ProgressCircle} from "./components/Circle/ProgressCircle";
-import {ProgressLinear} from "./components/Linear/ProgressLinear";
-import {ProgressProps} from "./Progress.props";
+import {ProgressCircle} from './components/Circle/ProgressCircle';
+import {ProgressLinear} from './components/Linear/ProgressLinear';
+import {ProgressProps} from './Progress.props';
 import {
   RADIUS,
   STROKE_WIDTH,
   COLOR_BG,
   COLOR_FG,
-} from "./components/Circle/Constant";
+} from './components/Circle/Constant';
 
 const ProgressComponent = (props: ProgressProps) => {
   const {
@@ -22,7 +22,7 @@ const ProgressComponent = (props: ProgressProps) => {
     radius = RADIUS,
     progress = 0,
   } = props;
-  return type === "linear" ? (
+  return type === 'linear' ? (
     <ProgressLinear {...props} />
   ) : (
     <ProgressCircle

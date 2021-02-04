@@ -1,11 +1,11 @@
 export enum APP_SCREEN {
-  UN_AUTHORIZE = "UN_AUTHORIZE",
-  SPLASH = "SPLASH",
-  LOGIN = "LOGIN",
-  REGISTER = "REGISTER",
+  UN_AUTHORIZE = 'UN_AUTHORIZE',
+  SPLASH = 'SPLASH',
+  LOGIN = 'LOGIN',
+  REGISTER = 'REGISTER',
 
-  AUTHORIZE = "AUTHORIZE",
-  HOME = "HOME",
+  AUTHORIZE = 'AUTHORIZE',
+  HOME = 'HOME',
 }
 
 export type RootStackParamList = {

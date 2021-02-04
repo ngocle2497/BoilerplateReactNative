@@ -10,11 +10,11 @@ export const tryParseNumber = (num: any): any => {
 
 export const roundMaxFixed = (num: number, decimals: number): number => {
   return Number(
-    Math.round(Number(String(num + "e" + decimals))) + "e-" + decimals,
+    Math.round(Number(String(num + 'e' + decimals))) + 'e-' + decimals,
   );
 };
-export const formatNumber = (num: number | string, comma: string = ",") => {
-  if (typeof num !== "number" && typeof num !== "string") {
+export const formatNumber = (num: number | string, comma: string = ',') => {
+  if (typeof num !== 'number' && typeof num !== 'string') {
     return num;
   }
   return String(num).replace(/(\d)(?=(\d{3})+\b)/g, `$1${comma}`);

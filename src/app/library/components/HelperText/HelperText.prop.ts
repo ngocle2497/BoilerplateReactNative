@@ -8,7 +8,7 @@ export interface HelperTextProps {
   /**
    * Type of helper text
    */
-  type: "info" | "error";
+  type: 'info' | 'error';
 
   /**
    * Text for text component

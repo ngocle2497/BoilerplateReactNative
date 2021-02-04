@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {ResponseBase} from "@config/type";
-import {AxiosError, AxiosResponse} from "axios";
+import {ResponseBase} from '@config/type';
+import {AxiosError, AxiosResponse} from 'axios';
 import {
   RESULT_CODE_PUSH_OUT,
   ERROR_NETWORK_CODE,
   STATUS_TIME_OUT,
   CODE_TIME_OUT,
   CODE_SUCCESS,
-} from "@config";
-import {HandleErrorApi} from "@common";
+} from '@config';
+import {HandleErrorApi} from '@common';
 
-import {translate} from "../utils";
+import {translate} from '../utils';
 const responseDefault: ResponseBase<any> = {
   code: -500,
   status: false,
-  msg: translate("error:errorData"),
+  msg: translate('error:errorData'),
   data: {},
 };
 

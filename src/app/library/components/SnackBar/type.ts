@@ -5,7 +5,7 @@ export interface SnackBarProps {
   borderLeftColorWarn?: string;
 }
 
-export type TypeMessage = "success" | "error" | "info" | "warn";
+export type TypeMessage = 'success' | 'error' | 'info' | 'warn';
 
 export type Item = {
   id: number;
@@ -16,10 +16,10 @@ export type Item = {
 export interface SnackBarItemProps
   extends Pick<
     SnackBarProps,
-    | "borderLeftColorInfo"
-    | "borderLeftColorSuccess"
-    | "borderLeftColorError"
-    | "borderLeftColorWarn"
+    | 'borderLeftColorInfo'
+    | 'borderLeftColorSuccess'
+    | 'borderLeftColorError'
+    | 'borderLeftColorWarn'
   > {
   item: Item;
   onPop: (item: Item) => void;
