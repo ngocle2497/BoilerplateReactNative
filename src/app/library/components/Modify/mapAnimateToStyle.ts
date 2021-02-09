@@ -1,8 +1,7 @@
-import {ComponentType, forwardRef, useEffect} from 'react';
-import {Image, TransformsStyle} from 'react-native';
+import {useEffect, useMemo} from 'react';
+import {TransformsStyle} from 'react-native';
 import Animated, {
   runOnJS,
-  runOnUI,
   useAnimatedStyle,
   useSharedValue,
   withDecay,
@@ -221,12 +220,18 @@ function handleAnimated(
       return animation(config, callback);
   }
 }
-const mergeConfig = (pre = {}, merge = {}) => {
-  'worklet';
-  return {...pre, ...merge};
+const changeValueToZero = (value: any) => {
+  Object.keys(value).forEach(function (key) {
+    if (typeof value[key] === 'object') {
+      value[key] = changeValueToZero(value[key]);
+    } else {
+      value[key] = 0;
+    }
+  });
+  return value;
 };
 export function useMapAnimateToStyle<Animate>({
-  from = false,
+  start,
   animate,
   delay: defaultDelay,
   transition,
@@ -236,27 +241,36 @@ export function useMapAnimateToStyle<Animate>({
   const isMounted = useSharedValue(false, false);
   const [isPresent, safeToUnMount] = usePresence();
 
-  const initialSV = useSharedValue(from);
-  const animateSV = useSharedValue(animate);
-  const exitSV = useSharedValue(exit);
-  const hasExitStyle = typeof exit === 'object' && Object.keys(exit).length;
+  const startStyle = useMemo(() => ({...(start ?? {})} as any), [start]);
+  const animateStyle = useMemo(() => ({...(animate ?? {})} as any), [animate]);
+  const exitStyle = useMemo(
+    () =>
+      ({
+        ...changeValueToZero({...animate}),
+        ...(exit ?? {}),
+      } as any),
+    [exit, animate],
+  );
+  const hasExitStyle = useMemo(
+    () => typeof exit === 'object' && Object.keys(exit).length > 0,
+    [exit],
+  );
+  const isExiting = useMemo(() => !isPresent && hasExitStyle, [
+    hasExitStyle,
+    isPresent,
+  ]);
 
   const style = useAnimatedStyle(() => {
     const actualStyle = {
       transform: [] as TransformsStyle['transform'],
     } as any;
-
-    const animateStyle = animateSV.value || {};
-    const initialStyle = initialSV.value || ({} as any);
-    const exitStyle = exitSV.value || {};
-    const isExiting = !isPresent && hasExitStyle;
-    let mergedStyles: any | Animate = animateStyle;
+    let mergedStyles = animateStyle;
     if (isExiting) {
-      mergedStyles = exitStyle as any | Animate;
+      mergedStyles = exitStyle;
     }
     Object.keys(mergedStyles).forEach((key, index) => {
       'worklet';
-      const initialValue = initialStyle[key];
+      const initialValue = startStyle[key];
       const value = mergedStyles[key];
       const {
         animation,
@@ -272,37 +286,32 @@ export function useMapAnimateToStyle<Animate>({
           runOnJS(onDidAnimate)(finished, key);
         }
         if (isExiting) {
-          // if this is true, then we've finished our exit animations
           const isLastStyleKeyToAnimate =
             index + 1 === Object.keys(mergedStyles).length;
-
           if (isLastStyleKeyToAnimate && safeToUnMount) {
             runOnJS(safeToUnMount)();
           }
         }
       };
       if (initialValue != null) {
-        // if we haven't mounted, or if there's no other value to use besides the initial one, use it.
         if (isMounted.value === false || value == null) {
           if (isTransform(key) && actualStyle.transform) {
-            // this syntax avoids reanimated .__defineObject error
             const transform = {} as any;
             transform[key] = handleAnimated(
               animationType,
               animation,
               initialValue,
               config,
+              callback,
             );
-
-            // final.transform.push({ [key]: initialValue }) does not work!
             actualStyle.transform.push(transform);
-            // console.log({ final })
           } else {
             actualStyle[key] = handleAnimated(
               animationType,
               animation,
               initialValue,
               config,
+              callback,
             );
           }
           return;
@@ -310,9 +319,6 @@ export function useMapAnimateToStyle<Animate>({
       }
       let {delayMs} = animatedDelay(key, transition, defaultDelay);
       if (value == null || value === false) {
-        // skip missing values
-        // this is useful if you want to do {opacity: loading && 1}
-        // without this, those values will break I think
         return;
       }
       if (Array.isArray(value)) {
@@ -365,7 +371,6 @@ export function useMapAnimateToStyle<Animate>({
           })
           .filter(Boolean);
         if (isTransform(key)) {
-          // we have a sequence of transforms
           actualStyle.transform = actualStyle.transform || [];
 
           if (sequence.length) {
@@ -376,16 +381,12 @@ export function useMapAnimateToStyle<Animate>({
             actualStyle.transform.push(transform);
           }
         } else {
-          // we have a normal sequence of items
-          // shadows not supported
           if (sequence.length) {
             actualStyle[key] = withSequence(sequence[0], ...sequence.slice(1));
           }
         }
       } else if (isTransform(key)) {
         actualStyle.transform = actualStyle.transform || [];
-        // const transformKey = Object.keys(transformProp)[0]
-        // const transformValue = transformProp[transformKey]
 
         if (transition?.[key as keyof Transforms]?.delay != null) {
           delayMs = transition?.[key as keyof Transforms]?.delay;
@@ -407,7 +408,6 @@ export function useMapAnimateToStyle<Animate>({
         } else {
           transform[key] = finalValue;
         }
-
         actualStyle.transform.push(transform);
       } else if (typeof value === 'object') {
         // shadows
@@ -416,7 +416,7 @@ export function useMapAnimateToStyle<Animate>({
           let finalValue = handleAnimated(
             animationType,
             animation,
-            value,
+            value[innerStyleKey],
             config,
             callback,
           );
@@ -443,7 +443,7 @@ export function useMapAnimateToStyle<Animate>({
           finalValue = withRepeat(finalValue, repeatCount, repeatReverse);
         }
 
-        if (delayMs != null && typeof delayMs === 'number') {
+        if (typeof delayMs === 'number') {
           actualStyle[key] = withDelay(delayMs, finalValue);
         } else {
           actualStyle[key] = finalValue;
@@ -455,13 +455,10 @@ export function useMapAnimateToStyle<Animate>({
   useEffect(() => {
     isMounted.value = true;
   }, [isMounted]);
-  useEffect(
-    function allowUnMountIfMissingExit() {
-      if (!isPresent && !hasExitStyle) {
-        safeToUnMount?.();
-      }
-    },
-    [hasExitStyle, isPresent, safeToUnMount],
-  );
+  useEffect(() => {
+    if (!isPresent && !hasExitStyle) {
+      safeToUnMount?.();
+    }
+  }, [hasExitStyle, isPresent, safeToUnMount]);
   return {style};
 }

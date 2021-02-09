@@ -3,15 +3,11 @@ import {useMemo} from 'react';
 import {useConst} from '@common';
 
 import {PresenceContext} from './PresenceContext';
-import {VariantLabels} from './types';
 
 interface PresenceChildProps {
   children: React.ReactElement<any>;
   isPresent: boolean;
   onExitComplete?: () => void;
-  initial?: false | VariantLabels;
-  custom?: any;
-  presenceAffectsLayout: boolean;
 }
 
 let presenceId = 0;
@@ -23,11 +19,8 @@ function getPresenceId() {
 
 export const PresenceChild = ({
   children,
-  initial,
   isPresent,
   onExitComplete,
-  custom,
-  presenceAffectsLayout,
 }: PresenceChildProps) => {
   const presenceChildren = useConst(newChildrenMap);
   const id = useConst(getPresenceId);
@@ -36,9 +29,7 @@ export const PresenceChild = ({
     () => {
       return {
         id,
-        initial,
         isPresent,
-        custom,
         onExitComplete: (childId: number) => {
           presenceChildren.set(childId, true);
           let allComplete = true;
@@ -61,7 +52,7 @@ export const PresenceChild = ({
      * we want to make a new context value to ensure they get re-rendered
      * so they can detect that layout change.
      */
-    presenceAffectsLayout ? undefined : [isPresent],
+    [isPresent],
   );
 
   useMemo(() => {

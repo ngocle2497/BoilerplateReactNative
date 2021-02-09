@@ -14,48 +14,37 @@ function modify<
 >(ComponentWithoutAnimation: ComponentType<any>) {
   const Component = Animated.createAnimatedComponent(ComponentWithoutAnimation);
 
-  const withAnimations = () =>
-    //  we might use these later
-    // outerProps?: ExtraProps
-    {
-      const withStyles = forwardRef<
-        Ref,
-        Props &
-          ModifyProps<Animate> &
-          ExtraProps & {
-            children?: React.ReactNode;
-          }
-      >(function Wrapped(
-        {
-          animate,
-          style,
-          from = false as const,
-          transition,
-          delay,
-          exit,
-          ...props
-        },
-        ref,
-      ) {
-        const animated = useMapAnimateToStyle({
-          animate,
-          from,
-          transition,
-          delay,
-          exit,
-        });
-
-        return (
-          <Component
-            {...(props as Props)}
-            style={[style, animated.style]}
-            ref={ref}
-          />
-        );
+  const withAnimations = () => {
+    const withStyles = forwardRef<
+      Ref,
+      Props &
+        ModifyProps<Animate> &
+        ExtraProps & {
+          children?: React.ReactNode;
+        }
+    >(function Wrapped(
+      {animate, style, start, transition, delay, exit, ...props},
+      ref,
+    ) {
+      const animated = useMapAnimateToStyle({
+        animate,
+        start,
+        transition,
+        delay,
+        exit,
       });
 
-      return withStyles;
-    };
+      return (
+        <Component
+          {...(props as Props)}
+          style={[style, animated.style]}
+          ref={ref}
+        />
+      );
+    });
+
+    return withStyles;
+  };
 
   return withAnimations;
 }

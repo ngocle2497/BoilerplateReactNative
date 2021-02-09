@@ -27,27 +27,6 @@ export function usePresence(): AlwaysPresent | Present | NotPresent {
 
   return !isPresent && onExitComplete ? [false, safeToRemove] : [true];
 }
-
-/**
- * Similar to `usePresence`, except `useIsPresent` simply returns whether or not the component is present.
- * There is no `safeToRemove` function.
- *
- * ```jsx
- * import { useIsPresent } from "framer-motion"
- *
- * export const Component = () => {
- *   const isPresent = useIsPresent()
- *
- *   useEffect(() => {
- *     !isPresent && console.log("I've been removed!")
- *   }, [isPresent])
- *
- *   return <div />
- * }
- * ```
- *
- * @public
- */
 export function useIsPresent() {
   return isPresent(useContext(PresenceContext));
 }

@@ -15,7 +15,6 @@ import {
   TranslateYTransform,
   SkewXTransform,
   SkewYTransform,
-  TransformsStyle,
 } from 'react-native';
 import Animated from 'react-native-reanimated';
 
@@ -127,7 +126,7 @@ type StyleValueOrArray<T> = {
         | T[keyof T]
       )[];
 };
-type StyleValueWithReplacedTransforms<StyleProp> = Partial<Transforms> &
+export type StyleValueWithReplacedTransforms<StyleProp> = Partial<Transforms> &
   Omit<StyleProp, 'transform'>;
 
 export interface ModifyProps<
@@ -136,8 +135,8 @@ export interface ModifyProps<
   Animate = StyleValueOrArray<AnimatedWithTransitions>
 > {
   animate?: Animate;
-  from?: AnimatedWithTransitions | boolean;
-  exit?: AnimatedWithTransitions | boolean;
+  start?: AnimatedWithTransitions;
+  exit?: AnimatedWithTransitions;
   onDidAnimate?: (finished: boolean, key: string) => void;
   transition?: TransitionConfig &
     Partial<Record<keyof Animate, TransitionConfig>>;
@@ -145,5 +144,5 @@ export interface ModifyProps<
 }
 export type ModifyAnimateProps<Animate> = ModifyProps<Animate>['animate'];
 export type ModifyTransitionProps<Animate> = ModifyProps<Animate>['transition'];
-export type ModifyFromProps<Animate> = ModifyProps<Animate>['from'];
+export type ModifyFromProps<Animate> = ModifyProps<Animate>['start'];
 export type ModifyAExitProps<Animate> = ModifyProps<Animate>['exit'];

@@ -57,11 +57,8 @@ function onlyElements(children: ReactNode): ReactElement<any>[] {
 
 export const Presence: React.FunctionComponent<AnimatePresenceProps> = ({
   children,
-  custom,
-  initial = true,
   onExitComplete,
   exitBeforeEnter,
-  presenceAffectsLayout = true,
 }) => {
   // We want to force a re-render once all exiting animations have finished. We
   // either use a local forceRender function, or one from a parent context if it exists.
@@ -93,11 +90,7 @@ export const Presence: React.FunctionComponent<AnimatePresenceProps> = ({
     return (
       <>
         {filteredChildren.map((child) => (
-          <PresenceChild
-            key={getChildKey(child)}
-            isPresent
-            initial={initial ? undefined : false}
-            presenceAffectsLayout={presenceAffectsLayout}>
+          <PresenceChild key={getChildKey(child)} isPresent>
             {child}
           </PresenceChild>
         ))}
@@ -125,8 +118,6 @@ export const Presence: React.FunctionComponent<AnimatePresenceProps> = ({
     }
   }
 
-  // If we currently have exiting children, and we're deferring rendering incoming children
-  // until after all current children have exiting, empty the childrenToRender array
   if (exitBeforeEnter && exiting.size) {
     childrenToRender = [];
   }
@@ -170,42 +161,24 @@ export const Presence: React.FunctionComponent<AnimatePresenceProps> = ({
       <PresenceChild
         key={getChildKey(child)}
         isPresent={false}
-        onExitComplete={onExit}
-        custom={custom}
-        presenceAffectsLayout={presenceAffectsLayout}>
+        onExitComplete={onExit}>
         {child}
       </PresenceChild>,
     );
   });
 
-  // Add `MotionContext` even to children that don't need it to ensure we're rendering
-  // the same tree between renders
   childrenToRender = childrenToRender.map((child) => {
     const key = child.key as string | number;
     return exiting.has(key) ? (
       child
     ) : (
-      <PresenceChild
-        key={getChildKey(child)}
-        isPresent
-        presenceAffectsLayout={presenceAffectsLayout}>
+      <PresenceChild key={getChildKey(child)} isPresent>
         {child}
       </PresenceChild>
     );
   });
 
   presentChildren.current = childrenToRender;
-
-  if (
-    process.env.NODE_ENV !== 'production' &&
-    exitBeforeEnter &&
-    childrenToRender.length > 1
-  ) {
-    console.warn(
-      `You're attempting to animate multiple children within AnimatePresence,
-       but its exitBeforeEnter prop is set to true. This will lead to odd visual behaviour.`,
-    );
-  }
 
   return (
     <>
