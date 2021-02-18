@@ -45,6 +45,7 @@ export const useRadian = (value: Animated.SharedValue<number>) =>
     'worklet';
     return `${value.value}deg`;
   });
+
 export const useShareClamp = (
   value: Animated.SharedValue<number>,
   lowerValue: number,
@@ -55,14 +56,17 @@ export const useShareClamp = (
     sharedClamp(value.value, lowerValue, upperValue),
   );
 };
+
 export const useMin = (...args: Animated.SharedValue<number>[]) => {
   'worklet';
   return useDerivedValue(() => sharedMin(...args.map((x) => x.value)));
 };
+
 export const useMax = (...args: Animated.SharedValue<number>[]) => {
   'worklet';
   return useDerivedValue(() => sharedMax(...args.map((x) => x.value)));
 };
+
 export function useInsideView<T extends Component>(
   wrapHeight: number | undefined = undefined,
 ): [React.RefObject<T>, Animated.SharedValue<boolean>] {
@@ -88,7 +92,12 @@ export function useInsideView<T extends Component>(
   });
   return [ref, visible];
 }
-export const useVector = ({x, y}: {x: number; y: number}) => {
+
+type Vector = {
+  x: number;
+  y: number;
+};
+export const useVector = ({x, y}: Vector) => {
   const ox = useSharedValue(x);
   const oy = useSharedValue(y);
   return [ox, oy];

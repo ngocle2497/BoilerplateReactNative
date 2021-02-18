@@ -1,41 +1,15 @@
 import {CustomOmit} from '@common';
 import {
-  ImageStyle as RNImageStyle,
   ViewStyle as RNViewStyle,
-  TextStyle as RNTextStyle,
   PerpectiveTransform,
-  RotateTransform,
-  RotateXTransform,
-  RotateYTransform,
-  RotateZTransform,
   ScaleTransform,
   ScaleXTransform,
   ScaleYTransform,
   TranslateXTransform,
   TranslateYTransform,
-  SkewXTransform,
-  SkewYTransform,
 } from 'react-native';
 import Animated from 'react-native-reanimated';
 
-export type ImageStyle = CustomOmit<
-  RNImageStyle,
-  | 'backfaceVisibility'
-  | 'alignContent'
-  | 'alignItems'
-  | 'alignSelf'
-  | 'aspectRatio'
-  | 'backfaceVisibility'
-  | 'direction'
-  | 'resizeMode'
-  | 'display'
-  | 'justifyContent'
-  | 'overflow'
-  | 'flexDirection'
-  | 'flexWrap'
-  | 'position'
-  | 'transformMatrix'
->;
 export type ViewStyle = CustomOmit<
   RNViewStyle,
   | 'alignContent'
@@ -54,26 +28,28 @@ export type ViewStyle = CustomOmit<
   | 'rotation'
   | 'transformMatrix'
 >;
-export type TextStyle = CustomOmit<
-  RNTextStyle,
-  | 'alignContent'
-  | 'alignItems'
-  | 'alignSelf'
-  | 'aspectRatio'
-  | 'backfaceVisibility'
-  | 'direction'
-  | 'display'
-  | 'justifyContent'
-  | 'overflow'
-  | 'borderStyle'
-  | 'fontFamily'
-  | 'fontWeight'
-  | 'writingDirection'
-  | 'textTransform'
-  | 'textAlign'
-  | 'textDecorationLine'
-  | 'textDecorationStyle'
->;
+
+interface RotateTransform {
+  rotate: number;
+}
+interface RotateXTransform {
+  rotateX: number;
+}
+
+interface RotateYTransform {
+  rotateY: number;
+}
+
+interface RotateZTransform {
+  rotateZ: number;
+}
+interface SkewXTransform {
+  skewX: number;
+}
+
+interface SkewYTransform {
+  skewY: number;
+}
 export type Transforms = PerpectiveTransform &
   RotateTransform &
   RotateXTransform &
@@ -116,33 +92,21 @@ export type TransitionConfig = AnimatedConfig & {
    */
   repeatReverse?: boolean;
 };
-type StyleValueOrArray<T> = {
-  [key in keyof T]:
-    | T[keyof T]
-    | (
-        | ({
-            value: T[keyof T];
-          } & AnimatedConfig)
-        | T[keyof T]
-      )[];
-};
-export type StyleValueWithReplacedTransforms<StyleProp> = Partial<Transforms> &
-  Omit<StyleProp, 'transform'>;
-
-export interface ModifyProps<
-  AnimateType = ImageStyle & ViewStyle & TextStyle,
-  AnimatedWithTransitions = StyleValueWithReplacedTransforms<AnimateType>,
-  Animate = StyleValueOrArray<AnimatedWithTransitions>
+export interface ReAnimatableProps<
+  AnimateType = ViewStyle,
+  AnimatedWithTransitions = Partial<Transforms> & Omit<AnimateType, 'transform'>
 > {
-  animate?: Animate;
+  animate?: AnimatedWithTransitions;
   start?: AnimatedWithTransitions;
   exit?: AnimatedWithTransitions;
   onDidAnimate?: (finished: boolean, key: string) => void;
   transition?: TransitionConfig &
-    Partial<Record<keyof Animate, TransitionConfig>>;
+    Partial<Record<keyof AnimatedWithTransitions, TransitionConfig>>;
   delay?: number;
 }
-export type ModifyAnimateProps<Animate> = ModifyProps<Animate>['animate'];
-export type ModifyTransitionProps<Animate> = ModifyProps<Animate>['transition'];
-export type ModifyFromProps<Animate> = ModifyProps<Animate>['start'];
-export type ModifyAExitProps<Animate> = ModifyProps<Animate>['exit'];
+export type ModifyAnimateProps<Animate> = ReAnimatableProps<Animate>['animate'];
+export type ModifyTransitionProps<
+  Animate
+> = ReAnimatableProps<Animate>['transition'];
+export type ModifyFromProps<Animate> = ReAnimatableProps<Animate>['start'];
+export type ModifyAExitProps<Animate> = ReAnimatableProps<Animate>['exit'];

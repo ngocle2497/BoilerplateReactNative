@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {useEffect, useMemo} from 'react';
 import {TransformsStyle} from 'react-native';
 import Animated, {
@@ -7,7 +8,6 @@ import Animated, {
   withDecay,
   withDelay,
   withRepeat,
-  withSequence,
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
@@ -15,7 +15,7 @@ import Animated, {
 import {usePresence} from '../Presence/usePresence';
 
 import {
-  ModifyProps,
+  ReAnimatableProps,
   Transforms,
   ModifyTransitionProps,
   TransitionConfig,
@@ -80,7 +80,7 @@ function animatedConfig<Animate>(
   'worklet';
   let repeatCount = 0;
   let repeatReverse = true;
-  let animationType: Required<TransitionConfig>['type'] = 'spring';
+  let animationType: Required<TransitionConfig>['type'] = 'timing';
   const transitionAny = transition as any;
 
   const key = style as keyof Animate;
@@ -220,16 +220,6 @@ function handleAnimated(
       return animation(config, callback);
   }
 }
-const changeValueToZero = (value: any) => {
-  Object.keys(value).forEach(function (key) {
-    if (typeof value[key] === 'object') {
-      value[key] = changeValueToZero(value[key]);
-    } else {
-      value[key] = 0;
-    }
-  });
-  return value;
-};
 export function useMapAnimateToStyle<Animate>({
   start,
   animate,
@@ -237,29 +227,20 @@ export function useMapAnimateToStyle<Animate>({
   transition,
   exit,
   onDidAnimate,
-}: ModifyProps<Animate>) {
-  const isMounted = useSharedValue(false, false);
+}: ReAnimatableProps<Animate>) {
+  const isMounted = useSharedValue(false);
   const [isPresent, safeToUnMount] = usePresence();
+  const initialStyle = useMemo(() => (start ?? {}) as any, [start]);
+  const animateStyle = useMemo(() => (animate ?? {}) as any, [animate]);
+  const exitStyle = useMemo(() => (exit ?? {}) as any, [exit]);
 
-  const startStyle = useMemo(() => ({...(start ?? {})} as any), [start]);
-  const animateStyle = useMemo(() => ({...(animate ?? {})} as any), [animate]);
-  const exitStyle = useMemo(
-    () =>
-      ({
-        ...changeValueToZero({...animate}),
-        ...(exit ?? {}),
-      } as any),
-    [exit, animate],
-  );
-  const hasExitStyle = useMemo(
-    () => typeof exit === 'object' && Object.keys(exit).length > 0,
-    [exit],
-  );
+  const hasExitStyle = useMemo(() => Object.keys(exitStyle).length > 0, [
+    exitStyle,
+  ]);
   const isExiting = useMemo(() => !isPresent && hasExitStyle, [
     hasExitStyle,
     isPresent,
   ]);
-
   const style = useAnimatedStyle(() => {
     const actualStyle = {
       transform: [] as TransformsStyle['transform'],
@@ -270,7 +251,7 @@ export function useMapAnimateToStyle<Animate>({
     }
     Object.keys(mergedStyles).forEach((key, index) => {
       'worklet';
-      const initialValue = startStyle[key];
+      const initialValue = initialStyle[key];
       const value = mergedStyles[key];
       const {
         animation,
@@ -293,99 +274,26 @@ export function useMapAnimateToStyle<Animate>({
           }
         }
       };
-      if (initialValue != null) {
-        if (isMounted.value === false || value == null) {
-          if (isTransform(key) && actualStyle.transform) {
-            const transform = {} as any;
-            transform[key] = handleAnimated(
-              animationType,
-              animation,
-              initialValue,
-              config,
-              callback,
-            );
-            actualStyle.transform.push(transform);
+      if (isMounted.value === false) {
+        // before mount, the view need to a initial style
+        if (isTransform(key)) {
+          const transform = {} as any;
+          if (key.startsWith('rotate') || key.startsWith('skew')) {
+            transform[key] = (initialValue * Math.PI) / 180;
           } else {
-            actualStyle[key] = handleAnimated(
-              animationType,
-              animation,
-              initialValue,
-              config,
-              callback,
-            );
+            transform[key] = initialValue;
           }
-          return;
+          actualStyle.transform.push(transform);
+        } else {
+          actualStyle[key] = initialValue;
         }
+        return;
       }
       let {delayMs} = animatedDelay(key, transition, defaultDelay);
       if (value == null || value === false) {
         return;
       }
-      if (Array.isArray(value)) {
-        const sequence = value
-          .filter((step) => {
-            if (typeof step === 'object') {
-              return step?.value != null && step?.value !== false;
-            }
-            return step != null && step !== false;
-          })
-          .map((step) => {
-            let stepDelay = delayMs;
-            let stepValue = step;
-            let customConfigStep = {};
-            let stepType = animationType;
-            let stepAnimation = animation;
-            if (typeof step === 'object') {
-              const stepTransition = step;
-              const {
-                delay: delayStepOb = 0,
-                type: customType,
-                value: valueStepOb,
-              } = step;
-              if (customType) {
-                stepType = customType;
-              }
-              const {
-                config: customConfig,
-                animation: customAnimation,
-              } = animatedConfig(key, stepTransition);
-              stepAnimation = customAnimation;
-              customConfigStep = customConfig;
-              if (delayStepOb != null) {
-                stepDelay = delayStepOb;
-              }
-              stepValue = valueStepOb;
-            }
-
-            const sequenceValue = handleAnimated(
-              stepType || animationType,
-              stepAnimation,
-              stepValue,
-              Object.assign(config, customConfigStep),
-              callback,
-            );
-            if (stepDelay != null) {
-              return withDelay(stepDelay, sequenceValue);
-            }
-            return sequenceValue;
-          })
-          .filter(Boolean);
-        if (isTransform(key)) {
-          actualStyle.transform = actualStyle.transform || [];
-
-          if (sequence.length) {
-            const transform = {} as any;
-
-            transform[key] = withSequence(sequence[0], ...sequence.slice(1));
-
-            actualStyle.transform.push(transform);
-          }
-        } else {
-          if (sequence.length) {
-            actualStyle[key] = withSequence(sequence[0], ...sequence.slice(1));
-          }
-        }
-      } else if (isTransform(key)) {
+      if (isTransform(key)) {
         actualStyle.transform = actualStyle.transform || [];
 
         if (transition?.[key as keyof Transforms]?.delay != null) {
@@ -396,13 +304,17 @@ export function useMapAnimateToStyle<Animate>({
         let finalValue = handleAnimated(
           animationType,
           animation,
-          value,
+          key.startsWith('rotate') || key.startsWith('skew')
+            ? (value * Math.PI) / 180
+            : value,
           config,
           callback,
         );
+
         if (shouldRepeat) {
           finalValue = withRepeat(finalValue, repeatCount, repeatReverse);
         }
+
         if (delayMs != null) {
           transform[key] = withDelay(delayMs, finalValue);
         } else {
@@ -453,8 +365,13 @@ export function useMapAnimateToStyle<Animate>({
     return actualStyle;
   });
   useEffect(() => {
-    isMounted.value = true;
-  }, [isMounted]);
+    // Must push to queue to update isMounted after all function
+    const id = setTimeout(() => {
+      isMounted.value = true;
+    }, 40);
+    return () => clearTimeout(id);
+  }, []);
+
   useEffect(() => {
     if (!isPresent && !hasExitStyle) {
       safeToUnMount?.();

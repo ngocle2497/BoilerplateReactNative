@@ -33,4 +33,4 @@ export * from './SnackBar/SnackBar';
 export * from './Slider/Slider';
 export * from './StackView/StackView';
 export * from './Presence/Presence';
-export * from './Modify/index';
+export * from './ReAnimatableView/index';

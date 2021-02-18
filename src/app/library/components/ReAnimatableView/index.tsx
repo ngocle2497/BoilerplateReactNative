@@ -1,27 +1,27 @@
-import React, {ComponentType, forwardRef} from 'react';
+import React, {forwardRef, memo} from 'react';
 import Animated from 'react-native-reanimated';
-import {View as RNView, Text as RNText, Image as RNImage} from 'react-native';
+import {View as RNView, ViewProps} from 'react-native';
+import isEqual from 'react-fast-compare';
 
 import {useMapAnimateToStyle} from './mapAnimateToStyle';
-import {ImageStyle, ModifyProps, TextStyle, ViewStyle} from './types';
+import {ReAnimatableProps, ViewStyle} from './types';
 
+const ReanimatedComponent = Animated.createAnimatedComponent(RNView);
 function modify<
   Style,
   Props extends {style?: Style},
   Ref,
   ExtraProps,
-  Animate = ViewStyle | ImageStyle | TextStyle
->(ComponentWithoutAnimation: ComponentType<any>) {
-  const Component = Animated.createAnimatedComponent(ComponentWithoutAnimation);
-
+  Animate = ViewStyle
+>() {
   const withAnimations = () => {
     const withStyles = forwardRef<
       Ref,
       Props &
-        ModifyProps<Animate> &
+        ReAnimatableProps<Animate> &
         ExtraProps & {
           children?: React.ReactNode;
-        }
+        } & ViewProps
     >(function Wrapped(
       {animate, style, start, transition, delay, exit, ...props},
       ref,
@@ -35,7 +35,7 @@ function modify<
       });
 
       return (
-        <Component
+        <ReanimatedComponent
           {...(props as Props)}
           style={[style, animated.style]}
           ref={ref}
@@ -48,6 +48,4 @@ function modify<
 
   return withAnimations;
 }
-export const ReModifyView = modify(RNView)();
-export const ReModifyText = modify(RNText)();
-export const ReModifyImage = modify(RNImage)();
+export const ReAnimatableView = memo(modify()(), isEqual);

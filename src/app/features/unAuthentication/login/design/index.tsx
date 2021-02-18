@@ -25,46 +25,16 @@ import {
   ActionSheetRef,
   FAB,
   LightBox,
-  ReModifyView,
-  Presence,
 } from '@components';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList, APP_SCREEN} from '@navigation/screenTypes';
-import {usePresence} from '@library/components/Presence/usePresence';
-import {Pressable} from 'react-native';
 
 type LoginProps = StackScreenProps<RootStackParamList, APP_SCREEN.LOGIN>;
 
-const Anima = () => {
-  return (
-    <ReModifyView
-      transition={{
-        type: 'timing',
-        translateX: {type: 'spring', mass: 1},
-        translateY: {type: 'spring', mass: 1, delay: 150},
-        opacity: {type: 'timing', duration: 1000},
-      }}
-      exit={{
-        translateX: 0,
-        translateY: 0,
-        opacity: 0,
-      }}
-      from={{translateX: 0, translateY: 0, opacity: 0}}
-      animate={{
-        translateX: [{value: 50, type: 'spring', mass: 1}, 150],
-        translateY: [{value: 50, type: 'decay', velocity: 50}, 150],
-        opacity: 1,
-      }}>
-      <Block width={150} height={150} borderRadius={5} color={'#9b59b6'} />
-    </ReModifyView>
-  );
-};
-
 const LoginComponent = ({}: LoginProps) => {
   const _modalMode = useRef<ModalAppModeRef>();
-
   const _refAction = useRef<ActionSheetRef>();
-  const [visible, setVisible] = useState<boolean>(true);
+  const [visible, setVisible] = useState<boolean>(false);
   const [selectedRadio, setSelectedRadio] = useState<boolean>(false);
   const [progress] = useState(10);
   const [sliderProgress, setSliderProgress] = useState<number>(0);
@@ -77,7 +47,6 @@ const LoginComponent = ({}: LoginProps) => {
       _refAction.current.show();
     }
   }, []);
-
   useEffect(() => {
     // showLoadingAnim();
     // const id = setInterval(() => {
@@ -93,78 +62,17 @@ const LoginComponent = ({}: LoginProps) => {
     // return () => clearInterval(id);
   }, []);
   return (
-    <Block block color={'#ffffff'} paddingTop={0} paddingHorizontal={15}>
+    <Block block paddingTop={0} paddingHorizontal={15}>
+      <Wallpaper />
       <ModalAppMode ref={_modalMode} />
 
-      <Screen scroll={true} backgroundColor={'#ffffff'}>
-        <Pressable onPress={() => setVisible((v) => !v)}>
-          <Block middle justifyContent={'center'}>
-            <Text>Change</Text>
-          </Block>
-        </Pressable>
-        <Presence exitBeforeEnter>
-          {visible && (
-            <ReModifyView
-              key={1}
-              transition={{
-                type: 'timing',
-                translateX: {type: 'spring', mass: 1},
-                translateY: {type: 'spring', mass: 1, delay: 150},
-                opacity: {type: 'timing', duration: 1000},
-              }}
-              exit={{
-                translateX: 0,
-                translateY: 0,
-                opacity: 0,
-              }}
-              from={{translateX: 0, translateY: 0, opacity: 0}}
-              animate={{
-                translateX: [{value: 50, type: 'spring', mass: 1}, 150],
-                translateY: [{value: 50, type: 'decay', velocity: 50}, 150],
-                opacity: 1,
-              }}>
-              <Block
-                width={150}
-                height={150}
-                borderRadius={5}
-                color={'#9b59b6'}
-              />
-            </ReModifyView>
-          )}
-          {!visible && (
-            <ReModifyView
-              key={2}
-              transition={{
-                type: 'timing',
-                translateX: {type: 'spring', mass: 1},
-                translateY: {type: 'spring', mass: 1, delay: 150},
-                opacity: {type: 'timing', duration: 1000},
-              }}
-              exit={{
-                translateX: 0,
-                translateY: 0,
-                opacity: 0,
-              }}
-              from={{translateX: 0, translateY: 0, opacity: 0}}
-              animate={{
-                translateX: [{value: 20, type: 'spring', mass: 1}, 80],
-                translateY: [{value: 50, type: 'decay', velocity: 50}, 0],
-                opacity: 1,
-              }}>
-              <Block
-                width={150}
-                height={150}
-                borderRadius={5}
-                color={'#9b59b6'}
-              />
-            </ReModifyView>
-          )}
-        </Presence>
-        {/* <Block width={150} height={150}>
+      <Screen
+        style={{paddingVertical: 0, paddingHorizontal: 10}}
+        scroll={true}
+        backgroundColor={'transparent'}>
+        <Block width={150} height={150}>
           <LightBox source={{uri: 'https://picsum.photos/id/11/400/400'}} />
         </Block>
-        <Text>{visible ? 'true' : 'false'}</Text>
-        <AnimatePresence>{visible && <Anima />}</AnimatePresence>
 
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Action Sheet</Text>
@@ -244,7 +152,7 @@ const LoginComponent = ({}: LoginProps) => {
           <SizeBox width={10} />
           <Block block>
             <Text>
-              {sliderRangeProgress.lower} {sliderRangeProgress.upper}
+              {sliderRangeProgress.lower} - {sliderRangeProgress.upper}
             </Text>
             <SizeBox height={20} />
             <Slider
@@ -284,8 +192,7 @@ const LoginComponent = ({}: LoginProps) => {
           <Text>Switch Android</Text>
           <SizeBox width={10} />
           <Switch type={'android'} />
-        </Block> */}
-
+        </Block>
         {/* <FormLogin onSubmit={_onSubmit} /> */}
       </Screen>
       <FAB
