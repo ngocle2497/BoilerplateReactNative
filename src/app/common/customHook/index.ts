@@ -32,9 +32,12 @@ function useSelector<T>(
 
 function useAnimationState<T>(
   initialValue: T,
-): [T, (newValue: T, withAnimation?: boolean) => void] {
+): [T, (newValue: T | ((prevState: T) => T), withAnimation?: boolean) => void] {
   const [value, setValue] = useState<T>(initialValue);
-  const setState = (newValue: T, withAnimation = false) => {
+  const setState = (
+    newValue: T | ((prevState: T) => T),
+    withAnimation = true,
+  ) => {
     if (withAnimation) {
       requestAnimation();
     }

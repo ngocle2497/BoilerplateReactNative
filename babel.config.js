@@ -1,9 +1,9 @@
 module.exports = {
-  presets: ["module:metro-react-native-babel-preset"],
+  presets: ['module:metro-react-native-babel-preset'],
   env: {
     production: {
-      plugins: ["transform-remove-console"],
+      plugins: ['transform-remove-console'],
     },
   },
-  plugins: ["react-native-reanimated/plugin"],
+  plugins: ['react-native-reanimated/plugin'],
 };
