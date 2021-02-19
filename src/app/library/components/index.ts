@@ -34,3 +34,4 @@ export * from './Slider/Slider';
 export * from './StackView/StackView';
 export * from './Presence/Presence';
 export * from './ReAnimatableView/index';
+export * from './Collapsible/Collapsible';
