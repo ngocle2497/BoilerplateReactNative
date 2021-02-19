@@ -1,4 +1,4 @@
-import {sharedTiming, useInterpolate, useSharedTransition} from '@animated';
+import {sharedTiming, useSharedTransition} from '@animated';
 import React, {memo, useCallback, useEffect, useState} from 'react';
 import isEqual from 'react-fast-compare';
 import {View, Text, StyleSheet} from 'react-native';
