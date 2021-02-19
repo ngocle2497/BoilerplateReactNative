@@ -29,14 +29,13 @@ import {
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList, APP_SCREEN} from '@navigation/screenTypes';
 
-
 type LoginProps = StackScreenProps<RootStackParamList, APP_SCREEN.LOGIN>;
 
 const LoginComponent = ({}: LoginProps) => {
   const _modalMode = useRef<ModalAppModeRef>();
   const _refAction = useRef<ActionSheetRef>();
   const [visible, setVisible] = useState<boolean>(false);
-  const [selectedRadio, setSelectedRadio] = useState<boolean>(false)
+  const [selectedRadio, setSelectedRadio] = useState<boolean>(false);
   const [progress] = useState(10);
   const [sliderProgress, setSliderProgress] = useState<number>(0);
   const [sliderRangeProgress, setSliderRangeProgress] = useState<{
@@ -74,7 +73,7 @@ const LoginComponent = ({}: LoginProps) => {
         <Block width={150} height={150}>
           <LightBox source={{uri: 'https://picsum.photos/id/11/400/400'}} />
         </Block>
-        
+
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Action Sheet</Text>
           <SizeBox width={10} />
@@ -138,7 +137,7 @@ const LoginComponent = ({}: LoginProps) => {
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Radio Button</Text>
           <SizeBox width={10} />
-          <RadioButton value={selectedRadio} onToggle={setSelectedRadio}/>
+          <RadioButton value={selectedRadio} onToggle={setSelectedRadio} />
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Slider Linear</Text>
@@ -153,7 +152,7 @@ const LoginComponent = ({}: LoginProps) => {
           <SizeBox width={10} />
           <Block block>
             <Text>
-              {sliderRangeProgress.lower} -> {sliderRangeProgress.upper}
+              {sliderRangeProgress.lower} - {sliderRangeProgress.upper}
             </Text>
             <SizeBox height={20} />
             <Slider

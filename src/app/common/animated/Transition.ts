@@ -1,4 +1,5 @@
 import Animated, {
+  Easing,
   useDerivedValue,
   withSpring,
   withTiming,
@@ -6,7 +7,10 @@ import Animated, {
 
 export const useSharedTransition = (
   state: boolean,
-  config?: Animated.WithTimingConfig,
+  config: Animated.WithTimingConfig = {
+    duration: 500,
+    easing: Easing.bezier(0.33, 0.01, 0, 1),
+  },
 ): Animated.SharedValue<number> => {
   'worklet';
   return useDerivedValue(() =>

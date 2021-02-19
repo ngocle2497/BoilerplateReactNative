@@ -43,7 +43,6 @@ function useAnimationState<T>(
   return [value, setState];
 }
 
-//#region useInterval
 function useInterval(callback: Function, delay: number) {
   const savedCallback = useRef<Function>();
   useEffect(() => {
@@ -60,10 +59,6 @@ function useInterval(callback: Function, delay: number) {
   }, [delay]);
 }
 
-//#endregion
-
-//#region useNetWorkStatus
-
 type NetInfoTuple = [boolean, boolean];
 function useNetWorkStatus(): NetInfoTuple {
   const [status, setStatus] = useState<boolean>(false);
@@ -79,9 +74,6 @@ function useNetWorkStatus(): NetInfoTuple {
   }, []);
   return [status, canAccess];
 }
-//#endregion
-
-//#region useArray
 
 type UseArrayActions<T> = {
   setValue: UseStateFull<T[]>['setValue'];
@@ -110,7 +102,6 @@ type UseArrayActions<T> = {
   removeIndex: (index: number) => void;
 };
 type UseArray<T = any> = [T[], UseArrayActions<T>];
-
 function useArray<T = any>(initial: T[]): UseArray<T> {
   const [value, setValue] = useState(initial);
   const push = useCallback((a) => {
@@ -180,9 +171,6 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
   );
   return [value, actions];
 }
-//#endregion
-
-//#region useBoolean
 
 type UseBooleanActions = {
   setValue: React.Dispatch<SetStateAction<boolean>>;
@@ -191,7 +179,6 @@ type UseBooleanActions = {
   setFalse: () => void;
 };
 type UseBoolean = [boolean, UseBooleanActions];
-
 function useBoolean(initial: boolean): UseBoolean {
   const [value, setValue] = useState<boolean>(initial);
   const toggle = useCallback(() => setValue((v) => !v), []);
@@ -205,17 +192,12 @@ function useBoolean(initial: boolean): UseBoolean {
   return useMemo(() => [value, actions], [actions, value]);
 }
 
-//#endregion
-
-//#region useNumber
-
 type UseNumberActions = {
   setValue: React.Dispatch<SetStateAction<number>>;
   increase: (value?: number) => void;
   decrease: (value?: number) => void;
 };
 type UseNumber = [number, UseNumberActions];
-
 function useNumber(
   initial: number,
   {
@@ -282,9 +264,6 @@ function useNumber(
   );
   return [value, actions];
 }
-//#endregion
-
-//#region useStateFull
 
 function useStateFull<T = any>(initial: T): UseStateFull<T> {
   const [value, setValue] = useState(initial);
@@ -297,10 +276,6 @@ function useStateFull<T = any>(initial: T): UseStateFull<T> {
   );
 }
 
-//#endregion
-
-//#region usePrevious
-
 function usePrevious<T = any>(value: T): T | undefined {
   const ref = useRef<T>();
   useEffect(() => {
@@ -308,8 +283,6 @@ function usePrevious<T = any>(value: T): T | undefined {
   }, [value]);
   return ref.current;
 }
-
-//#endregion
 
 type UseSetArrayStateAction<T extends object> = React.Dispatch<
   SetStateAction<Partial<T>>
@@ -336,6 +309,7 @@ function useSetStateArray<T extends object>(
 
   return [value, setState, resetState];
 }
+
 type UseSetStateAction<T extends object> = React.Dispatch<
   SetStateAction<Partial<T>>
 >;
@@ -355,11 +329,12 @@ function useSetState<T extends object>(initialValue: T): UseSetState<T> {
     [setState, resetState, state],
   );
 }
+
 function useStyle<T>(style: (theme: AppTheme) => T): T {
   const theme: AppTheme = useTheme();
   return style(theme);
 }
-//#region useStateWithCallback
+
 function useAsyncState<T>(
   initialValue: T,
 ): [
@@ -385,7 +360,32 @@ function useAsyncState<T>(
   }, [state]);
   return [state, _setState];
 }
-//#endregion
+
+type Init<T> = () => T;
+function useConst<T>(init: Init<T>) {
+  const ref = useRef<T | null>(null);
+
+  if (ref.current === null) {
+    ref.current = init();
+  }
+
+  return ref.current;
+}
+
+function useUnMount(callback: () => void) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  return useEffect(() => () => callback(), []);
+}
+function useForceUpdate() {
+  const unloadingRef = useRef(false);
+  const [forcedRenderCount, setForcedRenderCount] = useState(0);
+
+  useUnMount(() => (unloadingRef.current = true));
+
+  return useCallback(() => {
+    !unloadingRef.current && setForcedRenderCount(forcedRenderCount + 1);
+  }, [forcedRenderCount]);
+}
 export {
   useInterval,
   useSelector,
@@ -399,4 +399,7 @@ export {
   useStyle,
   useAnimationState,
   useAsyncState,
+  useConst,
+  useUnMount,
+  useForceUpdate,
 };
