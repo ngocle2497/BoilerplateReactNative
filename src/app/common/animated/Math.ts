@@ -35,3 +35,24 @@ export const SharedSnapPoint = (
   const minDelta = sharedMin(...deltas);
   return points.reduce((acc, p) => (diffPoint(p) === minDelta ? p : acc), 0);
 };
+export const sharedToDeg = (rad: number) => {
+  'worklet';
+  return (rad * 180) / Math.PI;
+};
+export const sharedToRad = (deg: number) => {
+  'worklet';
+  return (deg * Math.PI) / 180;
+};
+export const sharedAvg = (...args: number[]) => {
+  'worklet';
+  return args.reduce((a, v) => a + v, 0) / args.length;
+};
+export const sharedRound = (value: number, precision = 0) => {
+  'worklet';
+  const p = Math.pow(10, precision);
+  return Math.round(value * p) / p;
+};
+export const sharedBin = (value: boolean): 0 | 1 => {
+  'worklet';
+  return value ? 1 : 0;
+};

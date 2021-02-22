@@ -1,14 +1,11 @@
-import React, {useMemo, useCallback, useState, useEffect} from 'react';
+import React, {useMemo, useCallback, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import equals from 'react-fast-compare';
 import {SpacingDefault} from '@theme/spacing';
 import {ColorDefault} from '@theme/color';
 import {enhance, onCheckType} from '@common';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-} from 'react-native-reanimated';
-import {sharedTiming} from '@animated';
+import Animated, {useAnimatedStyle} from 'react-native-reanimated';
+import {useMix, useSharedTransition} from '@animated';
 
 import {Text} from '../Text/Text';
 import {Button} from '../Button/Button';
@@ -51,11 +48,12 @@ const CheckBoxComponent = ({
   tx,
   disable = false,
   initialValue = false,
+  value,
 }: CheckboxProps) => {
-  const scale = useSharedValue(initialValue ? 1 : 0);
-  const opacity = useSharedValue(initialValue ? 1 : 0);
-
   const [localValue, setLocalValue] = useState<boolean>(initialValue);
+  const progress = useSharedTransition(value ?? localValue);
+  const scale = useMix(progress, 0, 1);
+  const opacity = useMix(progress, 0, 1);
   const _rootStyle = useMemo(() => enhance([styles.ROOT, style ?? {}]), [
     style,
   ]);
@@ -72,17 +70,12 @@ const CheckBoxComponent = ({
   const _labelStyle = useMemo(() => styles.LABEL, []);
 
   const onPress = useCallback(() => {
-    setLocalValue((v) => !v);
-  }, []);
-
-  useEffect(() => {
-    if (onToggle && onCheckType(onToggle, 'function')) {
-      onToggle(localValue);
+    if (typeof value === 'boolean' && onCheckType(onToggle, 'function')) {
+      onToggle && onToggle(!value);
+    } else {
+      setLocalValue((v) => !v);
     }
-    scale.value = sharedTiming(localValue ? 1 : 0, {duration: 150});
-    opacity.value = sharedTiming(localValue ? 1 : 0, {duration: 150});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [localValue, onToggle]);
+  }, [onToggle, value]);
 
   const styleAnimated = useAnimatedStyle(() => ({
     opacity: opacity.value,

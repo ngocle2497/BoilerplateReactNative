@@ -4,9 +4,9 @@ import equals from 'react-fast-compare';
 
 import {Block} from '../Block/Block';
 
-import {SizeBoxProps} from './SizeBox.props';
+import {SpacerProps} from './Spacer.props';
 
-const SizeBoxComponent = (props: SizeBoxProps) => {
+const SpacerComponent = (props: SpacerProps) => {
   const {
     children,
     style = {},
@@ -29,4 +29,4 @@ const SizeBoxComponent = (props: SizeBoxProps) => {
   );
   return <Block style={actualStyle}>{children && children}</Block>;
 };
-export const SizeBox = memo(SizeBoxComponent, equals);
+export const Spacer = memo(SpacerComponent, equals);

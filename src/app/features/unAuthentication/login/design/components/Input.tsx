@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, {memo, forwardRef} from 'react';
 import {TextField} from '@components';
 import isEqual from 'react-fast-compare';

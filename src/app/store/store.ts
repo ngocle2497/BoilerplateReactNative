@@ -20,7 +20,7 @@ const middleware = [
   sagaMiddleware,
 ];
 if (devMode) {
-  // middleware.push(logger);
+  middleware.push(logger);
 }
 const storeConfig = () => {
   const store = configureStore({

@@ -13,6 +13,5 @@ export interface CollapsibleProps {
    */
   renderContent?: (progress: Animated.SharedValue<number>) => React.ReactNode;
 
-
   children?: React.ReactNode;
 }

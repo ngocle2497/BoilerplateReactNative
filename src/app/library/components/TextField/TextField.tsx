@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, {memo, forwardRef} from 'react';
-import equals from 'react-fast-compare';
+import React, {forwardRef} from 'react';
 
 import {InputFlat} from './components/Flat/InputFlat';
 import {InputOutline} from './components/OutLine/InputOutline';

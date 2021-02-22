@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-undef */
+import React from 'react';
 import {StyleProp, ViewStyle, TextStyle} from 'react-native';
 import Animated from 'react-native-reanimated';
 

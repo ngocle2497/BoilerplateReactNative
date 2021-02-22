@@ -1,17 +1,14 @@
 import {imageTransitionHolder} from '@utils';
 import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
 import isEqual from 'react-fast-compare';
-import {View, Text, StyleSheet, useWindowDimensions} from 'react-native';
+import {View, StyleSheet, useWindowDimensions} from 'react-native';
 import FastImage, {Source} from 'react-native-fast-image';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-import {Block} from '../Block/Block';
-import {TouchableScale} from '../TouchScale/TouchScale';
-import {ImageTransition} from './ImageTransition';
 
-const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
+import {TouchableScale} from '../TouchScale/TouchScale';
 
 const styles = StyleSheet.create({
   container: {
@@ -44,7 +41,7 @@ const LightBoxComponent = ({source}: LightBoxProps) => {
   const _refRoot = useRef<View>(null);
   const [disableButton, setDisableButton] = useState<boolean>(true);
   const {width: widthDevice} = useWindowDimensions();
-  const [image, setImage] = useState<Measure | null>(null);
+  const [image] = useState<Measure | null>(null);
   const imageOpacity = useSharedValue(1);
 
   // function
@@ -76,6 +73,7 @@ const LightBoxComponent = ({source}: LightBoxProps) => {
 
   //reanimated style
   const imageStyle = useAnimatedStyle(() => ({
+    flex: 1,
     opacity: imageOpacity.value,
   }));
 
@@ -88,12 +86,14 @@ const LightBoxComponent = ({source}: LightBoxProps) => {
     <>
       <TouchableScale disabled={disableButton} onPress={_onImagePress}>
         <View collapsable={false} ref={_refRoot} style={[styles.container]}>
-          <AnimatedFastImage
-            onLoad={_onLoadedImage}
-            style={[styles.img, imageStyle]}
-            source={source}
-            resizeMode={'contain'}
-          />
+          <Animated.View style={imageStyle}>
+            <FastImage
+              onLoad={_onLoadedImage}
+              style={[styles.img]}
+              source={source}
+              resizeMode={'contain'}
+            />
+          </Animated.View>
         </View>
       </TouchableScale>
     </>

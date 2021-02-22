@@ -1,3 +1,4 @@
+import React from 'react';
 import {ViewStyle, TextStyle} from 'react-native';
 import {IconTypes} from '@assets/icon';
 

@@ -1,5 +1,7 @@
 import {ViewStyle, StyleProp} from 'react-native';
-export interface SizeBoxProps {
+import React from 'react';
+
+export interface SpacerProps {
   /**
    * Width of size box
    * @default 0

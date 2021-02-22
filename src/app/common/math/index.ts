@@ -13,7 +13,7 @@ export const roundMaxFixed = (num: number, decimals: number): number => {
     Math.round(Number(String(num + 'e' + decimals))) + 'e-' + decimals,
   );
 };
-export const formatNumber = (num: number | string, comma: string = ',') => {
+export const formatNumber = (num: number | string, comma = ',') => {
   if (typeof num !== 'number' && typeof num !== 'string') {
     return num;
   }

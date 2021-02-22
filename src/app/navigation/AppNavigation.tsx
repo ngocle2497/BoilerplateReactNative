@@ -13,10 +13,10 @@ import {
 import {onLoadApp} from '@store/app_redux/reducer';
 import {AppMode} from '@library/components/AppMode/AppMode';
 import {MyAppTheme} from '@theme';
+import {ImageTransition} from '@library/components/LightBox/ImageTransition';
 
 import {RootNavigation} from './RootNavigator';
 import {navigationRef} from './navigationService';
-import {ImageTransition} from '@library/components/LightBox/ImageTransition';
 
 export const AppContainer = () => {
   const {token, appMode, loading, showDialog, theme} = useSelector(

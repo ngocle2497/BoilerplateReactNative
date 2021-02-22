@@ -1,6 +1,13 @@
 export interface RadioButtonProps {
   /**
    * Default state of radio button
+   * @default false
+   */
+  initialValue?: boolean;
+
+  /**
+   * Overwrite value
+   * @default undefined
    */
   value?: boolean;
 

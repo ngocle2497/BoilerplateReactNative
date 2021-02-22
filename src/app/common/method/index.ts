@@ -14,10 +14,3 @@ export const onShowErrorBase = (msg: string) => {
 export const onCheckType = (source: any, type: TypesBase) => {
   return typeof source === type;
 };
-export function onCheckTS<T>(
-  arg: any,
-  propUnique: string,
-  typeOfProps: TypesBase,
-): arg is T {
-  return arg && arg[propUnique] && typeof arg[propUnique] == typeOfProps;
-}

@@ -4,9 +4,9 @@ export const required = (value: string | undefined | null) =>
   value && value.toString().trim().length > 0
     ? undefined
     : translate('validate:required');
-export const maxLength = (maxLength: number, msg: string) => (
+export const maxLength = (max: number, msg: string) => (
   value: string | undefined | null,
-) => (value && value.length > maxLength ? msg : undefined);
+) => (value && value.length > max ? msg : undefined);
 
 export const minLength4 = (value: string | undefined | null) =>
   value && value.length < 4 ? 'Must be' : undefined;

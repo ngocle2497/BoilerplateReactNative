@@ -1,14 +1,17 @@
 import {sharedTiming, useSharedTransition} from '@animated';
-import React, {memo, useCallback, useEffect, useState} from 'react';
+import React, {memo, useCallback, useState} from 'react';
 import isEqual from 'react-fast-compare';
-import {View, Text, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  LayoutChangeEvent,
+  LayoutRectangle,
+} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Animated, {
-  measure,
-  runOnUI,
-  useAnimatedRef,
   useAnimatedStyle,
-  useSharedValue,
+  useDerivedValue,
 } from 'react-native-reanimated';
 
 import {CollapsibleProps} from './Collapsible.props';
@@ -19,6 +22,7 @@ const styles = StyleSheet.create({
   },
   hiddenView: {
     position: 'absolute',
+    zIndex: -999,
     opacity: 0,
   },
   header: {
@@ -35,44 +39,41 @@ const CollapsibleComponent = ({
   children,
 }: CollapsibleProps) => {
   // state
-  const _contentRef = useAnimatedRef<Animated.View>();
+  const [measured, setMeasured] = useState<LayoutRectangle>({
+    height: 0,
+    width: 0,
+    x: 0,
+    y: 0,
+  });
   const [isShow, setIsShow] = useState(false);
 
   // reanimated
   const progress = useSharedTransition(isShow);
-  const height = useSharedValue(0);
+  const height = useDerivedValue(() =>
+    sharedTiming(isShow ? measured.height : 0),
+  );
 
   // function
   const _onPress = useCallback(() => {
     setIsShow((v) => !v);
   }, []);
 
+  const _onLayoutContent = useCallback((e: LayoutChangeEvent) => {
+    setMeasured(e.nativeEvent.layout);
+  }, []);
   // reanimated style
   const contentStyle = useAnimatedStyle(() => ({
     height: height.value,
   }));
 
-  // effect
-  useEffect(() => {
-    if (isShow) {
-      console.log('show');
-      runOnUI(() => {
-        'worklet';
-        try {
-          const measured = measure(_contentRef);
-          console.log(measured);
-          height.value = sharedTiming(measured.height);
-        } catch (e) {
-          console.log(e);
-        }
-      })();
-    } else {
-      height.value = sharedTiming(0);
-    }
-  }, [_contentRef, height, isShow]);
-
   return (
     <View>
+      <Animated.View
+        pointerEvents={'none'}
+        onLayout={_onLayoutContent}
+        style={[styles.base, styles.hiddenView]}>
+        {renderContent ? renderContent(progress) : children}
+      </Animated.View>
       <TouchableOpacity onPress={_onPress}>
         {renderMasterView ? (
           renderMasterView(progress)
@@ -82,10 +83,8 @@ const CollapsibleComponent = ({
           </View>
         )}
       </TouchableOpacity>
+
       <Animated.View style={[styles.base, contentStyle]}>
-        {renderContent ? renderContent(progress) : children}
-      </Animated.View>
-      <Animated.View ref={_contentRef} style={[styles.base, styles.hiddenView]}>
         {renderContent ? renderContent(progress) : children}
       </Animated.View>
     </View>

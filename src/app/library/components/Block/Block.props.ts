@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+import React from 'react';
 import {ViewStyle, ViewProps, StyleProp, FlexAlignType} from 'react-native';
 
 type Direction = 'row' | 'column' | 'column-reverse' | 'row-reverse';

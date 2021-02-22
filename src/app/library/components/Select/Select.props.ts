@@ -1,5 +1,6 @@
-/* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import {CustomOmit} from '@common';
+import React from 'react';
 import {FlatListProps, TextStyle, StyleProp} from 'react-native';
 
 export interface SelectOption {
@@ -15,7 +16,7 @@ export interface SelectOption {
   itemCallback?: any;
 }
 
-export interface SelectProps extends FlatListProps<SelectOption> {
+export type SelectProps = {
   /**
    * Call back when click one item
    * @default undefined
@@ -68,7 +69,7 @@ export interface SelectProps extends FlatListProps<SelectOption> {
    * @default undefined
    */
   useBottomInset?: boolean;
-}
+} & CustomOmit<FlatListProps<SelectOption>, 'renderItem'>;
 export interface SelectItemProps {
   /**
    * Data item

@@ -81,17 +81,13 @@ const ChatComponent = ({
                 onPress={_onBackPress}
                 style={styles.buttonBack}
                 preset={'link'}>
-                <Icon style={styles.iconBack} icon={'back'} />
+                <Icon color={'#0057E7'} icon={'back'} />
               </Button>
               <Block
                 width={SIZE_AVATAR * 2}
                 height={SIZE_AVATAR * 2}
                 borderRadius={SIZE_AVATAR}>
-                <ImageRemote
-                  style={styles.imgAvatar}
-                  styleDefault={styles.imgAvatar}
-                  imgSource={friendAvatar}
-                />
+                <ImageRemote style={styles.imgAvatar} source={friendAvatar} />
                 <Block
                   style={[styles.dotStatus]}
                   borderWidth={scale(1)}
@@ -132,7 +128,7 @@ const ChatComponent = ({
           onPress={_onSendPress}
           style={[styles.buttonSend]}
           preset={'link'}>
-          <Icon style={styles.icon} icon={'send'} />
+          <Icon color={'#EC2929'} icon={'send'} />
         </Button>
       </Block>
     </Block>
@@ -152,9 +148,6 @@ const styles = StyleSheet.create({
   textName: {
     fontSize: FontSizeDefault.FONT_15,
   },
-  iconBack: {
-    tintColor: '#0057E7',
-  },
   bottom: {
     paddingVertical: scale(5),
     width: '100%',
@@ -170,9 +163,6 @@ const styles = StyleSheet.create({
     borderBottomColor: '#bbb',
     paddingLeft: 10,
     backgroundColor: '#FFFFFF',
-  },
-  avatar: {
-    overflow: 'hidden',
   },
   imgAvatar: {
     width: '100%',
@@ -193,9 +183,6 @@ const styles = StyleSheet.create({
   },
   buttonSend: {
     paddingHorizontal: 5,
-  },
-  icon: {
-    tintColor: '#EC2929',
   },
   textTitle: {
     fontSize: FontSizeDefault.FONT_12,

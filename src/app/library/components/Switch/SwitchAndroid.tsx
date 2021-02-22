@@ -1,14 +1,14 @@
-import React, {memo, useCallback, useEffect, useState} from 'react';
-import {TouchableWithoutFeedback, StyleSheet} from 'react-native';
-import equals from 'react-fast-compare';
 import {
   useInterpolate,
   useInterpolateColor,
   useMix,
   useSharedTransition,
 } from '@animated';
-import Animated, {Extrapolate, useAnimatedStyle} from 'react-native-reanimated';
 import {onCheckType} from '@common';
+import React, {memo, useCallback, useState} from 'react';
+import equals from 'react-fast-compare';
+import {StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import Animated, {Extrapolate, useAnimatedStyle} from 'react-native-reanimated';
 
 import {SwitchProps} from './Switch.props';
 
@@ -60,12 +60,13 @@ const SwitchComponent = ({
   onToggle,
   initialValue = false,
   disable = false,
+  value: overwriteValue,
 }: Omit<SwitchProps, 'type'>) => {
   // state
   const [value, setValue] = useState<boolean>(initialValue);
 
   // reanimated
-  const progress = useSharedTransition(value);
+  const progress = useSharedTransition(overwriteValue ?? value);
   const opacity = useMix(useSharedTransition(disable), 1, 0.5);
   const translateX = useInterpolate(
     progress,
@@ -86,15 +87,15 @@ const SwitchComponent = ({
 
   // function
   const _onToggle = useCallback(() => {
-    setValue((v) => !v);
-  }, []);
-
-  // effect
-  useEffect(() => {
-    if (onToggle && onCheckType(onToggle, 'function')) {
-      onToggle(value);
+    if (
+      typeof overwriteValue === 'boolean' &&
+      onCheckType(onToggle, 'function')
+    ) {
+      onToggle && onToggle(!overwriteValue);
+    } else {
+      setValue((v) => !v);
     }
-  }, [value]);
+  }, [onToggle, overwriteValue]);
 
   // reanimated style
   const wrapAnimatedStyle = useAnimatedStyle(() => ({

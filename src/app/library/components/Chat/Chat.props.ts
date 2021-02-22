@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+import React from 'react';
 export type MessageType = 'text' | 'image';
 export type SourceMessage = 'mine' | 'friend';
 

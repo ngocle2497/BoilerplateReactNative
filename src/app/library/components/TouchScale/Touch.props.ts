@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable no-undef */
+import React from 'react';
 import {
   StyleProp,
   TouchableWithoutFeedbackProps,

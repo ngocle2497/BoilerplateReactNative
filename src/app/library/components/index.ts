@@ -22,7 +22,7 @@ export * from './ActionSheet/ActionSheet';
 export * from './Select/Select';
 export * from './LightBox/LightBox';
 export * from './FAB/FAB';
-export * from './SizeBox/SizeBox';
+export * from './Spacer/Spacer';
 export * from './Block/Block';
 export * from './ListView/ListView';
 export * from './Chat/Chat';

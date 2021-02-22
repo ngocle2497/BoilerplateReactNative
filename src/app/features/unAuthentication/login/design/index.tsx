@@ -1,37 +1,37 @@
-import React, {useRef, memo, useState, useEffect, useCallback} from 'react';
-import isEqual from 'react-fast-compare';
 import {
-  Wallpaper,
-  Screen,
+  ActionSheet,
+  ActionSheetRef,
+  Block,
+  Button,
+  CheckBox,
+  Divider,
+  DropDown,
+  FAB,
+  HelperText,
+  LightBox,
   ModalAppMode,
   ModalAppModeRef,
-  Block,
-  ActionSheet,
-  CheckBox,
-  DropDown,
-  HelperText,
+  Otp,
   Progress,
   RadioButton,
+  Screen,
+  Select,
   Slider,
+  Spacer,
+  Switch,
+  Text,
   TextField,
   TouchableScale,
-  Text,
-  Switch,
-  SizeBox,
-  Divider,
-  Otp,
-  Select,
-  Button,
-  ActionSheetRef,
-  FAB,
-  LightBox,
+  Wallpaper,
 } from '@components';
+import {APP_SCREEN, RootStackParamList} from '@navigation/screenTypes';
 import {StackScreenProps} from '@react-navigation/stack';
-import {RootStackParamList, APP_SCREEN} from '@navigation/screenTypes';
+import React, {memo, useCallback, useRef, useState} from 'react';
+import isEqual from 'react-fast-compare';
 
 type LoginProps = StackScreenProps<RootStackParamList, APP_SCREEN.LOGIN>;
 
-const LoginComponent = ({}: LoginProps) => {
+const LoginComponent = ({navigation}: LoginProps) => {
   const _modalMode = useRef<ModalAppModeRef>();
   const _refAction = useRef<ActionSheetRef>();
   const [visible, setVisible] = useState<boolean>(false);
@@ -46,20 +46,6 @@ const LoginComponent = ({}: LoginProps) => {
     if (_refAction.current) {
       _refAction.current.show();
     }
-  }, []);
-  useEffect(() => {
-    // showLoadingAnim();
-    // const id = setInterval(() => {
-    //   setVisible((v) => !v);
-    //   showSnack({
-    //     msg: 'Message',
-    //     type: ['error', 'info', 'success', 'warn'][
-    //       Math.floor(Math.random() * 3)
-    //     ],
-    //   });
-    //   setProgress(Math.floor(Math.random() * 100));
-    // }, 1000);
-    // return () => clearInterval(id);
   }, []);
   return (
     <Block block paddingTop={0} paddingHorizontal={15}>
@@ -76,7 +62,7 @@ const LoginComponent = ({}: LoginProps) => {
 
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Action Sheet</Text>
-          <SizeBox width={10} />
+          <Spacer width={10} />
           <Button onPress={_onShowAction}>
             <Text>Show Action</Text>
           </Button>
@@ -88,17 +74,17 @@ const LoginComponent = ({}: LoginProps) => {
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Check box</Text>
-          <SizeBox width={10} />
+          <Spacer width={10} />
           <CheckBox onToggle={setVisible} />
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>OTP</Text>
-          <SizeBox width={10} />
+          <Spacer width={10} />
           <Otp length={5} />
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>DropDown</Text>
-          <SizeBox width={10} />
+          <Spacer width={10} />
           <DropDown
             data={[
               {label: 'Option1', value: 1},
@@ -108,12 +94,12 @@ const LoginComponent = ({}: LoginProps) => {
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Select</Text>
-          <SizeBox width={10} />
+          <Spacer width={10} />
           <Select data={[{text: 'Option1'}, {text: 'Option2'}]} />
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Helper text</Text>
-          <SizeBox width={10} />
+          <Spacer width={10} />
           <Block>
             <HelperText visible={visible} msg={'Helper text'} type={'error'} />
             <HelperText visible={visible} msg={'Helper text'} type={'info'} />
@@ -121,27 +107,27 @@ const LoginComponent = ({}: LoginProps) => {
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Divider</Text>
-          <SizeBox width={10} />
+          <Spacer width={10} />
           <Divider />
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Progress Circle</Text>
-          <SizeBox width={10} />
+          <Spacer width={10} />
           <Progress type={'circle'} progress={progress} />
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Progress Line</Text>
-          <SizeBox width={10} />
+          <Spacer width={10} />
           <Progress type={'linear'} progress={progress} />
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Radio Button</Text>
-          <SizeBox width={10} />
+          <Spacer width={10} />
           <RadioButton value={selectedRadio} onToggle={setSelectedRadio} />
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Slider Linear</Text>
-          <SizeBox width={10} />
+          <Spacer width={10} />
           <Block block>
             <Text>{sliderProgress}</Text>
             <Slider type={'linear'} onChangeLinear={setSliderProgress} />
@@ -149,12 +135,12 @@ const LoginComponent = ({}: LoginProps) => {
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Slider Range</Text>
-          <SizeBox width={10} />
+          <Spacer width={10} />
           <Block block>
             <Text>
               {sliderRangeProgress.lower} - {sliderRangeProgress.upper}
             </Text>
-            <SizeBox height={20} />
+            <Spacer height={20} />
             <Slider
               type={'range'}
               onChangeRange={setSliderRangeProgress}
@@ -164,33 +150,33 @@ const LoginComponent = ({}: LoginProps) => {
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>TextField Flat</Text>
-          <SizeBox width={10} />
+          <Spacer width={10} />
           <TextField label={'Flat'} typeInput={'flat'} />
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>TextField Outline</Text>
-          <SizeBox width={10} />
+          <Spacer width={10} />
           <TextField typeInput={'outline'} label={'Outline'} />
         </Block>
-        <SizeBox height={10} />
+        <Spacer height={10} />
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>TouchableScale</Text>
-          <SizeBox width={10} />
+          <Spacer width={10} />
           <TouchableScale>
             <Block padding={5} color={'#bbb'}>
               <Text>Press me!</Text>
             </Block>
           </TouchableScale>
         </Block>
-        <SizeBox height={10} />
+        <Spacer height={10} />
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Switch IOS</Text>
-          <SizeBox width={10} />
+          <Spacer width={10} />
           <Switch />
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Switch Android</Text>
-          <SizeBox width={10} />
+          <Spacer width={10} />
           <Switch type={'android'} />
         </Block>
         {/* <FormLogin onSubmit={_onSubmit} /> */}

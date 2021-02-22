@@ -1,23 +1,23 @@
-import React, {
-  useState,
-  forwardRef,
-  useImperativeHandle,
-  useCallback,
-  memo,
-  useMemo,
-} from 'react';
-import {useTranslation} from 'react-i18next';
 import {enhance} from '@common';
+import React, {
+  forwardRef,
+  memo,
+  useCallback,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from 'react';
 import equals from 'react-fast-compare';
+import {useTranslation} from 'react-i18next';
 import Modal from 'react-native-modal';
 
 import {Block} from '../Block/Block';
 import {Button} from '../Button/Button';
-import {Text} from '../Text/Text';
 import {Divider} from '../Divider/Divider';
+import {Text} from '../Text/Text';
 
-import {ActionSheetProps, OptionData} from './ActionSheet.props';
 import {styles} from './ActionSheet.presets';
+import {ActionSheetProps, OptionData} from './ActionSheet.props';
 
 const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
   const [t] = useTranslation();

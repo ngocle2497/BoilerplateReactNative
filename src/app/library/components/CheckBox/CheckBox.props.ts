@@ -32,6 +32,12 @@ export interface CheckboxProps {
   initialValue?: boolean;
 
   /**
+   * Overwrite value of check box
+   * @default undefined
+   */
+  value?: boolean;
+
+  /**
    * Text to display
    * @default undefined
    */

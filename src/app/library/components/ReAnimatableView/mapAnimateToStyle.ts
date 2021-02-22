@@ -15,9 +15,9 @@ import Animated, {
 import {usePresence} from '../Presence/usePresence';
 
 import {
+  ModifyTransitionProps,
   ReAnimatableProps,
   Transforms,
-  ModifyTransitionProps,
   TransitionConfig,
 } from './types';
 
@@ -369,7 +369,9 @@ export function useMapAnimateToStyle<Animate>({
     const id = setTimeout(() => {
       isMounted.value = true;
     }, 40);
-    return () => clearTimeout(id);
+    return () => {
+      clearTimeout(id);
+    };
   }, []);
 
   useEffect(() => {

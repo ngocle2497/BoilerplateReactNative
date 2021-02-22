@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-undef */
-import isEqual from 'react-fast-compare';
-import {
+import React, {
   useEffect,
   useRef,
   useState,
@@ -10,6 +8,7 @@ import {
   useCallback,
   useMemo,
 } from 'react';
+import isEqual from 'react-fast-compare';
 import {useSelector as useReduxSelector} from 'react-redux';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 import {useTheme} from '@react-navigation/native';

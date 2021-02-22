@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
-import React, {memo, useCallback, useEffect, useState} from 'react';
-import {TextInput, Keyboard} from 'react-native';
-import isEqual from 'react-fast-compare';
 import {onCheckType} from '@common';
+import React, {memo, useCallback, useEffect, useState} from 'react';
+import isEqual from 'react-fast-compare';
+import {Keyboard, TextInput} from 'react-native';
 
 import {ChildProps, FormProps} from './Form.props';
 

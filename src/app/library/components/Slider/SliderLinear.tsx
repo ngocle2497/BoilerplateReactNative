@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import {sharedClamp, sharedSpring} from '@animated';
 import React, {memo, useCallback, useEffect, useState} from 'react';
 import isEqual from 'react-fast-compare';

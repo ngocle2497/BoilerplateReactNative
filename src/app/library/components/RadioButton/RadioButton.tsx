@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useEffect, useMemo, useState} from 'react';
+import React, {memo, useCallback, useMemo, useState} from 'react';
 import {StyleSheet, TouchableWithoutFeedback} from 'react-native';
 import {
   useSharedTransition,
@@ -29,27 +29,31 @@ const styles = StyleSheet.create({
 
 const RadioButtonComponent = (props: RadioButtonProps) => {
   const {
-    value = false,
+    initialValue = false,
     activeColor = ACTIVE_COLOR,
     unActiveColor = UN_ACTIVE_COLOR,
     strokeWidth = STROKE_WIDTH,
     sizeDot = SIZE - 10,
+    value,
     onToggle,
   } = props;
-
-  const _onPress = useCallback(() => {
-    if (onToggle && onCheckType(onToggle, 'function')) {
-      onToggle(!value);
-    }
-  }, [onToggle, value]);
-
-  const progress = useSharedTransition(value, {duration: 200});
+  const [localValue, setLocalValue] = useState<boolean>(initialValue);
+  const progress = useSharedTransition(value ?? localValue, {duration: 200});
   const size = useInterpolate(progress, [0, 1], [0, sizeDot - strokeWidth]);
   const color = useInterpolateColor(
     progress,
     [0, 1],
     [unActiveColor, activeColor],
   );
+
+  const _onPress = useCallback(() => {
+    if (onToggle && onCheckType(onToggle, 'function')) {
+      onToggle(!value);
+    } else {
+      setLocalValue((v) => !v);
+    }
+  }, [onToggle, value]);
+
   const wrapStyle = useMemo(
     () => ({
       width: sizeDot + 10,

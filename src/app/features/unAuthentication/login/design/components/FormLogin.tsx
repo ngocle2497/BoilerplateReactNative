@@ -1,9 +1,9 @@
+/* eslint-disable import/extensions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, {memo, useMemo} from 'react';
 import {Button} from 'react-native';
 import isEqual from 'react-fast-compare';
 import {Form} from '@components';
-// eslint-disable-next-line import/extensions
 import {ValidationMap} from '@library/components/Form/Form.props';
 import {useForm} from 'react-hook-form';
 

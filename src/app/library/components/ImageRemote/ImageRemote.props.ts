@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+import React from 'react';
 import {ViewStyle, StyleProp} from 'react-native';
 import FastImage, {ImageStyle} from 'react-native-fast-image';
 export interface ImageRemoteProps {

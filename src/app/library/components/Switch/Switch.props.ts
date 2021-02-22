@@ -13,6 +13,12 @@ export interface SwitchProps {
   initialValue?: boolean;
 
   /**
+   * overwrite value
+   * @default undefined
+   */
+  value?: boolean;
+
+  /**
    * Disable switch
    * @default false
    */

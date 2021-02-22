@@ -1,8 +1,9 @@
 import React, {memo, useMemo} from 'react';
 import {StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
-import {BlockProps} from './Block.props';
 import equals from 'react-fast-compare';
 import {enhance} from '@common';
+
+import {BlockProps} from './Block.props';
 
 const styles = StyleSheet.create({
   block: {

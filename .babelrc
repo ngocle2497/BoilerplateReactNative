@@ -1,33 +1,31 @@
 {
   "env": {
-      "production": {
-          "plugins": [
-              "transform-remove-console"
-          ]
-      }
+    "production": {
+      "plugins": ["transform-remove-console"]
+    }
   },
   "plugins": [
-      [
-        "module-resolver",
-        {
-          "root": ["./"],
-          "alias": {
-              "@assets":"./src/app/assets",
-              "@common":"./src/app/common",
-              "@animated":"./src/app/common/animated",
-              "@config":"./src/app/config",
-              "@features":"./src/app/features",
-              "@library":"./src/app/library",
-              "@components":"./src/app/library/components",
-              "@networking":"./src/app/library/networking",
-              "@utils":"./src/app/library/utils",
-              "@navigation":"./src/app/navigation",
-              "@store":"./src/app/store",
-              "@theme":"./src/app/themes",
-              "@transition":"./src/app/transition",
-              "@app_redux":"./src/app/store/app_redux"
-          }
+    [
+      "module-resolver",
+      {
+        "root": ["./"],
+        "alias": {
+          "@assets": "./src/app/assets",
+          "@common": "./src/app/common",
+          "@animated": "./src/app/common/animated",
+          "@config": "./src/app/config",
+          "@features": "./src/app/features",
+          "@library": "./src/app/library",
+          "@components": "./src/app/library/components",
+          "@networking": "./src/app/library/networking",
+          "@utils": "./src/app/library/utils",
+          "@navigation": "./src/app/navigation",
+          "@store": "./src/app/store",
+          "@theme": "./src/app/themes",
+          "@transition": "./src/app/transition",
+          "@app_redux": "./src/app/store/app_redux"
         }
-      ]
+      }
     ]
+  ]
 }

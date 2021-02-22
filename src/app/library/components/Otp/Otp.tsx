@@ -11,12 +11,13 @@ import {enhance} from '@common';
 import equals from 'react-fast-compare';
 import {ColorDefault} from '@theme/color';
 import {FontSizeDefault} from '@theme/fontSize';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 import {Block} from '../Block/Block';
 import {Text} from '../Text/Text';
+import {Spacer} from '../Spacer/Spacer';
 
 import {OtpProps} from './Otp.props';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 const WIDTH_OTP = 32;
 const HEIGHT_OTP = 40;
@@ -44,9 +45,6 @@ const styles = StyleSheet.create({
     fontSize: FontSizeDefault.FONT_14,
     color: ColorDefault.primary,
     textAlignVertical: 'bottom',
-  },
-  sizeBoxW15: {
-    width: 15,
   },
   row: {
     flexDirection: 'row',
@@ -131,7 +129,6 @@ const OtpComponent = (props: OtpProps) => {
     [wrapInputActiveStyle],
   );
   const text = useMemo(() => enhance([styles.otpText, textStyle]), [textStyle]);
-  const sizeBoxW15 = useMemo(() => enhance([styles.sizeBoxW15]), []);
   const input = useMemo(() => enhance([styles.input]), []);
   const row = useMemo(() => enhance([styles.row]), []);
 
@@ -174,7 +171,7 @@ const OtpComponent = (props: OtpProps) => {
                       style={text}
                     />
                   </Block>
-                  <Block style={sizeBoxW15} />
+                  <Spacer width={15} />
                 </Block>
               );
             })}

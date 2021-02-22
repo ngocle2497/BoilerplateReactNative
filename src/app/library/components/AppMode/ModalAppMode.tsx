@@ -20,7 +20,7 @@ import {IconTypes} from '@assets/icon';
 import {Block} from '../Block/Block';
 import {Button} from '../Button/Button';
 import {Text} from '../Text/Text';
-import {SizeBox} from '../SizeBox/SizeBox';
+import {Spacer} from '../Spacer/Spacer';
 import {Icon} from '../Icon/Icon';
 import {Divider} from '../Divider/Divider';
 
@@ -71,7 +71,7 @@ const ButtonSelect = ({
         justifyContent={'center'}
         middle>
         <Icon {...{icon}} />
-        <SizeBox width={10} />
+        <Spacer width={10} />
         <Text numberOfLines={1} style={[styles.textMode]} {...{tx}} />
         {selected && <Icon icon={'check'} />}
       </Block>
@@ -82,9 +82,9 @@ const ButtonSelect = ({
 const Spacing = () => {
   return (
     <>
-      <SizeBox height={10} />
+      <Spacer height={10} />
       <Divider />
-      <SizeBox height={10} />
+      <Spacer height={10} />
     </>
   );
 };

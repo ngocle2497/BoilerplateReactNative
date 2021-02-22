@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+import React from 'react';
 import {ViewStyle, StyleProp} from 'react-native';
 import {Edge} from 'react-native-safe-area-context';
 

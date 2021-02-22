@@ -1,5 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React from 'react';
 import {FieldErrors, SetValueConfig, RegisterOptions} from 'react-hook-form';
 import {TextInput} from 'react-native';
 
