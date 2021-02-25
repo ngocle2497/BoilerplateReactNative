@@ -77,6 +77,7 @@ const SliderLinearComponent = ({
 
   // reanimated
   const translationX = useSharedValue(0);
+  const progress = useSharedValue(0);
 
   const translateX = useDerivedValue(() =>
     sharedClamp(
@@ -95,6 +96,11 @@ const SliderLinearComponent = ({
     },
     onActive: (event, ctx) => {
       translationX.value = ctx.startX + event.translationX;
+    },
+    onEnd: () => {
+      if (onChangeLinear) {
+        runOnJS(onChangeLinear)(progress.value);
+      }
     },
   });
 
@@ -115,6 +121,14 @@ const SliderLinearComponent = ({
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
+
+  useEffect(() => {
+    if (onChangeLinear) {
+      onChangeLinear(initialLinear);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useAnimatedReaction(
     () =>
       parseFloat(
@@ -122,10 +136,8 @@ const SliderLinearComponent = ({
           FIXED_AFTER,
         ),
       ),
-    (progress) => {
-      if (onChangeLinear) {
-        runOnJS(onChangeLinear)(progress);
-      }
+    (result) => {
+      progress.value = result;
     },
   );
   // reanimated style

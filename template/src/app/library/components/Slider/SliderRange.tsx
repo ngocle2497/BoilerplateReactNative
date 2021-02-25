@@ -92,6 +92,7 @@ const SliderRangeComponent = ({
   const [width, setWidth] = useState<number>(0);
 
   // reanimated
+  const progress = useSharedValue({lower: 0, upper: 0});
   const translationLeftX = useSharedValue(0);
   const translateLeftX = useDerivedValue(() =>
     sharedClamp(
@@ -141,6 +142,11 @@ const SliderRangeComponent = ({
     onActive: (event, ctx) => {
       translationRightX.value = ctx.startX + event.translationX;
     },
+    onEnd: () => {
+      if (onChangeRange) {
+        runOnJS(onChangeRange)(progress.value);
+      }
+    },
   });
 
   const _onLayout = useCallback(
@@ -165,6 +171,13 @@ const SliderRangeComponent = ({
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
+
+  useEffect(() => {
+    if (onChangeRange) {
+      onChangeRange({lower: initialRange[0], upper: initialRange[1]});
+    }
+  }, []);
+
   useAnimatedReaction(
     () => {
       const v1 = ((translateLeftX.value + THUMB_SIZE) / width) * upperBound;
@@ -174,10 +187,8 @@ const SliderRangeComponent = ({
         upper: parseFloat(Math.max(v1, v2).toFixed(FIXED_AFTER)),
       };
     },
-    (progress) => {
-      if (onChangeRange) {
-        runOnJS(onChangeRange)(progress);
-      }
+    (result) => {
+      progress.value = result;
     },
   );
   // reanimated style
