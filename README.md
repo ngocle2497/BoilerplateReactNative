@@ -20,7 +20,7 @@ npx rn-boiler MyApp
 #### e.g. `react-native@0.62.x`
 
 ```sh
-npx rn-boiler MyApp --version 1.62.2
+npx rn-boiler MyApp --version 1.62.*
 ```
 
 See the below table to find out which version of the template to use.
@@ -29,8 +29,8 @@ See the below table to find out which version of the template to use.
 
 | React Native   | Template   |
 |---             |---         |
-| 0.63.4           | 1.63.4       |
-| 0.62.2           | 1.62.2       |
+| 0.63           | 1.63.*       |
+| 0.62          | 1.62.*       |
 <h3>Preview</h3>
 <img src="./preview.gif">
 
