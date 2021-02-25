@@ -17,7 +17,7 @@ npx rn-boiler MyApp
 
 ### Usage with older versions of React Native
 
-#### e.g. `react-native@0.62.x`
+#### e.g. `react-native@0.62.2`
 
 ```sh
 npx rn-boiler MyApp --version 1.62.*
