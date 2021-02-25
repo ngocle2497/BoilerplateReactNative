@@ -1,77 +1,29 @@
 {
+  "name": "rn-boiler-template",
+  "version": "1.0.3",
+  "description": "Clean and minimalist React Native template for a quick start with TypeScript and components",
   "scripts": {
-    "android": "cd android &&./gradlew clean && cd .. && npx react-native run-android ",
-    "ios": "cd ios && xcodebuild clean && cd .. && npx react-native run-ios",
-    "yarn-ios": "yarn && yarn pod",
-    "android-release": "npx react-native run-android --variant=release",
-    "start": "npx react-native start --reset-cache",
-    "format": "prettier --write **/*.{ts,tsx,js,json,md}",
-    "check-code": "prettier --check **/*.{ts,tsx,js,json,md}",
-    "test": "jest",
-    "link": "npx react-native link",
-    "apk": "cd android &&./gradlew clean && ./gradlew assembleRelease && cd ..",
-    "aab": "cd android &&./gradlew clean && ./gradlew bundleRelease && cd ..",
-    "lint": "eslint index.js app --fix --ext .js,.ts,.tsx",
-    "pod": "cd ios && pod install && cd ..",
-    "code-push-android": "appcenter codepush release-react -a lhngoc2497-gmail.com/BoilerPlate-A -d Production",
-    "code-push-ios": "appcenter codepush release-react -a lhngoc2497-gmail.com/BoilerPlate-IOS -d Production"
+    "test": "exit 0"
   },
-  "dependencies": {
-    "@react-native-community/blur": "^3.6.0",
-    "@react-native-community/masked-view": "^0.1.10",
-    "@react-native-community/netinfo": "^5.9.10",
-    "@react-navigation/native": "^5.9.2",
-    "@react-navigation/stack": "^5.14.2",
-    "@reduxjs/toolkit": "^1.5.0",
-    "axios": "^0.21.0",
-    "i18next": "^19.8.8",
-    "moment": "^2.29.1",
-    "react-fast-compare": "^3.2.0",
-    "react-hook-form": "^6.15.1",
-    "react-i18next": "^11.8.7",
-    "react-native-fast-image": "^8.3.4",
-    "react-native-gesture-handler": "^1.10.1",
-    "react-native-modal": "^11.6.1",
-    "react-native-reanimated": "^2.0.0-rc.3",
-    "react-native-safe-area-context": "^3.1.9",
-    "react-native-screens": "^2.17.1",
-    "react-native-sensitive-info": "^6.0.0-alpha.9",
-    "react-native-splash-screen": "^3.2.0",
-    "react-redux": "^7.2.2",
-    "redux": "^4.0.5",
-    "redux-logger": "^3.0.6",
-    "redux-saga": "^1.1.3"
+  "files": [
+    "template",
+    "template.config.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https:https://github.com/hngocl/BoilerplateReactNative"
   },
-  "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/runtime": "^7.12.13",
-    "@react-native-community/eslint-config": "^2.0.0",
-    "@types/jest": "^26.0.20",
-    "@types/react-native": "^0.63.49",
-    "@types/react-redux": "^7.1.16",
-    "@types/react-test-renderer": "^17.0.1",
-    "@types/redux-logger": "^3.0.8",
-    "@typescript-eslint/eslint-plugin": "^4.15.1",
-    "@typescript-eslint/parser": "^ 4.15.1",
-    "babel-jest": "^26.6.3",
-    "babel-plugin-module-resolver": "^4.1.0",
-    "babel-plugin-transform-remove-console": "^6.9.4",
-    "eslint": "^7.20.0",
-    "eslint-plugin-import": "^2.22.1",
-    "jest": "^26.6.3",
-    "metro-react-native-babel-preset": "^0.65.1",
-    "react-test-renderer": "^17.0.1",
-    "typescript": "^4.1.5"
+  "keywords": [
+    "react-native",
+    "typescript",
+    "jest",
+    "template",
+    "boilerplate"
+  ],
+  "author": "HNgocL <lhngoc2497@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hngocl/BoilerplateReactNative/issues"
   },
-  "jest": {
-    "preset": "react-native",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
-  }
+  "homepage": "https://github.com/hngocl/BoilerplateReactNative#readme"
 }
