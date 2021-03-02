@@ -1,19 +1,19 @@
-import {imageTransitionHolder} from '@utils';
-import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
-import isEqual from 'react-fast-compare';
-import {View, StyleSheet, useWindowDimensions} from 'react-native';
-import FastImage, {Source} from 'react-native-fast-image';
+import { imageTransitionHolder } from "@utils";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import isEqual from "react-fast-compare";
+import { View, StyleSheet, useWindowDimensions } from "react-native";
+import FastImage, { Source } from "react-native-fast-image";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 
-import {TouchableScale} from '../TouchScale/TouchScale';
+import { TouchableScale } from "../TouchScale/TouchScale";
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   img: {
     flex: 1,
@@ -36,11 +36,11 @@ export type Measure = {
   imageOpacity: Animated.SharedValue<number>;
 };
 
-const LightBoxComponent = ({source}: LightBoxProps) => {
+const LightBoxComponent = ({ source }: LightBoxProps) => {
   // state
   const _refRoot = useRef<View>(null);
   const [disableButton, setDisableButton] = useState<boolean>(true);
-  const {width: widthDevice} = useWindowDimensions();
+  const { width: widthDevice } = useWindowDimensions();
   const [image] = useState<Measure | null>(null);
   const imageOpacity = useSharedValue(1);
 
@@ -77,10 +77,6 @@ const LightBoxComponent = ({source}: LightBoxProps) => {
     opacity: imageOpacity.value,
   }));
 
-  useEffect(() => {
-    // alert(JSON.stringify(image));
-  }, [image]);
-
   // render
   return (
     <>
@@ -91,7 +87,7 @@ const LightBoxComponent = ({source}: LightBoxProps) => {
               onLoad={_onLoadedImage}
               style={[styles.img]}
               source={source}
-              resizeMode={'contain'}
+              resizeMode={"contain"}
             />
           </Animated.View>
         </View>
