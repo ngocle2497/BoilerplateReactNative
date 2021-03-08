@@ -24,12 +24,12 @@ import {
   TouchableScale,
   Wallpaper,
 } from '@components';
-import {APP_SCREEN, RootStackParamList} from '@navigation/screenTypes';
+import {APP_SCREEN, UnAuthorizeParamsList} from '@navigation/screenTypes';
 import {StackScreenProps} from '@react-navigation/stack';
 import React, {memo, useCallback, useRef, useState} from 'react';
 import isEqual from 'react-fast-compare';
 
-type LoginProps = StackScreenProps<RootStackParamList, APP_SCREEN.LOGIN>;
+type LoginProps = StackScreenProps<UnAuthorizeParamsList, APP_SCREEN.LOGIN>;
 
 const LoginComponent = ({navigation}: LoginProps) => {
   const _modalMode = useRef<ModalAppModeRef>();
