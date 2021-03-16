@@ -1,18 +1,39 @@
 ## Welcome to the Boilerplate React Native
 
-> How to build
-- Install react native
-	    https://facebook.github.io/react-native/docs/getting-started
-- Create new project
-		`npx react-native init <yourProjectName> --template react-native-template-typescript`
-- Copy all file and folder to your project without `package.json` file
-- Copy `dependencies` from `package.json` to your `package.json` file
+:fireworks: Clean and minimalist React Native template for a quick start with TypeScript and so much more components.
 
-- Install package
-				`npm install` or 
-				`yarn install`(recommended)
- - Run your app
-			   `react-native run-android/ios` or
-			   `npx react-native run-android/ios
-			    `yarn-android/ios` or
-				`npm run-android/ios`
+## :star: Features
+
+- Elegant usage directly within the RN-Boiler Cli
+- Consistent with the default React Native template
+- Minimal additional dependencies
+- Lots of built-in components
+
+## :arrow_forward: Usage
+
+```sh
+npx rn-boiler MyApp
+```
+
+### Usage with older versions of React Native
+
+#### e.g. `react-native@0.62.x`
+
+```sh
+npx rn-boiler MyApp --version 1.62.*
+```
+
+See the below table to find out which version of the template to use.
+
+#### React Native <=> Template Version
+
+| React Native   | Template   |
+|---             |---         |
+| 0.63           | 1.63.*       |
+| 0.62          | 1.62.*       |
+<h3>Preview</h3>
+<img src="./preview.gif">
+
+## :bookmark: License
+
+This project is [MIT](LICENSE) licensed.
