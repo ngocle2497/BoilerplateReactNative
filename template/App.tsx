@@ -1,17 +1,17 @@
-import React, {Suspense} from "react";
-import {View, StyleSheet} from "react-native";
-import {Provider} from "react-redux";
-import {SafeAreaProvider} from "react-native-safe-area-context";
-import {store} from "@store/store";
-import {Transitioning} from "react-native-reanimated";
-import {I18nextProvider} from "react-i18next";
+import React, {Suspense} from 'react';
+import {View, StyleSheet} from 'react-native';
+import {Provider} from 'react-redux';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {store} from '@store/store';
+import {Transitioning} from 'react-native-reanimated';
+import {I18nextProvider} from 'react-i18next';
 
-import I18n from "./src/app/library/utils/i18n/i18n";
-import {AppContainer} from "./src/app/navigation/AppNavigation";
+import I18n from './src/app/library/utils/i18n/i18n';
+import {AppContainer} from './src/app/navigation/AppNavigation';
 import {
   _transitionApp,
   transition,
-} from "./src/app/transition/TransitionService";
+} from './src/app/transition/TransitionService';
 
 // console.disableYellowBox = true;
 const styles = StyleSheet.create({

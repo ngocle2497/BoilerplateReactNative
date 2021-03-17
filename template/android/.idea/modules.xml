@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/HelloWorld.iml" filepath="$PROJECT_DIR$/.idea/modules/HelloWorld.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/HelloWorld.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/HelloWorld.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1122891370/HelloWorld.react-native-community_blur.iml" filepath="$PROJECT_DIR$/.idea/modules/1122891370/HelloWorld.react-native-community_blur.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/964990980/HelloWorld.react-native-community_masked-view.iml" filepath="$PROJECT_DIR$/.idea/modules/964990980/HelloWorld.react-native-community_masked-view.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1988968360/HelloWorld.react-native-community_netinfo.iml" filepath="$PROJECT_DIR$/.idea/modules/1988968360/HelloWorld.react-native-community_netinfo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/418178237/HelloWorld.react-native-fast-image.iml" filepath="$PROJECT_DIR$/.idea/modules/418178237/HelloWorld.react-native-fast-image.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1712559789/HelloWorld.react-native-gesture-handler.iml" filepath="$PROJECT_DIR$/.idea/modules/-1712559789/HelloWorld.react-native-gesture-handler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2027580649/HelloWorld.react-native-reanimated.iml" filepath="$PROJECT_DIR$/.idea/modules/2027580649/HelloWorld.react-native-reanimated.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-146114308/HelloWorld.react-native-safe-area-context.iml" filepath="$PROJECT_DIR$/.idea/modules/-146114308/HelloWorld.react-native-safe-area-context.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1528669204/HelloWorld.react-native-screens.iml" filepath="$PROJECT_DIR$/.idea/modules/1528669204/HelloWorld.react-native-screens.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2116504856/HelloWorld.react-native-sensitive-info.iml" filepath="$PROJECT_DIR$/.idea/modules/2116504856/HelloWorld.react-native-sensitive-info.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/192009311/HelloWorld.react-native-splash-screen.iml" filepath="$PROJECT_DIR$/.idea/modules/192009311/HelloWorld.react-native-splash-screen.iml" />
+    </modules>
+  </component>
+</project>
