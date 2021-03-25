@@ -7,7 +7,7 @@ import {
   STATUS_TIME_OUT,
   CODE_TIME_OUT,
   CODE_SUCCESS,
-} from '@config';
+} from '@config/api';
 import {HandleErrorApi} from '@common';
 
 import {translate} from '../utils';

@@ -33,19 +33,9 @@ export interface InputBaseProps extends TextInputProps {
   onTextChange?: (name?: string, value?: string) => void;
 
   /**
-   * Function on input change to call set value react hook form
-   * @default undefined
-   */
-  onSetValueHookForm?: (
-    name: string,
-    value?: string,
-    options?: SetValueConfig,
-  ) => void;
-
-  /**
    * Call trigger react hook form
    */
-  trigger?: (name: string) => void;
+  trigger?: (name: string | any) => void;
 
   /**
    * function pass to last input of form when click return key

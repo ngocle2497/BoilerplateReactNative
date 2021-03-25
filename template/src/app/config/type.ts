@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-shadow */
 import {Theme} from '@react-navigation/native';
+import {RegisterOptions} from 'react-hook-form';
 export interface ResponseBase<T = any> {
   code: number;
 
@@ -112,6 +113,14 @@ export interface Spacing {
   massive: number;
 }
 export type AppTheme = Theme & {colors: Partial<Colors>};
+
+export type HookFormRules = Exclude<
+  RegisterOptions,
+  'valueAsNumber' | 'valueAsDate' | 'setValueAs'
+>;
+export type ValidationMap<T = any, Keys extends keyof T = keyof T> = {
+  [K in Keys]-?: RegisterOptions;
+};
 
 export enum SLICE_NAME {
   APP = 'APP',

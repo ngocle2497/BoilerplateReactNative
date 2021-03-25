@@ -2,7 +2,7 @@ import React, {memo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {AppModeType} from '@networking';
 import isEqual from 'react-fast-compare';
-import {APP_MODE} from '@config';
+import {APP_MODE} from '@config/api';
 
 const modeToString = (mode: AppModeType): string => {
   switch (mode) {

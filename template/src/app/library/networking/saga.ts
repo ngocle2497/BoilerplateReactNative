@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {StyleSheet} from 'react-native';
-import {TIME_OUT, RESULT_CODE_PUSH_OUT} from '@config';
+import {TIME_OUT, RESULT_CODE_PUSH_OUT} from '@config/api';
 import {AppState} from '@app_redux/type';
 import {select} from 'redux-saga/effects';
 import Axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';

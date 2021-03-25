@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {ERROR_NETWORK_CODE} from '@config';
+import {ERROR_NETWORK_CODE} from '@config/api';
 import {translate} from '@utils';
 import {ResponseBase} from '@config/type';
 

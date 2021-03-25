@@ -19,6 +19,7 @@
           "@components": "./src/app/library/components",
           "@networking": "./src/app/library/networking",
           "@utils": "./src/app/library/utils",
+          "@model": "./src/app/model",
           "@navigation": "./src/app/navigation",
           "@store": "./src/app/store",
           "@theme": "./src/app/themes",

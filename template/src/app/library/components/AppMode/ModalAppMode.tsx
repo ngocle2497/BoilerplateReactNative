@@ -10,7 +10,7 @@ import isEqual from 'react-fast-compare';
 import Modal from 'react-native-modal';
 import {FontSizeDefault} from '@theme/fontSize';
 import {AppModeType} from '@networking';
-import {APP_MODE} from '@config';
+import {APP_MODE} from '@config/api';
 import {dispatch, useSelector} from '@common';
 import {onSetAppMode} from '@store/app_redux/reducer';
 import {saveString} from '@utils';

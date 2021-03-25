@@ -6,7 +6,13 @@ import React, {
   useCallback,
   forwardRef,
 } from 'react';
-import {StyleSheet, TextInput, LayoutChangeEvent} from 'react-native';
+import {
+  StyleSheet,
+  TextInput,
+  LayoutChangeEvent,
+  NativeSyntheticEvent,
+  TextInputChangeEventData,
+} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useDerivedValue,
@@ -63,7 +69,6 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     labelTx,
     placeholder,
     onTextChange,
-    onSetValueHookForm,
     trigger,
     nameTrigger,
     placeholderColor,
@@ -82,12 +87,15 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     rightChildren,
     disabled = false,
     error = undefined,
+    onChangeText,
+    onFocus,
+    onBlur,
     ...rest
   } = props;
   // state
   const [t] = useTranslation();
   const [sizeContainer, setSizeContainer] = useState({height: 0});
-  const [restored, setRestored] = useState(false);
+  const [localDefaultValue, setLocalDefaultValue] = useState('');
   const [sizeText, setSizeText] = useState({height: 0});
   const [focused, setFocused] = useState(false);
   const [value, setValue] = useState('');
@@ -149,45 +157,56 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     [sizeText],
   );
 
-  const _onFocus = useCallback(() => {
-    setFocused(true);
-  }, []);
+  const _onFocus = useCallback(
+    (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+      if (onFocus && onCheckType(onFocus, 'function')) {
+        onFocus(e);
+      }
+      setFocused(true);
+    },
+    [onFocus],
+  );
 
-  const _onBlur = useCallback(() => {
-    setFocused(false);
-  }, []);
+  const _onBlur = useCallback(
+    (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+      if (onBlur && onCheckType(onBlur, 'function')) {
+        onBlur(e);
+      }
+      setFocused(false);
+    },
+    [onBlur],
+  );
 
-  const _onChangeText = useCallback((text: string) => {
-    setValue(text);
-  }, []);
+  const _onChangeText = useCallback(
+    (text: string) => {
+      setValue(text);
+      if (onChangeText && onCheckType(onChangeText, 'function')) {
+        onChangeText(text);
+      }
+      if (onTextChange && onCheckType(onTextChange, 'function')) {
+        onTextChange(name, value);
+      }
+      if (
+        trigger &&
+        onCheckType(trigger, 'function') &&
+        nameTrigger &&
+        onCheckType(nameTrigger, 'string')
+      ) {
+        setTimeout(() => {
+          trigger(nameTrigger);
+        }, 0);
+      }
+    },
+    [name, nameTrigger, onChangeText, onTextChange, trigger, value],
+  );
 
   // effect
   useEffect(() => {
-    if (onTextChange && onCheckType(onTextChange, 'function')) {
-      onTextChange(name, value);
-    }
-    if (onSetValueHookForm && onCheckType(onSetValueHookForm, 'function')) {
-      onSetValueHookForm(name, value, {
-        shouldDirty: true,
-        shouldValidate: true,
-      });
-    }
-    if (
-      trigger &&
-      onCheckType(trigger, 'function') &&
-      nameTrigger &&
-      onCheckType(nameTrigger, 'string')
-    ) {
-      trigger(nameTrigger);
-    }
-  }, [name, nameTrigger, onSetValueHookForm, onTextChange, trigger, value]);
-
-  useEffect(() => {
-    if (typeof defaultValue === 'string' && !restored) {
+    if (defaultValue) {
       setValue(defaultValue);
-      setRestored(true);
+      setLocalDefaultValue(String(defaultValue));
     }
-  }, [defaultValue, restored]);
+  }, [defaultValue]);
 
   // style
   const labelText = useMemo(
@@ -230,18 +249,18 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
       style={[containerSty, containerAnimatedStyle]}>
       <Block direction={'row'}>
         <TextInput
-          defaultValue={defaultValue ?? ''}
+          defaultValue={localDefaultValue}
           autoCorrect={false}
           placeholder={focused === true ? placeHolder : ''}
           editable={!disabled}
           selectionColor={activeTintBorderColor}
           placeholderTextColor={placeholderColor ?? undefined}
-          onChangeText={_onChangeText}
-          onFocus={_onFocus}
-          onBlur={_onBlur}
           style={inputSty}
           ref={ref}
           {...rest}
+          onChangeText={_onChangeText}
+          onFocus={_onFocus}
+          onBlur={_onBlur}
         />
         {rightChildren}
       </Block>

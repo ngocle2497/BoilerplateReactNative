@@ -24,8 +24,11 @@ import {
   TouchableScale,
   Wallpaper,
 } from '@components';
+import {FormLoginType} from '@model/login';
 import React, {memo, useCallback, useRef, useState} from 'react';
 import isEqual from 'react-fast-compare';
+
+import {FormLogin} from './components/FormLogin';
 
 const LoginComponent = () => {
   const _modalMode = useRef<ModalAppModeRef>();
@@ -38,6 +41,9 @@ const LoginComponent = () => {
     lower: number;
     upper: number;
   }>({lower: 0, upper: 0});
+  const onSubmit = useCallback((data: FormLoginType) => {
+    alert(JSON.stringify(data));
+  }, []);
   const _onShowAction = useCallback(() => {
     if (_refAction.current) {
       _refAction.current.show();
@@ -52,6 +58,7 @@ const LoginComponent = () => {
         style={{paddingVertical: 0, paddingHorizontal: 10}}
         scroll={true}
         backgroundColor={'transparent'}>
+        <FormLogin onSubmit={onSubmit} />
         <Block width={150} height={150}>
           <LightBox source={{uri: 'https://picsum.photos/id/11/400/400'}} />
         </Block>
@@ -175,7 +182,6 @@ const LoginComponent = () => {
           <Spacer width={10} />
           <Switch type={'android'} />
         </Block>
-        {/* <FormLogin onSubmit={_onSubmit} /> */}
       </Screen>
       <FAB
         label="Float"
