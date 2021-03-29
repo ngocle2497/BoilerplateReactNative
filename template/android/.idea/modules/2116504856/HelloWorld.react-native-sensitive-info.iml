@@ -33,6 +33,9 @@
     <content url="file://$MODULE_DIR$/../../../../node_modules/react-native-sensitive-info/android">
       <sourceFolder url="file://$MODULE_DIR$/../../../../node_modules/react-native-sensitive-info/android/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../../node_modules/react-native-sensitive-info/android/src/main/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../node_modules/react-native-sensitive-info/android/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../node_modules/react-native-sensitive-info/android/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../node_modules/react-native-sensitive-info/android/build/generated/res/resValues/debug" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../node_modules/react-native-sensitive-info/android/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../node_modules/react-native-sensitive-info/android/build" />
     </content>

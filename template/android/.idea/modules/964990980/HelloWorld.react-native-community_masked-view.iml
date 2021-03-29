@@ -32,6 +32,9 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../../node_modules/@react-native-community/masked-view/android">
       <sourceFolder url="file://$MODULE_DIR$/../../../../node_modules/@react-native-community/masked-view/android/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../node_modules/@react-native-community/masked-view/android/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../node_modules/@react-native-community/masked-view/android/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../node_modules/@react-native-community/masked-view/android/build/generated/res/resValues/debug" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../node_modules/@react-native-community/masked-view/android/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../node_modules/@react-native-community/masked-view/android/build" />
     </content>

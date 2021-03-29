@@ -17,5 +17,5 @@ export const PostDelay = ({children}: PostDelayProps) => {
   }, []);
 
   // render
-  return loaded && children;
+  return loaded ? children : null;
 };
