@@ -23,7 +23,6 @@ export const useBlueToothState = () => {
     const subscription = bluetoothEvent.addListener(
       'onUpdateBluetoothStatus',
       state => {
-        console.log(state);
         setStatus(Platform.OS === 'ios' ? state : state.status === 'on');
       },
     );
