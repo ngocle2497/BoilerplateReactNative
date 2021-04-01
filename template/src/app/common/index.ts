@@ -11,6 +11,7 @@ export * from './method';
 export * from './math';
 export * from './redux';
 export * from './type';
+export * from './date';
 export * from './nativeModule';
 /**
  * Firebase
