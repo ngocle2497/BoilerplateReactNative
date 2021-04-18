@@ -114,6 +114,7 @@ const SliderLinearComponent = ({
     },
     [],
   );
+
   // effect
   useEffect(() => {
     translationX.value = sharedSpring(
@@ -140,6 +141,7 @@ const SliderLinearComponent = ({
       progress.value = result;
     },
   );
+
   // reanimated style
   const thumbStyle = useAnimatedStyle(() => ({
     transform: [{translateX: translateX.value}],

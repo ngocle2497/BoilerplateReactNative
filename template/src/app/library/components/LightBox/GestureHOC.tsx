@@ -49,6 +49,40 @@ export const GestureHOC = memo(
       y: 0,
     });
 
+    const top = useDerivedValue(
+      () =>
+        translateY.value +
+        interpolate(
+          animatedProgress.value,
+          [0, 1],
+          [image.py, targetY.value],
+          Extrapolate.CLAMP,
+        ),
+    );
+
+    const left = useDerivedValue(
+      () =>
+        translateX.value +
+        interpolate(
+          animatedProgress.value,
+          [0, 1],
+          [image.px, targetX.value],
+          Extrapolate.CLAMP,
+        ),
+    );
+    const width = useInterpolate(
+      animatedProgress,
+      [0, 1],
+      [image.width, image.targetWidth],
+      Extrapolate.CLAMP,
+    );
+    const height = useInterpolate(
+      animatedProgress,
+      [0, 1],
+      [image.height, image.targetHeight],
+      Extrapolate.CLAMP,
+    );
+
     // function
     const _gestureHandler = useAnimatedGestureHandler({
       onActive: (event, _) => {
@@ -101,38 +135,6 @@ export const GestureHOC = memo(
       })();
     }, []);
 
-    const top = useDerivedValue(
-      () =>
-        translateY.value +
-        interpolate(
-          animatedProgress.value,
-          [0, 1],
-          [image.py, targetY.value],
-          Extrapolate.CLAMP,
-        ),
-    );
-    const left = useDerivedValue(
-      () =>
-        translateX.value +
-        interpolate(
-          animatedProgress.value,
-          [0, 1],
-          [image.px, targetX.value],
-          Extrapolate.CLAMP,
-        ),
-    );
-    const width = useInterpolate(
-      animatedProgress,
-      [0, 1],
-      [image.width, image.targetWidth],
-      Extrapolate.CLAMP,
-    );
-    const height = useInterpolate(
-      animatedProgress,
-      [0, 1],
-      [image.height, image.targetHeight],
-      Extrapolate.CLAMP,
-    );
     // reanimated style
     const imageStyle = useAnimatedStyle(() => ({
       left: left.value,
@@ -142,6 +144,7 @@ export const GestureHOC = memo(
       transform: [{scale: scale.value}],
     }));
 
+    // render
     return (
       <PanGestureHandler onGestureEvent={_gestureHandler}>
         <Animated.View style={[imageStyle]}>

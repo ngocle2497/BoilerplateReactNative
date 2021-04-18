@@ -9,6 +9,7 @@ const StackViewComponent = forwardRef(
     {children, ...rest}: StackViewProps,
     ref: React.ForwardedRef<Animated.ScrollView>,
   ) => {
+    // render
     return (
       <Animated.ScrollView
         ref={ref}

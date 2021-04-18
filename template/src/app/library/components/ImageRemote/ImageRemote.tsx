@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   },
 });
 const ImageRemoteComponent = (props: ImageRemoteProps) => {
+  // state
   const {
     style: styleOverride = {},
     source,
@@ -47,6 +48,7 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
   const opacityBlur = useSharedTransition(loadThumbSucceeded);
   const opacityOnLoad = useSharedTransition(!loadThumbSucceeded);
 
+  // function
   const _onLoadImageStart = useCallback(() => {
     setError(false);
   }, []);
@@ -64,6 +66,7 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
     setError(true);
   }, []);
 
+  // style
   const container = useMemo(() => enhance([styles.container, containerStyle]), [
     containerStyle,
   ]);
@@ -72,6 +75,7 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
     [styleOverride],
   );
 
+  // reanimated style
   const imageStyle = useAnimatedStyle(() => ({
     opacity: opacityImg.value,
   }));
@@ -83,6 +87,7 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
     opacity: opacityBlur.value,
   }));
 
+  // render
   return (
     <Block style={container}>
       <Animated.View style={[styles.viewOnLoad, imageOnloadStyle]}>

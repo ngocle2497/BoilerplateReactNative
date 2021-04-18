@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, {memo, useState, useEffect, useMemo, useCallback} from 'react';
 import {
   View,
@@ -23,10 +22,33 @@ const ColumnComponent = ({
   renderFooter,
   renderHeader,
 }: ColumnsProps) => {
+  // state
   const [columnWidth, setColumnWidth] = useState(0);
   const [dataSource, setDataSource] = useState<Array<CellProps>>([]);
 
-  const _resizeImage = () => {
+  // function
+  const _resizeByColumns = useCallback(
+    (
+      imgDimensions: Dimensions,
+      listDimensions: Dimensions,
+      nColumns = DEFAULT_COLUMNS,
+    ) => {
+      const {width} = listDimensions;
+      const _columnWidth = width / nColumns - space / 2;
+      if (_columnWidth !== columnWidth) {
+        setColumnWidth(_columnWidth);
+      }
+      const divider = imgDimensions.width / columnWidth;
+
+      const newWidth = imgDimensions.width / divider;
+      const newHeight = imgDimensions.height / divider;
+
+      return {width: newWidth, height: newHeight};
+    },
+    [columnWidth, space],
+  );
+
+  const _resizeImage = useCallback(() => {
     if (Array.isArray(data)) {
       return data.map((image: ItemColumn) => {
         const imageForColumn = _resizeByColumns(
@@ -38,78 +60,73 @@ const ColumnComponent = ({
       });
     }
     return [];
-  };
-
-  const _resizeByColumns = (
-    imgDimensions: Dimensions,
-    listDimensions: Dimensions,
-    nColumns = DEFAULT_COLUMNS,
-  ) => {
-    const {width} = listDimensions;
-    const _columnWidth = width / nColumns - space / 2;
-    if (_columnWidth !== columnWidth) {
-      setColumnWidth(_columnWidth);
-    }
-    const divider = imgDimensions.width / columnWidth;
-
-    const newWidth = imgDimensions.width / divider;
-    const newHeight = imgDimensions.height / divider;
-
-    return {width: newWidth, height: newHeight};
-  };
+  }, [_resizeByColumns, columns, data, dimensions]);
 
   const _keyExtractor = useCallback(
     (item: CellProps) => 'IMAGE_' + item.uri,
     [],
   );
 
-  const _renderItem = ({item}: ListRenderItemInfo<CellProps>) => {
-    const {
-      height,
-      width,
-      uri,
-      data: dataItem,
-      column,
-      dimensions: dimensionsItem,
-    } = item;
-    const propsBase = {
-      uri,
-      width,
-      height,
-      data: dataItem,
-      column,
-      actualSize: dimensionsItem,
-    };
-    return !customRenderItem ? (
-      <Cell
-        {...propsBase}
-        {...{
-          containerImageStyle,
-          space,
-          dimensions,
-          renderFooter,
-          renderHeader,
-        }}
-      />
-    ) : (
-      customRenderItem(propsBase)
-    );
-  };
+  const _renderItem = useCallback(
+    ({item}: ListRenderItemInfo<CellProps>) => {
+      const {
+        height,
+        width,
+        uri,
+        data: dataItem,
+        column,
+        dimensions: dimensionsItem,
+      } = item;
+      const propsBase = {
+        uri,
+        width,
+        height,
+        data: dataItem,
+        column,
+        actualSize: dimensionsItem,
+      };
+      return !customRenderItem ? (
+        <Cell
+          {...propsBase}
+          {...{
+            containerImageStyle,
+            space,
+            dimensions,
+            renderFooter,
+            renderHeader,
+          }}
+        />
+      ) : (
+        customRenderItem(propsBase)
+      );
+    },
+    [
+      containerImageStyle,
+      customRenderItem,
+      dimensions,
+      renderFooter,
+      renderHeader,
+      space,
+    ],
+  );
 
   const _renderSpace = useCallback(() => {
     return <View style={{height: space}} />;
   }, [space]);
 
+  // style
   const containerStyle = useMemo(
     () => [{width: columnWidth, overflow: 'hidden'}] as StyleProp<ViewStyle>,
     [columnWidth],
   );
 
+  // effect
   useEffect(() => {
     const images = _resizeImage();
     setDataSource(images);
   }, [data, dimensions, columns, columnWidth, space, _resizeImage]);
 
+  // render
   return (
     <View style={containerStyle}>
       <FlatList

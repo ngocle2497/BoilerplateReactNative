@@ -1,4 +1,4 @@
-import React, {memo, useState} from 'react';
+import React, {memo, useCallback, useState} from 'react';
 import {
   FlatList,
   ListRenderItemInfo,
@@ -21,6 +21,65 @@ import {ChatProps, MessageProps} from './Chat.props';
 const SIZE_AVATAR = scale(20);
 const SIZE_DOT_STATUS = scale(5);
 
+const styles = StyleSheet.create({
+  buttonBack: {
+    paddingRight: scale(12),
+    paddingLeft: scale(5),
+  },
+  textStatus: {
+    fontSize: FontSizeDefault.FONT_10,
+  },
+  textName: {
+    fontSize: FontSizeDefault.FONT_15,
+  },
+  bottom: {
+    paddingVertical: scale(5),
+    width: '100%',
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: '#bbb',
+    paddingLeft: 10,
+    backgroundColor: '#FFFFFF',
+  },
+  top: {
+    paddingVertical: scale(5),
+    width: '100%',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#bbb',
+    paddingLeft: 10,
+    backgroundColor: '#FFFFFF',
+  },
+  imgAvatar: {
+    width: '100%',
+    height: '100%',
+    borderRadius: SIZE_AVATAR,
+  },
+  wrapInput: {
+    borderRadius: 20,
+    backgroundColor: '#eeeeee',
+    overflow: 'hidden',
+    paddingHorizontal: scale(5),
+    paddingVertical: scale(3),
+  },
+  input: {
+    padding: 0,
+    fontSize: FontSizeDefault.FONT_14,
+    paddingHorizontal: 5,
+  },
+  buttonSend: {
+    paddingHorizontal: 5,
+  },
+  textTitle: {
+    fontSize: FontSizeDefault.FONT_12,
+    color: '#333333',
+    opacity: 0.6,
+  },
+  dotStatus: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+  },
+});
+
 const ChatComponent = ({
   data,
   renderHeader,
@@ -37,40 +96,53 @@ const ChatComponent = ({
   nameFriend,
   onSendPress,
 }: ChatProps) => {
+  // state
   const [value, setValue] = useState('');
-  const _renderItem = ({item, index}: ListRenderItemInfo<MessageProps>) => {
-    return (
-      <MessageItem
-        key={item.id}
-        {...item}
-        {...{showAvatar, friendAvatar, yourAvatar, nameFriend}}
-        nextDateCreate={
-          data.length - 1 <= index ? null : data[index + 1].dateCreate + ''
-        }
-        prevType={index === 0 ? null : data[index - 1].sourceMessage}
-      />
-    );
-  };
-  const _keyExtractor = (item: MessageProps) => item.id + '';
-  const _onChangText = (text: string) => {
+
+  // function
+  const _renderItem = useCallback(
+    ({item, index}: ListRenderItemInfo<MessageProps>) => {
+      return (
+        <MessageItem
+          key={item.id}
+          {...item}
+          {...{showAvatar, friendAvatar, yourAvatar, nameFriend}}
+          nextDateCreate={
+            data.length - 1 <= index ? null : data[index + 1].dateCreate + ''
+          }
+          prevType={index === 0 ? null : data[index - 1].sourceMessage}
+        />
+      );
+    },
+    [data, friendAvatar, nameFriend, showAvatar, yourAvatar],
+  );
+
+  const _keyExtractor = useCallback((item: MessageProps) => item.id + '', []);
+
+  const _onChangText = useCallback((text: string) => {
     setValue(text);
-  };
-  const _onSendPress = () => {
+  }, []);
+
+  const _onSendPress = useCallback(() => {
     if (value.trim().length > 0) {
       onSendPress && onSendPress(value);
       setValue('');
     }
-  };
-  const _onBackPress = () => {
+  }, [onSendPress, value]);
+
+  const _onBackPress = useCallback(() => {
     onBackPress && onBackPress();
-  };
-  const _renderListFooter = () => {
+  }, [onBackPress]);
+
+  const _renderListFooter = useCallback(() => {
     return (
       <Block justifyContent={'center'} middle paddingVertical={15}>
         <Text style={[styles.textTitle]} tx={'common:greetingChat'} />
       </Block>
     );
-  };
+  }, []);
+
+  // render
   return (
     <Block block color={'#FFFFFF'}>
       {renderHeader
@@ -136,62 +208,3 @@ const ChatComponent = ({
 };
 
 export const Chat = memo(ChatComponent, isEqual);
-
-const styles = StyleSheet.create({
-  buttonBack: {
-    paddingRight: scale(12),
-    paddingLeft: scale(5),
-  },
-  textStatus: {
-    fontSize: FontSizeDefault.FONT_10,
-  },
-  textName: {
-    fontSize: FontSizeDefault.FONT_15,
-  },
-  bottom: {
-    paddingVertical: scale(5),
-    width: '100%',
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: '#bbb',
-    paddingLeft: 10,
-    backgroundColor: '#FFFFFF',
-  },
-  top: {
-    paddingVertical: scale(5),
-    width: '100%',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#bbb',
-    paddingLeft: 10,
-    backgroundColor: '#FFFFFF',
-  },
-  imgAvatar: {
-    width: '100%',
-    height: '100%',
-    borderRadius: SIZE_AVATAR,
-  },
-  wrapInput: {
-    borderRadius: 20,
-    backgroundColor: '#eeeeee',
-    overflow: 'hidden',
-    paddingHorizontal: scale(5),
-    paddingVertical: scale(3),
-  },
-  input: {
-    padding: 0,
-    fontSize: FontSizeDefault.FONT_14,
-    paddingHorizontal: 5,
-  },
-  buttonSend: {
-    paddingHorizontal: 5,
-  },
-  textTitle: {
-    fontSize: FontSizeDefault.FONT_12,
-    color: '#333333',
-    opacity: 0.6,
-  },
-  dotStatus: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-  },
-});

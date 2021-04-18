@@ -186,7 +186,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
     );
   };
 
-  const _keyExtractor = (item: RowDropDown) => item.value;
+  const _keyExtractor = useCallback((item: RowDropDown) => item.value, []);
 
   const _onLayoutDrop = useCallback((e: LayoutChangeEvent) => {
     const {height: DropH} = e.nativeEvent.layout;
@@ -267,16 +267,19 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
       ]) as StyleProp<ViewStyle>,
     [isVisible, _onCheckRenderBottom, style],
   );
+
   const container = useMemo(
     () =>
       enhance([styles.wrapPlaceholder, containerStyle]) as StyleProp<ViewStyle>,
     [containerStyle],
   );
+
   const textPlaceHolderStyle = useMemo(
     () =>
       enhance([styles.placeHolder, placeholderStyle]) as StyleProp<ViewStyle>,
     [placeholderStyle],
   );
+
   const contentModalStyle = useMemo(
     () =>
       enhance([

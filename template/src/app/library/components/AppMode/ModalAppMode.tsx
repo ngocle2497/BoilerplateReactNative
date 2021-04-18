@@ -58,11 +58,14 @@ const ButtonSelect = ({
   onPress,
   selected = false,
 }: ButtonSelectProps) => {
+  // function
   const _onPress = useCallback(() => {
     if (typeof onPress === 'function') {
       onPress(mode);
     }
   }, [mode, onPress]);
+
+  // render
   return (
     <Button onPress={_onPress} preset={'link'}>
       <Block
@@ -89,6 +92,25 @@ const Spacing = () => {
   );
 };
 const ModalAppModeComponent = forwardRef((_: any, ref: any) => {
+  // state
+  const {appMode} = useSelector(x => x.app);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // function
+  const _hideModal = useCallback(() => {
+    setIsVisible(false);
+  }, []);
+
+  const _onButtonPress = useCallback(
+    async (mode: AppModeType) => {
+      _hideModal();
+      await saveString(R.strings.APP_MODE, mode);
+      dispatch(onSetAppMode(mode));
+    },
+    [_hideModal],
+  );
+
+  // effect
   useImperativeHandle(
     ref,
     () => ({
@@ -99,21 +121,10 @@ const ModalAppModeComponent = forwardRef((_: any, ref: any) => {
         _hideModal();
       },
     }),
-    [],
+    [_hideModal],
   );
-  const {appMode} = useSelector(x => x.app);
-  const [isVisible, setIsVisible] = useState(false);
-  const _hideModal = useCallback(() => {
-    setIsVisible(false);
-  }, []);
-  const _onButtonPress = useCallback(
-    async (mode: AppModeType) => {
-      _hideModal();
-      await saveString(R.strings.APP_MODE, mode);
-      dispatch(onSetAppMode(mode));
-    },
-    [_hideModal, dispatch],
-  );
+
+  // render
   return (
     <Modal
       style={[styles.modal]}

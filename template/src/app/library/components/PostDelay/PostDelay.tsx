@@ -1,21 +1,55 @@
-import {useAnimationState} from '@common';
-import {useEffect} from 'react';
+import React, {memo, useEffect, useRef, useState} from 'react';
+import isEqual from 'react-fast-compare';
+import {StyleSheet} from 'react-native';
+import {
+  Transition,
+  Transitioning,
+  TransitioningView,
+} from 'react-native-reanimated';
 
 import {PostDelayProps} from './PostDelay.props';
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+const DURATION = 250;
+const transition = (
+  <Transition.Together>
+    <Transition.Out
+      type="fade"
+      interpolation="easeInOut"
+      durationMs={DURATION}
+    />
+    <Transition.Change interpolation="easeInOut" durationMs={DURATION} />
+    <Transition.In type="fade" durationMs={DURATION} interpolation="easeOut" />
+  </Transition.Together>
+);
 
-export const PostDelay = ({children}: PostDelayProps) => {
+const PostDelayComponent = ({children}: PostDelayProps) => {
   // state
-  const [loaded, setLoaded] = useAnimationState<boolean>(false);
+  const [loaded, setLoaded] = useState<boolean>(false);
+  const postDelayViewRef = useRef<TransitioningView>(null);
   // effect
   useEffect(() => {
-    const id = requestAnimationFrame(() => {
+    const id = setTimeout(() => {
+      postDelayViewRef.current?.animateNextTransition();
       setLoaded(true);
-    });
+    }, 0);
+
     return () => {
-      cancelAnimationFrame(id);
+      clearTimeout(id);
     };
   }, []);
 
   // render
-  return loaded ? children : null;
+  return (
+    <Transitioning.View
+      style={[styles.container]}
+      transition={transition}
+      ref={postDelayViewRef}>
+      {loaded ? children : null}
+    </Transitioning.View>
+  );
 };
+export const PostDelay = memo(PostDelayComponent, isEqual);

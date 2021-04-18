@@ -24,10 +24,13 @@ const CellComponent = ({
   renderFooter,
   renderHeader,
 }: CellProps) => {
+  // state
   const dataBase = useMemo(
     () => ({uri, width, height, data, column, actualSize: dimensions}),
     [uri, width, height, data, column, dimensions],
   );
+
+  // function
   const _onPress = useCallback(() => {
     if (typeof onPress === 'function') {
       onPress(dataBase);
@@ -42,6 +45,7 @@ const CellComponent = ({
     return renderFooter ? renderFooter(dataBase) : null;
   }, [dataBase, renderFooter]);
 
+  // style
   const imageStyle = useMemo(
     () =>
       [
@@ -50,6 +54,8 @@ const CellComponent = ({
       ] as StyleProp<ImageStyle>,
     [width, height, containerImageStyle],
   );
+
+  // props
   const imageProps = useMemo<ImageProps>(
     () => ({
       key: uri,
@@ -61,6 +67,7 @@ const CellComponent = ({
     [imageStyle, uri, data],
   );
 
+  // render
   return (
     <View>
       <TouchableOpacity

@@ -15,6 +15,7 @@ const SpacerComponent = (props: SpacerProps) => {
     backgroundColor = 'transparent',
   } = props;
 
+  // style
   const actualStyle = useMemo(
     () =>
       enhance([
@@ -27,6 +28,8 @@ const SpacerComponent = (props: SpacerProps) => {
       ]),
     [backgroundColor, height, style, width],
   );
+
+  // render
   return <Block style={actualStyle}>{children && children}</Block>;
 };
 export const Spacer = memo(SpacerComponent, equals);

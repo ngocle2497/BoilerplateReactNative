@@ -17,6 +17,7 @@ const BubbleComponent = ({
   prevType,
   type,
 }: BubbleActualProps) => {
+  // style
   const styleRadius = useMemo(
     () => [
       sourceMessage === 'mine' &&
@@ -28,6 +29,8 @@ const BubbleComponent = ({
     ],
     [sourceMessage, prevType],
   );
+
+  // render
   return (
     <Block
       style={[styles.wrap, styleRadius, type === 'text' && styles.msgText]}

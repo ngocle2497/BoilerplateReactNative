@@ -6,6 +6,7 @@ import {Switch as SwitchIOS} from './SwitchIOS';
 import {Switch as SwitchAndroid} from './SwitchAndroid';
 
 const SwitchComponent = (props: SwitchProps) => {
+  // render
   return props.type === 'android' ? (
     <SwitchAndroid {...props} />
   ) : (

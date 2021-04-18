@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-types */
 import React from 'react';
 import {StyleProp, ImageStyle} from 'react-native';
 
@@ -55,7 +54,7 @@ export interface InjectorProps {
   children?: React.ReactChild;
   defaultComponent: React.ElementType;
   defaultProps?: any;
-  injectant?: Function;
+  injectant?: () => void;
   injectantProps?: any;
 }
 export interface ObjectColumn {

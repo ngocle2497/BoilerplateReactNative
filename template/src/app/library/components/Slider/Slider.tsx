@@ -6,6 +6,7 @@ import {SliderRange} from './SliderRange';
 import {SliderProps} from './type';
 
 const SliderComponent = (props: SliderProps) => {
+  // render
   return props.type === 'range' ? (
     <SliderRange {...props} />
   ) : (

@@ -61,11 +61,13 @@ const CollapsibleComponent = ({
   const _onLayoutContent = useCallback((e: LayoutChangeEvent) => {
     setMeasured(e.nativeEvent.layout);
   }, []);
+
   // reanimated style
   const contentStyle = useAnimatedStyle(() => ({
     height: height.value,
   }));
 
+  // render
   return (
     <View>
       <Animated.View

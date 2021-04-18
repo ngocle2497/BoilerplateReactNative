@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
 });
 
 const OtpComponent = (props: OtpProps) => {
+  // state
   const {
     length,
     defaultOtp = '',
@@ -78,6 +79,7 @@ const OtpComponent = (props: OtpProps) => {
   const [otp, setOtp] = useState('');
   const _inputRef = useRef<TextInput>(null);
   const [isFocused, setIsFocused] = useState<boolean>(false);
+
   // function
   const _onOtpChange = (text: string) => {
     const textTrim = text.trim().toString();
@@ -108,6 +110,7 @@ const OtpComponent = (props: OtpProps) => {
       );
     }
   }, [defaultOtp, length]);
+
   useEffect(() => {
     if (otp.length === length) {
       onOtpValid && onOtpValid();
@@ -132,6 +135,7 @@ const OtpComponent = (props: OtpProps) => {
   const input = useMemo(() => enhance([styles.input]), []);
   const row = useMemo(() => enhance([styles.row]), []);
 
+  // render
   return (
     <TouchableWithoutFeedback onPress={_setFocus}>
       <Block block style={container}>

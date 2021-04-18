@@ -13,7 +13,10 @@ const styles = StyleSheet.create({
 });
 
 const DividerComponent = (props: DividerProps) => {
+  // state
   const {height = 1, bg = '#bbb'} = props;
+
+  // render
   return (
     <Block
       height={height * StyleSheet.hairlineWidth}

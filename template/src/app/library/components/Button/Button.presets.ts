@@ -17,6 +17,7 @@ export const stylesView = StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: 0,
   },
+  default: {},
 });
 
 export const stylesText = StyleSheet.create({
@@ -31,5 +32,6 @@ export const stylesText = StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: 0,
   },
+  default: {},
 });
 export type ButtonPresetNames = keyof typeof stylesView;

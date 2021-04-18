@@ -14,13 +14,17 @@ const WallpaperComponent = ({
   style: styleOverride,
   backgroundImage = 'bg_wallpaper',
 }: WallpaperProps) => {
+  // state
   const {height, width} = useWindowDimensions();
   const presetToUse = presets[preset];
+
+  // style
   const style = useMemo<StyleProp<ImageStyle>>(
     () => enhance([presetToUse, {width, height}, styleOverride]),
     [presetToUse, width, height, styleOverride],
   );
 
+  // render
   return (
     <Img
       containerStyle={presets[preset]}

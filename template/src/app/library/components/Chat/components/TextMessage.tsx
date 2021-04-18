@@ -7,7 +7,15 @@ import {TextMessageProps} from '../Chat.props';
 import {Block} from '../../Block/Block';
 import {Text} from '../../Text/Text';
 
+const styles = StyleSheet.create({
+  text: {
+    color: '#ffffff',
+    fontSize: FontSizeDefault.FONT_14,
+  },
+});
+
 const TextMessageComponent = ({text}: TextMessageProps) => {
+  // render
   return (
     <Block>
       <Text {...{text, style: styles.text}} />
@@ -16,10 +24,3 @@ const TextMessageComponent = ({text}: TextMessageProps) => {
 };
 
 export const TextMessage = memo(TextMessageComponent, isEqual);
-
-const styles = StyleSheet.create({
-  text: {
-    color: '#ffffff',
-    fontSize: FontSizeDefault.FONT_14,
-  },
-});

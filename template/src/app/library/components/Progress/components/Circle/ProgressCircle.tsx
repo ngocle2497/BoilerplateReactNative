@@ -1,4 +1,4 @@
-import React, {useMemo, memo} from 'react';
+import React, {useMemo, memo, useCallback} from 'react';
 import {StyleSheet} from 'react-native';
 import {enhance} from '@common';
 import equals from 'react-fast-compare';
@@ -38,11 +38,14 @@ export const ProgressCircleComponent = (props: ProgressCircleProps) => {
     showTextProgress,
     textProgressStyle,
   } = props;
+  // style
   const textStyles = useMemo(
     () => enhance([styles.textProgress, textProgressStyle]),
     [textProgressStyle],
   );
-  const renderText = (): string => {
+
+  // function
+  const renderText = useCallback(() => {
     if (progress < 0) {
       return 0 + '';
     }
@@ -50,7 +53,9 @@ export const ProgressCircleComponent = (props: ProgressCircleProps) => {
       return 100 + '';
     }
     return progress + '';
-  };
+  }, [progress]);
+
+  // render
   return (
     <Block style={styles.container}>
       {showTextProgress && <Text style={[textStyles]} text={renderText()} />}

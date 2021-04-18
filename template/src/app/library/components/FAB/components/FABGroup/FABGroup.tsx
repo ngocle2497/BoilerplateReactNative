@@ -68,12 +68,14 @@ const FABGroupComponent = (props: FABGroupProps) => {
   const inset = useSafeAreaInsets();
 
   // function
-  const _onToggle = () => {
-    setIsShow((v) => !v);
-  };
-  const _onHide = () => {
+  const _onToggle = useCallback(() => {
+    setIsShow(v => !v);
+  }, []);
+
+  const _onHide = useCallback(() => {
     setIsShow(false);
-  };
+  }, []);
+
   const onStartShouldSetResponder = useCallback(() => true, []);
 
   const onPressItem = useCallback((onPressAction?: () => void) => {
@@ -93,9 +95,11 @@ const FABGroupComponent = (props: FABGroupProps) => {
       ]),
     [inset, style],
   );
+
   const iconAnimatedStyle = useAnimatedStyle(() => ({
     transform: [{rotate: rotateIcon.value}],
   }));
+
   // render
   return (
     <>

@@ -13,6 +13,33 @@ import {Bubble} from './Bubble';
 import {TextMessage} from './TextMessage';
 import {ImageMessage} from './ImageMessage';
 
+const styles = StyleSheet.create({
+  mine: {
+    alignContent: 'flex-end',
+    paddingLeft: 10,
+  },
+  friend: {
+    alignItems: 'flex-start',
+    paddingRight: 10,
+  },
+  avatar: {
+    overflow: 'hidden',
+    backgroundColor: '#FFFFFF',
+    alignSelf: 'flex-end',
+    marginHorizontal: 3,
+  },
+  img: {
+    width: '100%',
+    height: '100%',
+  },
+  textDate: {
+    alignSelf: 'center',
+    textAlign: 'center',
+    color: '#bbb',
+    fontSize: FontSizeDefault.FONT_10,
+  },
+});
+
 interface MessageItemProps
   extends MessageProps,
     Pick<
@@ -37,6 +64,7 @@ const MessageItemComponent = ({
   text,
   showAvatar,
 }: MessageItemProps) => {
+  // function
   const _renderMessage = () => {
     switch (type) {
       case 'text':
@@ -47,6 +75,8 @@ const MessageItemComponent = ({
         return null;
     }
   };
+
+  // render
   return (
     <>
       <Block
@@ -98,30 +128,3 @@ const MessageItemComponent = ({
 };
 
 export const MessageItem = memo(MessageItemComponent, isEqual);
-
-const styles = StyleSheet.create({
-  mine: {
-    alignContent: 'flex-end',
-    paddingLeft: 10,
-  },
-  friend: {
-    alignItems: 'flex-start',
-    paddingRight: 10,
-  },
-  avatar: {
-    overflow: 'hidden',
-    backgroundColor: '#FFFFFF',
-    alignSelf: 'flex-end',
-    marginHorizontal: 3,
-  },
-  img: {
-    width: '100%',
-    height: '100%',
-  },
-  textDate: {
-    alignSelf: 'center',
-    textAlign: 'center',
-    color: '#bbb',
-    fontSize: FontSizeDefault.FONT_10,
-  },
-});

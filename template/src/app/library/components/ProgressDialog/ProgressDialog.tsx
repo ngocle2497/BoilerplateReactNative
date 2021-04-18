@@ -1,4 +1,10 @@
-import React, {memo, useState, forwardRef, useImperativeHandle} from 'react';
+import React, {
+  memo,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+  useCallback,
+} from 'react';
 import {
   StyleSheet,
   ActivityIndicator,
@@ -77,12 +83,17 @@ const ProgressDialogComponent = forwardRef((props, ref) => {
     }),
     [],
   );
+  // state
   const theme: AppTheme = useTheme();
   const [visible, setVisible] = useState(false);
   const [message, setMessage] = useState('');
-  const _onModalHide = () => {
+
+  // function
+  const _onModalHide = useCallback(() => {
     setMessage('');
-  };
+  }, []);
+
+  // render
   return (
     <Modal
       isVisible={visible}

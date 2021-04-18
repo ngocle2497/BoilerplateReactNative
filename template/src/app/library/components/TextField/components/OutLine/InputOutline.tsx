@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     width: '100%',
     marginVertical: 5,
     padding: 0,
+    color: '#000',
     borderBottomColor: 'transparent',
   },
   text: {
@@ -92,6 +93,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     onBlur,
     ...rest
   } = props;
+
   // state
   const [t] = useTranslation();
   const [sizeContainer, setSizeContainer] = useState({height: 0});
@@ -127,7 +129,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
       default:
         return unActiveTintLabelColor;
     }
-  }, [disabled, error, focused]);
+  });
 
   const borderColor = useDerivedValue(() => {
     switch (true) {
@@ -140,7 +142,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
       default:
         return unActiveTintBorderColor;
     }
-  }, [disabled, error, focused]);
+  });
 
   // function
   const _onLayoutContainer = useCallback(

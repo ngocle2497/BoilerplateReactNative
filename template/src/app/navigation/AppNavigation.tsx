@@ -19,10 +19,14 @@ import {RootNavigation} from './RootNavigator';
 import {navigationRef} from './navigationService';
 
 export const AppContainer = () => {
+  // state
   const {token, appMode, loading, showDialog, theme} = useSelector(x => x.app);
+
+  // effect
   useEffect(() => {
     dispatch(onLoadApp());
   }, []);
+
   useEffect(() => {
     if (showDialog) {
       showLoading();
@@ -30,10 +34,12 @@ export const AppContainer = () => {
       hideLoading();
     }
   }, [showDialog]);
+
+  // render
   return (
     <NavigationContainer ref={navigationRef} theme={MyAppTheme[theme]}>
       <>
-        {loading === false && (
+        {!loading && (
           <>
             <RootNavigation token={token} />
             <ProgressDialog ref={dialogHolder} />

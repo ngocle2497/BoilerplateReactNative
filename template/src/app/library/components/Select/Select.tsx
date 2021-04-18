@@ -1,4 +1,4 @@
-import React, {useState, memo} from 'react';
+import React, {useState, memo, useCallback} from 'react';
 import {FlatList, ListRenderItemInfo} from 'react-native';
 import Modal from 'react-native-modal';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -14,6 +14,7 @@ import {styles} from './Select.preset';
 import {SelectOption, SelectProps} from './Select.props';
 
 const SelectComponent = (props: SelectProps) => {
+  // state
   const [t] = useTranslation();
   const inset = useSafeAreaInsets();
   const {
@@ -28,32 +29,49 @@ const SelectComponent = (props: SelectProps) => {
   } = props;
   const [selectedText, setSelectedText] = useState(defaultSelect);
   const [visible, setVisible] = useState(false);
-  const onPressOption = (item: SelectOption, index: number) => {
-    setVisible(false);
-    setSelectedText(item.text);
-    onPress && onPress(item, index);
-  };
-  const _showDrop = () => {
+
+  // function
+  const onPressOption = useCallback(
+    (item: SelectOption, index: number) => {
+      setVisible(false);
+      setSelectedText(item.text);
+      onPress && onPress(item, index);
+    },
+    [onPress],
+  );
+
+  const _showDrop = useCallback(() => {
     setVisible(true);
-  };
-  const _hideDrop = () => {
+  }, []);
+
+  const _hideDrop = useCallback(() => {
     setVisible(false);
-  };
-  const _renderItem = ({item, index}: ListRenderItemInfo<SelectOption>) => {
-    return (
-      <SelectItem
-        customItem={customItem}
-        textItemStyle={textItemStyle}
-        onPress={onPressOption}
-        item={item}
-        index={index}
-      />
-    );
-  };
-  const _keyExtractor = (item: SelectOption) =>
-    item.text +
-    new Date().getTime().toString() +
-    Math.floor(Math.random() * Math.floor(new Date().getTime())).toString();
+  }, []);
+
+  const _renderItem = useCallback(
+    ({item, index}: ListRenderItemInfo<SelectOption>) => {
+      return (
+        <SelectItem
+          customItem={customItem}
+          textItemStyle={textItemStyle}
+          onPress={onPressOption}
+          item={item}
+          index={index}
+        />
+      );
+    },
+    [customItem, onPressOption, textItemStyle],
+  );
+
+  const _keyExtractor = useCallback(
+    (item: SelectOption) =>
+      item.text +
+      new Date().getTime().toString() +
+      Math.floor(Math.random() * Math.floor(new Date().getTime())).toString(),
+    [],
+  );
+
+  // render
   return (
     <>
       <Block style={[styles.root]} collapsable={false}>

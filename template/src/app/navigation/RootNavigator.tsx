@@ -3,13 +3,13 @@ import {createStackNavigator} from '@react-navigation/stack';
 import isEqual from 'react-fast-compare';
 import SplashScreen from 'react-native-splash-screen';
 
-import {MainDrawerScreen} from './authen/index';
+import {MainScreen} from './authen/index';
 import {APP_SCREEN, RootStackParamList} from './screenTypes';
 import {UnAuthentication} from './unAuthen/index';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
-export const RootNavigation = memo(({token}: {token: any}) => {
+export const RootNavigation = memo(({token}: {token?: string}) => {
   useEffect(() => {
     SplashScreen.hide();
   }, []);
@@ -25,7 +25,7 @@ export const RootNavigation = memo(({token}: {token: any}) => {
         <RootStack.Screen
           options={{gestureEnabled: false}}
           name={APP_SCREEN.AUTHORIZE}
-          component={MainDrawerScreen}
+          component={MainScreen}
         />
       )}
     </RootStack.Navigator>

@@ -4,30 +4,6 @@ import {AppModeType} from '@networking';
 import isEqual from 'react-fast-compare';
 import {APP_MODE} from '@config/api';
 
-const modeToString = (mode: AppModeType): string => {
-  switch (mode) {
-    case APP_MODE.DEV:
-      return 'Dev Mode';
-    case APP_MODE.PROD:
-      return 'Prod Mode';
-    case APP_MODE.STAGING:
-      return 'Staging Mode';
-    default:
-      return '';
-  }
-};
-const AppModeComponent = ({appMode}: {appMode: AppModeType}) => {
-  return (
-    <View pointerEvents={'none'} style={[styles.wrapMode]}>
-      <Text adjustsFontSizeToFit={true} style={[styles.textMode]}>
-        {modeToString(appMode)}
-      </Text>
-    </View>
-  );
-};
-
-export const AppMode = memo(AppModeComponent, isEqual);
-
 const styles = StyleSheet.create({
   textMode: {
     fontWeight: 'bold',
@@ -56,3 +32,28 @@ const styles = StyleSheet.create({
     transform: [{rotate: '45deg'}, {translateX: 30}],
   },
 });
+
+const modeToString = (mode: AppModeType): string => {
+  switch (mode) {
+    case APP_MODE.DEV:
+      return 'Dev Mode';
+    case APP_MODE.PROD:
+      return 'Prod Mode';
+    case APP_MODE.STAGING:
+      return 'Staging Mode';
+    default:
+      return '';
+  }
+};
+const AppModeComponent = ({appMode}: {appMode: AppModeType}) => {
+  // render
+  return (
+    <View pointerEvents={'none'} style={[styles.wrapMode]}>
+      <Text adjustsFontSizeToFit={true} style={[styles.textMode]}>
+        {modeToString(appMode)}
+      </Text>
+    </View>
+  );
+};
+
+export const AppMode = memo(AppModeComponent, isEqual);

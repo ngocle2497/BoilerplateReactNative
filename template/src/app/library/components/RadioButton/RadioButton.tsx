@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
 });
 
 const RadioButtonComponent = (props: RadioButtonProps) => {
+  // state
   const {
     initialValue = false,
     activeColor = ACTIVE_COLOR,
@@ -46,6 +47,7 @@ const RadioButtonComponent = (props: RadioButtonProps) => {
     [unActiveColor, activeColor],
   );
 
+  // function
   const _onPress = useCallback(() => {
     if (onToggle && onCheckType(onToggle, 'function')) {
       onToggle(!value);
@@ -54,6 +56,7 @@ const RadioButtonComponent = (props: RadioButtonProps) => {
     }
   }, [onToggle, value]);
 
+  // style
   const wrapStyle = useMemo(
     () => ({
       width: sizeDot + 10,
@@ -63,9 +66,12 @@ const RadioButtonComponent = (props: RadioButtonProps) => {
     }),
     [sizeDot, strokeWidth],
   );
+
+  // reanimated style
   const wrapAnimaStyle = useAnimatedStyle(() => ({
     borderColor: color.value as string,
   }));
+
   const dotStyle = useAnimatedStyle(() => ({
     width: size.value,
     height: size.value,
@@ -73,6 +79,7 @@ const RadioButtonComponent = (props: RadioButtonProps) => {
     backgroundColor: color.value as string,
   }));
 
+  // render
   return (
     <TouchableWithoutFeedback onPress={_onPress}>
       <Animated.View style={[styles.wrap, wrapStyle, wrapAnimaStyle]}>

@@ -20,6 +20,17 @@ import {
 } from './handle';
 import {Column} from './Column';
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  content: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    width: '100%',
+  },
+});
+
 const MasonryComponent = ({
   data = [],
   containerImageStyle,
@@ -35,6 +46,7 @@ const MasonryComponent = ({
   renderFooter,
   renderHeader,
 }: MasonryProps) => {
+  // state
   const [dimensions, setDimensions] = useState<Dimensions>({
     height: 0,
     width: 0,
@@ -42,77 +54,83 @@ const MasonryComponent = ({
   const [dataSource, setDataSource] = useState<Array<ItemColumn[]>>([]);
   const [oldColumn, setOldColumn] = useState<number>(columns);
   const [oldData, setOldData] = useState<DataType[]>([]);
-  /**
-   * Convert data to multi array to multi column
-   */
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const _formatData = (
-    _data: DataType[],
-    _columns: number,
-    isChangeColumn = false,
-    offset = 0,
-  ) => {
-    if (_data.length <= 0 || _columns <= 0) {
-      setDataSource([]);
-      return;
-    }
 
-    let newData: Array<ItemColumn[]> = isChangeColumn ? [] : dataSource;
-
-    const dataOf = _data
-      .map((cell, index) => assignObjectColumn(_columns, index, cell))
-      .map((cell, index) => assignObjectIndex(offset + index, cell));
-
-    for (let index = 0; index < dataOf.length; index++) {
-      const element = dataOf[index];
-      Image.getSize(
-        element.uri,
-        (width, height) => {
-          if (onCheckNumber(width) && onCheckNumber(height)) {
-            const dataConcat = _insertIntoColumn(
-              {
-                ...element,
-                dimensions: {
-                  width,
-                  height,
-                },
-              },
-              newData,
-            );
-            newData = dataConcat;
-            setDataSource(newData);
-          }
-        },
-        _ => {
-          console.warn('Image failed to load');
-        },
-      );
-    }
-  };
-
+  // function
   /**
    * Insert or concat image to array image of column
    * @returns Array
    */
-  const _insertIntoColumn = (img: ItemColumn, dataSet: Array<ItemColumn[]>) => {
-    const dataCopy = dataSet.slice();
-    const columnIndex = img.column;
+  const _insertIntoColumn = useCallback(
+    (img: ItemColumn, dataSet: Array<ItemColumn[]>) => {
+      const dataCopy = dataSet.slice();
+      const columnIndex = img.column;
 
-    const column = dataSet[columnIndex];
+      const column = dataSet[columnIndex];
 
-    if (column) {
-      // Append to existing "row"/"column"
-      if (!column.find((x: ItemColumn) => x.uri === img.uri)) {
-        const newImages = column.concat(img);
-        dataCopy[columnIndex] = newImages;
+      if (column) {
+        // Append to existing "row"/"column"
+        if (!column.find((x: ItemColumn) => x.uri === img.uri)) {
+          const newImages = column.concat(img);
+          dataCopy[columnIndex] = newImages;
+        }
+      } else {
+        // Pass it as a new "row" for the data source
+        dataCopy[columnIndex] = [img];
       }
-    } else {
-      // Pass it as a new "row" for the data source
-      dataCopy[columnIndex] = [img];
-    }
 
-    return dataCopy;
-  };
+      return dataCopy;
+    },
+    [],
+  );
+  /**
+   * Convert data to multi array to multi column
+   */
+  const _formatData = useCallback(
+    (
+      _data: DataType[],
+      _columns: number,
+      isChangeColumn = false,
+      offset = 0,
+    ) => {
+      if (_data.length <= 0 || _columns <= 0) {
+        setDataSource([]);
+        return;
+      }
+
+      let newData: Array<ItemColumn[]> = isChangeColumn ? [] : dataSource;
+
+      const dataOf = _data
+        .map((cell, index) => assignObjectColumn(_columns, index, cell))
+        .map((cell, index) => assignObjectIndex(offset + index, cell));
+
+      for (let index = 0; index < dataOf.length; index++) {
+        const element = dataOf[index];
+        Image.getSize(
+          element.uri,
+          (width, height) => {
+            if (onCheckNumber(width) && onCheckNumber(height)) {
+              const dataConcat = _insertIntoColumn(
+                {
+                  ...element,
+                  dimensions: {
+                    width,
+                    height,
+                  },
+                },
+                newData,
+              );
+              newData = dataConcat;
+              setDataSource(newData);
+            }
+          },
+          _ => {
+            console.warn('Image failed to load');
+          },
+        );
+      }
+    },
+    [_insertIntoColumn, dataSource],
+  );
 
   const _onLayoutChange = useCallback(
     ({
@@ -130,28 +148,43 @@ const MasonryComponent = ({
       onEndReach();
     }
   }, [onEndReach]);
+
   const _onRefresh = useCallback(() => {
     if (typeof onRefresh === 'function') {
       onRefresh();
     }
   }, [onRefresh]);
-  const _renderItem = ({item}: ListRenderItemInfo<ItemColumn[]>) => {
-    return (
-      <Column
-        {...{
-          onPress,
-          space: space < 0 ? 0 : space,
-          containerImageStyle,
-          customRenderItem,
-          renderFooter,
-          renderHeader,
-          dimensions,
-          columns: oldColumn,
-        }}
-        data={item}
-      />
-    );
-  };
+
+  const _renderItem = useCallback(
+    ({item}: ListRenderItemInfo<ItemColumn[]>) => {
+      return (
+        <Column
+          {...{
+            onPress,
+            space: space < 0 ? 0 : space,
+            containerImageStyle,
+            customRenderItem,
+            renderFooter,
+            renderHeader,
+            dimensions,
+            columns: oldColumn,
+          }}
+          data={item}
+        />
+      );
+    },
+    [
+      containerImageStyle,
+      customRenderItem,
+      dimensions,
+      oldColumn,
+      onPress,
+      renderFooter,
+      renderHeader,
+      space,
+    ],
+  );
+
   const _keyExtractor = useCallback(
     (_: ItemColumn[], index) => index.toString(),
     [],
@@ -173,6 +206,8 @@ const MasonryComponent = ({
       setOldData(data);
     }
   }, [data, columns, space, oldData, _formatData, oldColumn]);
+
+  // render
   return (
     <View onLayout={_onLayoutChange} style={[styles.container]}>
       <FlatList
@@ -200,14 +235,3 @@ const MasonryComponent = ({
 };
 
 export const Masonry = memo(MasonryComponent, isEqual);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  content: {
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    width: '100%',
-  },
-});

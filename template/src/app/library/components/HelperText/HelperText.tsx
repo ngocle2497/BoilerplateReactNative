@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
 });
 
 const HelperTextComponent = (props: HelperTextProps) => {
+  // state
   const {visible = false, msg, type} = props;
   const [currentMessage, setCurrentMessage] = useState<string>(msg ?? '');
   const progress = useSharedTransition(visible);
@@ -39,6 +40,8 @@ const HelperTextComponent = (props: HelperTextProps) => {
   const translateX = useMix(progress, -5, 0);
   const opacity = useMix(progress, 0, 1);
   const rotateX = useRadian(useMix(progress, 90, 0));
+
+  // style
   const textStyle = useMemo(
     () =>
       enhance([
@@ -47,12 +50,15 @@ const HelperTextComponent = (props: HelperTextProps) => {
       ]),
     [type],
   );
+
+  // effect
   useEffect(() => {
     if (msg) {
       setCurrentMessage(msg);
     }
   }, [msg]);
 
+  // reanimated style
   const style = useAnimatedStyle(() => ({
     opacity: opacity.value,
     transform: [
@@ -62,6 +68,7 @@ const HelperTextComponent = (props: HelperTextProps) => {
     ],
   }));
 
+  // render
   return (
     <Block style={[styles.container]}>
       <Animated.View style={[style]}>

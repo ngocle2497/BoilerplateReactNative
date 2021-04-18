@@ -131,6 +131,7 @@ const TextComponent = (props: TextProps) => {
       styleOverride,
     ],
   );
+  // render
   return (
     <ReactNativeText allowFontScaling={false} {...rest} style={styleComponent}>
       {content}

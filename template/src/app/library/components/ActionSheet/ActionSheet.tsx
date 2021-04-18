@@ -20,6 +20,7 @@ import {styles} from './ActionSheet.presets';
 import {ActionSheetProps, OptionData} from './ActionSheet.props';
 
 const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
+  // state
   const [t] = useTranslation();
   const {
     onPressCancel,
@@ -37,6 +38,7 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
     option = [],
   } = props;
   const [actionVisible, setActionVisible] = useState(false);
+
   useImperativeHandle(
     ref,
     () => ({
@@ -49,6 +51,7 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
     }),
     [],
   );
+  // function
   const _onPress = useCallback(
     (item: OptionData, index: number) => {
       return () => {
@@ -58,6 +61,7 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
     },
     [onPressOption],
   );
+
   const _onCancel = useCallback(() => {
     onPressCancel && onPressCancel();
     setActionVisible(false);
@@ -68,6 +72,7 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
     closeOnBackDrop === true && setActionVisible(false);
   }, [closeOnBackDrop, onBackDropPress]);
 
+  // style
   const textOption = useMemo(() => enhance([textOptionStyle]), [
     textOptionStyle,
   ]);
@@ -84,6 +89,8 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
     [wrapCancelStyle],
   );
   const root = useMemo(() => enhance([styles.wrap, rootStyle]), [rootStyle]);
+
+  // render
   return (
     <Modal
       style={[styles.modal]}

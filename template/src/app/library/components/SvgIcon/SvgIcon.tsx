@@ -11,6 +11,7 @@ const SvgIconComponent = ({
   size = 24,
   onPress,
 }: SvgIconProps) => {
+  // render
   return (
     <TouchableOpacity
       disabled={typeof onPress !== 'function'}

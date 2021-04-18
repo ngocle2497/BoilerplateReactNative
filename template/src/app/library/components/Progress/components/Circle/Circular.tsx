@@ -56,13 +56,17 @@ export const CircularComponent = ({
   fg,
   bg,
 }: CircularProps) => {
+  //state
   const progressAnimated = useDerivedValue(() => sharedTiming(progress));
+
   const firstRotate = useRadian(
     useInterpolate(progressAnimated, [0, 50], [0, 180], Extrapolate.CLAMP),
   );
+
   const secondRotate = useRadian(
     useInterpolate(progressAnimated, [0, 100], [0, 360], Extrapolate.CLAMP),
   );
+
   const secondOpacity = useInterpolate(
     progressAnimated,
     [0, 49.9999999, 50, 100],
@@ -70,6 +74,7 @@ export const CircularComponent = ({
     Extrapolate.CLAMP,
   );
 
+  // style
   const baseStyle = useMemo<ViewStyle>(
     () => ({
       width: radius * 2,
@@ -84,6 +89,7 @@ export const CircularComponent = ({
     () => enhance([baseStyle, styles.empty, {borderColor: bg}]) as ViewStyle,
     [baseStyle, bg],
   );
+
   const coverStyle = useMemo<ViewStyle>(
     () =>
       enhance([
@@ -93,6 +99,7 @@ export const CircularComponent = ({
       ]) as ViewStyle,
     [baseStyle, bg],
   );
+
   const indicatorStyle = useMemo<ViewStyle>(
     () =>
       enhance([
@@ -102,13 +109,17 @@ export const CircularComponent = ({
       ]) as ViewStyle,
     [baseStyle, fg],
   );
+  // reanimated style
   const firstIndicatorStyle = useAnimatedStyle(() => ({
     transform: [{rotate: firstRotate.value}],
   }));
+
   const secondIndicatorStyle = useAnimatedStyle(() => ({
     transform: [{rotate: secondRotate.value}],
     opacity: secondOpacity.value,
   }));
+
+  // render
   return (
     <Block style={[emptyStyle]}>
       <Animated.View style={[indicatorStyle, firstIndicatorStyle]} />

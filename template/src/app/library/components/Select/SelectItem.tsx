@@ -1,4 +1,4 @@
-import React, {memo, useMemo} from 'react';
+import React, {memo, useCallback, useMemo} from 'react';
 import {enhance} from '@common';
 import equals from 'react-fast-compare';
 
@@ -15,13 +15,18 @@ const SelectItemComponent = ({
   customItem,
   textItemStyle,
 }: SelectItemProps) => {
-  const _onPress = () => {
+  // function
+  const _onPress = useCallback(() => {
     onPress && onPress(item, index);
-  };
+  }, [index, item, onPress]);
+
+  // style
   const text = useMemo(
     () => enhance([styles.textOption, textItemStyle ?? {}]),
     [textItemStyle],
   );
+
+  // render
   return (
     <Button style={[styles.row]} onPress={_onPress} activeOpacity={0.85}>
       {customItem ? (

@@ -10,6 +10,7 @@ const InjectorComponent = ({
   injectant: Injectant,
   injectantProps,
 }: InjectorProps) => {
+  // render
   return Injectant ? (
     <Injectant {...defaultProps} {...injectantProps}>
       {children}

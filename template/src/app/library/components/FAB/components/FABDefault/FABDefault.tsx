@@ -41,8 +41,11 @@ const styles = StyleSheet.create({
 });
 
 export const FABDefault = (props: FABDefaultProps) => {
-  const {onPress, style = {}, icon, label} = props;
+  // state
+  const {onPress, style = {}, icon = 'plus', label} = props;
   const inset = useSafeAreaInsets();
+
+  // style
   const styleBase = useMemo(
     () =>
       enhance([
@@ -52,6 +55,8 @@ export const FABDefault = (props: FABDefaultProps) => {
       ]),
     [inset, style],
   );
+
+  // render
   return (
     <Button
       onPress={onPress}

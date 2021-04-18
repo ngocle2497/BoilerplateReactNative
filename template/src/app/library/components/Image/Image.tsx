@@ -10,16 +10,20 @@ import {Block} from '../Block/Block';
 import {ImageProps} from './Image.props';
 
 const ImgComponent = (props: ImageProps) => {
+  // state
   const {
     style: styleOverride = {},
     resizeMode = 'cover',
     source,
     containerStyle,
   } = props;
+
+  // style
   const style: StyleProp<ImageStyle> = useMemo(() => enhance([styleOverride]), [
     styleOverride,
   ]);
 
+  // render
   return (
     <Block style={containerStyle}>
       <FastImage

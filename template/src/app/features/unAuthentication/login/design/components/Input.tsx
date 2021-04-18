@@ -24,7 +24,12 @@ const InputComponent = ({
   ...rest
 }: InputProps) => {
   // state
-  const {errors, control, trigger, getValues} = useFormContext<FormLoginType>();
+  const {
+    formState: {errors},
+    control,
+    trigger,
+    getValues,
+  } = useFormContext<FormLoginType>();
   const {field} = useController({
     name,
     control,

@@ -12,6 +12,7 @@ import {
 } from './components/Circle/Constant';
 
 const ProgressComponent = (props: ProgressProps) => {
+  // state
   const {
     type,
     strokeWidth = STROKE_WIDTH,
@@ -22,6 +23,8 @@ const ProgressComponent = (props: ProgressProps) => {
     radius = RADIUS,
     progress = 0,
   } = props;
+
+  // style
   return type === 'linear' ? (
     <ProgressLinear {...props} />
   ) : (

@@ -84,11 +84,11 @@ const SwitchComponent = ({
   }, [onToggle, value]);
 
   // reanimated style
-
   const animatedTrackStyle = useAnimatedStyle(() => ({
     backgroundColor: backgroundColor.value as string,
     opacity: opacity.value,
   }));
+
   const animatedThumbStyle = useAnimatedStyle(() => ({
     transform: [{translateX: translateX.value}],
   }));

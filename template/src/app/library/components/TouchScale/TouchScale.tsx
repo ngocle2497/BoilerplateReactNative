@@ -45,6 +45,7 @@ const TouchableScaleComponent = (props: TouchableScaleProps) => {
     },
     [minScale, onPressIn, scale],
   );
+
   const _onPressOut = useCallback(
     (e: GestureResponderEvent) => {
       scale.value = sharedTiming(1, {duration: 150});

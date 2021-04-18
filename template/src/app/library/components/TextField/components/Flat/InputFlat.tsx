@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '100%',
+    color: '#000',
     padding: 0,
     marginTop: 10,
     borderBottomColor: 'transparent',
@@ -88,6 +89,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
     onBlur,
     ...rest
   } = props;
+
   // state
   const [t] = useTranslation();
   const [sizeContainer, setSizeContainer] = useState({height: 0});
@@ -120,7 +122,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
       default:
         return unActiveTintLabelColor;
     }
-  }, [disabled, error, focused]);
+  });
 
   const borderColor = useDerivedValue(() => {
     switch (true) {
@@ -133,7 +135,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
       default:
         return unActiveTintBorderColor;
     }
-  }, [disabled, error, focused]);
+  });
 
   // function
   const _onLayoutContainer = useCallback(
@@ -170,25 +172,28 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
     [onBlur],
   );
 
-  const _onChangeText = (text: string) => {
-    if (onTextChange && onCheckType(onTextChange, 'function')) {
-      onTextChange(name, value);
-    }
-    if (onChangeText && onCheckType(onChangeText, 'function')) {
-      onChangeText(text);
-    }
-    if (
-      trigger &&
-      onCheckType(trigger, 'function') &&
-      nameTrigger &&
-      onCheckType(nameTrigger, 'string')
-    ) {
-      setTimeout(() => {
-        trigger(nameTrigger);
-      }, 0);
-    }
-    setValue(text);
-  };
+  const _onChangeText = useCallback(
+    (text: string) => {
+      if (onTextChange && onCheckType(onTextChange, 'function')) {
+        onTextChange(name, value);
+      }
+      if (onChangeText && onCheckType(onChangeText, 'function')) {
+        onChangeText(text);
+      }
+      if (
+        trigger &&
+        onCheckType(trigger, 'function') &&
+        nameTrigger &&
+        onCheckType(nameTrigger, 'string')
+      ) {
+        setTimeout(() => {
+          trigger(nameTrigger);
+        }, 0);
+      }
+      setValue(text);
+    },
+    [name, nameTrigger, onChangeText, onTextChange, trigger, value],
+  );
 
   // effect
   useEffect(() => {

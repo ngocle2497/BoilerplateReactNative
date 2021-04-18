@@ -24,12 +24,14 @@ export const _onPushLogout = async () => {
    * do something to logout
    */
 };
+
 export const handleResponseAxios = (res: AxiosResponse): ResponseBase<any> => {
   if (res.data) {
     return {code: CODE_SUCCESS, status: true, data: res.data, msg: null};
   }
   return responseDefault;
 };
+
 export const handleErrorAxios = (error: AxiosError): ResponseBase<any> => {
   if (error.code === STATUS_TIME_OUT) {
     // timeout

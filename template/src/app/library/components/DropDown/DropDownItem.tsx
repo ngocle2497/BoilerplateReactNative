@@ -33,18 +33,22 @@ const DropDownItemComponent = ({
   customTickIcon,
   labelStyle,
 }: ItemProps) => {
+  // function
   const _onItemPress = useCallback(() => {
     onPressItem && item && onPressItem(item.value ?? '');
   }, [item, onPressItem]);
 
+  // style
   const activeContainer = useMemo(
     () => enhance([activeItemStyle]) as StyleProp<ViewStyle>,
     [activeItemStyle],
   );
+
   const activeLabel = useMemo(
     () => enhance([activeLabelStyle]) as StyleProp<ViewStyle>,
     [activeLabelStyle],
   );
+
   const label = useMemo(
     () =>
       enhance([
@@ -54,6 +58,7 @@ const DropDownItemComponent = ({
       ]) as StyleProp<ViewStyle>,
     [activeLabel, labelStyle, selected],
   );
+
   const container = useMemo(
     () =>
       enhance([
@@ -63,6 +68,8 @@ const DropDownItemComponent = ({
       ]) as StyleProp<ViewStyle>,
     [activeContainer, containerStyleItem, selected],
   );
+
+  // render
   return (
     <Button onPress={_onItemPress} preset={'link'}>
       <Block

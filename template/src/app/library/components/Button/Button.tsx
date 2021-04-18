@@ -9,6 +9,7 @@ import {stylesView, stylesText} from './Button.presets';
 import {ButtonProps} from './Button.props';
 
 const ButtonComponent = (props: ButtonProps) => {
+  // state
   const {
     preset = 'primary',
     tx,
@@ -19,6 +20,7 @@ const ButtonComponent = (props: ButtonProps) => {
     ...rest
   } = props;
 
+  // style
   const viewStyle = useMemo(
     () => enhance([stylesView[preset], styleOverride]),
     [preset, styleOverride],
@@ -33,6 +35,7 @@ const ButtonComponent = (props: ButtonProps) => {
     [tx, textStyle, children, text],
   );
 
+  // render
   return (
     <TouchableOpacity style={viewStyle} {...rest}>
       {content}

@@ -7,6 +7,8 @@ import {FABProps} from './FAB.props';
 
 const FABComponent = (props: FABProps) => {
   const {type = 'default', icon = 'plus', style = {}} = props;
+
+  // render
   return type === 'default' ? (
     <FABDefault {...{...props, icon, style}} />
   ) : (
