@@ -1,6 +1,5 @@
-import React, {memo, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import isEqual from 'react-fast-compare';
 import SplashScreen from 'react-native-splash-screen';
 
 import {MainScreen} from './authen/index';
@@ -9,10 +8,13 @@ import {UnAuthentication} from './unAuthen/index';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
-export const RootNavigation = memo(({token}: {token?: string}) => {
+export const RootNavigation = ({token}: {token?: string}) => {
+  // effect
   useEffect(() => {
     SplashScreen.hide();
   }, []);
+
+  // render
   return (
     <RootStack.Navigator headerMode={'none'} screenOptions={{}}>
       {!token ? (
@@ -30,4 +32,4 @@ export const RootNavigation = memo(({token}: {token?: string}) => {
       )}
     </RootStack.Navigator>
   );
-}, isEqual);
+};

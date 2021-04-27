@@ -1,10 +1,11 @@
-import React, {memo} from 'react';
+import React, {memo, useCallback} from 'react';
 import {FlatList, RefreshControl} from 'react-native';
 import equals from 'react-fast-compare';
 
 import {ListViewProps} from './ListView.props';
 
 const ListViewComponent = (props: ListViewProps) => {
+  // state
   const {
     onLoadMore,
     onRefreshing,
@@ -12,16 +13,21 @@ const ListViewComponent = (props: ListViewProps) => {
     canLoadMore = false,
     refreshing = false,
   } = props;
-  const loadMore = () => {
+
+  // function
+  const loadMore = useCallback(() => {
     if (canLoadMore && onLoadMore && typeof onLoadMore === 'function') {
       onLoadMore();
     }
-  };
-  const refresh = () => {
+  }, [canLoadMore, onLoadMore]);
+
+  const refresh = useCallback(() => {
     if (onRefreshing && typeof onRefreshing === 'function') {
       onRefreshing();
     }
-  };
+  }, [onRefreshing]);
+
+  // render
   return (
     <FlatList
       refreshControl={
