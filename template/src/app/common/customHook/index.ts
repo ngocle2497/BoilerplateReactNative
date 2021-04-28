@@ -25,8 +25,7 @@ function useSelector<T>(
   selector: (state: RootState) => T,
   equalityFn = isEqual,
 ): T {
-  const state = useReduxSelector<RootState, RootState>(x => x, equalityFn);
-  return selector(state);
+  return useReduxSelector<RootState, T>(selector, equalityFn);
 }
 
 function useAnimationState<T>(
