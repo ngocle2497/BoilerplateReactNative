@@ -1,5 +1,5 @@
 export * from './createFormData';
-export * from './customHook';
+export * from './hooks';
 export * from './handleError';
 export * from './handleMsg';
 // export * from './requestPermission';
