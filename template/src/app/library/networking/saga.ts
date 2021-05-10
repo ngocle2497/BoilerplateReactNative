@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import {ResponseBase} from '@config/type';
 import {StyleSheet} from 'react-native';
 import {TIME_OUT, RESULT_CODE_PUSH_OUT} from '@config/api';
 import {AppState} from '@app_redux/type';
@@ -12,7 +13,7 @@ import {ApiConstants} from './api';
 import {handleResponseAxios, handleErrorAxios, _onPushLogout} from './helper';
 
 const tokenKeyHeader = 'authorization';
-let refreshTokenRequest: Promise<any> | null = null;
+let refreshTokenRequest: Promise<string> | null = null;
 const AxiosInstance = Axios.create({});
 
 AxiosInstance.interceptors.response.use(
@@ -50,7 +51,10 @@ async function refreshToken(originalRequest: any) {
 }
 
 // base
-function* Request(config: AxiosRequestConfig, isCheckOut = true) {
+function* Request<T = unknown>(
+  config: AxiosRequestConfig,
+  isCheckOut = true,
+): Generator<unknown, ResponseBase<T>, any> {
   const {token, appUrl}: AppState = yield select((x: any) => x.app);
   const defaultConfig: AxiosRequestConfig = {
     baseURL: appUrl,
@@ -63,7 +67,7 @@ function* Request(config: AxiosRequestConfig, isCheckOut = true) {
   return yield AxiosInstance.request(
     StyleSheet.flatten([defaultConfig, config]),
   )
-    .then((res: any) => {
+    .then((res: AxiosResponse<T>) => {
       const result = handleResponseAxios(res);
       return result;
     })
@@ -81,29 +85,45 @@ function* Request(config: AxiosRequestConfig, isCheckOut = true) {
     });
 }
 // get
-function* Get(url: string, param?: any) {
+function* Get<T>(
+  url: string,
+  param?: any,
+): Generator<unknown, ResponseBase<T>, any> {
   return yield Request({url: url, params: param, method: 'GET'});
 }
 
 // post
-function* Post(url: string, data: any) {
+function* Post<T>(
+  url: string,
+  data: any,
+): Generator<unknown, ResponseBase<T>, any> {
   return yield Request({url: url, data: data, method: 'POST'});
 }
 
 // post file
-function* PostWithFile(url: string, data: any) {
+function* PostWithFile<T>(
+  url: string,
+  data: any,
+): Generator<unknown, ResponseBase<T>, any> {
   const {token}: AppState = yield select((x: RootState) => x.app);
   const header: any = {token: token, 'Content-Type': 'multipart/form-data'};
   return yield Request({url: url, data: data, method: 'POST', headers: header});
 }
 
 // put
-function* Put(url: string, data: any, params?: any) {
+function* Put<T>(
+  url: string,
+  data: any,
+  params?: any,
+): Generator<unknown, ResponseBase<T>, any> {
   return yield Request({url: url, data: data, params: params, method: 'PUT'});
 }
 
 // delete
-function* Delete(url: string, params?: any) {
+function* Delete<T>(
+  url: string,
+  params?: any,
+): Generator<unknown, ResponseBase<T>, any> {
   return yield Request({
     url: url,
     params: params,

@@ -1,3 +1,4 @@
+import {ResponseBase} from '@config/type';
 import {ServiceSaga} from '@networking';
 import {Action} from 'redux';
 import {call, put} from 'redux-saga/effects';
@@ -9,7 +10,7 @@ export function* onLogin(action: Action) {
   if (actions.onLogin.match(action)) {
     const {body, onFailure, onSucceeded, url} = action.payload;
     yield put(actions.onStart());
-    const response = yield ServiceSaga.Post(url, body);
+    const response: ResponseBase<any> = yield ServiceSaga.Post(url, body);
     if (response) {
       if (response.data) {
         if (onCheckType(onSucceeded, 'function')) {
