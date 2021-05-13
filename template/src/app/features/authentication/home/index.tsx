@@ -10,7 +10,7 @@ type HomeProps = StackScreenProps<AuthorizeParamsList, APP_SCREEN.HOME>;
 const HomeComponent = ({}: HomeProps) => {
   return (
     <View>
-      <Text></Text>
+      <Text>Home</Text>
     </View>
   );
 };

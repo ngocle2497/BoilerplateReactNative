@@ -1,9 +1,8 @@
 import {Block, Button, Screen, Text, Wallpaper} from '@components';
 import {APP_SCREEN, UnAuthorizeParamsList} from '@navigation/screenTypes';
 import {StackScreenProps} from '@react-navigation/stack';
-import React, {memo, useEffect} from 'react';
+import React, {memo} from 'react';
 import isEqual from 'react-fast-compare';
-import Splash from 'react-native-splash-screen';
 
 type RegisterProps = StackScreenProps<
   UnAuthorizeParamsList,
@@ -11,9 +10,7 @@ type RegisterProps = StackScreenProps<
 >;
 
 const RegisterComponent = ({navigation}: RegisterProps) => {
-  useEffect(() => {
-    Splash.hide();
-  }, []);
+  // render
   return (
     <Block block>
       <Wallpaper />

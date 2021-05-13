@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import SplashScreen from 'react-native-splash-screen';
+import BootSplash from 'react-native-bootsplash';
 
 import {MainScreen} from './authen/index';
 import {APP_SCREEN, RootStackParamList} from './screenTypes';
@@ -11,7 +11,7 @@ const RootStack = createStackNavigator<RootStackParamList>();
 export const RootNavigation = ({token}: {token?: string}) => {
   // effect
   useEffect(() => {
-    SplashScreen.hide();
+    BootSplash.hide({fade: true});
   }, []);
 
   // render

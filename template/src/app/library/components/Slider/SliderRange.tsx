@@ -130,6 +130,11 @@ const SliderRangeComponent = ({
     onActive: (event, ctx) => {
       translationLeftX.value = ctx.startX + event.translationX;
     },
+    onFinish: () => {
+      if (onChangeRange) {
+        runOnJS(onChangeRange)(progress.value);
+      }
+    },
   });
 
   const gestureHandlerThumbRight = useAnimatedGestureHandler<
@@ -142,7 +147,7 @@ const SliderRangeComponent = ({
     onActive: (event, ctx) => {
       translationRightX.value = ctx.startX + event.translationX;
     },
-    onEnd: () => {
+    onFinish: () => {
       if (onChangeRange) {
         runOnJS(onChangeRange)(progress.value);
       }

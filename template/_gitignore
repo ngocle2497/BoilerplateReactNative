@@ -25,9 +25,17 @@ DerivedData
 #
 build/
 .idea
-.gradle
+.gradle/
+proguard/
+*.log
+.navigation/
 local.properties
 *.iml
+*.apk
+*.aab
+*.aar
+*.ap_
+release/
 
 # node.js
 #
