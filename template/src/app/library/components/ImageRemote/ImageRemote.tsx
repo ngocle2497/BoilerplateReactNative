@@ -67,11 +67,12 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
   }, []);
 
   // style
-  const container = useMemo(() => enhance([styles.container, containerStyle]), [
-    containerStyle,
-  ]);
+  const container = useMemo(
+    () => enhance([styles.container, containerStyle]),
+    [containerStyle],
+  );
   const imgStyle = useMemo<StyleProp<ImageStyle>>(
-    () => enhance([styles.img, styleOverride]),
+    () => enhance([styles.img, styleOverride as ImageStyle]),
     [styleOverride],
   );
 
@@ -89,7 +90,7 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
 
   // render
   return (
-    <Block style={container}>
+    <Block style={[container]}>
       <Animated.View style={[styles.viewOnLoad, imageOnloadStyle]}>
         {childrenOnload}
       </Animated.View>

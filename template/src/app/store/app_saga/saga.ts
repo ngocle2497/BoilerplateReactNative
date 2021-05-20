@@ -1,4 +1,4 @@
-import {all, put} from 'redux-saga/effects';
+import {all, call, put} from 'redux-saga/effects';
 import {loadString} from '@utils';
 import {R} from '@assets/value';
 import {AppModeType, APP_MODE_URL} from '@networking';
@@ -9,9 +9,10 @@ import {onLoadAppEnd, onSetAppMode, onSetAppTheme} from '../app_redux/reducer';
 
 export function* onLoadAppModeAndTheme() {
   const {appMode, appTheme} = yield all({
-    appMode: loadString(R.strings.APP_MODE),
-    appTheme: loadString(R.strings.APP_THEME),
+    appMode: call(loadString, R.strings.APP_MODE),
+    appTheme: call(loadString, R.strings.APP_MODE),
   });
+
   if (typeof appMode === 'string' && checkKeyInObject(APP_MODE_URL, appMode)) {
     yield put(onSetAppMode(appMode as AppModeType));
   }

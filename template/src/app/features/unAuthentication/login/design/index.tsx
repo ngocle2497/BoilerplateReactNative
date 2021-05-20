@@ -27,10 +27,12 @@ import {
 import {FormLoginType} from '@model/login';
 import React, {memo, useCallback, useRef, useState} from 'react';
 import isEqual from 'react-fast-compare';
+import {Alert} from 'react-native';
 
 import {FormLogin} from './components/FormLogin';
 
 const LoginComponent = () => {
+  // state
   const _modalMode = useRef<ModalAppModeRef>();
   const _refAction = useRef<ActionSheetRef>();
   const [visible, setVisible] = useState<boolean>(false);
@@ -41,14 +43,19 @@ const LoginComponent = () => {
     lower: number;
     upper: number;
   }>({lower: 0, upper: 0});
+
+  // function
   const onSubmit = useCallback((data: FormLoginType) => {
-    alert(JSON.stringify(data));
+    Alert.alert(JSON.stringify(data));
   }, []);
+
   const _onShowAction = useCallback(() => {
     if (_refAction.current) {
       _refAction.current.show();
     }
   }, []);
+
+  // render
   return (
     <Block block paddingTop={0} paddingHorizontal={15}>
       <Wallpaper />

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {useSelector, AppDispatch, dispatch} from '@common';
+import {useSelector, RXStore, dispatch} from '@common';
 import {AnimProcess, ProgressDialog, SnackBar} from '@components';
 import {
   dialogHolder,
@@ -49,7 +49,7 @@ export const AppContainer = () => {
             {appMode !== 'prod' && <AppMode {...{appMode}} />}
           </>
         )}
-        <AppDispatch />
+        <RXStore />
       </>
     </NavigationContainer>
   );

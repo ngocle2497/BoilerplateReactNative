@@ -1,4 +1,6 @@
 import {enhance} from '@common';
+import {AppTheme} from '@config/type';
+import {useTheme} from '@react-navigation/native';
 import {FontSizeDefault} from '@theme/fontSize';
 import {FontDefault} from '@theme/typography';
 import React, {memo, useMemo} from 'react';
@@ -20,6 +22,8 @@ const styles = StyleSheet.create({
 });
 
 const TextComponent = (props: TextProps) => {
+  // state
+  const theme: AppTheme = useTheme();
   const {
     tx,
     txOptions,
@@ -53,16 +57,16 @@ const TextComponent = (props: TextProps) => {
     fontStyle,
     letterSpacing,
     lineHeight,
+    colorTheme,
     style: styleOverride = {},
     ...rest
   } = props;
   const [t] = useTranslation();
   const i18nText = useMemo(() => tx && t(tx, txOptions), [tx, txOptions, t]);
-  const content = useMemo(() => i18nText || text || children, [
-    i18nText,
-    text,
-    children,
-  ]);
+  const content = useMemo(
+    () => i18nText || text || children,
+    [i18nText, text, children],
+  );
 
   const styleComponent = useMemo(
     () =>
@@ -87,6 +91,7 @@ const TextComponent = (props: TextProps) => {
           width && {width},
           height && {height},
           color && {color: color},
+          colorTheme && {color: theme.colors[colorTheme]},
           center && {textAlign: 'center'},
           textAlign && {textAlign},
           alignItems && {alignItems},
@@ -129,11 +134,15 @@ const TextComponent = (props: TextProps) => {
       letterSpacing,
       lineHeight,
       styleOverride,
+      theme.colors,
     ],
   );
   // render
   return (
-    <ReactNativeText allowFontScaling={false} {...rest} style={styleComponent}>
+    <ReactNativeText
+      allowFontScaling={false}
+      {...rest}
+      style={[styleComponent]}>
       {content}
     </ReactNativeText>
   );

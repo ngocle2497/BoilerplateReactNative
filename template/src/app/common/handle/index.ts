@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
-export const enhance = (arrStyle: Array<any>) => {
-  return StyleSheet.flatten(arrStyle);
+export const enhance = <T>(arrStyle: Array<T>) => {
+  return StyleSheet.flatten<T>(arrStyle);
 };
 
 export const checkKeyInObject = (T: any, key: string) => {

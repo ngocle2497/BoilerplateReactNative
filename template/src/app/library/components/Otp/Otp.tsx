@@ -124,9 +124,10 @@ const OtpComponent = (props: OtpProps) => {
     () => enhance([styles.wrap, styles.row, containerStyle]),
     [containerStyle],
   );
-  const wrapInput = useMemo(() => enhance([styles.otpView, wrapInputStyle]), [
-    wrapInputStyle,
-  ]);
+  const wrapInput = useMemo(
+    () => enhance([styles.otpView, wrapInputStyle]),
+    [wrapInputStyle],
+  );
   const wrapInputActive = useMemo(
     () => enhance([styles.otpViewActive, wrapInputActiveStyle]),
     [wrapInputActiveStyle],
@@ -138,7 +139,7 @@ const OtpComponent = (props: OtpProps) => {
   // render
   return (
     <TouchableWithoutFeedback onPress={_setFocus}>
-      <Block block style={container}>
+      <Block block style={[container]}>
         <TextInput
           ref={_inputRef}
           value={otp}
@@ -172,7 +173,7 @@ const OtpComponent = (props: OtpProps) => {
                           ? textEntry?.charAt(0) ?? otp.charAt(index)
                           : ''
                       }
-                      style={text}
+                      style={[text]}
                     />
                   </Block>
                   <Spacer width={15} />

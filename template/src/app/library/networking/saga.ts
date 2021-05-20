@@ -89,7 +89,7 @@ function* Get<T>(
   url: string,
   param?: any,
 ): Generator<unknown, ResponseBase<T>, any> {
-  return yield Request({url: url, params: param, method: 'GET'});
+  return yield Request<T>({url: url, params: param, method: 'GET'});
 }
 
 // post
@@ -97,7 +97,7 @@ function* Post<T>(
   url: string,
   data: any,
 ): Generator<unknown, ResponseBase<T>, any> {
-  return yield Request({url: url, data: data, method: 'POST'});
+  return yield Request<T>({url: url, data: data, method: 'POST'});
 }
 
 // post file
@@ -107,7 +107,12 @@ function* PostWithFile<T>(
 ): Generator<unknown, ResponseBase<T>, any> {
   const {token}: AppState = yield select((x: RootState) => x.app);
   const header: any = {token: token, 'Content-Type': 'multipart/form-data'};
-  return yield Request({url: url, data: data, method: 'POST', headers: header});
+  return yield Request<T>({
+    url: url,
+    data: data,
+    method: 'POST',
+    headers: header,
+  });
 }
 
 // put
@@ -116,7 +121,12 @@ function* Put<T>(
   data: any,
   params?: any,
 ): Generator<unknown, ResponseBase<T>, any> {
-  return yield Request({url: url, data: data, params: params, method: 'PUT'});
+  return yield Request<T>({
+    url: url,
+    data: data,
+    params: params,
+    method: 'PUT',
+  });
 }
 
 // delete
@@ -124,7 +134,7 @@ function* Delete<T>(
   url: string,
   params?: any,
 ): Generator<unknown, ResponseBase<T>, any> {
-  return yield Request({
+  return yield Request<T>({
     url: url,
     params: params,
     method: 'DELETE',

@@ -12,16 +12,17 @@ import {ImageProps} from './Image.props';
 const ImgComponent = (props: ImageProps) => {
   // state
   const {
-    style: styleOverride = {},
+    style: styleOverride,
     resizeMode = 'cover',
     source,
     containerStyle,
   } = props;
 
   // style
-  const style: StyleProp<ImageStyle> = useMemo(() => enhance([styleOverride]), [
-    styleOverride,
-  ]);
+  const style = useMemo<StyleProp<ImageStyle>>(
+    () => enhance([styleOverride as ImageStyle]),
+    [styleOverride],
+  );
 
   // render
   return (

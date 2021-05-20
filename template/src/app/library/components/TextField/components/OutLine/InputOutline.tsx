@@ -74,7 +74,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     nameTrigger,
     placeholderColor,
     placeholderTx,
-    inputStyle = {},
+    inputStyle: inputStyleOverwrite = {},
     name = '',
     errorBorderColor = ERROR_COLOR,
     errorLabelColor = ERROR_COLOR,
@@ -84,7 +84,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     unActiveTintBorderColor = UN_ACTIVE_COLOR,
     unActiveTintLabelColor = UN_ACTIVE_COLOR,
     disabledBorderColor = UN_ACTIVE_COLOR,
-    containerStyle = {},
+    containerStyle: containerStyleOverwrite = {},
     rightChildren,
     disabled = false,
     error = undefined,
@@ -221,13 +221,14 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     [placeholder, placeholderTx, t],
   );
 
-  const inputSty = useMemo(() => enhance([styles.input, inputStyle]), [
-    inputStyle,
-  ]);
+  const inputStyle = useMemo(
+    () => enhance([styles.input, inputStyleOverwrite]),
+    [inputStyleOverwrite],
+  );
 
-  const containerSty = useMemo(
-    () => enhance([styles.container, containerStyle]),
-    [containerStyle],
+  const containerStyle = useMemo(
+    () => enhance([styles.container, containerStyleOverwrite]),
+    [containerStyleOverwrite],
   );
 
   // reanimated style
@@ -248,7 +249,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
   return (
     <Animated.View
       onLayout={_onLayoutContainer}
-      style={[containerSty, containerAnimatedStyle]}>
+      style={[containerStyle, containerAnimatedStyle]}>
       <Block direction={'row'}>
         <TextInput
           defaultValue={localDefaultValue}
@@ -257,7 +258,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
           editable={!disabled}
           selectionColor={activeTintBorderColor}
           placeholderTextColor={placeholderColor ?? undefined}
-          style={inputSty}
+          style={[inputStyle]}
           ref={ref}
           {...rest}
           onChangeText={_onChangeText}

@@ -1,3 +1,4 @@
+import {Alert} from 'react-native';
 type TypesBase =
   | 'bigint'
   | 'boolean'
@@ -9,8 +10,7 @@ type TypesBase =
   | 'undefined';
 
 export const onShowErrorBase = (msg: string) => {
-  // eslint-disable-next-line no-alert
-  alert(msg);
+  Alert.alert(msg);
 };
 export const onCheckType = (source: any, type: TypesBase) => {
   return typeof source === type;

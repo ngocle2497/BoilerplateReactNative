@@ -1,5 +1,5 @@
 import {createRef} from 'react';
-import {NavigationContainerRef} from '@react-navigation/native';
+import {CommonActions, NavigationContainerRef} from '@react-navigation/native';
 
 import {RootStackParamList} from './screenTypes';
 export const navigationRef = createRef<NavigationContainerRef>();
@@ -13,5 +13,5 @@ export function navigate<RouteName extends keyof RootStackParamList>(
 }
 
 export function goBack() {
-  navigationRef.current?.goBack();
+  navigationRef.current?.dispatch(CommonActions.goBack);
 }

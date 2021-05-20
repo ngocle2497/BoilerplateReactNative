@@ -4,6 +4,8 @@ import equals from 'react-fast-compare';
 import {enhance} from '@common';
 
 import {BlockProps} from './Block.props';
+import {AppTheme} from '@config/type';
+import {useTheme} from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   block: {
@@ -13,6 +15,7 @@ const styles = StyleSheet.create({
 
 const BlockComponent = (props: BlockProps) => {
   // state
+  const theme: AppTheme = useTheme();
   const {
     block,
     margin,
@@ -74,6 +77,7 @@ const BlockComponent = (props: BlockProps) => {
     opacity,
     style = {},
     children,
+    colorTheme,
     ...rest
   } = props;
 
@@ -104,6 +108,7 @@ const BlockComponent = (props: BlockProps) => {
           borderWidth && {borderWidth: StyleSheet.hairlineWidth * borderWidth},
           borderColor && {borderColor},
           color && {backgroundColor: color},
+          colorTheme && {backgroundColor: theme.colors[colorTheme]},
           justifyContent && {justifyContent},
           middle && {alignItems: 'center'},
           alignItems && {alignItems},
@@ -223,12 +228,13 @@ const BlockComponent = (props: BlockProps) => {
       top,
       width,
       zIndex,
+      theme.colors,
     ],
   );
 
   // render
   return (
-    <View style={styleComponent} {...rest}>
+    <View style={[styleComponent]} {...rest}>
       {children}
     </View>
   );

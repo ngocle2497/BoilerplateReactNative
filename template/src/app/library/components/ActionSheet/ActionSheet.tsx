@@ -73,9 +73,10 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
   }, [closeOnBackDrop, onBackDropPress]);
 
   // style
-  const textOption = useMemo(() => enhance([textOptionStyle]), [
-    textOptionStyle,
-  ]);
+  const textOption = useMemo(
+    () => enhance([textOptionStyle]),
+    [textOptionStyle],
+  );
   const textCancelS = useMemo(
     () => enhance([styles.textCancel, textCancelStyle]),
     [textCancelStyle],
@@ -101,7 +102,7 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
       isVisible={actionVisible}
       backdropColor={backDropColor}>
       <Block style={[root]}>
-        <Block style={wrapOption}>
+        <Block style={[wrapOption]}>
           {title &&
             (React.isValidElement(title) ? (
               title
@@ -119,14 +120,14 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
                 style={[styles.option]}
                 onPress={_onPress(item, index)}
                 key={item.text}>
-                <Text style={textOption} text={item.text} />
+                <Text style={[textOption]} text={item.text} />
               </Button>
             );
           })}
         </Block>
-        <Block style={wrapCancel}>
+        <Block style={[wrapCancel]}>
           <Button onPress={_onCancel} style={[styles.buttonCancel]}>
-            <Text style={textCancelS} text={textCancel} />
+            <Text style={[textCancelS]} text={textCancel} />
           </Button>
         </Block>
       </Block>

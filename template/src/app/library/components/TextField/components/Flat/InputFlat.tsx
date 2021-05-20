@@ -70,7 +70,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
     onTextChange,
     trigger,
     nameTrigger,
-    inputStyle = {},
+    inputStyle: inputStyleOverwrite = {},
     name = '',
     errorBorderColor = ERROR_COLOR,
     errorLabelColor = ERROR_COLOR,
@@ -83,7 +83,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
     disabled = false,
     error = undefined,
     rightChildren = undefined,
-    containerStyle = {},
+    containerStyle: containerStyleOverwrite = {},
     onChangeText,
     onFocus,
     onBlur,
@@ -214,13 +214,14 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
     [placeholder, placeholderTx, t],
   );
 
-  const inputSty = useMemo(() => enhance([styles.input, inputStyle]), [
-    inputStyle,
-  ]);
+  const inputStyle = useMemo(
+    () => enhance([styles.input, inputStyleOverwrite]),
+    [inputStyleOverwrite],
+  );
 
-  const containerSty = useMemo(
-    () => enhance([styles.container, containerStyle]),
-    [containerStyle],
+  const containerStyle = useMemo(
+    () => enhance([styles.container, containerStyleOverwrite]),
+    [containerStyleOverwrite],
   );
 
   // reanimated style
@@ -241,7 +242,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
   return (
     <Animated.View
       onLayout={_onLayoutContainer}
-      style={[containerSty, containerAnimatedStyle]}>
+      style={[containerStyle, containerAnimatedStyle]}>
       <Block direction={'row'}>
         <TextInput
           defaultValue={localDefaultValue}
@@ -252,7 +253,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
           underlineColorAndroid={'transparent'}
           clearButtonMode={'always'}
           editable={!disabled}
-          style={inputSty}
+          style={[inputStyle]}
           ref={ref}
           {...rest}
           onChangeText={_onChangeText}

@@ -13,8 +13,8 @@ const IconComponent = (props: IconProps) => {
   const {size = SIZE, icon, resizeMode = 'contain', onPress, color} = props;
 
   // style
-  const style: StyleProp<ImageStyle> = useMemo<StyleProp<ImageStyle>>(
-    () => enhance([{width: size, height: size} as StyleProp<ImageStyle>]),
+  const style = useMemo<StyleProp<ImageStyle>>(
+    () => enhance([{width: size, height: size}]),
     [size],
   );
 

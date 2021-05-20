@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {FontSizeTypes} from '@theme/fontSize';
 import {FontFamily} from '@theme/typography';
+import {Colors} from '@config/type';
 
 type FontWeight =
   | 'normal'
@@ -170,6 +171,11 @@ export interface TextProps extends TextProperties {
    * @default undefined
    */
   color?: string;
+
+  /**
+   * Overwrite background color with theme
+   */
+  colorTheme?: keyof Colors;
 
   /**
    * Set true for using textAlign = 'center'

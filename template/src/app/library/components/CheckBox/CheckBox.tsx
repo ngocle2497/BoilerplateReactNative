@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
 const CheckBoxComponent = ({
   fillStyle,
   onToggle,
-  outlineStyle,
+  outlineStyle: outlineStyleOverwrite,
   style,
   text,
   tx,
@@ -57,18 +57,17 @@ const CheckBoxComponent = ({
   const opacity = useMix(progress, 0, 1);
 
   // style
-  const _rootStyle = useMemo(() => enhance([styles.ROOT, style ?? {}]), [
-    style,
-  ]);
+  const rootStyle = useMemo(() => enhance([styles.ROOT, style ?? {}]), [style]);
 
-  const _outlineStyle = useMemo(
-    () => enhance([styles.OUTLINE, outlineStyle ?? {}]),
-    [outlineStyle],
+  const outlineStyle = useMemo(
+    () => enhance([styles.OUTLINE, outlineStyleOverwrite ?? {}]),
+    [outlineStyleOverwrite],
   );
 
-  const _fillStyle = useMemo(() => enhance([styles.FILL, fillStyle ?? {}]), [
-    fillStyle,
-  ]);
+  const _fillStyle = useMemo(
+    () => enhance([styles.FILL, fillStyle ?? {}]),
+    [fillStyle],
+  );
 
   const _labelStyle = useMemo(() => styles.LABEL, []);
 
@@ -94,9 +93,9 @@ const CheckBoxComponent = ({
       preset={'link'}
       disabled={disable}
       onPress={onPress}
-      style={_rootStyle}>
+      style={[rootStyle]}>
       <>
-        <Block style={_outlineStyle}>
+        <Block style={[outlineStyle]}>
           <Animated.View style={[_fillStyle, styleAnimated]} />
         </Block>
         <Text text={text} tx={tx} style={_labelStyle} />
