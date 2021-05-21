@@ -1,10 +1,10 @@
-import {ValidationMap} from '@config/type';
+import {yupResolver} from '@common';
 import {FormLoginType} from '@model/login';
 import React, {memo, useCallback, useMemo} from 'react';
 import isEqual from 'react-fast-compare';
 import {FormProvider, useForm} from 'react-hook-form';
 import {Button} from 'react-native';
-
+import * as yup from 'yup';
 import {Input} from './Input';
 
 interface FormLoginProps {
@@ -13,26 +13,22 @@ interface FormLoginProps {
 
 const FormLoginComponent = ({onSubmit}: FormLoginProps) => {
   // state
-  const formMethod = useForm<FormLoginType>({mode: 'all'});
-  const {password} = formMethod.watch();
-  const isDirty = formMethod.formState.dirtyFields.rePassword;
-
-  const rules = useMemo(
+  const validate = useMemo<yup.SchemaOf<FormLoginType>>(
     () =>
-      ({
-        name: {required: {value: true, message: 'Name is required'}},
-        password: {required: {value: true, message: 'Password is required'}},
-        rePassword: {
-          required: {value: true, message: 'Password is required'},
-          validate: (val: string | undefined) => {
-            return !isDirty || val === password
-              ? undefined
-              : 'Passwords do not match';
-          },
-        },
-      } as ValidationMap<FormLoginType>),
-    [isDirty, password],
+      yup.object().shape({
+        name: yup.string().required('Name is required'),
+        password: yup.string().required('Password is required'),
+        rePassword: yup
+          .string()
+          .required('Confirm password is required')
+          .oneOf([undefined, yup.ref('password')], 'Not Match'),
+      }),
+    [],
   );
+  const formMethod = useForm<FormLoginType>({
+    mode: 'all',
+    resolver: yupResolver(validate),
+  });
 
   // function
   const onSubmitKey = useCallback(() => {
@@ -42,15 +38,9 @@ const FormLoginComponent = ({onSubmit}: FormLoginProps) => {
   // render
   return (
     <FormProvider {...formMethod}>
-      <Input rules={rules.name} name={'name'} label={'Name'} />
+      <Input name={'name'} label={'Name'} />
+      <Input nameTrigger={'rePassword'} name={'password'} label={'Password'} />
       <Input
-        rules={rules.password}
-        nameTrigger={'rePassword'}
-        name={'password'}
-        label={'Password'}
-      />
-      <Input
-        rules={rules.rePassword}
         onSubmit={onSubmitKey}
         name={'rePassword'}
         label={'Confirm Password'}

@@ -1,3 +1,4 @@
+import {dispatch} from '@common';
 import {
   ActionSheet,
   ActionSheetRef,
@@ -22,14 +23,15 @@ import {
   Text,
   TextField,
   TouchableScale,
-  Wallpaper
+  Wallpaper,
 } from '@components';
-import { FormLoginType } from '@model/login';
-import React, { memo, useCallback, useRef, useState } from 'react';
+import {FormLoginType} from '@model/login';
+import {onSetAppTheme} from '@store/app_redux/reducer';
+import React, {memo, useCallback, useRef, useState} from 'react';
 import isEqual from 'react-fast-compare';
-import { Alert } from 'react-native';
-import { FormLogin } from './components/FormLogin';
+import {Alert} from 'react-native';
 
+import {FormLogin} from './components/FormLogin';
 
 const LoginComponent = () => {
   // state
@@ -46,6 +48,7 @@ const LoginComponent = () => {
 
   // function
   const onSubmit = useCallback((data: FormLoginType) => {
+    dispatch(onSetAppTheme('dark'));
     Alert.alert(JSON.stringify(data));
   }, []);
 

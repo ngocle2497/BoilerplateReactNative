@@ -1,4 +1,4 @@
-import {TextField} from '@components';
+import {HelperText, TextField} from '@components';
 import {HookFormRules} from '@config/type';
 import {FormLoginType} from '@model/login';
 import React, {memo} from 'react';
@@ -38,20 +38,27 @@ const InputComponent = ({
   });
   // render
   return (
-    <TextField
-      onSubmit={onSubmit}
-      ref={field.ref}
-      nameTrigger={nameTrigger}
-      trigger={trigger}
-      error={errors[name]?.message !== undefined}
-      label={label}
-      name={name}
-      onChangeText={field.onChange}
-      onBlur={field.onBlur}
-      defaultValue={getValues()[name]}
-      typeInput={'flat'}
-      {...rest}
-    />
+    <>
+      <TextField
+        onSubmit={onSubmit}
+        ref={field.ref}
+        nameTrigger={nameTrigger}
+        trigger={trigger}
+        error={errors[name]?.message !== undefined}
+        label={label}
+        name={name}
+        onChangeText={field.onChange}
+        onBlur={field.onBlur}
+        defaultValue={getValues()[name]}
+        typeInput={'flat'}
+        {...rest}
+      />
+      <HelperText
+        visible={errors[name]?.message !== undefined}
+        msg={errors[name]?.message ?? ''}
+        type={'error'}
+      />
+    </>
   );
 };
 

@@ -13,6 +13,7 @@ export * from './redux';
 export * from './type';
 export * from './date';
 export * from './nativeModule';
+export * from './resolver';
 /**
  * Firebase
  */
