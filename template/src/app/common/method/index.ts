@@ -1,4 +1,4 @@
-import {Alert} from 'react-native';
+import {Alert, Platform} from 'react-native';
 type TypesBase =
   | 'bigint'
   | 'boolean'
@@ -15,3 +15,4 @@ export const onShowErrorBase = (msg: string) => {
 export const onCheckType = (source: any, type: TypesBase) => {
   return typeof source === type;
 };
+export const isIos = Platform.OS === 'ios';

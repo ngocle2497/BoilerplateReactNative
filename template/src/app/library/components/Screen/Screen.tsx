@@ -1,17 +1,14 @@
+import {enhance, isIos} from '@common';
 import React, {memo, useMemo} from 'react';
+import equals from 'react-fast-compare';
 import {
-  KeyboardAvoidingView,
-  Platform,
   ScrollView,
   StatusBar,
   StyleSheet,
+  useWindowDimensions,
 } from 'react-native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
-import equals from 'react-fast-compare';
-import {enhance} from '@common';
-
 import {Block} from '../Block/Block';
-
 import {ScreenProps} from './Screen.props';
 
 const styles = StyleSheet.create({
@@ -39,10 +36,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const isIos = Platform.OS === 'ios';
-
 function ScreenWithoutScrolling(props: ScreenProps) {
+  // state
   const inset = useSafeAreaInsets();
+  const {width: screenWidth, height: screenHeight} = useWindowDimensions();
   const style = props.style || {};
   const {
     hidden = false,
@@ -65,11 +62,9 @@ function ScreenWithoutScrolling(props: ScreenProps) {
 
   const Wrapper = unsafe ? Block : SafeAreaView;
 
+  // render
   return (
-    <KeyboardAvoidingView
-      style={[styles.outer]}
-      behavior={isIos ? 'padding' : undefined}
-      keyboardVerticalOffset={0}>
+    <>
       <StatusBar
         hidden={hidden}
         backgroundColor={statusColor}
@@ -83,7 +78,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
             color={statusColor}
             position={'absolute'}
             height={inset.top}
-            width={'100%'}
+            width={screenWidth}
           />
         )}
       {!unsafe &&
@@ -93,8 +88,8 @@ function ScreenWithoutScrolling(props: ScreenProps) {
             color={leftInsetColor}
             position={'absolute'}
             style={[styles.insetLeft]}
+            height={screenHeight}
             width={inset.left}
-            height={'100%'}
           />
         )}
       {!unsafe &&
@@ -104,8 +99,8 @@ function ScreenWithoutScrolling(props: ScreenProps) {
             color={rightInsetColor}
             position={'absolute'}
             style={[styles.insetRight]}
+            height={screenHeight}
             width={inset.right}
-            height={'100%'}
           />
         )}
       {!unsafe &&
@@ -116,7 +111,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
             style={[styles.insetBottom]}
             position={'absolute'}
             height={inset.bottom}
-            width={'100%'}
+            width={screenWidth}
           />
         )}
       <Wrapper
@@ -124,12 +119,14 @@ function ScreenWithoutScrolling(props: ScreenProps) {
         style={[styles.inner, style, backgroundStyle]}>
         {children}
       </Wrapper>
-    </KeyboardAvoidingView>
+    </>
   );
 }
 
 function ScreenWithScrolling(props: ScreenProps) {
+  // state
   const inset = useSafeAreaInsets();
+  const {width: screenWidth, height: screenHeight} = useWindowDimensions();
   const {
     showHorizontal = false,
     showVertical = false,
@@ -155,11 +152,10 @@ function ScreenWithScrolling(props: ScreenProps) {
   const actualStyle = useMemo(() => enhance([style]), [style]);
 
   const Wrapper = unsafe ? Block : SafeAreaView;
+
+  // render
   return (
-    <KeyboardAvoidingView
-      style={[styles.root]}
-      behavior={isIos ? 'padding' : undefined}
-      keyboardVerticalOffset={0}>
+    <>
       <StatusBar
         hidden={hidden}
         backgroundColor={statusColor}
@@ -173,7 +169,7 @@ function ScreenWithScrolling(props: ScreenProps) {
             color={statusColor}
             position={'absolute'}
             height={inset.top}
-            width={'100%'}
+            width={screenWidth}
           />
         )}
       {!unsafe &&
@@ -183,8 +179,8 @@ function ScreenWithScrolling(props: ScreenProps) {
             color={leftInsetColor}
             position={'absolute'}
             style={[styles.insetLeft]}
+            height={screenHeight}
             width={inset.left}
-            height={'100%'}
           />
         )}
       {!unsafe &&
@@ -194,8 +190,8 @@ function ScreenWithScrolling(props: ScreenProps) {
             color={rightInsetColor}
             position={'absolute'}
             style={[styles.insetRight]}
+            height={screenHeight}
             width={inset.right}
-            height={'100%'}
           />
         )}
       {!unsafe &&
@@ -206,7 +202,7 @@ function ScreenWithScrolling(props: ScreenProps) {
             style={[styles.insetBottom]}
             position={'absolute'}
             height={inset.bottom}
-            width={'100%'}
+            width={screenWidth}
           />
         )}
       <Wrapper edges={forceInset ?? undefined} style={[styles.inner]}>
@@ -216,12 +212,12 @@ function ScreenWithScrolling(props: ScreenProps) {
             showsHorizontalScrollIndicator={showHorizontal}
             keyboardShouldPersistTaps="handled"
             style={[styles.outer, backgroundStyle]}
-            contentContainerStyle={actualStyle}>
+            contentContainerStyle={[actualStyle]}>
             {children}
           </ScrollView>
         </Block>
       </Wrapper>
-    </KeyboardAvoidingView>
+    </>
   );
 }
 

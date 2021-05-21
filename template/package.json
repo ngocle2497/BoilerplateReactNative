@@ -38,6 +38,7 @@
     "react-native-bootsplash": "^3.2.3",
     "react-native-fast-image": "^8.3.4",
     "react-native-gesture-handler": "^1.10.3",
+    "react-native-keyboard-manager": "^6.5.4-1",
     "react-native-modal": "^11.10.0",
     "react-native-reanimated": "^2.1.0",
     "react-native-safe-area-context": "^3.2.0",

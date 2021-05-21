@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
-import {NativeEventEmitter, NativeModules, Platform} from 'react-native';
+import {NativeEventEmitter, NativeModules} from 'react-native';
+import {isIos} from './../method/index';
 const {AppModule} = NativeModules;
 export const getVersion = () => {
   return AppModule.getVersion();
@@ -23,7 +24,7 @@ export const useBlueToothState = () => {
     const subscription = bluetoothEvent.addListener(
       'onUpdateBluetoothStatus',
       state => {
-        setStatus(Platform.OS === 'ios' ? state : state.status === 'on');
+        setStatus(isIos ? state : state.status === 'on');
       },
     );
     return () => {

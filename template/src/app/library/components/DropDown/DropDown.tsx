@@ -1,24 +1,26 @@
+import {useMix, useRadian, useSharedTransition} from '@animated';
+import {enhance, isIos} from '@common';
 import React, {
-  memo,
   forwardRef,
-  useState,
+  memo,
   useCallback,
-  useMemo,
   useEffect,
+  useMemo,
+  useState,
 } from 'react';
-import {
-  StyleSheet,
-  StyleProp,
-  ViewStyle,
-  Platform,
-  LayoutChangeEvent,
-  FlatList,
-  useWindowDimensions,
-  StatusBar,
-  View,
-  ListRenderItemInfo,
-} from 'react-native';
 import isEqual from 'react-fast-compare';
+import {
+  FlatList,
+  LayoutChangeEvent,
+  ListRenderItemInfo,
+  StatusBar,
+  StyleProp,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+  ViewStyle,
+} from 'react-native';
+import Modal from 'react-native-modal';
 import Animated, {
   measure,
   runOnJS,
@@ -26,18 +28,13 @@ import Animated, {
   useAnimatedRef,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import {enhance} from '@common';
-import Modal from 'react-native-modal';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useMix, useRadian, useSharedTransition} from '@animated';
-
 import {Block} from '../Block/Block';
 import {Button} from '../Button/Button';
-import {Text} from '../Text/Text';
 import {Icon} from '../Icon/Icon';
-
-import {DropDownItem} from './DropDownItem';
+import {Text} from '../Text/Text';
 import {DropDownProps, RowDropDown} from './DropDown.props';
+import {DropDownItem} from './DropDownItem';
 
 const styles = StyleSheet.create({
   placeHolder: {
@@ -129,9 +126,8 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   const inset = useSafeAreaInsets();
   const _refDrop = useAnimatedRef<View>();
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedValue, setSelectedValue] = useState<string | Array<string>>(
-    '',
-  );
+  const [selectedValue, setSelectedValue] =
+    useState<string | Array<string>>('');
   const [viewLayout, setViewLayout] = useState({
     width: 0,
     height: 0,
@@ -194,8 +190,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   }, []);
 
   const _onCheckRenderBottom = useCallback((): boolean => {
-    const statusbarHeight =
-      Platform.OS === 'android' ? StatusBar.currentHeight ?? 24 : inset.top;
+    const statusbarHeight = !isIos ? StatusBar.currentHeight ?? 24 : inset.top;
     return (
       deviceH - (viewLayout.y + statusbarHeight + viewLayout.height) >
       dropHeight + 50
@@ -293,7 +288,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
               bottom:
                 deviceH -
                 viewLayout.y -
-                (Platform.OS === 'android' ? StatusBar.currentHeight ?? 24 : 0),
+                (!isIos ? StatusBar.currentHeight ?? 24 : 0),
             },
       ]) as StyleProp<ViewStyle>,
     [dropDownStyle, _onCheckRenderBottom, viewLayout, deviceH],

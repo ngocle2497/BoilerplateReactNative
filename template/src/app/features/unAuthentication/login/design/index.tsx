@@ -22,14 +22,14 @@ import {
   Text,
   TextField,
   TouchableScale,
-  Wallpaper,
+  Wallpaper
 } from '@components';
-import {FormLoginType} from '@model/login';
-import React, {memo, useCallback, useRef, useState} from 'react';
+import { FormLoginType } from '@model/login';
+import React, { memo, useCallback, useRef, useState } from 'react';
 import isEqual from 'react-fast-compare';
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
+import { FormLogin } from './components/FormLogin';
 
-import {FormLogin} from './components/FormLogin';
 
 const LoginComponent = () => {
   // state

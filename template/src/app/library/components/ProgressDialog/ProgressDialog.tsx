@@ -1,23 +1,19 @@
-import React, {
-  memo,
-  useState,
-  forwardRef,
-  useImperativeHandle,
-  useCallback,
-} from 'react';
-import {
-  StyleSheet,
-  ActivityIndicator,
-  Platform,
-  Dimensions,
-} from 'react-native';
-import Modal from 'react-native-modal';
-import equals from 'react-fast-compare';
+import {isIos} from '@common';
 import {AppTheme} from '@config/type';
 import {useTheme} from '@react-navigation/native';
-
-import {Text} from '../Text/Text';
+import React, {
+  forwardRef,
+  memo,
+  useCallback,
+  useImperativeHandle,
+  useState,
+} from 'react';
+import equals from 'react-fast-compare';
+import {ActivityIndicator, Dimensions, StyleSheet} from 'react-native';
+import Modal from 'react-native-modal';
 import {Block} from '../Block/Block';
+import {Text} from '../Text/Text';
+
 const {width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
@@ -104,19 +100,12 @@ const ProgressDialogComponent = forwardRef((props, ref) => {
       animationOut={'fadeOut'}>
       <Block style={[styles.contentModal]}>
         <Block
-          style={[
-            Platform.OS === 'android'
-              ? styles.wrapDialogRow
-              : styles.wrapDialogColumn,
-          ]}>
+          style={[!isIos ? styles.wrapDialogRow : styles.wrapDialogColumn]}>
           <ActivityIndicator
-            color={Platform.OS === 'android' ? theme.colors.primary : '#ffffff'}
+            color={!isIos ? theme.colors.primary : '#ffffff'}
           />
           {message && (
-            <Text
-              style={[
-                Platform.OS === 'android' ? styles.textMsg : styles.textMsgIOS,
-              ]}>
+            <Text style={[!isIos ? styles.textMsg : styles.textMsgIOS]}>
               {message}
             </Text>
           )}

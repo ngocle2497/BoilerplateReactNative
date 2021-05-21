@@ -1,22 +1,22 @@
-import React, {useEffect} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {useSelector, RXStore, dispatch} from '@common';
+import {dispatch, isIos, RXStore, useSelector} from '@common';
 import {AnimProcess, ProgressDialog, SnackBar} from '@components';
+import {AppMode} from '@library/components/AppMode/AppMode';
+import {ImageTransition} from '@library/components/LightBox/ImageTransition';
+import {NavigationContainer} from '@react-navigation/native';
+import {onLoadApp} from '@store/app_redux/reducer';
+import {MyAppTheme} from '@theme';
 import {
-  dialogHolder,
   animProgressHolder,
+  dialogHolder,
   hideLoading,
+  imageTransitionHolder,
   showLoading,
   snackBarHolder,
-  imageTransitionHolder,
 } from '@utils';
-import {onLoadApp} from '@store/app_redux/reducer';
-import {AppMode} from '@library/components/AppMode/AppMode';
-import {MyAppTheme} from '@theme';
-import {ImageTransition} from '@library/components/LightBox/ImageTransition';
-
-import {RootNavigation} from './RootNavigator';
+import React, {useEffect} from 'react';
+import KeyboardManager from 'react-native-keyboard-manager';
 import {navigationRef} from './navigationService';
+import {RootNavigation} from './RootNavigator';
 
 export const AppContainer = () => {
   // state
@@ -34,6 +34,16 @@ export const AppContainer = () => {
       hideLoading();
     }
   }, [showDialog]);
+
+  useEffect(() => {
+    if (isIos) {
+      if (theme === 'dark') {
+        KeyboardManager.setKeyboardAppearance('dark');
+      } else {
+        KeyboardManager.setKeyboardAppearance('light');
+      }
+    }
+  }, [theme]);
 
   // render
   return (
