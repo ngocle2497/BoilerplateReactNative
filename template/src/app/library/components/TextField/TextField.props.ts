@@ -1,4 +1,5 @@
 import React from 'react';
+import {UseFormTrigger} from 'react-hook-form';
 import {StyleProp, TextInputProps, TextStyle, ViewStyle} from 'react-native';
 
 export interface InputBaseProps extends TextInputProps {
@@ -34,7 +35,7 @@ export interface InputBaseProps extends TextInputProps {
   /**
    * Call trigger react hook form
    */
-  trigger?: (name: string | any) => void;
+  trigger?: UseFormTrigger<any>;
 
   /**
    * function pass to last input of form when click return key

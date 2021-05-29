@@ -46,7 +46,7 @@ export const MyApp = () => {
     <SafeAreaProvider>
       <Provider store={store}>
         <I18nextProvider i18n={I18n}>
-          <Suspense fallback={<View />}>
+          <Suspense fallback={null}>
             <Transitioning.View
               style={styles.root}
               transition={transition}
