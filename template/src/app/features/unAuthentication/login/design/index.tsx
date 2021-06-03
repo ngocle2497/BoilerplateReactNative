@@ -23,6 +23,8 @@ import {
   Text,
   TextField,
   TouchableScale,
+  Transition,
+  useAnimationState,
   Wallpaper,
 } from '@components';
 import {FormLoginType} from '@model/login';
@@ -30,12 +32,20 @@ import {onSetAppTheme} from '@store/app_redux/reducer';
 import React, {memo, useCallback, useRef, useState} from 'react';
 import isEqual from 'react-fast-compare';
 import {Alert} from 'react-native';
-
+import {Easing} from 'react-native-reanimated';
 import {FormLogin} from './components/FormLogin';
 
 const LoginComponent = () => {
   // state
   const _modalMode = useRef<ModalAppModeRef>();
+  const animationState = useAnimationState({
+    from: {translateX: 0, opacity: 0},
+    to: {translateX: 80, opacity: 1},
+    other: {
+      translateX: 10,
+      opacity: 0.2,
+    },
+  });
   const _refAction = useRef<ActionSheetRef>();
   const [visible, setVisible] = useState<boolean>(false);
   const [selectedRadio, setSelectedRadio] = useState<boolean>(false);
@@ -69,6 +79,26 @@ const LoginComponent = () => {
         scroll={true}
         backgroundColor={'transparent'}>
         <FormLogin onSubmit={onSubmit} />
+        <Block alignItems={'flex-start'}>
+          <Transition.View
+            from={{translateX: 0}}
+            animate={{translateX: 80}}
+            transition={{
+              loop: true,
+              type: 'timing',
+              duration: 1000,
+              easing: Easing.inOut(Easing.ease),
+            }}
+            delay={500}>
+            <Block
+              width={50}
+              height={50}
+              alignSelf={'center'}
+              color={'violet'}
+              borderRadius={10}
+            />
+          </Transition.View>
+        </Block>
         <Block width={150} height={150}>
           <LightBox source={{uri: 'https://picsum.photos/id/11/400/400'}} />
         </Block>
