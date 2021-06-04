@@ -3,9 +3,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#if RCT_DEV
-#import <React/RCTDevLoadingView.h>
-#endif
+
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
 #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
@@ -29,28 +27,26 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-if (![[NSUserDefaults standardUserDefaults] objectForKey:@"FirstRun"]) {
-    // Delete all keychain of this application
-    NSArray *secItemClasses = @[(__bridge id)kSecClassGenericPassword,
-                                (__bridge id)kSecClassInternetPassword,
-                                (__bridge id)kSecClassCertificate,
-                                (__bridge id)kSecClassKey,
-                                (__bridge id)kSecClassIdentity];
-    for (id secItemClass in secItemClasses) {
-      NSDictionary *spec = @{(__bridge id)kSecClass: secItemClass};
-      SecItemDelete((__bridge CFDictionaryRef)spec);
+  if (![[NSUserDefaults standardUserDefaults] objectForKey:@"FirstRun"]) {
+      // Delete all keychain of this application
+      NSArray *secItemClasses = @[(__bridge id)kSecClassGenericPassword,
+                                  (__bridge id)kSecClassInternetPassword,
+                                  (__bridge id)kSecClassCertificate,
+                                  (__bridge id)kSecClassKey,
+                                  (__bridge id)kSecClassIdentity];
+      for (id secItemClass in secItemClasses) {
+        NSDictionary *spec = @{(__bridge id)kSecClass: secItemClass};
+        SecItemDelete((__bridge CFDictionaryRef)spec);
+      }
+      [[NSUserDefaults standardUserDefaults] setValue:@"1strun" forKey:@"FirstRun"];
+      [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    [[NSUserDefaults standardUserDefaults] setValue:@"1strun" forKey:@"FirstRun"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-  }
+  
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
-#if RCT_DEV
-  [bridge moduleForClass:[RCTDevLoadingView class]];
-#endif
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"HelloWorld"
                                             initialProperties:nil];

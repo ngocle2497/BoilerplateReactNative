@@ -1,14 +1,6 @@
 //
-//  HelloWorld-Bridging-Header.h
-//  HelloWorld
-//
-//  Created by HNgocL on 3/29/21.
+//  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
-#ifndef HelloWorld_Bridging_Header_h
-#define HelloWorld_Bridging_Header_h
-
-
-#endif /* HelloWorld_Bridging_Header_h */
 #import "React/RCTBridgeModule.h"
 #import "React/RCTEventEmitter.h"

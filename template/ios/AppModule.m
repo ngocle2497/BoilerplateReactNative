@@ -2,7 +2,7 @@
 //  AppModule.m
 //  HelloWorld
 //
-//  Created by HNgocL on 3/29/21.
+//  Created by HNgocL on 6/4/21.
 //
 
 #import <Foundation/Foundation.h>
@@ -17,3 +17,4 @@ RCT_EXTERN__BLOCKING_SYNCHRONOUS_METHOD(getDeviceId)
 RCT_EXTERN__BLOCKING_SYNCHRONOUS_METHOD(getDeviceType)
 RCT_EXTERN__BLOCKING_SYNCHRONOUS_METHOD(getBluetoothState)
 @end
+
