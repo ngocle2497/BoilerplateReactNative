@@ -145,24 +145,6 @@ export interface DropDownProps
   multipleText?: string;
 
   /**
-   * Shows a TextInput to search for specific items.
-   * @default true
-   */
-  searchable?: boolean;
-
-  /**
-   * Additional styles for the TextInput.
-   * @default undefined
-   */
-  searchableStyle?: boolean;
-
-  /**
-   * Shows a message when nothing found.
-   * @default 'Not Found'
-   */
-  searchableError?: boolean;
-
-  /**
    * Fires when you open the picker.
    * @default undefined
    */
@@ -178,5 +160,5 @@ export interface DropDownProps
    * Callback which returns item and index. The item is the selected object or an array of the selected values.
    *  @default undefined
    */
-  onChangeItem?: (item: string, index: number) => void;
+  onChangeItem?: (item: string | string[], index: number | number[]) => void;
 }

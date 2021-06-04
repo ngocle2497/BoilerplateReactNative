@@ -1,5 +1,5 @@
 import {useMix, useRadian, useSharedTransition} from '@animated';
-import {enhance, isIos} from '@common';
+import {enhance, isIos, onCheckType} from '@common';
 import React, {
   forwardRef,
   memo,
@@ -119,6 +119,12 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
     placeHolder = 'Select an item',
     multiple = false,
     multipleText = '%d items have been selected',
+    onClose,
+    onOpen,
+    onChangeItem,
+    disabled,
+    showArrow = true,
+    labelStyle,
   } = props;
 
   // state
@@ -149,7 +155,6 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
       } else {
         setSelectedValue(value === selectedValue ? '' : value);
       }
-      setIsVisible(false);
     },
     [multiple, selectedValue],
   );
@@ -166,21 +171,33 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
     [multiple, selectedValue],
   );
 
-  const _renderItem = ({item}: ListRenderItemInfo<RowDropDown>) => {
-    return (
-      <DropDownItem
-        {...{
-          item,
-          onPressItem,
-          activeItemStyle,
-          containerStyleItem,
-          activeLabelStyle,
-          customTickIcon,
-          selected: _onCheckSelected(item),
-        }}
-      />
-    );
-  };
+  const _renderItem = useCallback(
+    ({item}: ListRenderItemInfo<RowDropDown>) => {
+      return (
+        <DropDownItem
+          {...{
+            item,
+            onPressItem,
+            activeItemStyle,
+            containerStyleItem,
+            activeLabelStyle,
+            customTickIcon,
+            labelStyle,
+            selected: _onCheckSelected(item),
+          }}
+        />
+      );
+    },
+    [
+      onPressItem,
+      activeItemStyle,
+      containerStyleItem,
+      activeLabelStyle,
+      customTickIcon,
+      labelStyle,
+      _onCheckSelected,
+    ],
+  );
 
   const _keyExtractor = useCallback((item: RowDropDown) => item.value, []);
 
@@ -249,6 +266,28 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
     }
   }, [defaultValue, multiple]);
 
+  useEffect(() => {
+    if (onChangeItem && onCheckType(onChangeItem, 'function')) {
+      if (Array.isArray(selectedValue)) {
+        onChangeItem(
+          selectedValue,
+          data.reduce((prev, current, _, arr) => {
+            const index = arr.findIndex(x => x.value === current.value);
+            if (index >= 0) {
+              prev.push(index);
+            }
+            return prev;
+          }, [] as number[]),
+        );
+      } else {
+        onChangeItem(
+          selectedValue,
+          data.findIndex(x => x.value === selectedValue),
+        );
+      }
+    }
+  }, [selectedValue]);
+
   // style
   const wrapStyle = useMemo(
     () =>
@@ -306,18 +345,19 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   return (
     <>
       <View ref={_refDrop} style={wrapStyle}>
-        <Button preset={'link'} onPress={_onToggle}>
+        <Button preset={'link'} onPress={_onToggle} disabled={disabled}>
           <Block style={container} direction={'row'}>
             <Text style={textPlaceHolderStyle} numberOfLines={1}>
               {getTextPlaceHolder()}
             </Text>
-            {renderArrow ? (
-              renderArrow(progress)
-            ) : (
-              <Animated.View style={[arrowStyle]}>
-                <Icon icon={'arrow_down'} />
-              </Animated.View>
-            )}
+            {showArrow &&
+              (renderArrow ? (
+                renderArrow(progress)
+              ) : (
+                <Animated.View style={[arrowStyle]}>
+                  <Icon icon={'arrow_down'} />
+                </Animated.View>
+              ))}
           </Block>
         </Button>
       </View>
@@ -328,6 +368,8 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
         animationOutTiming={100}
         onBackButtonPress={_onHideDrop}
         onBackdropPress={_onHideDrop}
+        onModalShow={onOpen}
+        onModalHide={onClose}
         removeClippedSubviews={true}
         animationIn={'fadeIn'}
         animationOut={'fadeOut'}
@@ -362,3 +404,6 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
 });
 
 export const DropDown = memo(DropDownComponent, isEqual);
+const a = () => {
+  return <DropDown data={[]} onChangeItem={(item, index) => {}} />;
+};

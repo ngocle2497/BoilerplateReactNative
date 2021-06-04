@@ -31,10 +31,7 @@ type RXStoreType = {
 
 const storeRef = createRef<RXStoreType>();
 
-export const RXStore = memo(
-  () => <RXStoreComponent ref={storeRef} />,
-  isEqual,
-);
+export const RXStore = memo(() => <RXStoreComponent ref={storeRef} />, isEqual);
 
 export const dispatch = (action: ActionBase) => {
   if (storeRef.current) {
