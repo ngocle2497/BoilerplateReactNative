@@ -1,9 +1,7 @@
-import {ResponseBase} from '@config/type';
+import {onCheckType} from '@common';
 import {ServiceSaga} from '@networking';
 import {Action} from 'redux';
 import {call, put} from 'redux-saga/effects';
-import {onCheckType} from '@common';
-
 import {actions} from '../redux/reducer';
 
 export function* onLogin(action: Action) {

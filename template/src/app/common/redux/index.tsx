@@ -1,9 +1,11 @@
 import {RootState} from '@store/allReducers';
-import React, {forwardRef, createRef, memo, useImperativeHandle} from 'react';
+import React, {createRef, forwardRef, memo, useImperativeHandle} from 'react';
 import isEqual from 'react-fast-compare';
 import {useDispatch} from 'react-redux';
 import {Action} from 'redux';
+
 import {useSelector} from '../hooks';
+
 type ActionBase = Action<string>;
 
 const RXStoreComponent = forwardRef((props, ref) => {

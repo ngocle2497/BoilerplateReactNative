@@ -12,10 +12,6 @@ import {Block} from '../Block/Block';
 import {ScreenProps} from './Screen.props';
 
 const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    backgroundColor: 'transparent',
-  },
   outer: {
     backgroundColor: 'transparent',
     flex: 1,

@@ -1,4 +1,3 @@
-import {Resolver} from './type';
 import {
   appendErrors,
   Field,
@@ -9,6 +8,8 @@ import {
   set,
 } from 'react-hook-form';
 import Yup from 'yup';
+
+import {Resolver} from './type';
 
 const toNestError = <TFieldValues>(
   errors: Record<string, FieldError>,
@@ -36,7 +37,7 @@ const parseErrorSchema = (
     }
 
     if (validateAllFieldCriteria) {
-      const types = previous[error.path!].types;
+      const {types} = previous[error.path!];
       const messages = types && types[error.type!];
 
       previous[error.path!] = appendErrors(
