@@ -101,7 +101,7 @@ export function getTimeDifference(date: Date | string): {
   const monthTime = 60 * 60 * 24 * 30;
   const dayTime = 60 * 60 * 24;
   const hourTime = 60 * 60;
-  const minutesTime = 60 * 60;
+  const minutesTime = 60;
 
   const yearCalculator = Math.floor(timeDifference / yearTime);
   const monthCalculator = Math.floor(timeDifference / monthTime);
