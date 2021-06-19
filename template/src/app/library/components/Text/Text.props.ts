@@ -173,7 +173,7 @@ export interface TextProps extends TextProperties {
   color?: string;
 
   /**
-   * Overwrite background color with theme
+   * Overwrite color with theme
    */
   colorTheme?: keyof Colors;
 

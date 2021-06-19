@@ -1,3 +1,5 @@
+/* eslint-disable prefer-destructuring */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {useCallback, useEffect} from 'react';
 import type {TransformsStyle} from 'react-native';
 import Animated, {
@@ -10,6 +12,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
+
 import {Transforms, TransitionConfig, TransitionProps} from './types';
 
 const isColor = (styleKey: string) => {
@@ -76,7 +79,9 @@ function animationConfig<Animate>(
   let repeatReverse = true;
 
   let animationType: Required<TransitionConfig>['type'] = 'spring';
-  if (isColor(key) || key === 'opacity') animationType = 'timing';
+  if (isColor(key) || key === 'opacity') {
+    animationType = 'timing';
+  }
 
   // say that we're looking at `width`
   // first, check if we have transition.width.type
@@ -120,10 +125,10 @@ function animationConfig<Animate>(
         ?.easing ?? (transition as Animated.WithTimingConfig)?.easing;
 
     if (easing) {
-      config['easing'] = easing;
+      config.easing = easing;
     }
     if (duration != null) {
-      config['duration'] = duration;
+      config.duration = duration;
     }
     animation = withTiming;
   } else if (animationType === 'spring') {
@@ -201,7 +206,7 @@ export default function useMapAnimateToStyle<Animate>({
 
     // use forEach instead!
 
-    let transition = transitionProp;
+    const transition = transitionProp;
     Object.keys(mergedStyles).forEach(key => {
       const initialValue = initialStyle[key];
       const value = mergedStyles[key];
@@ -296,15 +301,14 @@ export default function useMapAnimateToStyle<Animate>({
 
         if (isTransform(key)) {
           // we have a sequence of transforms
-          final['transform'] = final['transform'] || [];
+          final.transform = final.transform || [];
 
           if (sequence.length) {
             const transform = {} as any;
 
             transform[key] = withSequence(sequence[0], ...sequence.slice(1));
 
-            // @ts-ignore
-            final['transform'].push(transform);
+            final.transform.push(transform);
           }
         } else {
           // we have a normal sequence of items
@@ -314,7 +318,7 @@ export default function useMapAnimateToStyle<Animate>({
           }
         }
       } else if (isTransform(key)) {
-        final['transform'] = final['transform'] || [];
+        final.transform = final.transform || [];
         // const transformKey = Object.keys(transformProp)[0]
         // const transformValue = transformProp[transformKey]
 
@@ -333,8 +337,7 @@ export default function useMapAnimateToStyle<Animate>({
           transform[key] = finalValue;
         }
 
-        // @ts-ignore
-        final['transform'].push(transform);
+        final.transform.push(transform);
       } else if (typeof value === 'object') {
         // shadows
         final[key] = {};

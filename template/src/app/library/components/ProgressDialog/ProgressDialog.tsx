@@ -11,6 +11,7 @@ import React, {
 import equals from 'react-fast-compare';
 import {ActivityIndicator, Dimensions, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
+
 import {Block} from '../Block/Block';
 import {Text} from '../Text/Text';
 

@@ -1,3 +1,5 @@
+import {Colors} from '@config/type';
+
 export interface HelperTextProps {
   /**
    * Show text or not
@@ -14,4 +16,16 @@ export interface HelperTextProps {
    * Text for text component
    */
   msg: string;
+
+  /**
+   * Overwrite color error with theme
+   * @default undefined
+   */
+  colorThemeError?: keyof Colors;
+
+  /**
+   * Overwrite color info with theme
+   * @default undefined
+   */
+  colorThemeInfo?: keyof Colors;
 }

@@ -1,4 +1,5 @@
 import {IconTypes} from '@assets/icon';
+import {Colors} from '@config/type';
 import {ResizeMode} from 'react-native-fast-image';
 export interface IconProps {
   /**
@@ -12,6 +13,11 @@ export interface IconProps {
    * @default undefined
    */
   color?: string;
+
+  /**
+   * Overwrite tint color with theme
+   */
+  colorTheme?: keyof Colors;
 
   /**
    * Allow onPress to icon

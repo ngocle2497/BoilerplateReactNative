@@ -1,4 +1,4 @@
-import React, {useMemo, useCallback, useState} from 'react';
+import React, {useMemo, useCallback, useState, useEffect} from 'react';
 import {StyleSheet} from 'react-native';
 import equals from 'react-fast-compare';
 import {SpacingDefault} from '@theme/spacing';
@@ -73,12 +73,17 @@ const CheckBoxComponent = ({
 
   // function
   const onPress = useCallback(() => {
-    if (typeof value === 'boolean' && onCheckType(onToggle, 'function')) {
-      onToggle && onToggle(!value);
+    if (typeof value === 'boolean') {
+      if (onCheckType(onToggle, 'function')) {
+        onToggle && onToggle(!value);
+      }
     } else {
+      if (onCheckType(onToggle, 'function')) {
+        onToggle && onToggle(!localValue);
+      }
       setLocalValue(v => !v);
     }
-  }, [onToggle, value]);
+  }, [localValue, onToggle, value]);
 
   // reanimated style
   const styleAnimated = useAnimatedStyle(() => ({

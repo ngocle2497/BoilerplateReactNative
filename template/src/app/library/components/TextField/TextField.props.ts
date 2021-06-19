@@ -13,7 +13,7 @@ export interface InputBaseProps extends TextInputProps {
    * Input invalid or not
    * @default false
    */
-  error?: any;
+  error?: boolean;
 
   /**
    * Label title of input

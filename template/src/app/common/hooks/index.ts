@@ -66,7 +66,7 @@ function useNetWorkStatus(): NetInfoTuple {
   const [canAccess, setCanAccess] = useState<boolean>(false);
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state: NetInfoState) => {
-      setStatus(state.isConnected);
+      setStatus(state.isConnected ?? false);
       setCanAccess(state.isInternetReachable ?? false);
     });
     return () => {
@@ -185,11 +185,10 @@ function useBoolean(initial: boolean): UseBoolean {
   const toggle = useCallback(() => setValue(v => !v), []);
   const setTrue = useCallback(() => setValue(true), []);
   const setFalse = useCallback(() => setValue(false), []);
-  const actions = useMemo(() => ({setValue, toggle, setTrue, setFalse}), [
-    setFalse,
-    setTrue,
-    toggle,
-  ]);
+  const actions = useMemo(
+    () => ({setValue, toggle, setTrue, setFalse}),
+    [setFalse, setTrue, toggle],
+  );
   return useMemo(() => [value, actions], [actions, value]);
 }
 

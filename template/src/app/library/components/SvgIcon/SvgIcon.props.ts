@@ -1,4 +1,5 @@
 import {SvgIconTypes} from '@assets/svgIcon';
+import {Colors} from '@config/type';
 
 export interface SvgIconProps {
   /**
@@ -18,6 +19,11 @@ export interface SvgIconProps {
    * @default #000
    */
   color?: string;
+
+  /**
+   * Overwrite fill color with theme
+   */
+  colorTheme?: keyof Colors;
 
   /**
    * Function press icon

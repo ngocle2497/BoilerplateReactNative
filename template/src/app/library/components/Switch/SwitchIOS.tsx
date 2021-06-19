@@ -52,12 +52,13 @@ const SwitchComponent = ({
   onToggle,
   initialValue = false,
   disable = false,
+  value: overwriteValue,
 }: Omit<SwitchProps, 'type'>) => {
   // state
   const [value, setValue] = useState<boolean>(initialValue);
 
   // reanimated
-  const progress = useSharedTransition(value);
+  const progress = useSharedTransition(overwriteValue ?? value);
   const opacity = useMix(useSharedTransition(disable), 1, 0.5);
   const translateX = useInterpolate(
     progress,
@@ -73,15 +74,17 @@ const SwitchComponent = ({
 
   // function
   const _onToggle = useCallback(() => {
-    setValue(v => !v);
-  }, []);
-
-  // effect
-  useEffect(() => {
-    if (onToggle && onCheckType(onToggle, 'function')) {
-      onToggle(value);
+    if (typeof overwriteValue === 'boolean') {
+      if (onCheckType(onToggle, 'function')) {
+        onToggle && onToggle(!overwriteValue);
+      }
+    } else {
+      if (onCheckType(onToggle, 'function')) {
+        onToggle && onToggle(!value);
+      }
+      setValue(v => !v);
     }
-  }, [onToggle, value]);
+  }, [onToggle, overwriteValue, value]);
 
   // reanimated style
   const animatedTrackStyle = useAnimatedStyle(() => ({

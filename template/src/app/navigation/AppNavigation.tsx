@@ -15,6 +15,7 @@ import {
 } from '@utils';
 import React, {useEffect} from 'react';
 import KeyboardManager from 'react-native-keyboard-manager';
+
 import {navigationRef} from './navigationService';
 import {RootNavigation} from './RootNavigator';
 

@@ -5,6 +5,7 @@ import isEqual from 'react-fast-compare';
 import {FormProvider, useForm} from 'react-hook-form';
 import {Button} from 'react-native';
 import * as yup from 'yup';
+
 import {Input} from './Input';
 
 interface FormLoginProps {

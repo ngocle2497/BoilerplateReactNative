@@ -54,7 +54,7 @@ export interface InjectorProps {
   children?: React.ReactChild;
   defaultComponent: React.ElementType;
   defaultProps?: any;
-  injectant?: () => void;
+  injectant?: () => React.ReactElement;
   injectantProps?: any;
 }
 export interface ObjectColumn {

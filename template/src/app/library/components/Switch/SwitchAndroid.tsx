@@ -87,15 +87,17 @@ const SwitchComponent = ({
 
   // function
   const _onToggle = useCallback(() => {
-    if (
-      typeof overwriteValue === 'boolean' &&
-      onCheckType(onToggle, 'function')
-    ) {
-      onToggle && onToggle(!overwriteValue);
+    if (typeof overwriteValue === 'boolean') {
+      if (onCheckType(onToggle, 'function')) {
+        onToggle && onToggle(!overwriteValue);
+      }
     } else {
+      if (onCheckType(onToggle, 'function')) {
+        onToggle && onToggle(!value);
+      }
       setValue(v => !v);
     }
-  }, [onToggle, overwriteValue]);
+  }, [onToggle, overwriteValue, value]);
 
   // reanimated style
   const wrapAnimatedStyle = useAnimatedStyle(() => ({

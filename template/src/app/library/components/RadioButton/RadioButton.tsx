@@ -49,12 +49,17 @@ const RadioButtonComponent = (props: RadioButtonProps) => {
 
   // function
   const _onPress = useCallback(() => {
-    if (onToggle && onCheckType(onToggle, 'function')) {
-      onToggle(!value);
+    if (typeof value === 'boolean') {
+      if (onCheckType(onToggle, 'function')) {
+        onToggle && onToggle(!value);
+      }
     } else {
+      if (onCheckType(onToggle, 'function')) {
+        onToggle && onToggle(!localValue);
+      }
       setLocalValue(v => !v);
     }
-  }, [onToggle, value]);
+  }, [localValue, onToggle, value]);
 
   // style
   const wrapStyle = useMemo(

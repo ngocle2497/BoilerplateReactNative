@@ -124,6 +124,8 @@ const TextComponent = (props: TextProps) => {
       width,
       height,
       color,
+      colorTheme,
+      theme.colors,
       center,
       textAlign,
       alignItems,
@@ -134,7 +136,6 @@ const TextComponent = (props: TextProps) => {
       letterSpacing,
       lineHeight,
       styleOverride,
-      theme.colors,
     ],
   );
   // render

@@ -91,7 +91,7 @@ const Spacing = () => {
     </>
   );
 };
-const ModalAppModeComponent = forwardRef((_: any, ref: any) => {
+const ModalAppModeComponent = forwardRef((_, ref) => {
   // state
   const {appMode} = useSelector(x => x.app);
   const [isVisible, setIsVisible] = useState(false);

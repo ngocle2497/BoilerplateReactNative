@@ -1,9 +1,11 @@
-import React, {useMemo, memo, useState, useEffect} from 'react';
-import {StyleSheet} from 'react-native';
+import {useInterpolate, useMix, useSharedTransition} from '@animated';
 import {enhance} from '@common';
-import equals from 'react-fast-compare';
+import {AppTheme} from '@config/type';
+import {useTheme} from '@react-navigation/native';
 import {ColorDefault} from '@theme/color';
-import {useSharedTransition, useMix, useRadian} from '@animated';
+import React, {memo, useCallback, useEffect, useMemo, useState} from 'react';
+import equals from 'react-fast-compare';
+import {LayoutChangeEvent, LayoutRectangle, StyleSheet} from 'react-native';
 import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 
 import {Block} from '../Block/Block';
@@ -20,35 +22,54 @@ const styles = StyleSheet.create({
     width: '100%',
     overflow: 'hidden',
   },
-  textInfo: {
-    color: ColorDefault.info,
-  },
-  textError: {
-    color: ColorDefault.error,
-  },
   text: {
     fontWeight: 'normal',
+  },
+  hiddenView: {
+    position: 'absolute',
+    zIndex: -999,
+    opacity: 0,
+    overflow: 'hidden',
   },
 });
 
 const HelperTextComponent = (props: HelperTextProps) => {
   // state
-  const {visible = false, msg, type} = props;
+  const {visible = false, msg, type, colorThemeError, colorThemeInfo} = props;
+  const theme: AppTheme = useTheme();
+  const [measured, setMeasured] = useState<LayoutRectangle>({
+    height: 0,
+    width: 0,
+    x: 0,
+    y: 0,
+  });
   const [currentMessage, setCurrentMessage] = useState<string>(msg ?? '');
   const progress = useSharedTransition(visible);
-  const translateY = useMix(progress, -5, 0);
-  const translateX = useMix(progress, -5, 0);
-  const opacity = useMix(progress, 0, 1);
-  const rotateX = useRadian(useMix(progress, 90, 0));
+  const height = useInterpolate(progress, [0, 1], [0, measured.height]);
+
+  // function
+  const _onLayoutContent = useCallback((e: LayoutChangeEvent) => {
+    setMeasured(e.nativeEvent.layout);
+  }, []);
 
   // style
   const textStyle = useMemo(
     () =>
       enhance([
         styles.text,
-        type === 'error' ? styles.textError : styles.textInfo,
+        type === 'error'
+          ? {
+              color: colorThemeError
+                ? theme.colors[colorThemeError]
+                : ColorDefault.error,
+            }
+          : {
+              color: colorThemeInfo
+                ? theme.colors[colorThemeInfo]
+                : ColorDefault.info,
+            },
       ]),
-    [type],
+    [colorThemeError, colorThemeInfo, theme.colors, type],
   );
 
   // effect
@@ -60,17 +81,21 @@ const HelperTextComponent = (props: HelperTextProps) => {
 
   // reanimated style
   const style = useAnimatedStyle(() => ({
-    opacity: opacity.value,
-    transform: [
-      {translateX: translateX.value},
-      {translateY: translateY.value},
-      {rotateX: rotateX.value},
-    ],
+    height: height.value,
+    overflow: 'hidden',
   }));
 
   // render
   return (
     <Block style={[styles.container]}>
+      <Animated.View
+        pointerEvents={'none'}
+        onLayout={_onLayoutContent}
+        style={[styles.hiddenView]}>
+        <Text numberOfLines={1} style={[styles.text]}>
+          {currentMessage}
+        </Text>
+      </Animated.View>
       <Animated.View style={[style]}>
         <Text numberOfLines={1} style={[textStyle]}>
           {currentMessage}

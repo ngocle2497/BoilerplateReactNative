@@ -46,7 +46,7 @@ const appSlice = createSlice({
     onSetToken: (state, {payload}: PayloadAction<string>) => {
       state.token = payload;
     },
-    onSetAppProfile: (state, {payload}: PayloadAction<any>) => {
+    onSetAppProfile: (state, {payload}: PayloadAction<unknown>) => {
       state.profile = payload;
     },
     onSetAppTheme: (state, {payload}: PayloadAction<ThemeType>) => {

@@ -33,6 +33,7 @@ import React, {memo, useCallback, useRef, useState} from 'react';
 import isEqual from 'react-fast-compare';
 import {Alert} from 'react-native';
 import {Easing} from 'react-native-reanimated';
+
 import {FormLogin} from './components/FormLogin';
 
 const LoginComponent = () => {
@@ -166,7 +167,7 @@ const LoginComponent = () => {
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Radio Button</Text>
           <Spacer width={10} />
-          <RadioButton value={selectedRadio} onToggle={setSelectedRadio} />
+          <RadioButton />
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Slider Linear</Text>

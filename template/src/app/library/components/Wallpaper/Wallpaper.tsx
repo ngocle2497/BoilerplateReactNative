@@ -3,7 +3,9 @@ import React, {memo, useMemo} from 'react';
 import equals from 'react-fast-compare';
 import {StyleProp, useWindowDimensions} from 'react-native';
 import {ImageStyle} from 'react-native-fast-image';
+
 import {Img} from '../Image/Image';
+
 import {presets} from './Wallpaper.presets';
 import {WallpaperProps} from './Wallpaper.props';
 

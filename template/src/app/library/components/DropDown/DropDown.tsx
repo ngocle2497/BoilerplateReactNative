@@ -29,10 +29,12 @@ import Animated, {
   useAnimatedStyle,
 } from 'react-native-reanimated';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+
 import {Block} from '../Block/Block';
 import {Button} from '../Button/Button';
 import {Icon} from '../Icon/Icon';
 import {Text} from '../Text/Text';
+
 import {DropDownProps, RowDropDown} from './DropDown.props';
 import {DropDownItem} from './DropDownItem';
 
@@ -132,8 +134,9 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   const inset = useSafeAreaInsets();
   const _refDrop = useAnimatedRef<View>();
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedValue, setSelectedValue] =
-    useState<string | Array<string>>('');
+  const [selectedValue, setSelectedValue] = useState<string | Array<string>>(
+    '',
+  );
   const [viewLayout, setViewLayout] = useState({
     width: 0,
     height: 0,

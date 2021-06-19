@@ -8,7 +8,9 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+
 import {Block} from '../Block/Block';
+
 import {ScreenProps} from './Screen.props';
 
 const styles = StyleSheet.create({

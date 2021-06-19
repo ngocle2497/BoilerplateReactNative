@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable max-len */
 import type Animated from 'react-native-reanimated';
-
 import type {
   PerpectiveTransform,
   RotateTransform,

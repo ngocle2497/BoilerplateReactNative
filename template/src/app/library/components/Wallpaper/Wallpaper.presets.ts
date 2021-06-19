@@ -9,10 +9,10 @@ const BASE: ImageStyle = {
 };
 
 export const presets = {
-  stretch: ({
+  stretch: {
     ...BASE,
     resizeMode: 'stretch',
-  } as unknown) as ImageStyle,
+  } as unknown as ImageStyle,
 };
 
 export type WallpaperPresets = keyof typeof presets;
