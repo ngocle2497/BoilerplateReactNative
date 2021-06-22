@@ -1,4 +1,4 @@
-import {useInterpolate, useMix, useSharedTransition} from '@animated';
+import {sharedTiming, useInterpolate, useSharedTransition} from '@animated';
 import {enhance} from '@common';
 import {AppTheme} from '@config/type';
 import {useTheme} from '@react-navigation/native';
@@ -6,7 +6,10 @@ import {ColorDefault} from '@theme/color';
 import React, {memo, useCallback, useEffect, useMemo, useState} from 'react';
 import equals from 'react-fast-compare';
 import {LayoutChangeEvent, LayoutRectangle, StyleSheet} from 'react-native';
-import Animated, {useAnimatedStyle} from 'react-native-reanimated';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
 
 import {Block} from '../Block/Block';
 import {Text} from '../Text/Text';
@@ -29,7 +32,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: -999,
     opacity: 0,
-    overflow: 'hidden',
+    // overflow: 'hidden',
   },
 });
 
@@ -45,11 +48,12 @@ const HelperTextComponent = (props: HelperTextProps) => {
   });
   const [currentMessage, setCurrentMessage] = useState<string>(msg ?? '');
   const progress = useSharedTransition(visible);
-  const height = useInterpolate(progress, [0, 1], [0, measured.height]);
+  const height = useSharedValue(0);
+  const opacity = useInterpolate(progress, [0, 1], [0, 1]);
 
   // function
   const _onLayoutContent = useCallback((e: LayoutChangeEvent) => {
-    setMeasured(e.nativeEvent.layout);
+    setMeasured({...e.nativeEvent.layout});
   }, []);
 
   // style
@@ -57,6 +61,7 @@ const HelperTextComponent = (props: HelperTextProps) => {
     () =>
       enhance([
         styles.text,
+        {height: measured.height},
         type === 'error'
           ? {
               color: colorThemeError
@@ -69,7 +74,7 @@ const HelperTextComponent = (props: HelperTextProps) => {
                 : ColorDefault.info,
             },
       ]),
-    [colorThemeError, colorThemeInfo, theme.colors, type],
+    [colorThemeError, colorThemeInfo, measured.height, theme.colors, type],
   );
 
   // effect
@@ -79,10 +84,18 @@ const HelperTextComponent = (props: HelperTextProps) => {
     }
   }, [msg]);
 
+  useEffect(() => {
+    if (visible) {
+      height.value = sharedTiming(measured.height);
+    } else {
+      height.value = sharedTiming(0);
+    }
+  }, [measured.height, visible]);
+
   // reanimated style
   const style = useAnimatedStyle(() => ({
     height: height.value,
-    overflow: 'hidden',
+    opacity: opacity.value,
   }));
 
   // render
@@ -92,14 +105,10 @@ const HelperTextComponent = (props: HelperTextProps) => {
         pointerEvents={'none'}
         onLayout={_onLayoutContent}
         style={[styles.hiddenView]}>
-        <Text numberOfLines={1} style={[styles.text]}>
-          {currentMessage}
-        </Text>
+        <Text style={[styles.text]}>{currentMessage}</Text>
       </Animated.View>
       <Animated.View style={[style]}>
-        <Text numberOfLines={1} style={[textStyle]}>
-          {currentMessage}
-        </Text>
+        <Text style={[textStyle]}>{currentMessage}</Text>
       </Animated.View>
     </Block>
   );

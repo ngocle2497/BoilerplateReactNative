@@ -10,6 +10,8 @@ import {FontSizeTypes} from '@theme/fontSize';
 import {FontFamily} from '@theme/typography';
 import {Colors} from '@config/type';
 
+import {TextPresetNames} from './Text.presets';
+
 type FontWeight =
   | 'normal'
   | 'bold'
@@ -173,7 +175,7 @@ export interface TextProps extends TextProperties {
   color?: string;
 
   /**
-   * Overwrite color with theme
+   * Overwrite background color with theme
    */
   colorTheme?: keyof Colors;
 
@@ -218,4 +220,9 @@ export interface TextProps extends TextProperties {
    * @default undefined
    */
   style?: StyleProp<TextStyle>;
+  /**
+   * Preset for text
+   * @default default
+   */
+  preset?: TextPresetNames;
 }

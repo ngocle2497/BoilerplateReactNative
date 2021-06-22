@@ -76,8 +76,8 @@ const LoginComponent = () => {
       <ModalAppMode ref={_modalMode} />
 
       <Screen
+        scroll
         style={{paddingVertical: 0, paddingHorizontal: 10}}
-        scroll={true}
         backgroundColor={'transparent'}>
         <FormLogin onSubmit={onSubmit} />
         <Block alignItems={'flex-start'}>
@@ -100,7 +100,7 @@ const LoginComponent = () => {
             />
           </Transition.View>
         </Block>
-        <Block width={150} height={150}>
+        <Block block height={150}>
           <LightBox source={{uri: 'https://picsum.photos/id/11/400/400'}} />
         </Block>
 
@@ -195,12 +195,16 @@ const LoginComponent = () => {
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>TextField Flat</Text>
           <Spacer width={10} />
-          <TextField label={'Flat'} typeInput={'flat'} />
+          <Block block>
+            <TextField label={'Flat'} typeInput={'flat'} />
+          </Block>
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>TextField Outline</Text>
           <Spacer width={10} />
-          <TextField typeInput={'outline'} label={'Outline'} />
+          <Block block>
+            <TextField typeInput={'outline'} label={'Outline'} />
+          </Block>
         </Block>
         <Spacer height={10} />
         <Block paddingVertical={15} middle direction={'row'}>

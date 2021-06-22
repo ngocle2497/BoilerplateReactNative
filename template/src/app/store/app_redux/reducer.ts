@@ -17,7 +17,7 @@ const initialAppState: AppState = {
   /**
    * default true to load app
    */
-  loading: false,
+   loadingApp: false,
   showDialog: false,
   theme: 'default',
   appMode: 'dev',
@@ -53,10 +53,10 @@ const appSlice = createSlice({
       state.theme = payload;
     },
     onLoadApp: state => {
-      state.loading = true;
+      state.loadingApp = true;
     },
     onLoadAppEnd: state => {
-      state.loading = false;
+      state.loadingApp = false;
     },
     onStartProcess: state => {
       state.showDialog = true;

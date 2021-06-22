@@ -2,13 +2,13 @@ import {imageTransitionHolder} from '@utils';
 import React, {memo, useCallback, useRef, useState} from 'react';
 import isEqual from 'react-fast-compare';
 import {StyleSheet, useWindowDimensions, View} from 'react-native';
-import FastImage, {Source} from 'react-native-fast-image';
+import FastImage, {OnLoadEvent, Source} from 'react-native-fast-image';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
 
-import {TouchableScale} from '../TouchScale/TouchScale';
+import {Button} from '../Button/Button';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,6 +40,10 @@ const LightBoxComponent = ({source}: LightBoxProps) => {
   // state
   const _refRoot = useRef<View>(null);
   const [disableButton, setDisableButton] = useState<boolean>(true);
+  const [sizeImage, setSizeImage] = useState<{width: number; height: number}>({
+    width: 0,
+    height: 0,
+  });
   const {width: widthDevice} = useWindowDimensions();
   const imageOpacity = useSharedValue(1);
 
@@ -47,8 +51,8 @@ const LightBoxComponent = ({source}: LightBoxProps) => {
   const _onImagePress = useCallback(() => {
     _refRoot.current?.measure((x, y, width, height, px, py) => {
       const targetWidth = widthDevice;
-      const scaleFactor = width / height;
-      const targetHeight = targetWidth * scaleFactor;
+      const scaleFactor = widthDevice / sizeImage.width;
+      const targetHeight = sizeImage.height * scaleFactor;
       imageTransitionHolder.current?.show({
         image: {
           x,
@@ -64,10 +68,11 @@ const LightBoxComponent = ({source}: LightBoxProps) => {
         source,
       });
     });
-  }, [widthDevice, imageOpacity, source]);
+  }, [widthDevice, imageOpacity, sizeImage, source]);
 
-  const _onLoadedImage = useCallback(() => {
+  const _onLoadedImage = useCallback((e: OnLoadEvent) => {
     setDisableButton(false);
+    setSizeImage(e.nativeEvent);
   }, []);
 
   //reanimated style
@@ -79,8 +84,8 @@ const LightBoxComponent = ({source}: LightBoxProps) => {
   // render
   return (
     <>
-      <TouchableScale disabled={disableButton} onPress={_onImagePress}>
-        <View collapsable={false} ref={_refRoot} style={[styles.container]}>
+      <Button disabled={disableButton} onPress={_onImagePress}>
+        <View ref={_refRoot} collapsable={false} style={[styles.container]}>
           <Animated.View style={imageStyle}>
             <FastImage
               onLoad={_onLoadedImage}
@@ -90,7 +95,7 @@ const LightBoxComponent = ({source}: LightBoxProps) => {
             />
           </Animated.View>
         </View>
-      </TouchableScale>
+      </Button>
     </>
   );
 };

@@ -23,6 +23,7 @@ import {enhance, onCheckType} from '@common';
 import {Block} from '@library/components/Block/Block';
 
 import {InputFlatProps} from './InputFlat.props';
+import {Text} from '@library/components/Text/Text';
 
 const VERTICAL_PADDING = 5;
 const UN_ACTIVE_COLOR = 'rgb(159,152,146)';
@@ -34,14 +35,9 @@ const styles = StyleSheet.create({
     paddingVertical: VERTICAL_PADDING,
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
     borderColor: 'gray',
-    width: '100%',
-    flex: 1,
     justifyContent: 'center',
-    position: 'relative',
-    alignItems: 'center',
   },
   input: {
-    width: '100%',
     color: '#000',
     padding: 0,
     marginTop: 10,
@@ -54,7 +50,7 @@ const styles = StyleSheet.create({
   },
   wrapLabel: {
     position: 'absolute',
-    left: 0,
+    alignSelf: 'flex-end',
   },
 });
 
@@ -92,8 +88,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
 
   // state
   const [t] = useTranslation();
-  const [sizeContainer, setSizeContainer] = useState({height: 0});
-  const [sizeText, setSizeText] = useState({height: 0});
+  const [heightContainerInput, setHeightContainerInput] = useState(0);
   const [focused, setFocused] = useState(false);
   const [localDefaultValue, setLocalDefaultValue] = useState('');
   const [value, setValue] = useState('');
@@ -103,10 +98,10 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
     duration: 150,
   });
 
-  const top = useInterpolate(
+  const bottom = useInterpolate(
     progress,
     [0, 1],
-    [sizeContainer.height / 2 - sizeText.height / 2 - VERTICAL_PADDING / 4, 0],
+    [0, heightContainerInput - 10],
   );
 
   const fontLabel = useInterpolate(progress, [0, 1], [14, 12]);
@@ -138,19 +133,9 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
   });
 
   // function
-  const _onLayoutContainer = useCallback(
-    (e: LayoutChangeEvent) => {
-      setSizeContainer({...sizeContainer, height: e.nativeEvent.layout.height});
-    },
-    [sizeContainer],
-  );
-
-  const onLayoutText = useCallback(
-    (e: LayoutChangeEvent) => {
-      setSizeText({...sizeText, height: e.nativeEvent.layout.height});
-    },
-    [sizeText],
-  );
+  const onLayoutContainerInput = useCallback((e: LayoutChangeEvent) => {
+    setHeightContainerInput(e.nativeEvent.layout.height);
+  }, []);
 
   const _onFocus = useCallback(
     (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
@@ -226,7 +211,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
 
   // reanimated style
   const wrapLabelStyle = useAnimatedStyle(() => ({
-    top: top.value,
+    bottom: bottom.value,
   }));
 
   const labelStyle = useAnimatedStyle(() => ({
@@ -240,39 +225,43 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
 
   // render
   return (
-    <Animated.View
-      onLayout={_onLayoutContainer}
-      style={[containerStyle, containerAnimatedStyle]}>
-      <Block direction={'row'}>
-        <TextInput
-          defaultValue={localDefaultValue}
-          autoCorrect={false}
-          placeholder={focused === true ? placeHolder : ''}
-          placeholderTextColor={placeholderColor ?? undefined}
-          selectionColor={activeTintBorderColor}
-          underlineColorAndroid={'transparent'}
-          clearButtonMode={'always'}
-          editable={!disabled}
-          style={[inputStyle]}
-          ref={ref}
-          {...rest}
-          onChangeText={_onChangeText}
-          onFocus={_onFocus}
-          onBlur={_onBlur}
-        />
-        {rightChildren}
+    <Animated.View style={[containerStyle, containerAnimatedStyle]}>
+      <Block direction={'row'} alignItems={'flex-start'}>
+        {(placeholderTx || placeholder) && value.length === 0 && (
+          <Block
+            position={'absolute'}
+            alignSelf={'flex-end'}
+            pointerEvents={'none'}>
+            <Text tx={placeholderTx} text={placeHolder} color={'gray'} />
+          </Block>
+        )}
+        {labelText && (
+          <Animated.View
+            pointerEvents={'none'}
+            style={[styles.wrapLabel, wrapLabelStyle]}>
+            <Animated.Text style={[labelStyle]}>
+              {labelText ?? ''}
+            </Animated.Text>
+          </Animated.View>
+        )}
+        <Block block onLayout={onLayoutContainerInput}>
+          <TextInput
+            defaultValue={localDefaultValue}
+            autoCorrect={false}
+            selectionColor={activeTintBorderColor}
+            underlineColorAndroid={'transparent'}
+            clearButtonMode={'never'}
+            editable={!disabled}
+            style={[inputStyle]}
+            ref={ref}
+            {...rest}
+            onChangeText={_onChangeText}
+            onFocus={_onFocus}
+            onBlur={_onBlur}
+          />
+        </Block>
+        {rightChildren && rightChildren}
       </Block>
-      {labelText && (
-        <Animated.View
-          pointerEvents={'none'}
-          style={[styles.wrapLabel, wrapLabelStyle]}>
-          <Animated.Text
-            onLayout={onLayoutText}
-            style={[styles.text, labelStyle]}>
-            {labelText ?? ''}
-          </Animated.Text>
-        </Animated.View>
-      )}
     </Animated.View>
   );
 });

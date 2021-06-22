@@ -1,38 +1,70 @@
-import React, {useMemo, memo} from 'react';
-import {TouchableOpacity} from 'react-native';
 import {enhance} from '@common';
+import {AppTheme} from '@config/type';
+import {useTheme} from '@react-navigation/native';
+import React, {memo, useMemo} from 'react';
 import equals from 'react-fast-compare';
+import {TouchableOpacity, ViewStyle} from 'react-native';
 
 import {Text} from '../Text/Text';
 
-import {stylesView, stylesText} from './Button.presets';
+import {stylesView} from './Button.presets';
 import {ButtonProps} from './Button.props';
 
 const ButtonComponent = (props: ButtonProps) => {
   // state
   const {
-    preset = 'primary',
+    preset = 'default',
+    textPreset = 'default',
+    textColor,
+    textColorTheme,
     tx,
     text,
     style: styleOverride = {},
     textStyle: textStyleOverride = {},
     children,
+    buttonColor,
+    buttonColorTheme,
     ...rest
   } = props;
+  const theme: AppTheme = useTheme();
 
   // style
   const viewStyle = useMemo(
-    () => enhance([stylesView[preset], styleOverride]),
-    [preset, styleOverride],
-  );
-  const textStyle = useMemo(
-    () => enhance([stylesText[preset], textStyleOverride]),
-    [preset, textStyleOverride],
+    () =>
+      enhance<ViewStyle>([
+        stylesView[preset],
+        {
+          backgroundColor: buttonColorTheme
+            ? theme.colors[buttonColorTheme]
+            : buttonColor,
+        },
+
+        styleOverride as ViewStyle,
+      ]),
+    [buttonColor, buttonColorTheme, preset, styleOverride, theme.colors],
   );
 
   const content = useMemo(
-    () => children || <Text tx={tx} text={text} style={textStyle} />,
-    [tx, textStyle, children, text],
+    () =>
+      children || (
+        <Text
+          tx={tx}
+          text={text}
+          style={textStyleOverride}
+          preset={textPreset}
+          color={textColor}
+          colorTheme={textColorTheme}
+        />
+      ),
+    [
+      children,
+      tx,
+      text,
+      textStyleOverride,
+      textPreset,
+      textColor,
+      textColorTheme,
+    ],
   );
 
   // render

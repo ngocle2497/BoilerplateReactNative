@@ -1,4 +1,3 @@
-export * from './AnimProgress/AnimProgress';
 export * from './ProgressDialog/ProgressDialog';
 export * from './Progress/Progress';
 export * from './Button/Button';

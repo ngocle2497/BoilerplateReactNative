@@ -1,3 +1,4 @@
+import {Colors} from '@config/type';
 import React from 'react';
 import {
   ViewStyle,
@@ -5,6 +6,8 @@ import {
   TouchableOpacityProps,
   StyleProp,
 } from 'react-native';
+
+import {TextPresetNames} from '../Text/Text.presets';
 
 import {ButtonPresetNames} from './Button.presets';
 
@@ -35,9 +38,37 @@ export interface ButtonProps extends TouchableOpacityProps {
 
   /**
    * Preset for button
-   * @default primary
+   * @default default
    */
   preset?: ButtonPresetNames;
+
+  /**
+   * Preset for text
+   * @default default
+   */
+  textPreset?: TextPresetNames;
+  /**
+   * Using color for text
+   * @default undefined
+   */
+  textColor?: string;
+
+  /**
+   * Overwrite background color with theme for text
+   */
+  textColorTheme?: keyof Colors;
+
+  /**
+   * Using color for button background color
+   * @default undefined
+   */
+  buttonColor?: string;
+
+  /**
+   * Overwrite button background with theme
+   * @default undefined
+   */
+  buttonColorTheme?: keyof Colors;
 
   /**
    * Children for button

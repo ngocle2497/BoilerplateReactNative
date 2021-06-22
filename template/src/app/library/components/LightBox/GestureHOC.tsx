@@ -107,14 +107,14 @@ export const GestureHOC = memo(
         if (Math.abs(translateY.value) > 40) {
           targetX.value = translateX.value - targetX.value * -1;
           targetY.value = translateY.value - targetY.value * -1;
-
           translateX.value = 0;
           translateY.value = 0;
-
           backDropOpacity.value = sharedTiming(0, timingConfig);
-          animatedProgress.value = sharedTiming(0, timingConfig, () => {
-            image.imageOpacity.value = 1;
-            runOnJS(onClose)();
+          animatedProgress.value = sharedTiming(0, timingConfig, finished => {
+            if (finished) {
+              image.imageOpacity.value = 1;
+              runOnJS(onClose)();
+            }
           });
         } else {
           backDropOpacity.value = sharedTiming(1, timingConfig);

@@ -24,15 +24,12 @@ const InputComponent = ({
   ...rest
 }: InputProps) => {
   // state
+  const {trigger, getValues} = useFormContext<FormLoginType>();
   const {
-    formState: {errors},
-    control,
-    trigger,
-    getValues,
-  } = useFormContext<FormLoginType>();
-  const {field} = useController({
+    field,
+    fieldState: {invalid, error},
+  } = useController({
     name,
-    control,
     rules,
     defaultValue,
   });
@@ -44,7 +41,7 @@ const InputComponent = ({
         ref={field.ref}
         nameTrigger={nameTrigger}
         trigger={trigger}
-        error={errors[name]?.message !== undefined}
+        error={invalid}
         label={label}
         name={name}
         onChangeText={field.onChange}
@@ -54,8 +51,8 @@ const InputComponent = ({
         {...rest}
       />
       <HelperText
-        visible={errors[name]?.message !== undefined}
-        msg={errors[name]?.message ?? ''}
+        visible={invalid !== undefined}
+        msg={error?.message ?? ''}
         type={'error'}
       />
     </>
