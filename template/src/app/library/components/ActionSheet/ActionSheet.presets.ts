@@ -20,37 +20,26 @@ export const styles = StyleSheet.create({
   },
   wrapOption: {
     backgroundColor: '#FFFFFF',
-    width: '100%',
     borderRadius: 10,
     overflow: 'hidden',
     marginTop: 10,
-  },
-  option: {
-    backgroundColor: 'transparent',
-    // marginVertical: 5,
   },
   wrapCancel: {
     backgroundColor: '#FFFFFF',
-    width: '100%',
     borderRadius: 10,
     overflow: 'hidden',
     marginTop: 10,
-  },
-  buttonCancel: {
-    backgroundColor: 'transparent',
-    paddingVertical: 15,
   },
   textCancel: {
     color: 'rgba(255,0,0,0.8)',
   },
   wrapTitle: {
-    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 5,
   },
   title: {
-    fontSize: FontSizeDefault.FONT_13,
+    fontSize: FontSizeDefault.FONT_15,
     fontWeight: '700',
     alignSelf: 'center',
     color: '#333333',

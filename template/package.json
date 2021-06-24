@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "splash": "yarn react-native generate-bootsplash splash/logo.png \\--background-color=F5FCFF \\ --logo-width=100 \\--assets-path=assets \\--flavor=main",
+    "splash": "yarn react-native generate-bootsplash splash/logo.png --background-color=F5FCFF --logo-width=150 --assets-path=assets --flavor=main",
     "clean-android": "cd android && ./gradlew clean && cd ..",
     "clean-ios": "cd ios && xcodebuild clean && cd ..",
     "android": "yarn clean-android && npx react-native run-android ",

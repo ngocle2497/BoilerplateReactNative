@@ -6,7 +6,7 @@ export interface AppState {
 
   profile: any;
 
-  token: any | undefined | null;
+  token: string | undefined;
 
   loadingApp: boolean;
 

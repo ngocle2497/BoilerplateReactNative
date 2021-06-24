@@ -24,7 +24,7 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
   const [t] = useTranslation();
   const {
     onPressCancel,
-    textCancelStyle,
+    textCancelStyle: textCancelStyleOverwrite,
     rootStyle,
     wrapCancelStyle,
     textOptionStyle,
@@ -77,9 +77,9 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
     () => enhance([textOptionStyle]),
     [textOptionStyle],
   );
-  const textCancelS = useMemo(
-    () => enhance([styles.textCancel, textCancelStyle]),
-    [textCancelStyle],
+  const textCancelStyle = useMemo(
+    () => enhance([styles.textCancel, textCancelStyleOverwrite]),
+    [textCancelStyleOverwrite],
   );
   const wrapOption = useMemo(
     () => enhance([styles.wrapOption, wrapOptionStyle]),
@@ -108,7 +108,7 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
               title
             ) : (
               <>
-                <Block style={[styles.wrapTitle]}>
+                <Block paddingVertical={5}>
                   <Text style={[styles.title]} text={title + ''} />
                 </Block>
                 <Divider />
@@ -116,18 +116,19 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
             ))}
           {option.map((item: OptionData, index: number) => {
             return (
-              <Button
-                style={[styles.option]}
-                onPress={_onPress(item, index)}
-                key={item.text}>
-                <Text style={[textOption]} text={item.text} />
+              <Button onPress={_onPress(item, index)} key={item.text}>
+                <Block padding={10}>
+                  <Text style={[textOption]} text={item.text} />
+                </Block>
               </Button>
             );
           })}
         </Block>
         <Block style={[wrapCancel]}>
-          <Button onPress={_onCancel} style={[styles.buttonCancel]}>
-            <Text style={[textCancelS]} text={textCancel} />
+          <Button onPress={_onCancel}>
+            <Block paddingVertical={15} middle>
+              <Text style={[textCancelStyle]} text={textCancel} />
+            </Block>
           </Button>
         </Block>
       </Block>

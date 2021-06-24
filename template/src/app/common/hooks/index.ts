@@ -14,7 +14,6 @@ import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 import {useTheme} from '@react-navigation/native';
 import {AppTheme} from '@config/type';
 import {RootState} from '@store/allReducers';
-import {requestAnimation} from '@transition';
 
 type UseStateFull<T = any> = {
   value: T;
@@ -26,22 +25,6 @@ function useSelector<T>(
   equalityFn = isEqual,
 ): T {
   return useReduxSelector<RootState, T>(selector, equalityFn);
-}
-
-function useAnimationState<T>(
-  initialValue: T,
-): [T, (newValue: T | ((prevState: T) => T), withAnimation?: boolean) => void] {
-  const [value, setValue] = useState<T>(initialValue);
-  const setState = (
-    newValue: T | ((prevState: T) => T),
-    withAnimation = true,
-  ) => {
-    if (withAnimation) {
-      requestAnimation();
-    }
-    setValue(newValue);
-  };
-  return [value, setState];
 }
 
 function useInterval(callback: Function, delay: number) {
@@ -397,7 +380,6 @@ export {
   usePrevious,
   useSetState,
   useStyle,
-  useAnimationState,
   useAsyncState,
   useConst,
   useUnMount,

@@ -17,7 +17,7 @@ export const RootNavigation = ({token}: {token?: string}) => {
   // render
   return (
     <RootStack.Navigator headerMode={'none'} screenOptions={{}}>
-      {!token ? (
+      {token === undefined ? (
         <RootStack.Screen
           options={{animationTypeForReplace: 'pop', gestureEnabled: false}}
           name={APP_SCREEN.UN_AUTHORIZE}

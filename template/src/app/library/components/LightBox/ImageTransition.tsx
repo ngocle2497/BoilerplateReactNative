@@ -1,4 +1,5 @@
 import React, {
+  createRef,
   forwardRef,
   memo,
   useCallback,
@@ -70,4 +71,9 @@ const ImageTransitionComponent = forwardRef((props, ref) => {
 export interface ImageTransitionRef {
   show: (data: ImageTransitionProps) => void;
 }
-export const ImageTransition = memo(ImageTransitionComponent, isEqual);
+export const imageTransitionRef = createRef<ImageTransitionRef>();
+
+export const ImageTransition = memo(
+  () => <ImageTransitionComponent ref={imageTransitionRef} />,
+  isEqual,
+);

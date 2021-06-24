@@ -2,16 +2,21 @@ import {isIos} from '@common';
 import {AppTheme} from '@config/type';
 import {useTheme} from '@react-navigation/native';
 import React, {
+  createRef,
   forwardRef,
   memo,
   useCallback,
   useImperativeHandle,
   useState,
 } from 'react';
-import equals from 'react-fast-compare';
-import {ActivityIndicator, Dimensions, StyleSheet} from 'react-native';
+import isEqual from 'react-fast-compare';
+import {
+  ActivityIndicator,
+  Dimensions,
+  StatusBar,
+  StyleSheet,
+} from 'react-native';
 import Modal from 'react-native-modal';
-
 import {Block} from '../Block/Block';
 import {Text} from '../Text/Text';
 
@@ -91,15 +96,14 @@ const ProgressDialogComponent = forwardRef((props, ref) => {
   }, []);
 
   // render
-  return (
-    <Modal
-      isVisible={visible}
-      backdropOpacity={0}
-      onModalHide={_onModalHide}
-      animationIn={'fadeIn'}
-      style={[styles.modal]}
-      animationOut={'fadeOut'}>
-      <Block style={[styles.contentModal]}>
+  return visible ? (
+    <>
+      <StatusBar translucent backgroundColor={'transparent'} />
+      <Block
+        style={StyleSheet.absoluteFillObject}
+        justifyContent={'center'}
+        color={'rgba(0,0,0,.5)'}
+        middle>
         <Block
           style={[!isIos ? styles.wrapDialogRow : styles.wrapDialogColumn]}>
           <ActivityIndicator
@@ -112,10 +116,22 @@ const ProgressDialogComponent = forwardRef((props, ref) => {
           )}
         </Block>
       </Block>
-    </Modal>
-  );
+    </>
+  ) : null;
 });
-export const ProgressDialog = memo(ProgressDialogComponent, equals);
+
+export const progressDialogRef = createRef<ProgressDialogRef>();
+export const ProgressDialog = memo(
+  () => <ProgressDialogComponent ref={progressDialogRef} />,
+  isEqual,
+);
+export const showLoading = (msg = 'loading') => {
+  progressDialogRef.current?.show(msg);
+};
+
+export const hideLoading = () => {
+  progressDialogRef.current?.hide();
+};
 export interface ProgressDialogRef {
   show(msg: string): void;
   hide(): void;

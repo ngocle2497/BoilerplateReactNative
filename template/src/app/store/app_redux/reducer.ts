@@ -13,11 +13,11 @@ import {AppState} from './type';
 const initialAppState: AppState = {
   internetState: true,
   profile: {},
-  token: null,
+  token: undefined,
   /**
    * default true to load app
    */
-   loadingApp: false,
+  loadingApp: false,
   showDialog: false,
   theme: 'default',
   appMode: 'dev',
@@ -70,7 +70,7 @@ const appSlice = createSlice({
       state.appMode = payload;
     },
     onLogout: state => {
-      state.token = null;
+      state.token = undefined;
       state.profile = {};
     },
   },

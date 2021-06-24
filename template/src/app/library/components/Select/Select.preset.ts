@@ -11,6 +11,8 @@ export const styles = StyleSheet.create({
   buttonDrop: {
     width: '100%',
     backgroundColor: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 0,
     paddingVertical: 10,
     paddingLeft: 5,

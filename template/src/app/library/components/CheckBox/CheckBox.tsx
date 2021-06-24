@@ -1,23 +1,20 @@
-import React, {useMemo, useCallback, useState, useEffect} from 'react';
-import {StyleSheet} from 'react-native';
-import equals from 'react-fast-compare';
-import {SpacingDefault} from '@theme/spacing';
-import {ColorDefault} from '@theme/color';
-import {enhance, onCheckType} from '@common';
-import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 import {useMix, useSharedTransition} from '@animated';
-
-import {Text} from '../Text/Text';
-import {Button} from '../Button/Button';
+import {enhance, onCheckType} from '@common';
+import {ColorDefault} from '@theme/color';
+import React, {useCallback, useMemo, useState} from 'react';
+import equals from 'react-fast-compare';
+import {StyleSheet} from 'react-native';
+import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 import {Block} from '../Block/Block';
-
+import {Button} from '../Button/Button';
+import {Text} from '../Text/Text';
 import {CheckboxProps} from './CheckBox.props';
 
 const DIMENSIONS = {width: 16, height: 16};
 const styles = StyleSheet.create({
   ROOT: {
     flexDirection: 'row',
-    paddingVertical: SpacingDefault.tiny,
+    paddingVertical: 4,
     alignSelf: 'flex-start',
   },
   OUTLINE: {
@@ -35,7 +32,7 @@ const styles = StyleSheet.create({
     backgroundColor: ColorDefault.primary,
   },
   LABEL: {
-    paddingLeft: SpacingDefault.smaller,
+    paddingLeft: 8,
   },
 });
 

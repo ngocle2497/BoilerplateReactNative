@@ -75,6 +75,12 @@ module.exports = {
     'prefer-destructuring': 2,
     'no-nested-ternary': 2,
     'comma-dangle': 0,
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
   },
   env: {
     node: true,

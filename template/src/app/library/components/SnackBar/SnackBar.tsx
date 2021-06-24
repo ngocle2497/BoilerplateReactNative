@@ -1,4 +1,5 @@
 import React, {
+  createRef,
   forwardRef,
   memo,
   useCallback,
@@ -76,7 +77,23 @@ const SnackBarComponent = forwardRef((props: SnackBarProps, ref) => {
     </View>
   );
 });
-export type SnackBarRef = {
+type SnackBarRef = {
   show: (data: {msg: string; interval?: number; type?: TypeMessage}) => void;
 };
-export const SnackBar = memo(SnackBarComponent, isEqual);
+export const snackBarRef = createRef<SnackBarRef>();
+export const SnackBar = memo(
+  () => <SnackBarComponent ref={snackBarRef} />,
+  isEqual,
+);
+
+export const showSnack = ({
+  msg,
+  interval,
+  type,
+}: {
+  msg: string;
+  interval?: number;
+  type?: TypeMessage;
+}) => {
+  snackBarRef.current?.show({msg, interval, type});
+};

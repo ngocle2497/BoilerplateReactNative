@@ -75,13 +75,9 @@ const SelectComponent = (props: SelectProps) => {
   return (
     <>
       <Block style={[styles.root]} collapsable={false}>
-        <Button
-          onPress={_showDrop}
-          activeOpacity={0.68}
-          preset={'link'}
-          style={[styles.buttonDrop]}>
-          <Block style={[styles.row]}>
-            <Text style={[]} text={selectedText} />
+        <Button onPress={_showDrop} activeOpacity={0.68}>
+          <Block style={[styles.row]} color={'#FFFFFF'} padding={10}>
+            <Text text={selectedText} />
             {rightChildren && rightChildren}
           </Block>
         </Button>

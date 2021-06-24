@@ -1,4 +1,3 @@
-import {imageTransitionHolder} from '@utils';
 import React, {memo, useCallback, useRef, useState} from 'react';
 import isEqual from 'react-fast-compare';
 import {StyleSheet, useWindowDimensions, View} from 'react-native';
@@ -7,8 +6,8 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-
 import {Button} from '../Button/Button';
+import {imageTransitionRef} from './ImageTransition';
 
 const styles = StyleSheet.create({
   container: {
@@ -53,7 +52,7 @@ const LightBoxComponent = ({source}: LightBoxProps) => {
       const targetWidth = widthDevice;
       const scaleFactor = widthDevice / sizeImage.width;
       const targetHeight = sizeImage.height * scaleFactor;
-      imageTransitionHolder.current?.show({
+      imageTransitionRef.current?.show({
         image: {
           x,
           y,
