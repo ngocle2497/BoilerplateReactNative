@@ -110,11 +110,7 @@ const ButtonGroupComponent = (props: ButtonGroupProps) => {
           <Text style={[styles.text]} text={label} />
         </Animated.View>
       )}
-      <Button
-        activeOpacity={0.6}
-        onPress={_onPress}
-        preset={'link'}
-        style={[styles.wrap]}>
+      <Button activeOpacity={0.6} onPress={_onPress} style={[styles.wrap]}>
         <Icon icon={icon} />
       </Button>
     </Animated.View>

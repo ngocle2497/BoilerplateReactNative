@@ -2,12 +2,18 @@ import {isIos} from '@common';
 import {store} from '@store/store';
 import React, {Suspense} from 'react';
 import {I18nextProvider} from 'react-i18next';
-import {StyleSheet} from 'react-native';
+import {UIManager} from 'react-native';
 import KeyboardManager from 'react-native-keyboard-manager';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
 import I18n from './src/app/library/utils/i18n/i18n';
 import {AppContainer} from './src/app/navigation/AppNavigation';
+
+if (!isIos) {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
 
 if (isIos) {
   KeyboardManager.setEnable(true);
@@ -27,15 +33,9 @@ if (isIos) {
   KeyboardManager.resignFirstResponder();
   // KeyboardManager.isKeyboardShowing()
   //   .then((isShowing) => {
-  //       // ...
   //   });
 }
-// console.disableYellowBox = true;
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-});
+
 export const MyApp = () => {
   return (
     <SafeAreaProvider>

@@ -77,10 +77,10 @@ const SnackBarComponent = forwardRef((props: SnackBarProps, ref) => {
     </View>
   );
 });
-type SnackBarRef = {
+type SnackBar = {
   show: (data: {msg: string; interval?: number; type?: TypeMessage}) => void;
 };
-export const snackBarRef = createRef<SnackBarRef>();
+export const snackBarRef = createRef<SnackBar>();
 export const SnackBar = memo(
   () => <SnackBarComponent ref={snackBarRef} />,
   isEqual,

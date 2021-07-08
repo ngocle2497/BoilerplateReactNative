@@ -149,10 +149,7 @@ const ChatComponent = ({
         ? renderHeader()
         : useHeader === true && (
             <Block style={styles.top} direction={'row'}>
-              <Button
-                onPress={_onBackPress}
-                style={styles.buttonBack}
-                preset={'link'}>
+              <Button onPress={_onBackPress} style={styles.buttonBack}>
                 <Icon color={'#0057E7'} icon={'back'} />
               </Button>
               <Block
@@ -196,10 +193,7 @@ const ChatComponent = ({
             style={[styles.input]}
           />
         </Block>
-        <Button
-          onPress={_onSendPress}
-          style={[styles.buttonSend]}
-          preset={'link'}>
+        <Button onPress={_onSendPress} style={[styles.buttonSend]}>
           <Icon color={'#EC2929'} icon={'send'} />
         </Button>
       </Block>

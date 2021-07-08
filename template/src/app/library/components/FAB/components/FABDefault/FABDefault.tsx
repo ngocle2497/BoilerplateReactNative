@@ -58,11 +58,7 @@ export const FABDefault = (props: FABDefaultProps) => {
 
   // render
   return (
-    <Button
-      onPress={onPress}
-      activeOpacity={0.6}
-      preset={'link'}
-      style={[styleBase]}>
+    <Button onPress={onPress} activeOpacity={0.6} style={[styleBase]}>
       <Icon icon={icon} />
       {React.isValidElement(label)
         ? label

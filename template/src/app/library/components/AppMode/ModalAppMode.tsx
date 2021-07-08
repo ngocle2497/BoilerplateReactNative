@@ -67,7 +67,7 @@ const ButtonSelect = ({
 
   // render
   return (
-    <Button onPress={_onPress} preset={'link'}>
+    <Button onPress={_onPress}>
       <Block
         direction={'row'}
         paddingHorizontal={10}
@@ -165,7 +165,7 @@ const ModalAppModeComponent = forwardRef((_, ref) => {
 });
 
 export const ModalAppMode = memo(ModalAppModeComponent, isEqual);
-export interface ModalAppModeRef {
+export interface ModalAppMode {
   show(): void;
   hide(): void;
 }

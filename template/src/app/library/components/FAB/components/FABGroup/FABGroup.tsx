@@ -103,11 +103,7 @@ const FABGroupComponent = (props: FABGroupProps) => {
   // render
   return (
     <>
-      <Button
-        onPress={_onToggle}
-        activeOpacity={0.8}
-        preset={'link'}
-        style={[styleBase]}>
+      <Button onPress={_onToggle} activeOpacity={0.8} style={[styleBase]}>
         <Animated.View style={iconAnimatedStyle}>
           <Icon icon={icon} />
         </Animated.View>

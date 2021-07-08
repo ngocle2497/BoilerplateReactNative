@@ -68,10 +68,10 @@ const ImageTransitionComponent = forwardRef((props, ref) => {
     </Animated.View>
   ) : null;
 });
-export interface ImageTransitionRef {
+export interface ImageTransition {
   show: (data: ImageTransitionProps) => void;
 }
-export const imageTransitionRef = createRef<ImageTransitionRef>();
+export const imageTransitionRef = createRef<ImageTransition>();
 
 export const ImageTransition = memo(
   () => <ImageTransitionComponent ref={imageTransitionRef} />,

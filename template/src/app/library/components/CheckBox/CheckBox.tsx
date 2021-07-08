@@ -92,7 +92,6 @@ const CheckBoxComponent = ({
   return (
     <Button
       activeOpacity={1}
-      preset={'link'}
       disabled={disable}
       onPress={onPress}
       style={[rootStyle]}>

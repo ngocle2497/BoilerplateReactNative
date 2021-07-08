@@ -134,9 +134,8 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   const inset = useSafeAreaInsets();
   const _refDrop = useAnimatedRef<View>();
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedValue, setSelectedValue] = useState<string | Array<string>>(
-    '',
-  );
+  const [selectedValue, setSelectedValue] =
+    useState<string | Array<string>>('');
   const [viewLayout, setViewLayout] = useState({
     width: 0,
     height: 0,
@@ -348,7 +347,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   return (
     <>
       <View ref={_refDrop} style={wrapStyle}>
-        <Button preset={'link'} onPress={_onToggle} disabled={disabled}>
+        <Button onPress={_onToggle} disabled={disabled}>
           <Block style={container} direction={'row'}>
             <Text style={textPlaceHolderStyle} numberOfLines={1}>
               {getTextPlaceHolder()}
@@ -407,6 +406,3 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
 });
 
 export const DropDown = memo(DropDownComponent, isEqual);
-const a = () => {
-  return <DropDown data={[]} onChangeItem={(item, index) => {}} />;
-};

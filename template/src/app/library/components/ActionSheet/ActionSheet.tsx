@@ -136,7 +136,7 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
   );
 });
 export const ActionSheet = memo(ActionSheetComponent, equals);
-export interface ActionSheetRef {
+export interface ActionSheet {
   show(): void;
   hide(): void;
 }

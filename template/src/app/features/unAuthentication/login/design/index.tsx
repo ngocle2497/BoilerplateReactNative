@@ -1,7 +1,6 @@
-import {dispatch} from '@common';
+import {dispatch, useAnimatedState} from '@common';
 import {
   ActionSheet,
-  ActionSheetRef,
   Block,
   Button,
   CheckBox,
@@ -11,13 +10,11 @@ import {
   HelperText,
   LightBox,
   ModalAppMode,
-  ModalAppModeRef,
   Otp,
   Progress,
   RadioButton,
   Screen,
   Select,
-  showLoading,
   Slider,
   Spacer,
   Switch,
@@ -34,12 +31,11 @@ import React, {memo, useCallback, useRef, useState} from 'react';
 import isEqual from 'react-fast-compare';
 import {Alert} from 'react-native';
 import {Easing} from 'react-native-reanimated';
-
 import {FormLogin} from './components/FormLogin';
 
 const LoginComponent = () => {
   // state
-  const _modalMode = useRef<ModalAppModeRef>();
+  const _modalMode = useRef<ModalAppMode>();
   const animationState = useAnimationState({
     from: {translateX: 0, opacity: 0},
     to: {translateX: 80, opacity: 1},
@@ -48,8 +44,8 @@ const LoginComponent = () => {
       opacity: 0.2,
     },
   });
-  const _refAction = useRef<ActionSheetRef>();
-  const [visible, setVisible] = useState<boolean>(false);
+  const _refAction = useRef<ActionSheet>();
+  const [visible, setVisible] = useAnimatedState<boolean>(false);
   const [selectedRadio, setSelectedRadio] = useState<boolean>(false);
   const [progress] = useState(10);
   const [sliderProgress, setSliderProgress] = useState<number>(0);
@@ -65,10 +61,8 @@ const LoginComponent = () => {
   }, []);
 
   const _onShowAction = useCallback(() => {
-    if (_refAction.current) {
-      _refAction.current.show();
-    }
-  }, []);
+    _refAction.current?.show();
+  }, [visible]);
 
   // render
   return (

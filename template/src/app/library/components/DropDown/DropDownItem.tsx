@@ -71,7 +71,7 @@ const DropDownItemComponent = ({
 
   // render
   return (
-    <Button onPress={_onItemPress} preset={'link'}>
+    <Button onPress={_onItemPress}>
       <Block
         width={'100%'}
         paddingVertical={5}
