@@ -147,18 +147,20 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   // function
   const onPressItem = useCallback(
     (value: string) => {
-      if (multiple && Array.isArray(selectedValue)) {
-        const item = selectedValue.find(x => x === value);
-        if (item) {
-          setSelectedValue(selectedValue.filter(x => x !== value));
+      setSelectedValue(d => {
+        if (multiple && Array.isArray(d)) {
+          const item = d.find(x => x === value);
+          if (item) {
+            return d.filter(x => x !== value);
+          } else {
+            return d.concat(value);
+          }
         } else {
-          setSelectedValue(selectedValue.concat(value));
+          return value === d ? '' : value;
         }
-      } else {
-        setSelectedValue(value === selectedValue ? '' : value);
-      }
+      });
     },
-    [multiple, selectedValue],
+    [multiple],
   );
 
   const _onCheckSelected = useCallback(
