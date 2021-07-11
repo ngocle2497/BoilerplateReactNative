@@ -7,6 +7,7 @@ import React, {
   SetStateAction,
   useCallback,
   useMemo,
+  Dispatch,
 } from 'react';
 import isEqual from 'react-fast-compare';
 import {useSelector as useReduxSelector} from 'react-redux';
@@ -14,6 +15,7 @@ import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 import {useTheme} from '@react-navigation/native';
 import {AppTheme} from '@config/type';
 import {RootState} from '@store/allReducers';
+import {LayoutAnimation} from 'react-native';
 
 type UseStateFull<T = any> = {
   value: T;
@@ -25,6 +27,35 @@ function useSelector<T>(
   equalityFn = isEqual,
 ): T {
   return useReduxSelector<RootState, T>(selector, equalityFn);
+}
+type ConfigAnimated = {
+  duration: number;
+  type: keyof typeof LayoutAnimation.Types;
+  creationProp: keyof typeof LayoutAnimation.Properties;
+};
+function useAnimatedState<T>(
+  initialValue: T,
+  config: ConfigAnimated = {
+    duration: 500,
+    creationProp: 'opacity',
+    type: 'easeInEaseOut',
+  },
+): [T, Dispatch<SetStateAction<T>>] {
+  const [value, setValue] = useState<T>(initialValue);
+  const onSetState = useCallback(
+    (newValue: T | ((prevState: T) => T)) => {
+      LayoutAnimation.configureNext(
+        LayoutAnimation.create(
+          config.duration,
+          LayoutAnimation.Types[config.type],
+          LayoutAnimation.Properties[config.creationProp],
+        ),
+      );
+      setValue(newValue);
+    },
+    [config],
+  );
+  return [value, onSetState];
 }
 
 function useInterval(callback: Function, delay: number) {
@@ -384,4 +415,5 @@ export {
   useConst,
   useUnMount,
   useForceUpdate,
+  useAnimatedState,
 };
