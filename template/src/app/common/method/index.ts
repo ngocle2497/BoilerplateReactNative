@@ -12,7 +12,10 @@ type TypesBase =
 export const onShowErrorBase = (msg: string) => {
   Alert.alert(msg);
 };
-export const onCheckType = (source: any, type: TypesBase) => {
+export const onCheckType = (
+  source: any,
+  type: TypesBase,
+): source is TypesBase => {
   return typeof source === type;
 };
 export const isIos = Platform.OS === 'ios';
