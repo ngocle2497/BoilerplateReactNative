@@ -3,8 +3,10 @@ import {enhance, onCheckType} from '@common';
 import React, {memo, useCallback, useEffect, useMemo, useState} from 'react';
 import isEqual from 'react-fast-compare';
 import {
+  Animated as RNAnimated,
   BackHandler,
   Modal as RNModal,
+  PanResponder,
   StyleSheet,
   TouchableNativeFeedback,
   useWindowDimensions,
@@ -17,18 +19,26 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
+import {Block} from '../Block/Block';
+
 import {
   ANIMATED_IN_DURATION,
   ANIMATED_OUT_DURATION,
   BACK_DROP_OPACITY,
+  MAX_TRANSLATE,
+  SWIPE_THRESHOLD,
 } from './constants';
 import {ModalProps} from './Modal.props';
 import {styles} from './styles';
 import {withAnimated} from './untils';
 
+const clamp = (value: number, lowerValue: number, upperValue: number) => {
+  return Math.min(Math.max(lowerValue, value), upperValue);
+};
 const ModalComponent = ({
   isVisible,
   customBackDrop,
+  swipingDirection,
   backdropOpacity = BACK_DROP_OPACITY,
   animatedInDuration = ANIMATED_IN_DURATION,
   backdropInDuration = ANIMATED_IN_DURATION,
@@ -37,9 +47,14 @@ const ModalComponent = ({
   animatedIn = 'fadeIn',
   animatedOut = 'fadeOut',
   backdropColor = 'black',
+  moveContentWhenDrag = false,
+  swipeThreshold = SWIPE_THRESHOLD,
+  hasGesture = true,
   children,
   style,
   onBackdropPress,
+  customGesture,
+  onSwipeComplete,
   onBackButtonPress: onBackAndroidPress,
   onModalHide,
   onModalShow,
@@ -52,9 +67,56 @@ const ModalComponent = ({
   const [mounted, setMounted] = useState<boolean>(false);
 
   // reanimated state
+  const translateY = useSharedValue(0);
+  const translateX = useSharedValue(0);
   const isOut = useSharedValue(false);
   const progressIn = useSharedValue(0);
   const reBackdropOpacity = useSharedValue(0);
+
+  const panResponder = useMemo(
+    () =>
+      PanResponder.create({
+        onMoveShouldSetPanResponder: () => true,
+        onStartShouldSetPanResponder: () => true,
+        onPanResponderMove: RNAnimated.event([null, null], {
+          listener: (_, {dx, dy}) => {
+            if (swipingDirection && moveContentWhenDrag) {
+              translateY.value = clamp(
+                dy,
+                swipingDirection.includes('up') ? -MAX_TRANSLATE : 0,
+                swipingDirection.includes('down') ? MAX_TRANSLATE : 0,
+              );
+              translateX.value = clamp(
+                dx,
+                swipingDirection.includes('left') ? -MAX_TRANSLATE : 0,
+                swipingDirection.includes('right') ? MAX_TRANSLATE : 0,
+              );
+            }
+          },
+          useNativeDriver: false,
+        }),
+        onPanResponderRelease: () => {
+          if (
+            Math.abs(translateX.value) > swipeThreshold ||
+            Math.abs(translateY.value) > swipeThreshold
+          ) {
+            if (typeof onSwipeComplete === 'function') {
+              onSwipeComplete();
+            }
+          }
+          translateY.value = sharedTiming(0, {duration: 150});
+          translateX.value = sharedTiming(0, {duration: 150});
+        },
+      }),
+    [
+      moveContentWhenDrag,
+      onSwipeComplete,
+      swipeThreshold,
+      swipingDirection,
+      translateX,
+      translateY,
+    ],
+  );
 
   // style
   const backDropStyle = useMemo<ViewStyle>(
@@ -85,7 +147,17 @@ const ModalComponent = ({
       screenHeight,
       screenWidth,
     });
-  });
+  }, [animatedIn, animatedOut]);
+
+  const wrapContentStyle = useAnimatedStyle(
+    () => ({
+      transform: [
+        {translateY: translateY.value},
+        {translateX: translateX.value},
+      ],
+    }),
+    [],
+  );
 
   // function
   const onEndAnimatedClose = useCallback(
@@ -101,6 +173,7 @@ const ModalComponent = ({
     },
     [onModalHide, progressIn],
   );
+
   const onEndAnimatedOpen = useCallback(
     (isFinished: boolean) => {
       'worklet';
@@ -189,10 +262,40 @@ const ModalComponent = ({
       <Animated.View
         pointerEvents="box-none"
         style={[styles.content, style, reContentStyle]}>
-        {children}
+        <Animated.View style={[wrapContentStyle]}>
+          {hasGesture && (
+            <Animated.View
+              {...panResponder.panHandlers}
+              style={{
+                backgroundColor: 'transparent',
+              }}>
+              {customGesture ? (
+                customGesture()
+              ) : (
+                <Block paddingVertical={6} alignSelf={'center'}>
+                  <Block
+                    height={5}
+                    width={50}
+                    borderRadius={10}
+                    color={'black'}
+                  />
+                </Block>
+              )}
+            </Animated.View>
+          )}
+          {children}
+        </Animated.View>
       </Animated.View>
     );
-  }, [children, reContentStyle, style]);
+  }, [
+    children,
+    customGesture,
+    hasGesture,
+    panResponder.panHandlers,
+    reContentStyle,
+    style,
+    wrapContentStyle,
+  ]);
 
   // effect
   useEffect(() => {
@@ -218,6 +321,7 @@ const ModalComponent = ({
   return (
     <RNModal
       transparent
+      statusBarTranslucent
       visible={visible}
       onRequestClose={onBackButtonPress}
       animationType={'none'}>
