@@ -2,6 +2,8 @@
 
 :fireworks: Clean and minimalist React Native template for a quick start with TypeScript and so much more components.
 
+## Current version: 0.64.2
+
 ## :star: Features
 
 - Elegant usage directly within the RN-Boiler Cli
@@ -15,23 +17,6 @@
 npx rn-boiler MyApp
 ```
 
-### Usage with older versions of React Native
-
-#### e.g. `react-native@0.63.x`
-
-```sh
-npx rn-boiler MyApp --version 1.63.*
-```
-
-See the below table to find out which version of the template to use.
-
-#### React Native <=> Template Version
-
-| React Native   | Template   |
-|---             |---         |
-| 0.64           | 1.64.*       |
-| 0.63           | 1.63.*       |
-| 0.62          | 1.62.*       |
 <h3>Preview</h3>
 <img src="./preview.gif">
 
