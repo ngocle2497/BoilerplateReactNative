@@ -6,6 +6,7 @@ import {UIManager} from 'react-native';
 import KeyboardManager from 'react-native-keyboard-manager';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
+
 import I18n from './src/app/library/utils/i18n/i18n';
 import {AppContainer} from './src/app/navigation/AppNavigation';
 

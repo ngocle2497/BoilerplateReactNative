@@ -11,7 +11,10 @@ const RootStack = createStackNavigator<RootStackParamList>();
 export const RootNavigation = ({token}: {token?: string}) => {
   // effect
   useEffect(() => {
-    BootSplash.hide({fade: true});
+    const id = setTimeout(() => {
+      BootSplash.hide({fade: true});
+    }, 1000);
+    return () => clearTimeout(id);
   }, []);
 
   // render
