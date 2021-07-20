@@ -10,12 +10,13 @@
 		00E356F31AD99517003FC87E /* HelloWorldTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* HelloWorldTests.m */; };
 		0E0879BC3BBCFC5032EB5300 /* libPods-HelloWorld-HelloWorldTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A82873A5BBF42C6D71A9056 /* libPods-HelloWorld-HelloWorldTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		55504FC66C00B0AF636F7FF8 /* libPods-HelloWorld.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E7ED3B33A5BCC8C4CD6EE10 /* libPods-HelloWorld.a */; };
 		8F8B3E7C266A6D3200A35EA7 /* AppModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8B3E7B266A6D3200A35EA7 /* AppModule.swift */; };
 		8F8B3E80266A6DA000A35EA7 /* AppModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8B3E7F266A6DA000A35EA7 /* AppModule.m */; };
 		8F8B3EC2266A6F4900A35EA7 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F8B3EC1266A6F4900A35EA7 /* BootSplash.storyboard */; };
+		8FDF4A7B26A70F8600B883AE /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FDF4A7A26A70F8600B883AE /* Colors.xcassets */; };
+		8FDF4A8926A711F700B883AE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FDF4A8826A711F700B883AE /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +36,6 @@
 		13B07F961A680F5B00A75B9A /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = HelloWorld/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = HelloWorld/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = HelloWorld/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HelloWorld/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = HelloWorld/main.m; sourceTree = "<group>"; };
 		1A82873A5BBF42C6D71A9056 /* libPods-HelloWorld-HelloWorldTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HelloWorld-HelloWorldTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +47,8 @@
 		8F8B3E7B266A6D3200A35EA7 /* AppModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModule.swift; sourceTree = "<group>"; };
 		8F8B3E7F266A6DA000A35EA7 /* AppModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppModule.m; sourceTree = "<group>"; };
 		8F8B3EC1266A6F4900A35EA7 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = HelloWorld/BootSplash.storyboard; sourceTree = "<group>"; };
+		8FDF4A7A26A70F8600B883AE /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		8FDF4A8826A711F700B883AE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A825BBFD66777711D92618E9 /* Pods-HelloWorld-HelloWorldTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloWorld-HelloWorldTests.debug.xcconfig"; path = "Target Support Files/Pods-HelloWorld-HelloWorldTests/Pods-HelloWorld-HelloWorldTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -94,12 +96,13 @@
 				8F8B3EC1266A6F4900A35EA7 /* BootSplash.storyboard */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				8F8B3E7B266A6D3200A35EA7 /* AppModule.swift */,
 				8F8B3E7A266A6D3200A35EA7 /* HelloWorld-Bridging-Header.h */,
 				8F8B3E7F266A6DA000A35EA7 /* AppModule.m */,
+				8FDF4A7A26A70F8600B883AE /* Colors.xcassets */,
+				8FDF4A8826A711F700B883AE /* Images.xcassets */,
 			);
 			name = HelloWorld;
 			sourceTree = "<group>";
@@ -250,8 +253,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FDF4A8926A711F700B883AE /* Images.xcassets in Resources */,
+				8FDF4A7B26A70F8600B883AE /* Colors.xcassets in Resources */,
 				8F8B3EC2266A6F4900A35EA7 /* BootSplash.storyboard in Resources */,
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,6 +502,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = HelloWorld/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -524,6 +529,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = HelloWorld/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

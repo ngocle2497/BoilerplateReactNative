@@ -31,7 +31,6 @@ import React, {memo, useCallback, useRef, useState} from 'react';
 import isEqual from 'react-fast-compare';
 import {Alert} from 'react-native';
 import {Easing} from 'react-native-reanimated';
-
 import {FormLogin} from './components/FormLogin';
 
 const LoginComponent = () => {

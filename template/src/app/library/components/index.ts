@@ -33,3 +33,4 @@ export * from './StackView/StackView';
 export * from './Collapsible/Collapsible';
 export * from './SvgIcon/SvgIcon';
 export * from './Transition';
+export * from './Modal/Modal';

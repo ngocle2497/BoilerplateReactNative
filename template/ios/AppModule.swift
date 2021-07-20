@@ -8,14 +8,11 @@
 
 import Foundation
 import UIKit
-import CoreBluetooth
 
 @objc(AppModule)
-class AppModule: RCTEventEmitter,CBCentralManagerDelegate {
+class AppModule: NSObject {
   
   private static var DefaultStringReturnType: String = "Unknown";
-  private var hasListeners:Bool = false;
-  var cbManager: CBCentralManager!
   
   enum DeviceType:String {
     case DeviceTypeHandset = "Handset"
@@ -24,28 +21,6 @@ class AppModule: RCTEventEmitter,CBCentralManagerDelegate {
     case DeviceTypeDesktop = "Desktop"
     case DeviceTypeUnknown = "Unknown"
   }
-  override func supportedEvents() -> [String]! {
-    return ["onUpdateBluetoothStatus"]
-  }
-  override init() {
-    super.init()
-    cbManager = CBCentralManager(delegate:self, queue: nil)
-  }
-  
-  override func stopObserving() {
-    hasListeners = false
-  }
-  
-  override func startObserving() {
-    hasListeners = true;
-  }
-  
-  func centralManagerDidUpdateState(_ central: CBCentralManager) {
-    if hasListeners{
-      sendEvent(withName: "onUpdateBluetoothStatus", body: getBluetoothState())
-    }
-  }
-  
   
   
   func _getAppVersion() -> String {
@@ -90,12 +65,7 @@ class AppModule: RCTEventEmitter,CBCentralManagerDelegate {
       return DeviceType.DeviceTypeUnknown.rawValue
     }
   }
-  
-  @objc
-  func getBluetoothState() -> Any  {
-    return cbManager.state == .poweredOn
-  }
-  
+
   @objc
   func getDeviceType() -> String {
     return _getDeviceType()

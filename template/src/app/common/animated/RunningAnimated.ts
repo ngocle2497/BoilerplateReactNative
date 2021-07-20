@@ -6,14 +6,21 @@ import Animated, {
 
 export const sharedTiming = (
   toValue: number,
-  config: Animated.WithTimingConfig = {
-    duration: 500,
-    easing: Easing.bezier(0.33, 0.01, 0, 1),
-  },
+  config?: Animated.WithTimingConfig,
   callBack?: (finished: boolean) => void,
 ) => {
   'worklet';
-  return withTiming(toValue, config, callBack);
+  return withTiming(
+    toValue,
+    Object.assign(
+      {
+        duration: 500,
+        easing: Easing.bezier(0.33, 0.01, 0, 1),
+      },
+      config,
+    ),
+    callBack,
+  );
 };
 
 export const sharedSpring = (

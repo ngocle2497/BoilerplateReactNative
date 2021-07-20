@@ -99,6 +99,12 @@ export interface ModalProps {
   hasGesture?: boolean;
 
   /**
+   * Should show modal translucent status bar
+   * @default true
+   */
+  statusBarTranslucent?: boolean;
+
+  /**
    * Custom gesture component
    * @default undefined
    */

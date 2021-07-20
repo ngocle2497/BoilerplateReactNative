@@ -1,7 +1,7 @@
 import {sharedTiming, useInterpolate, useVector} from '@animated';
-import React, {memo, useEffect} from 'react';
+import React, {memo, useEffect, useCallback} from 'react';
 import isEqual from 'react-fast-compare';
-import {StyleSheet, useWindowDimensions} from 'react-native';
+import {BackHandler, StyleSheet, useWindowDimensions} from 'react-native';
 import FastImage, {Source} from 'react-native-fast-image';
 import {PanGestureHandler} from 'react-native-gesture-handler';
 import Animated, {
@@ -84,6 +84,38 @@ export const GestureHOC = memo(
     );
 
     // function
+    const onEndAnimatedClose = useCallback(
+      (finished: boolean) => {
+        'worklet';
+        if (finished) {
+          image.imageOpacity.value = 1;
+          runOnJS(onClose)();
+        }
+      },
+      [image.imageOpacity, onClose],
+    );
+
+    const closeLightBox = useCallback(() => {
+      targetX.value = translateX.value - targetX.value * -1;
+      targetY.value = translateY.value - targetY.value * -1;
+      translateX.value = 0;
+      translateY.value = 0;
+      backDropOpacity.value = sharedTiming(0, timingConfig);
+      animatedProgress.value = sharedTiming(
+        0,
+        timingConfig,
+        onEndAnimatedClose,
+      );
+    }, [
+      animatedProgress,
+      backDropOpacity,
+      onEndAnimatedClose,
+      targetX,
+      targetY,
+      translateX,
+      translateY,
+    ]);
+
     const _gestureHandler = useAnimatedGestureHandler({
       onActive: (event, _) => {
         translateX.value = event.translationX;
@@ -105,17 +137,7 @@ export const GestureHOC = memo(
       },
       onEnd: () => {
         if (Math.abs(translateY.value) > 40) {
-          targetX.value = translateX.value - targetX.value * -1;
-          targetY.value = translateY.value - targetY.value * -1;
-          translateX.value = 0;
-          translateY.value = 0;
-          backDropOpacity.value = sharedTiming(0, timingConfig);
-          animatedProgress.value = sharedTiming(0, timingConfig, finished => {
-            if (finished) {
-              image.imageOpacity.value = 1;
-              runOnJS(onClose)();
-            }
-          });
+          runOnJS(closeLightBox)();
         } else {
           backDropOpacity.value = sharedTiming(1, timingConfig);
           translateX.value = sharedTiming(0, timingConfig);
@@ -125,6 +147,11 @@ export const GestureHOC = memo(
       },
     });
 
+    const onBackButtonPress = useCallback(() => {
+      closeLightBox();
+      return true;
+    }, [closeLightBox]);
+
     // effect
     useEffect(() => {
       runOnUI(() => {
@@ -133,6 +160,12 @@ export const GestureHOC = memo(
         animatedProgress.value = sharedTiming(1, timingConfig);
         backDropOpacity.value = sharedTiming(1, timingConfig);
       })();
+    }, []);
+
+    useEffect(() => {
+      BackHandler.addEventListener('hardwareBackPress', onBackButtonPress);
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackButtonPress);
     }, []);
 
     // reanimated style
@@ -150,7 +183,7 @@ export const GestureHOC = memo(
         <Animated.View style={[imageStyle]}>
           <FastImage
             style={[styles.image]}
-            resizeMode={'contain'}
+            resizeMode={'cover'}
             source={source}
           />
         </Animated.View>

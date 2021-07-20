@@ -6,7 +6,9 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
+
 import {Button} from '../Button/Button';
+
 import {imageTransitionRef} from './ImageTransition';
 
 const styles = StyleSheet.create({

@@ -50,6 +50,7 @@ const ModalComponent = ({
   moveContentWhenDrag = false,
   swipeThreshold = SWIPE_THRESHOLD,
   hasGesture = true,
+  statusBarTranslucent = true,
   children,
   style,
   onBackdropPress,
@@ -95,15 +96,29 @@ const ModalComponent = ({
           },
           useNativeDriver: false,
         }),
-        onPanResponderRelease: () => {
-          if (
-            Math.abs(translateX.value) > swipeThreshold ||
-            Math.abs(translateY.value) > swipeThreshold
-          ) {
-            if (typeof onSwipeComplete === 'function') {
-              onSwipeComplete();
+        onPanResponderRelease: (_, {dx, dy}) => {
+          if (swipingDirection) {
+            const actualDx = Math.abs(
+              clamp(
+                dx,
+                swipingDirection.includes('left') ? -MAX_TRANSLATE : 0,
+                swipingDirection.includes('right') ? MAX_TRANSLATE : 0,
+              ),
+            );
+            const actualDy = Math.abs(
+              clamp(
+                dy,
+                swipingDirection.includes('up') ? -MAX_TRANSLATE : 0,
+                swipingDirection.includes('down') ? MAX_TRANSLATE : 0,
+              ),
+            );
+            if (actualDy > swipeThreshold || actualDx > swipeThreshold) {
+              if (typeof onSwipeComplete === 'function') {
+                onSwipeComplete();
+              }
             }
           }
+
           translateY.value = sharedTiming(0, {duration: 150});
           translateX.value = sharedTiming(0, {duration: 150});
         },
@@ -321,7 +336,7 @@ const ModalComponent = ({
   return (
     <RNModal
       transparent
-      statusBarTranslucent
+      statusBarTranslucent={statusBarTranslucent}
       visible={visible}
       onRequestClose={onBackButtonPress}
       animationType={'none'}>
