@@ -1,3 +1,6 @@
+/**
+ * Create FormData
+ */
 const createWithPhoto = (photo: Array<any>, body: any) => {
   const data = new FormData();
   if (Array.isArray(photo)) {

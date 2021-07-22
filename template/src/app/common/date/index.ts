@@ -1,5 +1,8 @@
 import moment, {Moment} from 'moment';
 
+/**
+ * Return 2 date is same month.
+ */
 export function sameMonth(a: Moment, b: Moment) {
   return (
     a.toDate().getFullYear() === b.toDate().getFullYear() &&
@@ -7,6 +10,9 @@ export function sameMonth(a: Moment, b: Moment) {
   );
 }
 
+/**
+ * Return 2 date is same month, year, day.
+ */
 export function sameDate(a: Moment, b: Moment) {
   return (
     a.toDate().getFullYear() === b.toDate().getFullYear() &&
@@ -14,15 +20,23 @@ export function sameDate(a: Moment, b: Moment) {
     a.toDate().getDate() === b.toDate().getDate()
   );
 }
-// greater than equal
+/**
+ * Greater than equal.
+ */
 function isGTE(a: Moment, b: Moment) {
   return a.diff(b, 'day') > -1;
 }
-// less than equal
+
+/**
+ * Less than equal.
+ */
 function isLTE(a: Moment, b: Moment) {
   return b.diff(a, 'day') > -1;
 }
-//
+
+/**
+ * Return list days between 2 date.
+ */
 function daysFromTo(a: Moment | Date, b: Moment | Date) {
   const days = [];
   // convert moment to time. moment().getTime()
@@ -38,6 +52,9 @@ function daysFromTo(a: Moment | Date, b: Moment | Date) {
   return days;
 }
 
+/**
+ * Return list days in month
+ */
 function daysInMonth(_date: string | Date | Moment | number) {
   const date = moment(_date).toDate();
   const year = date.getFullYear();
@@ -49,6 +66,10 @@ function daysInMonth(_date: string | Date | Moment | number) {
 
   return daysFromTo(firstDay, lastDay);
 }
+
+/**
+ * Get list days by month. Maybe has pre month, next month.
+ */
 export function getDaysByMonth(
   mDate: string | Date | Moment | number,
   firstDayOfWeek: number,
@@ -91,6 +112,9 @@ export function getDaysByMonth(
   return latest;
 }
 
+/**
+ * Get time ago like facebook. (ex: a day ago).
+ */
 export function getTimeDifference(date: Date | string): {
   count: number | null;
   tx: string;

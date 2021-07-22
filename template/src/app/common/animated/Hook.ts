@@ -12,6 +12,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {sharedClamp, sharedMin, sharedMax} from './Math';
 
+/**
+ * Interpolate number
+ */
 export const useInterpolate = (
   progress: Animated.SharedValue<number>,
   input: number[],
@@ -19,6 +22,9 @@ export const useInterpolate = (
   type?: Animated.Extrapolate,
 ) => useDerivedValue(() => interpolate(progress.value, input, output, type));
 
+/**
+ * Interpolate color
+ */
 export const useInterpolateColor = (
   progress: Animated.SharedValue<number>,
   input: number[],
@@ -31,6 +37,9 @@ export const useInterpolateColor = (
   );
 };
 
+/**
+ * Linear interpolation between x and y using a to weight between them
+ */
 export const useMix = (
   progress: Animated.SharedValue<number>,
   x: number,
@@ -40,12 +49,18 @@ export const useMix = (
   return useDerivedValue(() => x + progress.value * (y - x));
 };
 
+/**
+ * Convert number to radian
+ */
 export const useRadian = (value: Animated.SharedValue<number>) =>
   useDerivedValue(() => {
     'worklet';
     return `${value.value}deg`;
   });
 
+/**
+ * Clamp value when out of range
+ */
 export const useShareClamp = (
   value: Animated.SharedValue<number>,
   lowerValue: number,
@@ -56,17 +71,25 @@ export const useShareClamp = (
     sharedClamp(value.value, lowerValue, upperValue),
   );
 };
-
+/**
+ * Return min number of args
+ */
 export const useMin = (...args: Animated.SharedValue<number>[]) => {
   'worklet';
   return useDerivedValue(() => sharedMin(...args.map(x => x.value)));
 };
 
+/**
+ * Return max number of args
+ */
 export const useMax = (...args: Animated.SharedValue<number>[]) => {
   'worklet';
   return useDerivedValue(() => sharedMax(...args.map(x => x.value)));
 };
 
+/**
+ * Return view inside screen or not
+ */
 export function useInsideView<T extends Component>(
   wrapHeight: number | undefined = undefined,
 ): [React.RefObject<T>, Animated.SharedValue<boolean>] {
@@ -97,6 +120,9 @@ type Vector = {
   x: number;
   y: number;
 };
+/**
+ * Create Animated Shared Value Vector
+ */
 export const useVector = ({x, y}: Vector) => {
   const ox = useSharedValue(x);
   const oy = useSharedValue(y);

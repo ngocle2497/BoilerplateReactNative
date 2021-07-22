@@ -4,6 +4,9 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
+/**
+ * Updates position by running timing based animation from a given position to a destination determined by toValue.
+ */
 export const sharedTiming = (
   toValue: number,
   config?: Animated.WithTimingConfig,
@@ -23,6 +26,9 @@ export const sharedTiming = (
   );
 };
 
+/**
+ * Updates position and velocity by running a single step of spring based animation
+ */
 export const sharedSpring = (
   toValue: number,
   config?: Animated.WithSpringConfig,

@@ -9,20 +9,31 @@ import Animated, {
 
 import {sharedBin} from './Math';
 
-export const useSharedTransition = (
+/**
+ * Return value runs from 0 to 1 when state change using withTiming
+ */
+ export const useSharedTransition = (
   state: boolean | number,
-  config: Animated.WithTimingConfig = {
-    duration: 500,
-    easing: Easing.bezier(0.33, 0.01, 0, 1),
-  },
+  config?: Animated.WithTimingConfig,
 ): Animated.SharedValue<number> => {
   const value = useSharedValue(0);
   useEffect(() => {
     value.value = typeof state === 'boolean' ? sharedBin(state) : state;
   }, [state, value]);
-  return useDerivedValue(() => withTiming(value.value, config));
+  return useDerivedValue(() =>
+    withTiming(
+      value.value,
+      Object.assign(
+        {duration: 500, easing: Easing.bezier(0.33, 0.01, 0, 1)},
+        config,
+      ),
+    ),
+  );
 };
 
+/**
+ * Return value runs from 0 to 1 when state change using withSpring
+ */
 export const useSharedSpringTransition = (
   state: boolean,
   config?: Animated.WithSpringConfig,
