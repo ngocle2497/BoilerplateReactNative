@@ -201,10 +201,34 @@ export interface BlockProps extends ViewProps {
   width?: number | string;
 
   /**
+   * Actual max width
+   * @default undefined
+   */
+  maxWidth?: number | string;
+
+  /**
+   * Actual min width
+   * @default undefined
+   */
+  minWidth?: number | string;
+
+  /**
    * Actual height
    * @default undefined
    */
   height?: number | string;
+
+  /**
+   * Actual max width
+   * @default undefined
+   */
+  maxHeight?: number | string;
+
+  /**
+   * Actual min width
+   * @default undefined
+   */
+  minHeight?: number | string;
 
   /**
    * Using border

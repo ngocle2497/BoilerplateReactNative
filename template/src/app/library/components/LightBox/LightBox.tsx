@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   img: {
-    flex: 1,
+    width: '100%',
+    height: '100%',
   },
 });
 
@@ -74,19 +75,21 @@ const LightBoxComponent = ({source}: LightBoxProps) => {
   const _onLoadedImage = useCallback((e: OnLoadEvent) => {
     setDisableButton(false);
     setSizeImage(e.nativeEvent);
+    console.log('object', e.nativeEvent);
   }, []);
 
   //reanimated style
   const imageStyle = useAnimatedStyle(() => ({
-    flex: 1,
+    width: '100%',
+    height: '100%',
     opacity: imageOpacity.value,
   }));
 
   // render
   return (
     <>
-      <Button disabled={disableButton} onPress={_onImagePress}>
-        <View ref={_refRoot} collapsable={false} style={[styles.container]}>
+      <View ref={_refRoot} collapsable={false} style={[styles.container]}>
+        <Button disabled={disableButton} onPress={_onImagePress}>
           <Animated.View style={imageStyle}>
             <FastImage
               onLoad={_onLoadedImage}
@@ -95,8 +98,8 @@ const LightBoxComponent = ({source}: LightBoxProps) => {
               resizeMode={'contain'}
             />
           </Animated.View>
-        </View>
-      </Button>
+        </Button>
+      </View>
     </>
   );
 };

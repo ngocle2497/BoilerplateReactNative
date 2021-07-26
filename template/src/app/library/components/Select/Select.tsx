@@ -1,10 +1,10 @@
 import React, {useState, memo, useCallback} from 'react';
 import {FlatList, ListRenderItemInfo} from 'react-native';
-import Modal from 'react-native-modal';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 import equals from 'react-fast-compare';
 
+import {Modal} from '../Modal/Modal';
 import {Text} from '../Text/Text';
 import {Block} from '../Block/Block';
 import {Button} from '../Button/Button';
@@ -74,9 +74,9 @@ const SelectComponent = (props: SelectProps) => {
   // render
   return (
     <>
-      <Block style={[styles.root]} collapsable={false}>
+      <Block block middle collapsable={false}>
         <Button onPress={_showDrop} activeOpacity={0.68}>
-          <Block style={[styles.row]} color={'#FFFFFF'} padding={10}>
+          <Block direction={'row'} color={'#FFFFFF'} padding={10}>
             <Text text={selectedText} />
             {rightChildren && rightChildren}
           </Block>
@@ -84,16 +84,18 @@ const SelectComponent = (props: SelectProps) => {
         <Modal
           onBackdropPress={_hideDrop}
           onBackButtonPress={_hideDrop}
+          animatedIn={'slideInUp'}
+          hasGesture={false}
+          animatedOut={'slideOutDown'}
           style={[styles.modal]}
           backdropOpacity={0.3}
-          useNativeDriver={true}
           isVisible={visible}>
-          <Block style={[styles.wrap]}>
+          <Block>
             <Block
-              style={[
-                styles.wrapList,
-                {paddingBottom: useBottomInset ? inset.bottom : 0},
-              ]}>
+              color={'#FFFFFF'}
+              overflow={'hidden'}
+              paddingBottom={useBottomInset ? inset.bottom : 0}
+              maxHeight={250}>
               <FlatList
                 data={data}
                 keyExtractor={_keyExtractor}

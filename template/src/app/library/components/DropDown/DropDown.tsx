@@ -20,7 +20,6 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import Modal from 'react-native-modal';
 import Animated, {
   measure,
   runOnJS,
@@ -30,6 +29,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
+import {Modal} from '../Modal/Modal';
 import {Block} from '../Block/Block';
 import {Button} from '../Button/Button';
 import {Icon} from '../Icon/Icon';
@@ -84,8 +84,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modal: {
-    marginHorizontal: 0,
-    marginVertical: 0,
+    justifyContent: undefined,
   },
 });
 
@@ -134,8 +133,9 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   const inset = useSafeAreaInsets();
   const _refDrop = useAnimatedRef<View>();
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedValue, setSelectedValue] =
-    useState<string | Array<string>>('');
+  const [selectedValue, setSelectedValue] = useState<string | Array<string>>(
+    '',
+  );
   const [viewLayout, setViewLayout] = useState({
     width: 0,
     height: 0,
@@ -348,7 +348,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   // render
   return (
     <>
-      <View ref={_refDrop} style={wrapStyle}>
+      <Block ref={_refDrop} style={wrapStyle}>
         <Button onPress={_onToggle} disabled={disabled}>
           <Block style={container} direction={'row'}>
             <Text style={textPlaceHolderStyle} numberOfLines={1}>
@@ -364,19 +364,18 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
               ))}
           </Block>
         </Button>
-      </View>
+      </Block>
       <Modal
         backdropOpacity={0}
-        useNativeDriver={true}
-        animationInTiming={100}
-        animationOutTiming={100}
+        animatedInDuration={100}
+        animatedOutDuration={100}
         onBackButtonPress={_onHideDrop}
         onBackdropPress={_onHideDrop}
         onModalShow={onOpen}
         onModalHide={onClose}
-        removeClippedSubviews={true}
-        animationIn={'fadeIn'}
-        animationOut={'fadeOut'}
+        hasGesture={false}
+        animatedIn={'fadeIn'}
+        animatedOut={'fadeOut'}
         style={[styles.modal]}
         isVisible={isVisible}>
         <Block

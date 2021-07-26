@@ -1,7 +1,6 @@
 export * from './createFormData';
 export * from './hooks';
 export * from './handleError';
-export * from './handleMsg';
 // export * from './requestPermission';
 export * from './string';
 export * from './scale';

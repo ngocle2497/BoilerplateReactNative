@@ -20,7 +20,8 @@ const ImgComponent = (props: ImageProps) => {
 
   // style
   const style = useMemo<StyleProp<ImageStyle>>(
-    () => enhance([styleOverride as ImageStyle]),
+    () =>
+      enhance([{width: '100%', height: '100%'}, styleOverride as ImageStyle]),
     [styleOverride],
   );
 

@@ -9,8 +9,8 @@ import React, {
 } from 'react';
 import equals from 'react-fast-compare';
 import {useTranslation} from 'react-i18next';
-import Modal from 'react-native-modal';
 
+import {Modal} from '../Modal/Modal';
 import {Block} from '../Block/Block';
 import {Button} from '../Button/Button';
 import {Divider} from '../Divider/Divider';
@@ -95,8 +95,9 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
   return (
     <Modal
       style={[styles.modal]}
-      useNativeDriver={true}
       backdropOpacity={1}
+      animatedIn={'slideInUp'}
+      animatedOut={'slideOutDown'}
       onBackdropPress={_onBackDropPress}
       onBackButtonPress={_onCancel}
       isVisible={actionVisible}

@@ -7,7 +7,6 @@ import React, {
 } from 'react';
 import {StyleSheet} from 'react-native';
 import isEqual from 'react-fast-compare';
-import Modal from 'react-native-modal';
 import {FontSizeDefault} from '@theme/fontSize';
 import {AppModeType} from '@networking';
 import {APP_MODE} from '@config/api';
@@ -17,6 +16,7 @@ import {saveString} from '@utils';
 import {R} from '@assets/value';
 import {IconTypes} from '@assets/icon';
 
+import {Modal} from '../Modal/Modal';
 import {Block} from '../Block/Block';
 import {Button} from '../Button/Button';
 import {Text} from '../Text/Text';
@@ -25,15 +25,10 @@ import {Icon} from '../Icon/Icon';
 import {Divider} from '../Divider/Divider';
 
 const styles = StyleSheet.create({
-  modal: {
-    marginVertical: 0,
-    marginHorizontal: 0,
-  },
   contentModal: {
     backgroundColor: '#FFFFFF',
     paddingHorizontal: 0,
     paddingVertical: 15,
-    alignItems: 'center',
   },
   textMode: {
     flex: 1,
@@ -42,6 +37,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: FontSizeDefault.FONT_13,
     paddingVertical: 0,
+    alignSelf: 'center',
   },
 });
 interface ButtonSelectProps {
@@ -127,12 +123,13 @@ const ModalAppModeComponent = forwardRef((_, ref) => {
   // render
   return (
     <Modal
-      style={[styles.modal]}
-      useNativeDriver={true}
+      animatedIn={'slideInUp'}
+      animatedOut={'slideOutDown'}
       onBackdropPress={_hideModal}
       onBackButtonPress={_hideModal}
+      style={{justifyContent: 'flex-end'}}
       isVisible={isVisible}>
-      <Block block justifyContent={'flex-end'}>
+      <Block color={'red'}>
         <Block style={[styles.contentModal]}>
           <Text style={[styles.title]} tx={'common:textAppMode'} />
           <ButtonSelect

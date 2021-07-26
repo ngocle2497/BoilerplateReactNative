@@ -7,6 +7,7 @@ import {onLoadApp} from '@store/app_redux/reducer';
 import {MyAppTheme} from '@theme';
 import React, {useEffect} from 'react';
 import KeyboardManager from 'react-native-keyboard-manager';
+
 import {navigationRef} from './navigationService';
 import {RootNavigation} from './RootNavigator';
 
