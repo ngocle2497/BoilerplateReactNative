@@ -1,3 +1,4 @@
+import {subscribeActionMiddleware} from '@common';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
 import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
@@ -18,6 +19,7 @@ const sagaMiddleware = createSagaMiddleware();
 const middleware = [
   ...getDefaultMiddleware({serializableCheck: false}),
   sagaMiddleware,
+  subscribeActionMiddleware,
 ];
 if (devMode) {
   middleware.push(logger);

@@ -9,6 +9,7 @@ export * from './handle';
 export * from './method';
 export * from './math';
 export * from './redux';
+export * from './redux/reduxSubscribeAction';
 export * from './type';
 export * from './date';
 export * from './nativeModule';
