@@ -17,7 +17,10 @@
     "apk": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
     "aab": "cd android && ./gradlew clean && ./gradlew bundleRelease && cd ..",
     "lint": "eslint index.js app --fix --ext .js,.ts,.tsx",
-    "pod": "cd ios && pod install && cd .."
+    "pod": "cd ios && pod install && cd ..",
+    "installLib": "yarn add ",
+    "installPod": "func() { npm run installLib \"$1\" && npm run pod; }; func",
+    "yp": "npm run installPod -- "
   },
   "dependencies": {
     "@react-native-community/blur": "^3.6.0",
