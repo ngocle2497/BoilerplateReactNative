@@ -145,6 +145,12 @@ export interface InputBaseProps extends TextInputProps {
    * Children right input.(ex:Icon show/hide password)
    */
   rightChildren?: React.ReactNode;
+
+  /**
+   * Remove characters with regex on change text
+   * @default undefined
+   */
+     rxRemove?: RegExp;
 }
 
 export interface TextFieldProps extends InputBaseProps {

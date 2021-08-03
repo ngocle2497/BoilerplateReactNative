@@ -21,9 +21,9 @@ import {useInterpolate, useSharedTransition} from '@animated';
 import {useTranslation} from 'react-i18next';
 import {enhance, onCheckType} from '@common';
 import {Block} from '@library/components/Block/Block';
+import {Text} from '@library/components/Text/Text';
 
 import {InputOutlineProps} from './InputOutline.props';
-import {Text} from '@library/components/Text/Text';
 
 const VERTICAL_PADDING = 15;
 const UN_ACTIVE_COLOR = 'rgb(159,152,146)';
@@ -64,7 +64,8 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     onTextChange,
     trigger,
     nameTrigger,
-    placeholderColor,
+    placeholderColor = UN_ACTIVE_COLOR,
+    rxRemove,
     placeholderTx,
     inputStyle: inputStyleOverwrite = {},
     name = '',
@@ -135,7 +136,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
 
   const _onFocus = useCallback(
     (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-      if (onFocus && onCheckType(onFocus, 'function')) {
+      if (onCheckType(onFocus, 'function')) {
         onFocus(e);
       }
       setFocused(true);
@@ -145,7 +146,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
 
   const _onBlur = useCallback(
     (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-      if (onBlur && onCheckType(onBlur, 'function')) {
+      if (onCheckType(onBlur, 'function')) {
         onBlur(e);
       }
       setFocused(false);
@@ -155,12 +156,14 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
 
   const _onChangeText = useCallback(
     (text: string) => {
-      setValue(text);
-      if (onChangeText && onCheckType(onChangeText, 'function')) {
-        onChangeText(text);
+      const actualText =
+        rxRemove !== undefined ? text.replace(rxRemove, '') : text;
+      setValue(actualText);
+      if (onCheckType(onChangeText, 'function')) {
+        onChangeText(actualText);
       }
-      if (onTextChange && onCheckType(onTextChange, 'function')) {
-        onTextChange(name, value);
+      if (onCheckType(onTextChange, 'function')) {
+        onTextChange(name, actualText);
       }
       if (
         trigger &&
@@ -173,7 +176,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
         }, 0);
       }
     },
-    [name, nameTrigger, onChangeText, onTextChange, trigger, value],
+    [name, nameTrigger, onChangeText, onTextChange, rxRemove, trigger],
   );
 
   // effect
@@ -229,7 +232,11 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
             paddingLeft={5}
             alignSelf={'flex-end'}
             pointerEvents={'none'}>
-            <Text tx={placeholderTx} text={placeHolder} color={'gray'} />
+            <Text
+              tx={placeholderTx}
+              text={placeHolder}
+              color={placeholderColor}
+            />
           </Block>
         )}
         {labelText && (

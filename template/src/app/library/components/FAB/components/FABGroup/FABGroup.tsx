@@ -80,7 +80,7 @@ const FABGroupComponent = (props: FABGroupProps) => {
 
   const onPressItem = useCallback((onPressAction?: () => void) => {
     setIsShow(false);
-    if (onPressAction && onCheckType(onPressAction, 'function')) {
+    if (onCheckType(onPressAction, 'function')) {
       onPressAction();
     }
   }, []);

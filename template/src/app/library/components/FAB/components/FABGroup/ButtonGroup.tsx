@@ -91,8 +91,8 @@ const ButtonGroupComponent = (props: ButtonGroupProps) => {
 
   // function
   const _onPress = useCallback(() => {
-    if (onPress && onCheckType(onPress, 'function')) {
-      onPress && onPress(onPressItem);
+    if (onCheckType(onPress, 'function')) {
+      onPress(onPressItem);
     }
   }, [onPress, onPressItem]);
 

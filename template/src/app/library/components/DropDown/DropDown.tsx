@@ -271,7 +271,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   }, [defaultValue, multiple]);
 
   useEffect(() => {
-    if (onChangeItem && onCheckType(onChangeItem, 'function')) {
+    if (onCheckType(onChangeItem, 'function')) {
       if (Array.isArray(selectedValue)) {
         onChangeItem(
           selectedValue,

@@ -21,9 +21,9 @@ import {useInterpolate, useSharedTransition} from '@animated';
 import {useTranslation} from 'react-i18next';
 import {enhance, onCheckType} from '@common';
 import {Block} from '@library/components/Block/Block';
+import {Text} from '@library/components/Text/Text';
 
 import {InputFlatProps} from './InputFlat.props';
-import {Text} from '@library/components/Text/Text';
 
 const VERTICAL_PADDING = 5;
 const UN_ACTIVE_COLOR = 'rgb(159,152,146)';
@@ -62,7 +62,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
     labelTx,
     placeholder,
     placeholderTx,
-    placeholderColor,
+    placeholderColor = UN_ACTIVE_COLOR,
     onTextChange,
     trigger,
     nameTrigger,
@@ -83,6 +83,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
     onChangeText,
     onFocus,
     onBlur,
+    rxRemove,
     ...rest
   } = props;
 
@@ -139,7 +140,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
 
   const _onFocus = useCallback(
     (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-      if (onFocus && onCheckType(onFocus, 'function')) {
+      if (onCheckType(onFocus, 'function')) {
         onFocus(e);
       }
       setFocused(true);
@@ -149,7 +150,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
 
   const _onBlur = useCallback(
     (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-      if (onBlur && onCheckType(onBlur, 'function')) {
+      if (onCheckType(onBlur, 'function')) {
         onBlur(e);
       }
       setFocused(false);
@@ -159,11 +160,13 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
 
   const _onChangeText = useCallback(
     (text: string) => {
-      if (onTextChange && onCheckType(onTextChange, 'function')) {
-        onTextChange(name, value);
+      const actualText =
+        rxRemove !== undefined ? text.replace(rxRemove, '') : text;
+      if (onCheckType(onTextChange, 'function')) {
+        onTextChange(name, actualText);
       }
-      if (onChangeText && onCheckType(onChangeText, 'function')) {
-        onChangeText(text);
+      if (onCheckType(onChangeText, 'function')) {
+        onChangeText(actualText);
       }
       if (
         trigger &&
@@ -175,9 +178,9 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
           trigger(nameTrigger);
         }, 0);
       }
-      setValue(text);
+      setValue(actualText);
     },
-    [name, nameTrigger, onChangeText, onTextChange, trigger, value],
+    [name, nameTrigger, onChangeText, onTextChange, rxRemove, trigger],
   );
 
   // effect
@@ -232,7 +235,11 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
             position={'absolute'}
             alignSelf={'flex-end'}
             pointerEvents={'none'}>
-            <Text tx={placeholderTx} text={placeHolder} color={'gray'} />
+            <Text
+              tx={placeholderTx}
+              text={placeHolder}
+              color={placeholderColor}
+            />
           </Block>
         )}
         {labelText && (
