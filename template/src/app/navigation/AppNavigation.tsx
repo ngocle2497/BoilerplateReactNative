@@ -6,6 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {onLoadApp} from '@store/app_redux/reducer';
 import {MyAppTheme} from '@theme';
 import React, {useEffect} from 'react';
+import {StatusBar} from 'react-native';
 import KeyboardManager from 'react-native-keyboard-manager';
 
 import {navigationRef} from './navigationService';
@@ -44,6 +45,10 @@ export const AppContainer = () => {
   return (
     <NavigationContainer ref={navigationRef} theme={MyAppTheme[theme]}>
       <>
+        <StatusBar
+          translucent
+          backgroundColor={MyAppTheme[theme].colors.background}
+        />
         {!loadingApp && (
           <>
             <RootNavigation token={token} />

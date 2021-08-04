@@ -1,5 +1,10 @@
 import React from 'react';
-import {ViewStyle, StyleProp} from 'react-native';
+import {
+  ViewStyle,
+  StyleProp,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+} from 'react-native';
 import {Edge} from 'react-native-safe-area-context';
 
 export interface ScreenProps {
@@ -24,7 +29,7 @@ export interface ScreenProps {
    * Status bar style
    * @default dark-content
    */
-  statusBar?: 'light-content' | 'dark-content';
+  statusBarStyle?: 'light-content' | 'dark-content';
 
   /**
    * Using safe area on ios
@@ -36,7 +41,7 @@ export interface ScreenProps {
    * Visibility status bar
    * @default true
    */
-  hidden?: boolean;
+  hiddenStatusBar?: boolean;
 
   /**
    * Color of status bar for both Android/IOS
@@ -44,40 +49,22 @@ export interface ScreenProps {
   statusColor?: string;
 
   /**
-   * Enable to draw behind status bar android
-   * @default false
-   */
-  draw?: boolean;
-
-  /**
-   * Color of inset bottom IPhone
+   * Color of inset bottom
    * @default #ffffff
    */
   bottomInsetColor?: string;
 
   /**
-   * Color of inset left IPhone
+   * Color of inset left
    * @default #ffffff
    */
   leftInsetColor?: string;
 
   /**
-   * Color of inset left IPhone
+   * Color of inset left
    * @default #ffffff
    */
   rightInsetColor?: string;
-
-  /**
-   * Show vertical indicator or not (using when scroll equal true)
-   * @default false
-   */
-  showVertical?: boolean;
-
-  /**
-   * Show horizontal indicator or not (using when scroll equal true)
-   * @default false
-   */
-  showHorizontal?: boolean;
 
   /**
    * Using scroll content
@@ -89,5 +76,24 @@ export interface ScreenProps {
    * Inset for safe area view
    * @default undefined
    */
-  forceInset?: Edge[];
+  excludeEdges?: 'all' | Edge[];
+
+  /**
+   * Animated onScroll
+   * @default undefined
+   */
+  onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 }
+
+export type InsetComponentProps = Pick<
+  ScreenProps,
+  | 'statusColor'
+  | 'unsafe'
+  | 'hiddenStatusBar'
+  | 'bottomInsetColor'
+  | 'leftInsetColor'
+  | 'rightInsetColor'
+  | 'statusBarStyle'
+> & {
+  edges: Edge[];
+};

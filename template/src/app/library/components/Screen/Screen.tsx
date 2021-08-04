@@ -1,31 +1,25 @@
-import {enhance, isIos} from '@common';
+import {AppTheme} from '@config/type';
+import {useTheme} from '@react-navigation/native';
 import React, {memo, useMemo} from 'react';
-import equals from 'react-fast-compare';
+import isEqual from 'react-fast-compare';
+import {StatusBar, StyleSheet, useWindowDimensions} from 'react-native';
+import Animated from 'react-native-reanimated';
 import {
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  useWindowDimensions,
-} from 'react-native';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+  Edge,
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 
 import {Block} from '../Block/Block';
 
-import {ScreenProps} from './Screen.props';
+import {InsetComponentProps, ScreenProps} from './Screen.props';
+
+const INSETS: Edge[] = ['top', 'bottom', 'left', 'right'];
 
 const styles = StyleSheet.create({
   outer: {
     backgroundColor: 'transparent',
     flex: 1,
-  },
-  insetBottom: {
-    bottom: 0,
-  },
-  insetLeft: {
-    left: 0,
-  },
-  insetRight: {
-    right: 0,
   },
   inner: {
     justifyContent: 'flex-start',
@@ -34,186 +28,204 @@ const styles = StyleSheet.create({
   },
 });
 
+const InsetComponent = memo(
+  ({
+    edges,
+    bottomInsetColor,
+    hiddenStatusBar,
+    leftInsetColor,
+    rightInsetColor,
+    statusColor,
+    unsafe,
+    statusBarStyle,
+  }: InsetComponentProps) => {
+    // state
+    const inset = useSafeAreaInsets();
+    const {width: screenWidth, height: screenHeight} = useWindowDimensions();
+    // render
+    return (
+      <>
+        <StatusBar
+          hidden={hiddenStatusBar}
+          backgroundColor={'transparent'}
+          translucent
+          barStyle={statusBarStyle || 'dark-content'}
+        />
+        {!unsafe && edges.includes('top') && (
+          <Block
+            color={statusColor}
+            position={'absolute'}
+            top={0}
+            height={inset.top}
+            width={screenWidth}
+          />
+        )}
+        {!unsafe && edges.includes('left') && (
+          <Block
+            color={leftInsetColor}
+            position={'absolute'}
+            left={0}
+            height={screenHeight}
+            width={inset.left}
+          />
+        )}
+        {!unsafe && edges.includes('right') && (
+          <Block
+            color={rightInsetColor}
+            position={'absolute'}
+            right={0}
+            height={screenHeight}
+            width={inset.right}
+          />
+        )}
+        {!unsafe && edges.includes('bottom') && (
+          <Block
+            color={bottomInsetColor}
+            bottom={0}
+            position={'absolute'}
+            height={inset.bottom}
+            width={screenWidth}
+          />
+        )}
+      </>
+    );
+  },
+  isEqual,
+);
+
 function ScreenWithoutScrolling(props: ScreenProps) {
   // state
-  const inset = useSafeAreaInsets();
-  const {width: screenWidth, height: screenHeight} = useWindowDimensions();
-  const style = props.style || {};
+  const {colors}: AppTheme = useTheme();
   const {
-    hidden = false,
+    hiddenStatusBar = false,
     statusColor = undefined,
-    draw = false,
-    bottomInsetColor = '#ffffff',
-    forceInset,
-    unsafe,
-    children,
-    statusBar,
+    bottomInsetColor = colors.background,
+    style = {},
+    rightInsetColor = colors.background,
+    leftInsetColor = colors.background,
+    statusBarStyle,
     backgroundColor,
-    leftInsetColor = '#ffffff',
-    rightInsetColor = '#ffffff',
+    excludeEdges,
+    unsafe = false,
+    children,
   } = props;
+
+  const edges = useMemo<Edge[]>(() => {
+    if (excludeEdges === 'all') {
+      return [];
+    }
+    const actualEdges = INSETS.filter(x => !(excludeEdges ?? []).includes(x));
+    if (hiddenStatusBar) {
+      return actualEdges.filter(x => x !== 'top');
+    }
+    return actualEdges;
+  }, [excludeEdges, hiddenStatusBar]);
 
   const backgroundStyle = useMemo(
     () => (backgroundColor ? {backgroundColor} : {}),
     [backgroundColor],
   );
 
-  const Wrapper = unsafe ? Block : SafeAreaView;
+  const actualUnsafe = useMemo<boolean>(
+    () => unsafe || edges.length <= 0,
+    [edges.length, unsafe],
+  );
+
+  const Wrapper = useMemo(
+    () => (actualUnsafe ? Block : SafeAreaView),
+    [actualUnsafe],
+  );
 
   // render
   return (
     <>
-      <StatusBar
-        hidden={hidden}
-        backgroundColor={statusColor}
-        translucent={draw}
-        barStyle={statusBar || 'dark-content'}
+      <InsetComponent
+        edges={edges}
+        bottomInsetColor={bottomInsetColor}
+        statusColor={statusColor}
+        statusBarStyle={statusBarStyle}
+        hiddenStatusBar={hiddenStatusBar}
+        leftInsetColor={leftInsetColor}
+        rightInsetColor={rightInsetColor}
+        unsafe={actualUnsafe}
       />
-      {!unsafe &&
-        (!forceInset || (forceInset && forceInset.includes('top'))) &&
-        isIos && (
-          <Block
-            color={statusColor}
-            position={'absolute'}
-            height={inset.top}
-            width={screenWidth}
-          />
-        )}
-      {!unsafe &&
-        (!forceInset || (forceInset && forceInset.includes('left'))) &&
-        isIos && (
-          <Block
-            color={leftInsetColor}
-            position={'absolute'}
-            style={[styles.insetLeft]}
-            height={screenHeight}
-            width={inset.left}
-          />
-        )}
-      {!unsafe &&
-        (!forceInset || (forceInset && forceInset.includes('right'))) &&
-        isIos && (
-          <Block
-            color={rightInsetColor}
-            position={'absolute'}
-            style={[styles.insetRight]}
-            height={screenHeight}
-            width={inset.right}
-          />
-        )}
-      {!unsafe &&
-        (!forceInset || (forceInset && forceInset.includes('bottom'))) &&
-        isIos && (
-          <Block
-            color={bottomInsetColor}
-            style={[styles.insetBottom]}
-            position={'absolute'}
-            height={inset.bottom}
-            width={screenWidth}
-          />
-        )}
       <Wrapper
-        edges={forceInset ?? undefined}
-        style={[styles.inner, style, backgroundStyle]}>
-        {children}
-      </Wrapper>
+        edges={edges}
+        style={[styles.inner, style, backgroundStyle]}
+        children={children}
+      />
     </>
   );
 }
 
 function ScreenWithScrolling(props: ScreenProps) {
   // state
-  const inset = useSafeAreaInsets();
-  const {width: screenWidth, height: screenHeight} = useWindowDimensions();
+  const {colors}: AppTheme = useTheme();
   const {
-    showHorizontal = false,
-    showVertical = false,
-    hidden = false,
+    hiddenStatusBar = false,
     statusColor = undefined,
-    statusBar,
-    draw = false,
-    bottomInsetColor = '#ffffff',
-    backgroundColor,
+    bottomInsetColor = colors.background,
     style = {},
-    forceInset,
+    leftInsetColor = colors.background,
+    rightInsetColor = colors.background,
+    statusBarStyle,
+    backgroundColor,
+    excludeEdges,
     unsafe = false,
     children,
-    leftInsetColor = '#ffffff',
-    rightInsetColor = '#ffffff',
+    onScroll,
   } = props;
+  const edges = useMemo<Edge[]>(() => {
+    if (excludeEdges === 'all') {
+      return [];
+    }
+    const actualEdges = INSETS.filter(x => !(excludeEdges ?? []).includes(x));
+    if (hiddenStatusBar) {
+      return actualEdges.filter(x => x !== 'top');
+    }
+    return actualEdges;
+  }, [excludeEdges, hiddenStatusBar]);
 
   const backgroundStyle = useMemo(
     () => (backgroundColor ? {backgroundColor} : {}),
     [backgroundColor],
   );
 
-  const actualStyle = useMemo(() => enhance([style]), [style]);
+  const actualUnsafe = useMemo<boolean>(
+    () => unsafe || edges.length <= 0,
+    [edges.length, unsafe],
+  );
 
-  const Wrapper = unsafe ? Block : SafeAreaView;
+  const Wrapper = useMemo(
+    () => (actualUnsafe ? Block : SafeAreaView),
+    [actualUnsafe],
+  );
 
   // render
   return (
     <>
-      <StatusBar
-        hidden={hidden}
-        backgroundColor={statusColor}
-        translucent={draw}
-        barStyle={statusBar || 'dark-content'}
+      <InsetComponent
+        edges={edges}
+        bottomInsetColor={bottomInsetColor}
+        statusColor={statusColor}
+        statusBarStyle={statusBarStyle}
+        hiddenStatusBar={hiddenStatusBar}
+        leftInsetColor={leftInsetColor}
+        rightInsetColor={rightInsetColor}
+        unsafe={actualUnsafe}
       />
-      {!unsafe &&
-        (!forceInset || (forceInset && forceInset.includes('top'))) &&
-        isIos && (
-          <Block
-            color={statusColor}
-            position={'absolute'}
-            height={inset.top}
-            width={screenWidth}
-          />
-        )}
-      {!unsafe &&
-        (!forceInset || (forceInset && forceInset.includes('left'))) &&
-        isIos && (
-          <Block
-            color={leftInsetColor}
-            position={'absolute'}
-            style={[styles.insetLeft]}
-            height={screenHeight}
-            width={inset.left}
-          />
-        )}
-      {!unsafe &&
-        (!forceInset || (forceInset && forceInset.includes('right'))) &&
-        isIos && (
-          <Block
-            color={rightInsetColor}
-            position={'absolute'}
-            style={[styles.insetRight]}
-            height={screenHeight}
-            width={inset.right}
-          />
-        )}
-      {!unsafe &&
-        (!forceInset || (forceInset && forceInset.includes('bottom'))) &&
-        isIos && (
-          <Block
-            color={bottomInsetColor}
-            style={[styles.insetBottom]}
-            position={'absolute'}
-            height={inset.bottom}
-            width={screenWidth}
-          />
-        )}
-      <Wrapper edges={forceInset ?? undefined} style={[styles.inner]}>
-        <Block block>
-          <ScrollView
-            showsVerticalScrollIndicator={showVertical}
-            showsHorizontalScrollIndicator={showHorizontal}
-            keyboardShouldPersistTaps="handled"
-            style={[styles.outer, backgroundStyle]}
-            contentContainerStyle={[actualStyle]}>
-            {children}
-          </ScrollView>
-        </Block>
+      <Wrapper edges={edges} style={[styles.inner]}>
+        <Animated.ScrollView
+          scrollEventThrottle={16}
+          onScroll={onScroll}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          overScrollMode={'never'}
+          style={[styles.outer, backgroundStyle]}
+          contentContainerStyle={[style]}
+          children={children}
+        />
       </Wrapper>
     </>
   );
@@ -227,4 +239,4 @@ function ScreenComponent(props: ScreenProps) {
     return <ScreenWithoutScrolling {...props} />;
   }
 }
-export const Screen = memo(ScreenComponent, equals);
+export const Screen = memo(ScreenComponent, isEqual);
