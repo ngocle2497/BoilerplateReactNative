@@ -47,7 +47,7 @@ export const AppContainer = () => {
       <>
         <StatusBar
           translucent
-          backgroundColor={MyAppTheme[theme].colors.background}
+          backgroundColor={'transparent'}
         />
         {!loadingApp && (
           <>
