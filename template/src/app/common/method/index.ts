@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {Alert, Platform} from 'react-native';
 type TypesBase =
   | 'bigint'

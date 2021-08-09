@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 export enum APP_SCREEN {
   UN_AUTHORIZE = 'UN_AUTHORIZE',
   SPLASH = 'SPLASH',

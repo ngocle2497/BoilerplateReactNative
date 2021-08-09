@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import database, {FirebaseDatabaseTypes} from '@react-native-firebase/database';
 
 import {onCheckType} from '../method';

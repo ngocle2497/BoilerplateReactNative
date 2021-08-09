@@ -181,6 +181,7 @@ const SliderRangeComponent = ({
     if (onChangeRange) {
       onChangeRange({lower: initialRange[0], upper: initialRange[1]});
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useAnimatedReaction(

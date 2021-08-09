@@ -322,6 +322,7 @@ const ModalComponent = ({
         closeModal();
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVisible]);
 
   useEffect(() => {
@@ -330,6 +331,7 @@ const ModalComponent = ({
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', onBackButtonPress);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // render

@@ -5,9 +5,11 @@ import React, {useCallback, useMemo, useState} from 'react';
 import equals from 'react-fast-compare';
 import {StyleSheet} from 'react-native';
 import Animated, {useAnimatedStyle} from 'react-native-reanimated';
+
 import {Block} from '../Block/Block';
 import {Button} from '../Button/Button';
 import {Text} from '../Text/Text';
+
 import {CheckboxProps} from './CheckBox.props';
 
 const DIMENSIONS = {width: 16, height: 16};

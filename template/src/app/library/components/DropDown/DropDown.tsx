@@ -275,7 +275,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
       if (Array.isArray(selectedValue)) {
         onChangeItem(
           selectedValue,
-          data.reduce((prev, current, _, arr) => {
+          data.reduce((prev, current, i, arr) => {
             const index = arr.findIndex(x => x.value === current.value);
             if (index >= 0) {
               prev.push(index);
@@ -290,6 +290,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
         );
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedValue]);
 
   // style

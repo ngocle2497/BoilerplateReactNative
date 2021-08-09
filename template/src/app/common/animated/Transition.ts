@@ -12,7 +12,7 @@ import {sharedBin} from './Math';
 /**
  * Return value runs from 0 to 1 when state change using withTiming
  */
- export const useSharedTransition = (
+export const useSharedTransition = (
   state: boolean | number,
   config?: Animated.WithTimingConfig,
 ): Animated.SharedValue<number> => {

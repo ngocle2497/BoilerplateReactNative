@@ -161,12 +161,14 @@ export const GestureHOC = memo(
         animatedProgress.value = sharedTiming(1, timingConfig);
         backDropOpacity.value = sharedTiming(1, timingConfig);
       })();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
       BackHandler.addEventListener('hardwareBackPress', onBackButtonPress);
       return () =>
         BackHandler.removeEventListener('hardwareBackPress', onBackButtonPress);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // reanimated style

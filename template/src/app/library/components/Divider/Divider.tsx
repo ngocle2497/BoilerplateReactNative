@@ -21,4 +21,3 @@ const DividerComponent = (props: DividerProps) => {
   );
 };
 export const Divider = memo(DividerComponent, equals);
-``

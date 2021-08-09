@@ -90,6 +90,7 @@ const HelperTextComponent = (props: HelperTextProps) => {
     } else {
       height.value = sharedTiming(0);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [measured.height, visible]);
 
   // reanimated style

@@ -115,6 +115,7 @@ export const SnackItem = memo(
           easing: Easing.inOut(Easing.ease),
         });
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isShow]);
 
     useEffect(() => {

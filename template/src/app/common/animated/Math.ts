@@ -11,7 +11,8 @@ export const sharedClamp = (
 };
 
 /**
- * Takes two or more animated nodes or values, and when evaluated, returns the result of subtracting their values in the exact order on UI thread
+ * Takes two or more animated nodes or values, and when evaluated,
+ * returns the result of subtracting their values in the exact order on UI thread
  */
 export const sharedSub = (...args: number[]) => {
   'worklet';

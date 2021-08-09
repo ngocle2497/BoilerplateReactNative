@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
   appendErrors,
   Field,
@@ -66,7 +68,6 @@ export const yupResolver: Resolver =
   async (values, context, options) => {
     try {
       if (schemaOptions.context && process.env.NODE_ENV === 'development') {
-        // eslint-disable-next-line no-console
         console.warn(
           "You should not used the yup options context. Please, use the 'useForm' context object instead",
         );

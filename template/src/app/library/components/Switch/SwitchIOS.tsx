@@ -1,14 +1,14 @@
-import React, {memo, useCallback, useEffect, useState} from 'react';
-import {TouchableWithoutFeedback, StyleSheet} from 'react-native';
-import equals from 'react-fast-compare';
 import {
   useInterpolate,
   useInterpolateColor,
   useMix,
   useSharedTransition,
 } from '@animated';
-import Animated, {Extrapolate, useAnimatedStyle} from 'react-native-reanimated';
 import {onCheckType} from '@common';
+import React, {memo, useCallback, useState} from 'react';
+import equals from 'react-fast-compare';
+import {StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import Animated, {Extrapolate, useAnimatedStyle} from 'react-native-reanimated';
 
 import {SwitchProps} from './Switch.props';
 

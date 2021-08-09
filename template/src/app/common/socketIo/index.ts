@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {createContext, useCallback, useContext, useState} from 'react';
 import {io, Socket} from 'socket.io-client';
 
