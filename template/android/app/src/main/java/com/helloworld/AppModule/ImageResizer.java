@@ -1,4 +1,4 @@
-package com.update065.AppModule;
+package com.helloworld.AppModule;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
