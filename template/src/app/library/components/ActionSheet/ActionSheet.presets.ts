@@ -4,6 +4,7 @@ import {FontSizeDefault} from '@theme/fontSize';
 export const styles = StyleSheet.create({
   modal: {
     margin: 0,
+    justifyContent: 'flex-end',
   },
   wrap: {
     position: 'absolute',

@@ -10,8 +10,12 @@ import Foundation
 import UIKit
 
 @objc(AppModule)
-class AppModule: NSObject {
+class AppModule: RCTEventEmitter {
   
+  override func supportedEvents() -> [String]! {
+    return []
+  }
+
   private static var DefaultStringReturnType: String = "Unknown";
   
   enum DeviceType:String {
@@ -91,5 +95,48 @@ class AppModule: NSObject {
     return _getBuildNumber()
   }
   
+
+  @objc
+  func fixRotation(
+    _ path: String, width: Double, height: Double, callback: @escaping RCTResponseSenderBlock
+  ) {
+    DispatchQueue.global(qos: .default).async(execute: {
+      let directory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).map(
+        \.path
+      )
+      .first
+      let fullName = "\(UUID().uuidString).png"
+      let fullPath = URL(fileURLWithPath: directory ?? "").appendingPathComponent(fullName).path
+      let newSize = CGSize.init(width: width, height: height)
+      let loader: RCTImageLoader =
+        self.bridge.module(forName: "ImageLoader", lazilyLoadIfNecessary: true) as! RCTImageLoader
+      let request: URLRequest = RCTConvert.nsurlRequest(path)
+      loader.loadImage(
+        with: request, size: newSize, scale: 1, clipped: false, resizeMode: RCTResizeMode.contain,
+        progressBlock: { _, _ in }, partialLoad: { _ in },
+        completionBlock: { (error, image) in
+          if error != nil {
+            callback(["Can't retrieve the file from the path.", NSNull()])
+            return
+          } else {
+            UIGraphicsBeginImageContextWithOptions(image!.size, false, 1.0)
+            image!.draw(
+              in: CGRect(x: 0, y: 0, width: image!.size.width, height: image!.size.height))
+            let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+            UIGraphicsEndImageContext();
+            let data = newImage.pngData()
+            let fileManager = FileManager.default
+            fileManager.createFile(atPath: fullPath, contents: data, attributes: nil)
+            let fileUrl = URL(
+              fileURLWithPath: fullPath)
+            let response = [
+              "uri": fileUrl.absoluteString,
+              "name": fullName,
+            ]
+            callback([NSNull(), response])
+          }
+        })
+    })
+  }
 }
 
