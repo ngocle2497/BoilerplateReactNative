@@ -4,11 +4,13 @@ import React, {
   createRef,
   forwardRef,
   memo,
+  useEffect,
+  useCallback,
   useImperativeHandle,
   useState,
 } from 'react';
 import isEqual from 'react-fast-compare';
-import {ActivityIndicator, StyleSheet} from 'react-native';
+import {ActivityIndicator, BackHandler, StyleSheet} from 'react-native';
 
 import {Block} from '../Block/Block';
 
@@ -19,7 +21,16 @@ const Spinner = memo(() => {
   return <ActivityIndicator color={theme.colors.background} size={'large'} />;
 }, isEqual);
 
-const ProgressDialogComponent = forwardRef((props, ref) => {
+const ProgressDialogComponent = forwardRef((_, ref) => {
+  // state
+  const [visible, setVisible] = useState(false);
+
+  // function
+  const onBackHandlePress = useCallback(() => {
+    return true;
+  }, []);
+
+  // effect
   useImperativeHandle(
     ref,
     () => ({
@@ -32,8 +43,14 @@ const ProgressDialogComponent = forwardRef((props, ref) => {
     }),
     [],
   );
-  // state
-  const [visible, setVisible] = useState(false);
+  
+  useEffect(() => {
+    if (visible) {
+      BackHandler.addEventListener('hardwareBackPress', onBackHandlePress);
+    } else {
+      BackHandler.removeEventListener('hardwareBackPress', onBackHandlePress);
+    }
+  }, [visible]);
 
   // render
   return visible ? (

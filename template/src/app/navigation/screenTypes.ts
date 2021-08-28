@@ -20,5 +20,5 @@ export type AuthorizeParamsList = {
 export type RootStackParamList = {
   [APP_SCREEN.UN_AUTHORIZE]: undefined;
   [APP_SCREEN.AUTHORIZE]: undefined;
-} & Partial<UnAuthorizeParamsList> &
-  Partial<AuthorizeParamsList>;
+} & UnAuthorizeParamsList &
+  AuthorizeParamsList;
