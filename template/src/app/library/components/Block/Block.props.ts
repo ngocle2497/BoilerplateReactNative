@@ -45,45 +45,29 @@ export interface BlockProps extends ViewProps {
 
   borderBottomWidth?: number;
 
-  borderEndWidth?: number | string;
-
   borderLeftWidth?: number;
 
   borderRightWidth?: number;
-
-  borderStartWidth?: number | string;
 
   borderTopWidth?: number;
 
   borderBottomColor?: string;
 
-  borderBottomEndRadius?: number;
-
   borderBottomLeftRadius?: number;
 
   borderBottomRightRadius?: number;
-
-  borderBottomStartRadius?: number;
-
-  borderEndColor?: string;
 
   borderLeftColor?: string;
 
   borderRightColor?: string;
 
-  borderStartColor?: string;
-
   borderStyle?: 'solid' | 'dotted' | 'dashed';
 
   borderTopColor?: string;
 
-  borderTopEndRadius?: number;
-
   borderTopLeftRadius?: number;
 
   borderTopRightRadius?: number;
-
-  borderTopStartRadius?: number;
 
   opacity?: number;
 

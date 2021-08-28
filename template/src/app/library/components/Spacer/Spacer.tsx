@@ -1,35 +1,23 @@
+import {moderateScale} from '@common';
 import React, {memo, useMemo} from 'react';
-import {enhance, scale} from '@common';
 import equals from 'react-fast-compare';
-
-import {Block} from '../Block/Block';
+import {View} from 'react-native';
 
 import {SpacerProps} from './Spacer.props';
 
 const SpacerComponent = (props: SpacerProps) => {
-  const {
-    children,
-    style = {},
-    height = 0,
-    width = 0,
-    backgroundColor = 'transparent',
-  } = props;
+  const {height = 0, width = 0} = props;
 
   // style
   const actualStyle = useMemo(
-    () =>
-      enhance([
-        {
-          width: typeof width === 'number' ? scale(width) : width,
-          height: typeof height === 'number' ? scale(height) : height,
-          backgroundColor,
-        },
-        style,
-      ]),
-    [backgroundColor, height, style, width],
+    () => ({
+      width: typeof width === 'number' ? moderateScale(width) : width,
+      height: typeof height === 'number' ? moderateScale(height) : height,
+    }),
+    [height, width],
   );
 
   // render
-  return <Block style={[actualStyle]}>{children && children}</Block>;
+  return <View style={actualStyle} />;
 };
 export const Spacer = memo(SpacerComponent, equals);
