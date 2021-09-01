@@ -8,15 +8,16 @@
 
 import Foundation
 import UIKit
+import Photos
 
 @objc(AppModule)
-class AppModule: RCTEventEmitter {
-  
-  override func supportedEvents() -> [String]! {
-    return []
-  }
-
+class AppModule: RCTEventEmitter, PHPhotoLibraryChangeObserver {
   private static var DefaultStringReturnType: String = "Unknown";
+  private var PhotoChangeEvent: String = "PhotosChange"
+
+  override func supportedEvents() -> [String]! {
+    return ["PhotosChange"]
+  }
   
   enum DeviceType:String {
     case DeviceTypeHandset = "Handset"
@@ -26,7 +27,10 @@ class AppModule: RCTEventEmitter {
     case DeviceTypeUnknown = "Unknown"
   }
   
-  
+  func photoLibraryDidChange(_ changeInstance: PHChange) {
+    sendEvent(withName: PhotoChangeEvent, body: nil)
+  }
+
   func _getAppVersion() -> String {
     let appVerison = Bundle.main.infoDictionary?["CFBundleShortVersionString"]
     return (appVerison ?? AppModule.DefaultStringReturnType) as! String;

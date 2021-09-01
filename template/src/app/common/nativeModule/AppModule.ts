@@ -1,8 +1,13 @@
-import {NativeModules} from 'react-native';
-
-import {isIos} from '../method';
+import {isIos} from '@common';
+import {useEffect} from 'react';
+import {
+  EmitterSubscription,
+  NativeEventEmitter,
+  NativeModules,
+} from 'react-native';
 
 const {AppModule} = NativeModules;
+
 export const getVersion = () => {
   return AppModule.getVersion();
 };
@@ -48,4 +53,23 @@ export const fixRotation = ({uri, height = 800, width = 600}: Image) => {
       });
     }
   });
+};
+
+export const usePhotosPermissionChange = (callback: () => void) => {
+  // effect
+  useEffect(() => {
+    let photosChangeEvent: NativeEventEmitter,
+      subscription: EmitterSubscription;
+    if (isIos) {
+      photosChangeEvent = new NativeEventEmitter(AppModule);
+      subscription = photosChangeEvent.addListener('PhotosChange', callback);
+    }
+    return () => {
+      if (isIos) {
+        photosChangeEvent.removeSubscription(subscription);
+      }
+    };
+  }, [callback]);
+
+  return null;
 };

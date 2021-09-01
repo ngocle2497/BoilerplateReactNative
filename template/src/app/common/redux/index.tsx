@@ -2,11 +2,13 @@ import {RootState} from '@store/allReducers';
 import React, {createRef, forwardRef, memo, useImperativeHandle} from 'react';
 import isEqual from 'react-fast-compare';
 import {useDispatch} from 'react-redux';
-import {Action} from 'redux';
 
 import {useSelector} from '../hooks';
 
-type ActionBase = Action<string>;
+type ActionBase<T = any> = {
+  type: string;
+  payload?: T;
+};
 
 const RXStoreComponent = forwardRef((props, ref) => {
   const dispatch = useDispatch();
