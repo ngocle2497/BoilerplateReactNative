@@ -11,13 +11,14 @@ import UIKit
 import Photos
 
 @objc(AppModule)
-class AppModule: RCTEventEmitter, PHPhotoLibraryChangeObserver {
+// PHPhotoLibraryChangeObserver
+class AppModule: RCTEventEmitter {
   private static var DefaultStringReturnType: String = "Unknown";
   private var PhotoChangeEvent: String = "PhotosChange"
 
-  override func supportedEvents() -> [String]! {
-    return ["PhotosChange"]
-  }
+  // override func supportedEvents() -> [String]! {
+  //   return [PhotoChangeEvent]
+  // }
   
   enum DeviceType:String {
     case DeviceTypeHandset = "Handset"
@@ -27,9 +28,9 @@ class AppModule: RCTEventEmitter, PHPhotoLibraryChangeObserver {
     case DeviceTypeUnknown = "Unknown"
   }
   
-  func photoLibraryDidChange(_ changeInstance: PHChange) {
-    sendEvent(withName: PhotoChangeEvent, body: nil)
-  }
+  // func photoLibraryDidChange(_ changeInstance: PHChange) {
+  //   sendEvent(withName: PhotoChangeEvent, body: nil)
+  // }
 
   func _getAppVersion() -> String {
     let appVerison = Bundle.main.infoDictionary?["CFBundleShortVersionString"]
@@ -99,6 +100,22 @@ class AppModule: RCTEventEmitter, PHPhotoLibraryChangeObserver {
     return _getBuildNumber()
   }
   
+  @objc
+  func setBadges(_ count: Double) -> Void {
+      UNUserNotificationCenter.current().requestAuthorization(options: .badge){
+          (granted, error) in
+          if granted {
+            DispatchQueue.main.async {
+              UIApplication.shared.applicationIconBadgeNumber = Int(count)
+            }
+          }
+      }
+  }
+  // Listen photo library changes
+  // @objc
+  // func registerPhotosChanges() -> Void {
+  //   PHPhotoLibrary.shared().register(self);
+  // }  
 
   @objc
   func fixRotation(

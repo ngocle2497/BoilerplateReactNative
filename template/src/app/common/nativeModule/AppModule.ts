@@ -20,9 +20,21 @@ export const getAppName = () => {
 export const getDeviceId = () => {
   return AppModule.getDeviceId();
 };
+export const setAppBadges = (count: number) => {
+  if (typeof count !== 'number' || !isIos) {
+    return;
+  }
+  return AppModule.setBadges(count);
+};
 export const getBuildNumber = () => {
   return AppModule.getBuildNumber();
 };
+export const registerPhotosChanges = () => {
+  if (isIos) {
+    AppModule.registerPhotosChanges();
+  }
+};
+
 type Image = {
   uri: string;
   width?: number;
