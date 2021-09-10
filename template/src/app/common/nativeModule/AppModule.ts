@@ -21,10 +21,13 @@ export const getDeviceId = () => {
   return AppModule.getDeviceId();
 };
 export const setAppBadges = (count: number) => {
-  if (typeof count !== 'number') {
+  if (typeof count !== 'number' || !isIos) {
     return;
   }
   return AppModule.setBadges(count);
+};
+export const clearNotification = () => {
+  return AppModule.clearNotification();
 };
 export const getBuildNumber = () => {
   return AppModule.getBuildNumber();

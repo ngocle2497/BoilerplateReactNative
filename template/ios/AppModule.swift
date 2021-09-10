@@ -99,7 +99,19 @@ class AppModule: RCTEventEmitter {
   func getBuildNumber() -> String {
     return _getBuildNumber()
   }
-  
+  @objc
+  func clearNotification() -> Void {
+      UNUserNotificationCenter.current().requestAuthorization(options: .badge){
+          (granted, error) in
+          if granted {
+            DispatchQueue.main.async{
+              UIApplication.shared.applicationIconBadgeNumber = 0;
+              UNUserNotificationCenter.current().removeAllDeliveredNotifications();
+            }
+          }
+      }
+  }
+
   @objc
   func setBadges(_ count: Double) -> Void {
       UNUserNotificationCenter.current().requestAuthorization(options: .badge){
@@ -107,9 +119,6 @@ class AppModule: RCTEventEmitter {
           if granted {
             DispatchQueue.main.async {
               let countBadges = Int(count)
-              if(countBadges == 0){
-                UNUserNotificationCenter.current().removeAllDeliveredNotifications();
-              }
               UIApplication.shared.applicationIconBadgeNumber = countBadges
             }
           }

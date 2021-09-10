@@ -67,11 +67,10 @@ public class AppModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setBadges(double count) {
-        if ((int)count == 0) {
-            NotificationManagerCompat.from(getReactApplicationContext()).cancelAll();
-        }
+    public void clearNotification() {
+        NotificationManagerCompat.from(getReactApplicationContext()).cancelAll();
     }
+    
     @ReactMethod
     public void fixRotation(final String path, final int newWidth,
                             final int newHeight, final Callback successCb,
