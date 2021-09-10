@@ -21,7 +21,7 @@ export const getDeviceId = () => {
   return AppModule.getDeviceId();
 };
 export const setAppBadges = (count: number) => {
-  if (typeof count !== 'number' || !isIos) {
+  if (typeof count !== 'number') {
     return;
   }
   return AppModule.setBadges(count);

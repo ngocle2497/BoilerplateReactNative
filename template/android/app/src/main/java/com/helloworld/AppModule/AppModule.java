@@ -10,7 +10,7 @@ import android.provider.Settings;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-
+import androidx.core.app.NotificationManagerCompat;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.GuardedAsyncTask;
@@ -66,6 +66,12 @@ public class AppModule extends ReactContextBaseJavaModule {
         return deviceTypeResolver.getDeviceType().getValue();
     }
 
+    @ReactMethod
+    public void setBadges(double count) {
+        if ((int)count == 0) {
+            NotificationManagerCompat.from(getReactApplicationContext()).cancelAll();
+        }
+    }
     @ReactMethod
     public void fixRotation(final String path, final int newWidth,
                             final int newHeight, final Callback successCb,

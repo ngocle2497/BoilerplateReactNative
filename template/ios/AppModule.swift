@@ -106,7 +106,11 @@ class AppModule: RCTEventEmitter {
           (granted, error) in
           if granted {
             DispatchQueue.main.async {
-              UIApplication.shared.applicationIconBadgeNumber = Int(count)
+              let countBadges = Int(count)
+              if(countBadges == 0){
+                UNUserNotificationCenter.current().removeAllDeliveredNotifications();
+              }
+              UIApplication.shared.applicationIconBadgeNumber = countBadges
             }
           }
       }
