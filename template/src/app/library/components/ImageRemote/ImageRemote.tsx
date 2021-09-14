@@ -1,11 +1,11 @@
-import React, {memo, useCallback, useMemo, useState} from 'react';
-import {StyleProp, StyleSheet} from 'react-native';
-import FastImage, {ImageStyle} from 'react-native-fast-image';
-import {enhance} from '@common';
-import equals from 'react-fast-compare';
-import Animated, {useAnimatedStyle} from 'react-native-reanimated';
-import {BlurView} from '@react-native-community/blur';
 import {useSharedTransition} from '@animated';
+import {enhance, useAsyncState, useIsMounted, useMounted} from '@common';
+import React, {memo, useCallback, useEffect, useMemo, useState} from 'react';
+import equals from 'react-fast-compare';
+import {StyleProp, StyleSheet} from 'react-native';
+import {Blurhash} from 'react-native-blurhash';
+import FastImage, {ImageStyle} from 'react-native-fast-image';
+import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 
 import {Block} from '../Block/Block';
 
@@ -27,19 +27,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#bbb',
   },
 });
+
 const ImageRemoteComponent = (props: ImageRemoteProps) => {
   // state
   const {
     style: styleOverride = {},
     source,
-    sourceThumb = source,
+    blurHashOnLoad = 'LGFFaXYk^6#M@-5c,1J5@[or[Q6.',
     resizeMode = 'cover',
     containerStyle,
     childrenError,
     childrenOnload,
     ...rest
   } = props;
-
+  const isMounted = useIsMounted();
+  const [thumbBlurHash, setThumbBlurHash] = useState<string | undefined>(
+    undefined,
+  );
   const [loadSucceeded, setLoadSucceeded] = useState<boolean>(false);
   const [loadThumbSucceeded, setLoadThumbSucceeded] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
@@ -88,23 +92,36 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
     opacity: opacityBlur.value,
   }));
 
+  // effect
+  useEffect(() => {
+    Blurhash.encode(source, 4, 3).then(res => {
+      if (isMounted.current) {
+        setThumbBlurHash(res);
+      }
+    });
+  }, []);
+
   // render
   return (
     <Block style={[container]}>
       <Animated.View style={[styles.viewOnLoad, imageOnloadStyle]}>
-        {childrenOnload}
+        {childrenOnload || (
+          <Blurhash
+            blurhash={blurHashOnLoad}
+            style={[StyleSheet.absoluteFillObject]}
+          />
+        )}
       </Animated.View>
       <Animated.View style={[StyleSheet.absoluteFillObject, imageBlurStyle]}>
         <Animated.View style={[StyleSheet.absoluteFillObject]}>
-          <FastImage
-            resizeMode={resizeMode}
-            onLoad={_onLoadThumbSucceeded}
-            style={[imgStyle]}
-            source={{uri: sourceThumb}}
-            {...rest}
-          />
+          {thumbBlurHash !== undefined && (
+            <Blurhash
+              onLoadEnd={_onLoadThumbSucceeded}
+              blurhash={thumbBlurHash ?? ''}
+              style={[StyleSheet.absoluteFillObject]}
+            />
+          )}
         </Animated.View>
-        <BlurView blurType={'light'} style={[StyleSheet.absoluteFillObject]} />
       </Animated.View>
       <Animated.View style={[StyleSheet.absoluteFillObject, imageStyle]}>
         <FastImage
@@ -125,4 +142,14 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
     </Block>
   );
 };
-export const ImageRemote = memo(ImageRemoteComponent, equals);
+export const ImageRemote = memo((props: ImageRemoteProps) => {
+  const [isChange, setIsChange] = useAsyncState<boolean>(false);
+
+  useMounted(() => {
+    setIsChange(true, () => {
+      setIsChange(false);
+    });
+  }, [props.source]);
+
+  return isChange ? null : <ImageRemoteComponent {...props} />;
+}, equals);

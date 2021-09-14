@@ -23,7 +23,6 @@
     "yp": "npm run installPod -- "
   },
   "dependencies": {
-    "@react-native-community/blur": "^3.6.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/netinfo": "^6.0.0",
     "@react-navigation/native": "^6.0.2",
@@ -37,7 +36,8 @@
     "react-hook-form": "^7.12.2",
     "react-i18next": "^11.11.4",
     "react-native": "0.64.2",
-    "react-native-bootsplash": "^3.2.4",
+    "react-native-blurhash": "^1.1.5",
+    "react-native-bootsplash": "^3.2.5",
     "react-native-fast-image": "^8.3.7",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-keyboard-manager": "^6.5.4-2",

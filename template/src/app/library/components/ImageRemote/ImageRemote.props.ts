@@ -21,9 +21,9 @@ export interface ImageRemoteProps {
 
   /**
    * Source thumb(lazy load)
-   * @default source
+   * @default LGFFaXYk^6#M@-5c,1J5@[or[Q6.
    */
-  sourceThumb?: string;
+  blurHashOnLoad?: string;
 
   /**
    * Element when image load start

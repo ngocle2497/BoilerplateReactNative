@@ -16,9 +16,9 @@ class AppModule: RCTEventEmitter {
   private static var DefaultStringReturnType: String = "Unknown";
   private var PhotoChangeEvent: String = "PhotosChange"
 
-  // override func supportedEvents() -> [String]! {
-  //   return [PhotoChangeEvent]
-  // }
+  override func supportedEvents() -> [String]! {
+    return []
+  }
   
   enum DeviceType:String {
     case DeviceTypeHandset = "Handset"
