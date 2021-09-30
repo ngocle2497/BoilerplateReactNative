@@ -71,6 +71,28 @@ public class AppModule extends ReactContextBaseJavaModule {
         NotificationManagerCompat.from(getReactApplicationContext()).cancelAll();
     }
     
+    private void onDeleteRecursive(File fileOrDirectory) {
+        if (fileOrDirectory.isDirectory()) {
+            for (File child : fileOrDirectory.listFiles()) {
+                onDeleteRecursive(child);
+            }
+        }
+        Log.d("CLEAR","CACHE");
+        fileOrDirectory.delete();
+    }
+
+    @ReactMethod
+    public void clearCache() {
+        try {
+            File file = new File(getReactApplicationContext().getCacheDir().getAbsolutePath());
+            if (file.exists()) {
+                onDeleteRecursive(file);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     @ReactMethod
     public void fixRotation(final String path, final int newWidth,
                             final int newHeight, final Callback successCb,

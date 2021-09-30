@@ -111,6 +111,26 @@ class AppModule: RCTEventEmitter {
           }
       }
   }
+  
+  @objc
+  func clearCache() {
+    let cacheURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+    let fileManager = FileManager.default
+    do {
+      // Get the directory contents urls (including subfolders urls)
+      let directoryContents = try FileManager.default.contentsOfDirectory(
+        at: cacheURL, includingPropertiesForKeys: nil, options: [])
+      for file in directoryContents {
+        do {
+          try fileManager.removeItem(at: file)
+        } catch let error as NSError {
+          debugPrint("Ooops! Something went wrong: \(error)")
+        }
+      }
+    } catch let error as NSError {
+      print(error.localizedDescription)
+    }
+  }
 
   @objc
   func setBadges(_ count: Double) -> Void {

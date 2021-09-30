@@ -27,7 +27,10 @@ export const setAppBadges = (count: number) => {
   return AppModule.setBadges(count);
 };
 export const clearNotification = () => {
-  return AppModule.clearNotification();
+  AppModule.clearNotification();
+};
+export const clearCache = () => {
+  AppModule.clearCache();
 };
 export const getBuildNumber = () => {
   return AppModule.getBuildNumber();
