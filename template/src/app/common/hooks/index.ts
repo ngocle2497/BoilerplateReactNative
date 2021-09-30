@@ -15,7 +15,7 @@ import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 import {useTheme} from '@react-navigation/native';
 import {AppTheme} from '@config/type';
 import {RootState} from '@store/allReducers';
-import {LayoutAnimation} from 'react-native';
+import {LayoutAnimation, BackHandler, Keyboard, Platform} from 'react-native';
 
 type UseStateFull<T = any> = {
   value: T;
@@ -400,7 +400,77 @@ function useForceUpdate() {
     !unloadingRef.current && setForcedRenderCount(forcedRenderCount + 1);
   }, [forcedRenderCount]);
 }
+
+
+function useIsKeyboardShown() {
+  const [isKeyboardShown, setIsKeyboardShown] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleKeyboardShow = () => setIsKeyboardShown(true);
+    const handleKeyboardHide = () => setIsKeyboardShown(false);
+
+    if (Platform.OS === 'ios') {
+      Keyboard.addListener('keyboardWillShow', handleKeyboardShow);
+      Keyboard.addListener('keyboardWillHide', handleKeyboardHide);
+    } else {
+      Keyboard.addListener('keyboardDidShow', handleKeyboardShow);
+      Keyboard.addListener('keyboardDidHide', handleKeyboardHide);
+    }
+
+    return () => {
+      if (Platform.OS === 'ios') {
+        Keyboard.removeListener('keyboardWillShow', handleKeyboardShow);
+        Keyboard.removeListener('keyboardWillHide', handleKeyboardHide);
+      } else {
+        Keyboard.removeListener('keyboardDidShow', handleKeyboardShow);
+        Keyboard.removeListener('keyboardDidHide', handleKeyboardHide);
+      }
+    };
+  }, []);
+
+  return isKeyboardShown;
+}
+
+function useDisableBackHandler(disabled: boolean) {
+  // function
+  const onBackPress = useCallback(() => {
+    return true;
+  }, []);
+
+  useEffect(() => {
+    if (disabled) {
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    } else {
+      BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }
+  }, [disabled]);
+}
+
+function useDismissKeyboard(isHide: boolean) {
+  useEffect(() => {
+    if (isHide) {
+      Keyboard.dismiss();
+    }
+  }, [isHide]);
+}
+
+function useMounted(callback: () => void, deps: any[] = []) {
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      callback();
+    }
+  }, [...deps]);
+}
+
 export {
+  useDisableBackHandler,
+  useDismissKeyboard,
   useInterval,
   useSelector,
   useNetWorkStatus,
@@ -416,4 +486,5 @@ export {
   useUnMount,
   useForceUpdate,
   useAnimatedState,
+  useMounted
 };

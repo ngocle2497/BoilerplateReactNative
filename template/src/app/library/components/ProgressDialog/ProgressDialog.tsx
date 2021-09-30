@@ -1,16 +1,16 @@
 import {AppTheme} from '@config/type';
+import {useDisableBackHandler} from '@common';
 import {useTheme} from '@react-navigation/native';
 import React, {
   createRef,
   forwardRef,
   memo,
-  useEffect,
   useCallback,
   useImperativeHandle,
   useState,
 } from 'react';
 import isEqual from 'react-fast-compare';
-import {ActivityIndicator, BackHandler, StyleSheet} from 'react-native';
+import {ActivityIndicator, StyleSheet} from 'react-native';
 
 import {Block} from '../Block/Block';
 
@@ -44,13 +44,7 @@ const ProgressDialogComponent = forwardRef((_, ref) => {
     [],
   );
   
-  useEffect(() => {
-    if (visible) {
-      BackHandler.addEventListener('hardwareBackPress', onBackHandlePress);
-    } else {
-      BackHandler.removeEventListener('hardwareBackPress', onBackHandlePress);
-    }
-  }, [visible]);
+  useDisableBackHandler(visible);
 
   // render
   return visible ? (
