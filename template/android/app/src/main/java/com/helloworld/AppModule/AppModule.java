@@ -1,38 +1,40 @@
 package com.helloworld.AppModule;
 
-import static android.provider.Settings.Secure.getString;
 
-import android.content.pm.PackageInfo;
-import android.graphics.Bitmap;
-import android.net.Uri;
+import android.app.NotificationChannel;
 import android.os.AsyncTask;
-import android.provider.Settings;
-import android.util.Log;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.NotificationManagerCompat;
-import com.facebook.react.bridge.Arguments;
+
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.GuardedAsyncTask;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.ReadableMap;
+import com.helloworld.AppModule.deviceInfo.DeviceInfo;
+import com.helloworld.AppModule.fileHelper.FileManager;
+import com.helloworld.AppModule.imageHelper.ImageResizer;
+import com.helloworld.AppModule.notificationHelper.NotificationHelper;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 
 public class AppModule extends ReactContextBaseJavaModule {
-    private static String DefaultStringReturnType = "Unknown";
-
     private final ReactApplicationContext reactContext;
-    private final DeviceTypeResolver deviceTypeResolver;
+    private DeviceInfo mDeviceInfo;
+    private FileManager mFileManager;
+    private ImageResizer mImageResizer;
+    private NotificationHelper mNotificationHelper;
 
     public AppModule(ReactApplicationContext context) {
         super(context);
         this.reactContext = context;
-        this.deviceTypeResolver = new DeviceTypeResolver(reactContext);
+        mNotificationHelper = new NotificationHelper(reactContext);
+        mDeviceInfo = new DeviceInfo(reactContext);
+        mFileManager = new FileManager(reactContext);
+        mImageResizer = new ImageResizer(reactContext);
     }
 
     @NonNull
@@ -43,54 +45,27 @@ public class AppModule extends ReactContextBaseJavaModule {
 
     @ReactMethod(isBlockingSynchronousMethod = true)
     public String getVersion() {
-        return _getAppVersion();
+        return mDeviceInfo.getAppVersion();
     }
 
     @ReactMethod(isBlockingSynchronousMethod = true)
     public String getBuildNumber() {
-        return _getBuildNumber();
+        return mDeviceInfo.getBuildNumber();
     }
 
     @ReactMethod(isBlockingSynchronousMethod = true)
     public String getAppName() {
-        return _getAppName();
+        return mDeviceInfo.getAppName();
     }
 
     @ReactMethod(isBlockingSynchronousMethod = true)
     public String getDeviceId() {
-        return _getDeviceId();
-    }
-
-    @ReactMethod(isBlockingSynchronousMethod = true)
-    public String getDeviceType() {
-        return deviceTypeResolver.getDeviceType().getValue();
-    }
-
-    @ReactMethod
-    public void clearNotification() {
-        NotificationManagerCompat.from(getReactApplicationContext()).cancelAll();
-    }
-    
-    private void onDeleteRecursive(File fileOrDirectory) {
-        if (fileOrDirectory.isDirectory()) {
-            for (File child : fileOrDirectory.listFiles()) {
-                onDeleteRecursive(child);
-            }
-        }
-        Log.d("CLEAR","CACHE");
-        fileOrDirectory.delete();
+        return mDeviceInfo.getDeviceId();
     }
 
     @ReactMethod
     public void clearCache() {
-        try {
-            File file = new File(getReactApplicationContext().getCacheDir().getAbsolutePath());
-            if (file.exists()) {
-                onDeleteRecursive(file);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        mFileManager.clearCache();
     }
 
     @ReactMethod
@@ -101,76 +76,35 @@ public class AppModule extends ReactContextBaseJavaModule {
             @Override
             protected void doInBackgroundGuarded(Void... voids) {
                 try {
-                    createResizedImageWithExceptions(path, newWidth, newHeight, successCb, failureCb);
+                    mImageResizer.createResizedImageWithExceptions(path, newWidth, newHeight, successCb, failureCb);
                 } catch (IOException ex) {
                     failureCb.invoke(ex.getMessage());
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
-
-    private PackageInfo getPackageInfo() throws Exception {
-        return getReactApplicationContext().getPackageManager().getPackageInfo(getReactApplicationContext().getPackageName(), 0);
+    @ReactMethod
+    public void clearNotification() {
+        mNotificationHelper.clearNotification();
     }
 
-    private String _getAppVersion() {
-        try {
-            return getPackageInfo().versionName;
-        } catch (Exception ex) {
-            Log.d("Error", ex.getMessage());
-            return DefaultStringReturnType;
-        }
+    @ReactMethod
+    public void deleteChannel(String channelId) {
+        mNotificationHelper.deleteChannel(channelId);
     }
 
-    private String _getBuildNumber() {
-        try {
-            return Integer.toString(getPackageInfo().versionCode);
-        } catch (Exception ex) {
-            Log.d("Error", ex.getMessage());
-            return DefaultStringReturnType;
+    @ReactMethod
+    public void checkChannelExist(String channelId, Promise promise) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = mNotificationHelper.getChannelById(channelId);
+            promise.resolve(channel != null);
         }
+        promise.resolve(false);
     }
 
-    private String _getAppName() {
-        try {
-            return getReactApplicationContext().getApplicationInfo().loadLabel(getReactApplicationContext().getPackageManager()).toString();
-        } catch (Exception ex) {
-            Log.d("Error", ex.getMessage());
-            return DefaultStringReturnType;
-        }
+    @ReactMethod
+    public void createChannel(ReadableMap channelInfo, Promise promise) {
+        boolean created = mNotificationHelper.createChannel(channelInfo);
+        promise.resolve(created);
     }
-
-    private String _getDeviceId() {
-        try {
-            return getString(getReactApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-        } catch (Exception ex) {
-            Log.d("Error", ex.getMessage());
-            return DefaultStringReturnType;
-        }
-    }
-
-    private void createResizedImageWithExceptions(String path, int newWidth, int newHeight, Callback successCb, Callback failureCb) throws IOException {
-        Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.PNG;
-        Uri imageUrl = Uri.parse(path);
-        Bitmap image = ImageResizer.createImage(this.reactContext, imageUrl, newWidth, newHeight);
-        if (image == null) {
-            throw new IOException("The image failed to be resized; invalid Bitmap result.");
-        }
-        // Save the resulting image
-        File cachePath = reactContext.getCacheDir();
-        File resizedImage = ImageResizer.saveImage(image, cachePath, UUID.randomUUID().toString(), compressFormat);
-        // If resizedImagePath is empty and this wasn't caught earlier, throw.
-        if (resizedImage.isFile()) {
-            WritableMap response = Arguments.createMap();
-            response.putString("uri", Uri.fromFile(resizedImage).toString());
-            response.putString("name", resizedImage.getName());
-            // Invoke success
-            successCb.invoke(response);
-        } else {
-            failureCb.invoke("Error getting resized image path");
-        }
-        // Clean up bitmap
-        image.recycle();
-    }
-
 }

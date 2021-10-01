@@ -1,4 +1,4 @@
-import {isIos} from '@common';
+import {isIos, CustomOmit} from '@common';
 import {useEffect} from 'react';
 import {
   EmitterSubscription,
@@ -8,16 +8,13 @@ import {
 
 const {AppModule} = NativeModules;
 
-export const getVersion = () => {
+export const getVersion = (): string => {
   return AppModule.getVersion();
 };
-export const getDeviceType = () => {
-  return AppModule.getDeviceType();
-};
-export const getAppName = () => {
+export const getAppName = (): string => {
   return AppModule.getAppName();
 };
-export const getDeviceId = () => {
+export const getDeviceId = (): string => {
   return AppModule.getDeviceId();
 };
 export const setAppBadges = (count: number) => {
@@ -32,7 +29,63 @@ export const clearNotification = () => {
 export const clearCache = () => {
   AppModule.clearCache();
 };
-export const getBuildNumber = () => {
+export const checkChannelExist = (channelId: string) => {
+  return new Promise<boolean>(rs => {
+    if (isIos) {
+      rs(false);
+    }
+    AppModule.checkChannelExist(channelId).then((res: boolean) => {
+      rs(res);
+    });
+  });
+};
+
+export const deleteChannel = (channelId: string) => {
+  if (isIos) {
+    return;
+  }
+  AppModule.deleteChannel(channelId);
+};
+
+const ImportanceChannel = {
+  DEFAULT: 3,
+  HIGH: 4,
+  MAX: 5,
+  LOW: 2,
+  MIN: 1,
+  NONE: 0,
+  UNSPECIFIED: -1000,
+};
+
+type Channel = {
+  channelId: string;
+  channelName: string;
+  channelDescription?: string;
+  playSound?: boolean;
+  soundName?: string;
+  importance?: keyof typeof ImportanceChannel;
+  vibrate?: boolean;
+};
+export const createChannel = (channel: Channel) => {
+  const actualChannel: CustomOmit<Channel, 'importance'> & {
+    importance?: number;
+  } = {
+    ...channel,
+    vibrate: channel?.vibrate ?? true,
+    importance: channel.importance
+      ? ImportanceChannel[channel.importance] ?? ImportanceChannel.HIGH
+      : undefined,
+  };
+  return new Promise<boolean>(rs => {
+    if (isIos) {
+      rs(false);
+    }
+    AppModule.createChannel(actualChannel).then((res: boolean) => {
+      rs(res);
+    });
+  });
+};
+export const getBuildNumber = (): string => {
   return AppModule.getBuildNumber();
 };
 export const registerPhotosChanges = () => {

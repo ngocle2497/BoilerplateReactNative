@@ -20,84 +20,32 @@ class AppModule: RCTEventEmitter {
     return []
   }
   
-  enum DeviceType:String {
-    case DeviceTypeHandset = "Handset"
-    case DeviceTypeTablet = "Tablet"
-    case DeviceTypeTv = "Tv"
-    case DeviceTypeDesktop = "Desktop"
-    case DeviceTypeUnknown = "Unknown"
-  }
-  
   // func photoLibraryDidChange(_ changeInstance: PHChange) {
   //   sendEvent(withName: PhotoChangeEvent, body: nil)
   // }
-
-  func _getAppVersion() -> String {
-    let appVerison = Bundle.main.infoDictionary?["CFBundleShortVersionString"]
-    return (appVerison ?? AppModule.DefaultStringReturnType) as! String;
+  
+  @objc
+  func getDeviceId() -> String {
+    return UIDevice.current.identifierForVendor?.uuidString ?? AppModule.DefaultStringReturnType
   }
   
-  func _getBuildNumber() -> String {
-    let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"]
-    return (buildNumber ?? AppModule.DefaultStringReturnType) as! String
-  }
-  
-  func _getAppName() -> String {
+  @objc
+  func getAppName() -> String {
     let displayName = Bundle.main.infoDictionary?["CFBundleDisplayName"]
     let bundleName = Bundle.main.infoDictionary?["CFBundleName"]
     return (displayName != nil) ? displayName as! String : bundleName as! String
   }
   
-  func _getDeviceId() -> String {
-    return UIDevice.current.identifierForVendor?.uuidString ?? AppModule.DefaultStringReturnType
-  }
-  
-  
-  func _getDeviceType() -> String {
-    switch UIDevice.current.userInterfaceIdiom {
-    case .phone:
-      return DeviceType.DeviceTypeHandset.rawValue
-    case .tv:
-      return DeviceType.DeviceTypeTv.rawValue
-    case .pad:
-      if (TARGET_OS_MACCATALYST) != 0{
-        return DeviceType.DeviceTypeDesktop.rawValue
-      }
-      
-      if #available(iOS 14.0, *){
-        return DeviceType.DeviceTypeDesktop.rawValue
-      }
-      return DeviceType.DeviceTypeTablet.rawValue
-    case .mac:
-      return DeviceType.DeviceTypeDesktop.rawValue
-    default:
-      return DeviceType.DeviceTypeUnknown.rawValue
-    }
-  }
-
-  @objc
-  func getDeviceType() -> String {
-    return _getDeviceType()
-  }
-  
-  @objc
-  func getDeviceId() -> String {
-    return _getDeviceId()
-  }
-  
-  @objc
-  func getAppName() -> String {
-    return _getAppName()
-  }
-  
   @objc
   func getVersion() -> String {
-    return _getAppVersion()
+    let appVerison = Bundle.main.infoDictionary?["CFBundleShortVersionString"]
+    return (appVerison ?? AppModule.DefaultStringReturnType) as! String;
   }
   
   @objc
   func getBuildNumber() -> String {
-    return _getBuildNumber()
+    let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"]
+    return (buildNumber ?? AppModule.DefaultStringReturnType) as! String
   }
   @objc
   func clearNotification() -> Void {

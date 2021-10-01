@@ -1,4 +1,4 @@
-package com.helloworld.AppModule;
+package com.helloworld.AppModule.imageHelper;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
@@ -9,26 +9,59 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.WritableMap;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.UUID;
 
 public class ImageResizer {
-    private final static String SCHEME_CONTENT = "content";
-    private final static String SCHEME_FILE = "file";
+    private final String SCHEME_CONTENT = "content";
+    private final String SCHEME_FILE = "file";
+    private ReactApplicationContext context;
 
-    public static Bitmap createImage(ReactApplicationContext context, Uri imageUri, int newWidth, int newHeight) throws IOException {
+    public ImageResizer(ReactApplicationContext reactContext) {
+        this.context = reactContext;
+    }
+
+    public void createResizedImageWithExceptions(String path, int newWidth, int newHeight, Callback successCb, Callback failureCb) throws IOException {
+        Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.PNG;
+        Uri imageUrl = Uri.parse(path);
+        Bitmap image = createImage( imageUrl, newWidth, newHeight);
+        if (image == null) {
+            throw new IOException("The image failed to be resized; invalid Bitmap result.");
+        }
+        // Save the resulting image
+        File cachePath = this.context.getCacheDir();
+        File resizedImage = saveImage(image, cachePath, UUID.randomUUID().toString(), compressFormat);
+        // If resizedImagePath is empty and this wasn't caught earlier, throw.
+        if (resizedImage.isFile()) {
+            WritableMap response = Arguments.createMap();
+            response.putString("uri", Uri.fromFile(resizedImage).toString());
+            response.putString("name", resizedImage.getName());
+            // Invoke success
+            successCb.invoke(response);
+        } else {
+            failureCb.invoke("Error getting resized image path");
+        }
+        // Clean up bitmap
+        image.recycle();
+    }
+
+    public Bitmap createImage(Uri imageUri, int newWidth, int newHeight) throws IOException {
         Bitmap sourceImage = null;
         String imageUriScheme = imageUri.getScheme();
         if (imageUriScheme == null ||
                 imageUriScheme.equalsIgnoreCase(SCHEME_FILE) ||
                 imageUriScheme.equalsIgnoreCase(SCHEME_CONTENT)
         ) {
-            sourceImage = ImageResizer.loadBitmapFromFile(context, imageUri, newWidth, newHeight);
+            sourceImage = loadBitmapFromFile(imageUri, newWidth, newHeight);
         }
         if (sourceImage == null) {
             throw new IOException("Unable to load source image from path");
@@ -39,12 +72,11 @@ public class ImageResizer {
         Bitmap rotatedImage;
         int orientation = getOrientation(context, imageUri);
 
-        rotatedImage = ImageResizer.rotateImage(sourceImage, orientation);
+        rotatedImage = rotateImage(sourceImage, orientation);
 
         if (rotatedImage == null) {
             throw new IOException("Unable to rotate image. Most likely due to not enough memory.");
         }
-
 
         if (rotatedImage != sourceImage) {
             sourceImage.recycle();
@@ -56,7 +88,7 @@ public class ImageResizer {
     /**
      * Rotate the specified bitmap with the given angle, in degrees.
      */
-    public static Bitmap rotateImage(Bitmap source, float angle) {
+    public Bitmap rotateImage(Bitmap source, float angle) {
         Bitmap retVal;
 
         Matrix matrix = new Matrix();
@@ -72,7 +104,7 @@ public class ImageResizer {
     /**
      * Get orientation by reading Image metadata
      */
-    public static int getOrientation(ReactApplicationContext context, Uri uri) {
+    public int getOrientation(ReactApplicationContext context, Uri uri) {
         try {
             File file = getFileFromUri(context, uri);
             if (file.exists()) {
@@ -88,7 +120,7 @@ public class ImageResizer {
     /**
      * Convert metadata to degrees
      */
-    public static int getOrientation(ExifInterface exif) {
+    public int getOrientation(ExifInterface exif) {
         int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
         switch (orientation) {
             case ExifInterface.ORIENTATION_ROTATE_90:
@@ -102,7 +134,7 @@ public class ImageResizer {
         }
     }
 
-    private static File getFileFromUri(ReactApplicationContext context, Uri uri) {
+    private File getFileFromUri(ReactApplicationContext context, Uri uri) {
 
         // first try by direct path
         File file = new File(uri.getPath());
@@ -129,19 +161,19 @@ public class ImageResizer {
         return file;
     }
 
-    private static Bitmap loadBitmapFromFile(ReactApplicationContext reactContext, Uri imageUri, int newWidth, int newHeight) throws IOException {
+    private Bitmap loadBitmapFromFile(Uri imageUri, int newWidth, int newHeight) throws IOException {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        loadBitmap(reactContext, imageUri, options);
+        loadBitmap(imageUri, options);
 
         // Set a sample size according to the image size to lower memory usage.
         options.inSampleSize = calculateInSampleSize(options, newWidth, newHeight);
         options.inJustDecodeBounds = false;
         //System.out.println(options.inSampleSize);
-        return loadBitmap(reactContext, imageUri, options);
+        return loadBitmap(imageUri, options);
     }
 
-    private static int calculateInSampleSize(BitmapFactory.Options options, int newWidth, int newHeight) {
+    private int calculateInSampleSize(BitmapFactory.Options options, int newWidth, int newHeight) {
         final int height = options.outHeight;
         final int width = options.outWidth;
 
@@ -161,7 +193,7 @@ public class ImageResizer {
         return inSampleSize;
     }
 
-    private static Bitmap loadBitmap(ReactApplicationContext reactContext, Uri imageUri, BitmapFactory.Options options) throws IOException {
+    private Bitmap loadBitmap(Uri imageUri, BitmapFactory.Options options) throws IOException {
         Bitmap sourceImage = null;
         String imageUriScheme = imageUri.getScheme();
         if (imageUriScheme == null || !imageUriScheme.equalsIgnoreCase(SCHEME_CONTENT)) {
@@ -172,7 +204,7 @@ public class ImageResizer {
                 throw new IOException("Error decoding image file");
             }
         } else {
-            ContentResolver cr = reactContext.getContentResolver();
+            ContentResolver cr = this.context.getContentResolver();
             InputStream input = cr.openInputStream(imageUri);
             if (input != null) {
                 sourceImage = BitmapFactory.decodeStream(input, null, options);
@@ -182,7 +214,7 @@ public class ImageResizer {
         return sourceImage;
     }
 
-    public static File saveImage(Bitmap bitmap, File saveDirectory, String fileName, Bitmap.CompressFormat compressFormat) throws IOException {
+    public File saveImage(Bitmap bitmap, File saveDirectory, String fileName, Bitmap.CompressFormat compressFormat) throws IOException {
         if (bitmap == null) {
             throw new IOException("The bitmap couldn't be resized");
         }
@@ -193,7 +225,7 @@ public class ImageResizer {
         }
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(compressFormat,100,outputStream);
+        bitmap.compress(compressFormat, 100, outputStream);
         byte[] bitmapData = outputStream.toByteArray();
 
         outputStream.flush();
