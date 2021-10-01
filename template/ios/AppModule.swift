@@ -11,7 +11,8 @@ import UIKit
 import Photos
 
 @objc(AppModule)
-// PHPhotoLibraryChangeObserver
+// Use this to listen photo change
+// class AppModule: RCTEventEmitter, PHPhotoLibraryChangeObserver
 class AppModule: RCTEventEmitter {
   private static var DefaultStringReturnType: String = "Unknown";
   private var PhotoChangeEvent: String = "PhotosChange"
@@ -19,7 +20,7 @@ class AppModule: RCTEventEmitter {
   override func supportedEvents() -> [String]! {
     return []
   }
-  
+  // Sent event when photos change
   // func photoLibraryDidChange(_ changeInstance: PHChange) {
   //   sendEvent(withName: PhotoChangeEvent, body: nil)
   // }

@@ -21,7 +21,7 @@ export const setAppBadges = (count: number) => {
   if (typeof count !== 'number' || !isIos) {
     return;
   }
-  return AppModule.setBadges(count);
+  AppModule.setBadges(count);
 };
 export const clearNotification = () => {
   AppModule.clearNotification();
