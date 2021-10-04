@@ -6,3 +6,4 @@
 #import "React/RCTBridgeModule.h"
 #import "React/RCTImageLoader.h"
 #import "React/RCTEventEmitter.h"
+#import <MMKV/MMKV.h>
