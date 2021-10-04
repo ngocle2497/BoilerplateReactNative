@@ -1,4 +1,4 @@
-import {useDisableBackHandler} from '@common';
+import {useDisableBackHandler, useDismissKeyboard} from '@common';
 import {AppTheme} from '@config/type';
 import {useTheme} from '@react-navigation/native';
 import React, {
@@ -39,6 +39,8 @@ const ProgressDialogComponent = forwardRef((_, ref) => {
   );
 
   useDisableBackHandler(visible);
+
+  useDismissKeyboard(visible);
 
   // render
   return visible ? (
