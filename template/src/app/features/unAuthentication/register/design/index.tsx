@@ -8,7 +8,7 @@ const RegisterComponent = () => {
   return (
     <Block block>
       <Wallpaper />
-      <Screen forceInset={['top']}>
+      <Screen>
         <Block block justifyContent={'center'} middle>
           <Button
             onPress={() => {

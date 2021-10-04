@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {RootState} from '@store/allReducers';
 import React, {createRef, forwardRef, memo, useImperativeHandle} from 'react';
 import isEqual from 'react-fast-compare';

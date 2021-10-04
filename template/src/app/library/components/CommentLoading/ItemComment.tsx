@@ -48,6 +48,7 @@ const ItemCommentComponent = ({index, overlayColor}: ItemCommentProps) => {
       index * DELAY_MS,
       sharedTiming(1, {duration: DURATION}),
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // render

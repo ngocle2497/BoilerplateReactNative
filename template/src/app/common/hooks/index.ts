@@ -401,7 +401,6 @@ function useForceUpdate() {
   }, [forcedRenderCount]);
 }
 
-
 function useIsKeyboardShown() {
   const [isKeyboardShown, setIsKeyboardShown] = React.useState(false);
 
@@ -443,6 +442,7 @@ function useDisableBackHandler(disabled: boolean) {
     } else {
       BackHandler.removeEventListener('hardwareBackPress', onBackPress);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [disabled]);
 }
 
@@ -465,10 +465,21 @@ function useMounted(callback: () => void, deps: any[] = []) {
     if (mounted) {
       callback();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [...deps]);
 }
-
+function useIsMounted() {
+  const isMountedRef = useRef<boolean | null>(null);
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+  return isMountedRef;
+}
 export {
+  useIsMounted,
   useDisableBackHandler,
   useDismissKeyboard,
   useInterval,
@@ -486,5 +497,6 @@ export {
   useUnMount,
   useForceUpdate,
   useAnimatedState,
-  useMounted
+  useMounted,
+  useIsKeyboardShown,
 };

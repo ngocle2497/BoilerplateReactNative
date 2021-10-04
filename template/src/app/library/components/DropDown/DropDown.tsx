@@ -368,8 +368,8 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
       </Block>
       <Modal
         backdropOpacity={0}
-        animatedInDuration={100}
-        animatedOutDuration={100}
+        animatedInDuration={300}
+        animatedOutDuration={300}
         onBackButtonPress={_onHideDrop}
         onBackdropPress={_onHideDrop}
         onModalShow={onOpen}

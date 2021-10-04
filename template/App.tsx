@@ -32,6 +32,7 @@ if (isIos) {
   KeyboardManager.setShouldResignOnTouchOutside(true);
   KeyboardManager.setShouldPlayInputClicks(true);
   KeyboardManager.resignFirstResponder();
+  KeyboardManager.reloadLayoutIfNeeded();
   // KeyboardManager.isKeyboardShowing()
   //   .then((isShowing) => {
   //   });

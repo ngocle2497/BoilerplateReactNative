@@ -41,7 +41,6 @@ static void InitializeFlipper(UIApplication *application) {
       [[NSUserDefaults standardUserDefaults] setValue:@"1strun" forKey:@"FirstRun"];
       [[NSUserDefaults standardUserDefaults] synchronize];
     }
-  
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif

@@ -50,11 +50,7 @@ const InputComponent = ({
         typeInput={'flat'}
         {...rest}
       />
-      <HelperText
-        visible={invalid !== undefined}
-        msg={error?.message ?? ''}
-        type={'error'}
-      />
+      <HelperText visible={invalid} msg={error?.message ?? ''} type={'error'} />
     </>
   );
 };

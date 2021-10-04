@@ -1,11 +1,10 @@
-import {AppTheme} from '@config/type';
 import {useDisableBackHandler} from '@common';
+import {AppTheme} from '@config/type';
 import {useTheme} from '@react-navigation/native';
 import React, {
   createRef,
   forwardRef,
   memo,
-  useCallback,
   useImperativeHandle,
   useState,
 } from 'react';
@@ -25,11 +24,6 @@ const ProgressDialogComponent = forwardRef((_, ref) => {
   // state
   const [visible, setVisible] = useState(false);
 
-  // function
-  const onBackHandlePress = useCallback(() => {
-    return true;
-  }, []);
-
   // effect
   useImperativeHandle(
     ref,
@@ -43,7 +37,7 @@ const ProgressDialogComponent = forwardRef((_, ref) => {
     }),
     [],
   );
-  
+
   useDisableBackHandler(visible);
 
   // render

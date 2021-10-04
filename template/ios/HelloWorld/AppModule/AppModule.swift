@@ -16,7 +16,9 @@ import Photos
 class AppModule: RCTEventEmitter {
   private static var DefaultStringReturnType: String = "Unknown";
   private var PhotoChangeEvent: String = "PhotosChange"
-
+  @objc override static func requiresMainQueueSetup() -> Bool {
+      return true
+  }
   override func supportedEvents() -> [String]! {
     return []
   }

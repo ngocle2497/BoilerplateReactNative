@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {useSharedTransition} from '@animated';
 import {enhance, useAsyncState, useIsMounted, useMounted} from '@common';
 import React, {memo, useCallback, useEffect, useMemo, useState} from 'react';

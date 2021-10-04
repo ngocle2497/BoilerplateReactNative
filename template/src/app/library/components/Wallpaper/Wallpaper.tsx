@@ -1,40 +1,34 @@
-import {enhance} from '@common';
 import React, {memo, useMemo} from 'react';
 import equals from 'react-fast-compare';
-import {StyleProp, useWindowDimensions} from 'react-native';
-import {ImageStyle} from 'react-native-fast-image';
+import {useWindowDimensions, View, StyleSheet, ViewStyle} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {Img} from '../Image/Image';
 
-import {presets} from './Wallpaper.presets';
 import {WallpaperProps} from './Wallpaper.props';
 
+const styles = StyleSheet.create({
+  container: {
+    ...StyleSheet.absoluteFillObject,
+  },
+});
+
 const WallpaperComponent = ({
-  preset = 'stretch',
-  style: styleOverride,
   backgroundImage = 'bg_wallpaper',
 }: WallpaperProps) => {
   // state
   const {height, width} = useWindowDimensions();
-
-  // style
-  const style = useMemo<StyleProp<ImageStyle>>(
-    () =>
-      enhance([
-        presets[preset] as ImageStyle,
-        {width, height},
-        styleOverride as ImageStyle,
-      ]),
-    [preset, width, height, styleOverride],
+  const inset = useSafeAreaInsets();
+  const containerStyle = useMemo<ViewStyle>(
+    () => ({width, height: height + inset.top}),
+    [height, inset.top, width],
   );
 
   // render
   return (
-    <Img
-      containerStyle={presets[preset]}
-      source={backgroundImage}
-      style={style}
-    />
+    <View pointerEvents={'none'} style={[styles.container, containerStyle]}>
+      <Img source={backgroundImage} />
+    </View>
   );
 };
 export const Wallpaper = memo(WallpaperComponent, equals);
