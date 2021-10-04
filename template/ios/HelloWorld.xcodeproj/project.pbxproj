@@ -18,7 +18,6 @@
 		8F2A1A75270A9E38003EDAC0 /* AppModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2A1A73270A9E38003EDAC0 /* AppModule.swift */; };
 		8F2A1A78270A9E81003EDAC0 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F2A1A76270A9E81003EDAC0 /* Colors.xcassets */; };
 		8F2A1A79270A9E81003EDAC0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F2A1A77270A9E81003EDAC0 /* Images.xcassets */; };
-		8F2A1A84270B1337003EDAC0 /* MMKKVStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2A1A83270B1337003EDAC0 /* MMKKVStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +49,6 @@
 		8F2A1A73270A9E38003EDAC0 /* AppModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppModule.swift; path = HelloWorld/AppModule/AppModule.swift; sourceTree = "<group>"; };
 		8F2A1A76270A9E81003EDAC0 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = HelloWorld/Colors.xcassets; sourceTree = "<group>"; };
 		8F2A1A77270A9E81003EDAC0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = HelloWorld/Images.xcassets; sourceTree = "<group>"; };
-		8F2A1A83270B1337003EDAC0 /* MMKKVStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MMKKVStorage.swift; path = HelloWorld/AppModule/MMKKVStorage.swift; sourceTree = "<group>"; };
 		ABFE59519B596E51CEFDCCC0 /* libPods-HelloWorld-HelloWorldTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HelloWorld-HelloWorldTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0A881CF5CF3F2B244570E2A /* Pods-HelloWorld.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloWorld.debug.xcconfig"; path = "Target Support Files/Pods-HelloWorld/Pods-HelloWorld.debug.xcconfig"; sourceTree = "<group>"; };
 		D00AAFFCFCFDA5787532823F /* Pods-HelloWorld.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloWorld.release.xcconfig"; path = "Target Support Files/Pods-HelloWorld/Pods-HelloWorld.release.xcconfig"; sourceTree = "<group>"; };
@@ -154,7 +152,6 @@
 		8F2A1A70270A9E25003EDAC0 /* AppModule */ = {
 			isa = PBXGroup;
 			children = (
-				8F2A1A83270B1337003EDAC0 /* MMKKVStorage.swift */,
 				8F2A1A72270A9E38003EDAC0 /* AppModule.m */,
 				8F2A1A73270A9E38003EDAC0 /* AppModule.swift */,
 				8F2A1A71270A9E38003EDAC0 /* HelloWorld-Bridging-Header.h */,
@@ -437,7 +434,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F2A1A84270B1337003EDAC0 /* MMKKVStorage.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				8F2A1A75270A9E38003EDAC0 /* AppModule.swift in Sources */,
 				8F2A1A74270A9E38003EDAC0 /* AppModule.m in Sources */,

@@ -5,25 +5,19 @@
 //  Created by HNgocL on 6/4/21.
 //
 
+
 import Foundation
-import Photos
 import UIKit
+import Photos
 
 @objc(AppModule)
 // Use this to listen photo change
 // class AppModule: RCTEventEmitter, PHPhotoLibraryChangeObserver
 class AppModule: RCTEventEmitter {
-  private static var DefaultStringReturnType: String = "Unknown"
+  private static var DefaultStringReturnType: String = "Unknown";
   private var PhotoChangeEvent: String = "PhotosChange"
-  private var mmkvStorage: MMKVStorage
-  
-  override init() {
-    mmkvStorage = MMKVStorage()
-    super.init()
-    
-  }
   @objc override static func requiresMainQueueSetup() -> Bool {
-    return true
+      return true
   }
   override func supportedEvents() -> [String]! {
     return []
@@ -48,7 +42,7 @@ class AppModule: RCTEventEmitter {
   @objc
   func getVersion() -> String {
     let appVerison = Bundle.main.infoDictionary?["CFBundleShortVersionString"]
-    return (appVerison ?? AppModule.DefaultStringReturnType) as! String
+    return (appVerison ?? AppModule.DefaultStringReturnType) as! String;
   }
   
   @objc
@@ -57,16 +51,16 @@ class AppModule: RCTEventEmitter {
     return (buildNumber ?? AppModule.DefaultStringReturnType) as! String
   }
   @objc
-  func clearNotification() {
-    UNUserNotificationCenter.current().requestAuthorization(options: .badge) {
-      (granted, error) in
-      if granted {
-        DispatchQueue.main.async {
-          UIApplication.shared.applicationIconBadgeNumber = 0
-          UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-        }
+  func clearNotification() -> Void {
+      UNUserNotificationCenter.current().requestAuthorization(options: .badge){
+          (granted, error) in
+          if granted {
+            DispatchQueue.main.async{
+              UIApplication.shared.applicationIconBadgeNumber = 0;
+              UNUserNotificationCenter.current().removeAllDeliveredNotifications();
+            }
+          }
       }
-    }
   }
   
   @objc
@@ -88,25 +82,25 @@ class AppModule: RCTEventEmitter {
       print(error.localizedDescription)
     }
   }
-  
+
   @objc
-  func setBadges(_ count: Double) {
-    UNUserNotificationCenter.current().requestAuthorization(options: .badge) {
-      (granted, error) in
-      if granted {
-        DispatchQueue.main.async {
-          let countBadges = Int(count)
-          UIApplication.shared.applicationIconBadgeNumber = countBadges
-        }
+  func setBadges(_ count: Double) -> Void {
+      UNUserNotificationCenter.current().requestAuthorization(options: .badge){
+          (granted, error) in
+          if granted {
+            DispatchQueue.main.async {
+              let countBadges = Int(count)
+              UIApplication.shared.applicationIconBadgeNumber = countBadges
+            }
+          }
       }
-    }
   }
   // Listen photo library changes
   // @objc
   // func registerPhotosChanges() -> Void {
   //   PHPhotoLibrary.shared().register(self);
-  // }
-  
+  // }  
+
   @objc
   func fixRotation(
     _ path: String, width: Double, height: Double, callback: @escaping RCTResponseSenderBlock
@@ -134,7 +128,7 @@ class AppModule: RCTEventEmitter {
             image!.draw(
               in: CGRect(x: 0, y: 0, width: image!.size.width, height: image!.size.height))
             let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-            UIGraphicsEndImageContext()
+            UIGraphicsEndImageContext();
             let data = newImage.pngData()
             let fileManager = FileManager.default
             fileManager.createFile(atPath: fullPath, contents: data, attributes: nil)
@@ -149,87 +143,5 @@ class AppModule: RCTEventEmitter {
         })
     })
   }
-  
-  @objc
-  func mmkvSetString(
-    _ keyName: String, value: String, keyId: String?, cryptKey: String?,
-    resolver resolve: RCTPromiseResolveBlock,
-    rejecter reject: RCTPromiseRejectBlock
-  ) {
-    mmkvStorage.setValue(keyName, value, keyId, cryptKey)
-    resolve(true)
-  }
-  @objc
-  func mmkvSetNumber(
-    _ keyName: String, value: Double, keyId: String?, cryptKey: String?,
-    resolver resolve: RCTPromiseResolveBlock,
-    rejecter reject: RCTPromiseRejectBlock
-  ) {
-    mmkvStorage.setValue(keyName, value, keyId, cryptKey)
-    resolve(true)
-  }
-  @objc
-  func mmkvSetBoolean(
-    _ keyName: String, value: Bool, keyId: String?, cryptKey: String?,
-    resolver resolve: RCTPromiseResolveBlock,
-    rejecter reject: RCTPromiseRejectBlock
-  ) {
-    mmkvStorage.setValue(keyName, value, keyId, cryptKey)
-    resolve(true)
-  }
-  
-  @objc
-  func mmkvGetString(
-    _ keyName: String, keyId: String?, cryptKey: String?, resolver resolve: RCTPromiseResolveBlock,
-    rejecter reject: RCTPromiseRejectBlock
-  ) {
-    let result = mmkvStorage.getString(keyName, keyId, cryptKey)
-    resolve(result)
-  }
-  
-  @objc
-  func mmkvGetNumber(
-    _ keyName: String, keyId: String?, cryptKey: String?, resolver resolve: RCTPromiseResolveBlock,
-    rejecter reject: RCTPromiseRejectBlock
-  ) {
-    let result = mmkvStorage.getDouble(keyName, keyId, cryptKey)
-    resolve(result)
-  }
-  
-  @objc
-  func mmkvGetBoolean(
-    _ keyName: String, keyId: String?, cryptKey: String?, resolver resolve: RCTPromiseResolveBlock,
-    rejecter reject: RCTPromiseRejectBlock
-  ) {
-    let result = mmkvStorage.getBoolean(keyName, keyId, cryptKey)
-    resolve(result)
-  }
-  
-  @objc
-  func mmkvDelete(
-    _ keyName: String, keyId: String?, cryptKey: String?, resolver resolve: RCTPromiseResolveBlock,
-    rejecter reject: RCTPromiseRejectBlock
-  ) {
-    mmkvStorage.delete(keyName, keyId, cryptKey)
-    resolve(true)
-  }
-  
-  @objc
-  func mmkvGetAllKeys(
-    _  keyId: String?, cryptKey: String?, resolver resolve: RCTPromiseResolveBlock,
-    rejecter reject: RCTPromiseRejectBlock
-  ) {
-    let listKeys = mmkvStorage.getAllKeys(keyId, cryptKey)
-    let result = NSArray(array: listKeys)
-    resolve(result)
-  }
-  
-  @objc
-  func mmkvClearAll(_ keyId: String?, cryptKey: String?, resolver resolve: RCTPromiseResolveBlock,
-                    rejecter reject: RCTPromiseRejectBlock
-  ) {
-    mmkvStorage.clearAll( keyId, cryptKey)
-    resolve(true)
-  }
-  
 }
+

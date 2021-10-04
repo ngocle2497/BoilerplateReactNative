@@ -3,7 +3,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#import <MMKV/MMKV.h>
+
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
 #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
@@ -27,7 +27,6 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [MMKV initializeMMKV:nil];
   if (![[NSUserDefaults standardUserDefaults] objectForKey:@"FirstRun"]) {
       // Delete all keychain of this application
       NSArray *secItemClasses = @[(__bridge id)kSecClassGenericPassword,
