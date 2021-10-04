@@ -111,7 +111,8 @@ public class AppModule extends ReactContextBaseJavaModule {
         boolean created = mNotificationHelper.createChannel(channelInfo);
         promise.resolve(created);
     }
-        @ReactMethod
+    
+    @ReactMethod
     public void mmkvSetString(String keyName, String value, String keyId, String cryptKey, Promise promise) {
         mmkvStorage.setValue(keyName, value, keyId, cryptKey);
         promise.resolve(true);

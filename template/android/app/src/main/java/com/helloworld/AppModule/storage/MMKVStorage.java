@@ -5,10 +5,6 @@ import android.content.Context;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.tencent.mmkv.MMKV;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class MMKVStorage {
     private Context context;
 

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {MMKVOption, MMKVStorage} from '@common';
 import {StyleSheet} from 'react-native';
