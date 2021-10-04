@@ -138,7 +138,7 @@ import {<function_name>} from "@common"
 - [redux](http://redux.js.org)
 - [redux-saga](https://redux-saga.js.org/)
 - [react-native-fast-image](https://github.com/DylanVann/react-native-fast-image#readme)
-- [react-native-sensitive-info](https://mcodex.dev/react-native-sensitive-info/)
+- [mmkv](https://github.com/Tencent/MMKV)
 - [react-fast-compare](https://github.com/FormidableLabs/react-fast-compare)
 
     ... and more

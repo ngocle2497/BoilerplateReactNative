@@ -144,7 +144,7 @@ export const usePhotosPermissionChange = (callback: () => void) => {
 
   return null;
 };
-type MMKVOption = {
+export type MMKVOption = {
   id: string;
   cryptKey: string;
 };

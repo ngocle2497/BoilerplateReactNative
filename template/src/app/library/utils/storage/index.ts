@@ -1,19 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {Platform, StyleSheet} from 'react-native';
-import RNSInfo from 'react-native-sensitive-info';
-
+import {MMKVOption, MMKVStorage} from '@common';
+import {StyleSheet} from 'react-native';
 const appName = 'APP_Name';
-const storeName = Platform.select({
-  ios: 'keyChain',
-  android: 'sharePreferences',
-});
-const dateCreateApp = new Date(2020, 10, 10, 0, 0, 0, 0);
-const AppKey = String(dateCreateApp) + appName + storeName;
+const AppKey = '7268428d-d814-4eca-8829-3dbe0e2eaa7a';
 
-const optionRNSensitive: RNSInfo.RNSensitiveInfoOptions = {
-  sharedPreferencesName: AppKey,
-  keychainService: AppKey,
+const optionMMKV: MMKVOption = {
+  id: appName,
+  cryptKey: AppKey,
 };
 
 /**
@@ -21,14 +15,11 @@ const optionRNSensitive: RNSInfo.RNSensitiveInfoOptions = {
  *
  * @param key The key to fetch.
  */
-export async function loadString(
-  key: string,
-  option?: RNSInfo.RNSensitiveInfoOptions,
-) {
+export async function loadString(key: string, option?: MMKVOption) {
   try {
-    return await RNSInfo.getItem(
+    return await MMKVStorage.getString(
       key,
-      StyleSheet.flatten([optionRNSensitive, option]),
+      StyleSheet.flatten([optionMMKV, option]),
     );
   } catch {
     // not sure why this would fail... even reading the RN docs I'm unclear
@@ -45,13 +36,13 @@ export async function loadString(
 export async function saveString(
   key: string,
   value: string,
-  option?: RNSInfo.RNSensitiveInfoOptions,
+  option?: MMKVOption,
 ) {
   try {
-    await RNSInfo.setItem(
+    await MMKVStorage.setString(
       key,
       value,
-      StyleSheet.flatten([optionRNSensitive, option]),
+      StyleSheet.flatten([optionMMKV, option]),
     );
     return true;
   } catch {
@@ -64,14 +55,11 @@ export async function saveString(
  *
  * @param key The key to fetch.
  */
-export async function load(
-  key: string,
-  option?: RNSInfo.RNSensitiveInfoOptions,
-) {
+export async function load(key: string, option?: MMKVOption) {
   try {
-    const almostThere = await RNSInfo.getItem(
+    const almostThere = await MMKVStorage.getString(
       key,
-      StyleSheet.flatten([optionRNSensitive, option]),
+      StyleSheet.flatten([optionMMKV, option]),
     );
     return typeof almostThere === 'string' ? JSON.parse(almostThere) : null;
   } catch {
@@ -85,16 +73,12 @@ export async function load(
  * @param key The key to fetch.
  * @param value The value to store.
  */
-export async function save(
-  key: string,
-  value: any,
-  option?: RNSInfo.RNSensitiveInfoOptions,
-) {
+export async function save(key: string, value: any, option?: MMKVOption) {
   try {
-    await RNSInfo.setItem(
+    await MMKVStorage.setString(
       key,
       JSON.stringify(value),
-      StyleSheet.flatten([optionRNSensitive, option]),
+      StyleSheet.flatten([optionMMKV, option]),
     );
     return true;
   } catch {
@@ -107,107 +91,36 @@ export async function save(
  *
  * @param key The key to kill.
  */
-export async function remove(
-  key: string,
-  option?: RNSInfo.RNSensitiveInfoOptions,
-) {
+export async function remove(key: string, option?: MMKVOption) {
   try {
-    await RNSInfo.deleteItem(
-      key,
-      StyleSheet.flatten([optionRNSensitive, option]),
-    );
+    await MMKVStorage.delete(key, StyleSheet.flatten([optionMMKV, option]));
   } catch {}
 }
-const createSensitiveStorage = (
-  paramOption: RNSInfo.RNSensitiveInfoOptions = {},
-) => {
-  const options = StyleSheet.flatten([optionRNSensitive, paramOption]);
-  // react-native-sensitive-info returns different a different structure on iOS
-  // than it does on Android.
-  //
-  // iOS:
-  // [
-  //   [
-  //     { service: 'app', key: 'foo', value: 'bar' },
-  //     { service: 'app', key: 'baz', value: 'quux' }
-  //   ]
-  // ]
-  //
-  // Android:
-  // {
-  //   foo: 'bar',
-  //   baz: 'quux'
-  // }
-  //
-  // See https://github.com/mCodex/react-native-sensitive-info/issues/8
-  //
-  // `extractKeys` adapts for the different structure to return the list of
-  // keys.
-  const extractKeys = Platform.select({
-    ios: (items: any) => items[0].map((item: any) => item.key),
-    android: Object.keys,
-  });
 
-  const noop = (...args: any[]) => null;
-
-  return {
-    async getItem(key: string, callback = noop) {
-      try {
-        // getItem() returns `null` on Android and `undefined` on iOS;
-        // explicitly return `null` here as `undefined` causes an exception
-        // upstream.
-        let result: null | string | undefined = await RNSInfo.getItem(
-          key,
-          options,
-        );
-
-        if (typeof result === 'undefined') {
-          result = null;
-        }
-
-        callback(null, result);
-
-        return result;
-      } catch (error) {
-        callback(error);
-        throw error;
-      }
-    },
-
-    async setItem(key: string, value: string, callback = noop) {
-      try {
-        await RNSInfo.setItem(key, value, options);
-        callback(null);
-      } catch (error) {
-        callback(error);
-        throw error;
-      }
-    },
-
-    async removeItem(key: string, callback = noop) {
-      try {
-        await RNSInfo.deleteItem(key, options);
-        callback(null);
-      } catch (error) {
-        callback(error);
-        throw error;
-      }
-    },
-
-    async getAllKeys(callback = noop) {
-      try {
-        const values = await RNSInfo.getAllItems(options);
-        const result = extractKeys(values);
-        callback(null, result);
-        return result;
-      } catch (error) {
-        callback(error);
-        throw error;
-      }
-    },
-  };
+interface Storage {
+  getItem(key: string, ...args: Array<any>): any;
+  setItem(key: string, value: any, ...args: Array<any>): any;
+  removeItem(key: string, ...args: Array<any>): any;
+}
+export const reduxPersistStorage: Storage = {
+  setItem: async (key: string, value: string | number | boolean) => {
+    if (typeof value === 'string') {
+      await MMKVStorage.setString(key, value, optionMMKV);
+    }
+    if (typeof value === 'boolean') {
+      await MMKVStorage.setBoolean(key, value, optionMMKV);
+    }
+    if (typeof value === 'number') {
+      await MMKVStorage.setNumber(key, value, optionMMKV);
+    }
+    return Promise.resolve(true);
+  },
+  getItem: async (key: string) => {
+    const res = await MMKVStorage.getString(key, optionMMKV);
+    return Promise.resolve(res);
+  },
+  removeItem: async (key: string) => {
+    await MMKVStorage.delete(key, optionMMKV);
+    return Promise.resolve();
+  },
 };
-export const reduxPersistStorage = createSensitiveStorage({
-  keychainService: AppKey,
-  sharedPreferencesName: AppKey,
-});
