@@ -1,5 +1,5 @@
 import {sharedClamp, sharedTiming} from '@animated';
-import {CustomOmit, enhance, onCheckType} from '@common';
+import {CustomOmit, enhance, isIos, onCheckType} from '@common';
 import React, {
   forwardRef,
   memo,
@@ -25,6 +25,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {Block} from '../Block/Block';
 
@@ -70,17 +71,19 @@ const ModalContentComponent = forwardRef(
     ref,
   ) => {
     // state
+    const insets = useSafeAreaInsets();
     const {height: screenHeight, width: screenWidth} = useWindowDimensions();
+    console.log(insets.top);
     const modalStyle = useMemo<ViewStyle>(
       () =>
         enhance<ViewStyle>([
           styles.modal,
           {
             width: screenWidth,
-            height: screenHeight,
+            height: screenHeight + (isIos ? 0 : insets.top),
           },
         ]),
-      [screenHeight, screenWidth],
+      [insets.top, screenHeight, screenWidth],
     );
     // reanimated state
     const translateY = useSharedValue(0);
@@ -95,12 +98,12 @@ const ModalContentComponent = forwardRef(
         enhance([
           StyleSheet.absoluteFillObject,
           {
-            width: screenWidth,
-            height: screenHeight,
+            width: '100%',
+            height: '100%',
             backgroundColor: backdropColor,
           },
         ]),
-      [backdropColor, screenHeight, screenWidth],
+      [backdropColor],
     );
 
     const reBackdropStyle = useAnimatedStyle(
@@ -336,7 +339,7 @@ const ModalContentComponent = forwardRef(
 
     // render
     return (
-      <View style={modalStyle}>
+      <View style={[modalStyle]}>
         {renderBackdrop()}
         {contentView()}
       </View>

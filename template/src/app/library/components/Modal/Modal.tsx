@@ -1,6 +1,7 @@
 import {useDismissKeyboard} from '@common';
 import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
 import isEqual from 'react-fast-compare';
+import {Keyboard} from 'react-native';
 
 import {Portal} from '../Portal';
 
@@ -24,6 +25,7 @@ const ModalComponent = (props: ModalProps) => {
     if (props.isVisible) {
       setVisible(true);
     } else {
+      Keyboard.dismiss();
       modalContent.current?.dismiss();
     }
   }, [props.isVisible]);
