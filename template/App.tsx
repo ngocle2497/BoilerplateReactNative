@@ -1,4 +1,5 @@
 import {isIos} from '@common';
+import {PortalProvider} from '@components';
 import {store} from '@store/store';
 import React, {Suspense} from 'react';
 import {I18nextProvider} from 'react-i18next';
@@ -44,7 +45,9 @@ export const MyApp = () => {
       <Provider store={store}>
         <I18nextProvider i18n={I18n}>
           <Suspense fallback={null}>
-            <AppContainer />
+            <PortalProvider>
+              <AppContainer />
+            </PortalProvider>
           </Suspense>
         </I18nextProvider>
       </Provider>
