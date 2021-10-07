@@ -73,7 +73,6 @@ const ModalContentComponent = forwardRef(
     // state
     const insets = useSafeAreaInsets();
     const {height: screenHeight, width: screenWidth} = useWindowDimensions();
-    console.log(insets.top);
     const modalStyle = useMemo<ViewStyle>(
       () =>
         enhance<ViewStyle>([
