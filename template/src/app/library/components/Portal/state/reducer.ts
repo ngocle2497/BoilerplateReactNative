@@ -55,11 +55,8 @@ const removePortal = (
     return state;
   }
 
-  const index = state[hostName].findIndex(item => item.name === portalName);
-  if (index !== -1) {
-    state[hostName].splice(index, 1);
-  }
-  return state;
+  const newHostName = state[hostName].filter(item => item.name !== portalName);
+  return {...state, hostName: newHostName};
 };
 
 export const reducer = (
