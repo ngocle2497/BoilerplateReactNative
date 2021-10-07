@@ -36,3 +36,4 @@ export * from './Modal/Modal';
 export * from './Skeleton/Skeleton';
 export * from './ParsedText/ParsedText';
 export * from './CommentLoading/CommentLoading';
+export * from './Portal';
