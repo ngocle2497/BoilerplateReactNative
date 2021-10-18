@@ -1,20 +1,18 @@
-import React, {
-  useState,
-  useEffect,
-  useMemo,
-  memo,
-  useCallback,
-  useRef,
-} from 'react';
-import {StyleSheet, TextInput} from 'react-native';
 import {enhance} from '@common';
-import equals from 'react-fast-compare';
 import {ColorDefault} from '@theme/color';
 import {FontSizeDefault} from '@theme/fontSize';
+import React, {
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import equals from 'react-fast-compare';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
-import {Block} from '../Block/Block';
-import {Text} from '../Text/Text';
 import {Spacer} from '../Spacer/Spacer';
 
 import {OtpProps} from './Otp.props';
@@ -139,7 +137,7 @@ const OtpComponent = (props: OtpProps) => {
   // render
   return (
     <TouchableWithoutFeedback onPress={_setFocus}>
-      <Block block style={[container]}>
+      <View style={[container]}>
         <TextInput
           ref={_inputRef}
           value={otp}
@@ -158,8 +156,8 @@ const OtpComponent = (props: OtpProps) => {
             .fill(0)
             .map((item, index) => {
               return (
-                <Block key={index} style={row}>
-                  <Block
+                <View key={index} style={row}>
+                  <View
                     style={[
                       wrapInput,
                       (index === otp.length ||
@@ -168,19 +166,19 @@ const OtpComponent = (props: OtpProps) => {
                         wrapInputActive,
                     ]}>
                     <Text
-                      text={
+                      children={
                         index <= otp.length - 1
                           ? textEntry?.charAt(0) ?? otp.charAt(index)
                           : ''
                       }
                       style={[text]}
                     />
-                  </Block>
+                  </View>
                   <Spacer width={15} />
-                </Block>
+                </View>
               );
             })}
-      </Block>
+      </View>
     </TouchableWithoutFeedback>
   );
 };

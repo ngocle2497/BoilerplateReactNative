@@ -5,14 +5,17 @@ import {useTheme} from '@react-navigation/native';
 import {ColorDefault} from '@theme/color';
 import React, {memo, useCallback, useEffect, useMemo, useState} from 'react';
 import equals from 'react-fast-compare';
-import {LayoutChangeEvent, LayoutRectangle, StyleSheet} from 'react-native';
+import {
+  LayoutChangeEvent,
+  LayoutRectangle,
+  StyleSheet,
+  View,
+  Text,
+} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-
-import {Block} from '../Block/Block';
-import {Text} from '../Text/Text';
 
 import {HelperTextProps} from './HelperText.prop';
 
@@ -101,7 +104,7 @@ const HelperTextComponent = (props: HelperTextProps) => {
 
   // render
   return (
-    <Block style={[styles.container]}>
+    <View style={[styles.container]}>
       <Animated.View
         pointerEvents={'none'}
         onLayout={_onLayoutContent}
@@ -111,7 +114,7 @@ const HelperTextComponent = (props: HelperTextProps) => {
       <Animated.View style={[style]}>
         <Text style={[textStyle]}>{currentMessage}</Text>
       </Animated.View>
-    </Block>
+    </View>
   );
 };
 export const HelperText = memo(HelperTextComponent, equals);

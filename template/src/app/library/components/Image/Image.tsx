@@ -1,11 +1,9 @@
-import React, {useMemo, memo} from 'react';
-import {StyleProp} from 'react-native';
 import {images} from '@assets/image';
 import {enhance} from '@common';
+import React, {memo, useMemo} from 'react';
 import equals from 'react-fast-compare';
+import {StyleProp, View} from 'react-native';
 import FastImage, {ImageStyle} from 'react-native-fast-image';
-
-import {Block} from '../Block/Block';
 
 import {ImageProps} from './Image.props';
 
@@ -27,13 +25,13 @@ const ImgComponent = (props: ImageProps) => {
 
   // render
   return (
-    <Block style={containerStyle}>
+    <View style={containerStyle}>
       <FastImage
         style={style}
         resizeMode={resizeMode}
         source={images[source ?? 'default']}
       />
-    </Block>
+    </View>
   );
 };
 export const Img = memo(ImgComponent, equals);

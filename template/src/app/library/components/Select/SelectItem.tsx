@@ -1,13 +1,25 @@
 import {onCheckType} from '@common';
+import {FontSizeDefault} from '@theme/fontSize';
 import React, {memo, useCallback} from 'react';
 import equals from 'react-fast-compare';
+import {StyleSheet, Text, View} from 'react-native';
 
-import {Block} from '../Block/Block';
 import {Button} from '../Button/Button';
-import {Text} from '../Text/Text';
 
 import {SelectItemProps} from './Select.props';
 
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    paddingVertical: 15,
+    paddingLeft: 5,
+    backgroundColor: '#FFFFFF',
+  },
+  text: {
+    fontWeight: 'normal',
+    fontSize: FontSizeDefault.FONT_14,
+  },
+});
 const SelectItemComponent = ({
   index,
   item,
@@ -25,22 +37,16 @@ const SelectItemComponent = ({
   // render
   return (
     <Button onPress={_onPress} activeOpacity={0.85}>
-      <Block
-        direction={'row'}
-        paddingVertical={15}
-        paddingLeft={5}
-        color={'#FFFFFF'}>
+      <View style={[[styles.container]]}>
         {customItem ? (
           customItem(item, index)
         ) : (
           <Text
-            fontSize={'FONT_14'}
-            fontWeight={'normal'}
-            style={[textItemStyle]}
-            text={item.text ?? ''}
+            style={[styles.text, textItemStyle]}
+            children={item.text ?? ''}
           />
         )}
-      </Block>
+      </View>
     </Button>
   );
 };

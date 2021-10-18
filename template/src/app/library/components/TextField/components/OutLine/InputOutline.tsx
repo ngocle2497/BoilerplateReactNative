@@ -1,27 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import {useInterpolate, useSharedTransition} from '@animated';
+import {enhance, onCheckType} from '@common';
+import {Text} from '@library/components/Text/Text';
 import React, {
-  useState,
+  forwardRef,
+  useCallback,
   useEffect,
   useMemo,
-  useCallback,
-  forwardRef,
+  useState,
 } from 'react';
+import {useTranslation} from 'react-i18next';
 import {
-  StyleSheet,
-  TextInput,
   LayoutChangeEvent,
   NativeSyntheticEvent,
+  StyleSheet,
+  TextInput,
   TextInputChangeEventData,
+  View,
 } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useDerivedValue,
 } from 'react-native-reanimated';
-import {useInterpolate, useSharedTransition} from '@animated';
-import {useTranslation} from 'react-i18next';
-import {enhance, onCheckType} from '@common';
-import {Block} from '@library/components/Block/Block';
-import {Text} from '@library/components/Text/Text';
 
 import {InputOutlineProps} from './InputOutline.props';
 
@@ -51,6 +51,19 @@ const styles = StyleSheet.create({
   wrapLabel: {
     position: 'absolute',
     alignSelf: 'flex-end',
+  },
+  content: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  wrapPlaceHolder: {
+    position: 'absolute',
+    alignSelf: 'flex-end',
+    paddingLeft: 5,
+  },
+  flex: {
+    flex: 1,
+    paddingHorizontal: 5,
   },
 });
 
@@ -225,19 +238,15 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
   // render
   return (
     <Animated.View style={[containerStyle, containerAnimatedStyle]}>
-      <Block direction={'row'} alignItems={'flex-start'}>
+      <View style={[styles.content]}>
         {(placeholderTx || placeholder) && value.length === 0 && (
-          <Block
-            position={'absolute'}
-            paddingLeft={5}
-            alignSelf={'flex-end'}
-            pointerEvents={'none'}>
+          <View style={[styles.wrapPlaceHolder]} pointerEvents={'none'}>
             <Text
               tx={placeholderTx}
               text={placeHolder}
               color={placeholderColor}
             />
-          </Block>
+          </View>
         )}
         {labelText && (
           <Animated.View
@@ -248,7 +257,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
             </Animated.Text>
           </Animated.View>
         )}
-        <Block block onLayout={onLayoutContainerInput} paddingHorizontal={5}>
+        <View style={[styles.flex]} onLayout={onLayoutContainerInput}>
           <TextInput
             defaultValue={localDefaultValue}
             autoCorrect={false}
@@ -262,9 +271,9 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
             onFocus={_onFocus}
             onBlur={_onBlur}
           />
-        </Block>
+        </View>
         {rightChildren}
-      </Block>
+      </View>
     </Animated.View>
   );
 });

@@ -1,9 +1,7 @@
 import {useAsyncState, useInterval} from '@common';
 import React, {memo, useCallback, useMemo} from 'react';
 import isEqual from 'react-fast-compare';
-import {StyleSheet, useWindowDimensions} from 'react-native';
-
-import {Block} from '../Block/Block';
+import {StyleSheet, useWindowDimensions, View} from 'react-native';
 
 import {DELAY_MS, DURATION, MIN_HEIGHT_ITEM, OVERLAY_COLOR} from './constants';
 import {ItemComment} from './ItemComment';
@@ -51,7 +49,7 @@ const CommentLoadingComponent = ({
   }, DELAY_MS * listItem.length - 1 + DURATION);
 
   // render
-  return <Block style={[styles.wrap]}>{listItem.map(renderItem)}</Block>;
+  return <View style={[styles.wrap]}>{listItem.map(renderItem)}</View>;
 };
 
 export const CommentLoading = memo(CommentLoadingComponent, isEqual);

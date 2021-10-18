@@ -3,12 +3,10 @@ import {useSharedTransition} from '@animated';
 import {enhance, useAsyncState, useIsMounted, useMounted} from '@common';
 import React, {memo, useCallback, useEffect, useMemo, useState} from 'react';
 import equals from 'react-fast-compare';
-import {StyleProp, StyleSheet} from 'react-native';
+import {StyleProp, StyleSheet, View} from 'react-native';
 import {Blurhash} from 'react-native-blurhash';
 import FastImage, {ImageStyle} from 'react-native-fast-image';
 import Animated, {useAnimatedStyle} from 'react-native-reanimated';
-
-import {Block} from '../Block/Block';
 
 import {ImageRemoteProps} from './ImageRemote.props';
 
@@ -104,7 +102,7 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
 
   // render
   return (
-    <Block style={[container]}>
+    <View style={[container]}>
       <Animated.View style={[styles.viewOnLoad, imageOnloadStyle]}>
         {childrenOnload || (
           <Blurhash
@@ -140,7 +138,7 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
           {childrenError}
         </Animated.View>
       )}
-    </Block>
+    </View>
   );
 };
 export const ImageRemote = memo((props: ImageRemoteProps) => {

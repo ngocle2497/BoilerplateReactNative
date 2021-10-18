@@ -9,15 +9,14 @@ import React, {
 } from 'react';
 import equals from 'react-fast-compare';
 import {useTranslation} from 'react-i18next';
+import {Text, View} from 'react-native';
 
-import {Modal} from '../Modal/Modal';
-import {Block} from '../Block/Block';
 import {Button} from '../Button/Button';
 import {Divider} from '../Divider/Divider';
-import {Text} from '../Text/Text';
+import {Modal} from '../Modal/Modal';
 
-import {styles} from './ActionSheet.presets';
 import {ActionSheetProps, OptionData} from './ActionSheet.props';
+import {styles} from './styles';
 
 const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
   // state
@@ -95,6 +94,7 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
   return (
     <Modal
       style={[styles.modal]}
+      hasGesture={false}
       backdropOpacity={1}
       animatedIn={'slideInUp'}
       animatedOut={'slideOutDown'}
@@ -102,37 +102,37 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
       onBackButtonPress={_onCancel}
       isVisible={actionVisible}
       backdropColor={backDropColor}>
-      <Block style={[root]}>
-        <Block style={[wrapOption]}>
+      <View style={[root]}>
+        <View style={[wrapOption]}>
           {title &&
             (React.isValidElement(title) ? (
               title
             ) : (
               <>
-                <Block paddingVertical={5}>
-                  <Text style={[styles.title]} text={title + ''} />
-                </Block>
+                <View style={[styles.wrapTitle]}>
+                  <Text style={[styles.title]} children={title + ''} />
+                </View>
                 <Divider />
               </>
             ))}
           {option.map((item: OptionData, index: number) => {
             return (
               <Button onPress={_onPress(item, index)} key={item.text}>
-                <Block padding={10}>
-                  <Text style={[textOption]} text={item.text} />
-                </Block>
+                <View style={[styles.wrapTextOption]}>
+                  <Text style={[textOption]} children={item.text} />
+                </View>
               </Button>
             );
           })}
-        </Block>
-        <Block style={[wrapCancel]}>
+        </View>
+        <View style={[wrapCancel]}>
           <Button onPress={_onCancel}>
-            <Block paddingVertical={15} middle>
-              <Text style={[textCancelStyle]} text={textCancel} />
-            </Block>
+            <View style={[styles.wrapTextCancel]}>
+              <Text style={[textCancelStyle]} children={textCancel} />
+            </View>
           </Button>
-        </Block>
-      </Block>
+        </View>
+      </View>
     </Modal>
   );
 });

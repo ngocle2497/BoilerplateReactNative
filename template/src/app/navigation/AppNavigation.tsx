@@ -1,5 +1,11 @@
 import {dispatch, isIos, RXStore, useSelector} from '@common';
-import {hideLoading, ProgressDialog, showLoading, SnackBar} from '@components';
+import {
+  hideLoading,
+  PortalHost,
+  ProgressDialog,
+  showLoading,
+  SnackBar,
+} from '@components';
 import {AppMode} from '@library/components/AppMode/AppMode';
 import {ImageTransition} from '@library/components/LightBox/ImageTransition';
 import {NavigationContainer} from '@react-navigation/native';
@@ -48,6 +54,7 @@ export const AppContainer = () => {
         <StatusBar translucent backgroundColor={'transparent'} />
         {!loadingApp && (
           <>
+            <PortalHost name={'AppModal'} />
             <RootNavigation token={token} />
             <ProgressDialog />
             <SnackBar />

@@ -1,13 +1,13 @@
 import {sharedTiming, useInterpolate} from '@animated';
 import React, {memo, useEffect, useMemo} from 'react';
 import isEqual from 'react-fast-compare';
+import {StyleSheet, View, ViewStyle} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withDelay,
 } from 'react-native-reanimated';
 
-import {Block} from '../Block/Block';
 import {Spacer} from '../Spacer/Spacer';
 
 import {
@@ -20,6 +20,13 @@ import {
   SIZE_AVATAR,
 } from './constants';
 import {ItemCommentProps} from './type';
+
+const styles = StyleSheet.create({
+  row: {
+    marginBottom: 10,
+    flexDirection: 'row',
+  },
+});
 
 const ItemCommentComponent = ({index, overlayColor}: ItemCommentProps) => {
   // state
@@ -42,6 +49,27 @@ const ItemCommentComponent = ({index, overlayColor}: ItemCommentProps) => {
     opacity: opacity.value,
   }));
 
+  // style
+  const bubble = useMemo<ViewStyle>(
+    () => ({
+      width: widthComment,
+      height: heightComment,
+      borderRadius: 15,
+      backgroundColor: overlayColor,
+    }),
+    [heightComment, overlayColor, widthComment],
+  );
+
+  const avatar = useMemo<ViewStyle>(
+    () => ({
+      width: SIZE_AVATAR,
+      height: SIZE_AVATAR,
+      borderRadius: SIZE_AVATAR / 2,
+      backgroundColor: overlayColor,
+    }),
+    [overlayColor],
+  );
+
   // effect
   useEffect(() => {
     progress.value = withDelay(
@@ -54,21 +82,11 @@ const ItemCommentComponent = ({index, overlayColor}: ItemCommentProps) => {
   // render
   return (
     <Animated.View style={[wrapStyle]}>
-      <Block direction={'row'} marginBottom={10}>
-        <Block
-          color={overlayColor}
-          width={SIZE_AVATAR}
-          height={SIZE_AVATAR}
-          borderRadius={SIZE_AVATAR / 2}
-        />
+      <View style={[styles.row]}>
+        <View style={[avatar]} />
         <Spacer width={10} />
-        <Block
-          width={widthComment}
-          height={heightComment}
-          color={overlayColor}
-          borderRadius={15}
-        />
-      </Block>
+        <View style={[bubble]} />
+      </View>
     </Animated.View>
   );
 };

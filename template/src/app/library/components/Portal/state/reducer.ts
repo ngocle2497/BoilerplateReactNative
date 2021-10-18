@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {PortalType} from '../types';
 
 import {ACTIONS} from './constants';

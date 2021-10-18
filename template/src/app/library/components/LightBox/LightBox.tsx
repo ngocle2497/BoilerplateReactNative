@@ -1,13 +1,16 @@
 import React, {memo, useCallback, useRef, useState} from 'react';
 import isEqual from 'react-fast-compare';
-import {StyleSheet, useWindowDimensions, View} from 'react-native';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import FastImage, {OnLoadEvent, Source} from 'react-native-fast-image';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-
-import {Button} from '../Button/Button';
 
 import {imageTransitionRef} from './ImageTransition';
 
@@ -89,7 +92,7 @@ const LightBoxComponent = ({source}: LightBoxProps) => {
   return (
     <>
       <View ref={_refRoot} collapsable={false} style={[styles.container]}>
-        <Button disabled={disableButton} onPress={_onImagePress}>
+        <TouchableOpacity disabled={disableButton} onPress={_onImagePress}>
           <Animated.View style={imageStyle}>
             <FastImage
               onLoad={_onLoadedImage}
@@ -98,7 +101,7 @@ const LightBoxComponent = ({source}: LightBoxProps) => {
               resizeMode={'contain'}
             />
           </Animated.View>
-        </Button>
+        </TouchableOpacity>
       </View>
     </>
   );

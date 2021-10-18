@@ -1,16 +1,14 @@
 import {sharedTiming} from '@animated';
 import MaskedView from '@react-native-community/masked-view';
-import React, {memo, useEffect} from 'react';
+import React, {memo, useEffect, useMemo} from 'react';
 import isEqual from 'react-fast-compare';
-import {StyleSheet, useWindowDimensions} from 'react-native';
+import {StyleSheet, useWindowDimensions, View, ViewStyle} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
 } from 'react-native-reanimated';
-
-import {Block} from '../Block/Block';
 
 import {BaseContent} from './BaseContent';
 import {SkeletonProps} from './Skeleton.props';
@@ -24,6 +22,10 @@ const styles = StyleSheet.create({
   linear: {
     width: '100%',
     height: '100%',
+  },
+  wrapChildren: {
+    flex: 1,
+    backgroundColor: 'transparent',
   },
 });
 
@@ -63,16 +65,27 @@ const SkeletonComponent = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // style
+  const overlay = useMemo<ViewStyle>(
+    () => ({
+      flex: 1,
+      height: '100%',
+      width: screenWidth,
+      backgroundColor: overlayColor,
+    }),
+    [overlayColor, screenWidth],
+  );
+
   // render
   return (
     <MaskedView
       style={[styles.markElement]}
       maskElement={
-        <Block block color={'transparent'}>
+        <View style={[styles.wrapChildren]}>
           {children ? children : <BaseContent />}
-        </Block>
+        </View>
       }>
-      <Block block height={'100%'} width={screenWidth} color={overlayColor} />
+      <View style={[overlay]} />
       <Animated.View style={reLinearStyle}>
         <LinearGradient
           start={{x: 0, y: 0}}

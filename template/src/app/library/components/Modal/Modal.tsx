@@ -32,7 +32,7 @@ const ModalComponent = (props: ModalProps) => {
 
   // render
   return (
-    <Portal>
+    <Portal hostName={'AppModal'}>
       {visible ? (
         <ModalContent onSetClose={closeModal} ref={modalContent} {...props} />
       ) : null}

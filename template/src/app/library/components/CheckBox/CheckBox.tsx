@@ -3,11 +3,9 @@ import {enhance, onCheckType} from '@common';
 import {ColorDefault} from '@theme/color';
 import React, {useCallback, useMemo, useState} from 'react';
 import equals from 'react-fast-compare';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 
-import {Block} from '../Block/Block';
-import {Button} from '../Button/Button';
 import {Text} from '../Text/Text';
 
 import {CheckboxProps} from './CheckBox.props';
@@ -92,18 +90,18 @@ const CheckBoxComponent = ({
 
   // render
   return (
-    <Button
+    <TouchableOpacity
       activeOpacity={1}
       disabled={disable}
       onPress={onPress}
       style={[rootStyle]}>
       <>
-        <Block style={[outlineStyle]}>
+        <View style={[outlineStyle]}>
           <Animated.View style={[_fillStyle, styleAnimated]} />
-        </Block>
+        </View>
         <Text text={text} tx={tx} style={_labelStyle} />
       </>
-    </Button>
+    </TouchableOpacity>
   );
 };
 export const CheckBox = React.memo(CheckBoxComponent, equals);

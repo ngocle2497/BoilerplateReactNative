@@ -9,16 +9,17 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* HelloWorldTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* HelloWorldTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
+		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		6172F2D35A4C3AA820D92908 /* libPods-HelloWorld.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6423831EA8574132BED9D8CC /* libPods-HelloWorld.a */; };
 		7EF68E3733C33B6898317E18 /* libPods-HelloWorld-HelloWorldTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABFE59519B596E51CEFDCCC0 /* libPods-HelloWorld-HelloWorldTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		8F2A1A6F270A9E0D003EDAC0 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F2A1A6E270A9E0D003EDAC0 /* BootSplash.storyboard */; };
-		8F2A1A74270A9E38003EDAC0 /* AppModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2A1A72270A9E38003EDAC0 /* AppModule.m */; };
-		8F2A1A75270A9E38003EDAC0 /* AppModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2A1A73270A9E38003EDAC0 /* AppModule.swift */; };
-		8F2A1A78270A9E81003EDAC0 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F2A1A76270A9E81003EDAC0 /* Colors.xcassets */; };
-		8F2A1A79270A9E81003EDAC0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F2A1A77270A9E81003EDAC0 /* Images.xcassets */; };
-		8F2A1A84270B1337003EDAC0 /* MMKKVStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2A1A83270B1337003EDAC0 /* MMKKVStorage.swift */; };
+		8FF9B2D7271D66BB00F6BFD5 /* MMKKVStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9B2D4271D66BB00F6BFD5 /* MMKKVStorage.swift */; };
+		8FF9B2D8271D66BC00F6BFD5 /* AppModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9B2D5271D66BB00F6BFD5 /* AppModule.m */; };
+		8FF9B2ED271D677100F6BFD5 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FF9B2EA271D677100F6BFD5 /* BootSplash.storyboard */; };
+		8FF9B2EE271D677100F6BFD5 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FF9B2EB271D677100F6BFD5 /* Colors.xcassets */; };
+		8FF9B2EF271D677100F6BFD5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FF9B2EC271D677100F6BFD5 /* Images.xcassets */; };
+		8FF9B2F5271D685500F6BFD5 /* AppModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9B2F4271D685500F6BFD5 /* AppModule.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,19 +39,20 @@
 		13B07F961A680F5B00A75B9A /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = HelloWorld/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = HelloWorld/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = HelloWorld/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HelloWorld/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = HelloWorld/main.m; sourceTree = "<group>"; };
 		1D0AE47A65C8663E3B452821 /* Pods-HelloWorld-HelloWorldTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloWorld-HelloWorldTests.release.xcconfig"; path = "Target Support Files/Pods-HelloWorld-HelloWorldTests/Pods-HelloWorld-HelloWorldTests.release.xcconfig"; sourceTree = "<group>"; };
 		6423831EA8574132BED9D8CC /* libPods-HelloWorld.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HelloWorld.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C97AB639B58BBB4B15BBE30 /* Pods-HelloWorld-HelloWorldTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloWorld-HelloWorldTests.debug.xcconfig"; path = "Target Support Files/Pods-HelloWorld-HelloWorldTests/Pods-HelloWorld-HelloWorldTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = HelloWorld/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8F2A1A6E270A9E0D003EDAC0 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = HelloWorld/BootSplash.storyboard; sourceTree = "<group>"; };
-		8F2A1A71270A9E38003EDAC0 /* HelloWorld-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HelloWorld-Bridging-Header.h"; sourceTree = "<group>"; };
-		8F2A1A72270A9E38003EDAC0 /* AppModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppModule.m; path = HelloWorld/AppModule/AppModule.m; sourceTree = "<group>"; };
-		8F2A1A73270A9E38003EDAC0 /* AppModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppModule.swift; path = HelloWorld/AppModule/AppModule.swift; sourceTree = "<group>"; };
-		8F2A1A76270A9E81003EDAC0 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = HelloWorld/Colors.xcassets; sourceTree = "<group>"; };
-		8F2A1A77270A9E81003EDAC0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = HelloWorld/Images.xcassets; sourceTree = "<group>"; };
-		8F2A1A83270B1337003EDAC0 /* MMKKVStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MMKKVStorage.swift; path = HelloWorld/AppModule/MMKKVStorage.swift; sourceTree = "<group>"; };
+		8FF9B2D4271D66BB00F6BFD5 /* MMKKVStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMKKVStorage.swift; sourceTree = "<group>"; };
+		8FF9B2D5271D66BB00F6BFD5 /* AppModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppModule.m; sourceTree = "<group>"; };
+		8FF9B2EA271D677100F6BFD5 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = HelloWorld/BootSplash.storyboard; sourceTree = "<group>"; };
+		8FF9B2EB271D677100F6BFD5 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = HelloWorld/Colors.xcassets; sourceTree = "<group>"; };
+		8FF9B2EC271D677100F6BFD5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = HelloWorld/Images.xcassets; sourceTree = "<group>"; };
+		8FF9B2F4271D685500F6BFD5 /* AppModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModule.swift; sourceTree = "<group>"; };
+		8FF9B303271D697300F6BFD5 /* HelloWorld-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "HelloWorld-Bridging-Header.h"; path = "HelloWorld/HelloWorld-Bridging-Header.h"; sourceTree = "<group>"; };
 		ABFE59519B596E51CEFDCCC0 /* libPods-HelloWorld-HelloWorldTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HelloWorld-HelloWorldTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0A881CF5CF3F2B244570E2A /* Pods-HelloWorld.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloWorld.debug.xcconfig"; path = "Target Support Files/Pods-HelloWorld/Pods-HelloWorld.debug.xcconfig"; sourceTree = "<group>"; };
 		D00AAFFCFCFDA5787532823F /* Pods-HelloWorld.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloWorld.release.xcconfig"; path = "Target Support Files/Pods-HelloWorld/Pods-HelloWorld.release.xcconfig"; sourceTree = "<group>"; };
@@ -97,12 +99,14 @@
 		13B07FAE1A68108700A75B9A /* HelloWorld */ = {
 			isa = PBXGroup;
 			children = (
-				8F2A1A76270A9E81003EDAC0 /* Colors.xcassets */,
-				8F2A1A77270A9E81003EDAC0 /* Images.xcassets */,
-				8F2A1A70270A9E25003EDAC0 /* AppModule */,
-				8F2A1A6E270A9E0D003EDAC0 /* BootSplash.storyboard */,
+				8FF9B303271D697300F6BFD5 /* HelloWorld-Bridging-Header.h */,
+				8FF9B2EA271D677100F6BFD5 /* BootSplash.storyboard */,
+				8FF9B2EB271D677100F6BFD5 /* Colors.xcassets */,
+				8FF9B2EC271D677100F6BFD5 /* Images.xcassets */,
+				8FF9B2D2271D66BB00F6BFD5 /* AppModule */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
@@ -151,15 +155,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8F2A1A70270A9E25003EDAC0 /* AppModule */ = {
+		8FF9B2D2271D66BB00F6BFD5 /* AppModule */ = {
 			isa = PBXGroup;
 			children = (
-				8F2A1A83270B1337003EDAC0 /* MMKKVStorage.swift */,
-				8F2A1A72270A9E38003EDAC0 /* AppModule.m */,
-				8F2A1A73270A9E38003EDAC0 /* AppModule.swift */,
-				8F2A1A71270A9E38003EDAC0 /* HelloWorld-Bridging-Header.h */,
+				8FF9B2F4271D685500F6BFD5 /* AppModule.swift */,
+				8FF9B2D4271D66BB00F6BFD5 /* MMKKVStorage.swift */,
+				8FF9B2D5271D66BB00F6BFD5 /* AppModule.m */,
 			);
 			name = AppModule;
+			path = HelloWorld/AppModule;
 			sourceTree = "<group>";
 		};
 		E233CBF5F47BEE60B243DCF8 /* Pods */ = {
@@ -232,7 +236,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1250;
+						LastSwiftMigration = 1120;
 					};
 				};
 			};
@@ -267,10 +271,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F2A1A78270A9E81003EDAC0 /* Colors.xcassets in Resources */,
-				8F2A1A79270A9E81003EDAC0 /* Images.xcassets in Resources */,
-				8F2A1A6F270A9E0D003EDAC0 /* BootSplash.storyboard in Resources */,
+				8FF9B2ED271D677100F6BFD5 /* BootSplash.storyboard in Resources */,
+				8FF9B2EF271D677100F6BFD5 /* Images.xcassets in Resources */,
+				8FF9B2EE271D677100F6BFD5 /* Colors.xcassets in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,10 +442,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F2A1A84270B1337003EDAC0 /* MMKKVStorage.swift in Sources */,
+				8FF9B2D7271D66BB00F6BFD5 /* MMKKVStorage.swift in Sources */,
+				8FF9B2F5271D685500F6BFD5 /* AppModule.swift in Sources */,
+				8FF9B2D8271D66BC00F6BFD5 /* AppModule.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				8F2A1A75270A9E38003EDAC0 /* AppModule.swift in Sources */,
-				8F2A1A74270A9E38003EDAC0 /* AppModule.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -529,7 +534,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = HelloWorld;
-				SWIFT_OBJC_BRIDGING_HEADER = "HelloWorld-Bridging-Header.h";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "HelloWorld/HelloWorld-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -555,7 +560,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = HelloWorld;
-				SWIFT_OBJC_BRIDGING_HEADER = "HelloWorld-Bridging-Header.h";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "HelloWorld/HelloWorld-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -616,6 +621,7 @@
 					"$(inherited)",
 				);
 				LIBRARY_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/lib/swift\"",
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
 					"\"$(inherited)\"",
@@ -674,6 +680,7 @@
 					"$(inherited)",
 				);
 				LIBRARY_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/lib/swift\"",
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
 					"\"$(inherited)\"",

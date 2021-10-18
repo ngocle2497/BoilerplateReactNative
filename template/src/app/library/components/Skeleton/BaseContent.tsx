@@ -1,11 +1,36 @@
 import React, {memo, useCallback, useMemo} from 'react';
 import isEqual from 'react-fast-compare';
-import {useWindowDimensions} from 'react-native';
+import {StyleSheet, useWindowDimensions, View, ViewStyle} from 'react-native';
 
-import {Block} from '../Block/Block';
 import {Spacer} from '../Spacer/Spacer';
 
 const BASE_ITEM_HEIGHT = 70;
+
+const styles = StyleSheet.create({
+  container: {
+    minHeight: BASE_ITEM_HEIGHT,
+    width: '100%',
+    marginBottom: 20,
+    paddingHorizontal: 25,
+  },
+  rowCenter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  imageOverlay: {
+    width: '100%',
+    height: 170,
+    borderRadius: 4,
+    color: 'black',
+  },
+  avatarOverlay: {
+    width: 40,
+    height: 40,
+    borderRadius: 4,
+    color: 'black',
+  },
+});
+
 type RowOverLayProps = {
   width: number | string;
   height?: number;
@@ -13,14 +38,18 @@ type RowOverLayProps = {
 };
 const RowOverLay = memo(
   ({width, height = 10, borderRadius = 4}: RowOverLayProps) => {
-    return (
-      <Block
-        width={width}
-        height={height}
-        borderRadius={borderRadius}
-        color={'black'}
-      />
+    // style
+    const row = useMemo<ViewStyle>(
+      () => ({
+        width,
+        height,
+        borderRadius,
+        backgroundColor: 'black',
+      }),
+      [borderRadius, height, width],
     );
+    // render
+    return <View style={[row]} />;
   },
   isEqual,
 );
@@ -34,22 +63,18 @@ const ItemBase = memo(() => {
 
   // render
   return (
-    <Block
-      minHeight={BASE_ITEM_HEIGHT}
-      width={'100%'}
-      marginBottom={20}
-      paddingHorizontal={25}>
-      <Block direction={'row'} middle>
-        <Block width={40} height={40} borderRadius={4} color={'black'} />
+    <View style={[styles.container]}>
+      <View style={[styles.rowCenter]}>
+        <View style={[styles.avatarOverlay]} />
         <Spacer width={10} />
-        <Block>
+        <View>
           <RowOverLay width={100} />
           <Spacer height={5} />
           <RowOverLay width={55} />
           <Spacer height={5} />
           <RowOverLay width={70} />
-        </Block>
-      </Block>
+        </View>
+      </View>
       <Spacer height={5} />
       <RowOverLay width={'100%'} />
       <Spacer height={5} />
@@ -57,10 +82,8 @@ const ItemBase = memo(() => {
       <Spacer height={5} />
       <RowOverLay width={'100%'} />
       <Spacer height={10} />
-      {renderImage && (
-        <Block width={'100%'} height={170} borderRadius={4} color={'black'} />
-      )}
-    </Block>
+      {renderImage && <View style={[styles.imageOverlay]} />}
+    </View>
   );
 }, isEqual);
 

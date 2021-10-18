@@ -16,6 +16,7 @@ import {useTheme} from '@react-navigation/native';
 import {AppTheme} from '@config/type';
 import {RootState} from '@store/allReducers';
 import {LayoutAnimation, BackHandler, Keyboard, Platform} from 'react-native';
+import {onCheckType} from '@common';
 
 type UseStateFull<T = any> = {
   value: T;
@@ -430,11 +431,14 @@ function useIsKeyboardShown() {
   return isKeyboardShown;
 }
 
-function useDisableBackHandler(disabled: boolean) {
+function useDisableBackHandler(disabled: boolean, callback?: () => void) {
   // function
   const onBackPress = useCallback(() => {
+    if (onCheckType(callback, 'function')) {
+      callback();
+    }
     return true;
-  }, []);
+  }, [callback]);
 
   useEffect(() => {
     if (disabled) {
@@ -442,8 +446,7 @@ function useDisableBackHandler(disabled: boolean) {
     } else {
       BackHandler.removeEventListener('hardwareBackPress', onBackPress);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [disabled]);
+  }, [disabled, onBackPress]);
 }
 
 function useDismissKeyboard(isHide: boolean) {

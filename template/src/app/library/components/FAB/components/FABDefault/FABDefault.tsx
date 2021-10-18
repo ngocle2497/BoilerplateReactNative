@@ -1,10 +1,8 @@
-import React, {useMemo} from 'react';
-import {StyleSheet} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {enhance} from '@common';
+import React, {useMemo} from 'react';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-import {Button} from '../../../Button/Button';
-import {Text} from '../../../Text/Text';
 import {Icon} from '../../../Icon/Icon';
 
 import {FABDefaultProps} from './FABDefault.props';
@@ -58,11 +56,11 @@ export const FABDefault = (props: FABDefaultProps) => {
 
   // render
   return (
-    <Button onPress={onPress} activeOpacity={0.6} style={[styleBase]}>
+    <TouchableOpacity onPress={onPress} activeOpacity={0.6} style={[styleBase]}>
       <Icon icon={icon} />
       {React.isValidElement(label)
         ? label
-        : label && <Text style={[styles.label]} text={label as string} />}
-    </Button>
+        : label && <Text style={[styles.label]} children={label as string} />}
+    </TouchableOpacity>
   );
 };

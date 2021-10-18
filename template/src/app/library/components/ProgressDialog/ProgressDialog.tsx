@@ -9,9 +9,16 @@ import React, {
   useState,
 } from 'react';
 import isEqual from 'react-fast-compare';
-import {ActivityIndicator, StyleSheet} from 'react-native';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 
-import {Block} from '../Block/Block';
+const styles = StyleSheet.create({
+  container: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,.3)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
 
 const Spinner = memo(() => {
   // state
@@ -45,13 +52,9 @@ const ProgressDialogComponent = forwardRef((_, ref) => {
   // render
   return visible ? (
     <>
-      <Block
-        color={'rgba(0,0,0,.3)'}
-        style={StyleSheet.absoluteFillObject}
-        middle
-        justifyContent={'center'}>
+      <View style={[styles.container]}>
         <Spinner />
-      </Block>
+      </View>
     </>
   ) : null;
 });

@@ -1,16 +1,15 @@
-import React, {memo, useCallback} from 'react';
-import {StyleSheet} from 'react-native';
+import {useInterpolate} from '@animated';
 import {IconTypes} from '@assets/icon';
+import {onCheckType} from '@common';
+import React, {memo, useCallback} from 'react';
+import isEqual from 'react-fast-compare';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useDerivedValue,
   withSpring,
 } from 'react-native-reanimated';
-import {useInterpolate} from '@animated';
-import isEqual from 'react-fast-compare';
-import {onCheckType} from '@common';
 
-import {Button} from '../../../Button/Button';
 import {Icon} from '../../../Icon/Icon';
 import {Text} from '../../../Text/Text';
 
@@ -110,9 +109,12 @@ const ButtonGroupComponent = (props: ButtonGroupProps) => {
           <Text style={[styles.text]} text={label} />
         </Animated.View>
       )}
-      <Button activeOpacity={0.6} onPress={_onPress} style={[styles.wrap]}>
+      <TouchableOpacity
+        activeOpacity={0.6}
+        onPress={_onPress}
+        style={[styles.wrap]}>
         <Icon icon={icon} />
-      </Button>
+      </TouchableOpacity>
     </Animated.View>
   );
 };

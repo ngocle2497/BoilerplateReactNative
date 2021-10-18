@@ -45,4 +45,11 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#333333',
   },
+  wrapTextCancel: {
+    paddingVertical: 15,
+    alignItems: 'center',
+  },
+  wrapTextOption: {
+    paddingVertical: 10,
+  },
 });

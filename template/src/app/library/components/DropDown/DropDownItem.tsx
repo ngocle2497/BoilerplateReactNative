@@ -1,11 +1,15 @@
-import React, {memo, useCallback, useMemo} from 'react';
-import {StyleSheet, StyleProp, ViewStyle} from 'react-native';
-import isEqual from 'react-fast-compare';
 import {enhance} from '@common';
+import React, {memo, useCallback, useMemo} from 'react';
+import isEqual from 'react-fast-compare';
+import {
+  StyleProp,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+  Text,
+} from 'react-native';
 
-import {Block} from '../Block/Block';
-import {Button} from '../Button/Button';
-import {Text} from '../Text/Text';
 import {Icon} from '../Icon/Icon';
 
 import {ItemProps} from './DropDown.props';
@@ -16,6 +20,9 @@ const styles = StyleSheet.create({
     paddingRight: 5,
   },
   container: {
+    width: '100%',
+    paddingVertical: 5,
+    flexDirection: 'row',
     alignItems: 'center',
   },
   wrapIcon: {
@@ -71,19 +78,15 @@ const DropDownItemComponent = ({
 
   // render
   return (
-    <Button onPress={_onItemPress}>
-      <Block
-        width={'100%'}
-        paddingVertical={5}
-        direction={'row'}
-        style={[container]}>
+    <TouchableOpacity onPress={_onItemPress}>
+      <View style={[container]}>
         <Text style={[label]}>{item.label}</Text>
-        <Block style={[styles.wrapIcon]}>
+        <View style={[styles.wrapIcon]}>
           {selected &&
             (customTickIcon ? customTickIcon() : <Icon icon={'check'} />)}
-        </Block>
-      </Block>
-    </Button>
+        </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 

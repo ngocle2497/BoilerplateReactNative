@@ -16,9 +16,11 @@ import {
   StatusBar,
   StyleProp,
   StyleSheet,
+  TouchableOpacity,
   useWindowDimensions,
   View,
   ViewStyle,
+  Text,
 } from 'react-native';
 import Animated, {
   measure,
@@ -29,11 +31,8 @@ import Animated, {
 } from 'react-native-reanimated';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-import {Modal} from '../Modal/Modal';
-import {Block} from '../Block/Block';
-import {Button} from '../Button/Button';
 import {Icon} from '../Icon/Icon';
-import {Text} from '../Text/Text';
+import {Modal} from '../Modal/Modal';
 
 import {DropDownProps, RowDropDown} from './DropDown.props';
 import {DropDownItem} from './DropDownItem';
@@ -69,6 +68,15 @@ const styles = StyleSheet.create({
     // minHeight: 50,
     maxHeight: 250,
     paddingHorizontal: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
   },
   dropTopOpened: {
     borderTopLeftRadius: 3,
@@ -82,6 +90,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 10,
     alignItems: 'center',
+    flexDirection: 'row',
   },
   modal: {
     justifyContent: undefined,
@@ -349,9 +358,9 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   // render
   return (
     <>
-      <Block ref={_refDrop} style={wrapStyle}>
-        <Button onPress={_onToggle} disabled={disabled}>
-          <Block style={container} direction={'row'}>
+      <View ref={_refDrop} style={wrapStyle}>
+        <TouchableOpacity onPress={_onToggle} disabled={disabled}>
+          <View style={container}>
             <Text style={textPlaceHolderStyle} numberOfLines={1}>
               {getTextPlaceHolder()}
             </Text>
@@ -363,9 +372,9 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
                   <Icon icon={'arrow_down'} />
                 </Animated.View>
               ))}
-          </Block>
-        </Button>
-      </Block>
+          </View>
+        </TouchableOpacity>
+      </View>
       <Modal
         backdropOpacity={0}
         animatedInDuration={300}
@@ -379,21 +388,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
         animatedOut={'fadeOut'}
         style={[styles.modal]}
         isVisible={isVisible}>
-        <Block
-          shadow
-          shadowConfig={{
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 1,
-            },
-            shadowOpacity: 0.2,
-            shadowRadius: 1.41,
-
-            elevation: 2,
-          }}
-          onLayout={_onLayoutDrop}
-          style={contentModalStyle}>
+        <View onLayout={_onLayoutDrop} style={contentModalStyle}>
           <FlatList
             data={data}
             showsVerticalScrollIndicator={false}
@@ -401,7 +396,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
             keyExtractor={_keyExtractor}
             renderItem={_renderItem}
           />
-        </Block>
+        </View>
       </Modal>
     </>
   );

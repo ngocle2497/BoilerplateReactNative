@@ -1,13 +1,10 @@
-import React, {useMemo, memo, useCallback} from 'react';
-import {StyleSheet} from 'react-native';
 import {enhance} from '@common';
+import React, {memo, useCallback, useMemo} from 'react';
 import equals from 'react-fast-compare';
+import {StyleSheet, Text, View} from 'react-native';
 
-import {Text} from '../../../Text/Text';
-import {Block} from '../../../Block/Block';
-
-import {ProgressCircleProps} from './ProgressCircle.props';
 import {Circular} from './Circular';
+import {ProgressCircleProps} from './ProgressCircle.props';
 
 const styles = StyleSheet.create({
   container: {
@@ -57,9 +54,11 @@ export const ProgressCircleComponent = (props: ProgressCircleProps) => {
 
   // render
   return (
-    <Block style={styles.container}>
-      {showTextProgress && <Text style={[textStyles]} text={renderText()} />}
-      <Block>
+    <View style={styles.container}>
+      {showTextProgress && (
+        <Text style={[textStyles]} children={renderText()} />
+      )}
+      <View>
         <Circular
           strokeWidth={strokeWidth}
           bg={bg}
@@ -67,9 +66,9 @@ export const ProgressCircleComponent = (props: ProgressCircleProps) => {
           radius={radius}
           progress={progress}
         />
-      </Block>
-      <Block style={styles.overlay}>
-        <Block
+      </View>
+      <View style={styles.overlay}>
+        <View
           style={{
             width: radius * 2 - strokeWidth,
             height: radius * 2 - strokeWidth,
@@ -77,8 +76,8 @@ export const ProgressCircleComponent = (props: ProgressCircleProps) => {
             backgroundColor: bg,
           }}
         />
-      </Block>
-    </Block>
+      </View>
+    </View>
   );
 };
 export const ProgressCircle = memo(ProgressCircleComponent, equals);

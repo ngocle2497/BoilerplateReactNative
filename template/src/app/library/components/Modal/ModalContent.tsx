@@ -1,5 +1,11 @@
 import {sharedClamp, sharedTiming} from '@animated';
-import {CustomOmit, enhance, isIos, onCheckType} from '@common';
+import {
+  CustomOmit,
+  enhance,
+  isIos,
+  onCheckType,
+  useDisableBackHandler,
+} from '@common';
 import React, {
   forwardRef,
   memo,
@@ -10,14 +16,14 @@ import React, {
 } from 'react';
 import isEqual from 'react-fast-compare';
 import {
-  BackHandler,
   StyleSheet,
-  TouchableNativeFeedback,
+  TouchableWithoutFeedback,
   useWindowDimensions,
   View,
   ViewStyle,
 } from 'react-native';
 import {PanGestureHandler} from 'react-native-gesture-handler';
+import KeyBoardManager from 'react-native-keyboard-manager';
 import Animated, {
   runOnJS,
   useAnimatedGestureHandler,
@@ -25,9 +31,6 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-
-import {Block} from '../Block/Block';
 
 import {
   ANIMATED_IN_DURATION,
@@ -71,7 +74,6 @@ const ModalContentComponent = forwardRef(
     ref,
   ) => {
     // state
-    const insets = useSafeAreaInsets();
     const {height: screenHeight, width: screenWidth} = useWindowDimensions();
     const modalStyle = useMemo<ViewStyle>(
       () =>
@@ -79,10 +81,10 @@ const ModalContentComponent = forwardRef(
           styles.modal,
           {
             width: screenWidth,
-            height: screenHeight + (isIos ? 0 : insets.top),
+            height: screenHeight + (isIos ? 0 : 25),
           },
         ]),
-      [insets.top, screenHeight, screenWidth],
+      [screenHeight, screenWidth],
     );
     // reanimated state
     const translateY = useSharedValue(0);
@@ -260,11 +262,11 @@ const ModalContentComponent = forwardRef(
 
     const renderBackdrop = useCallback(() => {
       return (
-        <TouchableNativeFeedback onPress={onBackdropPress}>
+        <TouchableWithoutFeedback onPress={onBackdropPress}>
           <Animated.View style={[backDropStyle, reBackdropStyle]}>
             {customBackDrop && customBackDrop}
           </Animated.View>
-        </TouchableNativeFeedback>
+        </TouchableWithoutFeedback>
       );
     }, [onBackdropPress, backDropStyle, reBackdropStyle, customBackDrop]);
 
@@ -283,21 +285,13 @@ const ModalContentComponent = forwardRef(
           <Animated.View style={[wrapContentStyle]}>
             {hasGesture && (
               <PanGestureHandler onGestureEvent={onGesture}>
-                <Animated.View
-                  style={{
-                    backgroundColor: 'transparent',
-                  }}>
+                <Animated.View>
                   {customGesture ? (
                     customGesture()
                   ) : (
-                    <Block paddingVertical={6} alignSelf={'center'}>
-                      <Block
-                        height={5}
-                        width={50}
-                        borderRadius={10}
-                        color={'black'}
-                      />
-                    </Block>
+                    <View style={[styles.wrapGesture]}>
+                      <View style={[styles.anchor]} />
+                    </View>
                   )}
                 </Animated.View>
               </PanGestureHandler>
@@ -327,11 +321,17 @@ const ModalContentComponent = forwardRef(
       [closeModal],
     );
 
+    useDisableBackHandler(true, onBackButtonPress);
+
     useEffect(() => {
+      if (isIos) {
+        KeyBoardManager.setEnable(false);
+      }
       openModal();
-      BackHandler.addEventListener('hardwareBackPress', onBackButtonPress);
       return () => {
-        BackHandler.removeEventListener('hardwareBackPress', onBackButtonPress);
+        if (isIos) {
+          KeyBoardManager.setEnable(true);
+        }
       };
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

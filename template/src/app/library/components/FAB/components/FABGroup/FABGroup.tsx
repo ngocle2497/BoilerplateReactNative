@@ -1,18 +1,21 @@
-import React, {useState, useMemo, useCallback, memo} from 'react';
-import {StyleSheet, useWindowDimensions} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {enhance, onCheckType} from '@common';
 import {useMix, useRadian, useSharedSpringTransition} from '@animated';
-import isEqual from 'react-fast-compare';
+import {enhance, onCheckType} from '@common';
 import {Text} from '@library/components/Text/Text';
+import React, {memo, useCallback, useMemo, useState} from 'react';
+import isEqual from 'react-fast-compare';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import Animated, {useAnimatedStyle} from 'react-native-reanimated';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-import {Button} from '../../../Button/Button';
-import {Block} from '../../../Block/Block';
 import {Icon} from '../../../Icon/Icon';
 
-import {FABGroupProps, Actions} from './FABGroup.props';
 import {ButtonGroup, SPACE_BETWEEN} from './ButtonGroup';
+import {Actions, FABGroupProps} from './FABGroup.props';
 
 export const SIZE_FAB = 60;
 const styles = StyleSheet.create({
@@ -103,16 +106,19 @@ const FABGroupComponent = (props: FABGroupProps) => {
   // render
   return (
     <>
-      <Button onPress={_onToggle} activeOpacity={0.8} style={[styleBase]}>
+      <TouchableOpacity
+        onPress={_onToggle}
+        activeOpacity={0.8}
+        style={[styleBase]}>
         <Animated.View style={iconAnimatedStyle}>
           <Icon icon={icon} />
         </Animated.View>
         {React.isValidElement(label)
           ? label
           : label && <Text style={[styles.label]} text={label as string} />}
-      </Button>
+      </TouchableOpacity>
       {isShow === true && (
-        <Block
+        <View
           onStartShouldSetResponder={onStartShouldSetResponder}
           onResponderRelease={_onHide}
           style={[
@@ -121,7 +127,7 @@ const FABGroupComponent = (props: FABGroupProps) => {
           ]}
         />
       )}
-      <Block
+      <View
         onStartShouldSetResponder={onStartShouldSetResponder}
         style={[
           styles.wrapAction,
@@ -141,7 +147,7 @@ const FABGroupComponent = (props: FABGroupProps) => {
             onPress={onPressItem}
           />
         ))}
-      </Block>
+      </View>
     </>
   );
 };

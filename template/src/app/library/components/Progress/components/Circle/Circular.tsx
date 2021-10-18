@@ -1,15 +1,13 @@
-import React, {memo, useMemo} from 'react';
-import {StyleSheet, ViewStyle} from 'react-native';
-import Animated, {
-  Extrapolate,
-  useDerivedValue,
-  useAnimatedStyle,
-} from 'react-native-reanimated';
-import equals from 'react-fast-compare';
 import {sharedTiming, useInterpolate, useRadian} from '@animated';
 import {enhance} from '@common';
-
-import {Block} from '../../../Block/Block';
+import React, {memo, useMemo} from 'react';
+import equals from 'react-fast-compare';
+import {StyleSheet, View, ViewStyle} from 'react-native';
+import Animated, {
+  Extrapolate,
+  useAnimatedStyle,
+  useDerivedValue,
+} from 'react-native-reanimated';
 
 import {STROKE_WIDTH} from './Constant';
 
@@ -121,11 +119,11 @@ export const CircularComponent = ({
 
   // render
   return (
-    <Block style={[emptyStyle]}>
+    <View style={[emptyStyle]}>
       <Animated.View style={[indicatorStyle, firstIndicatorStyle]} />
       <Animated.View style={[coverStyle]} />
       <Animated.View style={[indicatorStyle, secondIndicatorStyle]} />
-    </Block>
+    </View>
   );
 };
 export const Circular = memo(CircularComponent, equals);

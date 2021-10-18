@@ -1,17 +1,22 @@
-import React, {useState, memo, useCallback} from 'react';
-import {FlatList, ListRenderItemInfo} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useTranslation} from 'react-i18next';
+import {enhance} from '@common';
+import React, {memo, useCallback, useMemo, useState} from 'react';
 import equals from 'react-fast-compare';
+import {useTranslation} from 'react-i18next';
+import {
+  FlatList,
+  ListRenderItemInfo,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {Modal} from '../Modal/Modal';
-import {Text} from '../Text/Text';
-import {Block} from '../Block/Block';
-import {Button} from '../Button/Button';
 
-import {SelectItem} from './SelectItem';
-import {styles} from './Select.preset';
 import {SelectOption, SelectProps} from './Select.props';
+import {SelectItem} from './SelectItem';
+import {styles} from './styles';
 
 const SelectComponent = (props: SelectProps) => {
   // state
@@ -70,17 +75,27 @@ const SelectComponent = (props: SelectProps) => {
       Math.floor(Math.random() * Math.floor(new Date().getTime())).toString(),
     [],
   );
-
+  // style
+  const content = useMemo<ViewStyle>(
+    () =>
+      enhance<ViewStyle>([
+        styles.content,
+        {
+          paddingBottom: useBottomInset ? inset.bottom : 0,
+        },
+      ]),
+    [inset.bottom, useBottomInset],
+  );
   // render
   return (
     <>
-      <Block block middle collapsable={false}>
-        <Button onPress={_showDrop} activeOpacity={0.68}>
-          <Block direction={'row'} color={'#FFFFFF'} padding={10}>
-            <Text text={selectedText} />
+      <View style={[styles.root]} collapsable={false}>
+        <TouchableOpacity onPress={_showDrop} activeOpacity={0.68}>
+          <View style={[styles.rowButton]}>
+            <Text children={selectedText} />
             {rightChildren && rightChildren}
-          </Block>
-        </Button>
+          </View>
+        </TouchableOpacity>
         <Modal
           onBackdropPress={_hideDrop}
           onBackButtonPress={_hideDrop}
@@ -90,22 +105,18 @@ const SelectComponent = (props: SelectProps) => {
           style={[styles.modal]}
           backdropOpacity={0.3}
           isVisible={visible}>
-          <Block>
-            <Block
-              color={'#FFFFFF'}
-              overflow={'hidden'}
-              paddingBottom={useBottomInset ? inset.bottom : 0}
-              maxHeight={250}>
+          <View>
+            <View style={[content]}>
               <FlatList
                 data={data}
                 keyExtractor={_keyExtractor}
                 renderItem={_renderItem}
                 {...rest}
               />
-            </Block>
-          </Block>
+            </View>
+          </View>
         </Modal>
-      </Block>
+      </View>
     </>
   );
 };
