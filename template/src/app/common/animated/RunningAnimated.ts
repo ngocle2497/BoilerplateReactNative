@@ -1,10 +1,7 @@
-import {
-  AnimationCallback,
+import Animated, {
   Easing,
   withSpring,
-  WithSpringConfig,
   withTiming,
-  WithTimingConfig,
 } from 'react-native-reanimated';
 
 /**
@@ -12,8 +9,8 @@ import {
  */
 export const sharedTiming = (
   toValue: number,
-  config?: WithTimingConfig,
-  callBack?: AnimationCallback,
+  config?: Animated.WithTimingConfig,
+  callBack?: (isFinished: boolean) => void,
 ) => {
   'worklet';
   return withTiming(
@@ -34,8 +31,8 @@ export const sharedTiming = (
  */
 export const sharedSpring = (
   toValue: number,
-  config?: WithSpringConfig,
-  callBack?: AnimationCallback,
+  config?: Animated.WithSpringConfig,
+  callBack?: (isFinished: boolean) => void,
 ) => {
   'worklet';
   return withSpring(toValue, config, callBack);
