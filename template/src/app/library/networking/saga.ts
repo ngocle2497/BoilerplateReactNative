@@ -1,19 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {ResponseBase} from '@config/type';
-import {StyleSheet} from 'react-native';
-import {TIME_OUT, RESULT_CODE_PUSH_OUT} from '@config/api';
 import {AppState} from '@app_redux/type';
-import {select} from 'redux-saga/effects';
-import Axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
+import {dispatch} from '@common';
+import {RESULT_CODE_PUSH_OUT, TIME_OUT} from '@config/api';
+import {ParamsNetwork, ResponseBase} from '@config/type';
 import {RootState} from '@store/allReducers';
 import {onSetToken} from '@store/app_redux/reducer';
-import {dispatch} from '@common';
+import Axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
+import {StyleSheet} from 'react-native';
+import {select} from 'redux-saga/effects';
 
 import {ApiConstants} from './api';
-import {handleResponseAxios, handleErrorAxios, _onPushLogout} from './helper';
+import {
+  handleErrorAxios,
+  handleParameter,
+  handleResponseAxios,
+  _onPushLogout,
+} from './helper';
 
 const tokenKeyHeader = 'authorization';
-let refreshTokenRequest: Promise<string> | null = null;
+let refreshTokenRequest: Promise<string | null> | null = null;
 const AxiosInstance = Axios.create({});
 
 AxiosInstance.interceptors.response.use(
@@ -46,7 +51,7 @@ AxiosInstance.interceptors.response.use(
 // refresh token
 async function refreshToken(originalRequest: any) {
   return AxiosInstance.get(ApiConstants.REFRESH_TOKEN, originalRequest)
-    .then((res: AxiosResponse) => res.data.data)
+    .then((res: AxiosResponse) => res.data)
     .catch(() => null);
 }
 
@@ -61,7 +66,7 @@ function* Request<T = unknown>(
     timeout: TIME_OUT,
     headers: {
       'Content-Type': 'application/json',
-      [tokenKeyHeader]: token,
+      [tokenKeyHeader]: token ?? '',
     },
   };
   return yield AxiosInstance.request(
@@ -84,61 +89,48 @@ function* Request<T = unknown>(
       }
     });
 }
+
 // get
 function* Get<T>(
-  url: string,
-  param?: any,
+  params: ParamsNetwork,
 ): Generator<unknown, ResponseBase<T>, any> {
-  return yield Request<T>({url: url, params: param, method: 'GET'});
+  return yield Request<T>(handleParameter(params, 'GET'));
 }
 
 // post
 function* Post<T>(
-  url: string,
-  data: any,
+  params: ParamsNetwork,
 ): Generator<unknown, ResponseBase<T>, any> {
-  return yield Request<T>({url: url, data: data, method: 'POST'});
+  return yield Request<T>(handleParameter(params, 'POST'));
 }
 
+type ParameterPostFile = AxiosRequestConfig & ParamsNetwork;
 // post file
 function* PostWithFile<T>(
-  url: string,
-  data: any,
+  params: ParamsNetwork,
 ): Generator<unknown, ResponseBase<T>, any> {
   const {token}: AppState = yield select((x: RootState) => x.app);
-  const header: any = {token: token, 'Content-Type': 'multipart/form-data'};
-  return yield Request<T>({
-    url: url,
-    data: data,
-    method: 'POST',
-    headers: header,
-  });
+  const headers: AxiosRequestConfig['headers'] = {
+    token: token ?? '',
+    'Content-Type': 'multipart/form-data',
+  };
+  return yield Request<T>(
+    handleParameter<ParameterPostFile>({...params, headers}, 'POST'),
+  );
 }
 
 // put
 function* Put<T>(
-  url: string,
-  data: any,
-  params?: any,
+  params: ParamsNetwork,
 ): Generator<unknown, ResponseBase<T>, any> {
-  return yield Request<T>({
-    url: url,
-    data: data,
-    params: params,
-    method: 'PUT',
-  });
+  return yield Request<T>(handleParameter(params, 'PUT'));
 }
 
 // delete
 function* Delete<T>(
-  url: string,
-  params?: any,
+  params: ParamsNetwork,
 ): Generator<unknown, ResponseBase<T>, any> {
-  return yield Request<T>({
-    url: url,
-    params: params,
-    method: 'DELETE',
-  });
+  return yield Request<T>(handleParameter(params, 'DELETE'));
 }
 export const ServiceSaga = {
   Get,

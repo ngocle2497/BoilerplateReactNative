@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {ResponseBase} from '@config/type';
-import {AxiosError, AxiosResponse} from 'axios';
+import {ParamsNetwork, ResponseBase} from '@config/type';
+import {AxiosError, AxiosRequestConfig, AxiosResponse, Method} from 'axios';
 import {
   RESULT_CODE_PUSH_OUT,
   ERROR_NETWORK_CODE,
@@ -8,7 +8,7 @@ import {
   CODE_TIME_OUT,
   CODE_SUCCESS,
 } from '@config/api';
-import {HandleErrorApi} from '@common';
+import {HandleErrorApi, replaceAll} from '@common';
 
 import {translate} from '../utils';
 const responseDefault: ResponseBase<any> = {
@@ -25,7 +25,9 @@ export const _onPushLogout = async () => {
    */
 };
 
-export const handleResponseAxios = (res: AxiosResponse): ResponseBase<any> => {
+export const handleResponseAxios = <T>(
+  res: AxiosResponse<T>,
+): ResponseBase<T> => {
   if (res.data) {
     return {code: CODE_SUCCESS, status: true, data: res.data, msg: null};
   }
@@ -45,4 +47,31 @@ export const handleErrorAxios = (error: AxiosError): ResponseBase<any> => {
     }
   }
   return HandleErrorApi(ERROR_NETWORK_CODE);
+};
+
+export const handleQuery = (
+  url: string,
+  query: {[key: string]: string | number},
+) => {
+  if (Object.keys(query).length <= 0) {
+    return url;
+  }
+  let resUrl = url;
+  Object.keys(query).forEach(k => {
+    resUrl = replaceAll(resUrl, `:${k}`, String(query[k]));
+  });
+  return resUrl;
+};
+export const handleParameter = <T extends ParamsNetwork>(
+  props: T,
+  method: Method,
+): AxiosRequestConfig => {
+  const {url, body, params, query} = props;
+  return {
+    ...props,
+    method,
+    url: handleQuery(url, query),
+    data: body,
+    params,
+  };
 };

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-shadow */
 import {Theme} from '@react-navigation/native';
+import {AxiosRequestConfig} from 'axios';
 import {RegisterOptions} from 'react-hook-form';
 export interface ResponseBase<T = any> {
   code: number;
@@ -114,6 +115,12 @@ export interface Spacing {
 }
 export type AppTheme = Theme & {colors: Partial<Colors>};
 
+export interface ParamsNetwork {
+  url: string;
+  params?: any;
+  query?: any;
+  body?: any;
+}
 export type HookFormRules = Exclude<
   RegisterOptions,
   'valueAsNumber' | 'valueAsDate' | 'setValueAs'

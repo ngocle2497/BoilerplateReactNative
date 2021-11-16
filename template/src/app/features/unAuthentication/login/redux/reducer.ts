@@ -25,14 +25,8 @@ const loginSlice = createSlice({
 });
 const onLogin = createAction(
   Action.LOGIN,
-  (
-    url: string,
-    body: any,
-    onSucceeded: () => void,
-    onFailure: (msg: string) => void,
-  ) => ({
+  (body: any, onSucceeded: () => void, onFailure: (msg: string) => void) => ({
     payload: {
-      url,
       body,
       onSucceeded,
       onFailure,
