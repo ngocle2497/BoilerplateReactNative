@@ -7,17 +7,15 @@
     "clean-ios": "cd ios && xcodebuild clean && cd ..",
     "android": "yarn clean-android && npx react-native run-android ",
     "ios": "yarn clean-ios && npx react-native run-ios",
-    "yarn-ios": "yarn && yarn pod",
     "android-release": "clean-android && npx react-native run-android --variant=release",
     "start": "npx react-native start --reset-cache",
     "format": "prettier --write **/*.{ts,tsx,js,json,md}",
     "check-code": "prettier --check **/*.{ts,tsx,js,json,md}",
     "test": "jest",
-    "link": "npx react-native link",
     "apk": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
     "aab": "cd android && ./gradlew clean && ./gradlew bundleRelease && cd ..",
     "lint": "eslint App.tsx index.js ./src/app/* --ext .js,.ts,.tsx",
-    "postinstall": "./scripts/setup.sh"
+    "postinstall": "node ./scripts/main.js"
   },
   "lint-staged": {
     "*": [
