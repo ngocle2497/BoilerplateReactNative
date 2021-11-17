@@ -12,6 +12,8 @@
     "format": "prettier --write **/*.{ts,tsx,js,json,md}",
     "check-code": "prettier --check **/*.{ts,tsx,js,json,md}",
     "test": "jest",
+    "build:apk": "fastlane android build_apk",
+    "build:ipa": "fastlane android build_ipa",
     "apk": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
     "aab": "cd android && ./gradlew clean && ./gradlew bundleRelease && cd ..",
     "lint": "eslint App.tsx index.js ./src/app/* --ext .js,.ts,.tsx",

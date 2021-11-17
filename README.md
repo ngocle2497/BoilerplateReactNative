@@ -7,6 +7,7 @@
 ## :star: Features
 
 - Elegant usage directly within the RN-Boiler Cli
+- Fastlane (App center included)
 - Consistent with the default React Native template
 - Minimal additional dependencies
 - Lots of built-in components

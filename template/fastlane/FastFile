@@ -1,3 +1,4 @@
+default_platform(:ios)
 ANDROID_BUILD_FILE_NAME = "#{ENV['EXPORT_APP_ANDROID_NAME']}"
 ANDROID_BUILD_PATH_DEFAULT = "../android/app/build/outputs/apk/release/app-release.apk"
 ANDROID_BUILD_PATH_UPLOAD = "android/app/build/outputs/apk/release/#{ANDROID_BUILD_FILE_NAME}.apk"
