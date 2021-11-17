@@ -1,0 +1,92 @@
+ANDROID_BUILD_FILE_NAME = "#{ENV['EXPORT_APP_ANDROID_NAME']}"
+ANDROID_BUILD_PATH_DEFAULT = "../android/app/build/outputs/apk/release/app-release.apk"
+ANDROID_BUILD_PATH_UPLOAD = "android/app/build/outputs/apk/release/#{ANDROID_BUILD_FILE_NAME}.apk"
+
+IOS_PATH = "ios/#{ENV['APP_NAME']}.xcodeproj"
+BUILD_IOS_FILENAME = "#{ENV['EXPORT_APP_IOS_NAME']}.ipa"
+
+BUMP_TYPE_MAJOR = "1"
+BUMP_TYPE_MINOR = "2"
+BUMP_TYPE_PATCH = "3"
+
+BUMP_MAJOR = "major"
+BUMP_MINOR = "minor"
+BUMP_PATCH = "patch"
+BUMP_BUILD = "build"
+
+lane :upload_to_appcenter do |params|
+  appcenter_upload(
+    api_token: ENV["APP_CENTER_API_TOKEN"],
+    owner_name: ENV["APP_CENTER_OWNER_NAME"],
+    app_name: params[:app_name],
+    upload_build_only: true,
+    destinations: ENV['APP_CENTER_DESTINATIONS'],
+    release_notes: "New release build",
+    notify_testers: true,
+    file: params[:file],
+  )
+end
+
+lane :get_bumb_type do |params|
+  case params[:bump_type]
+  when BUMP_TYPE_MAJOR
+    BUMP_MAJOR
+  when BUMP_TYPE_MINOR
+    BUMP_MINOR
+  when BUMP_TYPE_PATCH
+    BUMP_PATCH
+  else
+    BUMP_BUILD
+  end
+end
+
+platform :ios do
+
+  desc "IOS build IPA"
+  lane :build_ipa do |params|
+    bump_type = get_bumb_type(bump_type: params[:bump_type])
+    if bump_type != BUMP_BUILD
+      increment_version_number(xcodeproj: "#{IOS_PATH}.xcodeproj", bump_type: bump_type)
+    end
+    increment_build_number(xcodeproj: "#{IOS_PATH}.xcodeproj")
+    build_ios
+    upload_to_appcenter(app_name: "#{ENV['EXPORT_APP_IOS_NAME']}", file: "./#{BUILD_IOS_FILENAME}")
+  end
+
+  private_lane :build_ios do
+    build_app(
+      workspace: "#{IOS_PATH}.xcworkspace",
+      scheme: ENV['APP_NAME'],
+      export_method: ENV['EXPORT_METHOD'],
+      include_bitcode: false,
+      export_options: {
+      output_name: BUILD_IOS_FILENAME,
+        provisioningProfiles: { 
+          "org.reactjs.native.example.HelloWorld" => "HelloWorld Ad-hoc"
+        }
+      }
+    )
+  end
+  desc "iOS clean file cache"
+  private_lane :clean_cache do
+    File.delete("../#{BUILD_IOS_FILENAME}") if File.exist?("../#{BUILD_IOS_FILENAME}")
+    File.delete("../#{BUILD_IOS_FILENAME}.app.dSYM.zip") if File.exist?("../#{BUILD_IOS_FILENAME}.app.dSYM.zip")
+  end
+end
+
+platform :android do 
+  desc "Android build apk"
+  lane :build_apk do |params|
+      bump_type = get_bumb_type(bump_type: params[:bump_type])
+      if bump_type != BUMP_BUILD
+        gradle(task: 'doVersionNameIncrement', project_dir: 'android/', properties: {bump_type: bump_type})
+      else
+        gradle(task: 'doBuildIncrement', project_dir: 'android/')
+      end
+      gradle(task: 'clean', project_dir: 'android/')
+      gradle(task: "assemble", build_type: "Release", project_dir: "android/" )
+      File.rename(ANDROID_BUILD_PATH_DEFAULT, ANDROID_BUILD_PATH_UPLOAD)
+      upload_to_appcenter(app_name: "#{ENV['EXPORT_APP_ANDROID_NAME']}", file: "#{ANDROID_BUILD_PATH_UPLOAD}")
+      UI.message(" ======== #{ENV['URL_INSTALL_APP']}/#{ENV['APP_CENTER_OWNER_NAME']}/apps/#{ENV['EXPORT_APP_ANDROID_NAME']} ======== ")
+  end
+end
