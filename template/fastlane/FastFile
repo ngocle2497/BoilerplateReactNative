@@ -87,6 +87,5 @@ platform :android do
       gradle(task: "assemble", build_type: "Release", project_dir: "android/" )
       File.rename(ANDROID_BUILD_PATH_DEFAULT, ANDROID_BUILD_PATH_UPLOAD)
       upload_to_appcenter(app_name: "#{ENV['EXPORT_APP_ANDROID_NAME']}", file: "#{ANDROID_BUILD_PATH_UPLOAD}")
-      UI.message(" ======== #{ENV['URL_INSTALL_APP']}/#{ENV['APP_CENTER_OWNER_NAME']}/apps/#{ENV['EXPORT_APP_ANDROID_NAME']} ======== ")
   end
 end
