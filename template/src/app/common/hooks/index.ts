@@ -34,6 +34,7 @@ type ConfigAnimated = {
   type: keyof typeof LayoutAnimation.Types;
   creationProp: keyof typeof LayoutAnimation.Properties;
 };
+
 function useAnimatedState<T>(
   initialValue: T,
   config: ConfigAnimated = {
@@ -43,6 +44,7 @@ function useAnimatedState<T>(
   },
 ): [T, Dispatch<SetStateAction<T>>] {
   const [value, setValue] = useState<T>(initialValue);
+
   const onSetState = useCallback(
     (newValue: T | ((prevState: T) => T)) => {
       LayoutAnimation.configureNext(
@@ -61,9 +63,11 @@ function useAnimatedState<T>(
 
 function useInterval(callback: Function, delay: number) {
   const savedCallback = useRef<Function>();
+
   useEffect(() => {
     savedCallback.current = callback;
   }, [callback]);
+
   useEffect(() => {
     function tick() {
       savedCallback.current && savedCallback.current();
@@ -79,6 +83,7 @@ type NetInfoTuple = [boolean, boolean];
 function useNetWorkStatus(): NetInfoTuple {
   const [status, setStatus] = useState<boolean>(false);
   const [canAccess, setCanAccess] = useState<boolean>(false);
+
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state: NetInfoState) => {
       setStatus(state.isConnected ?? false);
@@ -88,6 +93,7 @@ function useNetWorkStatus(): NetInfoTuple {
       unsubscribe();
     };
   }, []);
+
   return [status, canAccess];
 }
 
@@ -120,15 +126,20 @@ type UseArrayActions<T> = {
 type UseArray<T = any> = [T[], UseArrayActions<T>];
 function useArray<T = any>(initial: T[]): UseArray<T> {
   const [value, setValue] = useState(initial);
+
   const push = useCallback(a => {
     setValue(v => [...v, ...(Array.isArray(a) ? a : [a])]);
   }, []);
+
   const unshift = useCallback(
     a => setValue(v => [...(Array.isArray(a) ? a : [a]), ...v]),
     [],
   );
+
   const pop = useCallback(() => setValue(v => v.slice(0, -1)), []);
+
   const shift = useCallback(() => setValue(v => v.slice(1)), []);
+
   const move = useCallback(
     (from: number, to: number) =>
       setValue(it => {
@@ -138,11 +149,14 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
       }),
     [],
   );
+
   const clear = useCallback(() => setValue(() => []), []);
+
   const removeById = useCallback(
     id => setValue(arr => arr.filter((v: any) => v && v.id !== id)),
     [],
   );
+
   const removeIndex = useCallback(
     index =>
       setValue(v => {
@@ -152,6 +166,7 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
       }),
     [],
   );
+
   const modifyById = useCallback(
     (id, newValue) =>
       setValue(arr =>
@@ -159,6 +174,7 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
       ),
     [],
   );
+
   const actions = useMemo(
     () => ({
       setValue,
@@ -197,13 +213,16 @@ type UseBooleanActions = {
 type UseBoolean = [boolean, UseBooleanActions];
 function useBoolean(initial: boolean): UseBoolean {
   const [value, setValue] = useState<boolean>(initial);
+
   const toggle = useCallback(() => setValue(v => !v), []);
   const setTrue = useCallback(() => setValue(true), []);
   const setFalse = useCallback(() => setValue(false), []);
+
   const actions = useMemo(
     () => ({setValue, toggle, setTrue, setFalse}),
     [setFalse, setTrue, toggle],
   );
+
   return useMemo(() => [value, actions], [actions, value]);
 }
 
@@ -228,6 +247,7 @@ function useNumber(
   } = {},
 ): UseNumber {
   const [value, setValue] = useState<number>(initial);
+
   const decrease = useCallback(
     (d?: number) => {
       setValue(aValue => {
@@ -249,6 +269,7 @@ function useNumber(
     },
     [loop, lowerLimit, step, upperLimit],
   );
+
   const increase = useCallback(
     (i?: number) => {
       setValue(aValue => {
@@ -269,6 +290,7 @@ function useNumber(
     },
     [initial, loop, step, upperLimit],
   );
+
   const actions = useMemo(
     () => ({
       setValue,
@@ -277,11 +299,13 @@ function useNumber(
     }),
     [decrease, increase],
   );
+
   return [value, actions];
 }
 
 function useStateFull<T = any>(initial: T): UseStateFull<T> {
   const [value, setValue] = useState(initial);
+
   return useMemo(
     () => ({
       value,
@@ -293,9 +317,11 @@ function useStateFull<T = any>(initial: T): UseStateFull<T> {
 
 function usePrevious<T = any>(value: T): T | undefined {
   const ref = useRef<T>();
+
   useEffect(() => {
     ref.current = value;
   }, [value]);
+
   return ref.current;
 }
 
@@ -311,6 +337,7 @@ function useSetStateArray<T extends object>(
   initialValue: T,
 ): UseSetStateArray<T> {
   const [value, setValue] = useState<T>(initialValue);
+
   const setState = useCallback(
     (v: SetStateAction<Partial<T>>) => {
       return setValue(oldValue => ({
@@ -320,6 +347,7 @@ function useSetStateArray<T extends object>(
     },
     [setValue],
   );
+
   const resetState = useCallback(() => setValue(initialValue), [initialValue]);
 
   return [value, setState, resetState];
@@ -335,6 +363,7 @@ type UseSetState<T extends object> = {
 };
 function useSetState<T extends object>(initialValue: T): UseSetState<T> {
   const [state, setState, resetState] = useSetStateArray(initialValue);
+
   return useMemo(
     () => ({
       setState,
@@ -358,6 +387,7 @@ function useAsyncState<T>(
 ] {
   const [state, setState] = useState(initialValue);
   const _callback = useRef<(newState: T) => void>();
+
   const _setState = (
     newValue: SetStateAction<T>,
     callback?: (newState: T) => void,
@@ -367,6 +397,7 @@ function useAsyncState<T>(
     }
     setState(newValue);
   };
+
   useEffect(() => {
     if (typeof _callback.current === 'function') {
       _callback.current(state);
@@ -391,6 +422,12 @@ function useUnMount(callback: () => void) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   return useEffect(() => () => callback(), []);
 }
+
+function useDidMount(callback: () => void) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  return useEffect(callback, []);
+}
+
 function useForceUpdate() {
   const unloadingRef = useRef(false);
   const [forcedRenderCount, setForcedRenderCount] = useState(0);
@@ -446,6 +483,8 @@ function useDisableBackHandler(disabled: boolean, callback?: () => void) {
     } else {
       BackHandler.removeEventListener('hardwareBackPress', onBackPress);
     }
+    return () =>
+      BackHandler.removeEventListener('hardwareBackPress', onBackPress);
   }, [disabled, onBackPress]);
 }
 
@@ -471,6 +510,7 @@ function useMounted(callback: () => void, deps: any[] = []) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [...deps]);
 }
+
 function useIsMounted() {
   const isMountedRef = useRef<boolean | null>(null);
   useEffect(() => {
@@ -481,6 +521,7 @@ function useIsMounted() {
   }, []);
   return isMountedRef;
 }
+
 export {
   useIsMounted,
   useDisableBackHandler,
@@ -502,4 +543,5 @@ export {
   useAnimatedState,
   useMounted,
   useIsKeyboardShown,
+  useDidMount,
 };
