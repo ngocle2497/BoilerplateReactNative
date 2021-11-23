@@ -1,6 +1,5 @@
 import {useDisableBackHandler, useDismissKeyboard} from '@common';
-import {AppTheme} from '@config/type';
-import {useTheme} from '@react-navigation/native';
+import {useTheme} from '@theme';
 import React, {
   createRef,
   forwardRef,
@@ -22,7 +21,7 @@ const styles = StyleSheet.create({
 
 const Spinner = memo(() => {
   // state
-  const theme: AppTheme = useTheme();
+  const theme = useTheme();
   // render
   return <ActivityIndicator color={theme.colors.background} size={'large'} />;
 }, isEqual);

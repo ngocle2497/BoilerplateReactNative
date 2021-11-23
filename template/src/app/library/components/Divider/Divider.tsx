@@ -1,5 +1,4 @@
-import {AppTheme} from '@config/type';
-import {useTheme} from '@react-navigation/native';
+import {useTheme} from '@theme';
 import React, {memo, useMemo} from 'react';
 import equals from 'react-fast-compare';
 import {View, ViewStyle} from 'react-native';
@@ -9,7 +8,7 @@ import {DividerProps} from './Divider.props';
 const DividerComponent = (props: DividerProps) => {
   // state
   const {height = 1, colorTheme, color = '#bbb'} = props;
-  const theme: AppTheme = useTheme();
+  const theme = useTheme();
 
   // style
   const divider = useMemo<ViewStyle>(

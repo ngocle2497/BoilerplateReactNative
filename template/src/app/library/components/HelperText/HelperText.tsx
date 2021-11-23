@@ -1,7 +1,6 @@
 import {sharedTiming, useInterpolate, useSharedTransition} from '@animated';
 import {enhance} from '@common';
-import {AppTheme} from '@config/type';
-import {useTheme} from '@react-navigation/native';
+import {useTheme} from '@theme';
 import {ColorDefault} from '@theme/color';
 import React, {memo, useCallback, useEffect, useMemo, useState} from 'react';
 import equals from 'react-fast-compare';
@@ -9,8 +8,8 @@ import {
   LayoutChangeEvent,
   LayoutRectangle,
   StyleSheet,
-  View,
   Text,
+  View,
 } from 'react-native';
 import Animated, {
   useAnimatedStyle,
@@ -42,7 +41,7 @@ const styles = StyleSheet.create({
 const HelperTextComponent = (props: HelperTextProps) => {
   // state
   const {visible = false, msg, type, colorThemeError, colorThemeInfo} = props;
-  const theme: AppTheme = useTheme();
+  const theme = useTheme();
   const [measured, setMeasured] = useState<LayoutRectangle>({
     height: 0,
     width: 0,

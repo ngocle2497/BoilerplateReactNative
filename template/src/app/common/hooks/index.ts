@@ -1,22 +1,22 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import {onCheckType} from '@common';
+import {AppTheme} from '@config/type';
+import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
+import {RootState} from '@store/allReducers';
+import {useTheme} from '@theme';
 import React, {
-  useEffect,
-  useRef,
-  useState,
+  Dispatch,
   SetStateAction,
   useCallback,
+  useEffect,
   useMemo,
-  Dispatch,
+  useRef,
+  useState,
 } from 'react';
 import isEqual from 'react-fast-compare';
+import {BackHandler, Keyboard, LayoutAnimation, Platform} from 'react-native';
 import {useSelector as useReduxSelector} from 'react-redux';
-import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
-import {useTheme} from '@react-navigation/native';
-import {AppTheme} from '@config/type';
-import {RootState} from '@store/allReducers';
-import {LayoutAnimation, BackHandler, Keyboard, Platform} from 'react-native';
-import {onCheckType} from '@common';
 
 type UseStateFull<T = any> = {
   value: T;
@@ -375,7 +375,7 @@ function useSetState<T extends object>(initialValue: T): UseSetState<T> {
 }
 
 function useStyle<T>(style: (theme: AppTheme) => T): T {
-  const theme: AppTheme = useTheme();
+  const theme = useTheme();
   return style(theme);
 }
 

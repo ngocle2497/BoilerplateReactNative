@@ -1,5 +1,4 @@
-import {AppTheme} from '@config/type';
-import {useTheme} from '@react-navigation/native';
+import {useTheme} from '@theme';
 import React, {memo, useMemo} from 'react';
 import isEqual from 'react-fast-compare';
 import {StatusBar, StyleSheet, useWindowDimensions} from 'react-native';
@@ -95,7 +94,7 @@ const InsetComponent = memo(
 
 function ScreenWithoutScrolling(props: ScreenProps) {
   // state
-  const {colors}: AppTheme = useTheme();
+  const {colors} = useTheme();
   const {
     hiddenStatusBar = false,
     statusColor = undefined,
@@ -160,7 +159,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
 
 function ScreenWithScrolling(props: ScreenProps) {
   // state
-  const {colors}: AppTheme = useTheme();
+  const {colors} = useTheme();
   const {
     hiddenStatusBar = false,
     statusColor = undefined,

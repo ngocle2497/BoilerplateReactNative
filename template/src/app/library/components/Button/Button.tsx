@@ -1,6 +1,5 @@
 import {enhance} from '@common';
-import {AppTheme} from '@config/type';
-import {useTheme} from '@react-navigation/native';
+import {useTheme} from '@theme';
 import React, {memo, useMemo} from 'react';
 import equals from 'react-fast-compare';
 import {TouchableOpacity, ViewStyle} from 'react-native';
@@ -26,7 +25,7 @@ const ButtonComponent = (props: ButtonProps) => {
     buttonColorTheme,
     ...rest
   } = props;
-  const theme: AppTheme = useTheme();
+  const theme = useTheme();
 
   // style
   const viewStyle = useMemo(

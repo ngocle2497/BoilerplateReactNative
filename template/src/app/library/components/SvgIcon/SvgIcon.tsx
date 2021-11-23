@@ -1,6 +1,5 @@
 import {SvgComponent} from '@assets/svgIcon';
-import {AppTheme} from '@config/type';
-import {useTheme} from '@react-navigation/native';
+import {useTheme} from '@theme';
 import React, {createElement, memo} from 'react';
 import isEqual from 'react-fast-compare';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -15,7 +14,7 @@ const SvgIconComponent = ({
   onPress,
 }: SvgIconProps) => {
   // state
-  const theme: AppTheme = useTheme();
+  const theme = useTheme();
   // render
   return (
     <TouchableOpacity

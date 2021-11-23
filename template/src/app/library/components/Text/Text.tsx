@@ -1,6 +1,5 @@
 import {enhance, propsToStyle} from '@common';
-import {AppTheme} from '@config/type';
-import {useTheme} from '@react-navigation/native';
+import {useTheme} from '@theme';
 import {FontSizeDefault} from '@theme/fontSize';
 import {FontDefault} from '@theme/typography';
 import React, {memo, useMemo} from 'react';
@@ -23,7 +22,7 @@ const styles = StyleSheet.create({
 
 const TextComponent = (props: TextProps) => {
   // state
-  const theme: AppTheme = useTheme();
+  const theme = useTheme();
   const {
     tx,
     txOptions,

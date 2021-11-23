@@ -1,9 +1,8 @@
-import React, {forwardRef, memo, useMemo} from 'react';
-import {StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
-import isEquals from 'react-fast-compare';
 import {enhance, propsToStyle} from '@common';
-import {AppTheme} from '@config/type';
-import {useTheme} from '@react-navigation/native';
+import {useTheme} from '@theme';
+import React, {forwardRef, memo, useMemo} from 'react';
+import isEquals from 'react-fast-compare';
+import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 
 import {BlockProps} from './Block.props';
 
@@ -16,7 +15,7 @@ const styles = StyleSheet.create({
 const BlockComponent = forwardRef(
   (props: BlockProps, ref: React.ForwardedRef<View>) => {
     // state
-    const theme: AppTheme = useTheme();
+    const theme = useTheme();
     const {
       block,
       margin,
