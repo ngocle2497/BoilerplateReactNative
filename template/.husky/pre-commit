@@ -1,0 +1,9 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+yarn lint
+# yarn lint-staged
+
+AUTHORS=(
+  'Le Hong Ngoc:lhngoc2497@gmail.com'
+)

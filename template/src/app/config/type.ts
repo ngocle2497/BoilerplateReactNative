@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-shadow */
 import {Theme} from '@react-navigation/native';
-import {AxiosRequestConfig} from 'axios';
 import {RegisterOptions} from 'react-hook-form';
 export interface ResponseBase<T = any> {
   code: number;

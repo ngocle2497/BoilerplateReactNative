@@ -1,7 +1,12 @@
 import React, {memo, useMemo} from 'react';
 import equals from 'react-fast-compare';
-import {useWindowDimensions, View, StyleSheet, ViewStyle} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {
+  Dimensions,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 import {Img} from '../Image/Image';
 
@@ -12,16 +17,18 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
 });
+const deviceH = Dimensions.get('screen').height;
+const windowH = Dimensions.get('window').height;
+const bottomNavBarH = deviceH - windowH;
 
 const WallpaperComponent = ({
   backgroundImage = 'bg_wallpaper',
 }: WallpaperProps) => {
   // state
   const {height, width} = useWindowDimensions();
-  const inset = useSafeAreaInsets();
   const containerStyle = useMemo<ViewStyle>(
-    () => ({width, height: height + inset.top}),
-    [height, inset.top, width],
+    () => ({width, height: height + bottomNavBarH}),
+    [height, width],
   );
 
   // render

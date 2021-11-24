@@ -1,6 +1,6 @@
 {
   "name": "HelloWorld",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "clean-android": "cd android && ./gradlew clean && cd ..",
@@ -17,7 +17,8 @@
     "apk": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
     "aab": "cd android && ./gradlew clean && ./gradlew bundleRelease && cd ..",
     "lint": "eslint App.tsx index.js ./src/app/* --ext .js,.ts,.tsx",
-    "postinstall": "node ./scripts/main.js"
+    "postinstall": "node ./scripts/main.js",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*": [
@@ -77,6 +78,7 @@
     "react-test-renderer": "17.0.2",
     "typescript": "^4.2.3",
     "lint-staged": "^11.2.6",
+    "husky": "^7.0.0",
     "patch-package": "^6.4.7"
   },
   "resolutions": {
