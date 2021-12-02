@@ -1,37 +1,15 @@
 import {sharedTiming, useSharedTransition} from '@animated';
 import React, {memo, useCallback, useState} from 'react';
 import isEqual from 'react-fast-compare';
-import {
-  View,
-  Text,
-  StyleSheet,
-  LayoutChangeEvent,
-  LayoutRectangle,
-} from 'react-native';
+import {LayoutChangeEvent, LayoutRectangle, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedStyle,
   useDerivedValue,
 } from 'react-native-reanimated';
 
+import {styles} from './styles';
 import {CollapsibleProps} from './type';
-
-const styles = StyleSheet.create({
-  base: {
-    overflow: 'hidden',
-  },
-  hiddenView: {
-    position: 'absolute',
-    zIndex: -999,
-    opacity: 0,
-  },
-  header: {
-    flex: 1,
-    padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 const CollapsibleComponent = ({
   renderContent,

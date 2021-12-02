@@ -1,25 +1,15 @@
+import {sharedTiming} from '@animated';
+import {onCheckType} from '@common';
 import React, {memo, useCallback} from 'react';
-import {
-  GestureResponderEvent,
-  StyleSheet,
-  TouchableWithoutFeedback,
-} from 'react-native';
 import equals from 'react-fast-compare';
+import {GestureResponderEvent, TouchableWithoutFeedback} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-import {onCheckType} from '@common';
-import {sharedTiming} from '@animated';
 
+import {styles} from './styles';
 import {TouchableScaleProps} from './type';
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 const TouchableScaleComponent = (props: TouchableScaleProps) => {
   // props

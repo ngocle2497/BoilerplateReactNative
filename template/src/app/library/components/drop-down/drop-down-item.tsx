@@ -1,34 +1,12 @@
 import {enhance} from '@common';
 import React, {memo, useCallback, useMemo} from 'react';
 import isEqual from 'react-fast-compare';
-import {
-  StyleProp,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-  Text,
-} from 'react-native';
+import {StyleProp, Text, TouchableOpacity, View, ViewStyle} from 'react-native';
 
 import {Icon} from '../icon';
 
+import {styles} from './styles';
 import {ItemProps} from './type';
-
-const styles = StyleSheet.create({
-  labelStyle: {
-    flex: 1,
-    paddingRight: 5,
-  },
-  container: {
-    width: '100%',
-    paddingVertical: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  wrapIcon: {
-    minHeight: 24,
-  },
-});
 
 const DropDownItemComponent = ({
   item,

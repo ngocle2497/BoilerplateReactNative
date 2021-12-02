@@ -3,7 +3,7 @@ import {IconTypes} from '@assets/icon';
 import {onCheckType} from '@common';
 import React, {memo, useCallback} from 'react';
 import isEqual from 'react-fast-compare';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useDerivedValue,
@@ -13,57 +13,7 @@ import Animated, {
 import {Icon} from '../../../icon';
 import {Text} from '../../../text';
 
-export const SIZE_BUTTON_GROUP = 40;
-export const SPACE_BETWEEN = 10;
-const styles = StyleSheet.create({
-  root: {
-    position: 'relative',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    marginBottom: SPACE_BETWEEN,
-    zIndex: 5,
-  },
-  wrap: {
-    width: SIZE_BUTTON_GROUP,
-    height: SIZE_BUTTON_GROUP,
-    borderRadius: SIZE_BUTTON_GROUP / 2,
-    backgroundColor: '#99aab5',
-    shadowColor: '#000',
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
-  },
-  wrapLabel: {
-    paddingHorizontal: 8,
-    paddingVertical: 5,
-    backgroundColor: '#FFFFFF',
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
-    marginRight: 10,
-    borderRadius: 5,
-  },
-  text: {
-    fontFamily: undefined,
-    fontWeight: 'normal',
-  },
-});
+import {stylesButton as styles} from './styles';
 
 interface ButtonGroupProps {
   icon: IconTypes;

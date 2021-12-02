@@ -12,14 +12,8 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {DURATION_HIDE} from './constants';
 import {SnackItem} from './snack-bar-item';
+import {styles} from './styles';
 import {Item, SnackBarProps, TypeMessage} from './type';
-
-const styles = StyleSheet.create({
-  container: {
-    minHeight: 50,
-    paddingHorizontal: 15,
-  },
-});
 
 const SnackBarComponent = forwardRef((props: SnackBarProps, ref) => {
   useImperativeHandle(

@@ -5,9 +5,10 @@ import {
   sharedSub,
   useMin,
 } from '@animated';
+import {onCheckType} from '@common';
 import React, {memo, useCallback, useEffect, useState} from 'react';
 import isEqual from 'react-fast-compare';
-import {View, LayoutChangeEvent, StyleSheet} from 'react-native';
+import {LayoutChangeEvent, View} from 'react-native';
 import {
   PanGestureHandler,
   PanGestureHandlerGestureEvent,
@@ -20,58 +21,18 @@ import Animated, {
   useDerivedValue,
   useSharedValue,
 } from 'react-native-reanimated';
-import {onCheckType} from '@common';
 
 import {Text} from '../text';
 
 import {
-  ACTIVE_COLOR,
-  HEIGHT_SLIDER,
+  FIXED_AFTER,
   INITIAL_RANGE,
-  IN_ACTIVE_COLOR,
   LOWER_BOUND,
   THUMB_SIZE,
-  FIXED_AFTER,
   UPPER_BOUND,
 } from './constants';
+import {stylesRange as styles} from './styles';
 import {SliderRangeProps} from './type';
-
-const styles = StyleSheet.create({
-  root: {
-    width: '100%',
-    flex: 1,
-  },
-  wrapTrack: {
-    overflow: 'hidden',
-    flex: 1,
-  },
-  container: {
-    height: HEIGHT_SLIDER,
-    backgroundColor: IN_ACTIVE_COLOR,
-    width: '100%',
-    flex: 1,
-  },
-  thumb: {
-    position: 'absolute',
-    top: -THUMB_SIZE + HEIGHT_SLIDER / 2,
-    left: 0,
-    width: THUMB_SIZE * 2,
-    height: THUMB_SIZE * 2,
-    borderRadius: THUMB_SIZE,
-    backgroundColor: ACTIVE_COLOR,
-  },
-  track: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    backgroundColor: ACTIVE_COLOR,
-  },
-  wrapValue: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: THUMB_SIZE / 2,
-  },
-});
 
 const SliderRangeComponent = ({
   lowerBound = LOWER_BOUND,

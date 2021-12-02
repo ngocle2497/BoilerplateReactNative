@@ -16,7 +16,7 @@
     "build:ipa": "fastlane android build_ipa",
     "apk": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
     "aab": "cd android && ./gradlew clean && ./gradlew bundleRelease && cd ..",
-    "lint": "eslint App.tsx index.js ./src/app/* --ext .js,.ts,.tsx",
+    "lint": "eslint  index.js ./src/**/* --ext .js,.ts,.tsx",
     "postinstall": "node ./scripts/main.js",
     "prepare": "husky install"
   },

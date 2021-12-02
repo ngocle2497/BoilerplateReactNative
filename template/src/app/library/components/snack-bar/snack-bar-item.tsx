@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
-import React, {memo, useCallback, useEffect, useState} from 'react';
 import {sharedTiming, useSharedTransition} from '@animated';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import React, {memo, useCallback, useEffect, useState} from 'react';
+import {Text, TouchableOpacity} from 'react-native';
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -9,42 +9,14 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import {
-  DURATION_ANIMATED,
   BG_ERROR,
   BG_INFO,
   BG_SUCCESS,
   BG_WARN,
+  DURATION_ANIMATED,
 } from './constants';
+import {styles} from './styles';
 import {SnackBarItemProps, TypeMessage} from './type';
-
-const styles = StyleSheet.create({
-  itemBar: {
-    paddingHorizontal: 15,
-    paddingVertical: 5,
-    borderRadius: 5,
-    backgroundColor: '#ffffff',
-    position: 'absolute',
-    width: '100%',
-    alignSelf: 'center',
-    marginHorizontal: 50,
-    alignItems: 'center',
-    flexDirection: 'row',
-    borderLeftWidth: 3,
-    borderLeftColor: BG_SUCCESS,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
-
-    elevation: 1,
-  },
-  text: {
-    flex: 1,
-  },
-});
 
 const getColor = (
   typeMessage: TypeMessage,

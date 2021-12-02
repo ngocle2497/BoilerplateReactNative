@@ -1,5 +1,4 @@
-import {enhance, sizeScale} from '@common';
-import {ColorDefault} from '@theme/color';
+import {enhance} from '@common';
 import React, {
   memo,
   useCallback,
@@ -9,55 +8,13 @@ import React, {
   useState,
 } from 'react';
 import equals from 'react-fast-compare';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {Text, TextInput, View} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 import {Spacer} from '../spacer';
 
+import {styles} from './styles';
 import {OtpProps} from './type';
-
-const WIDTH_OTP = 32;
-const HEIGHT_OTP = 40;
-
-const styles = StyleSheet.create({
-  wrap: {
-    width: '100%',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  otpView: {
-    width: WIDTH_OTP,
-    height: HEIGHT_OTP,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: ColorDefault.border,
-  },
-  otpViewActive: {
-    borderColor: ColorDefault.primary,
-  },
-  otpText: {
-    fontSize: sizeScale(14),
-    color: ColorDefault.primary,
-    textAlignVertical: 'bottom',
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  input: {
-    // width: '100%',
-    flex: 1,
-    position: 'absolute',
-    textAlign: 'center',
-    height: HEIGHT_OTP,
-    backgroundColor: 'transparent',
-    borderBottomColor: 'transparent',
-    color: 'transparent',
-    opacity: 0,
-  },
-});
 
 const OtpComponent = (props: OtpProps) => {
   // state

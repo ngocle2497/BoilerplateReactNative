@@ -9,23 +9,7 @@ import FastImage, {ImageStyle} from 'react-native-fast-image';
 import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 
 import {ImageRemoteProps} from './type';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  img: {
-    flex: 1,
-  },
-  viewError: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: '#bbb',
-  },
-  viewOnLoad: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: '#bbb',
-  },
-});
+import {styles} from './styles';
 
 const ImageRemoteComponent = (props: ImageRemoteProps) => {
   // state

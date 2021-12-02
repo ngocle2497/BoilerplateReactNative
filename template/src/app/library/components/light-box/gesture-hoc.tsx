@@ -1,7 +1,7 @@
 import {sharedTiming, useInterpolate, useVector} from '@animated';
-import React, {memo, useEffect, useCallback} from 'react';
+import React, {memo, useCallback, useEffect} from 'react';
 import isEqual from 'react-fast-compare';
-import {BackHandler, StyleSheet, useWindowDimensions} from 'react-native';
+import {BackHandler, useWindowDimensions} from 'react-native';
 import FastImage, {Source} from 'react-native-fast-image';
 import {PanGestureHandler} from 'react-native-gesture-handler';
 import Animated, {
@@ -15,6 +15,8 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 
+import {styles} from './styles';
+
 import {Measure} from '.';
 
 export interface GestureHOCProps {
@@ -27,13 +29,6 @@ export interface GestureHOCProps {
 const timingConfig: Animated.WithTimingConfig = {
   duration: 300,
 };
-
-const styles = StyleSheet.create({
-  image: {
-    width: '100%',
-    height: '100%',
-  },
-});
 
 export const GestureHOC = memo(
   ({image, source, onClose, backDropOpacity}: GestureHOCProps) => {
@@ -185,7 +180,7 @@ export const GestureHOC = memo(
       <PanGestureHandler onGestureEvent={_gestureHandler}>
         <Animated.View style={[imageStyle]}>
           <FastImage
-            style={[styles.image]}
+            style={[styles.img]}
             resizeMode={'cover'}
             source={source}
           />

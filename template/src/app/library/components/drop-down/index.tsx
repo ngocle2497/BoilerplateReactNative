@@ -15,12 +15,11 @@ import {
   ListRenderItemInfo,
   StatusBar,
   StyleProp,
-  StyleSheet,
+  Text,
   TouchableOpacity,
   useWindowDimensions,
   View,
   ViewStyle,
-  Text,
 } from 'react-native';
 import Animated, {
   measure,
@@ -34,68 +33,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Icon} from '../icon';
 import {Modal} from '../modal';
 
-import {DropDownProps, RowDropDown} from './type';
 import {DropDownItem} from './drop-down-item';
-
-const styles = StyleSheet.create({
-  placeHolder: {
-    flex: 1,
-    paddingRight: 5,
-  },
-  wrapView: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 3,
-    flex: 1,
-    width: '100%',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: 'transparent',
-    borderTopColor: 'transparent',
-  },
-  wrapViewBottomOpened: {
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-    borderBottomColor: '#bbb',
-  },
-  wrapViewTopOpened: {
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: 0,
-    borderTopColor: '#bbb',
-  },
-  dropStyle: {
-    backgroundColor: '#FFFFFF',
-    position: 'absolute',
-    // minHeight: 50,
-    maxHeight: 250,
-    paddingHorizontal: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-
-    elevation: 2,
-  },
-  dropTopOpened: {
-    borderTopLeftRadius: 3,
-    borderTopRightRadius: 3,
-  },
-  dropBottomOpened: {
-    borderBottomLeftRadius: 3,
-    borderBottomRightRadius: 3,
-  },
-  wrapPlaceholder: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  modal: {
-    justifyContent: undefined,
-  },
-});
+import {styles} from './styles';
+import {DropDownProps, RowDropDown} from './type';
 
 const setLayoutOnUI = (
   ref: React.RefObject<View>,

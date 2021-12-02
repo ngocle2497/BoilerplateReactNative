@@ -1,7 +1,7 @@
 import {sharedTiming, useInterpolate} from '@animated';
 import React, {memo, useEffect, useMemo} from 'react';
 import isEqual from 'react-fast-compare';
-import {StyleSheet, View, ViewStyle} from 'react-native';
+import {View, ViewStyle} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -19,14 +19,8 @@ import {
   MIN_WIDTH_ITEM,
   SIZE_AVATAR,
 } from './constants';
+import {styles} from './styles';
 import {ItemCommentProps} from './type';
-
-const styles = StyleSheet.create({
-  row: {
-    marginBottom: 10,
-    flexDirection: 'row',
-  },
-});
 
 const ItemCommentComponent = ({index, overlayColor}: ItemCommentProps) => {
   // state

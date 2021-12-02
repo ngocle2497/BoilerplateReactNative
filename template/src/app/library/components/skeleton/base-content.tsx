@@ -1,35 +1,11 @@
 import React, {memo, useCallback, useMemo} from 'react';
 import isEqual from 'react-fast-compare';
-import {StyleSheet, useWindowDimensions, View, ViewStyle} from 'react-native';
+import {useWindowDimensions, View, ViewStyle} from 'react-native';
 
 import {Spacer} from '../spacer';
 
-const BASE_ITEM_HEIGHT = 70;
-
-const styles = StyleSheet.create({
-  container: {
-    minHeight: BASE_ITEM_HEIGHT,
-    width: '100%',
-    marginBottom: 20,
-    paddingHorizontal: 25,
-  },
-  rowCenter: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  imageOverlay: {
-    width: '100%',
-    height: 170,
-    borderRadius: 4,
-    color: 'black',
-  },
-  avatarOverlay: {
-    width: 40,
-    height: 40,
-    borderRadius: 4,
-    color: 'black',
-  },
-});
+import {BASE_ITEM_HEIGHT} from './constants';
+import {styles} from './styles';
 
 type RowOverLayProps = {
   width: number | string;

@@ -1,4 +1,4 @@
-import {moderateScale} from '@common';
+import {sizeScale} from '@common';
 import React, {memo, useMemo} from 'react';
 import equals from 'react-fast-compare';
 import {View} from 'react-native';
@@ -11,8 +11,8 @@ const SpacerComponent = (props: SpacerProps) => {
   // style
   const actualStyle = useMemo(
     () => ({
-      width: typeof width === 'number' ? moderateScale(width) : width,
-      height: typeof height === 'number' ? moderateScale(height) : height,
+      width: typeof width === 'number' ? sizeScale(width) : width,
+      height: typeof height === 'number' ? sizeScale(height) : height,
     }),
     [height, width],
   );

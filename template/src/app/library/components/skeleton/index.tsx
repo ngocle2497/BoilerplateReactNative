@@ -2,7 +2,7 @@ import {sharedTiming} from '@animated';
 import MaskedView from '@react-native-community/masked-view';
 import React, {memo, useEffect, useMemo} from 'react';
 import isEqual from 'react-fast-compare';
-import {StyleSheet, useWindowDimensions, View, ViewStyle} from 'react-native';
+import {useWindowDimensions, View, ViewStyle} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Animated, {
   useAnimatedStyle,
@@ -11,23 +11,8 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import {BaseContent} from './base-content';
+import {styles} from './styles';
 import {SkeletonProps} from './type';
-
-const styles = StyleSheet.create({
-  markElement: {
-    width: '100%',
-    flexDirection: 'row',
-    height: '100%',
-  },
-  linear: {
-    width: '100%',
-    height: '100%',
-  },
-  wrapChildren: {
-    flex: 1,
-    backgroundColor: 'transparent',
-  },
-});
 
 const SkeletonComponent = ({
   children,

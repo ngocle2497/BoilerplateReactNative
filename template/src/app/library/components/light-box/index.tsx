@@ -1,11 +1,6 @@
 import React, {memo, useCallback, useRef, useState} from 'react';
 import isEqual from 'react-fast-compare';
-import {
-  StyleSheet,
-  TouchableOpacity,
-  useWindowDimensions,
-  View,
-} from 'react-native';
+import {TouchableOpacity, useWindowDimensions, View} from 'react-native';
 import FastImage, {OnLoadEvent, Source} from 'react-native-fast-image';
 import Animated, {
   useAnimatedStyle,
@@ -13,17 +8,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import {imageTransitionRef} from './image-transition';
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%',
-  },
-  img: {
-    width: '100%',
-    height: '100%',
-  },
-});
+import {styles} from './styles';
 
 interface LightBoxProps {
   source: Source | number;

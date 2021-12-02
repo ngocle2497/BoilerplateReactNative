@@ -97,3 +97,13 @@ export type InsetComponentProps = Pick<
 > & {
   edges: Edge[];
 };
+
+export interface InsetProps {
+  color?: string;
+  height: number;
+  width: number;
+  top?: number;
+  left?: number;
+  right?: number;
+  bottom?: number;
+}

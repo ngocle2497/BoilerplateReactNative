@@ -15,15 +15,9 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import {GestureHOC} from './gesture-hoc';
+import {styles} from './styles';
 
 import {Measure} from '.';
-
-const styles = StyleSheet.create({
-  backdrop: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,.6)',
-  },
-});
 
 export interface ImageTransitionProps {
   image: Measure;

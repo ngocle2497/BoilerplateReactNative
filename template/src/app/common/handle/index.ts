@@ -19,7 +19,10 @@ export const propsToStyle = <T = any>(arrStyle: Array<T>) => {
       const firstKey = Object.keys(curr)[0];
       const firstValue = curr[firstKey];
 
-      if (![].includes(firstKey as never) && typeof firstValue === 'number') {
+      if (
+        !['opacity', 'zIndex', 'flex'].includes(firstKey as never) &&
+        typeof firstValue === 'number'
+      ) {
         curr[firstKey as string] = sizeScale(firstValue);
       }
       return {...prev, ...curr};

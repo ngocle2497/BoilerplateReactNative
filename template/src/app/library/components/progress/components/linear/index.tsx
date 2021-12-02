@@ -1,34 +1,25 @@
-import React, {useState, memo} from 'react';
-import {StyleSheet, LayoutChangeEvent} from 'react-native';
-import {useShareClamp, useInterpolate, sharedTiming} from '@animated';
-import Animated, {
-  useDerivedValue,
-  useAnimatedStyle,
-} from 'react-native-reanimated';
+import {sharedTiming, useInterpolate, useShareClamp} from '@animated';
+import React, {memo, useMemo, useState} from 'react';
 import equals from 'react-fast-compare';
+import {LayoutChangeEvent, ViewStyle} from 'react-native';
+import Animated, {
+  useAnimatedStyle,
+  useDerivedValue,
+} from 'react-native-reanimated';
 
+import {COLOR_BG, COLOR_FG, STROKE_WIDTH} from '../constant';
+
+import {styles} from './styles';
 import {ProgressLinearProps} from './type';
 
-const styles = StyleSheet.create({
-  bg: {
-    width: '100%',
-    flex: 1,
-    height: 4,
-    backgroundColor: '#dbdbdb',
-    marginVertical: 3,
-    borderRadius: 50,
-    overflow: 'hidden',
-  },
-  fg: {
-    backgroundColor: '#0057e7',
-    borderRadius: 50,
-    flex: 1,
-  },
-});
-
-export const ProgressLinearComponent = (props: ProgressLinearProps) => {
+export const ProgressLinearComponent = ({
+  progress,
+  bg = COLOR_BG,
+  fg = COLOR_FG,
+  strokeWidth = STROKE_WIDTH,
+  radius = 4,
+}: ProgressLinearProps) => {
   // state
-  const {progress} = props;
   const [widthProgress, setWidthProgress] = useState(0);
   const progressAnimated = useDerivedValue(() => sharedTiming(progress));
   const actualProgress = useShareClamp(progressAnimated, 0, 100);
@@ -36,6 +27,28 @@ export const ProgressLinearComponent = (props: ProgressLinearProps) => {
     actualProgress,
     [0, 100],
     [-widthProgress, 0],
+  );
+
+  const bgStyle = useMemo<ViewStyle[]>(
+    () => [
+      styles.bg,
+      {
+        backgroundColor: bg,
+        height: strokeWidth,
+        borderRadius: radius,
+      },
+    ],
+    [bg, radius, strokeWidth],
+  );
+  const fgStyle = useMemo<ViewStyle[]>(
+    () => [
+      styles.fg,
+      {
+        backgroundColor: fg,
+        borderRadius: radius,
+      },
+    ],
+    [fg, radius],
   );
 
   // function
@@ -50,8 +63,8 @@ export const ProgressLinearComponent = (props: ProgressLinearProps) => {
 
   // render
   return (
-    <Animated.View onLayout={_onLayoutBg} style={[styles.bg]}>
-      <Animated.View style={[styles.fg, foregroundStyle]} />
+    <Animated.View onLayout={_onLayoutBg} style={bgStyle}>
+      <Animated.View style={[fgStyle, foregroundStyle]} />
     </Animated.View>
   );
 };

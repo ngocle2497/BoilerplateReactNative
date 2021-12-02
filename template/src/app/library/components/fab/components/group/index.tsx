@@ -3,64 +3,17 @@ import {enhance, onCheckType} from '@common';
 import {Text} from '@library/components/text';
 import React, {memo, useCallback, useMemo, useState} from 'react';
 import isEqual from 'react-fast-compare';
-import {
-  StyleSheet,
-  TouchableOpacity,
-  useWindowDimensions,
-  View,
-} from 'react-native';
+import {TouchableOpacity, useWindowDimensions, View} from 'react-native';
 import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {Icon} from '../../../icon';
 
-import {ButtonGroup, SPACE_BETWEEN} from './button-group';
+import {ButtonGroup} from './button-group';
+import {SIZE_FAB, SPACE_BETWEEN} from './constants';
+import {styles} from './styles';
 import {Actions, FABGroupProps} from './type';
 
-export const SIZE_FAB = 60;
-const styles = StyleSheet.create({
-  wrap: {
-    minWidth: SIZE_FAB,
-    height: SIZE_FAB,
-    borderRadius: SIZE_FAB / 2,
-    backgroundColor: '#fe00f6',
-    position: 'absolute',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    flexDirection: 'row',
-    zIndex: 3,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-
-    elevation: 7,
-  },
-  label: {
-    color: '#FFFFFF',
-    fontWeight: 'normal',
-    fontFamily: undefined,
-    paddingLeft: 5,
-  },
-  background: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'transparent',
-    zIndex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-  },
-  wrapAction: {
-    position: 'absolute',
-    zIndex: 2,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-  },
-});
 const FABGroupComponent = (props: FABGroupProps) => {
   const {style, icon = 'plus', label, actions = []} = props;
   // state

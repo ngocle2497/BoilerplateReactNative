@@ -1,7 +1,8 @@
+import {Block} from '@components';
 import {useTheme} from '@theme';
 import React, {memo, useMemo} from 'react';
 import isEqual from 'react-fast-compare';
-import {StatusBar, StyleSheet, useWindowDimensions} from 'react-native';
+import {StatusBar, useWindowDimensions, View, ViewStyle} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {
   Edge,
@@ -9,23 +10,31 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 
-import {Block} from '../block';
-
-import {InsetComponentProps, ScreenProps} from './type';
+import {styles} from './styles';
+import {InsetComponentProps, InsetProps, ScreenProps} from './type';
 
 const INSETS: Edge[] = ['top', 'bottom', 'left', 'right'];
 
-const styles = StyleSheet.create({
-  outer: {
-    backgroundColor: 'transparent',
-    flex: 1,
+const Inset = memo(
+  ({color, height, width, bottom, left, right, top}: InsetProps) => {
+    // state
+    const style = useMemo<ViewStyle>(
+      () => ({
+        backgroundColor: color,
+        width,
+        height,
+        top,
+        left,
+        bottom,
+        right,
+      }),
+      [bottom, color, height, left, right, top, width],
+    );
+    // render
+    return <View style={[styles.insets, style]} />;
   },
-  inner: {
-    justifyContent: 'flex-start',
-    flex: 1,
-    width: '100%',
-  },
-});
+  isEqual,
+);
 
 const InsetComponent = memo(
   ({
@@ -51,37 +60,33 @@ const InsetComponent = memo(
           barStyle={statusBarStyle || 'dark-content'}
         />
         {!unsafe && edges.includes('top') && (
-          <Block
+          <Inset
             color={statusColor}
-            position={'absolute'}
             top={0}
             height={inset.top}
             width={screenWidth}
           />
         )}
         {!unsafe && edges.includes('left') && (
-          <Block
+          <Inset
             color={leftInsetColor}
-            position={'absolute'}
             left={0}
             height={screenHeight}
             width={inset.left}
           />
         )}
         {!unsafe && edges.includes('right') && (
-          <Block
+          <Inset
             color={rightInsetColor}
-            position={'absolute'}
             right={0}
             height={screenHeight}
             width={inset.right}
           />
         )}
         {!unsafe && edges.includes('bottom') && (
-          <Block
+          <Inset
             color={bottomInsetColor}
             bottom={0}
-            position={'absolute'}
             height={inset.bottom}
             width={screenWidth}
           />
@@ -138,6 +143,9 @@ function ScreenWithoutScrolling(props: ScreenProps) {
   // render
   return (
     <>
+      <Wrapper edges={edges} style={[styles.inner, style, backgroundStyle]}>
+        <View style={[styles.flex]} children={children} />
+      </Wrapper>
       <InsetComponent
         edges={edges}
         bottomInsetColor={bottomInsetColor}
@@ -147,11 +155,6 @@ function ScreenWithoutScrolling(props: ScreenProps) {
         leftInsetColor={leftInsetColor}
         rightInsetColor={rightInsetColor}
         unsafe={actualUnsafe}
-      />
-      <Wrapper
-        edges={edges}
-        style={[styles.inner, style, backgroundStyle]}
-        children={children}
       />
     </>
   );
@@ -213,7 +216,7 @@ function ScreenWithScrolling(props: ScreenProps) {
         rightInsetColor={rightInsetColor}
         unsafe={actualUnsafe}
       />
-      <Wrapper edges={edges} style={[styles.inner]}>
+      <Wrapper edges={edges} style={[styles.outer]}>
         <Animated.ScrollView
           scrollEventThrottle={16}
           onScroll={onScroll}
@@ -221,7 +224,7 @@ function ScreenWithScrolling(props: ScreenProps) {
           showsHorizontalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
           overScrollMode={'never'}
-          style={[styles.outer, backgroundStyle]}
+          style={[styles.inner, backgroundStyle]}
           contentContainerStyle={[style]}
           children={children}
         />

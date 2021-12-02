@@ -1,22 +1,12 @@
 import React, {memo, useMemo} from 'react';
 import equals from 'react-fast-compare';
-import {
-  Dimensions,
-  StyleSheet,
-  useWindowDimensions,
-  View,
-  ViewStyle,
-} from 'react-native';
+import {Dimensions, useWindowDimensions, View, ViewStyle} from 'react-native';
 
 import {Img} from '../img';
 
+import {styles} from './styles';
 import {WallpaperProps} from './type';
 
-const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFillObject,
-  },
-});
 const deviceH = Dimensions.get('screen').height;
 
 const WallpaperComponent = ({

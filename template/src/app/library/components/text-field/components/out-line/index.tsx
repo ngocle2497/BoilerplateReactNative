@@ -13,7 +13,6 @@ import {useTranslation} from 'react-i18next';
 import {
   LayoutChangeEvent,
   NativeSyntheticEvent,
-  StyleSheet,
   TextInput,
   TextInputChangeEventData,
   View,
@@ -23,49 +22,12 @@ import Animated, {
   useDerivedValue,
 } from 'react-native-reanimated';
 
+import {styles} from './styles';
 import {InputOutlineProps} from './type';
 
-const VERTICAL_PADDING = 15;
 const UN_ACTIVE_COLOR = 'rgb(159,152,146)';
 const ACTIVE_COLOR = 'rgb(0,87,231)';
 const ERROR_COLOR = 'rgb(214,45,32)';
-
-const styles = StyleSheet.create({
-  container: {
-    paddingVertical: VERTICAL_PADDING,
-    borderWidth: StyleSheet.hairlineWidth * 2,
-    borderRadius: 5,
-    borderColor: 'gray',
-    justifyContent: 'center',
-  },
-  input: {
-    color: '#000',
-    padding: 0,
-    borderBottomColor: 'transparent',
-  },
-  text: {
-    alignSelf: 'flex-start',
-    zIndex: 4,
-    left: 5,
-  },
-  wrapLabel: {
-    position: 'absolute',
-    alignSelf: 'flex-end',
-  },
-  content: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-  wrapPlaceHolder: {
-    position: 'absolute',
-    alignSelf: 'flex-end',
-    paddingLeft: 5,
-  },
-  flex: {
-    flex: 1,
-    paddingHorizontal: 5,
-  },
-});
 
 export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
   // props

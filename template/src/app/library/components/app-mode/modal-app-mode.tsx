@@ -1,6 +1,5 @@
-import {IconTypes} from '@assets/icon';
 import {R} from '@assets/value';
-import {dispatch, sizeScale, useSelector} from '@common';
+import {dispatch, useSelector} from '@common';
 import {APP_MODE} from '@config/api';
 import {AppModeType} from '@networking';
 import {onSetAppMode} from '@store/app-redux/reducer';
@@ -13,7 +12,6 @@ import React, {
   useState,
 } from 'react';
 import isEqual from 'react-fast-compare';
-import {StyleSheet} from 'react-native';
 
 import {Block} from '../block';
 import {Button} from '../button';
@@ -23,61 +21,38 @@ import {Modal} from '../modal';
 import {Spacer} from '../spacer';
 import {Text} from '../text';
 
-const styles = StyleSheet.create({
-  contentModal: {
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 0,
-    paddingVertical: 15,
-  },
-  textMode: {
-    flex: 1,
-    fontSize: sizeScale(12),
-  },
-  title: {
-    fontSize: sizeScale(13),
-    paddingVertical: 0,
-    alignSelf: 'center',
-  },
-});
-interface ButtonSelectProps {
-  tx: string;
-  mode: AppModeType;
-  onPress?: (mode: AppModeType) => void;
-  icon: IconTypes;
-  selected: boolean;
-}
-const ButtonSelect = ({
-  tx,
-  mode,
-  icon,
-  onPress,
-  selected = false,
-}: ButtonSelectProps) => {
-  // function
-  const _onPress = useCallback(() => {
-    if (typeof onPress === 'function') {
-      onPress(mode);
-    }
-  }, [mode, onPress]);
+import {styles} from './styles';
+import {ButtonSelectProps} from './type';
 
-  // render
-  return (
-    <Button onPress={_onPress}>
-      <Block
-        direction={'row'}
-        paddingHorizontal={10}
-        justifyContent={'center'}
-        middle>
-        <Icon {...{icon}} />
-        <Spacer width={10} />
-        <Text numberOfLines={1} style={[styles.textMode]} {...{tx}} />
-        {selected && <Icon icon={'check'} />}
-      </Block>
-    </Button>
-  );
-};
+const ButtonSelect = memo(
+  ({tx, mode, icon, onPress, selected = false}: ButtonSelectProps) => {
+    // function
+    const onPressMode = useCallback(() => {
+      if (typeof onPress === 'function') {
+        onPress(mode);
+      }
+    }, [mode, onPress]);
 
-const Spacing = () => {
+    // render
+    return (
+      <Button onPress={onPressMode}>
+        <Block
+          direction={'row'}
+          paddingHorizontal={10}
+          justifyContent={'center'}
+          middle>
+          <Icon {...{icon}} />
+          <Spacer width={10} />
+          <Text numberOfLines={1} style={[styles.textMode]} {...{tx}} />
+          {selected && <Icon icon={'check'} />}
+        </Block>
+      </Button>
+    );
+  },
+  isEqual,
+);
+
+const Spacing = memo(() => {
   return (
     <>
       <Spacer height={10} />
@@ -85,24 +60,25 @@ const Spacing = () => {
       <Spacer height={10} />
     </>
   );
-};
+}, isEqual);
+
 const ModalAppModeComponent = forwardRef((_, ref) => {
   // state
   const {appMode} = useSelector(x => x.app);
   const [isVisible, setIsVisible] = useState(false);
 
   // function
-  const _hideModal = useCallback(() => {
+  const hideModal = useCallback(() => {
     setIsVisible(false);
   }, []);
 
-  const _onButtonPress = useCallback(
+  const onButtonPress = useCallback(
     async (mode: AppModeType) => {
-      _hideModal();
+      hideModal();
       await saveString(R.strings.APP_MODE, mode);
       dispatch(onSetAppMode(mode));
     },
-    [_hideModal],
+    [hideModal],
   );
 
   // effect
@@ -113,10 +89,10 @@ const ModalAppModeComponent = forwardRef((_, ref) => {
         setIsVisible(true);
       },
       hide: () => {
-        _hideModal();
+        hideModal();
       },
     }),
-    [_hideModal],
+    [hideModal],
   );
 
   // render
@@ -124,8 +100,8 @@ const ModalAppModeComponent = forwardRef((_, ref) => {
     <Modal
       animatedIn={'slideInUp'}
       animatedOut={'slideOutDown'}
-      onBackdropPress={_hideModal}
-      onBackButtonPress={_hideModal}
+      onBackdropPress={hideModal}
+      onBackButtonPress={hideModal}
       style={{justifyContent: 'flex-end'}}
       isVisible={isVisible}>
       <Block color={'red'}>
@@ -134,24 +110,24 @@ const ModalAppModeComponent = forwardRef((_, ref) => {
           <ButtonSelect
             selected={appMode === APP_MODE.DEV}
             icon={'app_dev'}
-            onPress={_onButtonPress}
-            mode={APP_MODE.DEV as AppModeType}
+            onPress={onButtonPress}
+            mode={APP_MODE.DEV}
             tx={'common:textAppDev'}
           />
           <Spacing />
           <ButtonSelect
             selected={appMode === APP_MODE.STAGING}
             icon={'app_test'}
-            onPress={_onButtonPress}
-            mode={APP_MODE.STAGING as AppModeType}
+            onPress={onButtonPress}
+            mode={APP_MODE.STAGING}
             tx={'common:textAppTest'}
           />
           <Spacing />
           <ButtonSelect
             selected={appMode === APP_MODE.PROD}
             icon={'app_prod'}
-            onPress={_onButtonPress}
-            mode={APP_MODE.PROD as AppModeType}
+            onPress={onButtonPress}
+            mode={APP_MODE.PROD}
             tx={'common:textAppProd'}
           />
         </Block>
@@ -161,7 +137,7 @@ const ModalAppModeComponent = forwardRef((_, ref) => {
 });
 
 export const ModalAppMode = memo(ModalAppModeComponent, isEqual);
-export interface ModalAppMode {
+export type ModalAppMode = {
   show(): void;
   hide(): void;
-}
+};

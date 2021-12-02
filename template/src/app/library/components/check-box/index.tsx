@@ -1,40 +1,14 @@
 import {useMix, useSharedTransition} from '@animated';
 import {enhance, onCheckType} from '@common';
-import {ColorDefault} from '@theme/color';
 import React, {useCallback, useMemo, useState} from 'react';
 import equals from 'react-fast-compare';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 
 import {Text} from '../text';
 
+import {styles} from './styles';
 import {CheckboxProps} from './type';
-
-const DIMENSIONS = {width: 16, height: 16};
-const styles = StyleSheet.create({
-  ROOT: {
-    flexDirection: 'row',
-    paddingVertical: 4,
-    alignSelf: 'flex-start',
-  },
-  OUTLINE: {
-    ...DIMENSIONS,
-    marginTop: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: ColorDefault.primary,
-    borderRadius: 1,
-  },
-  FILL: {
-    width: DIMENSIONS.width - 4,
-    height: DIMENSIONS.height - 4,
-    backgroundColor: ColorDefault.primary,
-  },
-  LABEL: {
-    paddingLeft: 8,
-  },
-});
 
 const CheckBoxComponent = ({
   fillStyle,

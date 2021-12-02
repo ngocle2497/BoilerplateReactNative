@@ -4,39 +4,14 @@ import {useTheme} from '@theme';
 import {ColorDefault} from '@theme/color';
 import React, {memo, useCallback, useEffect, useMemo, useState} from 'react';
 import equals from 'react-fast-compare';
-import {
-  LayoutChangeEvent,
-  LayoutRectangle,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {LayoutChangeEvent, LayoutRectangle, Text, View} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
 
+import {styles} from './styles';
 import {HelperTextProps} from './type';
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 3,
-    paddingBottom: 4,
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    width: '100%',
-    overflow: 'hidden',
-  },
-  text: {
-    fontWeight: 'normal',
-  },
-  hiddenView: {
-    position: 'absolute',
-    zIndex: -999,
-    opacity: 0,
-    // overflow: 'hidden',
-  },
-});
 
 const HelperTextComponent = (props: HelperTextProps) => {
   // state

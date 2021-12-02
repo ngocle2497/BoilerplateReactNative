@@ -8,16 +8,9 @@ import React, {
   useState,
 } from 'react';
 import isEqual from 'react-fast-compare';
-import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import {ActivityIndicator, View} from 'react-native';
 
-const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,.3)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+import {styles} from './styles';
 
 const Spinner = memo(() => {
   // state
