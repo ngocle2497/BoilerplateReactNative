@@ -1,8 +1,8 @@
 import Loupe from './source/loupe.svg';
 import Plush from './source/plus.svg';
-import ArrowDown from './source/arrowDown.svg';
-import ArrowUp from './source/arrowUp.svg';
-import HorizontalDots from './source/horizontalDots.svg';
+import ArrowDown from './source/arrow-down.svg';
+import ArrowUp from './source/arrow-up.svg';
+import HorizontalDots from './source/horizontal-dots.svg';
 
 export const SvgComponent = {
   loupe: Loupe,

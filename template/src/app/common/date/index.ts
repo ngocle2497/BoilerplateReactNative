@@ -119,7 +119,7 @@ export function getTimeDifference(date: Date | string): {
   count: number | null;
   tx: string;
 } {
-  const timeDifference = moment().diff(moment(date), 'seconds');
+  const timeDifference = moment().diff(moment.utc(date).local(), 'seconds');
 
   const yearTime = 60 * 60 * 24 * 365;
   const monthTime = 60 * 60 * 24 * 30;

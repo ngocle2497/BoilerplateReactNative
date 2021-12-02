@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {AppState} from '@app_redux/type';
+import {AppState} from '@store/app-redux/type';
 import {dispatch} from '@common';
 import {RESULT_CODE_PUSH_OUT, TIME_OUT} from '@config/api';
 import {ParamsNetwork, ResponseBase} from '@config/type';
-import {RootState} from '@store/allReducers';
-import {onSetToken} from '@store/app_redux/reducer';
+import {RootState} from '@store/all-reducers';
+import {onSetToken} from '@store/app-redux/reducer';
 import Axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
 import {StyleSheet} from 'react-native';
 import {select} from 'redux-saga/effects';
@@ -14,7 +14,7 @@ import {
   handleErrorAxios,
   handleParameter,
   handleResponseAxios,
-  _onPushLogout,
+  onPushLogout,
 } from './helper';
 
 const tokenKeyHeader = 'authorization';
@@ -82,7 +82,7 @@ function* Request<T = unknown>(
         return result;
       }
       if (result.code === RESULT_CODE_PUSH_OUT && isCheckOut) {
-        _onPushLogout();
+        onPushLogout();
         return null;
       } else {
         return result;

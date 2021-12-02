@@ -1,6 +1,6 @@
 import React from 'react';
 import {Home} from '@features/authentication/home';
-import {APP_SCREEN} from '@navigation/screenTypes';
+import {APP_SCREEN} from '@navigation/screen-types';
 import {createStackNavigator} from '@react-navigation/stack';
 
 const Main = createStackNavigator();

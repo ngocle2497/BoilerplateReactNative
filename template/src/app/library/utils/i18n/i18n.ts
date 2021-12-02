@@ -2,7 +2,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import i18n, {LanguageDetectorAsyncModule} from 'i18next';
 import {initReactI18next} from 'react-i18next';
-import {resources} from '@assets/locales';
+
+import {resources} from './locales';
 
 const languageDetector: LanguageDetectorAsyncModule = {
   type: 'languageDetector',

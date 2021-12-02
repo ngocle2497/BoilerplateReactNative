@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {onCheckType} from '@common';
-import {AppTheme} from '@config/type';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
-import {RootState} from '@store/allReducers';
-import {useTheme} from '@theme';
+import {RootState} from '@store/all-reducers';
+import {AppTheme, useTheme} from '@theme';
 import React, {
   Dispatch,
   SetStateAction,

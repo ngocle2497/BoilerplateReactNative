@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {RootState} from '@store/allReducers';
+import {RootState} from '@store/all-reducers';
 import React, {createRef, forwardRef, memo, useImperativeHandle} from 'react';
 import isEqual from 'react-fast-compare';
 import {useDispatch} from 'react-redux';

@@ -18,7 +18,7 @@ const responseDefault: ResponseBase<any> = {
   data: {},
 };
 
-export const _onPushLogout = async () => {
+export const onPushLogout = async () => {
   // TODO
   /**
    * do something to logout

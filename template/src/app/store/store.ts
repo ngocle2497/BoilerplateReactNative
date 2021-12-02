@@ -3,8 +3,8 @@ import {configureStore} from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 
-import {allReducer} from './allReducers';
-import {rootSaga} from './rootSagas';
+import {allReducer} from './all-reducers';
+import {rootSaga} from './root-sagas';
 /**
  * Use this instead storage of reduxPersist
  *

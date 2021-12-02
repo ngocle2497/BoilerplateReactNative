@@ -1,6 +1,4 @@
-import {Colors} from '../config/type';
-
-export const ColorDefault: Colors = {
+export const ColorDefault = {
   primary: 'rgb(0, 122, 255)',
   background: 'rgb(242, 242, 242)',
   card: 'rgb(255, 255, 255)',
@@ -10,7 +8,7 @@ export const ColorDefault: Colors = {
   error: 'rgb(255, 59, 48)',
   info: '#ffd700',
 };
-export const ColorDark: Colors = {
+export const ColorDark = {
   primary: 'rgb(10, 132, 255)',
   background: 'rgb(1, 1, 1)',
   card: 'rgb(18, 18, 18)',

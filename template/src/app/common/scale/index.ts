@@ -7,9 +7,8 @@ const guidelineBaseWidth = 350;
 const guidelineBaseHeight = 680;
 
 const scale = (size: number) => (shortDimension / guidelineBaseWidth) * size;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const verticalScale = (size: number) =>
   (longDimension / guidelineBaseHeight) * size;
-const moderateScale = (size: number, factor = 0.5) =>
+export const sizeScale = (size: number, factor = 0.5) =>
   size + (scale(size) - size) * factor;
-
-export {scale, verticalScale, moderateScale};

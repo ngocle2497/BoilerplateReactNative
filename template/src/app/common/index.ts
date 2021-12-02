@@ -1,6 +1,6 @@
-export * from './createFormData';
+export * from './create-form-data';
 export * from './hooks';
-export * from './handleError';
+export * from './handle-error';
 // export * from './requestPermission';
 export * from './string';
 export * from './scale';
@@ -9,10 +9,10 @@ export * from './handle';
 export * from './method';
 export * from './math';
 export * from './redux';
-export * from './redux/reduxSubscribeAction';
+export * from './redux/redux-subscribe-action';
 export * from './type';
 export * from './date';
-export * from './nativeModule';
+export * from './native-module';
 export * from './resolver';
 /**
  * Firebase
