@@ -2,12 +2,14 @@
 
 :fireworks: Clean and minimalist React Native template for a quick start with TypeScript and so much more components.
 
-## Current version: 0.66.1
+## Current version: 0.66.3
 
 ## :star: Features
 
 - Elegant usage directly within the RN-Boiler Cli
 - Fastlane (App center included)
+- Boot Splash
+- Blur Hash
 - Consistent with the default React Native template
 - Minimal additional dependencies
 - Lots of built-in components
