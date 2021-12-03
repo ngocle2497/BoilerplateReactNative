@@ -1,6 +1,5 @@
 package com.helloworld;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.facebook.react.ReactActivity;
@@ -14,10 +13,7 @@ public class MainActivity extends ReactActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int drawableId = (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
-                ? R.drawable.bootsplash_dark
-                : R.drawable.bootsplash_light; //Default light theme
-        RNBootSplash.init(drawableId, MainActivity.this);
+         RNBootSplash.init(R.drawable.bootsplash, MainActivity.this);
     }
 
     /**
