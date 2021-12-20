@@ -1,11 +1,11 @@
+import {SLICE_NAME} from '@config/type';
 import {
+  AppUrlType,
   DEV_MODE_API,
   PROD_MODE_API,
   STAGING_MODE_API,
-  AppModeType,
 } from '@networking/api';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {SLICE_NAME} from '@config/type';
 import {ThemeType} from '@theme';
 
 import {AppState} from './type';
@@ -20,10 +20,9 @@ const initialAppState: AppState = {
   loadingApp: false,
   showDialog: false,
   theme: 'default',
-  appMode: 'dev',
   appUrl: DEV_MODE_API,
 };
-const appModeToURL = (mode: AppModeType): string => {
+const appModeToURL = (mode: AppUrlType): string => {
   switch (mode) {
     case 'dev':
       return DEV_MODE_API;
@@ -64,10 +63,9 @@ const appSlice = createSlice({
     onEndProcess: state => {
       state.showDialog = false;
     },
-    onSetAppMode: (state, {payload}: PayloadAction<AppModeType>) => {
+    onSetAppMode: (state, {payload}: PayloadAction<AppUrlType>) => {
       const appURL = appModeToURL(payload);
       state.appUrl = appURL;
-      state.appMode = payload;
     },
     onLogout: state => {
       state.token = undefined;

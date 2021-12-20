@@ -33,10 +33,6 @@
     "errorGetPermission": "Lỗi trong quá trình kiểm tra quyền ứng dụng"
   },
   "common": {
-    "textAppMode": "Chọn chế độ sử dụng",
-    "textAppDev": "Xây dựng",
-    "textAppTest": "Kiểm thử",
-    "textAppProd": "Phát hành",
     "greetingChat": "Bây giờ các bạn có thể trò chuyện với nhau"
   },
   "dialog": {

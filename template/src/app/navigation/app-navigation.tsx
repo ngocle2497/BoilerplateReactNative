@@ -6,7 +6,6 @@ import {
   showLoading,
   SnackBar,
 } from '@components';
-import {AppMode} from '@library/components/app-mode';
 import {ImageTransition} from '@library/components/light-box/image-transition';
 import {NavigationContainer} from '@react-navigation/native';
 import {onLoadApp} from '@store/app-redux/reducer';
@@ -20,9 +19,7 @@ import {RootNavigation} from './root-navigator';
 
 export const AppContainer = () => {
   // state
-  const {token, appMode, loadingApp, showDialog, theme} = useSelector(
-    x => x.app,
-  );
+  const {token, loadingApp, showDialog, theme} = useSelector(x => x.app);
 
   // effect
   useEffect(() => {
@@ -59,7 +56,6 @@ export const AppContainer = () => {
             <ProgressDialog />
             <SnackBar />
             <ImageTransition />
-            {appMode !== 'prod' && <AppMode {...{appMode}} />}
           </>
         )}
         <RXStore />

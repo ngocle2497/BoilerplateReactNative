@@ -1,12 +1,19 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect} from 'react';
 import {useWindowDimensions} from 'react-native';
 import Animated, {
+  AnimationCallback,
+  Easing,
   interpolate,
   interpolateColor,
   measure,
   useAnimatedRef,
   useDerivedValue,
   useSharedValue,
+  withDelay,
+  withSpring,
+  WithSpringConfig,
+  withTiming,
+  WithTimingConfig,
 } from 'react-native-reanimated';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -127,4 +134,67 @@ export const useVector = ({x, y}: Vector) => {
   const ox = useSharedValue(x);
   const oy = useSharedValue(y);
   return [ox, oy];
+};
+
+type UseTimingParams = {
+  toValue?: number;
+  from?: number;
+  config?: WithTimingConfig;
+  callback?: AnimationCallback;
+  delay?: number;
+};
+export const useTiming = ({
+  callback,
+  config,
+  from = 0,
+  toValue = 1,
+  delay = 0,
+}: UseTimingParams = {}) => {
+  const progress = useSharedValue(from);
+
+  // effect
+  useEffect(() => {
+    progress.value = withDelay(
+      delay,
+      withTiming(
+        toValue,
+        Object.assign(
+          {
+            duration: 500,
+            easing: Easing.bezier(0.33, 0.01, 0, 1),
+          },
+          config,
+        ),
+        callback,
+      ),
+    );
+  }, []);
+
+  // result
+  return progress;
+};
+
+type UseSpringParams = {
+  toValue?: number;
+  from?: number;
+  config?: WithSpringConfig;
+  callback?: AnimationCallback;
+  delay?: number;
+};
+export const useSpring = ({
+  callback,
+  config,
+  from = 0,
+  toValue = 1,
+  delay = 0,
+}: UseSpringParams = {}) => {
+  const progress = useSharedValue(from);
+
+  // effect
+  useEffect(() => {
+    progress.value = withDelay(delay, withSpring(toValue, config, callback));
+  }, []);
+
+  // result
+  return progress;
 };
