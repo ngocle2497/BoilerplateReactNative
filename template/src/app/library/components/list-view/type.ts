@@ -1,12 +1,16 @@
+import {CustomOmit} from '@common';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {FlatListProps} from 'react-native';
 
-export interface ListViewProps extends FlatListProps<any> {
+export type ListViewProps = CustomOmit<
+  FlatListProps<any>,
+  'onRefresh' | 'refreshControl' | 'refreshing'
+> & {
   /**
    * Function when refreshing
    * @default undefined
    */
-  onRefreshing?: () => void;
+  onRefresh?: () => void;
 
   /**
    * Function when scroll to end
@@ -31,4 +35,4 @@ export interface ListViewProps extends FlatListProps<any> {
    * @default true
    */
   canRefresh?: boolean;
-}
+};

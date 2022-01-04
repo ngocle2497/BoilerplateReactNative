@@ -53,15 +53,16 @@ export const handleQuery = (
   url: string,
   query: {[key: string]: string | number},
 ) => {
-  if (Object.keys(query).length <= 0) {
+  if (!query || Object.keys(query).length <= 0) {
     return url;
   }
   let resUrl = url;
-  Object.keys(query).forEach(k => {
-    resUrl = replaceAll(resUrl, `:${k}`, String(query[k]));
-  });
+    Object.keys(query).forEach(k => {
+      resUrl = replaceAll(resUrl, `:${k}`, String(query[k]));
+    });
   return resUrl;
 };
+
 export const handleParameter = <T extends ParamsNetwork>(
   props: T,
   method: Method,

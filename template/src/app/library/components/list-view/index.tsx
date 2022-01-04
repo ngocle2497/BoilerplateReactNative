@@ -8,7 +8,7 @@ const ListViewComponent = (props: ListViewProps) => {
   // state
   const {
     onLoadMore,
-    onRefreshing,
+    onRefresh,
     canRefresh = true,
     canLoadMore = false,
     refreshing = false,
@@ -21,23 +21,19 @@ const ListViewComponent = (props: ListViewProps) => {
     }
   }, [canLoadMore, onLoadMore]);
 
-  const refresh = useCallback(() => {
-    if (onRefreshing && typeof onRefreshing === 'function') {
-      onRefreshing();
-    }
-  }, [onRefreshing]);
-
   // render
   return (
     <FlatList
       refreshControl={
         canRefresh ? (
-          <RefreshControl refreshing={refreshing} onRefresh={refresh} />
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         ) : undefined
       }
       onEndReached={loadMore}
       onEndReachedThreshold={0.001}
       {...props}
+      onRefresh={undefined}
+      refreshing={undefined}
     />
   );
 };
