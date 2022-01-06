@@ -12,6 +12,7 @@
         "alias": {
           "@assets": "./src/app/assets",
           "@common": "./src/app/common",
+          "@typed-redux-saga": "./src/app/common/typed-redux-saga",
           "@animated": "./src/app/common/animated",
           "@config": "./src/app/config",
           "@features": "./src/app/features",

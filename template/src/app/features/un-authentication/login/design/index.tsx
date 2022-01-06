@@ -196,9 +196,9 @@ const LoginComponent = () => {
         label="Float"
         type={'group'}
         actions={[
-          {icon: 'app_dev', label: 'Icon1'},
-          {icon: 'app_prod', label: 'Icon2'},
-          {icon: 'app_test', label: 'Icon3'},
+          {icon: 'home', label: 'Icon1'},
+          {icon: 'search', label: 'Icon2'},
+          {icon: 'send', label: 'Icon3'},
         ]}
       />
     </Block>

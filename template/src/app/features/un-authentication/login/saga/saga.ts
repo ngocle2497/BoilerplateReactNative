@@ -1,25 +1,24 @@
-import {onCheckType} from '@common';
-import {ApiConstants, ServiceSaga} from '@networking';
+import {ApiConstants, NetWorkResponseType, NetWorkService} from '@networking';
+import {onEndProcess, onStartProcess} from '@store/app-redux/reducer';
+import {call, put} from '@typed-redux-saga';
 import {Action} from 'redux';
-import {call, put} from 'redux-saga/effects';
 
 import {actions} from '../redux/reducer';
 
 export function* onLogin(action: Action) {
   if (actions.onLogin.match(action)) {
-    const {body, onFailure, onSucceeded} = action.payload;
-    yield put(actions.onStart());
-    const response = yield* ServiceSaga.Post({url: ApiConstants.LOGIN, body});
+    const {body} = action.payload;
+    yield* put(onStartProcess());
+    const response = yield* call<NetWorkResponseType<any>>(
+      NetWorkService.Post,
+      {
+        url: ApiConstants.LOGIN,
+        body,
+      },
+    );
+    yield* put(onEndProcess());
     if (response) {
-      if (response.data) {
-        if (onCheckType(onSucceeded, 'function')) {
-          yield call(onSucceeded);
-        }
-      } else {
-        if (onCheckType(onFailure, 'function')) {
-          yield call(onFailure, response.msg ?? '');
-        }
-      }
+      /// TODO
     }
   }
 }

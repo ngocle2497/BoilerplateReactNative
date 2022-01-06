@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {AppState} from '@store/app-redux/type';
-import {dispatch} from '@common';
+import {dispatch, getState} from '@common';
 import {RESULT_CODE_PUSH_OUT, TIME_OUT} from '@config/api';
 import {ParamsNetwork, ResponseBase} from '@config/type';
-import {RootState} from '@store/all-reducers';
 import {onSetToken} from '@store/app-redux/reducer';
+import {AppState} from '@store/app-redux/type';
 import Axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
 import {StyleSheet} from 'react-native';
-import {select} from 'redux-saga/effects';
 
 import {ApiConstants} from './api';
 import {
@@ -56,11 +54,8 @@ async function refreshToken(originalRequest: any) {
 }
 
 // base
-function* Request<T = unknown>(
-  config: AxiosRequestConfig,
-  isCheckOut = true,
-): Generator<unknown, ResponseBase<T>, any> {
-  const {token, appUrl}: AppState = yield select((x: any) => x.app);
+function Request<T = unknown>(config: AxiosRequestConfig, isCheckOut = true) {
+  const {token, appUrl}: AppState = getState('app');
   const defaultConfig: AxiosRequestConfig = {
     baseURL: appUrl,
     timeout: TIME_OUT,
@@ -69,74 +64,68 @@ function* Request<T = unknown>(
       [tokenKeyHeader]: token ?? '',
     },
   };
-  return yield AxiosInstance.request(
-    StyleSheet.flatten([defaultConfig, config]),
-  )
-    .then((res: AxiosResponse<T>) => {
-      const result = handleResponseAxios(res);
-      return result;
-    })
-    .catch((error: AxiosError) => {
-      const result = handleErrorAxios(error);
-      if (!isCheckOut) {
-        return result;
-      }
-      if (result.code === RESULT_CODE_PUSH_OUT && isCheckOut) {
-        onPushLogout();
-        return null;
-      } else {
-        return result;
-      }
-    });
+  return new Promise<ResponseBase<T> | null>(rs => {
+    AxiosInstance.request(StyleSheet.flatten([defaultConfig, config]))
+      .then((res: AxiosResponse<T>) => {
+        const result = handleResponseAxios(res);
+        rs(result);
+      })
+      .catch((error: AxiosError) => {
+        const result = handleErrorAxios(error);
+        if (!isCheckOut) {
+          rs(result);
+        }
+        if (result.code === RESULT_CODE_PUSH_OUT && isCheckOut) {
+          onPushLogout();
+          rs(null);
+        } else {
+          rs(result);
+        }
+      });
+  });
 }
 
 // get
-function* Get<T>(
-  params: ParamsNetwork,
-): Generator<unknown, ResponseBase<T>, any> {
-  return yield Request<T>(handleParameter(params, 'GET'));
+async function Get<T>(params: ParamsNetwork) {
+  return Request<T>(handleParameter(params, 'GET'));
 }
 
 // post
-function* Post<T>(
-  params: ParamsNetwork,
-): Generator<unknown, ResponseBase<T>, any> {
-  return yield Request<T>(handleParameter(params, 'POST'));
+async function Post<T>(params: ParamsNetwork) {
+  return Request<T>(handleParameter(params, 'POST'));
 }
 
-type ParameterPostFile = AxiosRequestConfig & ParamsNetwork;
-// post file
-function* PostWithFile<T>(
-  params: ParamsNetwork,
-): Generator<unknown, ResponseBase<T>, any> {
-  const {token}: AppState = yield select((x: RootState) => x.app);
+type ParameterPostFormData = AxiosRequestConfig & ParamsNetwork;
+// post FormData
+async function PostFormData<T>(params: ParamsNetwork) {
+  const {token}: AppState = getState('app');
   const headers: AxiosRequestConfig['headers'] = {
     token: token ?? '',
     'Content-Type': 'multipart/form-data',
   };
-  return yield Request<T>(
-    handleParameter<ParameterPostFile>({...params, headers}, 'POST'),
+  return Request<T>(
+    handleParameter<ParameterPostFormData>({...params, headers}, 'POST'),
   );
 }
 
 // put
-function* Put<T>(
-  params: ParamsNetwork,
-): Generator<unknown, ResponseBase<T>, any> {
-  return yield Request<T>(handleParameter(params, 'PUT'));
+async function Put<T>(params: ParamsNetwork) {
+  return Request<T>(handleParameter(params, 'PUT'));
 }
 
 // delete
-function* Delete<T>(
-  params: ParamsNetwork,
-): Generator<unknown, ResponseBase<T>, any> {
-  return yield Request<T>(handleParameter(params, 'DELETE'));
+async function Delete<T>(params: ParamsNetwork) {
+  return Request<T>(handleParameter(params, 'DELETE'));
 }
-export const ServiceSaga = {
+export type NetWorkResponseType<T> = (
+  params: ParamsNetwork,
+) => Promise<ResponseBase<T> | null>;
+
+export const NetWorkService = {
   Get,
   Post,
   Put,
   Delete,
-  PostWithFile,
+  PostFormData,
   Request,
 };

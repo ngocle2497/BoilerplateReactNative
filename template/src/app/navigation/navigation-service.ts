@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {CommonActions, NavigationContainerRef} from '@react-navigation/native';
 import {createRef} from 'react';
 

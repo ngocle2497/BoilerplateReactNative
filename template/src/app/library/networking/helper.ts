@@ -8,7 +8,7 @@ import {
   CODE_TIME_OUT,
   CODE_SUCCESS,
 } from '@config/api';
-import {HandleErrorApi, replaceAll} from '@common';
+import {HandleErrorApi, logout, replaceAll} from '@common';
 
 import {translate} from '../utils';
 const responseDefault: ResponseBase<any> = {
@@ -19,9 +19,10 @@ const responseDefault: ResponseBase<any> = {
 };
 
 export const onPushLogout = async () => {
+  logout();
   // TODO
   /**
-   * do something to logout
+   * do something when logout
    */
 };
 
@@ -57,9 +58,9 @@ export const handleQuery = (
     return url;
   }
   let resUrl = url;
-    Object.keys(query).forEach(k => {
-      resUrl = replaceAll(resUrl, `:${k}`, String(query[k]));
-    });
+  Object.keys(query).forEach(k => {
+    resUrl = replaceAll(resUrl, `:${k}`, String(query[k]));
+  });
   return resUrl;
 };
 

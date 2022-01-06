@@ -168,6 +168,7 @@ export const useTiming = ({
         callback,
       ),
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // result
@@ -193,6 +194,7 @@ export const useSpring = ({
   // effect
   useEffect(() => {
     progress.value = withDelay(delay, withSpring(toValue, config, callback));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // result

@@ -1,5 +1,11 @@
+import {remove} from '@utils';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {Alert, Platform} from 'react-native';
+import {R} from '@assets/value';
+import {onLogout} from '@store/app-redux/reducer';
+
+import {dispatch} from '../redux';
+
 type TypesBase =
   | 'bigint'
   | 'boolean'
@@ -20,3 +26,8 @@ export const onCheckType = (
   return typeof source === type;
 };
 export const isIos = Platform.OS === 'ios';
+
+export const logout = () => {
+  dispatch(onLogout());
+  remove(R.strings.TOKEN);
+};

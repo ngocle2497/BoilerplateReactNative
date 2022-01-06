@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable max-len */
 /* eslint-disable no-useless-escape */
 import equals from 'react-fast-compare';
 export const onChangeAlias = (value: string | number): string => {
