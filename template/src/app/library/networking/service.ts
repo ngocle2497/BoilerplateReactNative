@@ -100,7 +100,7 @@ type ParameterPostFormData = AxiosRequestConfig & ParamsNetwork;
 async function PostFormData<T>(params: ParamsNetwork) {
   const {token}: AppState = getState('app');
   const headers: AxiosRequestConfig['headers'] = {
-    token: token ?? '',
+    [tokenKeyHeader]: token ?? '',
     'Content-Type': 'multipart/form-data',
   };
   return Request<T>(

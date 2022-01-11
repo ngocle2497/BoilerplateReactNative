@@ -4,7 +4,9 @@ import Animated, {
   useDerivedValue,
   useSharedValue,
   withSpring,
+  WithSpringConfig,
   withTiming,
+  WithTimingConfig,
 } from 'react-native-reanimated';
 
 import {sharedBin} from './math';
@@ -14,7 +16,7 @@ import {sharedBin} from './math';
  */
 export const useSharedTransition = (
   state: boolean | number,
-  config?: Animated.WithTimingConfig,
+  config?: WithTimingConfig,
 ): Animated.SharedValue<number> => {
   const value = useSharedValue(0);
   useEffect(() => {
@@ -36,7 +38,7 @@ export const useSharedTransition = (
  */
 export const useSharedSpringTransition = (
   state: boolean,
-  config?: Animated.WithSpringConfig,
+  config?: WithSpringConfig,
 ): Animated.SharedValue<number> => {
   const value = useSharedValue(0);
   useEffect(() => {

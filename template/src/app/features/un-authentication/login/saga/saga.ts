@@ -9,7 +9,7 @@ export function* onLogin(action: Action) {
   if (actions.onLogin.match(action)) {
     const {body} = action.payload;
     yield* put(onStartProcess());
-    const response = yield* call<NetWorkResponseType<any>>(
+    const response = yield* call<NetWorkResponseType<unknown>>(
       NetWorkService.Post,
       {
         url: ApiConstants.LOGIN,
