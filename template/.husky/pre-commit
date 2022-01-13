@@ -16,7 +16,7 @@ AUTHORS=(
 #   echo
 #   echo "Fix your username by using:"
 #   echo "git config user.name helloworld"
-#   echo "git config user.email helloworld@gmail.com>"
+#   echo "git config user.email helloworld@gmail.com"
 #   echo "Then try commiting again"
 #   echo ⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫
 #   exit 1
