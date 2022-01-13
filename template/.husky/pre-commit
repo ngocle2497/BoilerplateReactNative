@@ -5,18 +5,18 @@ yarn lint
 # yarn lint-staged
 
 AUTHORS=(
-  'Le Hong Ngoc:lhngoc2497@gmail.com'
+  'helloworld:helloworld@gmail.com'
 )
 # AUTHOR_CONFIG="$GIT_AUTHOR_NAME:$GIT_AUTHOR_EMAIL"
 
 # if [[ ! " ${AUTHORS[*]} " =~ " ${AUTHOR_CONFIG} "]]; then
 #   echo ⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫
 #   echo "Your name should be the same as your username."
-#   echo "Example: helloworld <someone@vmodev.com>"
+#   echo "Example: helloworld <helloworld@gmail.com>"
 #   echo
 #   echo "Fix your username by using:"
-#   echo "git config user.name someone"
-#   echo "git config user.email someone@vmodev.com>"
+#   echo "git config user.name helloworld"
+#   echo "git config user.email helloworld@gmail.com>"
 #   echo "Then try commiting again"
 #   echo ⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫⛔️🚫
 #   exit 1
