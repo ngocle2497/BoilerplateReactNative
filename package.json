@@ -1,6 +1,6 @@
 {
   "name": "rn-boiler-template",
-  "version": "1.66.25",
+  "version": "1.66.26",
   "description": "Clean and minimalist React Native template for a quick start with TypeScript and components",
   "scripts": {
     "test": "exit 0"
@@ -11,19 +11,19 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https:https://github.com/hngocl/BoilerplateReactNative"
+    "url": "https://github.com/MasonLe2497/BoilerplateReactNative"
   },
   "keywords": [
     "react-native",
     "typescript",
-    "jest",
     "template",
-    "boilerplate"
+    "boilerplate",
+    "starter"
   ],
-  "author": "HNgocL <lhngoc2497@gmail.com>",
+  "author": "MasonLe <lhngoc2497@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hngocl/BoilerplateReactNative/issues"
+    "url": "https://github.com/MasonLe2497/BoilerplateReactNative/issues"
   },
-  "homepage": "https://github.com/hngocl/BoilerplateReactNative#readme"
+  "homepage": "https://github.com/MasonLe2497/BoilerplateReactNative#readme"
 }
