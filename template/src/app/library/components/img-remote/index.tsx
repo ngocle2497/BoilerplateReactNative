@@ -1,32 +1,29 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {useSharedTransition} from '@animated';
-import {enhance, useAsyncState, useIsMounted, useMounted} from '@common';
-import React, {memo, useCallback, useEffect, useMemo, useState} from 'react';
+import {enhance, useAsyncState, useMounted} from '@common';
+import React, {memo, useCallback, useMemo, useState} from 'react';
 import equals from 'react-fast-compare';
 import {StyleProp, StyleSheet, View} from 'react-native';
 import {Blurhash} from 'react-native-blurhash';
 import FastImage, {ImageStyle} from 'react-native-fast-image';
 import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 
-import {ImageRemoteProps} from './type';
 import {styles} from './styles';
+import {ImageRemoteProps} from './type';
 
 const ImageRemoteComponent = (props: ImageRemoteProps) => {
   // state
   const {
     style: styleOverride = {},
     source,
-    blurHashOnLoad = 'LGFFaXYk^6#M@-5c,1J5@[or[Q6.',
+    blurHashOnLoad = 'L9AB*A%LPqys8_H=yDR5nMMeVXR5',
+    thumbBlurHash,
     resizeMode = 'cover',
     containerStyle,
     childrenError,
     childrenOnload,
     ...rest
   } = props;
-  const isMounted = useIsMounted();
-  const [thumbBlurHash, setThumbBlurHash] = useState<string | undefined>(
-    undefined,
-  );
   const [loadSucceeded, setLoadSucceeded] = useState<boolean>(false);
   const [loadThumbSucceeded, setLoadThumbSucceeded] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
@@ -74,15 +71,6 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
   const imageBlurStyle = useAnimatedStyle(() => ({
     opacity: opacityBlur.value,
   }));
-
-  // effect
-  useEffect(() => {
-    Blurhash.encode(source, 4, 3).then(res => {
-      if (isMounted.current) {
-        setThumbBlurHash(res);
-      }
-    });
-  }, []);
 
   // render
   return (
