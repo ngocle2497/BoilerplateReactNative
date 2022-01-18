@@ -1,1 +1,2 @@
-export * from './app-module';
+import * as AppModule from './app-module';
+export {AppModule};

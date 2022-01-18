@@ -2,8 +2,6 @@
 //  MMKKVStorage.swift
 //  HelloWorld
 //
-//  Created by HNgocL on 10/4/21.
-//
 
 import Foundation
 

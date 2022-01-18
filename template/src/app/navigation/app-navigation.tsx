@@ -1,4 +1,4 @@
-import {dispatch, isIos, RXStore, useSelector} from '@common';
+import {dispatch, AppModule, RXStore, useSelector} from '@common';
 import {
   hideLoading,
   PortalHost,
@@ -12,7 +12,6 @@ import {onLoadApp} from '@store/app-redux/reducer';
 import {MyAppTheme} from '@theme';
 import React, {useEffect} from 'react';
 import {StatusBar} from 'react-native';
-import KeyboardManager from 'react-native-keyboard-manager';
 
 import {navigationRef} from './navigation-service';
 import {RootNavigation} from './root-navigator';
@@ -35,12 +34,14 @@ export const AppContainer = () => {
   }, [showDialog]);
 
   useEffect(() => {
-    if (isIos) {
-      if (theme === 'dark') {
-        KeyboardManager.setKeyboardAppearance('dark');
-      } else {
-        KeyboardManager.setKeyboardAppearance('light');
-      }
+    if (theme === 'dark') {
+      AppModule.setIQKeyboardOption({
+        keyboardAppearance: 'dark',
+      });
+    } else {
+      AppModule.setIQKeyboardOption({
+        keyboardAppearance: 'light',
+      });
     }
   }, [theme]);
 

@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-useless-escape */
 import equals from 'react-fast-compare';
+import {processColor} from 'react-native';
+
 export const onChangeAlias = (value: string | number): string => {
   let str = value + '';
   str = str.toLowerCase();
@@ -137,4 +139,11 @@ export const randomUniqueId = () => {
       v = c === 'x' ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
+};
+export const hexStringFromCSSColor = (color: string) => {
+  const processedColor = processColor(color);
+  const colorStr = `${(processedColor ?? '').toString(16)}`;
+  const withoutAlpha = colorStr.substring(2, colorStr.length);
+  const alpha = colorStr.substring(0, 2);
+  return `#${withoutAlpha}${alpha}`;
 };

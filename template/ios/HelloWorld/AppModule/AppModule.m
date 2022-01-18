@@ -2,8 +2,6 @@
 //  AppModule.m
 //  HelloWorld
 //
-//  Created by HNgocL on 6/4/21.
-//
 
 
 #import <Foundation/Foundation.h>
@@ -17,6 +15,7 @@ RCT_EXTERN__BLOCKING_SYNCHRONOUS_METHOD(getAppName)
 RCT_EXTERN__BLOCKING_SYNCHRONOUS_METHOD(getDeviceId)
 RCT_EXTERN_METHOD(registerPhotosChanges)
 RCT_EXTERN_METHOD(clearCache)
+RCT_EXTERN_METHOD(setIQKeyboardOption:(NSDictionary*) options)
 RCT_EXTERN_METHOD(clearNotification)
 RCT_EXTERN_METHOD(setBadges: (double)count)
 RCT_EXTERN_METHOD(fixRotation: (NSString * )path width: (double) width height: (double) height callback: (RCTResponseSenderBlock) callback)

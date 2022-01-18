@@ -2,11 +2,11 @@
 //  AppModule.swift
 //  HelloWorld
 //
-//  Created by HNgocL on 6/4/21.
-//
 
 import Foundation
+import IQKeyboardManagerSwift
 import Photos
+import React
 import UIKit
 
 @objc(AppModule)
@@ -232,4 +232,156 @@ class AppModule: RCTEventEmitter {
     resolve(true)
   }
   
+  @objc
+  func setIQKeyboardOption(
+    _ options: NSDictionary
+  ) {
+    DispatchQueue.main.async {
+    if let enable = options["enable"] as? Bool {
+      IQKeyboardManager.shared.enable = enable
+    }
+      
+    if let layoutIfNeededOnUpdate = options["layoutIfNeededOnUpdate"] as? Bool {
+        IQKeyboardManager.shared.layoutIfNeededOnUpdate = layoutIfNeededOnUpdate
+    }
+     
+    if let enableDebugging = options["enableDebugging"] as? Bool {
+      IQKeyboardManager.shared.enableDebugging = enableDebugging
+    }
+
+    if let keyboardDistanceFromTextField = options["keyboardDistanceFromTextField"] as? Float {
+      IQKeyboardManager.shared.keyboardDistanceFromTextField = CGFloat(
+        keyboardDistanceFromTextField)
+    }
+
+    if let enableAutoToolbar = options["enableAutoToolbar"] as? Bool {
+      IQKeyboardManager.shared.enableAutoToolbar = enableAutoToolbar
+    }
+    
+    if let toolbarDoneBarButtonItemText = options["toolbarDoneBarButtonItemText"] as? String {
+      IQKeyboardManager.shared.toolbarDoneBarButtonItemText = toolbarDoneBarButtonItemText
+    }
+    
+    if let toolbarManageBehaviourBy = options["toolbarManageBehaviourBy"] as? String {
+      switch toolbarManageBehaviourBy {
+      case "subviews":
+        IQKeyboardManager.shared.toolbarManageBehaviour = .bySubviews
+      case "tag":
+        IQKeyboardManager.shared.toolbarManageBehaviour = .byTag
+      case "position":
+        IQKeyboardManager.shared.toolbarManageBehaviour = .byPosition
+      default:
+        print("\(toolbarManageBehaviourBy) is not supported")
+        break
+      }
+    }
+    
+    if let toolbarPreviousNextButtonEnable = options["toolbarPreviousNextButtonEnable"] as? Bool {
+      if toolbarPreviousNextButtonEnable {
+        IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses.append(RCTRootView.self)
+      } else {
+        if let index = IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses.firstIndex(
+          where: { element in
+            return element == RCTRootView.self
+          })
+        {
+          IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses.remove(at: index)
+        }
+      }
+    }
+    
+    if let toolbarTintColor = options["toolbarTintColor"] as? String {
+      IQKeyboardManager.shared.toolbarTintColor = UIColor(hex: toolbarTintColor)
+    }
+    
+    if let toolbarBarTintColor = options["toolbarBarTintColor"] as? String {
+      IQKeyboardManager.shared.toolbarBarTintColor = UIColor(hex: toolbarBarTintColor)
+    }
+    
+    if let shouldShowToolbarPlaceholder = options["shouldShowToolbarPlaceholder"] as? Bool {
+      IQKeyboardManager.shared.shouldShowToolbarPlaceholder = shouldShowToolbarPlaceholder
+    }
+    
+    if let overrideKeyboardAppearance = options["overrideKeyboardAppearance"] as? Bool {
+      IQKeyboardManager.shared.overrideKeyboardAppearance = overrideKeyboardAppearance
+    }
+    
+    if let keyboardAppearance = options["keyboardAppearance"] as? String {
+      switch keyboardAppearance {
+      case "default":
+        IQKeyboardManager.shared.keyboardAppearance = .default
+      case "light":
+        IQKeyboardManager.shared.keyboardAppearance = .light
+      case "dark":
+        IQKeyboardManager.shared.keyboardAppearance = .dark
+      default:
+        print("\(keyboardAppearance) is not supported")
+        break
+      }
+    }
+    
+    if let shouldResignOnTouchOutside = options["shouldResignOnTouchOutside"] as? Bool {
+      IQKeyboardManager.shared.shouldResignOnTouchOutside = shouldResignOnTouchOutside
+    }
+    
+    if let shouldPlayInputClicks = options["shouldPlayInputClicks"] as? Bool {
+      IQKeyboardManager.shared.shouldPlayInputClicks = shouldPlayInputClicks
+    }
+    
+    if let resignFirstResponder = options["resignFirstResponder"] as? Bool {
+      if resignFirstResponder {
+        IQKeyboardManager.shared.resignFirstResponder()
+      }
+    }
+    
+    if let reloadLayoutIfNeeded = options["reloadLayoutIfNeeded"] as? Bool {
+      if reloadLayoutIfNeeded {
+        IQKeyboardManager.shared.reloadLayoutIfNeeded()
+      }
+    }
+    }
+  }
+
+  @objc
+  func setEnableIQKeyboard(
+    _ enable: Bool
+  ) {
+    DispatchQueue.main.async {
+      if(enable){
+        IQKeyboardManager.shared.layoutIfNeededOnUpdate = true
+      }
+      IQKeyboardManager.shared.enable = enable
+    }
+
+  }
+}
+extension UIColor {
+  public convenience init?(hex: String) {
+    let r: CGFloat
+    let g: CGFloat
+    let b: CGFloat
+    let a: CGFloat
+
+    if hex.hasPrefix("#") {
+      let start = hex.index(hex.startIndex, offsetBy: 1)
+      let hexColor = String(hex[start...])
+
+      if hexColor.count == 8 {
+        let scanner = Scanner(string: hexColor)
+        var hexNumber: UInt64 = 0
+
+        if scanner.scanHexInt64(&hexNumber) {
+          r = CGFloat((hexNumber & 0xff00_0000) >> 24) / 255
+          g = CGFloat((hexNumber & 0x00ff_0000) >> 16) / 255
+          b = CGFloat((hexNumber & 0x0000_ff00) >> 8) / 255
+          a = CGFloat(hexNumber & 0x0000_00ff) / 255
+
+          self.init(red: r, green: g, blue: b, alpha: a)
+          return
+        }
+      }
+    }
+
+    return nil
+  }
 }

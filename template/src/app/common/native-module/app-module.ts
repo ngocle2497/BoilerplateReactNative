@@ -6,6 +6,8 @@ import {
   NativeModules,
 } from 'react-native';
 
+import {hexStringFromCSSColor} from '../string';
+
 const {AppModule} = NativeModules;
 
 export const getVersion = (): string => {
@@ -222,4 +224,47 @@ export const MMKVStorage = {
     );
     return res;
   },
+};
+
+export const setEnableIQKeyboard = (enable: boolean) => {
+  if (!isIos) {
+    return;
+  }
+  AppModule.setIQKeyboardOption({enable});
+};
+
+export const setIQKeyboardOption = (options: {
+  enable?: boolean;
+  layoutIfNeededOnUpdate?: boolean;
+  enableDebugging?: boolean;
+  keyboardDistanceFromTextField?: number;
+  enableAutoToolbar?: boolean;
+  toolbarDoneBarButtonItemText?: string;
+  toolbarManageBehaviourBy?: 'subviews' | 'tag' | 'position';
+  toolbarPreviousNextButtonEnable?: boolean;
+  toolbarTintColor?: string;
+  toolbarBarTintColor?: string;
+  shouldShowToolbarPlaceholder?: boolean;
+  overrideKeyboardAppearance?: boolean;
+  keyboardAppearance?: 'default' | 'light' | 'dark';
+  shouldResignOnTouchOutside?: boolean;
+  shouldPlayInputClicks?: boolean;
+  resignFirstResponder?: boolean;
+  reloadLayoutIfNeeded?: boolean;
+}) => {
+  if (!isIos) {
+    return;
+  }
+  const actualOption = {...options};
+  if (options.toolbarBarTintColor) {
+    actualOption.toolbarBarTintColor = hexStringFromCSSColor(
+      options.toolbarBarTintColor,
+    );
+  }
+  if (options.toolbarTintColor) {
+    actualOption.toolbarTintColor = hexStringFromCSSColor(
+      options.toolbarTintColor,
+    );
+  }
+  AppModule.setIQKeyboardOption(actualOption);
 };

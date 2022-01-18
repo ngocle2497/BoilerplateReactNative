@@ -1,5 +1,6 @@
 import {sharedClamp, sharedTiming} from '@animated';
 import {
+  AppModule,
   CustomOmit,
   enhance,
   isIos,
@@ -23,7 +24,6 @@ import {
   ViewStyle,
 } from 'react-native';
 import {PanGestureHandler} from 'react-native-gesture-handler';
-import KeyBoardManager from 'react-native-keyboard-manager';
 import Animated, {
   runOnJS,
   useAnimatedGestureHandler,
@@ -137,7 +137,7 @@ const ModalContentComponent = forwardRef(
 
     // function
     const onEndAnimatedClose = useCallback(
-      (isFinished: boolean) => {
+      (isFinished?: boolean) => {
         'worklet';
         if (isFinished) {
           progressIn.value = 0;
@@ -153,7 +153,7 @@ const ModalContentComponent = forwardRef(
     );
 
     const onEndAnimatedOpen = useCallback(
-      (isFinished: boolean) => {
+      (isFinished?: boolean) => {
         'worklet';
         if (isFinished) {
           if (typeof onModalShow === 'function') {
@@ -324,14 +324,10 @@ const ModalContentComponent = forwardRef(
     useDisableBackHandler(true, onBackButtonPress);
 
     useEffect(() => {
-      if (isIos) {
-        KeyBoardManager.setEnable(false);
-      }
+      AppModule.setEnableIQKeyboard(false);
       openModal();
       return () => {
-        if (isIos) {
-          KeyBoardManager.setEnable(true);
-        }
+        AppModule.setEnableIQKeyboard(true);
       };
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
