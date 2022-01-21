@@ -40,7 +40,7 @@
     "react-hook-form": "^7.23.0",
     "react-i18next": "^11.11.4",
     "react-native": "0.66.4",
-    "react-native-blurhash": "1.1.8",
+    "react-native-blurhash": "1.1.5",
     "react-native-bootsplash": "^3.2.6",
     "react-native-fast-image": "^8.5.11",
     "react-native-gesture-handler": "^1.10.3",
