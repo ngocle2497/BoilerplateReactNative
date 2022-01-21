@@ -11,7 +11,6 @@
     "android-release": "clean-android && npx react-native run-android --variant=release",
     "start": "npx react-native start --reset-cache",
     "format": "prettier --write **/*.{ts,tsx,js,json,md}",
-    "format:java": "node ./scripts/format-java.js",
     "type:check": "yarn tsc --noEmit --skipLibCheck",
     "test": "jest",
     "build:apk": "fastlane android build_apk",
