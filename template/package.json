@@ -11,7 +11,8 @@
     "android-release": "clean-android && npx react-native run-android --variant=release",
     "start": "npx react-native start --reset-cache",
     "format": "prettier --write **/*.{ts,tsx,js,json,md}",
-    "check-code": "prettier --check **/*.{ts,tsx,js,json,md}",
+    "format:java": "node ./scripts/format-java.js",
+    "type:check": "yarn tsc --noEmit --skipLibCheck",
     "test": "jest",
     "build:apk": "fastlane android build_apk",
     "build:ipa": "fastlane android build_ipa",
@@ -22,30 +23,31 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*": [
-      "yarn lint"
+    "*.{ts,tsx,js}": [
+      "eslint  --ext"
     ]
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.8.8",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/netinfo": "^7.1.6",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/stack": "^6.0.11",
     "@reduxjs/toolkit": "^1.7.1",
-    "axios": "^0.24.0",
+    "axios": "^0.25.0",
     "i18next": "^20.4.0",
     "moment": "^2.29.1",
     "react": "17.0.2",
     "react-fast-compare": "^3.2.0",
-    "react-hook-form": "^7.23.0",
+    "react-hook-form": "^7.24.2",
     "react-i18next": "^11.11.4",
     "react-native": "0.66.4",
     "react-native-blurhash": "1.1.5",
     "react-native-bootsplash": "^3.2.6",
     "react-native-fast-image": "^8.5.11",
-    "react-native-gesture-handler": "^1.10.3",
+    "react-native-gesture-handler": "^2.2.0",
     "react-native-linear-gradient": "^2.5.6",
-    "react-native-reanimated": "^2.2.4",
+    "react-native-reanimated": "^2.3.1",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.10.1",
     "react-native-svg": "^12.1.1",
@@ -60,10 +62,10 @@
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
     "@types/jest": "^26.0.20",
-    "@types/react-native": "^0.63.51",
-    "@types/react-redux": "^7.1.16",
+    "@types/react-native": "^0.66.4",
+    "@types/react-redux": "^7.1.22",
     "@types/react-test-renderer": "^16.9.2",
-    "@types/redux-logger": "^3.0.8",
+    "@types/redux-logger": "^3.0.9",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
     "babel-jest": "^26.6.3",
@@ -71,15 +73,15 @@
     "babel-plugin-transform-remove-console": "^6.9.4",
     "eslint": "^7.14.0",
     "eslint-plugin-import": "^2.22.1",
+    "husky": "^7.0.4",
     "jest": "^26.6.3",
+    "lint-staged": "^12.2.2",
     "metro-react-native-babel-preset": "^0.66.2",
+    "patch-package": "^6.4.7",
     "prettier": "^2.3.0",
-    "react-native-svg-transformer": "^0.14.3",
+    "react-native-svg-transformer": "^1.0.0",
     "react-test-renderer": "17.0.2",
-    "typescript": "^4.2.3",
-    "lint-staged": "^11.2.6",
-    "husky": "^7.0.0",
-    "patch-package": "^6.4.7"
+    "typescript": "^4.2.3"
   },
   "resolutions": {
     "@types/react": "^17"

@@ -1,10 +1,10 @@
-import {yupResolver} from '@common';
 import {FormLoginType} from '@model/login';
 import React, {memo, useCallback, useMemo} from 'react';
 import isEqual from 'react-fast-compare';
 import {FormProvider, useForm} from 'react-hook-form';
 import {Button} from 'react-native';
 import * as yup from 'yup';
+import {yupResolver} from '@hookform/resolvers/yup';
 
 import {Input} from './input';
 

@@ -1,8 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn lint
-# yarn lint-staged
+yarn lint-staged
+yarn type:check
 
 AUTHORS=(
   'helloworld:helloworld@gmail.com'

@@ -9,7 +9,6 @@ import {
   FAB,
   HelperText,
   LightBox,
-  ModalAppMode,
   Otp,
   Progress,
   RadioButton,
@@ -33,7 +32,6 @@ import {FormLogin} from './components/form-login';
 
 const LoginComponent = () => {
   // state
-  const _modalMode = useRef<ModalAppMode>();
   const _refAction = useRef<ActionSheet>();
   const [visible, setVisible] = useAnimatedState<boolean>(false);
   const [progress] = useState(10);
@@ -57,7 +55,6 @@ const LoginComponent = () => {
   return (
     <Block block paddingTop={0} paddingHorizontal={15}>
       <Wallpaper />
-      <ModalAppMode ref={_modalMode} />
 
       <Screen
         scroll

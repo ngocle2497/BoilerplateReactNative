@@ -13,6 +13,7 @@ import Animated, {
   useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
+  WithTimingConfig,
 } from 'react-native-reanimated';
 
 import {styles} from './styles';
@@ -26,7 +27,7 @@ export interface GestureHOCProps {
   backDropOpacity: Animated.SharedValue<number>;
 }
 
-const timingConfig: Animated.WithTimingConfig = {
+const timingConfig: WithTimingConfig = {
   duration: 300,
 };
 
@@ -81,7 +82,7 @@ export const GestureHOC = memo(
 
     // function
     const onEndAnimatedClose = useCallback(
-      (finished: boolean) => {
+      (finished?: boolean) => {
         'worklet';
         if (finished) {
           image.imageOpacity.value = 1;

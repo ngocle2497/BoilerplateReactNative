@@ -1,10 +1,5 @@
 import {SLICE_NAME} from '@config/type';
-import {
-  AppUrlType,
-  DEV_MODE_API,
-  PROD_MODE_API,
-  STAGING_MODE_API,
-} from '@networking/api';
+import {APP_URL} from '@networking/api';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ThemeType} from '@theme';
 
@@ -20,21 +15,8 @@ const initialAppState: AppState = {
   loadingApp: false,
   showDialog: false,
   theme: 'default',
-  appUrl: DEV_MODE_API,
+  appUrl: APP_URL,
 };
-const appModeToURL = (mode: AppUrlType): string => {
-  switch (mode) {
-    case 'dev':
-      return DEV_MODE_API;
-    case 'prod':
-      return PROD_MODE_API;
-    case 'staging':
-      return STAGING_MODE_API;
-    default:
-      return DEV_MODE_API;
-  }
-};
-
 const appSlice = createSlice({
   name: SLICE_NAME.APP,
   initialState: initialAppState,
@@ -63,9 +45,8 @@ const appSlice = createSlice({
     onEndProcess: state => {
       state.showDialog = false;
     },
-    onSetAppMode: (state, {payload}: PayloadAction<AppUrlType>) => {
-      const appURL = appModeToURL(payload);
-      state.appUrl = appURL;
+    onSetAppUrl: (state, {payload}: PayloadAction<string>) => {
+      state.appUrl = payload;
     },
     onLogout: state => {
       state.token = undefined;
@@ -80,7 +61,7 @@ export const {
   onEndProcess,
   onLoadApp,
   onLoadAppEnd,
-  onSetAppMode,
+  onSetAppUrl,
   onSetAppProfile,
   onSetAppTheme,
   onSetInternet,
