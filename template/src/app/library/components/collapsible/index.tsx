@@ -1,11 +1,11 @@
 import {sharedTiming, useSharedTransition} from '@animated';
-import React, {memo, useCallback, useState} from 'react';
+import React, {memo, useCallback, useEffect, useState} from 'react';
 import isEqual from 'react-fast-compare';
 import {LayoutChangeEvent, LayoutRectangle, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedStyle,
-  useDerivedValue,
+  useSharedValue,
 } from 'react-native-reanimated';
 
 import {styles} from './styles';
@@ -27,9 +27,7 @@ const CollapsibleComponent = ({
 
   // reanimated
   const progress = useSharedTransition(isShow);
-  const height = useDerivedValue(() =>
-    sharedTiming(isShow ? measured.height : 0),
-  );
+  const height = useSharedValue(0);
 
   // function
   const _onPress = useCallback(() => {
@@ -44,6 +42,15 @@ const CollapsibleComponent = ({
   const contentStyle = useAnimatedStyle(() => ({
     height: height.value,
   }));
+
+  // effect
+  useEffect(() => {
+    if (isShow) {
+      height.value = sharedTiming(measured.height);
+    } else {
+      height.value = sharedTiming(0);
+    }
+  }, [height, isShow, measured.height]);
 
   // render
   return (

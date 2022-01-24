@@ -16,6 +16,6 @@ export const styles = StyleSheet.create({
     height: 5,
     width: 50,
     borderRadius: 10,
-    color: 'black',
+    backgroundColor: 'black',
   },
 });

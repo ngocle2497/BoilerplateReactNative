@@ -9,13 +9,9 @@ import {onCheckType} from '@common';
 import React, {memo, useCallback, useEffect, useState} from 'react';
 import isEqual from 'react-fast-compare';
 import {LayoutChangeEvent, View} from 'react-native';
-import {
-  PanGestureHandler,
-  PanGestureHandlerGestureEvent,
-} from 'react-native-gesture-handler';
+import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
-  useAnimatedGestureHandler,
   useAnimatedReaction,
   useAnimatedStyle,
   useDerivedValue,
@@ -81,39 +77,27 @@ const SliderRangeComponent = ({
   );
 
   // function
-  const gestureHandlerThumbLeft = useAnimatedGestureHandler<
-    PanGestureHandlerGestureEvent,
-    {startX: number}
-  >({
-    onStart: (_, ctx) => {
-      ctx.startX = translationLeftX.value;
-    },
-    onActive: (event, ctx) => {
-      translationLeftX.value = ctx.startX + event.translationX;
-    },
-    onFinish: () => {
+  const gestureHandlerThumbLeft = Gesture.Pan()
+    .onChange(e => {
+      'worklet';
+      translationLeftX.value += e.changeX;
+    })
+    .onFinalize(() => {
       if (onChangeRange) {
         runOnJS(onChangeRange)(progress.value);
       }
-    },
-  });
+    });
 
-  const gestureHandlerThumbRight = useAnimatedGestureHandler<
-    PanGestureHandlerGestureEvent,
-    {startX: number}
-  >({
-    onStart: (_, ctx) => {
-      ctx.startX = translationRightX.value;
-    },
-    onActive: (event, ctx) => {
-      translationRightX.value = ctx.startX + event.translationX;
-    },
-    onFinish: () => {
+  const gestureHandlerThumbRight = Gesture.Pan()
+    .onChange(e => {
+      'worklet';
+      translationRightX.value += e.changeX;
+    })
+    .onFinalize(() => {
       if (onChangeRange) {
         runOnJS(onChangeRange)(progress.value);
       }
-    },
-  });
+    });
 
   const _onLayout = useCallback(
     ({
@@ -179,12 +163,12 @@ const SliderRangeComponent = ({
         <Animated.View style={[styles.wrapTrack]}>
           <Animated.View style={[styles.track, trackStyle]} />
         </Animated.View>
-        <PanGestureHandler onGestureEvent={gestureHandlerThumbLeft}>
+        <GestureDetector gesture={gestureHandlerThumbLeft}>
           <Animated.View style={[styles.thumb, thumbLeftStyle]} />
-        </PanGestureHandler>
-        <PanGestureHandler onGestureEvent={gestureHandlerThumbRight}>
+        </GestureDetector>
+        <GestureDetector gesture={gestureHandlerThumbRight}>
           <Animated.View style={[styles.thumb, thumbRightStyle]} />
-        </PanGestureHandler>
+        </GestureDetector>
       </View>
       <View style={[styles.wrapValue]}>
         <Text>{lowerBound}</Text>

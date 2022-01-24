@@ -8,8 +8,7 @@ import React, {
   useState,
 } from 'react';
 import equals from 'react-fast-compare';
-import {Text, TextInput, View} from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {Text, TouchableWithoutFeedback, TextInput, View} from 'react-native';
 
 import {Spacer} from '../spacer';
 

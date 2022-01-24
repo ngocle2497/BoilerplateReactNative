@@ -23,10 +23,9 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {PanGestureHandler} from 'react-native-gesture-handler';
+import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
-  useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
@@ -39,8 +38,8 @@ import {
   MAX_TRANSLATE,
   SWIPE_THRESHOLD,
 } from './constants';
-import {ModalProps} from './type';
 import {styles} from './styles';
+import {ModalProps} from './type';
 import {withAnimated} from './untils';
 
 const ModalContentComponent = forwardRef(
@@ -217,8 +216,8 @@ const ModalContentComponent = forwardRef(
       reBackdropOpacity,
     ]);
 
-    const onGesture = useAnimatedGestureHandler({
-      onActive: ({translationY, translationX}) => {
+    const gestureHandle = Gesture.Pan()
+      .onUpdate(({translationX, translationY}) => {
         if (swipingDirection && moveContentWhenDrag) {
           translateY.value = sharedClamp(
             translationY,
@@ -231,8 +230,8 @@ const ModalContentComponent = forwardRef(
             swipingDirection.includes('right') ? MAX_TRANSLATE : 0,
           );
         }
-      },
-      onEnd: ({translationY, translationX}) => {
+      })
+      .onEnd(({translationY, translationX}) => {
         if (swipingDirection) {
           const actualDx = Math.abs(
             sharedClamp(
@@ -257,8 +256,7 @@ const ModalContentComponent = forwardRef(
 
         translateY.value = sharedTiming(0, {duration: 150});
         translateX.value = sharedTiming(0, {duration: 150});
-      },
-    });
+      });
 
     const renderBackdrop = useCallback(() => {
       return (
@@ -284,7 +282,7 @@ const ModalContentComponent = forwardRef(
           style={[styles.content, style, reContentStyle]}>
           <Animated.View style={[wrapContentStyle]}>
             {hasGesture && (
-              <PanGestureHandler onGestureEvent={onGesture}>
+              <GestureDetector gesture={gestureHandle}>
                 <Animated.View>
                   {customGesture ? (
                     customGesture()
@@ -294,7 +292,7 @@ const ModalContentComponent = forwardRef(
                     </View>
                   )}
                 </Animated.View>
-              </PanGestureHandler>
+              </GestureDetector>
             )}
             {children}
           </Animated.View>
@@ -303,8 +301,8 @@ const ModalContentComponent = forwardRef(
     }, [
       children,
       customGesture,
+      gestureHandle,
       hasGesture,
-      onGesture,
       reContentStyle,
       style,
       wrapContentStyle,

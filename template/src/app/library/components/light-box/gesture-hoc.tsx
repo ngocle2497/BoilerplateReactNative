@@ -3,13 +3,12 @@ import React, {memo, useCallback, useEffect} from 'react';
 import isEqual from 'react-fast-compare';
 import {BackHandler, useWindowDimensions} from 'react-native';
 import FastImage, {Source} from 'react-native-fast-image';
-import {PanGestureHandler} from 'react-native-gesture-handler';
+import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 import Animated, {
   Extrapolate,
   interpolate,
   runOnJS,
   runOnUI,
-  useAnimatedGestureHandler,
   useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
@@ -112,9 +111,8 @@ export const GestureHOC = memo(
       translateX,
       translateY,
     ]);
-
-    const _gestureHandler = useAnimatedGestureHandler({
-      onActive: (event, _) => {
+    const panGesture = Gesture.Pan()
+      .onUpdate(event => {
         translateX.value = event.translationX;
         translateY.value = event.translationY;
 
@@ -131,8 +129,8 @@ export const GestureHOC = memo(
           [0.6, 1, 0.6],
           Extrapolate.CLAMP,
         );
-      },
-      onEnd: () => {
+      })
+      .onEnd(() => {
         if (Math.abs(translateY.value) > 40) {
           runOnJS(closeLightBox)();
         } else {
@@ -141,8 +139,7 @@ export const GestureHOC = memo(
           translateY.value = sharedTiming(0, timingConfig);
         }
         scale.value = sharedTiming(1, timingConfig);
-      },
-    });
+      });
 
     const onBackButtonPress = useCallback(() => {
       closeLightBox();
@@ -178,7 +175,7 @@ export const GestureHOC = memo(
 
     // render
     return (
-      <PanGestureHandler onGestureEvent={_gestureHandler}>
+      <GestureDetector gesture={panGesture}>
         <Animated.View style={[imageStyle]}>
           <FastImage
             style={[styles.img]}
@@ -186,7 +183,7 @@ export const GestureHOC = memo(
             source={source}
           />
         </Animated.View>
-      </PanGestureHandler>
+      </GestureDetector>
     );
   },
   isEqual,

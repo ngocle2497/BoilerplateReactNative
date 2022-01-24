@@ -3,13 +3,9 @@ import {onCheckType} from '@common';
 import React, {memo, useCallback, useEffect, useState} from 'react';
 import isEqual from 'react-fast-compare';
 import {LayoutChangeEvent, View} from 'react-native';
-import {
-  PanGestureHandler,
-  PanGestureHandlerGestureEvent,
-} from 'react-native-gesture-handler';
+import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
-  useAnimatedGestureHandler,
   useAnimatedReaction,
   useAnimatedStyle,
   useDerivedValue,
@@ -36,7 +32,6 @@ const SliderLinearComponent = ({
   }
   // state
   const [width, setWidth] = useState<number>(0);
-
   // reanimated
   const translationX = useSharedValue(0);
   const progress = useSharedValue(0);
@@ -49,22 +44,16 @@ const SliderLinearComponent = ({
     ),
   );
   // function
-  const gestureHandler = useAnimatedGestureHandler<
-    PanGestureHandlerGestureEvent,
-    {startX: number}
-  >({
-    onStart: (_, ctx) => {
-      ctx.startX = translationX.value;
-    },
-    onActive: (event, ctx) => {
-      translationX.value = ctx.startX + event.translationX;
-    },
-    onEnd: () => {
+  const gestureHandler = Gesture.Pan()
+    .onChange(e => {
+      'worklet';
+      translationX.value += e.changeX;
+    })
+    .onEnd(() => {
       if (onChangeLinear) {
         runOnJS(onChangeLinear)(progress.value);
       }
-    },
-  });
+    });
 
   const _onLayout = useCallback(
     ({
@@ -114,9 +103,9 @@ const SliderLinearComponent = ({
     <View onLayout={_onLayout} style={[styles.root]}>
       <View style={[styles.container]}>
         <Animated.View style={[styles.track]} />
-        <PanGestureHandler onGestureEvent={gestureHandler}>
+        <GestureDetector gesture={gestureHandler}>
           <Animated.View style={[styles.thumb, thumbStyle]} />
-        </PanGestureHandler>
+        </GestureDetector>
       </View>
       <View style={[styles.wrapValue]}>
         <Text>{lowerBound}</Text>
