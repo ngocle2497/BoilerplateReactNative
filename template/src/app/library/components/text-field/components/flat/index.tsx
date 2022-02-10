@@ -58,6 +58,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
     onChangeText,
     onFocus,
     onBlur,
+    onSubmit,
     rxRemove,
     ...rest
   } = props;
@@ -233,6 +234,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
             editable={!disabled}
             style={[inputStyle]}
             ref={ref}
+            onSubmitEditing={onSubmit}
             {...rest}
             onChangeText={_onChangeText}
             onFocus={_onFocus}

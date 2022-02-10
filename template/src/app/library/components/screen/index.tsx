@@ -57,7 +57,7 @@ const InsetComponent = memo(
           hidden={hiddenStatusBar}
           backgroundColor={'transparent'}
           translucent
-          barStyle={statusBarStyle || 'dark-content'}
+          barStyle={statusBarStyle || 'light-content'}
         />
         {!unsafe && edges.includes('top') && (
           <Inset

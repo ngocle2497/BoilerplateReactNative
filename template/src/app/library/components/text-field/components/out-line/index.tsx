@@ -59,6 +59,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     onChangeText,
     onFocus,
     onBlur,
+    onSubmit,
     ...rest
   } = props;
 
@@ -228,6 +229,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
             selectionColor={activeTintBorderColor}
             style={[inputStyle]}
             ref={ref}
+            onSubmitEditing={onSubmit}
             {...rest}
             onChangeText={_onChangeText}
             onFocus={_onFocus}
