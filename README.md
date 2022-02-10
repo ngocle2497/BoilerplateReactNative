@@ -21,6 +21,20 @@
 npx rn-boiler MyApp
 ```
 
+Args command:
+
+- skip install deps:
+
+```sh
+--skipInstall
+```
+
+- skip init git:
+
+```sh
+--skipGit
+```
+
 <h3>Preview</h3>
 <img src="./preview.gif">
 ## Native module
