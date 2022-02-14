@@ -11,24 +11,17 @@ export interface ResponseBase<T = any> {
   status: boolean;
 }
 
-export interface FontFamily {
-  primary: string;
-  secondary: string;
-}
-
 export interface ParamsNetwork {
   url: string;
   params?: any;
   query?: any;
   body?: any;
 }
+
 export type HookFormRules = Exclude<
   RegisterOptions,
   'valueAsNumber' | 'valueAsDate' | 'setValueAs'
 >;
-export type ValidationMap<T = any, Keys extends keyof T = keyof T> = {
-  [K in Keys]-?: RegisterOptions;
-};
 
 export enum SLICE_NAME {
   APP = 'APP_',

@@ -12,4 +12,5 @@ const {execSync} = require('child_process');
     await execSync('cd ios && pod install', {stdio: 'inherit'});
     console.log('                      ✨✨✨✨✨ Pod done!!! ✨✨✨✨✨');
   }
+  await execSync('yarn patch-package', {stdio: 'inherit'});
 })();

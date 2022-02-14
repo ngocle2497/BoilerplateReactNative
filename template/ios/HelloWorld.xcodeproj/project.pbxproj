@@ -11,18 +11,18 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		517E8CB1DB5C46E78570CD95 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2ED1CB8C9E6F4DE09C3697EF /* Roboto-Light.ttf */; };
+		41BD20D3154F4E25973C43DA /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 251C9DB147674A0DB80DFA85 /* Roboto-Regular.ttf */; };
 		6172F2D35A4C3AA820D92908 /* libPods-HelloWorld.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6423831EA8574132BED9D8CC /* libPods-HelloWorld.a */; };
 		7EF68E3733C33B6898317E18 /* libPods-HelloWorld-HelloWorldTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABFE59519B596E51CEFDCCC0 /* libPods-HelloWorld-HelloWorldTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		8F3ABBD865FF4BA7A54A9C10 /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4D7B0822F2804CE196EAD5BF /* Roboto-Italic.ttf */; };
-		8FD9CF58275A6DF600FD23BC /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FD9CF52275A6DF600FD23BC /* BootSplash.storyboard */; };
-		8FD9CF59275A6DF600FD23BC /* AppModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD9CF55275A6DF600FD23BC /* AppModule.swift */; };
-		8FD9CF5A275A6DF600FD23BC /* MMKKVStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD9CF56275A6DF600FD23BC /* MMKKVStorage.swift */; };
-		8FD9CF5B275A6DF600FD23BC /* AppModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD9CF57275A6DF600FD23BC /* AppModule.m */; };
-		929CC6ECCE66469E9FA78181 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76B67595084A49A39A91F99A /* Roboto-Bold.ttf */; };
-		B9FA0138D4FF439EB508701B /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 190A2DE6B543414DB1E73690 /* Roboto-Regular.ttf */; };
-		F72D72DE20134DEF9337DEA2 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76C2CEC6788743B68D362A74 /* Roboto-Medium.ttf */; };
+		842FE77727BA6B57004FF424 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 842FE77627BA6B57004FF424 /* BootSplash.storyboard */; };
+		842FE78427BA6BFC004FF424 /* AppModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 842FE78127BA6BFC004FF424 /* AppModule.m */; };
+		842FE78527BA6BFC004FF424 /* AppModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FE78227BA6BFC004FF424 /* AppModule.swift */; };
+		842FE78627BA6BFC004FF424 /* MMKKVStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FE78327BA6BFC004FF424 /* MMKKVStorage.swift */; };
+		8B10548C128E431CA7B32F90 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A54E52E81C7847FF95620963 /* Roboto-Medium.ttf */; };
+		A5F5F4F220D540E18379EB8A /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BC63725900E4C60A9EE3D00 /* Roboto-Light.ttf */; };
+		B65158047D5A43D7863301E5 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7E26A7ED4344CA5B94F1482 /* Roboto-Bold.ttf */; };
+		D5DA7AA3EFD845308DAB9824 /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 05F7BEFBE8A14CA089601749 /* Roboto-Italic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,26 +39,26 @@
 		00E356EE1AD99517003FC87E /* HelloWorldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelloWorldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* HelloWorldTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldTests.m; sourceTree = "<group>"; };
+		05F7BEFBE8A14CA089601749 /* Roboto-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Italic.ttf"; path = "../src/app/assets/font/Roboto-Italic.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = HelloWorld/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = HelloWorld/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = HelloWorld/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HelloWorld/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = HelloWorld/main.m; sourceTree = "<group>"; };
-		190A2DE6B543414DB1E73690 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../src/app/assets/font/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		1D0AE47A65C8663E3B452821 /* Pods-HelloWorld-HelloWorldTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloWorld-HelloWorldTests.release.xcconfig"; path = "Target Support Files/Pods-HelloWorld-HelloWorldTests/Pods-HelloWorld-HelloWorldTests.release.xcconfig"; sourceTree = "<group>"; };
-		2ED1CB8C9E6F4DE09C3697EF /* Roboto-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Light.ttf"; path = "../src/app/assets/font/Roboto-Light.ttf"; sourceTree = "<group>"; };
-		4D7B0822F2804CE196EAD5BF /* Roboto-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Italic.ttf"; path = "../src/app/assets/font/Roboto-Italic.ttf"; sourceTree = "<group>"; };
+		251C9DB147674A0DB80DFA85 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../src/app/assets/font/Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		3BC63725900E4C60A9EE3D00 /* Roboto-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Light.ttf"; path = "../src/app/assets/font/Roboto-Light.ttf"; sourceTree = "<group>"; };
 		6423831EA8574132BED9D8CC /* libPods-HelloWorld.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HelloWorld.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C97AB639B58BBB4B15BBE30 /* Pods-HelloWorld-HelloWorldTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloWorld-HelloWorldTests.debug.xcconfig"; path = "Target Support Files/Pods-HelloWorld-HelloWorldTests/Pods-HelloWorld-HelloWorldTests.debug.xcconfig"; sourceTree = "<group>"; };
-		76B67595084A49A39A91F99A /* Roboto-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Bold.ttf"; path = "../src/app/assets/font/Roboto-Bold.ttf"; sourceTree = "<group>"; };
-		76C2CEC6788743B68D362A74 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Medium.ttf"; path = "../src/app/assets/font/Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = HelloWorld/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8FD9CF52275A6DF600FD23BC /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = HelloWorld/BootSplash.storyboard; sourceTree = "<group>"; };
-		8FD9CF53275A6DF600FD23BC /* HelloWorld-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "HelloWorld-Bridging-Header.h"; path = "HelloWorld/HelloWorld-Bridging-Header.h"; sourceTree = "<group>"; };
-		8FD9CF55275A6DF600FD23BC /* AppModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModule.swift; sourceTree = "<group>"; };
-		8FD9CF56275A6DF600FD23BC /* MMKKVStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMKKVStorage.swift; sourceTree = "<group>"; };
-		8FD9CF57275A6DF600FD23BC /* AppModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppModule.m; sourceTree = "<group>"; };
+		842FE77627BA6B57004FF424 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = HelloWorld/BootSplash.storyboard; sourceTree = "<group>"; };
+		842FE77827BA6B78004FF424 /* HelloWorld-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HelloWorld-Bridging-Header.h"; sourceTree = "<group>"; };
+		842FE78127BA6BFC004FF424 /* AppModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppModule.m; path = HelloWorld/AppModule/AppModule.m; sourceTree = "<group>"; };
+		842FE78227BA6BFC004FF424 /* AppModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppModule.swift; path = HelloWorld/AppModule/AppModule.swift; sourceTree = "<group>"; };
+		842FE78327BA6BFC004FF424 /* MMKKVStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MMKKVStorage.swift; path = HelloWorld/AppModule/MMKKVStorage.swift; sourceTree = "<group>"; };
+		A54E52E81C7847FF95620963 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Medium.ttf"; path = "../src/app/assets/font/Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		A7E26A7ED4344CA5B94F1482 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Bold.ttf"; path = "../src/app/assets/font/Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		ABFE59519B596E51CEFDCCC0 /* libPods-HelloWorld-HelloWorldTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HelloWorld-HelloWorldTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0A881CF5CF3F2B244570E2A /* Pods-HelloWorld.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloWorld.debug.xcconfig"; path = "Target Support Files/Pods-HelloWorld/Pods-HelloWorld.debug.xcconfig"; sourceTree = "<group>"; };
 		D00AAFFCFCFDA5787532823F /* Pods-HelloWorld.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloWorld.release.xcconfig"; path = "Target Support Files/Pods-HelloWorld/Pods-HelloWorld.release.xcconfig"; sourceTree = "<group>"; };
@@ -102,33 +102,32 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		1179AE515DD443C18C37E3CA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A7E26A7ED4344CA5B94F1482 /* Roboto-Bold.ttf */,
+				05F7BEFBE8A14CA089601749 /* Roboto-Italic.ttf */,
+				3BC63725900E4C60A9EE3D00 /* Roboto-Light.ttf */,
+				A54E52E81C7847FF95620963 /* Roboto-Medium.ttf */,
+				251C9DB147674A0DB80DFA85 /* Roboto-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* HelloWorld */ = {
 			isa = PBXGroup;
 			children = (
-				8FD9CF54275A6DF600FD23BC /* AppModule */,
-				8FD9CF52275A6DF600FD23BC /* BootSplash.storyboard */,
-				8FD9CF53275A6DF600FD23BC /* HelloWorld-Bridging-Header.h */,
+				842FE78727BA6C3D004FF424 /* AppModule */,
+				842FE77627BA6B57004FF424 /* BootSplash.storyboard */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				842FE77827BA6B78004FF424 /* HelloWorld-Bridging-Header.h */,
 			);
 			name = HelloWorld;
-			sourceTree = "<group>";
-		};
-		27D118FBC412436C95E47E35 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				76B67595084A49A39A91F99A /* Roboto-Bold.ttf */,
-				4D7B0822F2804CE196EAD5BF /* Roboto-Italic.ttf */,
-				2ED1CB8C9E6F4DE09C3697EF /* Roboto-Light.ttf */,
-				76C2CEC6788743B68D362A74 /* Roboto-Medium.ttf */,
-				190A2DE6B543414DB1E73690 /* Roboto-Regular.ttf */,
-			);
-			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -157,7 +156,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				E233CBF5F47BEE60B243DCF8 /* Pods */,
-				27D118FBC412436C95E47E35 /* Resources */,
+				1179AE515DD443C18C37E3CA /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -173,15 +172,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8FD9CF54275A6DF600FD23BC /* AppModule */ = {
+		842FE78727BA6C3D004FF424 /* AppModule */ = {
 			isa = PBXGroup;
 			children = (
-				8FD9CF55275A6DF600FD23BC /* AppModule.swift */,
-				8FD9CF56275A6DF600FD23BC /* MMKKVStorage.swift */,
-				8FD9CF57275A6DF600FD23BC /* AppModule.m */,
+				842FE78127BA6BFC004FF424 /* AppModule.m */,
+				842FE78227BA6BFC004FF424 /* AppModule.swift */,
+				842FE78327BA6BFC004FF424 /* MMKKVStorage.swift */,
 			);
 			name = AppModule;
-			path = HelloWorld/AppModule;
 			sourceTree = "<group>";
 		};
 		E233CBF5F47BEE60B243DCF8 /* Pods */ = {
@@ -254,7 +252,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1320;
 					};
 				};
 			};
@@ -289,14 +287,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8FD9CF58275A6DF600FD23BC /* BootSplash.storyboard in Resources */,
+				842FE77727BA6B57004FF424 /* BootSplash.storyboard in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				929CC6ECCE66469E9FA78181 /* Roboto-Bold.ttf in Resources */,
-				8F3ABBD865FF4BA7A54A9C10 /* Roboto-Italic.ttf in Resources */,
-				517E8CB1DB5C46E78570CD95 /* Roboto-Light.ttf in Resources */,
-				F72D72DE20134DEF9337DEA2 /* Roboto-Medium.ttf in Resources */,
-				B9FA0138D4FF439EB508701B /* Roboto-Regular.ttf in Resources */,
+				B65158047D5A43D7863301E5 /* Roboto-Bold.ttf in Resources */,
+				D5DA7AA3EFD845308DAB9824 /* Roboto-Italic.ttf in Resources */,
+				A5F5F4F220D540E18379EB8A /* Roboto-Light.ttf in Resources */,
+				8B10548C128E431CA7B32F90 /* Roboto-Medium.ttf in Resources */,
+				41BD20D3154F4E25973C43DA /* Roboto-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,11 +461,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8FD9CF5A275A6DF600FD23BC /* MMKKVStorage.swift in Sources */,
-				8FD9CF5B275A6DF600FD23BC /* AppModule.m in Sources */,
+				842FE78627BA6BFC004FF424 /* MMKKVStorage.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				842FE78527BA6BFC004FF424 /* AppModule.swift in Sources */,
+				842FE78427BA6BFC004FF424 /* AppModule.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
-				8FD9CF59275A6DF600FD23BC /* AppModule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -555,7 +553,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = HelloWorld;
-				SWIFT_OBJC_BRIDGING_HEADER = "HelloWorld/HelloWorld-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "HelloWorld-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -581,7 +579,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = HelloWorld;
-				SWIFT_OBJC_BRIDGING_HEADER = "HelloWorld/HelloWorld-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "HelloWorld-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -620,7 +618,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -644,7 +642,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SDKROOT)/usr/lib/swift\"",
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
-					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -686,7 +683,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -703,7 +700,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SDKROOT)/usr/lib/swift\"",
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
-					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;

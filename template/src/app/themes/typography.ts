@@ -1,8 +1,6 @@
 import {Platform} from 'react-native';
 
-import {FontFamily as FontType} from '../config/type';
-
-export const FontDefault: FontType = {
+export const FontDefault = {
   primary: Platform.select({
     ios: 'Roboto-Medium',
     android: 'Roboto-Medium',
