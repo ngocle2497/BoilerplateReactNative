@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {useInterpolate, useSharedTransition} from '@animated';
-import {enhance, onCheckType} from '@common';
+import {onCheckType} from '@common';
 import {Text} from '@library/components/text';
 import React, {
   forwardRef,
@@ -36,14 +36,12 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     label,
     labelTx,
     placeholder,
-    onTextChange,
     trigger,
     nameTrigger,
     placeholderColor = UN_ACTIVE_COLOR,
     rxRemove,
     placeholderTx,
     inputStyle: inputStyleOverwrite = {},
-    name = '',
     errorBorderColor = ERROR_COLOR,
     errorLabelColor = ERROR_COLOR,
     disabledLabelColor = UN_ACTIVE_COLOR,
@@ -138,9 +136,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
       if (onCheckType(onChangeText, 'function')) {
         onChangeText(actualText);
       }
-      if (onCheckType(onTextChange, 'function')) {
-        onTextChange(name, actualText);
-      }
+
       if (
         trigger &&
         onCheckType(trigger, 'function') &&
@@ -152,7 +148,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
         }, 0);
       }
     },
-    [name, nameTrigger, onChangeText, onTextChange, rxRemove, trigger],
+    [nameTrigger, onChangeText, rxRemove, trigger],
   );
 
   // effect
@@ -163,7 +159,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     }
   }, [defaultValue]);
 
-  // style
+  // string
   const labelText = useMemo(
     () => (labelTx && t(labelTx)) || label || undefined,
     [labelTx, label, t],
@@ -172,16 +168,6 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
   const placeHolder = useMemo(
     () => (placeholderTx && t(placeholderTx)) || placeholder || '',
     [placeholder, placeholderTx, t],
-  );
-
-  const inputStyle = useMemo(
-    () => enhance([styles.input, inputStyleOverwrite]),
-    [inputStyleOverwrite],
-  );
-
-  const containerStyle = useMemo(
-    () => enhance([styles.container, containerStyleOverwrite]),
-    [containerStyleOverwrite],
   );
 
   // reanimated style
@@ -200,7 +186,12 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
 
   // render
   return (
-    <Animated.View style={[containerStyle, containerAnimatedStyle]}>
+    <Animated.View
+      style={[
+        styles.container,
+        containerStyleOverwrite,
+        containerAnimatedStyle,
+      ]}>
       <View style={[styles.content]}>
         {(placeholderTx || placeholder) && value.length === 0 && (
           <View style={[styles.wrapPlaceHolder]} pointerEvents={'none'}>
@@ -227,7 +218,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
             editable={!disabled}
             clearButtonMode={'never'}
             selectionColor={activeTintBorderColor}
-            style={[inputStyle]}
+            style={[styles.input, inputStyleOverwrite]}
             ref={ref}
             onSubmitEditing={onSubmit}
             {...rest}

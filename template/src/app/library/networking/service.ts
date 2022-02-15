@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {dispatch, getState} from '@common';
 import {RESULT_CODE_PUSH_OUT, TIME_OUT} from '@config/api';
+import {ENVConfig} from '@config/env';
 import {ParamsNetwork, ResponseBase} from '@config/type';
 import {onSetToken} from '@store/app-redux/reducer';
 import {AppState} from '@store/app-redux/type';
@@ -55,9 +56,9 @@ async function refreshToken(originalRequest: any) {
 
 // base
 function Request<T = unknown>(config: AxiosRequestConfig, isCheckOut = true) {
-  const {token, appUrl}: AppState = getState('app');
+  const {token}: AppState = getState('app');
   const defaultConfig: AxiosRequestConfig = {
-    baseURL: appUrl,
+    baseURL: ENVConfig.API_URL,
     timeout: TIME_OUT,
     headers: {
       'Content-Type': 'application/json',

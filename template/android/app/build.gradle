@@ -1,7 +1,14 @@
 apply plugin: 'com.android.application'
+project.ext.envConfigFiles = [
+        devDebug: 'env/.dev',
+        devRelease: 'env/.dev',
+
+        prodDebug: 'env/.prod',
+        prodRelease: 'env/.prod',
+]
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 import com.android.build.OutputFile
-
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
  * and bundleReleaseJsAndAssets).
@@ -123,90 +130,33 @@ def enableHermes = project.ext.react.get('enableHermes', false)
  * Architectures to build native code for in debug.
  */
 def nativeArchitectures = project.getProperties().get('reactNativeDebugArchitectures')
-def readVersion() {
-    def versionFile = new File(project.rootDir, 'version.properties')
-    def version = new Properties()
-    def stream
-    try {
-        stream  = new FileInputStream(versionFile)
-        version.load(stream)
-    } catch (FileNotFoundException ignore) {
-    } finally {
-        if (stream != null) {
-            stream.close()
-        }
-    }
-    if (!version['major']) version['major'] = '1'
-    if (!version['minor']) version['minor'] = '0'
-    if (!version['patch']) version['patch'] = '0'
-    if (!version['build']) version['build'] = '1'
-    return version
-}
-def readVersionName() {
-    def version = readVersion()
-    return "${version['major']}.${version['minor']}.${version['patch']}"
-}
-def readVersionCode() {
-    def version = readVersion()
-    def build = version['build'] as int
-    return build
-}
-def incrementBuild() {
-    def versionFile = new File(project.rootDir, 'version.properties')
-    def version = readVersion()
-    def build = version['build'] as int
-    build++
-    version['build'] = build.toString()
-    def stream  = new FileOutputStream(versionFile)
-    try {
-        version.store(stream, null)
-    } finally {
-        stream.close()
-    }
-    println 'Build number is now ...' + build
-    return build
-}
-def incrementName(def type = 'minor') {
-    def versionFile = new File(project.rootDir, 'version.properties')
-    def version = readVersion()
-    def major = version['major'] as int
-    def minor = version['minor'] as int
-    def patch = version['patch'] as int
-    if (type == 'major') {
-        major++
-        minor = 0
-        patch = 0
-    } else if (type == 'minor') {
-        minor++
-        patch = 0
-    } else if (type == 'patch') {
-        patch++
-    }
-    version['major'] = major.toString()
-    version['minor'] = minor.toString()
-    version['patch'] = patch.toString()
-    def stream  = new FileOutputStream(versionFile)
-    try {
-        version.store(stream, null)
-    } finally {
-        stream.close()
-    }
-    println 'Version Name is now ...' + major + '.' + minor + '.' + patch
-    return major + '.' + minor + '.' + patch
-}
 
 android {
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
+    flavorDimensions 'default'
+
+    productFlavors {
+        dev {
+//            applicationIdSuffix ".dev"
+           resValue "string", "app_name", project.env.get("APP_DISPLAY_NAME")
+        }
+
+        prod {
+           resValue "string", "app_name", project.env.get("APP_DISPLAY_NAME")
+        }
+    }
 
     defaultConfig {
-        applicationId 'com.helloworld'
+        resValue "string", "build_config_package", "com.helloworld"
+        applicationId project.env.get("BUNDLE_IDENTIFIER")
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode readVersionCode()
-        versionName readVersionName()
+        versionCode project.env.get("VERSION_CODE").toInteger()
+        versionName project.env.get("VERSION_NAME")
     }
+
     splits {
         abi {
             reset()
@@ -292,29 +242,6 @@ dependencies {
 task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.implementation
     into 'libs'
-}
-task doBuildIncrement  {
-    doLast {
-        println 'Incrementing build number ...'
-        incrementBuild()
-    }
-}
-
-task doVersionNameIncrement  {
-    doLast {
-        if (project.hasProperty('bump_type')) {
-            def bump_type = project.getProperty('bump_type')
-            switch (bump_type) {
-                case 'major':
-                case 'minor':
-                case 'patch':
-                    println 'Incrementing ' + bump_type + ' version name ...'
-                    println 'Incrementing build number ...'
-                    incrementBuild()
-                    incrementName(bump_type)
-            }
-        }
-    }
 }
 
 apply from: file('../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle'); applyNativeModulesAppBuildGradle(project)

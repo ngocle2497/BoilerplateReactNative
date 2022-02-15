@@ -47,15 +47,13 @@ const SnackBarComponent = forwardRef((props: SnackBarProps, ref) => {
   const [data, setData] = useState<Item[]>([]);
   const inset = useSafeAreaInsets();
   // function
-  const _onPop = useCallback((item: Item) => {
+  const onPop = useCallback((item: Item) => {
     setData(d => d.filter(x => x.id !== item.id));
   }, []);
 
-  const _renderItem = useCallback(
-    (item: Item) => (
-      <SnackItem key={item.id} {...{item, onPop: _onPop}} {...props} />
-    ),
-    [_onPop, props],
+  const renderItem = useCallback(
+    (item: Item) => <SnackItem key={item.id} {...{item, onPop}} {...props} />,
+    [onPop, props],
   );
 
   // render
@@ -67,7 +65,7 @@ const SnackBarComponent = forwardRef((props: SnackBarProps, ref) => {
         styles.container,
         {marginTop: inset.top},
       ]}>
-      {data.map(_renderItem)}
+      {data.map(renderItem)}
     </View>
   );
 });

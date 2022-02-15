@@ -6,14 +6,13 @@ import {TouchableOpacity, ViewStyle} from 'react-native';
 
 import {Text} from '../text';
 
-import {stylesView} from './preset';
+import {stylesText, stylesView} from './preset';
 import {ButtonProps} from './type';
 
 const ButtonComponent = (props: ButtonProps) => {
   // state
   const {
     preset = 'default',
-    textPreset = 'default',
     textColor,
     textColorTheme,
     tx,
@@ -43,33 +42,18 @@ const ButtonComponent = (props: ButtonProps) => {
     [buttonColor, buttonColorTheme, preset, styleOverride, theme.colors],
   );
 
-  const content = useMemo(
-    () =>
-      children || (
-        <Text
-          tx={tx}
-          text={text}
-          style={textStyleOverride}
-          preset={textPreset}
-          color={textColor}
-          colorTheme={textColorTheme}
-        />
-      ),
-    [
-      children,
-      tx,
-      text,
-      textStyleOverride,
-      textPreset,
-      textColor,
-      textColorTheme,
-    ],
-  );
-
   // render
   return (
     <TouchableOpacity style={viewStyle} {...rest}>
-      {content}
+      {children || (
+        <Text
+          tx={tx}
+          text={text}
+          style={[stylesText[preset], textStyleOverride]}
+          color={textColor}
+          colorTheme={textColorTheme}
+        />
+      )}
     </TouchableOpacity>
   );
 };

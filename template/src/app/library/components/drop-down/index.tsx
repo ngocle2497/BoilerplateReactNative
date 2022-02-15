@@ -256,18 +256,6 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
     [isVisible, _onCheckRenderBottom, style],
   );
 
-  const container = useMemo(
-    () =>
-      enhance([styles.wrapPlaceholder, containerStyle]) as StyleProp<ViewStyle>,
-    [containerStyle],
-  );
-
-  const textPlaceHolderStyle = useMemo(
-    () =>
-      enhance([styles.placeHolder, placeholderStyle]) as StyleProp<ViewStyle>,
-    [placeholderStyle],
-  );
-
   const contentModalStyle = useMemo(
     () =>
       enhance([
@@ -300,8 +288,10 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
     <>
       <View ref={_refDrop} style={wrapStyle}>
         <TouchableOpacity onPress={_onToggle} disabled={disabled}>
-          <View style={container}>
-            <Text style={textPlaceHolderStyle} numberOfLines={1}>
+          <View style={[styles.wrapPlaceholder, containerStyle]}>
+            <Text
+              style={[styles.placeHolder, placeholderStyle]}
+              numberOfLines={1}>
               {getTextPlaceHolder()}
             </Text>
             {showArrow &&

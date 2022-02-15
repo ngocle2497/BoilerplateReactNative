@@ -14,6 +14,25 @@
 - Minimal additional dependencies
 - Lots of built-in components
 - Native modules
+- Multiple schema ios(Dev/Prod as default)
+- Multiple productFlavors android (dev/prod as default)
+
+## Base config (Now u can config on env)
+
+- Change App name ``` APP_DISPLAY_NAME ``` on ``` env/(.dev/.prod) ```
+- Change App id ``` BUNDLE_IDENTIFIER ``` on ``` env/(.dev/.prod) ```
+- Change App version ``` VERSION_NAME ``` on ``` env/(.dev/.prod) ```
+- Change App build number ``` VERSION_CODE ``` on ``` env/(.dev/.prod) ```
+- Change App URL ``` API_URL ``` on ``` env/(.dev/.prod) ```
+
+### Change app icon by env
+
+- Android [Source sets](https://developer.android.com/studio/build/build-variants#sourcesets)
+- IOS follow below step:
+  - Create new App Icon assets
+  - Go to Target => Build Settings => Assets Catalog Compiler - Options
+  - Change Primary App Icon Set Name (App Icon assets name)
+  - This will change icon for current schema
 
 ## :arrow_forward: Usage
 

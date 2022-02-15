@@ -28,12 +28,6 @@ export interface InputBaseProps extends TextInputProps {
   labelTx?: string;
 
   /**
-   * Function on input change text
-   * @default undefined
-   */
-  onTextChange?: (name?: string, value?: string) => void;
-
-  /**
    * Call trigger react hook form
    */
   trigger?: UseFormTrigger<any>;
@@ -46,12 +40,6 @@ export interface InputBaseProps extends TextInputProps {
    * Name to trigger
    */
   nameTrigger?: string;
-
-  /**
-   * Name of key to update object when input change text
-   * @default undefined
-   */
-  name?: string;
 
   /**
    * Set default value for input

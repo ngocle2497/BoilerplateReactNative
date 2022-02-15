@@ -1,4 +1,6 @@
+import {sizeScale} from '@common';
 import {ColorDefault} from '@theme/color';
+import {FontDefault} from '@theme/typography';
 import {StyleSheet} from 'react-native';
 
 export const stylesView = StyleSheet.create({
@@ -8,14 +10,25 @@ export const stylesView = StyleSheet.create({
     backgroundColor: ColorDefault.primary,
     alignItems: 'center',
   },
-  none: {
-    alignItems: 'center',
-    width: '100%',
-  },
+
   outline: {
     borderRadius: 4,
     paddingHorizontal: 0,
     paddingVertical: 0,
+  },
+  default: {},
+});
+export const stylesText = StyleSheet.create({
+  primary: {
+    fontSize: sizeScale(16),
+    fontFamily: FontDefault.primary,
+    fontWeight: '600',
+  },
+
+  outline: {
+    fontSize: sizeScale(16),
+    fontFamily: FontDefault.primary,
+    fontWeight: '600',
   },
   default: {},
 });

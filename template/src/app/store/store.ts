@@ -1,6 +1,5 @@
 import {subscribeActionMiddleware} from '@common';
 import {configureStore} from '@reduxjs/toolkit';
-import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 
 import {allReducer} from './all-reducers';
@@ -18,9 +17,7 @@ import {rootSaga} from './root-sagas';
 const devMode = __DEV__;
 const sagaMiddleware = createSagaMiddleware();
 const middleware = [sagaMiddleware, subscribeActionMiddleware];
-if (devMode) {
-  middleware.push(logger);
-}
+
 const storeConfig = () => {
   const store = configureStore({
     reducer: allReducer,

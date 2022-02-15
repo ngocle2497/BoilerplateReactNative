@@ -1,5 +1,4 @@
 import {SLICE_NAME} from '@config/type';
-import {APP_URL} from '@networking/api';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ThemeType} from '@theme';
 
@@ -15,7 +14,6 @@ const initialAppState: AppState = {
   loadingApp: false,
   showDialog: false,
   theme: 'default',
-  appUrl: APP_URL,
 };
 const appSlice = createSlice({
   name: SLICE_NAME.APP,
@@ -45,9 +43,6 @@ const appSlice = createSlice({
     onEndProcess: state => {
       state.showDialog = false;
     },
-    onSetAppUrl: (state, {payload}: PayloadAction<string>) => {
-      state.appUrl = payload;
-    },
     onLogout: state => {
       state.token = undefined;
       state.profile = {};
@@ -61,7 +56,6 @@ export const {
   onEndProcess,
   onLoadApp,
   onLoadAppEnd,
-  onSetAppUrl,
   onSetAppProfile,
   onSetAppTheme,
   onSetInternet,

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {useInterpolate, useSharedTransition} from '@animated';
-import {enhance, onCheckType} from '@common';
+import {onCheckType} from '@common';
 import {Text} from '@library/components/text';
 import React, {
   forwardRef,
@@ -38,11 +38,9 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
     placeholder,
     placeholderTx,
     placeholderColor = UN_ACTIVE_COLOR,
-    onTextChange,
     trigger,
     nameTrigger,
     inputStyle: inputStyleOverwrite = {},
-    name = '',
     errorBorderColor = ERROR_COLOR,
     errorLabelColor = ERROR_COLOR,
     disabledLabelColor = UN_ACTIVE_COLOR,
@@ -138,9 +136,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
     (text: string) => {
       const actualText =
         rxRemove !== undefined ? text.replace(rxRemove, '') : text;
-      if (onCheckType(onTextChange, 'function')) {
-        onTextChange(name, actualText);
-      }
+
       if (onCheckType(onChangeText, 'function')) {
         onChangeText(actualText);
       }
@@ -156,7 +152,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
       }
       setValue(actualText);
     },
-    [name, nameTrigger, onChangeText, onTextChange, rxRemove, trigger],
+    [nameTrigger, onChangeText, rxRemove, trigger],
   );
 
   // effect
@@ -167,7 +163,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
     }
   }, [defaultValue]);
 
-  // style
+  // string
   const labelText = useMemo(
     () => (labelTx && t(labelTx)) || label || undefined,
     [labelTx, label, t],
@@ -176,16 +172,6 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
   const placeHolder = useMemo(
     () => (placeholderTx && t(placeholderTx)) || placeholder || '',
     [placeholder, placeholderTx, t],
-  );
-
-  const inputStyle = useMemo(
-    () => enhance([styles.input, inputStyleOverwrite]),
-    [inputStyleOverwrite],
-  );
-
-  const containerStyle = useMemo(
-    () => enhance([styles.container, containerStyleOverwrite]),
-    [containerStyleOverwrite],
   );
 
   // reanimated style
@@ -204,7 +190,12 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
 
   // render
   return (
-    <Animated.View style={[containerStyle, containerAnimatedStyle]}>
+    <Animated.View
+      style={[
+        styles.container,
+        containerStyleOverwrite,
+        containerAnimatedStyle,
+      ]}>
       <View style={[styles.content]}>
         {(placeholderTx || placeholder) && value.length === 0 && (
           <View style={[styles.wrapPlaceHolder]} pointerEvents={'none'}>
@@ -232,7 +223,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
             underlineColorAndroid={'transparent'}
             clearButtonMode={'never'}
             editable={!disabled}
-            style={[inputStyle]}
+            style={[styles.input, inputStyleOverwrite]}
             ref={ref}
             onSubmitEditing={onSubmit}
             {...rest}

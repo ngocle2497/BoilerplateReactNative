@@ -1,28 +1,28 @@
 import {useSharedTransition} from '@animated';
-import {enhance, useAsyncState, useMounted} from '@common';
-import React, {memo, useCallback, useMemo, useState} from 'react';
+import {useAsyncState, useMounted} from '@common';
+import React, {memo, useState} from 'react';
 import equals from 'react-fast-compare';
-import {StyleProp, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Blurhash} from 'react-native-blurhash';
-import FastImage, {ImageStyle} from 'react-native-fast-image';
+import FastImage from 'react-native-fast-image';
 import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 
 import {styles} from './styles';
 import {ImageRemoteProps} from './type';
 
-const ImageRemoteComponent = (props: ImageRemoteProps) => {
+const ImageRemoteComponent = ({
+  style: styleOverride = {},
+  source,
+  blurHashOnLoad = 'L9AB*A%LPqys8_H=yDR5nMMeVXR5',
+  thumbBlurHash,
+  resizeMode = 'cover',
+  containerStyle,
+  childrenError,
+  childrenOnload,
+  ...rest
+}: ImageRemoteProps) => {
   // state
-  const {
-    style: styleOverride = {},
-    source,
-    blurHashOnLoad = 'L9AB*A%LPqys8_H=yDR5nMMeVXR5',
-    thumbBlurHash,
-    resizeMode = 'cover',
-    containerStyle,
-    childrenError,
-    childrenOnload,
-    ...rest
-  } = props;
+
   const [loadSucceeded, setLoadSucceeded] = useState<boolean>(false);
   const [loadThumbSucceeded, setLoadThumbSucceeded] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
@@ -32,32 +32,22 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
   const opacityOnLoad = useSharedTransition(!loadThumbSucceeded);
 
   // function
-  const _onLoadImageStart = useCallback(() => {
+  const _onLoadImageStart = () => {
     setError(false);
-  }, []);
+  };
 
-  const _onLoadThumbSucceeded = useCallback(() => {
+  const _onLoadThumbSucceeded = () => {
     setLoadThumbSucceeded(true);
-  }, []);
+  };
 
-  const _onLoadImageSucceeded = useCallback(() => {
+  const _onLoadImageSucceeded = () => {
     setError(false);
     setLoadSucceeded(true);
-  }, []);
+  };
 
-  const _onLoadError = useCallback(() => {
+  const _onLoadError = () => {
     setError(true);
-  }, []);
-
-  // style
-  const container = useMemo(
-    () => enhance([styles.container, containerStyle]),
-    [containerStyle],
-  );
-  const imgStyle = useMemo<StyleProp<ImageStyle>>(
-    () => enhance([styles.img, styleOverride as ImageStyle]),
-    [styleOverride],
-  );
+  };
 
   // reanimated style
   const imageStyle = useAnimatedStyle(() => ({
@@ -73,7 +63,7 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
 
   // render
   return (
-    <View style={[container]}>
+    <View style={[styles.container, containerStyle]}>
       <Animated.View style={[styles.viewOnLoad, imageOnloadStyle]}>
         {childrenOnload || (
           <Blurhash
@@ -99,7 +89,7 @@ const ImageRemoteComponent = (props: ImageRemoteProps) => {
           resizeMode={resizeMode}
           onError={_onLoadError}
           onLoad={_onLoadImageSucceeded}
-          style={[imgStyle]}
+          style={[styles.img, styleOverride]}
           source={{uri: source}}
           {...rest}
         />

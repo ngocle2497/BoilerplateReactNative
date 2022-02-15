@@ -12,6 +12,4 @@ export interface AppState {
   showDialog: boolean;
 
   theme: ThemeType;
-
-  appUrl: string;
 }

@@ -2,7 +2,6 @@ import React, {
   createRef,
   forwardRef,
   memo,
-  useCallback,
   useImperativeHandle,
   useState,
 } from 'react';
@@ -47,9 +46,9 @@ const ImageTransitionComponent = forwardRef((props, ref) => {
   }));
 
   // function
-  const _onClose = useCallback(() => {
+  const _onClose = () => {
     setImage(null);
-  }, []);
+  };
 
   // render
   return image ? (

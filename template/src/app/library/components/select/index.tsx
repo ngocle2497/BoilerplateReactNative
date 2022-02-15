@@ -45,13 +45,13 @@ const SelectComponent = (props: SelectProps) => {
     [onPress],
   );
 
-  const _showDrop = useCallback(() => {
+  const showDrop = () => {
     setVisible(true);
-  }, []);
+  };
 
-  const _hideDrop = useCallback(() => {
+  const hideDrop = () => {
     setVisible(false);
-  }, []);
+  };
 
   const _renderItem = useCallback(
     ({item, index}: ListRenderItemInfo<SelectOption>) => {
@@ -90,15 +90,15 @@ const SelectComponent = (props: SelectProps) => {
   return (
     <>
       <View style={[styles.root]} collapsable={false}>
-        <TouchableOpacity onPress={_showDrop} activeOpacity={0.68}>
+        <TouchableOpacity onPress={showDrop} activeOpacity={0.68}>
           <View style={[styles.rowButton]}>
             <Text children={selectedText} />
             {rightChildren && rightChildren}
           </View>
         </TouchableOpacity>
         <Modal
-          onBackdropPress={_hideDrop}
-          onBackButtonPress={_hideDrop}
+          onBackdropPress={hideDrop}
+          onBackButtonPress={hideDrop}
           animatedIn={'slideInUp'}
           hasGesture={false}
           animatedOut={'slideOutDown'}

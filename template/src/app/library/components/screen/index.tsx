@@ -125,11 +125,6 @@ function ScreenWithoutScrolling(props: ScreenProps) {
     return actualEdges;
   }, [excludeEdges, hiddenStatusBar]);
 
-  const backgroundStyle = useMemo(
-    () => (backgroundColor ? {backgroundColor} : {}),
-    [backgroundColor],
-  );
-
   const actualUnsafe = useMemo<boolean>(
     () => unsafe || edges.length <= 0,
     [edges.length, unsafe],
@@ -143,7 +138,9 @@ function ScreenWithoutScrolling(props: ScreenProps) {
   // render
   return (
     <>
-      <Wrapper edges={edges} style={[styles.inner, style, backgroundStyle]}>
+      <Wrapper
+        edges={edges}
+        style={[styles.inner, style, backgroundColor ? {backgroundColor} : {}]}>
         <View style={[styles.flex]} children={children} />
       </Wrapper>
       <InsetComponent
@@ -188,11 +185,6 @@ function ScreenWithScrolling(props: ScreenProps) {
     return actualEdges;
   }, [excludeEdges, hiddenStatusBar]);
 
-  const backgroundStyle = useMemo(
-    () => (backgroundColor ? {backgroundColor} : {}),
-    [backgroundColor],
-  );
-
   const actualUnsafe = useMemo<boolean>(
     () => unsafe || edges.length <= 0,
     [edges.length, unsafe],
@@ -224,7 +216,7 @@ function ScreenWithScrolling(props: ScreenProps) {
           showsHorizontalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
           overScrollMode={'never'}
-          style={[styles.inner, backgroundStyle]}
+          style={[styles.inner, backgroundColor ? {backgroundColor} : {}]}
           contentContainerStyle={[style]}
           children={children}
         />

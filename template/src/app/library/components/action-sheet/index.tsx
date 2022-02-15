@@ -1,10 +1,8 @@
-import {enhance} from '@common';
 import React, {
   forwardRef,
   memo,
   useCallback,
   useImperativeHandle,
-  useMemo,
   useState,
 } from 'react';
 import equals from 'react-fast-compare';
@@ -15,8 +13,8 @@ import {Button} from '../button';
 import {Divider} from '../divider';
 import {Modal} from '../modal';
 
-import {ActionSheetProps, OptionData} from './type';
 import {styles} from './styles';
+import {ActionSheetProps, OptionData} from './type';
 
 const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
   // state
@@ -71,25 +69,6 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
     closeOnBackDrop === true && setActionVisible(false);
   }, [closeOnBackDrop, onBackDropPress]);
 
-  // style
-  const textOption = useMemo(
-    () => enhance([textOptionStyle]),
-    [textOptionStyle],
-  );
-  const textCancelStyle = useMemo(
-    () => enhance([styles.textCancel, textCancelStyleOverwrite]),
-    [textCancelStyleOverwrite],
-  );
-  const wrapOption = useMemo(
-    () => enhance([styles.wrapOption, wrapOptionStyle]),
-    [wrapOptionStyle],
-  );
-  const wrapCancel = useMemo(
-    () => enhance([styles.wrapCancel, wrapCancelStyle]),
-    [wrapCancelStyle],
-  );
-  const root = useMemo(() => enhance([styles.wrap, rootStyle]), [rootStyle]);
-
   // render
   return (
     <Modal
@@ -102,8 +81,8 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
       onBackButtonPress={_onCancel}
       isVisible={actionVisible}
       backdropColor={backDropColor}>
-      <View style={[root]}>
-        <View style={[wrapOption]}>
+      <View style={[styles.wrap, rootStyle]}>
+        <View style={[styles.wrapOption, wrapOptionStyle]}>
           {title &&
             (React.isValidElement(title) ? (
               title
@@ -119,16 +98,19 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
             return (
               <Button onPress={_onPress(item, index)} key={item.text}>
                 <View style={[styles.wrapTextOption]}>
-                  <Text style={[textOption]} children={item.text} />
+                  <Text style={[textOptionStyle]} children={item.text} />
                 </View>
               </Button>
             );
           })}
         </View>
-        <View style={[wrapCancel]}>
+        <View style={[styles.wrapCancel, wrapCancelStyle]}>
           <Button onPress={_onCancel}>
             <View style={[styles.wrapTextCancel]}>
-              <Text style={[textCancelStyle]} children={textCancel} />
+              <Text
+                style={[styles.textCancel, textCancelStyleOverwrite]}
+                children={textCancel}
+              />
             </View>
           </Button>
         </View>

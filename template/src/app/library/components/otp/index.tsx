@@ -1,14 +1,6 @@
-import {enhance} from '@common';
-import React, {
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, {memo, useEffect, useRef, useState} from 'react';
 import equals from 'react-fast-compare';
-import {Text, TouchableWithoutFeedback, TextInput, View} from 'react-native';
+import {Text, TextInput, TouchableWithoutFeedback, View} from 'react-native';
 
 import {Spacer} from '../spacer';
 
@@ -41,19 +33,19 @@ const OtpComponent = (props: OtpProps) => {
     }
   };
 
-  const _setFocus = useCallback(() => {
+  const _setFocus = () => {
     if (_inputRef.current) {
       _inputRef.current.focus();
     }
-  }, [_inputRef]);
+  };
 
-  const _onFocus = useCallback(() => {
+  const _onFocus = () => {
     setIsFocused(true);
-  }, []);
+  };
 
-  const _onBlur = useCallback(() => {
+  const _onBlur = () => {
     setIsFocused(false);
-  }, []);
+  };
 
   // effect
   useEffect(() => {
@@ -72,27 +64,10 @@ const OtpComponent = (props: OtpProps) => {
     }
   }, [length, onOtpInValid, onOtpValid, otp]);
 
-  // style
-  const container = useMemo(
-    () => enhance([styles.wrap, styles.row, containerStyle]),
-    [containerStyle],
-  );
-  const wrapInput = useMemo(
-    () => enhance([styles.otpView, wrapInputStyle]),
-    [wrapInputStyle],
-  );
-  const wrapInputActive = useMemo(
-    () => enhance([styles.otpViewActive, wrapInputActiveStyle]),
-    [wrapInputActiveStyle],
-  );
-  const text = useMemo(() => enhance([styles.otpText, textStyle]), [textStyle]);
-  const input = useMemo(() => enhance([styles.input]), []);
-  const row = useMemo(() => enhance([styles.row]), []);
-
   // render
   return (
     <TouchableWithoutFeedback onPress={_setFocus}>
-      <View style={[container]}>
+      <View style={[styles.wrap, styles.row, containerStyle]}>
         <TextInput
           ref={_inputRef}
           value={otp}
@@ -103,7 +78,7 @@ const OtpComponent = (props: OtpProps) => {
           underlineColorAndroid={'transparent'}
           onChangeText={_onOtpChange}
           selectionColor={'transparent'}
-          style={input}
+          style={styles.input}
           {...rest}
         />
         {length &&
@@ -111,14 +86,17 @@ const OtpComponent = (props: OtpProps) => {
             .fill(0)
             .map((item, index) => {
               return (
-                <View key={index} style={row}>
+                <View key={index} style={styles.row}>
                   <View
                     style={[
-                      wrapInput,
+                      styles.otpView,
+                      wrapInputStyle,
                       (index === otp.length ||
                         (length === otp.length && index === otp.length - 1)) &&
-                        isFocused &&
-                        wrapInputActive,
+                        isFocused && [
+                          styles.otpViewActive,
+                          wrapInputActiveStyle,
+                        ],
                     ]}>
                     <Text
                       children={
@@ -126,7 +104,7 @@ const OtpComponent = (props: OtpProps) => {
                           ? textEntry?.charAt(0) ?? otp.charAt(index)
                           : ''
                       }
-                      style={[text]}
+                      style={[styles.otpText, textStyle]}
                     />
                   </View>
                   <Spacer width={15} />

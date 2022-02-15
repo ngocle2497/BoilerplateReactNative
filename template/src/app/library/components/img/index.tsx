@@ -1,33 +1,23 @@
 import {images} from '@assets/image';
-import {enhance} from '@common';
-import React, {memo, useMemo} from 'react';
+import React, {memo} from 'react';
 import equals from 'react-fast-compare';
-import {StyleProp, View} from 'react-native';
-import FastImage, {ImageStyle} from 'react-native-fast-image';
+import {View} from 'react-native';
+import FastImage from 'react-native-fast-image';
 
+import {styles} from './styles';
 import {ImageProps} from './type';
 
-const ImgComponent = (props: ImageProps) => {
-  // state
-  const {
-    style: styleOverride,
-    resizeMode = 'cover',
-    source,
-    containerStyle,
-  } = props;
-
-  // style
-  const style = useMemo<StyleProp<ImageStyle>>(
-    () =>
-      enhance([{width: '100%', height: '100%'}, styleOverride as ImageStyle]),
-    [styleOverride],
-  );
-
+const ImgComponent = ({
+  style: styleOverride,
+  resizeMode = 'cover',
+  source,
+  containerStyle,
+}: ImageProps) => {
   // render
   return (
     <View style={containerStyle}>
       <FastImage
-        style={style}
+        style={[styles.img, styleOverride]}
         resizeMode={resizeMode}
         source={images[source ?? 'default']}
       />
