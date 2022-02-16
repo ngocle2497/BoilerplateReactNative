@@ -1,0 +1,29 @@
+diff --git a/node_modules/react-native-config/ios/ReactNativeConfig/GeneratedDotEnv.m b/node_modules/react-native-config/ios/ReactNativeConfig/GeneratedDotEnv.m
+new file mode 100644
+index 0000000..22b8dde
+--- /dev/null
++++ b/node_modules/react-native-config/ios/ReactNativeConfig/GeneratedDotEnv.m
+@@ -0,0 +1 @@
++  #define DOT_ENV @{ @"APP_ENV":@"Dev",@"API_URL":@"https:/",@"APP_DISPLAY_NAME":@"check1Dev",@"APP_PLACEHOLDER_NAME":@"check1",@"VERSION_CODE":@"1",@"VERSION_NAME":@"1.0.0",@"BUNDLE_IDENTIFIER":@"com.check1" };
+diff --git a/node_modules/react-native-config/react-native-config.podspec b/node_modules/react-native-config/react-native-config.podspec
+index 54985dd..0c89f39 100644
+--- a/node_modules/react-native-config/react-native-config.podspec
++++ b/node_modules/react-native-config/react-native-config.podspec
+@@ -42,12 +42,13 @@ HOST_PATH="$SRCROOT/../.."
+     ext.script_phase = {
+       name: 'Config codegen',
+       script: %(
+-        set -ex
+-        HOST_PATH="$SRCROOT/../.."
+-        "${PODS_TARGET_SRCROOT}/ios/ReactNativeConfig/BuildDotenvConfig.rb" "$HOST_PATH" "${PODS_TARGET_SRCROOT}/ios/ReactNativeConfig"
++          set -ex
++          HOST_PATH="$SRCROOT/../.."
++          ${PODS_TARGET_SRCROOT}/ios/ReactNativeConfig/BuildDotenvConfig.rb $HOST_PATH ${PODS_TARGET_SRCROOT}/ios/ReactNativeConfig
+         ),
+       execution_position: :before_compile,
+-      input_files: ['$PODS_TARGET_SRCROOT/ios/ReactNativeConfig/BuildDotenvConfig.rb']
++      input_files: ['$PODS_TARGET_SRCROOT/ios/ReactNativeConfig/BuildDotenvConfig.rb'],
++      output_files: ['$PODS_TARGET_SRCROOT/ios/ReactNativeConfig/GeneratedDotEnv.m']
+     }
+     ext.source_files = ['ios/**/ReactNativeConfig.{h,m}', 'ios/**/GeneratedDotEnv.m']
+   end
