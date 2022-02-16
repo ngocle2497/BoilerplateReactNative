@@ -7,6 +7,7 @@ target 'HelloWorld' do
   config = use_native_modules!
   pod 'MMKV'
   pod 'IQKeyboardManagerSwift'
+  pod 'react-native-config/Extension', :path => '../node_modules/react-native-config'
   use_react_native!(
     :path => config[:reactNativePath],
     # to enable hermes on iOS, change `false` to `true` and then install pods
