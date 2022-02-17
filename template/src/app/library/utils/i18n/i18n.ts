@@ -9,7 +9,7 @@ const languageDetector: LanguageDetectorAsyncModule = {
   type: 'languageDetector',
   async: true, // flags below detection to be async
   detect: (callback: any) => {
-    callback('vi_VN');
+    callback('es_US');
   },
   init: () => {},
   cacheUserLanguage: () => {},
@@ -21,7 +21,7 @@ i18n
   .use(languageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: 'vi_VN',
+    fallbackLng: 'es_US',
 
     resources: resources,
 
