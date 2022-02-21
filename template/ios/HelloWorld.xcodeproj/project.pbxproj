@@ -11,7 +11,6 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		41BD20D3154F4E25973C43DA /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 251C9DB147674A0DB80DFA85 /* Roboto-Regular.ttf */; };
 		6172F2D35A4C3AA820D92908 /* libPods-HelloWorld.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6423831EA8574132BED9D8CC /* libPods-HelloWorld.a */; };
 		7EF68E3733C33B6898317E18 /* libPods-HelloWorld-HelloWorldTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABFE59519B596E51CEFDCCC0 /* libPods-HelloWorld-HelloWorldTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -19,10 +18,11 @@
 		842FE78427BA6BFC004FF424 /* AppModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 842FE78127BA6BFC004FF424 /* AppModule.m */; };
 		842FE78527BA6BFC004FF424 /* AppModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FE78227BA6BFC004FF424 /* AppModule.swift */; };
 		842FE78627BA6BFC004FF424 /* MMKKVStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FE78327BA6BFC004FF424 /* MMKKVStorage.swift */; };
-		8B10548C128E431CA7B32F90 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A54E52E81C7847FF95620963 /* Roboto-Medium.ttf */; };
-		A5F5F4F220D540E18379EB8A /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BC63725900E4C60A9EE3D00 /* Roboto-Light.ttf */; };
-		B65158047D5A43D7863301E5 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7E26A7ED4344CA5B94F1482 /* Roboto-Bold.ttf */; };
-		D5DA7AA3EFD845308DAB9824 /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 05F7BEFBE8A14CA089601749 /* Roboto-Italic.ttf */; };
+		8484826827C3D4E100015A7D /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8484826327C3D4E100015A7D /* Roboto-Light.ttf */; };
+		8484826927C3D4E100015A7D /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8484826427C3D4E100015A7D /* Roboto-Medium.ttf */; };
+		8484826A27C3D4E100015A7D /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8484826527C3D4E100015A7D /* Roboto-Regular.ttf */; };
+		8484826B27C3D4E100015A7D /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8484826627C3D4E100015A7D /* Roboto-Bold.ttf */; };
+		8484826C27C3D4E100015A7D /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8484826727C3D4E100015A7D /* Roboto-Italic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,30 +39,26 @@
 		00E356EE1AD99517003FC87E /* HelloWorldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelloWorldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* HelloWorldTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldTests.m; sourceTree = "<group>"; };
-		05F7BEFBE8A14CA089601749 /* Roboto-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Italic.ttf"; path = "../src/app/assets/font/Roboto-Italic.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = HelloWorld/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = HelloWorld/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = HelloWorld/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HelloWorld/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = HelloWorld/main.m; sourceTree = "<group>"; };
-		1D0AE47A65C8663E3B452821 /* Pods-HelloWorld-HelloWorldTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloWorld-HelloWorldTests.release.xcconfig"; path = "Target Support Files/Pods-HelloWorld-HelloWorldTests/Pods-HelloWorld-HelloWorldTests.release.xcconfig"; sourceTree = "<group>"; };
-		251C9DB147674A0DB80DFA85 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../src/app/assets/font/Roboto-Regular.ttf"; sourceTree = "<group>"; };
-		3BC63725900E4C60A9EE3D00 /* Roboto-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Light.ttf"; path = "../src/app/assets/font/Roboto-Light.ttf"; sourceTree = "<group>"; };
 		6423831EA8574132BED9D8CC /* libPods-HelloWorld.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HelloWorld.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C97AB639B58BBB4B15BBE30 /* Pods-HelloWorld-HelloWorldTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloWorld-HelloWorldTests.debug.xcconfig"; path = "Target Support Files/Pods-HelloWorld-HelloWorldTests/Pods-HelloWorld-HelloWorldTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = HelloWorld/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		842FE77627BA6B57004FF424 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = HelloWorld/BootSplash.storyboard; sourceTree = "<group>"; };
 		842FE77827BA6B78004FF424 /* HelloWorld-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HelloWorld-Bridging-Header.h"; sourceTree = "<group>"; };
 		842FE78127BA6BFC004FF424 /* AppModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppModule.m; path = HelloWorld/AppModule/AppModule.m; sourceTree = "<group>"; };
 		842FE78227BA6BFC004FF424 /* AppModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppModule.swift; path = HelloWorld/AppModule/AppModule.swift; sourceTree = "<group>"; };
 		842FE78327BA6BFC004FF424 /* MMKKVStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MMKKVStorage.swift; path = HelloWorld/AppModule/MMKKVStorage.swift; sourceTree = "<group>"; };
+		8484826327C3D4E100015A7D /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Light.ttf"; path = "../../src/app/assets/fonts/Roboto-Light.ttf"; sourceTree = "<group>"; };
+		8484826427C3D4E100015A7D /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Medium.ttf"; path = "../../src/app/assets/fonts/Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		8484826527C3D4E100015A7D /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Regular.ttf"; path = "../../src/app/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		8484826627C3D4E100015A7D /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Bold.ttf"; path = "../../src/app/assets/fonts/Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		8484826727C3D4E100015A7D /* Roboto-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Italic.ttf"; path = "../../src/app/assets/fonts/Roboto-Italic.ttf"; sourceTree = "<group>"; };
 		84DCE8FB27BB48AC002B385F /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
-		A54E52E81C7847FF95620963 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Medium.ttf"; path = "../src/app/assets/font/Roboto-Medium.ttf"; sourceTree = "<group>"; };
-		A7E26A7ED4344CA5B94F1482 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Bold.ttf"; path = "../src/app/assets/font/Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		ABFE59519B596E51CEFDCCC0 /* libPods-HelloWorld-HelloWorldTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HelloWorld-HelloWorldTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C0A881CF5CF3F2B244570E2A /* Pods-HelloWorld.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloWorld.debug.xcconfig"; path = "Target Support Files/Pods-HelloWorld/Pods-HelloWorld.debug.xcconfig"; sourceTree = "<group>"; };
-		D00AAFFCFCFDA5787532823F /* Pods-HelloWorld.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloWorld.release.xcconfig"; path = "Target Support Files/Pods-HelloWorld/Pods-HelloWorld.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -103,18 +99,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		1179AE515DD443C18C37E3CA /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				A7E26A7ED4344CA5B94F1482 /* Roboto-Bold.ttf */,
-				05F7BEFBE8A14CA089601749 /* Roboto-Italic.ttf */,
-				3BC63725900E4C60A9EE3D00 /* Roboto-Light.ttf */,
-				A54E52E81C7847FF95620963 /* Roboto-Medium.ttf */,
-				251C9DB147674A0DB80DFA85 /* Roboto-Regular.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 		13B07FAE1A68108700A75B9A /* HelloWorld */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,14 +135,13 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				84FFB5AC27C3D1C400278117 /* Fonts */,
 				84DCE8FB27BB48AC002B385F /* Config.xcconfig */,
 				13B07FAE1A68108700A75B9A /* HelloWorld */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* HelloWorldTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				E233CBF5F47BEE60B243DCF8 /* Pods */,
-				1179AE515DD443C18C37E3CA /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -184,15 +167,16 @@
 			name = AppModule;
 			sourceTree = "<group>";
 		};
-		E233CBF5F47BEE60B243DCF8 /* Pods */ = {
+		84FFB5AC27C3D1C400278117 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				C0A881CF5CF3F2B244570E2A /* Pods-HelloWorld.debug.xcconfig */,
-				D00AAFFCFCFDA5787532823F /* Pods-HelloWorld.release.xcconfig */,
-				6C97AB639B58BBB4B15BBE30 /* Pods-HelloWorld-HelloWorldTests.debug.xcconfig */,
-				1D0AE47A65C8663E3B452821 /* Pods-HelloWorld-HelloWorldTests.release.xcconfig */,
+				8484826627C3D4E100015A7D /* Roboto-Bold.ttf */,
+				8484826727C3D4E100015A7D /* Roboto-Italic.ttf */,
+				8484826327C3D4E100015A7D /* Roboto-Light.ttf */,
+				8484826427C3D4E100015A7D /* Roboto-Medium.ttf */,
+				8484826527C3D4E100015A7D /* Roboto-Regular.ttf */,
 			);
-			path = Pods;
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,14 +273,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8484826B27C3D4E100015A7D /* Roboto-Bold.ttf in Resources */,
+				8484826A27C3D4E100015A7D /* Roboto-Regular.ttf in Resources */,
+				8484826927C3D4E100015A7D /* Roboto-Medium.ttf in Resources */,
 				842FE77727BA6B57004FF424 /* BootSplash.storyboard in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				8484826C27C3D4E100015A7D /* Roboto-Italic.ttf in Resources */,
+				8484826827C3D4E100015A7D /* Roboto-Light.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				B65158047D5A43D7863301E5 /* Roboto-Bold.ttf in Resources */,
-				D5DA7AA3EFD845308DAB9824 /* Roboto-Italic.ttf in Resources */,
-				A5F5F4F220D540E18379EB8A /* Roboto-Light.ttf in Resources */,
-				8B10548C128E431CA7B32F90 /* Roboto-Medium.ttf in Resources */,
-				41BD20D3154F4E25973C43DA /* Roboto-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,7 +468,6 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6C97AB639B58BBB4B15BBE30 /* Pods-HelloWorld-HelloWorldTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -512,7 +495,6 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1D0AE47A65C8663E3B452821 /* Pods-HelloWorld-HelloWorldTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -537,7 +519,6 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C0A881CF5CF3F2B244570E2A /* Pods-HelloWorld.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -564,7 +545,6 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D00AAFFCFCFDA5787532823F /* Pods-HelloWorld.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

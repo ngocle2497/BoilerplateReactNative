@@ -63,7 +63,6 @@ const LightBoxComponent = ({source}: LightBoxProps) => {
   const _onLoadedImage = useCallback((e: OnLoadEvent) => {
     setDisableButton(false);
     setSizeImage(e.nativeEvent);
-    console.log('object', e.nativeEvent);
   }, []);
 
   //reanimated style

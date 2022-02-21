@@ -26,7 +26,7 @@
     "aab:dev": "ENVFILE=env/.dev && cd android && ./gradlew clean && yarn aab",
     "aab:prod": "ENVFILE=env/.prod && cd android && ./gradlew clean && yarn aab",
     "lint": "eslint  index.js ./src/**/* --ext .js,.ts,.tsx",
-    "postinstall": "node ./scripts/main.js",
+    "postinstall": "./scripts/setup.sh",
     "prepare": "husky install"
   },
   "lint-staged": {

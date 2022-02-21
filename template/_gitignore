@@ -66,3 +66,6 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 /vendor/bundle/
+ios/prebuild.log
+ios/tmp.xcconfig
+*.app.dSYM.zip
