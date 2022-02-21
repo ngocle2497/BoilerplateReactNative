@@ -10,7 +10,23 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;&quot;${SRCROOT}/../node_modules/react-native-config/ios/ReactNativeConfig/BuildXCConfig.rb&quot; &quot;${SRCROOT}/..&quot; &quot;${SRCROOT}/tmp.xcconfig&quot;&#10;if [ &quot;${CONFIGURATION}&quot; == &quot;Debug&quot; ] ; then&#10;   echo &quot;env/.dev&quot; &gt; /tmp/envfile&#10;   echo &quot;Build load file .dev&quot;&#10;else &#10;   echo &quot;env/.dev&quot; &gt; /tmp/envfile&#10;   echo &quot;Build load file .dev&quot;&#10;fi&#10;">
+               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;rm &quot;${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}&quot;&#10;if [ &quot;${CONFIGURATION}&quot; == &quot;Debug&quot; ] ; then&#10;   echo &quot;env/.dev&quot; &gt; /tmp/envfile&#10;   echo &quot;Build load file .dev&quot;&#10;else &#10;   echo &quot;env/.dev&quot; &gt; /tmp/envfile&#10;   echo &quot;Build load file .dev&quot;&#10;fi&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
+                     BuildableName = "HelloWorld.app"
+                     BlueprintName = "HelloWorld"
+                     ReferencedContainer = "container:HelloWorld.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;&quot;${SRCROOT}/../node_modules/react-native-config/ios/ReactNativeConfig/BuildXCConfig.rb&quot; &quot;${SRCROOT}/..&quot; &quot;${SRCROOT}/tmp.xcconfig&quot;&#10;&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"

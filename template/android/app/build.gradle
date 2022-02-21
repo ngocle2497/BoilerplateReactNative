@@ -140,11 +140,9 @@ android {
     productFlavors {
         dev {
 //            applicationIdSuffix ".dev"
-           resValue "string", "app_name", project.env.get("APP_DISPLAY_NAME")
         }
 
         prod {
-           resValue "string", "app_name", project.env.get("APP_DISPLAY_NAME")
         }
     }
 
