@@ -215,6 +215,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				C8AC78B0264D0F9F6F6D630E /* [CP] Embed Pods Frameworks */,
 				ADC9DDC32298B72B3CF5DC8E /* [CP] Copy Pods Resources */,
+				8484826D27C3DF0700015A7D /* Setup GoogleService-Info.plist */,
 			);
 			buildRules = (
 			);
@@ -356,6 +357,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HelloWorld-HelloWorldTests/Pods-HelloWorld-HelloWorldTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		8484826D27C3DF0700015A7D /* Setup GoogleService-Info.plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Setup GoogleService-Info.plist";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n# Name of the resource to copy\n# INFO_PLIST_FILE=GoogleService-Info.plist\n# DEBUG_INFO_PLIST_FILE=${PROJECT_DIR}/GoogleService/${APP_ENV}/Debug/${INFO_PLIST_FILE}\n# RELEASE_INFO_PLIST_FILE=${PROJECT_DIR}/GoogleService/${APP_ENV}/Release/${INFO_PLIST_FILE}\n\n# Make sure the debug version exists\n# echo \"Looking for ${INFO_PLIST_FILE} in ${DEBUG_INFO_PLIST_FILE}\"\n# if [ ! -f $DEBUG_INFO_PLIST_FILE ] ; then\n#     echo \"File GoogleService-Info.plist (debug) not found.\"\n#     exit 1\n# fi\n\n# Make sure the release version exists\n# echo \"Looking for ${INFO_PLIST_FILE} in ${RELEASE_INFO_PLIST_FILE}\"\n# if [ ! -f $RELEASE_INFO_PLIST_FILE ] ; then\n#     echo \"File GoogleService-Info.plist (release) not found.\"\n#     exit 1\n# fi\n\n# Get a reference to the destination location for the plist file\n# PLIST_DESTINATION=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\n# echo \"Copying ${INFO_PLIST_FILE} to final destination: ${PLIST_DESTINATION}\"\n\n# Copy the appropiate file to app bundle\n# if [ \"${CONFIGURATION}\" == \"Debug\" ] ; then\n#     echo \"File ${DEBUG_INFO_PLIST_FILE} copied\"\n#     cp \"${DEBUG_INFO_PLIST_FILE}\" \"${PLIST_DESTINATION}\"\n# fi\n\n\n# Copy the appropiate file to app bundle\n# if [ \"${CONFIGURATION}\" == \"Release\" ] || [ \"${CONFIGURATION}\" == \"Distribution\" ] ; then\n#     echo \"File ${RELEASE_INFO_PLIST_FILE} copied\"\n#     cp \"${RELEASE_INFO_PLIST_FILE}\" \"${PLIST_DESTINATION}\"\n# fi\n";
 		};
 		A130D646172E58E1D159D8F2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

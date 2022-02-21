@@ -47,3 +47,10 @@
   - Go to Target => Build Settings => Assets Catalog Compiler - Options
   - Change Primary App Icon Set Name (App Icon assets name)
   - This will change icon for current schema
+
+### Add fonts
+
+> Copy your fonts to src/app/assets/fonts
+
+- Android: run ``` yarn ```, your fonts will be copy automatic
+- IOS: open ```.xcworkspace``` with ``` Xcode ```. Right click ```Fonts``` folder. Add file to HelloWorld. Select all fonts from ```src/app/assets/fonts```. DON'T TICK ```copy items if needed```. then save.
