@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {onCheckType} from '@common';
+import {ValidateMessageObject} from '@config/type';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 import {RootState} from '@store/all-reducers';
 import {AppTheme, useTheme} from '@theme';
@@ -14,7 +15,14 @@ import React, {
   useState,
 } from 'react';
 import isEqual from 'react-fast-compare';
-import {BackHandler, Keyboard, LayoutAnimation, Platform} from 'react-native';
+import {useTranslation} from 'react-i18next';
+import {
+  BackHandler,
+  EmitterSubscription,
+  Keyboard,
+  LayoutAnimation,
+  Platform,
+} from 'react-native';
 import {useSelector as useReduxSelector} from 'react-redux';
 
 type UseStateFull<T = any> = {
@@ -444,22 +452,37 @@ function useIsKeyboardShown() {
   React.useEffect(() => {
     const handleKeyboardShow = () => setIsKeyboardShown(true);
     const handleKeyboardHide = () => setIsKeyboardShown(false);
-
+    let keyboardWillShow: EmitterSubscription;
+    let keyboardWillHide: EmitterSubscription;
+    let keyboardDidShow: EmitterSubscription;
+    let keyboardDidHide: EmitterSubscription;
     if (Platform.OS === 'ios') {
-      Keyboard.addListener('keyboardWillShow', handleKeyboardShow);
-      Keyboard.addListener('keyboardWillHide', handleKeyboardHide);
+      keyboardWillShow = Keyboard.addListener(
+        'keyboardWillShow',
+        handleKeyboardShow,
+      );
+      keyboardWillHide = Keyboard.addListener(
+        'keyboardWillHide',
+        handleKeyboardHide,
+      );
     } else {
-      Keyboard.addListener('keyboardDidShow', handleKeyboardShow);
-      Keyboard.addListener('keyboardDidHide', handleKeyboardHide);
+      keyboardDidShow = Keyboard.addListener(
+        'keyboardDidShow',
+        handleKeyboardShow,
+      );
+      keyboardDidHide = Keyboard.addListener(
+        'keyboardDidHide',
+        handleKeyboardHide,
+      );
     }
 
     return () => {
       if (Platform.OS === 'ios') {
-        Keyboard.removeListener('keyboardWillShow', handleKeyboardShow);
-        Keyboard.removeListener('keyboardWillHide', handleKeyboardHide);
+        keyboardWillShow.remove();
+        keyboardWillHide.remove();
       } else {
-        Keyboard.removeListener('keyboardDidShow', handleKeyboardShow);
-        Keyboard.removeListener('keyboardDidHide', handleKeyboardHide);
+        keyboardDidShow.remove();
+        keyboardDidHide.remove();
       }
     };
   }, []);
@@ -521,7 +544,38 @@ function useIsMounted() {
   return isMountedRef;
 }
 
+function useMessageYupTranslation(msg?: string) {
+  const [t] = useTranslation();
+
+  const parsed = useMemo<ValidateMessageObject | undefined>(() => {
+    if (!msg) {
+      return undefined;
+    }
+    try {
+      return JSON.parse(msg);
+    } catch {
+      return undefined;
+    }
+  }, [msg]);
+
+  const resMsg = useMemo<string | undefined>(() => {
+    if (!parsed) {
+      return undefined;
+    }
+    const optionsTx: any = {} as any;
+    if (parsed.optionsTx) {
+      Object.keys(parsed.optionsTx).forEach(key => {
+        optionsTx[key] = t(parsed.optionsTx[key]);
+      });
+    }
+    return t(parsed.keyT, {...(parsed.options ?? {}), ...optionsTx});
+  }, [parsed, t]);
+
+  return resMsg;
+}
+
 export {
+  useMessageYupTranslation,
   useIsMounted,
   useDisableBackHandler,
   useDismissKeyboard,
