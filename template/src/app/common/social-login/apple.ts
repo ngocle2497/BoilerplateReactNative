@@ -1,7 +1,9 @@
 // import {Platform} from 'react-native';
 // import {
+//   AndroidSigninResponse,
 //   appleAuth,
 //   appleAuthAndroid,
+//   AppleRequestResponse,
 // } from '@invertase/react-native-apple-authentication';
 // import jwt_decode from 'jwt-decode';
 // import {loadString, saveString} from '@utils';
@@ -32,9 +34,13 @@ export {};
 //     return undefined;
 //   }
 // }
-
+// type AppleResponse = AppleRequestResponse | AndroidSigninResponse;
+// type LoginResult = {
+//   success?: boolean;
+//   data?: {userFullName?: string} & AppleResponse;
+// };
 // export const AppleService = {
-//   appleSignin: async () => {
+//   appleSignin: async (): Promise<LoginResult> => {
 //     if (Platform.OS === 'ios') {
 //       try {
 //         const appleAuthRequestResponse = await appleAuth.performRequest({
@@ -47,9 +53,18 @@ export {};
 //           appleAuthRequestResponse.user,
 //         );
 
-//         return {...appleAuthRequestResponse, userFullName};
+//         return {
+//           success: true,
+//           data: {
+//             ...appleAuthRequestResponse,
+//             userFullName: userFullName,
+//           },
+//         };
 //       } catch (err) {
 //         console.log('IOS-APPPLE-LOGIN-ERROR', err);
+//         return {
+//           success: false,
+//         };
 //       }
 //     } else {
 //       try {
@@ -94,11 +109,22 @@ export {};
 //           response.user?.name,
 //           appleId,
 //         );
-
-//         return {user: appleId, nonce, identityToken, userFullName};
+//         return {
+//           success: true,
+//           data: {
+//             ...response,
+//             user: appleId,
+//             nonce,
+//             identityToken,
+//             userFullName,
+//           },
+//         };
 //         // Send the authorization code to your backend for verification
 //       } catch (err) {
-//         console.log('ANDROID-APPPLE-LOGIN-ERROR', err);
+//         console.log('IOS-APPPLE-LOGIN-ERROR', err);
+//         return {
+//           success: false,
+//         };
 //       }
 //     }
 //   },
