@@ -1,15 +1,13 @@
-// import {Platform} from 'react-native';
 // import {
-//   AndroidSigninResponse,
 //   appleAuth,
 //   appleAuthAndroid,
-//   AppleRequestResponse,
 // } from '@invertase/react-native-apple-authentication';
-// import jwt_decode from 'jwt-decode';
 // import {loadString, saveString} from '@utils';
-export {};
-// import {randomUniqueId} from '../string/index';
+// import jwt_decode from 'jwt-decode';
+// import {Platform} from 'react-native';
 
+// import {randomUniqueId} from '../string/index';
+export {};
 // async function pickInfoAppleResponse(info: any = {}, appleId: string) {
 //   try {
 //     const infoCache = await loadString(appleId);
@@ -34,13 +32,16 @@ export {};
 //     return undefined;
 //   }
 // }
-// type AppleResponse = AppleRequestResponse | AndroidSigninResponse;
+// type AppleResponse = {
+//   nonce: string;
+//   identityToken: string;
+// };
 // type LoginResult = {
 //   success?: boolean;
 //   data?: {userFullName?: string} & AppleResponse;
 // };
 // export const AppleService = {
-//   appleSignin: async (): Promise<LoginResult> => {
+//   login: async (): Promise<LoginResult> => {
 //     if (Platform.OS === 'ios') {
 //       try {
 //         const appleAuthRequestResponse = await appleAuth.performRequest({
@@ -56,8 +57,9 @@ export {};
 //         return {
 //           success: true,
 //           data: {
-//             ...appleAuthRequestResponse,
 //             userFullName: userFullName,
+//             nonce: appleAuthRequestResponse.nonce,
+//             identityToken: appleAuthRequestResponse.identityToken ?? '',
 //           },
 //         };
 //       } catch (err) {
@@ -112,8 +114,6 @@ export {};
 //         return {
 //           success: true,
 //           data: {
-//             ...response,
-//             user: appleId,
 //             nonce,
 //             identityToken,
 //             userFullName,
@@ -121,7 +121,7 @@ export {};
 //         };
 //         // Send the authorization code to your backend for verification
 //       } catch (err) {
-//         console.log('IOS-APPPLE-LOGIN-ERROR', err);
+//         console.log('ANDROID-APPPLE-LOGIN-ERROR', err);
 //         return {
 //           success: false,
 //         };
