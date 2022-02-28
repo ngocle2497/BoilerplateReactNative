@@ -1,3 +1,4 @@
+// import {ENVConfig} from '@config/env';
 // import {
 //   appleAuth,
 //   appleAuthAndroid,
@@ -5,9 +6,10 @@
 // import {loadString, saveString} from '@utils';
 // import jwt_decode from 'jwt-decode';
 // import {Platform} from 'react-native';
+export {}
 
 // import {randomUniqueId} from '../string/index';
-export {};
+
 // async function pickInfoAppleResponse(info: any = {}, appleId: string) {
 //   try {
 //     const infoCache = await loadString(appleId);
@@ -41,7 +43,11 @@ export {};
 //   data?: {userFullName?: string} & AppleResponse;
 // };
 // export const AppleService = {
-//   login: async (): Promise<LoginResult> => {
+//   isSupport:
+//     Platform.OS === 'android'
+//       ? appleAuthAndroid.isSupported
+//       : appleAuth.isSupported,
+//   appleLogin: async (): Promise<LoginResult> => {
 //     if (Platform.OS === 'ios') {
 //       try {
 //         const appleAuthRequestResponse = await appleAuth.performRequest({
@@ -77,11 +83,11 @@ export {};
 //         // Configure the request
 //         appleAuthAndroid.configure({
 //           // The Service ID you registered with Apple
-//           clientId: 'CLIENT_ID_APPLE_SERVICE',
+//           clientId: ENVConfig.CLIENT_ID_APPLE_SERVICE,
 
 //           // Return URL added to your Apple dev console. We intercept this redirect, but it must still match
 //           // the URL you provided to Apple. It can be an empty route on your backend as it's never called.
-//           redirectUri: 'APPLE_REDIRECT_URI',
+//           redirectUri: ENVConfig.APPLE_REDIRECT_URI,
 
 //           // The type of response requested - code, id_token, or both.
 //           responseType: appleAuthAndroid.ResponseType.ALL,
