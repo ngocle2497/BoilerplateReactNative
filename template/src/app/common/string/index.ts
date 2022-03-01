@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-useless-escape */
+import {ValidateMessageObject} from '@config/type';
 import equals from 'react-fast-compare';
 import {processColor} from 'react-native';
 
@@ -146,4 +147,26 @@ export const hexStringFromCSSColor = (color: string) => {
   const withoutAlpha = colorStr.substring(2, colorStr.length);
   const alpha = colorStr.substring(0, 2);
   return `#${withoutAlpha}${alpha}`;
+};
+/**
+ * @param keyT key of i18n
+ * @param options object translate parameter
+ * @param optionsTx object translate parameter will translate before set to option base. see detail bellow
+ * ex: json file : {"field":{"email":"Email"},"msg":{"msg1":"{{fieldName}} is required"}}
+ * => optionsTx = {fieldName:"field:email"}
+ * fieldName must translate with i18n
+ * so fieldName option will be push on optionsTx
+ * This will support translate Option on translate
+ * Read hook useMessageYupTranslation
+ */
+ export const stringifyObjectValidateYup = ({
+  keyT,
+  options,
+  optionsTx,
+}: ValidateMessageObject) => {
+  return JSON.stringify({
+    keyT,
+    options,
+    optionsTx,
+  });
 };

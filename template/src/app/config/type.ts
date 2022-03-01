@@ -27,3 +27,9 @@ export enum SLICE_NAME {
   APP = 'APP_',
   LOGIN = 'LOGIN_',
 }
+
+export type ValidateMessageObject = {
+  keyT: string;
+  optionsTx?: any;
+  options?: any;
+};
