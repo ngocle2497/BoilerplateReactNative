@@ -1,17 +1,18 @@
 default_platform(:ios)
-ANDROID_BUILD_FILE_NAME = "#{ENV['APP_DISPLAY_NAME']}#{ENV['EXPORT_APP_ANDROID_NAME_SUFFIX']}"
-ANDROID_BUILD_PATH_DEFAULT = "../android/app/build/outputs/apk/release/app-release.apk"
-ANDROID_BUILD_PATH_UPLOAD = "android/app/build/outputs/apk/release/#{ANDROID_BUILD_FILE_NAME}-#{ENV['VERSION_NAME']}.apk"
 
-IOS_PATH = "ios/#{ENV['APP_PLACEHOLDER_NAME']}.xcodeproj"
-BUILD_IOS_FILENAME = "#{ENV['APP_DISPLAY_NAME']}#{ENV['EXPORT_APP_IOS_NAME_SUFFIX']}-#{ENV['APP_ENV']}-#{ENV['VERSION_NAME']}.ipa"
 
 before_all do |lane|
-  Dotenv.overload ENV['ENVFILE']
   environment = lane_context[SharedValues::ENVIRONMENT]
   unless environment.nil?
       puts "Load .env file of #{environment}"
-      Dotenv.overload ENV['ENVFILE'] + environment
+      Dotenv.overload "../" + ENV['ENVFILE']
+      ANDROID_BUILD_PATH_DEFAULT = "../android/app/build/outputs/apk/#{ENV['APP_ENV'].downcase}/release/app-#{ENV['APP_ENV'].downcase}-release.apk"
+     
+      ANDROID_BUILD_FILE_NAME = "#{ENV['APP_DISPLAY_NAME']}#{ENV['EXPORT_APP_ANDROID_NAME_SUFFIX']}"
+
+      ANDROID_BUILD_PATH_UPLOAD = "android/app/build/outputs/apk/#{ENV['APP_ENV'].downcase}/release/#{ANDROID_BUILD_FILE_NAME}-#{ENV['VERSION_NAME']}.apk"
+      
+      BUILD_IOS_FILENAME = "#{ENV['APP_DISPLAY_NAME']}#{ENV['EXPORT_APP_IOS_NAME_SUFFIX']}-#{ENV['APP_ENV']}-#{ENV['VERSION_NAME']}.ipa"
   end
 end
 
@@ -31,22 +32,22 @@ end
 lane :build_release do |options|
   if options[:isAndroid]
     gradle(task: 'clean', project_dir: 'android/')
-    gradle(task: "assemble", build_type: "Release", project_dir: "android/" )
+    gradle(task: "assemble", build_type: "#{ENV['APP_ENV'].downcase}Release", project_dir: "android/" )
     File.rename(ANDROID_BUILD_PATH_DEFAULT,  "../#{ANDROID_BUILD_PATH_UPLOAD}")
 
   else
     build_app(
-      workspace: "#{IOS_PATH}.xcworkspace",
+      workspace: "ios/#{ENV['APP_PLACEHOLDER_NAME']}.xcworkspace",
       scheme: "#{ENV['APP_PLACEHOLDER_NAME']}-#{ENV['APP_ENV']}",
       export_method: ENV['EXPORT_METHOD'],
       include_bitcode: false,
       export_options: {
-      output_name: BUILD_IOS_FILENAME,
         provisioningProfiles: { 
           "#{ENV['BUNDLE_IDENTIFIER']}" => "#{ENV['PROVISIONING_PROFILES']}"
         }
       }
     )
+
   end
 end
 
@@ -55,14 +56,15 @@ platform :ios do
   desc "IOS build IPA"
   lane :build_ipa do |params|
     build_release(isAndroid: false)
-    upload_to_appcenter(app_name: "#{ENV['APP_DISPLAY_NAME']}-#{ENV['EXPORT_APP_IOS_NAME_SUFFIX']}-#{ENV['APP_ENV']}", file: "./#{BUILD_IOS_FILENAME}")
+    # upload_to_testflight()
+    # upload_to_appcenter(app_name: "#{ENV['APP_DISPLAY_NAME']}-#{ENV['EXPORT_APP_IOS_NAME_SUFFIX']}-#{ENV['APP_ENV']}", file: "./#{BUILD_IOS_FILENAME}")
     clean_cache
   end
 
   desc "iOS clean file cache"
   private_lane :clean_cache do
-    File.delete("../#{BUILD_IOS_FILENAME}") if File.exist?("../#{BUILD_IOS_FILENAME}")
-    File.delete("../#{BUILD_IOS_FILENAME}.app.dSYM.zip") if File.exist?("../#{BUILD_IOS_FILENAME}.app.dSYM.zip")
+    File.delete("../#{ENV['APP_PLACEHOLDER_NAME']}.ipa") if File.exist?("../#{ENV['APP_PLACEHOLDER_NAME']}.ipa")
+    File.delete("../#{ENV['APP_PLACEHOLDER_NAME']}.app.dSYM.zip") if File.exist?("../#{ENV['APP_PLACEHOLDER_NAME']}.app.dSYM.zip")
   end
 end
 
@@ -70,6 +72,6 @@ platform :android do
   desc "Android build apk"
   lane :build_apk do |params|
     build_release(isAndroid: true)
-    upload_to_appcenter(app_name: "#{ANDROID_BUILD_FILE_NAME}-#{ENV['APP_ENV']}", file: "#{ANDROID_BUILD_PATH_UPLOAD}")
+    # upload_to_appcenter(app_name: "#{ANDROID_BUILD_FILE_NAME}-#{ENV['APP_ENV']}", file: "#{ANDROID_BUILD_PATH_UPLOAD}")
   end
 end
