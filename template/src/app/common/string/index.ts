@@ -148,6 +148,32 @@ export const hexStringFromCSSColor = (color: string) => {
   const alpha = colorStr.substring(0, 2);
   return `#${withoutAlpha}${alpha}`;
 };
+
+export const checkPasswordContainUserName = (
+  username: string,
+  password: string,
+) => {
+  const numConsecutiveChars = 3;
+
+  // first find all combinations that should not be found in password
+  const invalidCombinations = [];
+  for (let i = 0; i < username.length - numConsecutiveChars; i++) {
+    const curCombination = username[i] + username[i + 1] + username[i + 2];
+    invalidCombinations.push(curCombination);
+  }
+
+  // now check all invalidCombinations
+  let invalid = false;
+  for (let i = 0; i < invalidCombinations.length; i++) {
+    const curCombination = invalidCombinations[i];
+    if (password.indexOf(curCombination) !== -1) {
+      invalid = true;
+      break;
+    }
+  }
+  return invalid;
+};
+
 /**
  * @param keyT key of i18n
  * @param options object translate parameter
