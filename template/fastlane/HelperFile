@@ -1,0 +1,78 @@
+lane :upload_to_appcenter do |params|
+  appcenter_upload(
+    api_token: ENV["APP_CENTER_API_TOKEN"],
+    owner_name: ENV["APP_CENTER_OWNER_NAME"],
+    app_name: params[:app_name],
+    upload_build_only: true,
+    destinations: ENV['APP_CENTER_DESTINATIONS'],
+    release_notes: "New release build",
+    notify_testers: true,
+    file: params[:file],
+  )
+end
+
+lane :notify_testers do |params|
+  uri = URI.parse(ENV["GOOGLE_CHAT_WEBHOOK"])
+  text = params[:text]
+  thread = {
+    name: ENV["GOOGLE_CHAT_THREAD"],
+  } 
+  cards =  [
+        {
+          header: {
+            title: params[:title],
+            subtitle: ENV["VERSION_NAME"]
+          },
+          sections: [
+            {
+              widgets: [
+                {
+                  keyValue: {
+                    topLabel: "Build number",
+                    content: ENV["VERSION_CODE"],
+                    contentMultiline: true
+                  }
+                }
+              ]
+            },
+            {
+              widgets: [
+                {
+                  buttons: [
+                    {
+                      textButton: {
+                        text: "Install app",
+                        onClick: {
+                          openLink: {
+                            url: params[:buttonUrl]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ] 
+
+   # Create the HTTP objects
+   http = Net::HTTP.new(uri.host, uri.port)
+   http.use_ssl = true
+   http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+   request = Net::HTTP::Post.new(uri.request_uri)
+   request.content_type = "application/json"
+   request.body = {"text":text, "cards":cards, "thread":thread}.to_json
+
+   # Send the request
+   response = http.request(request)
+   case response
+   when Net::HTTPSuccess
+     UI.message("Message sent!")
+   when Net::HTTPServerError
+     UI.message(response.message)
+   else
+     UI.message(response.message)
+   end
+end

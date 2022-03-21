@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import i18n, {LanguageDetectorAsyncModule} from 'i18next';
 import {initReactI18next} from 'react-i18next';
@@ -8,7 +7,7 @@ import {resources} from './locales';
 const languageDetector: LanguageDetectorAsyncModule = {
   type: 'languageDetector',
   async: true, // flags below detection to be async
-  detect: (callback: any) => {
+  detect: (callback: (lng: string | readonly string[] | undefined) => void) => {
     callback('es_US');
   },
   init: () => {},

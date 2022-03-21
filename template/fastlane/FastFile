@@ -3,31 +3,22 @@ default_platform(:ios)
 
 before_all do |lane|
   environment = lane_context[SharedValues::ENVIRONMENT]
+  import('HelperFile')
   unless environment.nil?
       puts "Load .env file of #{environment}"
       Dotenv.overload "../" + ENV['ENVFILE']
       ANDROID_BUILD_PATH_DEFAULT = "../android/app/build/outputs/apk/#{ENV['APP_ENV'].downcase}/release/app-#{ENV['APP_ENV'].downcase}-release.apk"
      
-      ANDROID_BUILD_FILE_NAME = "#{ENV['APP_DISPLAY_NAME']}#{ENV['EXPORT_APP_ANDROID_NAME_SUFFIX']}"
+      ANDROID_BUILD_FILE_NAME = "#{ENV['APP_DISPLAY_NAME']}-#{ENV['EXPORT_APP_ANDROID_NAME_SUFFIX']}"
 
       ANDROID_BUILD_PATH_UPLOAD = "android/app/build/outputs/apk/#{ENV['APP_ENV'].downcase}/release/#{ANDROID_BUILD_FILE_NAME}-#{ENV['VERSION_NAME']}.apk"
       
-      BUILD_IOS_FILENAME = "#{ENV['APP_DISPLAY_NAME']}#{ENV['EXPORT_APP_IOS_NAME_SUFFIX']}-#{ENV['APP_ENV']}-#{ENV['VERSION_NAME']}.ipa"
+      BUILD_IOS_FILENAME = "#{ENV['APP_DISPLAY_NAME']}-#{ENV['EXPORT_APP_IOS_NAME_SUFFIX']}-#{ENV['APP_ENV']}-#{ENV['VERSION_NAME']}"
   end
 end
 
-lane :upload_to_appcenter do |params|
-  appcenter_upload(
-    api_token: ENV["APP_CENTER_API_TOKEN"],
-    owner_name: ENV["APP_CENTER_OWNER_NAME"],
-    app_name: params[:app_name],
-    upload_build_only: true,
-    destinations: ENV['APP_CENTER_DESTINATIONS'],
-    release_notes: "New release build",
-    notify_testers: true,
-    file: params[:file],
-  )
-end
+
+
 
 lane :build_release do |options|
   if options[:isAndroid]
@@ -41,6 +32,7 @@ lane :build_release do |options|
       scheme: "#{ENV['APP_PLACEHOLDER_NAME']}-#{ENV['APP_ENV']}",
       export_method: ENV['EXPORT_METHOD'],
       include_bitcode: false,
+      output_name: "#{BUILD_IOS_FILENAME}.ipa",
       export_options: {
         provisioningProfiles: { 
           "#{ENV['BUNDLE_IDENTIFIER']}" => "#{ENV['PROVISIONING_PROFILES']}"
@@ -51,27 +43,37 @@ lane :build_release do |options|
   end
 end
 
+
 platform :ios do
 
-  desc "IOS build IPA"
-  lane :build_ipa do |params|
+  desc "IOS build IPA then upload to TestFlight"
+  lane :staging_build do |params|
     build_release(isAndroid: false)
-    # upload_to_testflight()
-    # upload_to_appcenter(app_name: "#{ENV['APP_DISPLAY_NAME']}-#{ENV['EXPORT_APP_IOS_NAME_SUFFIX']}-#{ENV['APP_ENV']}", file: "./#{BUILD_IOS_FILENAME}")
+    upload_to_testflight()
+    notify_testers(
+      text: "#{ENV['GOOGLE_CHAT_TAG_USER']} *#{ENV['APP_DISPLAY_NAME']}* has an ios release on TestFlight",
+    )
     clean_cache
   end
 
   desc "iOS clean file cache"
   private_lane :clean_cache do
-    File.delete("../#{ENV['APP_PLACEHOLDER_NAME']}.ipa") if File.exist?("../#{ENV['APP_PLACEHOLDER_NAME']}.ipa")
-    File.delete("../#{ENV['APP_PLACEHOLDER_NAME']}.app.dSYM.zip") if File.exist?("../#{ENV['APP_PLACEHOLDER_NAME']}.app.dSYM.zip")
+    File.delete("../#{BUILD_IOS_FILENAME}.ipa") if File.exist?("../#{BUILD_IOS_FILENAME}.ipa")
+    File.delete("../#{BUILD_IOS_FILENAME}.app.dSYM.zip") if File.exist?("../#{BUILD_IOS_FILENAME}.app.dSYM.zip")
   end
 end
 
 platform :android do 
   desc "Android build apk"
-  lane :build_apk do |params|
+  lane :staging_build do |params|
     build_release(isAndroid: true)
-    # upload_to_appcenter(app_name: "#{ANDROID_BUILD_FILE_NAME}-#{ENV['APP_ENV']}", file: "#{ANDROID_BUILD_PATH_UPLOAD}")
-  end
+    upload_to_appcenter(
+      app_name: ENV['APP_CENTER_ANDROID_NAME'], 
+      file: "#{ANDROID_BUILD_PATH_UPLOAD}",
+    )
+    notify_testers(
+      title: ENV['GOOGLE_CHAT_ANDROID_TITLE'], 
+      text: "#{ENV['GOOGLE_CHAT_TAG_USER']} *#{ENV['APP_DISPLAY_NAME']}* has an android release",
+      buttonUrl: "#{ENV['GOOGLE_CHAT_BTN_URL']}/#{ENV['APP_CENTER_OWNER_NAME']}/apps/#{ENV['APP_CENTER_ANDROID_NAME']}")
+    end
 end
