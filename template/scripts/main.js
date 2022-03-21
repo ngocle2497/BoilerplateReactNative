@@ -2,6 +2,8 @@
 const { execSync } = require("child_process");
 
 (async function () {
+  await execSync('npx react-native link');
+  console.log('Link Done!!✨✨✨✨✨');
   if (process.platform === "darwin") {
     await execSync("cd ios && touch tmp.xcconfig");
     console.log(
