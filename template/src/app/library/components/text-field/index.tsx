@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, {forwardRef} from 'react';
-
-import {InputFlat} from './components/flat';
-import {InputOutline} from './components/out-line';
-import {TextFieldProps} from './type';
+import React, { forwardRef } from 'react';
+import { InputFlat } from './components/flat';
+import { InputOutline } from './components/out-line';
+import { TextFieldProps } from './type';
 
 const TextFieldComponent = forwardRef<any, TextFieldProps>((props, refs) => {
   // state
-  const {typeInput} = props;
+  const { typeInput } = props;
 
   // render
   return typeInput === 'flat' ? (

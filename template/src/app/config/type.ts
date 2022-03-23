@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-shadow */
-import {RegisterOptions} from 'react-hook-form';
+import { RegisterOptions } from 'react-hook-form';
 export interface ResponseBase<T = any> {
   code: number;
 

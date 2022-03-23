@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {PortalType} from '../types';
-
-import {ACTIONS} from './constants';
-import {ActionTypes, AddPortalAction} from './types';
+import { PortalType } from '../types';
+import { ACTIONS } from './constants';
+import { ActionTypes, AddPortalAction } from './types';
 
 const registerHost = (
   state: Record<string, Array<PortalType>>,
@@ -57,14 +56,14 @@ const removePortal = (
   }
 
   const newHostName = state[hostName].filter(item => item.name !== portalName);
-  return {...state, hostName: newHostName};
+  return { ...state, hostName: newHostName };
 };
 
 export const reducer = (
   state: Record<string, Array<PortalType>>,
   action: ActionTypes,
 ) => {
-  const clonedState = {...state};
+  const clonedState = { ...state };
   switch (action.type) {
     case ACTIONS.REGISTER_HOST:
       return registerHost(clonedState, action.hostName);

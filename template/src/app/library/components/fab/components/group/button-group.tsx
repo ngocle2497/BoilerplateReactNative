@@ -1,19 +1,17 @@
-import {useInterpolate} from '@animated';
-import {IconTypes} from '@assets/icon';
-import {onCheckType} from '@common';
-import React, {memo, useCallback} from 'react';
+import React, { memo, useCallback } from 'react';
 import isEqual from 'react-fast-compare';
-import {TouchableOpacity} from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useDerivedValue,
   withSpring,
 } from 'react-native-reanimated';
-
-import {Icon} from '../../../icon';
-import {Text} from '../../../text';
-
-import {stylesButton as styles} from './styles';
+import { useInterpolate } from '@animated';
+import { IconTypes } from '@assets/icon';
+import { onCheckType } from '@common';
+import { Icon } from '../../../icon';
+import { Text } from '../../../text';
+import { stylesButton as styles } from './styles';
 
 interface ButtonGroupProps {
   icon: IconTypes;
@@ -30,10 +28,10 @@ interface ButtonGroupProps {
 }
 
 const ButtonGroupComponent = (props: ButtonGroupProps) => {
-  const {icon, onPress, onPressItem, label, index, progress} = props;
+  const { icon, onPress, onPressItem, label, index, progress } = props;
   // reanimated
   const actualProgress = useDerivedValue(() =>
-    withSpring(progress.value, {stiffness: 100 + index * 60}),
+    withSpring(progress.value, { stiffness: 100 + index * 60 }),
   );
   const translateX = useInterpolate(actualProgress, [0, 1], [50, 0]);
   const opacity = useInterpolate(progress, [0, 0.4, 1], [0, 0, 1]);
@@ -48,7 +46,7 @@ const ButtonGroupComponent = (props: ButtonGroupProps) => {
   // reanimated style
   const style = useAnimatedStyle(() => ({
     opacity: opacity.value,
-    transform: [{translateX: translateX.value}],
+    transform: [{ translateX: translateX.value }],
   }));
 
   // render

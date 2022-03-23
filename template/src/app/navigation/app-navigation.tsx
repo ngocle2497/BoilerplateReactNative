@@ -1,4 +1,6 @@
-import {dispatch, AppModule, RXStore, useSelector} from '@common';
+import React, { useEffect } from 'react';
+import { StatusBar } from 'react-native';
+import { AppModule, dispatch, RXStore, useSelector } from '@common';
 import {
   hideLoading,
   PortalHost,
@@ -6,19 +8,16 @@ import {
   showLoading,
   SnackBar,
 } from '@components';
-import {ImageTransition} from '@library/components/light-box/image-transition';
-import {NavigationContainer} from '@react-navigation/native';
-import {onLoadApp} from '@store/app-redux/reducer';
-import {MyAppTheme} from '@theme';
-import React, {useEffect} from 'react';
-import {StatusBar} from 'react-native';
-
-import {navigationRef} from './navigation-service';
-import {RootNavigation} from './root-navigator';
+import { ImageTransition } from '@library/components/light-box/image-transition';
+import { NavigationContainer } from '@react-navigation/native';
+import { onLoadApp } from '@store/app-redux/reducer';
+import { MyAppTheme } from '@theme';
+import { navigationRef } from './navigation-service';
+import { RootNavigation } from './root-navigator';
 
 export const AppContainer = () => {
   // state
-  const {token, loadingApp, showDialog, theme} = useSelector(x => x.app);
+  const { token, loadingApp, showDialog, theme } = useSelector(x => x.app);
 
   // effect
   useEffect(() => {

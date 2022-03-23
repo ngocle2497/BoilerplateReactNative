@@ -1,17 +1,16 @@
-import {enhance, propsToStyle, sizeScale} from '@common';
-import {useTheme} from '@theme';
-import {FontDefault} from '@theme/typography';
-import React, {memo, useMemo} from 'react';
+import React, { memo, useMemo } from 'react';
 import equals from 'react-fast-compare';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import {
   StyleProp,
   StyleSheet,
   Text as ReactNativeText,
   TextStyle,
 } from 'react-native';
-
-import {TextProps} from './type';
+import { enhance, propsToStyle, sizeScale } from '@common';
+import { useTheme } from '@theme';
+import { FontDefault } from '@theme/typography';
+import { TextProps } from './type';
 
 const styles = StyleSheet.create({
   flex: {
@@ -54,18 +53,18 @@ const TextComponent = (props: TextProps) => {
       enhance([
         [
           flex === true && styles.flex,
-          {fontSize: sizeScale(fontSize)},
-          {fontFamily: FontDefault[fontFamily]},
-          colorTheme && {color: theme.colors[colorTheme]},
-          center && {textAlign: 'center'},
+          { fontSize: sizeScale(fontSize) },
+          { fontFamily: FontDefault[fontFamily] },
+          colorTheme && { color: theme.colors[colorTheme] },
+          center && { textAlign: 'center' },
           propsToStyle([
-            {fontWeight},
-            {color},
-            {textAlign},
-            {textTransform},
-            {fontStyle},
-            {letterSpacing},
-            {lineHeight},
+            { fontWeight },
+            { color },
+            { textAlign },
+            { textTransform },
+            { fontStyle },
+            { letterSpacing },
+            { lineHeight },
           ]),
           enhance([styleOverride]),
         ] as StyleProp<TextStyle>,

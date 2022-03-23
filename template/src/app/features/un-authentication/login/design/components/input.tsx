@@ -1,10 +1,10 @@
-import {HelperText, TextField} from '@components';
-import {HookFormRules} from '@config/type';
-import {FormLoginType} from '@model/login';
-import React, {memo} from 'react';
+import React, { memo } from 'react';
 import isEqual from 'react-fast-compare';
-import {useController, useFormContext} from 'react-hook-form';
-import {TextInputProps} from 'react-native';
+import { useController, useFormContext } from 'react-hook-form';
+import { TextInputProps } from 'react-native';
+import { HelperText, TextField } from '@components';
+import { HookFormRules } from '@config/type';
+import { FormLoginType } from '@model/login';
 
 interface InputProps extends TextInputProps {
   name: keyof FormLoginType;
@@ -24,10 +24,10 @@ const InputComponent = ({
   ...rest
 }: InputProps) => {
   // state
-  const {trigger, getValues} = useFormContext<FormLoginType>();
+  const { trigger, getValues } = useFormContext<FormLoginType>();
   const {
     field,
-    fieldState: {invalid, error},
+    fieldState: { invalid, error },
   } = useController({
     name,
     rules,

@@ -1,6 +1,5 @@
-import {StyleSheet} from 'react-native';
-
-import {BG_SUCCESS} from './constants';
+import { StyleSheet } from 'react-native';
+import { BG_SUCCESS } from './constants';
 
 export const styles = StyleSheet.create({
   container: {

@@ -1,13 +1,12 @@
-import React, {memo, useEffect, useRef, useState} from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import isEqual from 'react-fast-compare';
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   Transition,
   Transitioning,
   TransitioningView,
 } from 'react-native-reanimated';
-
-import {PostDelayProps} from './type';
+import { PostDelayProps } from './type';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -26,7 +25,7 @@ const transition = (
   </Transition.Together>
 );
 
-const PostDelayComponent = ({children}: PostDelayProps) => {
+const PostDelayComponent = ({ children }: PostDelayProps) => {
   // state
   const [loaded, setLoaded] = useState<boolean>(false);
   const postDelayViewRef = useRef<TransitioningView>(null);

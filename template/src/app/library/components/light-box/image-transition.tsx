@@ -6,17 +6,15 @@ import React, {
   useState,
 } from 'react';
 import isEqual from 'react-fast-compare';
-import {StyleSheet} from 'react-native';
-import {Source} from 'react-native-fast-image';
+import { StyleSheet } from 'react-native';
+import { Source } from 'react-native-fast-image';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-
-import {GestureHOC} from './gesture-hoc';
-import {styles} from './styles';
-
-import {Measure} from '.';
+import { Measure } from '.';
+import { GestureHOC } from './gesture-hoc';
+import { styles } from './styles';
 
 export interface ImageTransitionProps {
   image: Measure;

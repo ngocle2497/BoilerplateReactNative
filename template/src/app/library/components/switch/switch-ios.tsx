@@ -1,16 +1,18 @@
+import React, { memo, useCallback, useState } from 'react';
+import equals from 'react-fast-compare';
+import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import Animated, {
+  Extrapolate,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 import {
   useInterpolate,
   useInterpolateColor,
   useMix,
   useSharedTransition,
 } from '@animated';
-import {onCheckType} from '@common';
-import React, {memo, useCallback, useState} from 'react';
-import equals from 'react-fast-compare';
-import {StyleSheet, TouchableWithoutFeedback} from 'react-native';
-import Animated, {Extrapolate, useAnimatedStyle} from 'react-native-reanimated';
-
-import {SwitchProps} from './tye';
+import { onCheckType } from '@common';
+import { SwitchProps } from './tye';
 
 // dimensions
 const THUMB_SIZE = 28;
@@ -41,7 +43,7 @@ const styles = StyleSheet.create({
     borderRadius: THUMB_SIZE / 2,
     backgroundColor: '#FFFFFF',
     shadowColor: BORDER_OFF_COLOR,
-    shadowOffset: {width: 1, height: 2},
+    shadowOffset: { width: 1, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 2,
     elevation: 2,
@@ -93,7 +95,7 @@ const SwitchComponent = ({
   }));
 
   const animatedThumbStyle = useAnimatedStyle(() => ({
-    transform: [{translateX: translateX.value}],
+    transform: [{ translateX: translateX.value }],
   }));
 
   // render

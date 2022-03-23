@@ -1,4 +1,4 @@
-import {ImageTypes} from '@assets/image';
+import { ImageTypes } from '@assets/image';
 
 export interface WallpaperProps {
   /**

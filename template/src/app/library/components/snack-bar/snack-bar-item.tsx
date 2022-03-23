@@ -1,13 +1,12 @@
 /* eslint-disable no-undef */
-import {sharedTiming, useSharedTransition} from '@animated';
-import React, {memo, useCallback, useEffect, useState} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import React, { memo, useCallback, useEffect, useState } from 'react';
+import { Text, TouchableOpacity } from 'react-native';
 import Animated, {
   Easing,
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-
+import { sharedTiming, useSharedTransition } from '@animated';
 import {
   BG_ERROR,
   BG_INFO,
@@ -15,8 +14,8 @@ import {
   BG_WARN,
   DURATION_ANIMATED,
 } from './constants';
-import {styles} from './styles';
-import {SnackBarItemProps, TypeMessage} from './type';
+import { styles } from './styles';
+import { SnackBarItemProps, TypeMessage } from './type';
 
 const getColor = (
   typeMessage: TypeMessage,
@@ -55,7 +54,9 @@ export const SnackItem = memo(
     const [isShow, setIsShow] = useState<boolean>(true);
 
     // reanimated
-    const opacity = useSharedTransition(isShow, {duration: DURATION_ANIMATED});
+    const opacity = useSharedTransition(isShow, {
+      duration: DURATION_ANIMATED,
+    });
     const translateY = useSharedValue(-150);
     const translateX = useSharedValue(0);
 
@@ -107,8 +108,8 @@ export const SnackItem = memo(
     // animated style
     const itemBarAnimatedStyle = useAnimatedStyle(() => ({
       transform: [
-        {translateY: translateY.value},
-        {translateX: translateX.value},
+        { translateY: translateY.value },
+        { translateX: translateX.value },
       ],
       opacity: opacity.value,
     }));

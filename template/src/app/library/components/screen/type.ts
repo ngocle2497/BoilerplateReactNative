@@ -1,11 +1,11 @@
 import React from 'react';
 import {
-  ViewStyle,
-  StyleProp,
-  NativeSyntheticEvent,
   NativeScrollEvent,
+  NativeSyntheticEvent,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
-import {Edge} from 'react-native-safe-area-context';
+import { Edge } from 'react-native-safe-area-context';
 
 export interface ScreenProps {
   /**

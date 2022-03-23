@@ -1,1 +1,1 @@
-export {PortalDispatchContext, PortalStateContext} from './portal';
+export { PortalDispatchContext, PortalStateContext } from './portal';

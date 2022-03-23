@@ -1,24 +1,23 @@
-import React, {memo, useState, useEffect, useCallback} from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
+import isEqual from 'react-fast-compare';
 import {
+  FlatList,
+  Image,
+  LayoutChangeEvent,
+  ListRenderItemInfo,
+  RefreshControl,
   StyleSheet,
   View,
-  FlatList,
-  LayoutChangeEvent,
-  Image,
-  RefreshControl,
-  ListRenderItemInfo,
 } from 'react-native';
-import isEqual from 'react-fast-compare';
-
-import {MasonryProps, Dimensions, ItemColumn, DataType} from './types';
-import {DEFAULT_COLUMNS, DEFAULT_CELL_SPACE} from './constants';
+import { Column } from './column';
+import { DEFAULT_CELL_SPACE, DEFAULT_COLUMNS } from './constants';
 import {
   assignObjectColumn,
   assignObjectIndex,
-  onCheckNumber,
   containMatchingUri,
+  onCheckNumber,
 } from './handle';
-import {Column} from './column';
+import { DataType, Dimensions, ItemColumn, MasonryProps } from './types';
 
 const styles = StyleSheet.create({
   container: {
@@ -135,10 +134,10 @@ const MasonryComponent = ({
   const _onLayoutChange = useCallback(
     ({
       nativeEvent: {
-        layout: {height, width},
+        layout: { height, width },
       },
     }: LayoutChangeEvent) => {
-      setDimensions({height, width});
+      setDimensions({ height, width });
     },
     [],
   );
@@ -156,7 +155,7 @@ const MasonryComponent = ({
   }, [onRefresh]);
 
   const _renderItem = useCallback(
-    ({item}: ListRenderItemInfo<ItemColumn[]>) => {
+    ({ item }: ListRenderItemInfo<ItemColumn[]>) => {
       return (
         <Column
           {...{

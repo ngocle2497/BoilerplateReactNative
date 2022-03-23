@@ -1,17 +1,16 @@
+import React, { memo, useCallback, useMemo, useState } from 'react';
+import equals from 'react-fast-compare';
+import { TouchableWithoutFeedback } from 'react-native';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import {
   useInterpolate,
   useInterpolateColor,
   useSharedTransition,
 } from '@animated';
-import {onCheckType} from '@common';
-import React, {memo, useCallback, useMemo, useState} from 'react';
-import equals from 'react-fast-compare';
-import {TouchableWithoutFeedback} from 'react-native';
-import Animated, {useAnimatedStyle} from 'react-native-reanimated';
-
-import {ACTIVE_COLOR, SIZE, STROKE_WIDTH, UN_ACTIVE_COLOR} from './constants';
-import {styles} from './styles';
-import {RadioButtonProps} from './type';
+import { onCheckType } from '@common';
+import { ACTIVE_COLOR, SIZE, STROKE_WIDTH, UN_ACTIVE_COLOR } from './constants';
+import { styles } from './styles';
+import { RadioButtonProps } from './type';
 
 const RadioButtonComponent = (props: RadioButtonProps) => {
   // state
@@ -25,7 +24,7 @@ const RadioButtonComponent = (props: RadioButtonProps) => {
     onToggle,
   } = props;
   const [localValue, setLocalValue] = useState<boolean>(initialValue);
-  const progress = useSharedTransition(value ?? localValue, {duration: 200});
+  const progress = useSharedTransition(value ?? localValue, { duration: 200 });
   const size = useInterpolate(progress, [0, 1], [0, sizeDot - strokeWidth]);
   const color = useInterpolateColor(
     progress,

@@ -1,6 +1,6 @@
-import React, {memo} from 'react';
+import React, { memo } from 'react';
 import isEqual from 'react-fast-compare';
-import {Text, View} from 'react-native';
+import { Text, View } from 'react-native';
 
 const HomeComponent = () => {
   // render

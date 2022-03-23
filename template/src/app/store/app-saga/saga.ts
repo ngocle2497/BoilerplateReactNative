@@ -1,13 +1,12 @@
-import {R} from '@assets/value';
-import {checkKeyInObject} from '@common';
-import {MyAppTheme, ThemeType} from '@theme';
-import {all, call, put} from '@typed-redux-saga';
-import {loadString} from '@utils';
-
-import {onLoadAppEnd, onSetAppTheme, onSetToken} from '../app-redux/reducer';
+import { R } from '@assets/value';
+import { checkKeyInObject } from '@common';
+import { MyAppTheme, ThemeType } from '@theme';
+import { all, call, put } from '@typed-redux-saga';
+import { loadString } from '@utils';
+import { onLoadAppEnd, onSetAppTheme, onSetToken } from '../app-redux/reducer';
 
 export function* onLoadAppModeAndTheme() {
-  const {appTheme, token} = yield* all({
+  const { appTheme, token } = yield* all({
     appTheme: call(loadString, R.strings.APP_THEME),
     token: call(loadString, R.strings.TOKEN),
   });

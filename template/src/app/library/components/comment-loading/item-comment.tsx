@@ -1,15 +1,13 @@
-import {sharedTiming, useInterpolate} from '@animated';
-import React, {memo, useEffect, useMemo} from 'react';
+import React, { memo, useEffect, useMemo } from 'react';
 import isEqual from 'react-fast-compare';
-import {View, ViewStyle} from 'react-native';
+import { View, ViewStyle } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withDelay,
 } from 'react-native-reanimated';
-
-import {Spacer} from '../spacer';
-
+import { sharedTiming, useInterpolate } from '@animated';
+import { Spacer } from '../spacer';
 import {
   DELAY_MS,
   DURATION,
@@ -19,10 +17,10 @@ import {
   MIN_WIDTH_ITEM,
   SIZE_AVATAR,
 } from './constants';
-import {styles} from './styles';
-import {ItemCommentProps} from './type';
+import { styles } from './styles';
+import { ItemCommentProps } from './type';
 
-const ItemCommentComponent = ({index, overlayColor}: ItemCommentProps) => {
+const ItemCommentComponent = ({ index, overlayColor }: ItemCommentProps) => {
   // state
   const widthComment = useMemo<number>(
     () => MIN_WIDTH_ITEM + Math.random() * (MAX_WIDTH_ITEM - MIN_WIDTH_ITEM),
@@ -39,7 +37,7 @@ const ItemCommentComponent = ({index, overlayColor}: ItemCommentProps) => {
 
   // reanimated style
   const wrapStyle = useAnimatedStyle(() => ({
-    transform: [{translateY: translateY.value}],
+    transform: [{ translateY: translateY.value }],
     opacity: opacity.value,
   }));
 
@@ -68,7 +66,7 @@ const ItemCommentComponent = ({index, overlayColor}: ItemCommentProps) => {
   useEffect(() => {
     progress.value = withDelay(
       index * DELAY_MS,
-      sharedTiming(1, {duration: DURATION}),
+      sharedTiming(1, { duration: DURATION }),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

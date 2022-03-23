@@ -1,5 +1,5 @@
-import {sizeScale} from '@common';
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
+import { sizeScale } from '@common';
 
 export const styles = StyleSheet.create({
   modal: {

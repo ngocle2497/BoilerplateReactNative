@@ -1,10 +1,9 @@
-import {SvgComponent} from '@assets/svgIcon';
-import {useTheme} from '@theme';
-import React, {createElement, memo} from 'react';
+import React, { createElement, memo } from 'react';
 import isEqual from 'react-fast-compare';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-
-import {SvgIconProps} from './type';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { SvgComponent } from '@assets/svgIcon';
+import { useTheme } from '@theme';
+import { SvgIconProps } from './type';
 
 const SvgIconComponent = ({
   source,

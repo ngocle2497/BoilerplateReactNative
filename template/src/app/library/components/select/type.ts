@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {CustomOmit} from '@common';
 import React from 'react';
-import {FlatListProps, TextStyle, StyleProp} from 'react-native';
+import { FlatListProps, StyleProp, TextStyle } from 'react-native';
+import { CustomOmit } from '@common';
 
 export interface SelectOption {
   /**

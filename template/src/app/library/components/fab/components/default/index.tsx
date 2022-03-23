@@ -1,16 +1,14 @@
-import {enhance} from '@common';
-import React, {useMemo} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-
-import {Icon} from '../../../icon';
-
-import {styles} from './styles';
-import {FABDefaultProps} from './type';
+import React, { useMemo } from 'react';
+import { Text, TouchableOpacity } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { enhance } from '@common';
+import { Icon } from '../../../icon';
+import { styles } from './styles';
+import { FABDefaultProps } from './type';
 
 export const FABDefault = (props: FABDefaultProps) => {
   // state
-  const {onPress, style = {}, icon = 'plus', label} = props;
+  const { onPress, style = {}, icon = 'plus', label } = props;
   const inset = useSafeAreaInsets();
 
   // style
@@ -18,7 +16,7 @@ export const FABDefault = (props: FABDefaultProps) => {
     () =>
       enhance([
         styles.wrap,
-        {right: inset.right + 15, bottom: inset.bottom + 5},
+        { right: inset.right + 15, bottom: inset.bottom + 5 },
         style,
       ]),
     [inset, style],

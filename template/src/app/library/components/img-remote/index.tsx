@@ -1,14 +1,13 @@
-import {useSharedTransition} from '@animated';
-import {useAsyncState, useMounted} from '@common';
-import React, {memo, useState} from 'react';
+import React, { memo, useState } from 'react';
 import equals from 'react-fast-compare';
-import {StyleSheet, View} from 'react-native';
-import {Blurhash} from 'react-native-blurhash';
+import { StyleSheet, View } from 'react-native';
+import { Blurhash } from 'react-native-blurhash';
 import FastImage from 'react-native-fast-image';
-import Animated, {useAnimatedStyle} from 'react-native-reanimated';
-
-import {styles} from './styles';
-import {ImageRemoteProps} from './type';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
+import { useSharedTransition } from '@animated';
+import { useAsyncState, useMounted } from '@common';
+import { styles } from './styles';
+import { ImageRemoteProps } from './type';
 
 const ImageRemoteComponent = ({
   style: styleOverride = {},
@@ -90,7 +89,7 @@ const ImageRemoteComponent = ({
           onError={_onLoadError}
           onLoad={_onLoadImageSucceeded}
           style={[styles.img, styleOverride]}
-          source={{uri: source}}
+          source={{ uri: source }}
           {...rest}
         />
       </Animated.View>

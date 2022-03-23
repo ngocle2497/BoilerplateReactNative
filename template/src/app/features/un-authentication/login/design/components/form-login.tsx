@@ -1,18 +1,17 @@
-import {FormLoginType} from '@model/login';
-import React, {memo, useCallback, useMemo} from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import isEqual from 'react-fast-compare';
-import {FormProvider, useForm} from 'react-hook-form';
-import {Button} from 'react-native';
+import { FormProvider, useForm } from 'react-hook-form';
+import { Button } from 'react-native';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { FormLoginType } from '@model/login';
 import * as yup from 'yup';
-import {yupResolver} from '@hookform/resolvers/yup';
-
-import {Input} from './input';
+import { Input } from './input';
 
 interface FormLoginProps {
   onSubmit: (data: FormLoginType) => void;
 }
 
-const FormLoginComponent = ({onSubmit}: FormLoginProps) => {
+const FormLoginComponent = ({ onSubmit }: FormLoginProps) => {
   // state
   const validate = useMemo<yup.SchemaOf<FormLoginType>>(
     () =>

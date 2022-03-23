@@ -1,16 +1,15 @@
-import React, {memo, useState, useEffect, useMemo, useCallback} from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import isEqual from 'react-fast-compare';
 import {
-  View,
-  StyleProp,
-  ViewStyle,
   FlatList,
   ListRenderItemInfo,
+  StyleProp,
+  View,
+  ViewStyle,
 } from 'react-native';
-import isEqual from 'react-fast-compare';
-
-import {ColumnsProps, Dimensions, CellProps, ItemColumn} from './types';
-import {Cell} from './cell';
-import {DEFAULT_COLUMNS, DEFAULT_CELL_SPACE} from './constants';
+import { Cell } from './cell';
+import { DEFAULT_CELL_SPACE, DEFAULT_COLUMNS } from './constants';
+import { CellProps, ColumnsProps, Dimensions, ItemColumn } from './types';
 
 const ColumnComponent = ({
   data,
@@ -33,7 +32,7 @@ const ColumnComponent = ({
       listDimensions: Dimensions,
       nColumns = DEFAULT_COLUMNS,
     ) => {
-      const {width} = listDimensions;
+      const { width } = listDimensions;
       const _columnWidth = width / nColumns - space / 2;
       if (_columnWidth !== columnWidth) {
         setColumnWidth(_columnWidth);
@@ -43,7 +42,7 @@ const ColumnComponent = ({
       const newWidth = imgDimensions.width / divider;
       const newHeight = imgDimensions.height / divider;
 
-      return {width: newWidth, height: newHeight};
+      return { width: newWidth, height: newHeight };
     },
     [columnWidth, space],
   );
@@ -56,7 +55,7 @@ const ColumnComponent = ({
           dimensions,
           columns,
         );
-        return {...image, ...imageForColumn};
+        return { ...image, ...imageForColumn };
       });
     }
     return [];
@@ -68,7 +67,7 @@ const ColumnComponent = ({
   );
 
   const _renderItem = useCallback(
-    ({item}: ListRenderItemInfo<CellProps>) => {
+    ({ item }: ListRenderItemInfo<CellProps>) => {
       const {
         height,
         width,
@@ -111,12 +110,12 @@ const ColumnComponent = ({
   );
 
   const _renderSpace = useCallback(() => {
-    return <View style={{height: space}} />;
+    return <View style={{ height: space }} />;
   }, [space]);
 
   // style
   const containerStyle = useMemo(
-    () => [{width: columnWidth, overflow: 'hidden'}] as StyleProp<ViewStyle>,
+    () => [{ width: columnWidth, overflow: 'hidden' }] as StyleProp<ViewStyle>,
     [columnWidth],
   );
 

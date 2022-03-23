@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import {StyleProp, ImageStyle} from 'react-native';
+import { ImageStyle, StyleProp } from 'react-native';
 
 export interface Dimensions {
   width: number;

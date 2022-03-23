@@ -1,11 +1,9 @@
-import React, {memo, useCallback} from 'react';
+import React, { memo, useCallback } from 'react';
 import isEqual from 'react-fast-compare';
-import {Text, TouchableOpacity, View} from 'react-native';
-
-import {Icon} from '../icon';
-
-import {styles} from './styles';
-import {ItemProps} from './type';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { Icon } from '../icon';
+import { styles } from './styles';
+import { ItemProps } from './type';
 
 const DropDownItemComponent = ({
   item,

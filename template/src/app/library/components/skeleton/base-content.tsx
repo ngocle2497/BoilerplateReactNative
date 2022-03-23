@@ -1,11 +1,9 @@
-import React, {memo, useCallback, useMemo} from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import isEqual from 'react-fast-compare';
-import {useWindowDimensions, View, ViewStyle} from 'react-native';
-
-import {Spacer} from '../spacer';
-
-import {BASE_ITEM_HEIGHT} from './constants';
-import {styles} from './styles';
+import { useWindowDimensions, View, ViewStyle } from 'react-native';
+import { Spacer } from '../spacer';
+import { BASE_ITEM_HEIGHT } from './constants';
+import { styles } from './styles';
 
 type RowOverLayProps = {
   width: number | string;
@@ -13,7 +11,7 @@ type RowOverLayProps = {
   borderRadius?: number;
 };
 const RowOverLay = memo(
-  ({width, height = 10, borderRadius = 4}: RowOverLayProps) => {
+  ({ width, height = 10, borderRadius = 4 }: RowOverLayProps) => {
     // style
     const row = useMemo<ViewStyle>(
       () => ({
@@ -65,7 +63,7 @@ const ItemBase = memo(() => {
 
 const BaseContentComponent = () => {
   // state
-  const {height: screenHeight} = useWindowDimensions();
+  const { height: screenHeight } = useWindowDimensions();
   const listItem = useMemo<Array<number>>(
     () =>
       Array(Math.ceil(screenHeight / BASE_ITEM_HEIGHT))

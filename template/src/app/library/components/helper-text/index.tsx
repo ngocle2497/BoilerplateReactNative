@@ -1,21 +1,20 @@
-import {sharedTiming, useInterpolate, useSharedTransition} from '@animated';
-import {enhance} from '@common';
-import {useTheme} from '@theme';
-import {ColorDefault} from '@theme/color';
-import React, {memo, useCallback, useEffect, useMemo, useState} from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import equals from 'react-fast-compare';
-import {LayoutChangeEvent, LayoutRectangle, Text, View} from 'react-native';
+import { LayoutChangeEvent, LayoutRectangle, Text, View } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-
-import {styles} from './styles';
-import {HelperTextProps} from './type';
+import { sharedTiming, useInterpolate, useSharedTransition } from '@animated';
+import { enhance } from '@common';
+import { useTheme } from '@theme';
+import { ColorDefault } from '@theme/color';
+import { styles } from './styles';
+import { HelperTextProps } from './type';
 
 const HelperTextComponent = (props: HelperTextProps) => {
   // state
-  const {visible = false, msg, type, colorThemeError, colorThemeInfo} = props;
+  const { visible = false, msg, type, colorThemeError, colorThemeInfo } = props;
   const theme = useTheme();
   const [measured, setMeasured] = useState<LayoutRectangle>({
     height: 0,
@@ -30,7 +29,7 @@ const HelperTextComponent = (props: HelperTextProps) => {
 
   // function
   const _onLayoutContent = useCallback((e: LayoutChangeEvent) => {
-    setMeasured({...e.nativeEvent.layout});
+    setMeasured({ ...e.nativeEvent.layout });
   }, []);
 
   // style
@@ -38,7 +37,7 @@ const HelperTextComponent = (props: HelperTextProps) => {
     () =>
       enhance([
         styles.text,
-        {height: measured.height},
+        { height: measured.height },
         type === 'error'
           ? {
               color: colorThemeError

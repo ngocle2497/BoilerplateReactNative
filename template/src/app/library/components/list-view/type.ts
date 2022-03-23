@@ -1,6 +1,6 @@
-import {CustomOmit} from '@common';
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {FlatListProps} from 'react-native';
+import { FlatListProps } from 'react-native';
+import { CustomOmit } from '@common';
 
 export type ListViewProps = CustomOmit<
   FlatListProps<any>,

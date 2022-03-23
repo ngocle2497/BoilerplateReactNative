@@ -1,15 +1,14 @@
-import {sharedTiming} from '@animated';
-import {onCheckType} from '@common';
-import React, {memo, useCallback} from 'react';
+import React, { memo, useCallback } from 'react';
 import equals from 'react-fast-compare';
-import {GestureResponderEvent, TouchableWithoutFeedback} from 'react-native';
+import { GestureResponderEvent, TouchableWithoutFeedback } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-
-import {styles} from './styles';
-import {TouchableScaleProps} from './type';
+import { sharedTiming } from '@animated';
+import { onCheckType } from '@common';
+import { styles } from './styles';
+import { TouchableScaleProps } from './type';
 
 const TouchableScaleComponent = (props: TouchableScaleProps) => {
   // props
@@ -28,7 +27,7 @@ const TouchableScaleComponent = (props: TouchableScaleProps) => {
   // function
   const _onPressIn = useCallback(
     (e: GestureResponderEvent) => {
-      scale.value = sharedTiming(minScale, {duration: 150});
+      scale.value = sharedTiming(minScale, { duration: 150 });
       if (onCheckType(onPressIn, 'function')) {
         onPressIn(e);
       }
@@ -38,7 +37,7 @@ const TouchableScaleComponent = (props: TouchableScaleProps) => {
 
   const _onPressOut = useCallback(
     (e: GestureResponderEvent) => {
-      scale.value = sharedTiming(1, {duration: 150});
+      scale.value = sharedTiming(1, { duration: 150 });
       if (onCheckType(onPressOut, 'function')) {
         onPressOut(e);
       }
@@ -48,7 +47,7 @@ const TouchableScaleComponent = (props: TouchableScaleProps) => {
 
   //reanimated style
   const containerAnimatedStyle = useAnimatedStyle(() => ({
-    transform: [{scale: scale.value}],
+    transform: [{ scale: scale.value }],
   }));
 
   // render

@@ -19,4 +19,4 @@ const createWithPhoto = (photo: Array<any>, body: any) => {
   });
   return data;
 };
-export {createWithPhoto};
+export { createWithPhoto };

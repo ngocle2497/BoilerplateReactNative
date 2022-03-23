@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const {execSync} = require('child_process');
+const { execSync } = require('child_process');
 
 (async function () {
   await execSync('npx react-native link');
@@ -9,7 +9,7 @@ const {execSync} = require('child_process');
     console.log(
       '                  🧐🧐🧐🧐🧐 Starting pod install!! 🧐🧐🧐🧐🧐',
     );
-    await execSync('cd ios && pod install', {stdio: 'inherit'});
+    await execSync('cd ios && pod install', { stdio: 'inherit' });
     console.log('                      ✨✨✨✨✨ Pod done!!! ✨✨✨✨✨');
   }
 })();

@@ -1,12 +1,11 @@
-import {icons} from '@assets/icon';
-import {enhance} from '@common';
-import {useTheme} from '@theme';
-import React, {memo, useMemo} from 'react';
+import React, { memo, useMemo } from 'react';
 import equals from 'react-fast-compare';
-import {StyleProp, TouchableOpacity} from 'react-native';
-import FastImage, {ImageStyle} from 'react-native-fast-image';
-
-import {IconProps} from './type';
+import { StyleProp, TouchableOpacity } from 'react-native';
+import FastImage, { ImageStyle } from 'react-native-fast-image';
+import { icons } from '@assets/icon';
+import { enhance } from '@common';
+import { useTheme } from '@theme';
+import { IconProps } from './type';
 
 const SIZE = 24;
 
@@ -23,7 +22,7 @@ const IconComponent = (props: IconProps) => {
   const theme = useTheme();
   // style
   const style = useMemo<StyleProp<ImageStyle>>(
-    () => enhance([{width: size, height: size}]),
+    () => enhance([{ width: size, height: size }]),
     [size],
   );
 

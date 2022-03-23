@@ -1,13 +1,11 @@
-import {enhance} from '@common';
-import {useTheme} from '@theme';
-import React, {memo, useMemo} from 'react';
+import React, { memo, useMemo } from 'react';
 import equals from 'react-fast-compare';
-import {TouchableOpacity, ViewStyle} from 'react-native';
-
-import {Text} from '../text';
-
-import {stylesText, stylesView} from './preset';
-import {ButtonProps} from './type';
+import { TouchableOpacity, ViewStyle } from 'react-native';
+import { enhance } from '@common';
+import { useTheme } from '@theme';
+import { Text } from '../text';
+import { stylesText, stylesView } from './preset';
+import { ButtonProps } from './type';
 
 const ButtonComponent = (props: ButtonProps) => {
   // state

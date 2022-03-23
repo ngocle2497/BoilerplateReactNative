@@ -7,13 +7,12 @@ import React, {
   useState,
 } from 'react';
 import isEqual from 'react-fast-compare';
-import {StyleSheet, View} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-
-import {DURATION_HIDE} from './constants';
-import {SnackItem} from './snack-bar-item';
-import {styles} from './styles';
-import {Item, SnackBarProps, TypeMessage} from './type';
+import { StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { DURATION_HIDE } from './constants';
+import { SnackItem } from './snack-bar-item';
+import { styles } from './styles';
+import { Item, SnackBarProps, TypeMessage } from './type';
 
 const SnackBarComponent = forwardRef((props: SnackBarProps, ref) => {
   useImperativeHandle(
@@ -52,7 +51,7 @@ const SnackBarComponent = forwardRef((props: SnackBarProps, ref) => {
   }, []);
 
   const renderItem = useCallback(
-    (item: Item) => <SnackItem key={item.id} {...{item, onPop}} {...props} />,
+    (item: Item) => <SnackItem key={item.id} {...{ item, onPop }} {...props} />,
     [onPop, props],
   );
 
@@ -63,14 +62,14 @@ const SnackBarComponent = forwardRef((props: SnackBarProps, ref) => {
       style={[
         StyleSheet.absoluteFillObject,
         styles.container,
-        {marginTop: inset.top},
+        { marginTop: inset.top },
       ]}>
       {data.map(renderItem)}
     </View>
   );
 });
 type SnackBar = {
-  show: (data: {msg: string; interval?: number; type?: TypeMessage}) => void;
+  show: (data: { msg: string; interval?: number; type?: TypeMessage }) => void;
 };
 export const snackBarRef = createRef<SnackBar>();
 export const SnackBar = memo(
@@ -87,5 +86,5 @@ export const showSnack = ({
   interval?: number;
   type?: TypeMessage;
 }) => {
-  snackBarRef.current?.show({msg, interval, type});
+  snackBarRef.current?.show({ msg, interval, type });
 };

@@ -1,21 +1,19 @@
-import {useMix, useRadian, useSharedSpringTransition} from '@animated';
-import {enhance, onCheckType} from '@common';
-import {Text} from '@library/components/text';
-import React, {memo, useCallback, useMemo, useState} from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import isEqual from 'react-fast-compare';
-import {TouchableOpacity, useWindowDimensions, View} from 'react-native';
-import Animated, {useAnimatedStyle} from 'react-native-reanimated';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-
-import {Icon} from '../../../icon';
-
-import {ButtonGroup} from './button-group';
-import {SIZE_FAB, SPACE_BETWEEN} from './constants';
-import {styles} from './styles';
-import {Actions, FABGroupProps} from './type';
+import { TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useMix, useRadian, useSharedSpringTransition } from '@animated';
+import { enhance, onCheckType } from '@common';
+import { Text } from '@library/components/text';
+import { Icon } from '../../../icon';
+import { ButtonGroup } from './button-group';
+import { SIZE_FAB, SPACE_BETWEEN } from './constants';
+import { styles } from './styles';
+import { Actions, FABGroupProps } from './type';
 
 const FABGroupComponent = (props: FABGroupProps) => {
-  const {style, icon = 'plus', label, actions = []} = props;
+  const { style, icon = 'plus', label, actions = [] } = props;
   // state
   const window = useWindowDimensions();
   const [isShow, setIsShow] = useState(false);
@@ -46,14 +44,14 @@ const FABGroupComponent = (props: FABGroupProps) => {
     () =>
       enhance([
         styles.wrap,
-        {right: inset.right + 15, height: SIZE_FAB, bottom: inset.bottom + 5},
+        { right: inset.right + 15, height: SIZE_FAB, bottom: inset.bottom + 5 },
         style ?? {},
       ]),
     [inset, style],
   );
 
   const iconAnimatedStyle = useAnimatedStyle(() => ({
-    transform: [{rotate: rotateIcon.value}],
+    transform: [{ rotate: rotateIcon.value }],
   }));
 
   // render
@@ -76,7 +74,7 @@ const FABGroupComponent = (props: FABGroupProps) => {
           onResponderRelease={_onHide}
           style={[
             styles.background,
-            {width: window.width, height: window.height},
+            { width: window.width, height: window.height },
           ]}
         />
       )}

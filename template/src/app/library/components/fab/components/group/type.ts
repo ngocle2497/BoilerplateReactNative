@@ -1,6 +1,6 @@
 import React from 'react';
-import {IconTypes} from '@assets/icon';
-import {ViewStyle} from 'react-native';
+import { ViewStyle } from 'react-native';
+import { IconTypes } from '@assets/icon';
 
 export interface Actions {
   icon: IconTypes;

@@ -1,8 +1,7 @@
-import {SLICE_NAME} from '@config/type';
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {ThemeType} from '@theme';
-
-import {AppState} from './type';
+import { SLICE_NAME } from '@config/type';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ThemeType } from '@theme';
+import { AppState } from './type';
 
 const initialAppState: AppState = {
   internetState: true,
@@ -19,16 +18,16 @@ const appSlice = createSlice({
   name: SLICE_NAME.APP,
   initialState: initialAppState,
   reducers: {
-    onSetInternet: (state, {payload}: PayloadAction<boolean>) => {
+    onSetInternet: (state, { payload }: PayloadAction<boolean>) => {
       state.internetState = payload;
     },
-    onSetToken: (state, {payload}: PayloadAction<string>) => {
+    onSetToken: (state, { payload }: PayloadAction<string>) => {
       state.token = payload;
     },
-    onSetAppProfile: (state, {payload}: PayloadAction<unknown>) => {
+    onSetAppProfile: (state, { payload }: PayloadAction<unknown>) => {
       state.profile = payload;
     },
-    onSetAppTheme: (state, {payload}: PayloadAction<ThemeType>) => {
+    onSetAppTheme: (state, { payload }: PayloadAction<ThemeType>) => {
       state.theme = payload;
     },
     onLoadApp: state => {

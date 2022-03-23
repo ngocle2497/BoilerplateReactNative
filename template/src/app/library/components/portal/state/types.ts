@@ -1,6 +1,5 @@
-import {ReactNode} from 'react';
-
-import {ACTIONS} from './constants';
+import { ReactNode } from 'react';
+import { ACTIONS } from './constants';
 
 export interface AddPortalAction {
   type: ACTIONS;

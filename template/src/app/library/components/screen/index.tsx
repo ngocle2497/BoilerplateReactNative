@@ -1,22 +1,21 @@
-import {Block} from '@components';
-import {useTheme} from '@theme';
-import React, {memo, useMemo} from 'react';
+import React, { memo, useMemo } from 'react';
 import isEqual from 'react-fast-compare';
-import {StatusBar, useWindowDimensions, View, ViewStyle} from 'react-native';
+import { StatusBar, useWindowDimensions, View, ViewStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 import {
   Edge,
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-
-import {styles} from './styles';
-import {InsetComponentProps, InsetProps, ScreenProps} from './type';
+import { Block } from '@components';
+import { useTheme } from '@theme';
+import { styles } from './styles';
+import { InsetComponentProps, InsetProps, ScreenProps } from './type';
 
 const INSETS: Edge[] = ['top', 'bottom', 'left', 'right'];
 
 const Inset = memo(
-  ({color, height, width, bottom, left, right, top}: InsetProps) => {
+  ({ color, height, width, bottom, left, right, top }: InsetProps) => {
     // state
     const style = useMemo<ViewStyle>(
       () => ({
@@ -49,7 +48,7 @@ const InsetComponent = memo(
   }: InsetComponentProps) => {
     // state
     const inset = useSafeAreaInsets();
-    const {width: screenWidth, height: screenHeight} = useWindowDimensions();
+    const { width: screenWidth, height: screenHeight } = useWindowDimensions();
     // render
     return (
       <>
@@ -99,7 +98,7 @@ const InsetComponent = memo(
 
 function ScreenWithoutScrolling(props: ScreenProps) {
   // state
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const {
     hiddenStatusBar = false,
     statusColor = undefined,
@@ -140,7 +139,11 @@ function ScreenWithoutScrolling(props: ScreenProps) {
     <>
       <Wrapper
         edges={edges}
-        style={[styles.inner, style, backgroundColor ? {backgroundColor} : {}]}>
+        style={[
+          styles.inner,
+          style,
+          backgroundColor ? { backgroundColor } : {},
+        ]}>
         <View style={[styles.flex]} children={children} />
       </Wrapper>
       <InsetComponent
@@ -159,7 +162,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
 
 function ScreenWithScrolling(props: ScreenProps) {
   // state
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const {
     hiddenStatusBar = false,
     statusColor = undefined,
@@ -216,7 +219,7 @@ function ScreenWithScrolling(props: ScreenProps) {
           showsHorizontalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
           overScrollMode={'never'}
-          style={[styles.inner, backgroundColor ? {backgroundColor} : {}]}
+          style={[styles.inner, backgroundColor ? { backgroundColor } : {}]}
           contentContainerStyle={[style]}
           children={children}
         />
@@ -226,7 +229,7 @@ function ScreenWithScrolling(props: ScreenProps) {
 }
 
 function ScreenComponent(props: ScreenProps) {
-  const {scroll = false} = props;
+  const { scroll = false } = props;
   if (scroll) {
     return <ScreenWithScrolling {...props} />;
   } else {

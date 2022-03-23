@@ -1,7 +1,6 @@
-import {ReactNode, useCallback, useContext} from 'react';
-
-import {ACTIONS} from '../state';
-import {PortalDispatchContext} from '../context';
+import { ReactNode, useCallback, useContext } from 'react';
+import { PortalDispatchContext } from '../context';
+import { ACTIONS } from '../state';
 
 export const usePortal = (hostName = 'root') => {
   const dispatch = useContext(PortalDispatchContext);

@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import Animated, {
   Easing,
   useDerivedValue,
@@ -8,8 +8,7 @@ import Animated, {
   withTiming,
   WithTimingConfig,
 } from 'react-native-reanimated';
-
-import {sharedBin} from './math';
+import { sharedBin } from './math';
 
 /**
  * Return value runs from 0 to 1 when state change using withTiming
@@ -26,7 +25,7 @@ export const useSharedTransition = (
     withTiming(
       value.value,
       Object.assign(
-        {duration: 500, easing: Easing.bezier(0.33, 0.01, 0, 1)},
+        { duration: 500, easing: Easing.bezier(0.33, 0.01, 0, 1) },
         config,
       ),
     ),

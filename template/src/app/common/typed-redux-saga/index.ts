@@ -1,41 +1,41 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import {ActionMatchingPattern, Buffer, SagaIterator} from '@redux-saga/types';
-import {Action} from 'redux';
+import { ActionMatchingPattern, Buffer, SagaIterator } from '@redux-saga/types';
+import { Action } from 'redux';
 import {
-  TakeableChannel,
-  PuttableChannel,
-  END,
-  Task,
-  FlushableChannel,
   Channel,
+  END,
+  FlushableChannel,
+  PuttableChannel,
+  TakeableChannel,
+  Task,
 } from 'redux-saga';
 import {
+  ActionChannelEffect,
   ActionPattern,
-  TakeEffect,
-  Pattern,
-  ChannelTakeEffect,
-  ForkEffect,
-  HelperWorkerParameters,
-  PutEffect,
-  ChannelPutEffect,
+  AllEffect,
   CallEffect,
+  CallEffectDescriptor,
+  CancelEffect,
+  CancelledEffect,
+  ChannelPutEffect,
+  ChannelTakeEffect,
   CpsCallback,
   CpsEffect,
   CpsFunctionParameters,
-  JoinEffect,
-  CancelEffect,
-  SelectEffect,
-  Tail,
-  ActionChannelEffect,
-  RaceEffect,
-  AllEffect,
-  FlushEffect,
-  CancelledEffect,
-  SetContextEffect,
-  GetContextEffect,
   Effect,
-  CallEffectDescriptor,
+  FlushEffect,
+  ForkEffect,
+  GetContextEffect,
+  HelperWorkerParameters,
+  JoinEffect,
+  Pattern,
+  PutEffect,
+  RaceEffect,
+  SelectEffect,
+  SetContextEffect,
+  Tail,
+  TakeEffect,
 } from 'redux-saga/effects';
 export type SagaReturnType<
   S extends (...args: any[]) => any,
@@ -210,7 +210,7 @@ export declare function call<
   },
   Name extends string,
 >(
-  ctxAndFnName: {context: Ctx; fn: Name},
+  ctxAndFnName: { context: Ctx; fn: Name },
   ...args: Parameters<Ctx[Name]>
 ): SagaGenerator<
   SagaReturnType<Ctx[Name]>,
@@ -227,7 +227,7 @@ export declare function call<
   Ctx,
   Fn extends (this: Ctx, ...args: any[]) => any,
 >(
-  ctxAndFn: {context: Ctx; fn: Fn},
+  ctxAndFn: { context: Ctx; fn: Fn },
   ...args: Parameters<Fn>
 ): SagaGenerator<SagaReturnType<Fn>, CallEffect<SagaReturnType<Fn>>>;
 
@@ -275,7 +275,7 @@ export declare function cps<
   },
   Name extends string,
 >(
-  ctxAndFnName: {context: Ctx; fn: Name},
+  ctxAndFnName: { context: Ctx; fn: Name },
   ...args: CpsFunctionParameters<Ctx[Name]>
 ): SagaGenerator<ReturnType<Ctx[Name]>, CpsEffect<ReturnType<Ctx[Name]>>>;
 export declare function cps<
@@ -289,7 +289,7 @@ export declare function cps<
   Ctx,
   Fn extends (this: Ctx, ...args: any[]) => void,
 >(
-  ctxAndFn: {context: Ctx; fn: Fn},
+  ctxAndFn: { context: Ctx; fn: Fn },
   ...args: CpsFunctionParameters<Fn>
 ): SagaGenerator<ReturnType<Fn>, CpsEffect<ReturnType<Fn>>>;
 
@@ -320,7 +320,7 @@ export declare function fork<
   },
   Name extends string,
 >(
-  ctxAndFnName: {context: Ctx; fn: Name},
+  ctxAndFnName: { context: Ctx; fn: Name },
   ...args: Parameters<Ctx[Name]>
 ): SagaGenerator<
   FixedTask<SagaReturnType<Ctx[Name]>>,
@@ -337,7 +337,7 @@ export declare function fork<
   Ctx,
   Fn extends (this: Ctx, ...args: any[]) => any,
 >(
-  ctxAndFn: {context: Ctx; fn: Fn},
+  ctxAndFn: { context: Ctx; fn: Fn },
   ...args: Parameters<Fn>
 ): SagaGenerator<FixedTask<SagaReturnType<Fn>>, ForkEffect<SagaReturnType<Fn>>>;
 
@@ -363,7 +363,7 @@ export declare function spawn<
   },
   Name extends string,
 >(
-  ctxAndFnName: {context: Ctx; fn: Name},
+  ctxAndFnName: { context: Ctx; fn: Name },
   ...args: Parameters<Ctx[Name]>
 ): SagaGenerator<
   FixedTask<SagaReturnType<Ctx[Name]>>,
@@ -380,7 +380,7 @@ export declare function spawn<
   Ctx,
   Fn extends (this: Ctx, ...args: any[]) => any,
 >(
-  ctxAndFn: {context: Ctx; fn: Fn},
+  ctxAndFn: { context: Ctx; fn: Fn },
   ...args: Parameters<Fn>
 ): SagaGenerator<FixedTask<SagaReturnType<Fn>>, ForkEffect<SagaReturnType<Fn>>>;
 
@@ -529,19 +529,19 @@ type EffectReturnType<T> = T extends SagaGenerator<infer RT, any>
 export declare function all<T>(
   effects: T[],
 ): SagaGenerator<EffectReturnType<T>[], AllEffect<T>>;
-export declare function all<T extends {[key: string]: any}>(
+export declare function all<T extends { [key: string]: any }>(
   effects: T,
 ): SagaGenerator<
-  {[K in keyof T]: EffectReturnType<T[K]>},
+  { [K in keyof T]: EffectReturnType<T[K]> },
   AllEffect<T[keyof T]>
 >;
 
 export declare function race<T>(
   effects: T[],
 ): SagaGenerator<(EffectReturnType<T> | undefined)[], RaceEffect<T>>;
-export declare function race<T extends {[key: string]: any}>(
+export declare function race<T extends { [key: string]: any }>(
   effects: T,
 ): SagaGenerator<
-  {[K in keyof T]: EffectReturnType<T[K]> | undefined},
+  { [K in keyof T]: EffectReturnType<T[K]> | undefined },
   RaceEffect<T[keyof T]>
 >;

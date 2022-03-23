@@ -1,11 +1,10 @@
-import {sizeScale} from '@common';
-import React, {memo} from 'react';
+import React, { memo } from 'react';
 import isEqual from 'react-fast-compare';
-import {StyleSheet} from 'react-native';
-
-import {Block} from '../../block';
-import {Text} from '../../text';
-import {TextMessageProps} from '../type';
+import { StyleSheet } from 'react-native';
+import { sizeScale } from '@common';
+import { Block } from '../../block';
+import { Text } from '../../text';
+import { TextMessageProps } from '../type';
 
 const styles = StyleSheet.create({
   text: {
@@ -14,11 +13,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const TextMessageComponent = ({text}: TextMessageProps) => {
+const TextMessageComponent = ({ text }: TextMessageProps) => {
   // render
   return (
     <Block>
-      <Text {...{text, style: styles.text}} />
+      <Text {...{ text, style: styles.text }} />
     </Block>
   );
 };

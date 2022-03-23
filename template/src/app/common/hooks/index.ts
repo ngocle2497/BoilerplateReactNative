@@ -1,10 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {onCheckType} from '@common';
-import {ValidateMessageObject} from '@config/type';
-import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
-import {RootState} from '@store/all-reducers';
-import {AppTheme, useTheme} from '@theme';
 import React, {
   Dispatch,
   SetStateAction,
@@ -15,7 +10,8 @@ import React, {
   useState,
 } from 'react';
 import isEqual from 'react-fast-compare';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import { useSelector as useReduxSelector } from 'react-redux';
 import {
   BackHandler,
   EmitterSubscription,
@@ -23,7 +19,11 @@ import {
   LayoutAnimation,
   Platform,
 } from 'react-native';
-import {useSelector as useReduxSelector} from 'react-redux';
+import { onCheckType } from '@common';
+import { ValidateMessageObject } from '@config/type';
+import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
+import { RootState } from '@store/all-reducers';
+import { AppTheme, useTheme } from '@theme';
 
 type UseStateFull<T = any> = {
   value: T;
@@ -114,16 +114,16 @@ type UseArrayActions<T> = {
   clear: () => void;
   move: (from: number, to: number) => void;
   removeById: (
-    id: T extends {id: string}
+    id: T extends { id: string }
       ? string
-      : T extends {id: number}
+      : T extends { id: number }
       ? number
       : unknown,
   ) => void;
   modifyById: (
-    id: T extends {id: string}
+    id: T extends { id: string }
       ? string
-      : T extends {id: number}
+      : T extends { id: number }
       ? number
       : unknown,
     newValue: Partial<T>,
@@ -177,7 +177,7 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
   const modifyById = useCallback(
     (id, newValue) =>
       setValue(arr =>
-        arr.map((v: any) => (v.id === id ? {...v, ...newValue} : v)),
+        arr.map((v: any) => (v.id === id ? { ...v, ...newValue } : v)),
       ),
     [],
   );
@@ -226,7 +226,7 @@ function useBoolean(initial: boolean): UseBoolean {
   const setFalse = useCallback(() => setValue(false), []);
 
   const actions = useMemo(
-    () => ({setValue, toggle, setTrue, setFalse}),
+    () => ({ setValue, toggle, setTrue, setFalse }),
     [setFalse, setTrue, toggle],
   );
 
@@ -568,7 +568,7 @@ function useMessageYupTranslation(msg?: string) {
         optionsTx[key] = t(parsed.optionsTx[key]);
       });
     }
-    return t(parsed.keyT, {...(parsed.options ?? {}), ...optionsTx});
+    return t(parsed.keyT, { ...(parsed.options ?? {}), ...optionsTx });
   }, [parsed, t]);
 
   return resMsg;

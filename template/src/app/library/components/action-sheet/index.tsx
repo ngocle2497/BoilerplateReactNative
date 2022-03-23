@@ -6,15 +6,13 @@ import React, {
   useState,
 } from 'react';
 import equals from 'react-fast-compare';
-import {useTranslation} from 'react-i18next';
-import {Text, View} from 'react-native';
-
-import {Button} from '../button';
-import {Divider} from '../divider';
-import {Modal} from '../modal';
-
-import {styles} from './styles';
-import {ActionSheetProps, OptionData} from './type';
+import { useTranslation } from 'react-i18next';
+import { Text, View } from 'react-native';
+import { Button } from '../button';
+import { Divider } from '../divider';
+import { Modal } from '../modal';
+import { styles } from './styles';
+import { ActionSheetProps, OptionData } from './type';
 
 const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
   // state

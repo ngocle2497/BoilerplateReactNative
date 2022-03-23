@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import {StyleProp, ViewStyle, TextStyle} from 'react-native';
+import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 export interface RowDropDown {

@@ -1,5 +1,3 @@
-import {useMix, useRadian, useSharedTransition} from '@animated';
-import {enhance, isIos, onCheckType} from '@common';
 import React, {
   forwardRef,
   memo,
@@ -28,14 +26,14 @@ import Animated, {
   useAnimatedRef,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-
-import {Icon} from '../icon';
-import {Modal} from '../modal';
-
-import {DropDownItem} from './drop-down-item';
-import {styles} from './styles';
-import {DropDownProps, RowDropDown} from './type';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useMix, useRadian, useSharedTransition } from '@animated';
+import { enhance, isIos, onCheckType } from '@common';
+import { Icon } from '../icon';
+import { Modal } from '../modal';
+import { DropDownItem } from './drop-down-item';
+import { styles } from './styles';
+import { DropDownProps, RowDropDown } from './type';
 
 const setLayoutOnUI = (
   ref: React.RefObject<View>,
@@ -49,8 +47,8 @@ const setLayoutOnUI = (
   >,
 ) => {
   'worklet';
-  const {width, height, pageX, pageY} = measure(ref);
-  runOnJS(updateFunc)({width, height, x: pageX, y: pageY});
+  const { width, height, pageX, pageY } = measure(ref);
+  runOnJS(updateFunc)({ width, height, x: pageX, y: pageY });
 };
 
 const DropDownComponent = forwardRef((props: DropDownProps, _) => {
@@ -78,7 +76,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   } = props;
 
   // state
-  const {height: deviceH} = useWindowDimensions();
+  const { height: deviceH } = useWindowDimensions();
   const inset = useSafeAreaInsets();
   const _refDrop = useAnimatedRef<View>();
   const [isVisible, setIsVisible] = useState(false);
@@ -125,7 +123,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   );
 
   const _renderItem = useCallback(
-    ({item}: ListRenderItemInfo<RowDropDown>) => {
+    ({ item }: ListRenderItemInfo<RowDropDown>) => {
       return (
         <DropDownItem
           {...{
@@ -155,7 +153,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   const _keyExtractor = useCallback((item: RowDropDown) => item.value, []);
 
   const _onLayoutDrop = useCallback((e: LayoutChangeEvent) => {
-    const {height: DropH} = e.nativeEvent.layout;
+    const { height: DropH } = e.nativeEvent.layout;
     setDropHeight(DropH);
   }, []);
 
@@ -262,9 +260,9 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
         styles.dropStyle,
         dropDownStyle,
         _onCheckRenderBottom() ? styles.dropBottomOpened : styles.dropTopOpened,
-        {width: viewLayout.width, left: viewLayout.x},
+        { width: viewLayout.width, left: viewLayout.x },
         _onCheckRenderBottom()
-          ? {top: viewLayout.y + viewLayout.height}
+          ? { top: viewLayout.y + viewLayout.height }
           : {
               bottom:
                 deviceH -
@@ -278,7 +276,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   // reanimated style
   const arrowStyle = useAnimatedStyle(
     () => ({
-      transform: [{rotate: rotate.value}],
+      transform: [{ rotate: rotate.value }],
     }),
     [],
   );

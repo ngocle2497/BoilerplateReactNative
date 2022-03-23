@@ -1,16 +1,14 @@
-import {sizeScale} from '@common';
-import React, {memo} from 'react';
+import React, { memo } from 'react';
 import isEqual from 'react-fast-compare';
-import {StyleSheet} from 'react-native';
-
-import {Block} from '../../block';
-import {ImageRemote} from '../../img-remote';
-import {Text} from '../../text';
-import {ChatProps, MessageProps, SourceMessage} from '../type';
-
-import {Bubble} from './bubble';
-import {ImageMessage} from './image-message';
-import {TextMessage} from './text-message';
+import { StyleSheet } from 'react-native';
+import { sizeScale } from '@common';
+import { Block } from '../../block';
+import { ImageRemote } from '../../img-remote';
+import { Text } from '../../text';
+import { ChatProps, MessageProps, SourceMessage } from '../type';
+import { Bubble } from './bubble';
+import { ImageMessage } from './image-message';
+import { TextMessage } from './text-message';
 
 const styles = StyleSheet.create({
   mine: {
@@ -67,9 +65,9 @@ const MessageItemComponent = ({
   const _renderMessage = () => {
     switch (type) {
       case 'text':
-        return <TextMessage {...{text}} />;
+        return <TextMessage {...{ text }} />;
       case 'image':
-        return <ImageMessage {...{sourceImage}} />;
+        return <ImageMessage {...{ sourceImage }} />;
       default:
         return null;
     }
@@ -100,7 +98,9 @@ const MessageItemComponent = ({
           </Block>
         )}
         {sourceMessage === 'mine' && <Block block />}
-        <Bubble {...{prevType, sourceMessage, type}}>{_renderMessage()}</Bubble>
+        <Bubble {...{ prevType, sourceMessage, type }}>
+          {_renderMessage()}
+        </Bubble>
         {sourceMessage === 'friend' && <Block block />}
         {sourceMessage === 'mine' && (
           <Block

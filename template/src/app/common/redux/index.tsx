@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {RootState} from '@store/all-reducers';
-import React, {createRef, forwardRef, memo, useImperativeHandle} from 'react';
+import React, { createRef, forwardRef, memo, useImperativeHandle } from 'react';
 import isEqual from 'react-fast-compare';
-import {useDispatch} from 'react-redux';
-
-import {useSelector} from '../hooks';
+import { useDispatch } from 'react-redux';
+import { RootState } from '@store/all-reducers';
+import { useSelector } from '../hooks';
 
 type ActionBase<T = any> = {
   type: string;

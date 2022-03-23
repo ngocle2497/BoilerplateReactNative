@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {dispatch, getState} from '@common';
-import {RESULT_CODE_PUSH_OUT, TIME_OUT} from '@config/api';
-import {ENVConfig} from '@config/env';
-import {ParamsNetwork, ResponseBase} from '@config/type';
-import {onSetToken} from '@store/app-redux/reducer';
-import {AppState} from '@store/app-redux/type';
-import Axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
-import {StyleSheet} from 'react-native';
-
-import {ApiConstants} from './api';
+import { StyleSheet } from 'react-native';
+import { dispatch, getState } from '@common';
+import { RESULT_CODE_PUSH_OUT, TIME_OUT } from '@config/api';
+import { ENVConfig } from '@config/env';
+import { ParamsNetwork, ResponseBase } from '@config/type';
+import { onSetToken } from '@store/app-redux/reducer';
+import { AppState } from '@store/app-redux/type';
+import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { ApiConstants } from './api';
 import {
   handleErrorAxios,
   handleParameter,
@@ -56,7 +55,7 @@ async function refreshToken(originalRequest: any) {
 
 // base
 function Request<T = unknown>(config: AxiosRequestConfig, isCheckOut = true) {
-  const {token}: AppState = getState('app');
+  const { token }: AppState = getState('app');
   const defaultConfig: AxiosRequestConfig = {
     baseURL: ENVConfig.API_URL,
     timeout: TIME_OUT,
@@ -99,13 +98,13 @@ async function Post<T>(params: ParamsNetwork) {
 type ParameterPostFormData = AxiosRequestConfig & ParamsNetwork;
 // post FormData
 async function PostFormData<T>(params: ParamsNetwork) {
-  const {token}: AppState = getState('app');
+  const { token }: AppState = getState('app');
   const headers: AxiosRequestConfig['headers'] = {
     [tokenKeyHeader]: token ?? '',
     'Content-Type': 'multipart/form-data',
   };
   return Request<T>(
-    handleParameter<ParameterPostFormData>({...params, headers}, 'POST'),
+    handleParameter<ParameterPostFormData>({ ...params, headers }, 'POST'),
   );
 }
 

@@ -1,16 +1,14 @@
-import {sharedTiming, useInterpolate, useShareClamp} from '@animated';
-import React, {memo, useMemo, useState} from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import equals from 'react-fast-compare';
-import {LayoutChangeEvent, ViewStyle} from 'react-native';
+import { LayoutChangeEvent, ViewStyle } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useDerivedValue,
 } from 'react-native-reanimated';
-
-import {COLOR_BG, COLOR_FG, STROKE_WIDTH} from '../constant';
-
-import {styles} from './styles';
-import {ProgressLinearProps} from './type';
+import { sharedTiming, useInterpolate, useShareClamp } from '@animated';
+import { COLOR_BG, COLOR_FG, STROKE_WIDTH } from '../constant';
+import { styles } from './styles';
+import { ProgressLinearProps } from './type';
 
 export const ProgressLinearComponent = ({
   progress,
@@ -58,7 +56,7 @@ export const ProgressLinearComponent = ({
 
   // reanimated style
   const foregroundStyle = useAnimatedStyle(() => ({
-    transform: [{translateX: translateX.value}],
+    transform: [{ translateX: translateX.value }],
   }));
 
   // render

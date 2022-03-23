@@ -1,12 +1,3 @@
-import {sharedClamp, sharedTiming} from '@animated';
-import {
-  AppModule,
-  CustomOmit,
-  enhance,
-  isIos,
-  onCheckType,
-  useDisableBackHandler,
-} from '@common';
 import React, {
   forwardRef,
   memo,
@@ -17,21 +8,29 @@ import React, {
 } from 'react';
 import isEqual from 'react-fast-compare';
 import {
+  Keyboard,
   StyleSheet,
   TouchableWithoutFeedback,
   useWindowDimensions,
   View,
   ViewStyle,
-  Keyboard,
 } from 'react-native';
-import {Gesture, GestureDetector} from 'react-native-gesture-handler';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-
+import { sharedClamp, sharedTiming } from '@animated';
+import {
+  AppModule,
+  CustomOmit,
+  enhance,
+  isIos,
+  onCheckType,
+  useDisableBackHandler,
+} from '@common';
 import {
   ANIMATED_IN_DURATION,
   ANIMATED_OUT_DURATION,
@@ -39,9 +38,9 @@ import {
   MAX_TRANSLATE,
   SWIPE_THRESHOLD,
 } from './constants';
-import {styles} from './styles';
-import {ModalProps} from './type';
-import {withAnimated} from './untils';
+import { styles } from './styles';
+import { ModalProps } from './type';
+import { withAnimated } from './untils';
 
 const ModalContentComponent = forwardRef(
   (
@@ -70,11 +69,11 @@ const ModalContentComponent = forwardRef(
       onModalWillHide,
       onModalWillShow,
       onSetClose,
-    }: CustomOmit<ModalProps, 'isVisible'> & {onSetClose: () => void},
+    }: CustomOmit<ModalProps, 'isVisible'> & { onSetClose: () => void },
     ref,
   ) => {
     // state
-    const {height: screenHeight, width: screenWidth} = useWindowDimensions();
+    const { height: screenHeight, width: screenWidth } = useWindowDimensions();
     const modalStyle = useMemo<ViewStyle>(
       () =>
         enhance<ViewStyle>([
@@ -128,8 +127,8 @@ const ModalContentComponent = forwardRef(
     const wrapContentStyle = useAnimatedStyle(
       () => ({
         transform: [
-          {translateY: translateY.value},
-          {translateX: translateX.value},
+          { translateY: translateY.value },
+          { translateX: translateX.value },
         ],
       }),
       [],
@@ -218,7 +217,7 @@ const ModalContentComponent = forwardRef(
     ]);
 
     const gestureHandle = Gesture.Pan()
-      .onUpdate(({translationX, translationY}) => {
+      .onUpdate(({ translationX, translationY }) => {
         if (swipingDirection && moveContentWhenDrag) {
           translateY.value = sharedClamp(
             translationY,
@@ -232,7 +231,7 @@ const ModalContentComponent = forwardRef(
           );
         }
       })
-      .onEnd(({translationY, translationX}) => {
+      .onEnd(({ translationY, translationX }) => {
         if (swipingDirection) {
           const actualDx = Math.abs(
             sharedClamp(
@@ -255,8 +254,8 @@ const ModalContentComponent = forwardRef(
           }
         }
 
-        translateY.value = sharedTiming(0, {duration: 150});
-        translateX.value = sharedTiming(0, {duration: 150});
+        translateY.value = sharedTiming(0, { duration: 150 });
+        translateX.value = sharedTiming(0, { duration: 150 });
       });
 
     const renderBackdrop = useCallback(() => {

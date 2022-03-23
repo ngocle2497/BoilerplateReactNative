@@ -1,7 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {useInterpolate, useSharedTransition} from '@animated';
-import {onCheckType} from '@common';
-import {Text} from '@library/components/text';
 import React, {
   forwardRef,
   useCallback,
@@ -9,7 +6,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import {
   LayoutChangeEvent,
   NativeSyntheticEvent,
@@ -21,9 +18,11 @@ import Animated, {
   useAnimatedStyle,
   useDerivedValue,
 } from 'react-native-reanimated';
-
-import {styles} from './styles';
-import {InputOutlineProps} from './type';
+import { useInterpolate, useSharedTransition } from '@animated';
+import { onCheckType } from '@common';
+import { Text } from '@library/components/text';
+import { styles } from './styles';
+import { InputOutlineProps } from './type';
 
 const UN_ACTIVE_COLOR = 'rgb(159,152,146)';
 const ACTIVE_COLOR = 'rgb(0,87,231)';

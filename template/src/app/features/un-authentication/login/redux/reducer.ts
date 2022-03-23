@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {createAction, createSlice} from '@reduxjs/toolkit';
-import {SLICE_NAME} from '@config/type';
-
+import { SLICE_NAME } from '@config/type';
+import { createAction, createSlice } from '@reduxjs/toolkit';
 import * as Action from './actionType';
 export interface LoginState {
   loading: boolean;
@@ -16,7 +15,7 @@ const loginSlice = createSlice({
   initialState: initialState,
   reducers: {
     reset: () => {
-      return {...initialState};
+      return { ...initialState };
     },
     onStart: () => {
       /// TODO
@@ -33,5 +32,5 @@ const onLogin = createAction(
     },
   }),
 );
-export const actions = {...loginSlice.actions, onLogin};
+export const actions = { ...loginSlice.actions, onLogin };
 export const loginReducer = loginSlice.reducer;

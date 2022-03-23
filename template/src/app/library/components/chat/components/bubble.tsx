@@ -1,10 +1,9 @@
-import React, {memo, useMemo} from 'react';
-import {StyleSheet} from 'react-native';
+import React, { memo, useMemo } from 'react';
 import isEqual from 'react-fast-compare';
-import {sizeScale} from '@common';
-
-import {Block} from '../../block';
-import {BubbleProps, MessageProps, SourceMessage} from '../type';
+import { StyleSheet } from 'react-native';
+import { sizeScale } from '@common';
+import { Block } from '../../block';
+import { BubbleProps, MessageProps, SourceMessage } from '../type';
 
 interface BubbleActualProps
   extends BubbleProps,

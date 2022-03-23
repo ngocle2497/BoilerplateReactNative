@@ -1,11 +1,11 @@
-import {TransitionPreset} from '@react-navigation/stack/src/types';
+import { TransitionPreset } from '@react-navigation/stack/src/types';
 const DURATION_OPEN = 300;
 const DURATION_CLOSE = 300;
 
 const scaleBeforeSlideNext: TransitionPreset = {
   gestureDirection: 'horizontal',
   headerStyleInterpolator: () => ({}),
-  cardStyleInterpolator: ({current, layouts, next}) => ({
+  cardStyleInterpolator: ({ current, layouts, next }) => ({
     cardStyle: {
       transform: [
         {
@@ -33,14 +33,14 @@ const scaleBeforeSlideNext: TransitionPreset = {
     },
   }),
   transitionSpec: {
-    open: {animation: 'timing', config: {duration: DURATION_OPEN}},
-    close: {animation: 'timing', config: {duration: DURATION_CLOSE}},
+    open: { animation: 'timing', config: { duration: DURATION_OPEN } },
+    close: { animation: 'timing', config: { duration: DURATION_CLOSE } },
   },
 };
 const rotateFromRight: TransitionPreset = {
   gestureDirection: 'horizontal',
   headerStyleInterpolator: () => ({}),
-  cardStyleInterpolator: ({current, next, layouts}) => ({
+  cardStyleInterpolator: ({ current, next, layouts }) => ({
     cardStyle: {
       transform: [
         {
@@ -69,17 +69,17 @@ const rotateFromRight: TransitionPreset = {
     },
   }),
   transitionSpec: {
-    open: {animation: 'timing', config: {}},
-    close: {animation: 'timing', config: {}},
+    open: { animation: 'timing', config: {} },
+    close: { animation: 'timing', config: {} },
   },
 };
 const flipBook: TransitionPreset = {
   gestureDirection: 'horizontal',
   headerStyleInterpolator: () => ({}),
-  cardStyleInterpolator: ({current, layouts}) => ({
+  cardStyleInterpolator: ({ current, layouts }) => ({
     cardStyle: {
       transform: [
-        {perspective: 2500},
+        { perspective: 2500 },
         {
           translateX: layouts.screen.width / 2,
         },
@@ -103,18 +103,18 @@ const flipBook: TransitionPreset = {
     },
   }),
   transitionSpec: {
-    open: {animation: 'timing', config: {duration: DURATION_OPEN}},
-    close: {animation: 'timing', config: {duration: DURATION_CLOSE}},
+    open: { animation: 'timing', config: { duration: DURATION_OPEN } },
+    close: { animation: 'timing', config: { duration: DURATION_CLOSE } },
   },
 };
 
 const scaleY: TransitionPreset = {
   gestureDirection: 'vertical',
   headerStyleInterpolator: () => ({}),
-  cardStyleInterpolator: ({current}) => ({
+  cardStyleInterpolator: ({ current }) => ({
     cardStyle: {
       transform: [
-        {perspective: 2500},
+        { perspective: 2500 },
         {
           scaleY: current.progress.interpolate({
             inputRange: [0, 1],
@@ -132,8 +132,8 @@ const scaleY: TransitionPreset = {
     },
   }),
   transitionSpec: {
-    open: {animation: 'timing', config: {duration: DURATION_OPEN}},
-    close: {animation: 'timing', config: {duration: DURATION_CLOSE}},
+    open: { animation: 'timing', config: { duration: DURATION_OPEN } },
+    close: { animation: 'timing', config: { duration: DURATION_CLOSE } },
   },
 };
 export const TransitionPresets = {

@@ -1,8 +1,7 @@
-import React, {memo, useCallback} from 'react';
-import {FlatList, RefreshControl} from 'react-native';
+import React, { memo, useCallback } from 'react';
 import equals from 'react-fast-compare';
-
-import {ListViewProps} from './type';
+import { FlatList, RefreshControl } from 'react-native';
+import { ListViewProps } from './type';
 
 const ListViewComponent = (props: ListViewProps) => {
   // state

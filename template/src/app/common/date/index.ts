@@ -1,4 +1,4 @@
-import moment, {Moment} from 'moment';
+import moment, { Moment } from 'moment';
 
 /**
  * Return 2 date is same month.
@@ -135,33 +135,33 @@ export function getTimeDifference(date: Date | string): {
 
   switch (true) {
     case yearCalculator > 1:
-      return {count: yearCalculator, tx: 'txYearsAgo'};
+      return { count: yearCalculator, tx: 'txYearsAgo' };
     case yearCalculator > 0:
-      return {count: yearCalculator, tx: 'txYearAgo'};
+      return { count: yearCalculator, tx: 'txYearAgo' };
 
     case monthCalculator > 1:
-      return {count: monthCalculator, tx: 'txMonthsAgo'};
+      return { count: monthCalculator, tx: 'txMonthsAgo' };
     case monthCalculator > 0:
-      return {count: monthCalculator, tx: 'txMonthAgo'};
+      return { count: monthCalculator, tx: 'txMonthAgo' };
 
     case dayCalculator > 1:
-      return {count: dayCalculator, tx: 'txDaysAgo'};
+      return { count: dayCalculator, tx: 'txDaysAgo' };
     case dayCalculator > 0:
-      return {count: dayCalculator, tx: 'txDayAgo'};
+      return { count: dayCalculator, tx: 'txDayAgo' };
 
     case hourCalculator > 1:
-      return {count: hourCalculator, tx: 'txHoursAgo'};
+      return { count: hourCalculator, tx: 'txHoursAgo' };
     case hourCalculator > 0:
-      return {count: hourCalculator, tx: 'txHourAgo'};
+      return { count: hourCalculator, tx: 'txHourAgo' };
 
     case minutesCalculator > 1:
-      return {count: minutesCalculator, tx: 'txMinutesAgo'};
+      return { count: minutesCalculator, tx: 'txMinutesAgo' };
     case minutesCalculator > 0:
-      return {count: minutesCalculator, tx: 'txMinuteAgo'};
+      return { count: minutesCalculator, tx: 'txMinuteAgo' };
 
     case timeDifference > 1:
-      return {count: timeDifference, tx: 'txSecondsAgo'};
+      return { count: timeDifference, tx: 'txSecondsAgo' };
     default:
-      return {count: null, tx: 'txFewSecondsAgo'};
+      return { count: null, tx: 'txFewSecondsAgo' };
   }
 }

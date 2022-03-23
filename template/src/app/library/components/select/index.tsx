@@ -1,7 +1,6 @@
-import {enhance} from '@common';
-import React, {memo, useCallback, useMemo, useState} from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import equals from 'react-fast-compare';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import {
   FlatList,
   ListRenderItemInfo,
@@ -10,13 +9,12 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-
-import {Modal} from '../modal';
-
-import {SelectOption, SelectProps} from './type';
-import {SelectItem} from './select-item';
-import {styles} from './styles';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { enhance } from '@common';
+import { Modal } from '../modal';
+import { SelectItem } from './select-item';
+import { styles } from './styles';
+import { SelectOption, SelectProps } from './type';
 
 const SelectComponent = (props: SelectProps) => {
   // state
@@ -54,7 +52,7 @@ const SelectComponent = (props: SelectProps) => {
   };
 
   const _renderItem = useCallback(
-    ({item, index}: ListRenderItemInfo<SelectOption>) => {
+    ({ item, index }: ListRenderItemInfo<SelectOption>) => {
       return (
         <SelectItem
           customItem={customItem}

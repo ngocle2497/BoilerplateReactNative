@@ -1,11 +1,9 @@
-import {useDismissKeyboard} from '@common';
-import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import isEqual from 'react-fast-compare';
-
-import {Portal} from '../portal';
-
-import {ModalProps} from './type';
-import {ModalContent} from './modal-content';
+import { useDismissKeyboard } from '@common';
+import { Portal } from '../portal';
+import { ModalContent } from './modal-content';
+import { ModalProps } from './type';
 
 const ModalComponent = (props: ModalProps) => {
   // state

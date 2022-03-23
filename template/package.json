@@ -16,7 +16,7 @@
     "type:check": "yarn tsc --noEmit --skipLibCheck",
     "test": "jest",
     "build:staging": "fastlane ios staging_build --env dev && fastlane android staging_build --env dev",
-    "lint": "eslint  index.js ./src/**/* --ext .js,.ts,.tsx",
+    "lint": "eslint  index.js ./__tests__/** ./scripts/**  ./src/** --ext .js,.ts,.tsx",
     "postinstall": "./scripts/setup.sh",
     "prepare": "husky install"
   },
@@ -70,6 +70,7 @@
     "babel-jest": "^26.6.3",
     "babel-plugin-module-resolver": "^4.1.0",
     "babel-plugin-transform-remove-console": "^6.9.4",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint": "^7.14.0",
     "eslint-plugin-import": "^2.22.1",
     "husky": "^7.0.4",

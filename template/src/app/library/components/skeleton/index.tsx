@@ -1,18 +1,17 @@
-import {sharedTiming} from '@animated';
-import MaskedView from '@react-native-community/masked-view';
-import React, {memo, useEffect, useMemo} from 'react';
+import React, { memo, useEffect, useMemo } from 'react';
 import isEqual from 'react-fast-compare';
-import {useWindowDimensions, View, ViewStyle} from 'react-native';
+import { useWindowDimensions, View, ViewStyle } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
 } from 'react-native-reanimated';
-
-import {BaseContent} from './base-content';
-import {styles} from './styles';
-import {SkeletonProps} from './type';
+import { sharedTiming } from '@animated';
+import MaskedView from '@react-native-community/masked-view';
+import { BaseContent } from './base-content';
+import { styles } from './styles';
+import { SkeletonProps } from './type';
 
 const SkeletonComponent = ({
   children,
@@ -26,7 +25,7 @@ const SkeletonComponent = ({
   ],
 }: SkeletonProps) => {
   // state
-  const {width: screenWidth} = useWindowDimensions();
+  const { width: screenWidth } = useWindowDimensions();
   const translateX = useSharedValue(-screenWidth);
 
   // reanimated style
@@ -35,7 +34,7 @@ const SkeletonComponent = ({
       width: screenWidth,
       height: '100%',
       position: 'absolute',
-      transform: [{translateX: translateX.value}],
+      transform: [{ translateX: translateX.value }],
     }),
     [screenWidth],
   );
@@ -43,7 +42,7 @@ const SkeletonComponent = ({
   // effect
   useEffect(() => {
     translateX.value = withRepeat(
-      sharedTiming(screenWidth, {duration: 2000}),
+      sharedTiming(screenWidth, { duration: 2000 }),
       -1,
       false,
     );
@@ -73,8 +72,8 @@ const SkeletonComponent = ({
       <View style={[overlay]} />
       <Animated.View style={reLinearStyle}>
         <LinearGradient
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 0}}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
           colors={linearColor}
           style={styles.linear}
         />

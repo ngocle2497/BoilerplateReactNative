@@ -6,7 +6,7 @@
 // import {loadString, saveString} from '@utils';
 // import jwt_decode from 'jwt-decode';
 // import {Platform} from 'react-native';
-export {}
+export {};
 
 // import {randomUniqueId} from '../string/index';
 

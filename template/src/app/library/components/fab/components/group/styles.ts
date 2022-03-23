@@ -1,6 +1,5 @@
-import {StyleSheet} from 'react-native';
-
-import {SIZE_BUTTON_GROUP, SIZE_FAB, SPACE_BETWEEN} from './constants';
+import { StyleSheet } from 'react-native';
+import { SIZE_BUTTON_GROUP, SIZE_FAB, SPACE_BETWEEN } from './constants';
 
 export const styles = StyleSheet.create({
   wrap: {

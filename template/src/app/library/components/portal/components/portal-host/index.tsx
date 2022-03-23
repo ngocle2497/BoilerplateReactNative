@@ -1,13 +1,11 @@
-import React, {memo, useEffect} from 'react';
+import React, { memo, useEffect } from 'react';
+import { usePortal, usePortalState } from '../../hooks';
+import type { PortalHostProps } from './types';
 
-import {usePortal, usePortalState} from '../../hooks';
-
-import type {PortalHostProps} from './types';
-
-const PortalHostComponent = ({name}: PortalHostProps) => {
+const PortalHostComponent = ({ name }: PortalHostProps) => {
   // state
   const state = usePortalState(name);
-  const {registerHost, deregisterHost} = usePortal(name);
+  const { registerHost, deregisterHost } = usePortal(name);
 
   // effect
   useEffect(() => {

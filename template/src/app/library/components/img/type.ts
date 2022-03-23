@@ -1,6 +1,6 @@
-import {ViewStyle, StyleProp} from 'react-native';
-import {ImageTypes} from '@assets/image';
-import {ImageStyle} from 'react-native-fast-image';
+import { StyleProp, ViewStyle } from 'react-native';
+import { ImageStyle } from 'react-native-fast-image';
+import { ImageTypes } from '@assets/image';
 
 type ResizeMode = 'contain' | 'cover' | 'stretch' | 'center';
 

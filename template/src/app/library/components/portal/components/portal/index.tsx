@@ -1,9 +1,7 @@
-import {memo, useEffect, useMemo} from 'react';
-import {randomUniqueId} from '@common';
-
-import {usePortal} from '../../hooks';
-
-import type {PortalProps} from './types';
+import { memo, useEffect, useMemo } from 'react';
+import { randomUniqueId } from '@common';
+import { usePortal } from '../../hooks';
+import type { PortalProps } from './types';
 
 const PortalComponent = ({
   name: _providedName,
@@ -13,7 +11,7 @@ const PortalComponent = ({
   children,
 }: PortalProps) => {
   // state
-  const {addPortal, removePortal, updatePortal} = usePortal(hostName);
+  const { addPortal, removePortal, updatePortal } = usePortal(hostName);
   const name = useMemo(
     () => _providedName || randomUniqueId(),
     [_providedName],

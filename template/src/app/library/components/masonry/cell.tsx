@@ -1,16 +1,15 @@
-import React, {memo, useMemo, useCallback} from 'react';
-import {
-  View,
-  TouchableOpacity,
-  StyleProp,
-  ImageStyle,
-  ImageProps,
-} from 'react-native';
+import React, { memo, useCallback, useMemo } from 'react';
 import isEqual from 'react-fast-compare';
+import {
+  ImageProps,
+  ImageStyle,
+  StyleProp,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import FastImage from 'react-native-fast-image';
-
-import {CellProps} from './types';
-import {Injector} from './injector';
+import { Injector } from './injector';
+import { CellProps } from './types';
 
 const CellComponent = ({
   onPress,
@@ -26,7 +25,7 @@ const CellComponent = ({
 }: CellProps) => {
   // state
   const dataBase = useMemo(
-    () => ({uri, width, height, data, column, actualSize: dimensions}),
+    () => ({ uri, width, height, data, column, actualSize: dimensions }),
     [uri, width, height, data, column, dimensions],
   );
 
@@ -49,7 +48,7 @@ const CellComponent = ({
   const imageStyle = useMemo(
     () =>
       [
-        {width: width, height: height, minHeight: 0, minWidth: 0},
+        { width: width, height: height, minHeight: 0, minWidth: 0 },
         containerImageStyle,
       ] as StyleProp<ImageStyle>,
     [width, height, containerImageStyle],
@@ -61,7 +60,7 @@ const CellComponent = ({
       key: uri,
       data: data,
       resizeMethod: 'auto',
-      source: {uri},
+      source: { uri },
       style: imageStyle,
     }),
     [imageStyle, uri, data],

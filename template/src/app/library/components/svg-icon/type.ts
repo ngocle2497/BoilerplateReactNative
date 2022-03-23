@@ -1,5 +1,5 @@
-import {SvgIconTypes} from '@assets/svgIcon';
-import {Colors} from '@theme';
+import { SvgIconTypes } from '@assets/svgIcon';
+import { Colors } from '@theme';
 
 export interface SvgIconProps {
   /**

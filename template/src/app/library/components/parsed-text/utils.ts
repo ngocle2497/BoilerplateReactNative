@@ -1,6 +1,5 @@
-import {CustomOmit} from '../../../common/type/index';
-
-import {MatchedPart, ParsedText, Pattern, CustomTextProps} from './type';
+import { CustomOmit } from '../../../common/type/index';
+import { CustomTextProps, MatchedPart, ParsedText, Pattern } from './type';
 
 export const PATTERNS = {
   url: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._\+~#=]{1,256}\.(xn--)?[a-z0-9-]{2,20}\b([-a-zA-Z0-9@:%_\+\[\],.~#?&\/=]*[-a-zA-Z0-9@:%_\+\]~#?&\/=])*/i,
@@ -12,7 +11,7 @@ export const textExtraction = (
   text: string,
   patterns: Array<CustomOmit<Pattern, 'lastIndex'> & CustomTextProps>,
 ) => {
-  let parsedTexts: Parsed = [{children: text ?? ''}];
+  let parsedTexts: Parsed = [{ children: text ?? '' }];
   patterns.forEach((pattern: any) => {
     const newParts: Parsed = [];
     parsedTexts.forEach(parsedText => {
@@ -28,7 +27,7 @@ export const textExtraction = (
       while (textLeft && (matches = pattern.pattern.exec(textLeft))) {
         const previousText = textLeft.substr(0, matches.index);
         indexOfMatchedString = matches.index;
-        parts.push({children: previousText});
+        parts.push({ children: previousText });
         parts.push(
           getMatchedPart(pattern, matches[0], matches, indexOfMatchedString),
         );
@@ -36,7 +35,7 @@ export const textExtraction = (
         indexOfMatchedString += matches[0].length - 1;
         pattern.pattern.lastIndex = 0;
       }
-      parts.push({children: textLeft});
+      parts.push({ children: textLeft });
       newParts.push(...parts);
     });
     parsedTexts = newParts;
@@ -50,7 +49,7 @@ function getMatchedPart(
   text: string,
   matches: RegExpExecArray,
   index: number,
-): MatchedPart & {children: string} {
+): MatchedPart & { children: string } {
   const props: MatchedPart = {} as MatchedPart;
   Object.keys(pattern).forEach((key: string) => {
     if (key === 'pattern') {

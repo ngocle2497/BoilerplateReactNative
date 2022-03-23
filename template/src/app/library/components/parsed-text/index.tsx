@@ -1,20 +1,18 @@
-import {onCheckType} from '@common';
-import React, {memo, useCallback} from 'react';
+import React, { memo, useCallback } from 'react';
 import isEqual from 'react-fast-compare';
-
-import {Text} from '../text';
-
-import {ParsedTextProps} from './type';
-import {PATTERNS, textExtraction} from './utils';
+import { onCheckType } from '@common';
+import { Text } from '../text';
+import { ParsedTextProps } from './type';
+import { PATTERNS, textExtraction } from './utils';
 
 const ParsedTextComponent = (props: ParsedTextProps) => {
   // state
-  const {parse, ...rest} = props;
+  const { parse, ...rest } = props;
 
   // function
   const onGetPatterns = useCallback(() => {
     const res = parse.map(option => {
-      const {type, ...patternOption} = option;
+      const { type, ...patternOption } = option;
       if (type && PATTERNS[type]) {
         patternOption.pattern = PATTERNS[type];
       }
@@ -30,7 +28,7 @@ const ParsedTextComponent = (props: ParsedTextProps) => {
     }
     const text = textExtraction(props.children, onGetPatterns());
     return text.map((localProps, index) => {
-      const {style, ...restText} = localProps;
+      const { style, ...restText } = localProps;
       return <Text key={`parsedText-${index}`} style={[style]} {...restText} />;
     });
   }, [onGetPatterns, parse, props]);

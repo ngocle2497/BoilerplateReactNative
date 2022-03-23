@@ -1,13 +1,12 @@
-import {useTheme} from '@theme';
-import React, {memo, useMemo} from 'react';
+import React, { memo, useMemo } from 'react';
 import equals from 'react-fast-compare';
-import {View, ViewStyle} from 'react-native';
-
-import {DividerProps} from './type';
+import { View, ViewStyle } from 'react-native';
+import { useTheme } from '@theme';
+import { DividerProps } from './type';
 
 const DividerComponent = (props: DividerProps) => {
   // state
-  const {height = 1, colorTheme, color = '#bbb'} = props;
+  const { height = 1, colorTheme, color = '#bbb' } = props;
   const theme = useTheme();
 
   // style

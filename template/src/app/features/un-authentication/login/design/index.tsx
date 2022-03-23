@@ -1,4 +1,7 @@
-import {dispatch, useAnimatedState} from '@common';
+import React, { memo, useCallback, useRef, useState } from 'react';
+import isEqual from 'react-fast-compare';
+import { Alert } from 'react-native';
+import { dispatch, useAnimatedState } from '@common';
 import {
   ActionSheet,
   Block,
@@ -22,13 +25,9 @@ import {
   TouchableScale,
   Wallpaper,
 } from '@components';
-import {FormLoginType} from '@model/login';
-import {onSetAppTheme} from '@store/app-redux/reducer';
-import React, {memo, useCallback, useRef, useState} from 'react';
-import isEqual from 'react-fast-compare';
-import {Alert} from 'react-native';
-
-import {FormLogin} from './components/form-login';
+import { FormLoginType } from '@model/login';
+import { onSetAppTheme } from '@store/app-redux/reducer';
+import { FormLogin } from './components/form-login';
 
 const LoginComponent = () => {
   // state
@@ -39,7 +38,7 @@ const LoginComponent = () => {
   const [sliderRangeProgress, setSliderRangeProgress] = useState<{
     lower: number;
     upper: number;
-  }>({lower: 0, upper: 0});
+  }>({ lower: 0, upper: 0 });
 
   // function
   const onSubmit = useCallback((data: FormLoginType) => {
@@ -58,11 +57,11 @@ const LoginComponent = () => {
 
       <Screen
         scroll
-        style={{paddingVertical: 0, paddingHorizontal: 10}}
+        style={{ paddingVertical: 0, paddingHorizontal: 10 }}
         backgroundColor={'transparent'}>
         <FormLogin onSubmit={onSubmit} />
         <Block block height={150}>
-          <LightBox source={{uri: 'https://picsum.photos/id/11/400/400'}} />
+          <LightBox source={{ uri: 'https://picsum.photos/id/11/400/400' }} />
         </Block>
 
         <Block paddingVertical={15} middle direction={'row'}>
@@ -74,7 +73,7 @@ const LoginComponent = () => {
           <ActionSheet
             ref={_refAction}
             title={'Select'}
-            option={[{text: 'Option1'}, {text: 'Option2'}]}
+            option={[{ text: 'Option1' }, { text: 'Option2' }]}
           />
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
@@ -92,15 +91,15 @@ const LoginComponent = () => {
           <Spacer width={10} />
           <DropDown
             data={[
-              {label: 'Option1', value: 1},
-              {label: 'Option2', value: 2},
+              { label: 'Option1', value: 1 },
+              { label: 'Option2', value: 2 },
             ]}
           />
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Select</Text>
           <Spacer width={10} />
-          <Select data={[{text: 'Option1'}, {text: 'Option2'}]} />
+          <Select data={[{ text: 'Option1' }, { text: 'Option2' }]} />
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Helper text</Text>
@@ -193,9 +192,9 @@ const LoginComponent = () => {
         label="Float"
         type={'group'}
         actions={[
-          {icon: 'home', label: 'Icon1'},
-          {icon: 'search', label: 'Icon2'},
-          {icon: 'send', label: 'Icon3'},
+          { icon: 'home', label: 'Icon1' },
+          { icon: 'search', label: 'Icon2' },
+          { icon: 'send', label: 'Icon3' },
         ]}
       />
     </Block>

@@ -1,5 +1,4 @@
-import {sizeScale} from '@common';
-import React, {memo, useCallback, useState} from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import isEqual from 'react-fast-compare';
 import {
   FlatList,
@@ -7,15 +6,14 @@ import {
   StyleSheet,
   TextInput,
 } from 'react-native';
-
-import {Block} from '../block';
-import {Button} from '../button';
-import {Icon} from '../icon';
-import {ImageRemote} from '../img-remote';
-import {Text} from '../text';
-
-import {ChatProps, MessageProps} from './type';
-import {MessageItem} from './components/message-item';
+import { sizeScale } from '@common';
+import { Block } from '../block';
+import { Button } from '../button';
+import { Icon } from '../icon';
+import { ImageRemote } from '../img-remote';
+import { Text } from '../text';
+import { MessageItem } from './components/message-item';
+import { ChatProps, MessageProps } from './type';
 
 const SIZE_AVATAR = sizeScale(20);
 const SIZE_DOT_STATUS = sizeScale(5);
@@ -100,12 +98,12 @@ const ChatComponent = ({
 
   // function
   const _renderItem = useCallback(
-    ({item, index}: ListRenderItemInfo<MessageProps>) => {
+    ({ item, index }: ListRenderItemInfo<MessageProps>) => {
       return (
         <MessageItem
           key={item.id}
           {...item}
-          {...{showAvatar, friendAvatar, yourAvatar, nameFriend}}
+          {...{ showAvatar, friendAvatar, yourAvatar, nameFriend }}
           nextDateCreate={
             data.length - 1 <= index ? null : data[index + 1].dateCreate + ''
           }

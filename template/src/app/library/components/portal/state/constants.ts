@@ -7,4 +7,4 @@ enum ACTIONS {
   REMOVE_PORTAL,
 }
 const INITIAL_STATE = {};
-export {ACTIONS, INITIAL_STATE};
+export { ACTIONS, INITIAL_STATE };

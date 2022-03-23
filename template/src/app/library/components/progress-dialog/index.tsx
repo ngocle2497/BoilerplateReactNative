@@ -1,5 +1,3 @@
-import {useDisableBackHandler, useDismissKeyboard} from '@common';
-import {useTheme} from '@theme';
 import React, {
   createRef,
   forwardRef,
@@ -8,9 +6,10 @@ import React, {
   useState,
 } from 'react';
 import isEqual from 'react-fast-compare';
-import {ActivityIndicator, View} from 'react-native';
-
-import {styles} from './styles';
+import { ActivityIndicator, View } from 'react-native';
+import { useDisableBackHandler, useDismissKeyboard } from '@common';
+import { useTheme } from '@theme';
+import { styles } from './styles';
 
 const Spinner = memo(() => {
   // state

@@ -1,14 +1,13 @@
-import {isIos, CustomOmit} from '@common';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import {
   EmitterSubscription,
   NativeEventEmitter,
   NativeModules,
 } from 'react-native';
+import { CustomOmit, isIos } from '@common';
+import { hexStringFromCSSColor } from '../string';
 
-import {hexStringFromCSSColor} from '../string';
-
-const {AppModule} = NativeModules;
+const { AppModule } = NativeModules;
 
 export const getVersion = (): string => {
   return AppModule.getVersion();
@@ -105,7 +104,7 @@ type ImageResponse = {
   uri: string;
   name: string;
 };
-export const fixRotation = ({uri, height = 800, width = 600}: Image) => {
+export const fixRotation = ({ uri, height = 800, width = 600 }: Image) => {
   return new Promise<ImageResponse>(rs => {
     if (isIos) {
       AppModule.fixRotation(
@@ -114,15 +113,15 @@ export const fixRotation = ({uri, height = 800, width = 600}: Image) => {
         height,
         (_?: string, res?: ImageResponse) => {
           if (res) {
-            rs({uri: res.uri, name: res.name});
+            rs({ uri: res.uri, name: res.name });
           } else {
-            rs({uri: uri, name: 'new_image.png'});
+            rs({ uri: uri, name: 'new_image.png' });
           }
         },
       );
     } else {
       AppModule.fixRotation(uri, width, height, rs, () => {
-        rs({uri: uri, name: 'new_image.png'});
+        rs({ uri: uri, name: 'new_image.png' });
       });
     }
   });
@@ -230,7 +229,7 @@ export const setEnableIQKeyboard = (enable: boolean) => {
   if (!isIos) {
     return;
   }
-  AppModule.setIQKeyboardOption({enable});
+  AppModule.setIQKeyboardOption({ enable });
 };
 
 export const setIQKeyboardOption = (options: {
@@ -255,7 +254,7 @@ export const setIQKeyboardOption = (options: {
   if (!isIos) {
     return;
   }
-  const actualOption = {...options};
+  const actualOption = { ...options };
   if (options.toolbarBarTintColor) {
     actualOption.toolbarBarTintColor = hexStringFromCSSColor(
       options.toolbarBarTintColor,

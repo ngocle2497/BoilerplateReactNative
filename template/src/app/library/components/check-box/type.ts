@@ -1,4 +1,4 @@
-import {ViewStyle, StyleProp} from 'react-native';
+import { StyleProp, ViewStyle } from 'react-native';
 
 export interface CheckboxProps {
   /**

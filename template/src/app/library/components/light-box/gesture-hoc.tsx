@@ -1,9 +1,8 @@
-import {sharedTiming, useInterpolate, useVector} from '@animated';
-import React, {memo, useCallback, useEffect} from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import isEqual from 'react-fast-compare';
-import {BackHandler, useWindowDimensions} from 'react-native';
-import FastImage, {Source} from 'react-native-fast-image';
-import {Gesture, GestureDetector} from 'react-native-gesture-handler';
+import { BackHandler, useWindowDimensions } from 'react-native';
+import FastImage, { Source } from 'react-native-fast-image';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   Extrapolate,
   interpolate,
@@ -14,10 +13,9 @@ import Animated, {
   useSharedValue,
   WithTimingConfig,
 } from 'react-native-reanimated';
-
-import {styles} from './styles';
-
-import {Measure} from '.';
+import { sharedTiming, useInterpolate, useVector } from '@animated';
+import { Measure } from '.';
+import { styles } from './styles';
 
 export interface GestureHOCProps {
   image: Measure;
@@ -31,9 +29,9 @@ const timingConfig: WithTimingConfig = {
 };
 
 export const GestureHOC = memo(
-  ({image, source, onClose, backDropOpacity}: GestureHOCProps) => {
+  ({ image, source, onClose, backDropOpacity }: GestureHOCProps) => {
     // state
-    const {height: heightDevice} = useWindowDimensions();
+    const { height: heightDevice } = useWindowDimensions();
     const animatedProgress = useSharedValue(0);
     const scale = useSharedValue(1);
     const [targetX, targetY] = useVector({
@@ -170,7 +168,7 @@ export const GestureHOC = memo(
       top: top.value,
       width: width.value,
       height: height.value,
-      transform: [{scale: scale.value}],
+      transform: [{ scale: scale.value }],
     }));
 
     // render

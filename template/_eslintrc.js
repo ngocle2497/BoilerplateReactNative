@@ -1,6 +1,6 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['import'],
+  plugins: ['import', 'simple-import-sort'],
   parserOptions: {
     sourceType: 'module',
   },
@@ -47,15 +47,23 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 2,
     '@typescript-eslint/no-explicit-any': 1,
     '@typescript-eslint/explicit-module-boundary-types': 0,
-    'react/jsx-filename-extension': ['error', {extensions: ['.tsx']}],
+    'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
     'react-native/no-unused-styles': 2,
     'react-native/split-platform-components': 2,
     'react-native/no-inline-styles': 0,
     'react-native/no-color-literals': 0,
     'react-native/no-raw-text': 0,
     'import/no-extraneous-dependencies': 2,
-    'import/extensions': ['error', 'never', {svg: 'always'}],
-    'import/order': ['error', {'newlines-between': 'always'}],
+    'import/extensions': ['error', 'never', { svg: 'always' }],
+    'simple-import-sort/imports': [
+      'error',
+      {
+        groups: [
+          ['^react', '^react-native', '^\\u0000', '^@?\\w', '^[^.]', '^\\.'],
+        ],
+      },
+    ],
+
     'import/no-duplicates': 2,
     'import/no-useless-path-segments': 2,
     'import/prefer-default-export': 0,
@@ -69,7 +77,10 @@ module.exports = {
     '@typescript-eslint/indent': 0,
     'import/no-anonymous-default-export': 2,
     'react-hooks/rules-of-hooks': 1,
-    'react-hooks/exhaustive-deps': ['warn', {additionalHooks: '(useMemoOne)'}],
+    'react-hooks/exhaustive-deps': [
+      'warn',
+      { additionalHooks: '(useMemoOne)' },
+    ],
     'jest/no-identical-title': 2,
     'jest/valid-expect': 2,
     camelcase: 1,

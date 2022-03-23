@@ -1,19 +1,23 @@
-import {useAsyncState, useInterval} from '@common';
-import React, {memo, useCallback, useMemo} from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import isEqual from 'react-fast-compare';
-import {useWindowDimensions, View} from 'react-native';
-
-import {DELAY_MS, DURATION, MIN_HEIGHT_ITEM, OVERLAY_COLOR} from './constants';
-import {ItemComment} from './item-comment';
-import {styles} from './styles';
-import {CommentLoadingProps} from './type';
+import { useWindowDimensions, View } from 'react-native';
+import { useAsyncState, useInterval } from '@common';
+import {
+  DELAY_MS,
+  DURATION,
+  MIN_HEIGHT_ITEM,
+  OVERLAY_COLOR,
+} from './constants';
+import { ItemComment } from './item-comment';
+import { styles } from './styles';
+import { CommentLoadingProps } from './type';
 
 const CommentLoadingComponent = ({
   overlayColor = OVERLAY_COLOR,
 }: CommentLoadingProps) => {
   // state
   const [reRender, setReRender] = useAsyncState<boolean>(false);
-  const {height: screenHeight} = useWindowDimensions();
+  const { height: screenHeight } = useWindowDimensions();
   const listItem = useMemo<Array<number>>(
     () =>
       Array(Math.ceil(screenHeight / MIN_HEIGHT_ITEM))

@@ -1,14 +1,13 @@
-import React, {memo, useCallback, useRef, useState} from 'react';
+import React, { memo, useCallback, useRef, useState } from 'react';
 import isEqual from 'react-fast-compare';
-import {TouchableOpacity, useWindowDimensions, View} from 'react-native';
-import FastImage, {OnLoadEvent, Source} from 'react-native-fast-image';
+import { TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import FastImage, { OnLoadEvent, Source } from 'react-native-fast-image';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-
-import {imageTransitionRef} from './image-transition';
-import {styles} from './styles';
+import { imageTransitionRef } from './image-transition';
+import { styles } from './styles';
 
 interface LightBoxProps {
   source: Source | number;
@@ -26,15 +25,17 @@ export type Measure = {
   imageOpacity: Animated.SharedValue<number>;
 };
 
-const LightBoxComponent = ({source}: LightBoxProps) => {
+const LightBoxComponent = ({ source }: LightBoxProps) => {
   // state
   const _refRoot = useRef<View>(null);
   const [disableButton, setDisableButton] = useState<boolean>(true);
-  const [sizeImage, setSizeImage] = useState<{width: number; height: number}>({
-    width: 0,
-    height: 0,
-  });
-  const {width: widthDevice} = useWindowDimensions();
+  const [sizeImage, setSizeImage] = useState<{ width: number; height: number }>(
+    {
+      width: 0,
+      height: 0,
+    },
+  );
+  const { width: widthDevice } = useWindowDimensions();
   const imageOpacity = useSharedValue(1);
 
   // function

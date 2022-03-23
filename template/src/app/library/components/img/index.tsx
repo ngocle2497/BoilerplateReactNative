@@ -1,11 +1,10 @@
-import {images} from '@assets/image';
-import React, {memo} from 'react';
+import React, { memo } from 'react';
 import equals from 'react-fast-compare';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import FastImage from 'react-native-fast-image';
-
-import {styles} from './styles';
-import {ImageProps} from './type';
+import { images } from '@assets/image';
+import { styles } from './styles';
+import { ImageProps } from './type';
 
 const ImgComponent = ({
   style: styleOverride,

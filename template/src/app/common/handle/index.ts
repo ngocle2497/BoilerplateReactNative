@@ -1,6 +1,5 @@
-import {StyleSheet} from 'react-native';
-
-import {sizeScale} from '../scale/index';
+import { StyleSheet } from 'react-native';
+import { sizeScale } from '../scale/index';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const enhance = <T>(arrStyle: Array<T>) => {
   return StyleSheet.flatten<T>(arrStyle);
@@ -25,6 +24,6 @@ export const propsToStyle = <T = any>(arrStyle: Array<T>) => {
       ) {
         curr[firstKey as string] = sizeScale(firstValue);
       }
-      return {...prev, ...curr};
+      return { ...prev, ...curr };
     }, {});
 };

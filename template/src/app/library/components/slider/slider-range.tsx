@@ -1,15 +1,7 @@
-import {
-  sharedClamp,
-  sharedMax,
-  sharedSpring,
-  sharedSub,
-  useMin,
-} from '@animated';
-import {onCheckType} from '@common';
-import React, {memo, useCallback, useEffect, useState} from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import isEqual from 'react-fast-compare';
-import {LayoutChangeEvent, View} from 'react-native';
-import {Gesture, GestureDetector} from 'react-native-gesture-handler';
+import { LayoutChangeEvent, View } from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
   useAnimatedReaction,
@@ -17,9 +9,15 @@ import Animated, {
   useDerivedValue,
   useSharedValue,
 } from 'react-native-reanimated';
-
-import {Text} from '../text';
-
+import {
+  sharedClamp,
+  sharedMax,
+  sharedSpring,
+  sharedSub,
+  useMin,
+} from '@animated';
+import { onCheckType } from '@common';
+import { Text } from '../text';
 import {
   FIXED_AFTER,
   INITIAL_RANGE,
@@ -27,8 +25,8 @@ import {
   THUMB_SIZE,
   UPPER_BOUND,
 } from './constants';
-import {stylesRange as styles} from './styles';
-import {SliderRangeProps} from './type';
+import { stylesRange as styles } from './styles';
+import { SliderRangeProps } from './type';
 
 const SliderRangeComponent = ({
   lowerBound = LOWER_BOUND,
@@ -49,7 +47,7 @@ const SliderRangeComponent = ({
   const [width, setWidth] = useState<number>(0);
 
   // reanimated
-  const progress = useSharedValue({lower: 0, upper: 0});
+  const progress = useSharedValue({ lower: 0, upper: 0 });
   const translationLeftX = useSharedValue(0);
   const translateLeftX = useDerivedValue(() =>
     sharedClamp(
@@ -102,7 +100,7 @@ const SliderRangeComponent = ({
   const _onLayout = useCallback(
     ({
       nativeEvent: {
-        layout: {width: widthWrap},
+        layout: { width: widthWrap },
       },
     }: LayoutChangeEvent) => {
       setWidth(widthWrap);
@@ -124,7 +122,7 @@ const SliderRangeComponent = ({
 
   useEffect(() => {
     if (onChangeRange) {
-      onChangeRange({lower: initialRange[0], upper: initialRange[1]});
+      onChangeRange({ lower: initialRange[0], upper: initialRange[1] });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -149,11 +147,11 @@ const SliderRangeComponent = ({
   }));
 
   const thumbLeftStyle = useAnimatedStyle(() => ({
-    transform: [{translateX: translateLeftX.value}],
+    transform: [{ translateX: translateLeftX.value }],
   }));
 
   const thumbRightStyle = useAnimatedStyle(() => ({
-    transform: [{translateX: translateRightX.value}],
+    transform: [{ translateX: translateRightX.value }],
   }));
 
   // render
