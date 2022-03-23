@@ -140,9 +140,20 @@ android {
     productFlavors {
         dev {
 //            applicationIdSuffix ".dev"
+//            println "Using dev google-service.json"
+//            copy {
+//                from 'src/dev/'
+//                include '*.json'
+//                into '.'
+//            }
         }
 
         prod {
+//            copy {
+//                from 'src/prod/'
+//                include '*.json'
+//                into '.'
+//            }
         }
     }
 

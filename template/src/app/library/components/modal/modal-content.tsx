@@ -22,6 +22,7 @@ import {
   useWindowDimensions,
   View,
   ViewStyle,
+  Keyboard,
 } from 'react-native';
 import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 import Animated, {
@@ -314,6 +315,7 @@ const ModalContentComponent = forwardRef(
       () => ({
         dismiss: () => {
           closeModal();
+          Keyboard.dismiss();
         },
       }),
       [closeModal],
