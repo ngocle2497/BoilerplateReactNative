@@ -1,6 +1,4 @@
 import React, { memo, useCallback, useMemo, useState } from 'react';
-import equals from 'react-fast-compare';
-import { useTranslation } from 'react-i18next';
 import {
   FlatList,
   ListRenderItemInfo,
@@ -9,12 +7,18 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
+
+import equals from 'react-fast-compare';
+import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import { enhance } from '@common';
-import { Modal } from '../modal';
+
 import { SelectItem } from './select-item';
 import { styles } from './styles';
 import { SelectOption, SelectProps } from './type';
+
+import { Modal } from '../modal';
 
 const SelectComponent = (props: SelectProps) => {
   // state

@@ -1,4 +1,5 @@
 import { ResizeMode } from 'react-native-fast-image';
+
 import { IconTypes } from '@assets/icon';
 import { Colors } from '@theme';
 export interface IconProps {

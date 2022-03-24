@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { PortalType } from '../types';
 import { ACTIONS } from './constants';
 import { ActionTypes, AddPortalAction } from './types';
+
+import { PortalType } from '../types';
 
 const registerHost = (
   state: Record<string, Array<PortalType>>,

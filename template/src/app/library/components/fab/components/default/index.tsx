@@ -1,10 +1,14 @@
 import React, { useMemo } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
+
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import { enhance } from '@common';
-import { Icon } from '../../../icon';
+
 import { styles } from './styles';
 import { FABDefaultProps } from './type';
+
+import { Icon } from '../../../icon';
 
 export const FABDefault = (props: FABDefaultProps) => {
   // state

@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useEffect, useMemo } from 'react';
-import equals from 'react-fast-compare';
 import { Text, View } from 'react-native';
+
+import equals from 'react-fast-compare';
 import Animated, {
   Extrapolate,
   interpolate,
@@ -9,11 +10,14 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import Svg, { Circle, CircleProps } from 'react-native-svg';
+
 import { sharedTiming } from '@animated';
 import { enhance } from '@common';
-import { COLOR_BG, COLOR_FG, RADIUS, STROKE_WIDTH } from '../constant';
+
 import { styles } from './styles';
 import { ProgressCircleProps } from './type';
+
+import { COLOR_BG, COLOR_FG, RADIUS, STROKE_WIDTH } from '../constant';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 const AnimatedText = Animated.createAnimatedComponent(Text);

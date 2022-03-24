@@ -1,8 +1,11 @@
 import React, { forwardRef, memo, useMemo } from 'react';
-import isEquals from 'react-fast-compare';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+
+import isEquals from 'react-fast-compare';
+
 import { enhance, propsToStyle } from '@common';
 import { useTheme } from '@theme';
+
 import { BlockProps } from './type';
 
 const styles = StyleSheet.create({

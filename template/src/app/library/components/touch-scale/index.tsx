@@ -1,12 +1,15 @@
 import React, { memo, useCallback } from 'react';
-import equals from 'react-fast-compare';
 import { GestureResponderEvent, TouchableWithoutFeedback } from 'react-native';
+
+import equals from 'react-fast-compare';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
+
 import { sharedTiming } from '@animated';
 import { onCheckType } from '@common';
+
 import { styles } from './styles';
 import { TouchableScaleProps } from './type';
 

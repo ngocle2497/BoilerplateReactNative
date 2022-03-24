@@ -1,12 +1,15 @@
 /* eslint-disable no-undef */
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
+
 import Animated, {
   Easing,
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
+
 import { sharedTiming, useSharedTransition } from '@animated';
+
 import {
   BG_ERROR,
   BG_INFO,

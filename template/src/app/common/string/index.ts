@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-useless-escape */
-import equals from 'react-fast-compare';
 import { processColor } from 'react-native';
+
+import equals from 'react-fast-compare';
+
 import { ValidateMessageObject } from '@config/type';
 
 export const onChangeAlias = (value: string | number): string => {

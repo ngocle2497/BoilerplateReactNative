@@ -1,7 +1,10 @@
 import React, { memo, useMemo } from 'react';
-import equals from 'react-fast-compare';
 import { View } from 'react-native';
+
+import equals from 'react-fast-compare';
+
 import { sizeScale } from '@common';
+
 import { SpacerProps } from './type';
 
 const SpacerComponent = (props: SpacerProps) => {

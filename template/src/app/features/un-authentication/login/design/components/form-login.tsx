@@ -1,10 +1,13 @@
 import React, { memo, useCallback, useMemo } from 'react';
+import { Button } from 'react-native';
+
 import isEqual from 'react-fast-compare';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Button } from 'react-native';
+
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormLoginType } from '@model/login';
 import * as yup from 'yup';
+
 import { Input } from './input';
 
 interface FormLoginProps {
@@ -38,9 +41,13 @@ const FormLoginComponent = ({ onSubmit }: FormLoginProps) => {
   // render
   return (
     <FormProvider {...formMethod}>
-      <Input name={'name'} label={'Name'} />
-      <Input nameTrigger={'rePassword'} name={'password'} label={'Password'} />
-      <Input
+      <Input<FormLoginType> name={'name'} label={'Name'} />
+      <Input<FormLoginType>
+        nameTrigger="rePassword"
+        name={'password'}
+        label={'Password'}
+      />
+      <Input<FormLoginType>
         onSubmit={onSubmitKey}
         name={'rePassword'}
         label={'Confirm Password'}

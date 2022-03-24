@@ -1,6 +1,8 @@
 import React, { memo, useCallback, useRef, useState } from 'react';
-import isEqual from 'react-fast-compare';
 import { Alert } from 'react-native';
+
+import isEqual from 'react-fast-compare';
+
 import { dispatch, useAnimatedState } from '@common';
 import {
   ActionSheet,
@@ -27,6 +29,7 @@ import {
 } from '@components';
 import { FormLoginType } from '@model/login';
 import { onSetAppTheme } from '@store/app-redux/reducer';
+
 import { FormLogin } from './components/form-login';
 
 const LoginComponent = () => {

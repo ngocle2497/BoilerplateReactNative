@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+
 import { sizeScale } from '../scale/index';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const enhance = <T>(arrStyle: Array<T>) => {

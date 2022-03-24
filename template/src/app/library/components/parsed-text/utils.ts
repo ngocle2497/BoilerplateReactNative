@@ -1,5 +1,6 @@
-import { CustomOmit } from '../../../common/type/index';
 import { CustomTextProps, MatchedPart, ParsedText, Pattern } from './type';
+
+import { CustomOmit } from '../../../common/type/index';
 
 export const PATTERNS = {
   url: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._\+~#=]{1,256}\.(xn--)?[a-z0-9-]{2,20}\b([-a-zA-Z0-9@:%_\+\[\],.~#?&\/=]*[-a-zA-Z0-9@:%_\+\]~#?&\/=])*/i,

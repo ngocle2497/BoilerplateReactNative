@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
+
 import BootSplash from 'react-native-bootsplash';
+
 import { createStackNavigator } from '@react-navigation/stack';
+
 import { MainScreen } from './authen/index';
 import { APP_SCREEN, RootStackParamList } from './screen-types';
 import { UnAuthentication } from './un-authen/index';

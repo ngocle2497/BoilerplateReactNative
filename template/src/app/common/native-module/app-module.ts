@@ -4,7 +4,9 @@ import {
   NativeEventEmitter,
   NativeModules,
 } from 'react-native';
+
 import { CustomOmit, isIos } from '@common';
+
 import { hexStringFromCSSColor } from '../string';
 
 const { AppModule } = NativeModules;

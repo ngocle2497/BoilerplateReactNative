@@ -9,9 +9,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import isEqual from 'react-fast-compare';
-import { useTranslation } from 'react-i18next';
-import { useSelector as useReduxSelector } from 'react-redux';
 import {
   BackHandler,
   EmitterSubscription,
@@ -19,6 +16,11 @@ import {
   LayoutAnimation,
   Platform,
 } from 'react-native';
+
+import isEqual from 'react-fast-compare';
+import { useTranslation } from 'react-i18next';
+import { useSelector as useReduxSelector } from 'react-redux';
+
 import { onCheckType } from '@common';
 import { ValidateMessageObject } from '@config/type';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';

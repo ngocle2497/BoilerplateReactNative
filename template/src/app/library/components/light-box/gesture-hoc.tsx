@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useEffect } from 'react';
-import isEqual from 'react-fast-compare';
 import { BackHandler, useWindowDimensions } from 'react-native';
+
+import isEqual from 'react-fast-compare';
 import FastImage, { Source } from 'react-native-fast-image';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
@@ -13,8 +14,11 @@ import Animated, {
   useSharedValue,
   WithTimingConfig,
 } from 'react-native-reanimated';
+
 import { sharedTiming, useInterpolate, useVector } from '@animated';
+
 import { Measure } from '.';
+
 import { styles } from './styles';
 
 export interface GestureHOCProps {

@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+
 import { sizeScale } from '@common';
 
 export const MAX_HEIGHT = 250;

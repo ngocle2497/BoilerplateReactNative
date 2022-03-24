@@ -1,9 +1,12 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
-import equals from 'react-fast-compare';
 import { Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
-import { Spacer } from '../spacer';
+
+import equals from 'react-fast-compare';
+
 import { styles } from './styles';
 import { OtpProps } from './type';
+
+import { Spacer } from '../spacer';
 
 const OtpComponent = (props: OtpProps) => {
   // state

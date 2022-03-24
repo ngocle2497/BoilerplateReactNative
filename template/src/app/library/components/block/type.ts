@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlexAlignType, StyleProp, ViewProps, ViewStyle } from 'react-native';
+
 import { Colors } from '@theme';
 
 type Direction = 'row' | 'column' | 'column-reverse' | 'row-reverse';

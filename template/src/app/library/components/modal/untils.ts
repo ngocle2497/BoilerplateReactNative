@@ -1,4 +1,5 @@
 import { ViewStyle } from 'react-native';
+
 import Animated, { interpolate } from 'react-native-reanimated';
 
 export type TypeIn =

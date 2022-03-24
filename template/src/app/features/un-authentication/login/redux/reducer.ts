@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { SLICE_NAME } from '@config/type';
 import { createAction, createSlice } from '@reduxjs/toolkit';
+
 import * as Action from './actionType';
 export interface LoginState {
   loading: boolean;

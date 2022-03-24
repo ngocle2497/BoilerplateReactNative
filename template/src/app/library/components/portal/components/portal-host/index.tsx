@@ -1,6 +1,8 @@
 import React, { memo, useEffect } from 'react';
-import { usePortal, usePortalState } from '../../hooks';
+
 import type { PortalHostProps } from './types';
+
+import { usePortal, usePortalState } from '../../hooks';
 
 const PortalHostComponent = ({ name }: PortalHostProps) => {
   // state

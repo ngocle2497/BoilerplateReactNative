@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+
 import { ACTIONS } from './constants';
 
 export interface AddPortalAction {

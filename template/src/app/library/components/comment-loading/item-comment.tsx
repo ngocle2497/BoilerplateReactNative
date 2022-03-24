@@ -1,13 +1,15 @@
 import React, { memo, useEffect, useMemo } from 'react';
-import isEqual from 'react-fast-compare';
 import { View, ViewStyle } from 'react-native';
+
+import isEqual from 'react-fast-compare';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withDelay,
 } from 'react-native-reanimated';
+
 import { sharedTiming, useInterpolate } from '@animated';
-import { Spacer } from '../spacer';
+
 import {
   DELAY_MS,
   DURATION,
@@ -19,6 +21,8 @@ import {
 } from './constants';
 import { styles } from './styles';
 import { ItemCommentProps } from './type';
+
+import { Spacer } from '../spacer';
 
 const ItemCommentComponent = ({ index, overlayColor }: ItemCommentProps) => {
   // state

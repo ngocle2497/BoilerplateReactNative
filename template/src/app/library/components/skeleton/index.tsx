@@ -1,14 +1,17 @@
 import React, { memo, useEffect, useMemo } from 'react';
-import isEqual from 'react-fast-compare';
 import { useWindowDimensions, View, ViewStyle } from 'react-native';
+
+import isEqual from 'react-fast-compare';
 import LinearGradient from 'react-native-linear-gradient';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
 } from 'react-native-reanimated';
+
 import { sharedTiming } from '@animated';
 import MaskedView from '@react-native-community/masked-view';
+
 import { BaseContent } from './base-content';
 import { styles } from './styles';
 import { SkeletonProps } from './type';

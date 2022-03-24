@@ -3,6 +3,7 @@ import { checkKeyInObject } from '@common';
 import { MyAppTheme, ThemeType } from '@theme';
 import { all, call, put } from '@typed-redux-saga';
 import { loadString } from '@utils';
+
 import { onLoadAppEnd, onSetAppTheme, onSetToken } from '../app-redux/reducer';
 
 export function* onLoadAppModeAndTheme() {

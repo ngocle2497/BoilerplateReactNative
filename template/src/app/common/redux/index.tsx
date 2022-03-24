@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { createRef, forwardRef, memo, useImperativeHandle } from 'react';
+
 import isEqual from 'react-fast-compare';
 import { useDispatch } from 'react-redux';
+
 import { RootState } from '@store/all-reducers';
+
 import { useSelector } from '../hooks';
 
 type ActionBase<T = any> = {

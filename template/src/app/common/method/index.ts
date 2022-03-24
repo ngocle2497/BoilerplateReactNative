@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Alert, Platform } from 'react-native';
+
 import { R } from '@assets/value';
 import { onLogout } from '@store/app-redux/reducer';
 import { remove } from '@utils';
+
 import { dispatch } from '../redux';
 
 type TypesBase =

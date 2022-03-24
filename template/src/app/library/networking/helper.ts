@@ -9,6 +9,7 @@ import {
 } from '@config/api';
 import { ParamsNetwork, ResponseBase } from '@config/type';
 import { AxiosError, AxiosRequestConfig, AxiosResponse, Method } from 'axios';
+
 import { translate } from '../utils';
 const responseDefault: ResponseBase<any> = {
   code: -500,

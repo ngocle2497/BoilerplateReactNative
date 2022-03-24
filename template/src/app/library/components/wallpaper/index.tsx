@@ -1,9 +1,12 @@
 import React, { memo, useMemo } from 'react';
-import equals from 'react-fast-compare';
 import { Dimensions, useWindowDimensions, View, ViewStyle } from 'react-native';
-import { Img } from '../img';
+
+import equals from 'react-fast-compare';
+
 import { styles } from './styles';
 import { WallpaperProps } from './type';
+
+import { Img } from '../img';
 
 const deviceH = Dimensions.get('screen').height;
 

@@ -1,7 +1,10 @@
 import React, { memo, useMemo } from 'react';
-import isEqual from 'react-fast-compare';
 import { StyleSheet } from 'react-native';
+
+import isEqual from 'react-fast-compare';
+
 import { sizeScale } from '@common';
+
 import { Block } from '../../block';
 import { BubbleProps, MessageProps, SourceMessage } from '../type';
 

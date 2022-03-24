@@ -1,5 +1,7 @@
 import React, { memo } from 'react';
+
 import isEqual from 'react-fast-compare';
+
 import { Block } from '../../block';
 import { LightBox } from '../../light-box';
 import { ImageMessageProps } from '../type';

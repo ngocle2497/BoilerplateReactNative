@@ -6,7 +6,6 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import isEqual from 'react-fast-compare';
 import {
   FlatList,
   LayoutChangeEvent,
@@ -19,6 +18,8 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
+
+import isEqual from 'react-fast-compare';
 import Animated, {
   measure,
   runOnJS,
@@ -27,13 +28,16 @@ import Animated, {
   useAnimatedStyle,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import { useMix, useRadian, useSharedTransition } from '@animated';
 import { enhance, isIos, onCheckType } from '@common';
-import { Icon } from '../icon';
-import { Modal } from '../modal';
+
 import { DropDownItem } from './drop-down-item';
 import { styles } from './styles';
 import { DropDownProps, RowDropDown } from './type';
+
+import { Icon } from '../icon';
+import { Modal } from '../modal';
 
 const setLayoutOnUI = (
   ref: React.RefObject<View>,

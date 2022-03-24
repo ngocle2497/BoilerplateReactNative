@@ -1,4 +1,5 @@
 import { Action, Dispatch, Middleware, MiddlewareAPI } from 'redux';
+
 import { onCheckType } from '../method/index';
 
 export type Listener = (action: Action) => void;

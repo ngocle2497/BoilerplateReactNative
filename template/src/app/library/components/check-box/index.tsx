@@ -1,12 +1,16 @@
 import React, { useCallback, useState } from 'react';
-import equals from 'react-fast-compare';
 import { TouchableOpacity, View } from 'react-native';
+
+import equals from 'react-fast-compare';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
+
 import { useMix, useSharedTransition } from '@animated';
 import { onCheckType } from '@common';
-import { Text } from '../text';
+
 import { styles } from './styles';
 import { CheckboxProps } from './type';
+
+import { Text } from '../text';
 
 const CheckBoxComponent = ({
   fillStyle,

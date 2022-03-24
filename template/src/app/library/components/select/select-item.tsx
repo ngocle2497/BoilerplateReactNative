@@ -1,10 +1,14 @@
 import React, { memo, useCallback } from 'react';
-import equals from 'react-fast-compare';
 import { Text, View } from 'react-native';
+
+import equals from 'react-fast-compare';
+
 import { onCheckType } from '@common';
-import { Button } from '../button';
+
 import { styles } from './styles';
 import { SelectItemProps } from './type';
+
+import { Button } from '../button';
 
 const SelectItemComponent = ({
   index,

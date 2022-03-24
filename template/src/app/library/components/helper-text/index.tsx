@@ -1,14 +1,17 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import equals from 'react-fast-compare';
 import { LayoutChangeEvent, LayoutRectangle, Text, View } from 'react-native';
+
+import equals from 'react-fast-compare';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
+
 import { sharedTiming, useInterpolate, useSharedTransition } from '@animated';
 import { enhance } from '@common';
 import { useTheme } from '@theme';
 import { ColorDefault } from '@theme/color';
+
 import { styles } from './styles';
 import { HelperTextProps } from './type';
 

@@ -1,9 +1,13 @@
 import React, { memo, useCallback } from 'react';
+
 import isEqual from 'react-fast-compare';
+
 import { onCheckType } from '@common';
-import { Text } from '../text';
+
 import { ParsedTextProps } from './type';
 import { PATTERNS, textExtraction } from './utils';
+
+import { Text } from '../text';
 
 const ParsedTextComponent = (props: ParsedTextProps) => {
   // state

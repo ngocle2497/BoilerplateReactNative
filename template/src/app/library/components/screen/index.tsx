@@ -1,14 +1,17 @@
 import React, { memo, useMemo } from 'react';
-import isEqual from 'react-fast-compare';
 import { StatusBar, useWindowDimensions, View, ViewStyle } from 'react-native';
+
+import isEqual from 'react-fast-compare';
 import Animated from 'react-native-reanimated';
 import {
   Edge,
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+
 import { Block } from '@components';
 import { useTheme } from '@theme';
+
 import { styles } from './styles';
 import { InsetComponentProps, InsetProps, ScreenProps } from './type';
 

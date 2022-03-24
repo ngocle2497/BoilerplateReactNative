@@ -1,5 +1,4 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
-import isEqual from 'react-fast-compare';
 import {
   FlatList,
   Image,
@@ -9,6 +8,9 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+
+import isEqual from 'react-fast-compare';
+
 import { Column } from './column';
 import { DEFAULT_CELL_SPACE, DEFAULT_COLUMNS } from './constants';
 import {

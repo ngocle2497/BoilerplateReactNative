@@ -1,19 +1,23 @@
 import React, { memo, useCallback, useState } from 'react';
-import isEqual from 'react-fast-compare';
 import {
   FlatList,
   ListRenderItemInfo,
   StyleSheet,
   TextInput,
 } from 'react-native';
+
+import isEqual from 'react-fast-compare';
+
 import { sizeScale } from '@common';
+
+import { MessageItem } from './components/message-item';
+import { ChatProps, MessageProps } from './type';
+
 import { Block } from '../block';
 import { Button } from '../button';
 import { Icon } from '../icon';
 import { ImageRemote } from '../img-remote';
 import { Text } from '../text';
-import { MessageItem } from './components/message-item';
-import { ChatProps, MessageProps } from './type';
 
 const SIZE_AVATAR = sizeScale(20);
 const SIZE_DOT_STATUS = sizeScale(5);

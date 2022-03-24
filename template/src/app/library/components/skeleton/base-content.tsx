@@ -1,9 +1,12 @@
 import React, { memo, useCallback, useMemo } from 'react';
-import isEqual from 'react-fast-compare';
 import { useWindowDimensions, View, ViewStyle } from 'react-native';
-import { Spacer } from '../spacer';
+
+import isEqual from 'react-fast-compare';
+
 import { BASE_ITEM_HEIGHT } from './constants';
 import { styles } from './styles';
+
+import { Spacer } from '../spacer';
 
 type RowOverLayProps = {
   width: number | string;

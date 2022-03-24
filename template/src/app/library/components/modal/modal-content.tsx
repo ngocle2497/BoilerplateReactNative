@@ -6,7 +6,6 @@ import React, {
   useImperativeHandle,
   useMemo,
 } from 'react';
-import isEqual from 'react-fast-compare';
 import {
   Keyboard,
   StyleSheet,
@@ -15,6 +14,8 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
+
+import isEqual from 'react-fast-compare';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
@@ -22,6 +23,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+
 import { sharedClamp, sharedTiming } from '@animated';
 import {
   AppModule,
@@ -31,6 +33,7 @@ import {
   onCheckType,
   useDisableBackHandler,
 } from '@common';
+
 import {
   ANIMATED_IN_DURATION,
   ANIMATED_OUT_DURATION,

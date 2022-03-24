@@ -1,16 +1,20 @@
 import React, { memo, useCallback, useMemo, useState } from 'react';
-import isEqual from 'react-fast-compare';
 import { TouchableOpacity, useWindowDimensions, View } from 'react-native';
+
+import isEqual from 'react-fast-compare';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import { useMix, useRadian, useSharedSpringTransition } from '@animated';
 import { enhance, onCheckType } from '@common';
 import { Text } from '@library/components/text';
-import { Icon } from '../../../icon';
+
 import { ButtonGroup } from './button-group';
 import { SIZE_FAB, SPACE_BETWEEN } from './constants';
 import { styles } from './styles';
 import { Actions, FABGroupProps } from './type';
+
+import { Icon } from '../../../icon';
 
 const FABGroupComponent = (props: FABGroupProps) => {
   const { style, icon = 'plus', label, actions = [] } = props;

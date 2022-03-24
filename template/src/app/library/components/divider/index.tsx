@@ -1,7 +1,10 @@
 import React, { memo, useMemo } from 'react';
-import equals from 'react-fast-compare';
 import { View, ViewStyle } from 'react-native';
+
+import equals from 'react-fast-compare';
+
 import { useTheme } from '@theme';
+
 import { DividerProps } from './type';
 
 const DividerComponent = (props: DividerProps) => {

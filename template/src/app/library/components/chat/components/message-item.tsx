@@ -1,14 +1,18 @@
 import React, { memo } from 'react';
-import isEqual from 'react-fast-compare';
 import { StyleSheet } from 'react-native';
+
+import isEqual from 'react-fast-compare';
+
 import { sizeScale } from '@common';
+
+import { Bubble } from './bubble';
+import { ImageMessage } from './image-message';
+import { TextMessage } from './text-message';
+
 import { Block } from '../../block';
 import { ImageRemote } from '../../img-remote';
 import { Text } from '../../text';
 import { ChatProps, MessageProps, SourceMessage } from '../type';
-import { Bubble } from './bubble';
-import { ImageMessage } from './image-message';
-import { TextMessage } from './text-message';
 
 const styles = StyleSheet.create({
   mine: {

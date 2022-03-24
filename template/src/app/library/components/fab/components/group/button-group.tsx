@@ -1,17 +1,21 @@
 import React, { memo, useCallback } from 'react';
-import isEqual from 'react-fast-compare';
 import { TouchableOpacity } from 'react-native';
+
+import isEqual from 'react-fast-compare';
 import Animated, {
   useAnimatedStyle,
   useDerivedValue,
   withSpring,
 } from 'react-native-reanimated';
+
 import { useInterpolate } from '@animated';
 import { IconTypes } from '@assets/icon';
 import { onCheckType } from '@common';
+
+import { stylesButton as styles } from './styles';
+
 import { Icon } from '../../../icon';
 import { Text } from '../../../text';
-import { stylesButton as styles } from './styles';
 
 interface ButtonGroupProps {
   icon: IconTypes;

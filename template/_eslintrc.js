@@ -1,6 +1,6 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['import', 'simple-import-sort'],
+  plugins: ['import'],
   parserOptions: {
     sourceType: 'module',
   },
@@ -55,15 +55,44 @@ module.exports = {
     'react-native/no-raw-text': 0,
     'import/no-extraneous-dependencies': 2,
     'import/extensions': ['error', 'never', { svg: 'always' }],
-    'simple-import-sort/imports': [
+    'sort-imports': [
+      'error',
+      {
+        ignoreCase: true,
+        ignoreDeclarationSort: true,
+      },
+    ],
+    'import/order': [
       'error',
       {
         groups: [
-          ['^react', '^react-native', '^\\u0000', '^@?\\w', '^[^.]', '^\\.'],
+          'internal',
+          'external',
+          'builtin',
+          'index',
+          'sibling',
+          'parent',
         ],
+        pathGroups: [
+          {
+            pattern: 'react+(|-native)',
+            group: 'external',
+            position: 'before',
+          },
+          {
+            pattern: 'react+(|-*)',
+            group: 'external',
+            position: 'before',
+          },
+        ],
+        pathGroupsExcludedImportTypes: [],
+        'newlines-between': 'always',
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
       },
     ],
-
     'import/no-duplicates': 2,
     'import/no-useless-path-segments': 2,
     'import/prefer-default-export': 0,

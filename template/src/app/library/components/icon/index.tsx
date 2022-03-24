@@ -1,10 +1,13 @@
 import React, { memo, useMemo } from 'react';
-import equals from 'react-fast-compare';
 import { StyleProp, TouchableOpacity } from 'react-native';
+
+import equals from 'react-fast-compare';
 import FastImage, { ImageStyle } from 'react-native-fast-image';
+
 import { icons } from '@assets/icon';
 import { enhance } from '@common';
 import { useTheme } from '@theme';
+
 import { IconProps } from './type';
 
 const SIZE = 24;

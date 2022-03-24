@@ -6,9 +6,11 @@ import React, {
   useImperativeHandle,
   useState,
 } from 'react';
-import isEqual from 'react-fast-compare';
 import { StyleSheet, View } from 'react-native';
+
+import isEqual from 'react-fast-compare';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import { DURATION_HIDE } from './constants';
 import { SnackItem } from './snack-bar-item';
 import { styles } from './styles';

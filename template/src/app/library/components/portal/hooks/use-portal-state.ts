@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+
 import { PortalStateContext } from '../context';
 
 export const usePortalState = (hostName: string) => {

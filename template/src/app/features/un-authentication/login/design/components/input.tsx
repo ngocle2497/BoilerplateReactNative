@@ -1,36 +1,34 @@
 import React, { memo } from 'react';
+
 import isEqual from 'react-fast-compare';
 import { useController, useFormContext } from 'react-hook-form';
-import { TextInputProps } from 'react-native';
+
+import { CustomOmit } from '@common';
 import { HelperText, TextField } from '@components';
-import { HookFormRules } from '@config/type';
+import { InputFlatProps } from '@library/components/text-field/components/flat/type';
 import { FormLoginType } from '@model/login';
 
-interface InputProps extends TextInputProps {
-  name: keyof FormLoginType;
-  label: string;
-  onSubmit?: () => void;
-  nameTrigger?: keyof FormLoginType;
-  rules?: HookFormRules;
+interface InputProps<T extends Record<string, any>>
+  extends CustomOmit<InputFlatProps, 'nameTrigger'>,
+    React.RefAttributes<any> {
+  name: keyof T;
+  nameTrigger?: keyof T;
 }
-
-const InputComponent = ({
+const InputComponent = <T extends Record<string, any>>({
   onSubmit,
   label,
   name,
-  rules,
   nameTrigger,
   defaultValue = '',
   ...rest
-}: InputProps) => {
+}: InputProps<T>) => {
   // state
   const { trigger, getValues } = useFormContext<FormLoginType>();
   const {
     field,
     fieldState: { invalid, error },
   } = useController({
-    name,
-    rules,
+    name: name as string,
     defaultValue,
   });
   // render
@@ -39,14 +37,13 @@ const InputComponent = ({
       <TextField
         onSubmit={onSubmit}
         ref={field.ref}
-        nameTrigger={nameTrigger}
+        nameTrigger={nameTrigger as string}
         trigger={trigger}
         error={invalid}
         label={label}
-        name={name}
         onChangeText={field.onChange}
         onBlur={field.onBlur}
-        defaultValue={getValues()[name]}
+        defaultValue={(getValues() as Record<string, string>)[name as string]}
         typeInput={'flat'}
         {...rest}
       />
@@ -55,4 +52,6 @@ const InputComponent = ({
   );
 };
 
-export const Input = memo(InputComponent, isEqual);
+export const Input = memo(InputComponent, isEqual) as <T>(
+  props: InputProps<T>,
+) => React.ReactElement;

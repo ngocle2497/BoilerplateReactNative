@@ -1,11 +1,13 @@
 import React, { memo, useCallback, useRef, useState } from 'react';
-import isEqual from 'react-fast-compare';
 import { TouchableOpacity, useWindowDimensions, View } from 'react-native';
+
+import isEqual from 'react-fast-compare';
 import FastImage, { OnLoadEvent, Source } from 'react-native-fast-image';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
+
 import { imageTransitionRef } from './image-transition';
 import { styles } from './styles';
 

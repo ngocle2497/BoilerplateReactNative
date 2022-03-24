@@ -1,15 +1,18 @@
 import React, { memo, useMemo } from 'react';
-import equals from 'react-fast-compare';
-import { useTranslation } from 'react-i18next';
 import {
+  Text as ReactNativeText,
   StyleProp,
   StyleSheet,
-  Text as ReactNativeText,
   TextStyle,
 } from 'react-native';
+
+import equals from 'react-fast-compare';
+import { useTranslation } from 'react-i18next';
+
 import { enhance, propsToStyle, sizeScale } from '@common';
 import { useTheme } from '@theme';
 import { FontDefault } from '@theme/typography';
+
 import { TextProps } from './type';
 
 const styles = StyleSheet.create({

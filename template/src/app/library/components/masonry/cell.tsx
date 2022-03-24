@@ -1,5 +1,4 @@
 import React, { memo, useCallback, useMemo } from 'react';
-import isEqual from 'react-fast-compare';
 import {
   ImageProps,
   ImageStyle,
@@ -7,7 +6,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
+import isEqual from 'react-fast-compare';
 import FastImage from 'react-native-fast-image';
+
 import { Injector } from './injector';
 import { CellProps } from './types';
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ViewStyle } from 'react-native';
+
 import { IconTypes } from '@assets/icon';
 
 export interface Actions {

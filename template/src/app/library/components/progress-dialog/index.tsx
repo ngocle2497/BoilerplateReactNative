@@ -5,10 +5,13 @@ import React, {
   useImperativeHandle,
   useState,
 } from 'react';
-import isEqual from 'react-fast-compare';
 import { ActivityIndicator, View } from 'react-native';
+
+import isEqual from 'react-fast-compare';
+
 import { useDisableBackHandler, useDismissKeyboard } from '@common';
 import { useTheme } from '@theme';
+
 import { styles } from './styles';
 
 const Spinner = memo(() => {

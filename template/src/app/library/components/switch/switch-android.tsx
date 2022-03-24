@@ -1,10 +1,12 @@
 import React, { memo, useCallback, useState } from 'react';
-import equals from 'react-fast-compare';
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
+
+import equals from 'react-fast-compare';
 import Animated, {
   Extrapolate,
   useAnimatedStyle,
 } from 'react-native-reanimated';
+
 import {
   useInterpolate,
   useInterpolateColor,
@@ -12,6 +14,7 @@ import {
   useSharedTransition,
 } from '@animated';
 import { onCheckType } from '@common';
+
 import { SwitchProps } from './tye';
 
 // dimensions

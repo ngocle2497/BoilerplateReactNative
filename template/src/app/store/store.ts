@@ -1,6 +1,7 @@
 import { subscribeActionMiddleware } from '@common';
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
+
 import { allReducer } from './all-reducers';
 import { rootSaga } from './root-sagas';
 /**

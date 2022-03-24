@@ -6,7 +6,6 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   LayoutChangeEvent,
   NativeSyntheticEvent,
@@ -14,13 +13,17 @@ import {
   TextInputChangeEventData,
   View,
 } from 'react-native';
+
+import { useTranslation } from 'react-i18next';
 import Animated, {
   useAnimatedStyle,
   useDerivedValue,
 } from 'react-native-reanimated';
+
 import { useInterpolate, useSharedTransition } from '@animated';
 import { onCheckType } from '@common';
 import { Text } from '@library/components/text';
+
 import { styles } from './styles';
 import { InputFlatProps } from './type';
 
@@ -135,21 +138,18 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
     (text: string) => {
       const actualText =
         rxRemove !== undefined ? text.replace(rxRemove, '') : text;
-
+      setValue(actualText);
       if (onCheckType(onChangeText, 'function')) {
         onChangeText(actualText);
       }
       if (
-        trigger &&
         onCheckType(trigger, 'function') &&
-        nameTrigger &&
         onCheckType(nameTrigger, 'string')
       ) {
         setTimeout(() => {
           trigger(nameTrigger);
         }, 0);
       }
-      setValue(actualText);
     },
     [nameTrigger, onChangeText, rxRemove, trigger],
   );

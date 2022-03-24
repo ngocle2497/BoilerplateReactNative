@@ -6,7 +6,6 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   LayoutChangeEvent,
   NativeSyntheticEvent,
@@ -14,13 +13,17 @@ import {
   TextInputChangeEventData,
   View,
 } from 'react-native';
+
+import { useTranslation } from 'react-i18next';
 import Animated, {
   useAnimatedStyle,
   useDerivedValue,
 } from 'react-native-reanimated';
+
 import { useInterpolate, useSharedTransition } from '@animated';
 import { onCheckType } from '@common';
 import { Text } from '@library/components/text';
+
 import { styles } from './styles';
 import { InputOutlineProps } from './type';
 
@@ -135,11 +138,8 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
       if (onCheckType(onChangeText, 'function')) {
         onChangeText(actualText);
       }
-
       if (
-        trigger &&
         onCheckType(trigger, 'function') &&
-        nameTrigger &&
         onCheckType(nameTrigger, 'string')
       ) {
         setTimeout(() => {

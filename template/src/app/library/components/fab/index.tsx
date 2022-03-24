@@ -1,5 +1,7 @@
 import React, { memo } from 'react';
+
 import equals from 'react-fast-compare';
+
 import { FABDefault } from './components/default';
 import { FABGroup } from './components/group';
 import { FABProps } from './type';

@@ -1,13 +1,16 @@
 import React, { memo, useCallback, useMemo, useState } from 'react';
-import equals from 'react-fast-compare';
 import { TouchableWithoutFeedback } from 'react-native';
+
+import equals from 'react-fast-compare';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
+
 import {
   useInterpolate,
   useInterpolateColor,
   useSharedTransition,
 } from '@animated';
 import { onCheckType } from '@common';
+
 import { ACTIVE_COLOR, SIZE, STROKE_WIDTH, UN_ACTIVE_COLOR } from './constants';
 import { styles } from './styles';
 import { RadioButtonProps } from './type';

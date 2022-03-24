@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { StyleSheet } from 'react-native';
+
 import { AppModule } from '@common';
 const appName = 'APP_Name';
 const AppKey = '7268428d-d814-4eca-8829-3dbe0e2eaa7a';

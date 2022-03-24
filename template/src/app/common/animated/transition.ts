@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import Animated, {
   Easing,
   useDerivedValue,
@@ -8,6 +9,7 @@ import Animated, {
   withTiming,
   WithTimingConfig,
 } from 'react-native-reanimated';
+
 import { sharedBin } from './math';
 
 /**

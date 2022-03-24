@@ -1,5 +1,7 @@
 import React, { memo } from 'react';
+
 import isEqual from 'react-fast-compare';
+
 import { Block, Button, Screen, Text, Wallpaper } from '@components';
 import { goBack } from '@navigation/navigation-service';
 

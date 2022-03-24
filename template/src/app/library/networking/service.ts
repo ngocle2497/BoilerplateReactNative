@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { StyleSheet } from 'react-native';
+
 import { dispatch, getState } from '@common';
 import { RESULT_CODE_PUSH_OUT, TIME_OUT } from '@config/api';
 import { ENVConfig } from '@config/env';
@@ -7,6 +8,7 @@ import { ParamsNetwork, ResponseBase } from '@config/type';
 import { onSetToken } from '@store/app-redux/reducer';
 import { AppState } from '@store/app-redux/type';
 import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+
 import { ApiConstants } from './api';
 import {
   handleErrorAxios,

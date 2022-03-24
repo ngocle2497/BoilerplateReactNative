@@ -1,5 +1,7 @@
 import React, { memo } from 'react';
+
 import isEqual from 'react-fast-compare';
+
 import { Switch as SwitchAndroid } from './switch-android';
 import { Switch as SwitchIOS } from './switch-ios';
 import { SwitchProps } from './tye';

@@ -1,14 +1,18 @@
 import React, { memo, useMemo, useState } from 'react';
-import equals from 'react-fast-compare';
 import { LayoutChangeEvent, ViewStyle } from 'react-native';
+
+import equals from 'react-fast-compare';
 import Animated, {
   useAnimatedStyle,
   useDerivedValue,
 } from 'react-native-reanimated';
+
 import { sharedTiming, useInterpolate, useShareClamp } from '@animated';
-import { COLOR_BG, COLOR_FG, STROKE_WIDTH } from '../constant';
+
 import { styles } from './styles';
 import { ProgressLinearProps } from './type';
+
+import { COLOR_BG, COLOR_FG, STROKE_WIDTH } from '../constant';
 
 export const ProgressLinearComponent = ({
   progress,

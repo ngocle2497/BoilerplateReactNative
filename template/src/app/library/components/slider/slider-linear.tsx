@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
-import isEqual from 'react-fast-compare';
 import { LayoutChangeEvent, View } from 'react-native';
+
+import isEqual from 'react-fast-compare';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
@@ -9,12 +10,15 @@ import Animated, {
   useDerivedValue,
   useSharedValue,
 } from 'react-native-reanimated';
+
 import { sharedClamp, sharedSpring } from '@animated';
 import { onCheckType } from '@common';
-import { Text } from '../text';
+
 import { FIXED_AFTER, LOWER_BOUND, THUMB_SIZE, UPPER_BOUND } from './constants';
 import { styles } from './styles';
 import { SliderProps } from './type';
+
+import { Text } from '../text';
 
 const SliderLinearComponent = ({
   lowerBound = LOWER_BOUND,

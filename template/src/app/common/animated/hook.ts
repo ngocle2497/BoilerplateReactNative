@@ -1,5 +1,6 @@
 import React, { Component, useEffect } from 'react';
 import { useWindowDimensions } from 'react-native';
+
 import Animated, {
   AnimationCallback,
   Easing,
@@ -16,6 +17,7 @@ import Animated, {
   WithTimingConfig,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import { sharedClamp, sharedMax, sharedMin } from './math';
 
 /**

@@ -1,12 +1,15 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
-import isEqual from 'react-fast-compare';
 import { LayoutChangeEvent, LayoutRectangle, Text, View } from 'react-native';
+
+import isEqual from 'react-fast-compare';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
+
 import { sharedTiming, useSharedTransition } from '@animated';
+
 import { styles } from './styles';
 import { CollapsibleProps } from './type';
 

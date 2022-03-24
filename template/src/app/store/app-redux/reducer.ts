@@ -1,6 +1,7 @@
 import { SLICE_NAME } from '@config/type';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ThemeType } from '@theme';
+
 import { AppState } from './type';
 
 const initialAppState: AppState = {

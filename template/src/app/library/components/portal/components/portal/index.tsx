@@ -1,7 +1,10 @@
 import { memo, useEffect, useMemo } from 'react';
+
 import { randomUniqueId } from '@common';
-import { usePortal } from '../../hooks';
+
 import type { PortalProps } from './types';
+
+import { usePortal } from '../../hooks';
 
 const PortalComponent = ({
   name: _providedName,

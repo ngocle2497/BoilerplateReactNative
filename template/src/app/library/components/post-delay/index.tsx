@@ -1,11 +1,13 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
-import isEqual from 'react-fast-compare';
 import { StyleSheet } from 'react-native';
+
+import isEqual from 'react-fast-compare';
 import {
   Transition,
   Transitioning,
   TransitioningView,
 } from 'react-native-reanimated';
+
 import { PostDelayProps } from './type';
 const styles = StyleSheet.create({
   container: {

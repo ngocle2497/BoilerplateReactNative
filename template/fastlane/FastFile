@@ -22,7 +22,7 @@ end
 
 lane :build_release do |options|
   if options[:isAndroid]
-    gradle(task: 'clean', project_dir: 'android/')
+    gradle(task: 'clean', project_dir: 'android/', properties:{"defaultEnvFile" => ENV['ENVFILE']})
     gradle(task: "assemble", build_type: "#{ENV['APP_ENV'].downcase}Release", project_dir: "android/" )
     File.rename(ANDROID_BUILD_PATH_DEFAULT,  "../#{ANDROID_BUILD_PATH_UPLOAD}")
 

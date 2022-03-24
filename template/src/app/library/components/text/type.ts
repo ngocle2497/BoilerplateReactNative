@@ -5,8 +5,10 @@ import {
   TextProps as TextProperties,
   TextStyle,
 } from 'react-native';
+
 import { Colors } from '@theme';
 import { FontFamily } from '@theme/typography';
+
 import { TextPresetNames } from './preset';
 
 type FontWeight =
