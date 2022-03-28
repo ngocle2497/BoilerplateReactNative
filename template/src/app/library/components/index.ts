@@ -30,7 +30,6 @@ export * from './snack-bar';
 export * from './slider';
 export * from './stack-view';
 export * from './collapsible';
-export * from './svg-icon';
 export * from './modal';
 export * from './skeleton';
 export * from './comment-loading';
