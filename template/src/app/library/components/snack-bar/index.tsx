@@ -3,20 +3,22 @@ import React, {
   forwardRef,
   memo,
   useCallback,
+  useEffect,
   useImperativeHandle,
   useState,
 } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import isEqual from 'react-fast-compare';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { randomUniqueId } from '@common';
 
 import { DURATION_HIDE } from './constants';
 import { SnackItem } from './snack-bar-item';
 import { styles } from './styles';
-import { Item, SnackBarProps, TypeMessage } from './type';
+import { Item, TypeMessage } from './type';
 
-const SnackBarComponent = forwardRef((props: SnackBarProps, ref) => {
+const SnackBarComponent = forwardRef((_, ref) => {
   useImperativeHandle(
     ref,
     () => ({
@@ -29,10 +31,10 @@ const SnackBarComponent = forwardRef((props: SnackBarProps, ref) => {
         interval: number;
         type: TypeMessage;
       }) => {
-        setData(d =>
+        setQueueData(d =>
           d.concat([
             {
-              id: new Date().getTime(),
+              id: randomUniqueId(),
               msg,
               type,
               interval,
@@ -45,28 +47,37 @@ const SnackBarComponent = forwardRef((props: SnackBarProps, ref) => {
   );
 
   // state
+  const [queueData, setQueueData] = useState<Array<Item>>([]);
   const [data, setData] = useState<Item[]>([]);
-  const inset = useSafeAreaInsets();
-  // function
-  const onPop = useCallback((item: Item) => {
-    setData(d => d.filter(x => x.id !== item.id));
-  }, []);
 
-  const renderItem = useCallback(
-    (item: Item) => <SnackItem key={item.id} {...{ item, onPop }} {...props} />,
-    [onPop, props],
+  // function
+  const _onPop = useCallback(
+    (item: Item) => {
+      const newData = queueData.length <= 0 ? [] : [queueData[0]];
+      setQueueData(d => d.filter(x => x.id !== item.id));
+      setData(newData);
+    },
+    [queueData],
   );
+
+  const _renderItem = useCallback(
+    (item: Item) => <SnackItem key={item.id} {...{ item, onPop: _onPop }} />,
+    [_onPop],
+  );
+
+  // effect
+  useEffect(() => {
+    if (queueData.length > 0) {
+      setData([queueData[0]]);
+    }
+  }, [queueData]);
 
   // render
   return (
     <View
       pointerEvents={'box-none'}
-      style={[
-        StyleSheet.absoluteFillObject,
-        styles.container,
-        { marginTop: inset.top },
-      ]}>
-      {data.map(renderItem)}
+      style={[StyleSheet.absoluteFillObject, styles.container]}>
+      {data.map(_renderItem)}
     </View>
   );
 });

@@ -1,36 +1,22 @@
 import { StyleSheet } from 'react-native';
 
-import { BG_SUCCESS } from './constants';
+import { sizeScale } from '@common';
 
 export const styles = StyleSheet.create({
   container: {
     minHeight: 50,
-    paddingHorizontal: 15,
   },
   itemBar: {
-    paddingHorizontal: 15,
-    paddingVertical: 5,
-    borderRadius: 5,
-    backgroundColor: '#ffffff',
+    paddingHorizontal: sizeScale(15),
+    paddingVertical: sizeScale(13),
     position: 'absolute',
     width: '100%',
-    alignSelf: 'center',
-    marginHorizontal: 50,
+    // alignSelf: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    borderLeftWidth: 3,
-    borderLeftColor: BG_SUCCESS,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
-
-    elevation: 1,
   },
   text: {
+    marginTop: sizeScale(-2),
     flex: 1,
   },
 });

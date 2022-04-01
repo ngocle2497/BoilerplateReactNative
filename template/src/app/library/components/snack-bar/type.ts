@@ -1,26 +1,24 @@
-export interface SnackBarProps {
-  borderLeftColorInfo?: string;
-  borderLeftColorSuccess?: string;
-  borderLeftColorError?: string;
-  borderLeftColorWarn?: string;
-}
+export const TYPE_MESSAGE = {
+  SUCCESS: 'success',
+  ERROR: 'error',
+  WARN: 'warn',
+  LINK: 'link',
+} as const;
 
-export type TypeMessage = 'success' | 'error' | 'info' | 'warn';
+export type TypeMessage = typeof TYPE_MESSAGE[keyof typeof TYPE_MESSAGE];
 
 export type Item = {
-  id: number;
+  id: string;
   msg: string;
   type: TypeMessage;
   interval: number;
 };
-export interface SnackBarItemProps
-  extends Pick<
-    SnackBarProps,
-    | 'borderLeftColorInfo'
-    | 'borderLeftColorSuccess'
-    | 'borderLeftColorError'
-    | 'borderLeftColorWarn'
-  > {
+export interface SnackBarItemProps {
   item: Item;
   onPop: (item: Item) => void;
 }
+export type DataShowMessage = {
+  msg: string;
+  type: TypeMessage;
+  interval?: number;
+};
