@@ -561,17 +561,21 @@ function useMessageYupTranslation(msg?: string) {
   }, [msg]);
 
   const resMsg = useMemo<string | undefined>(() => {
+    if (!parsed && typeof msg === 'string') {
+      return t(msg);
+    }
     if (!parsed) {
       return undefined;
     }
-    const optionsTx: any = {} as any;
+
+    const optionsTx: Record<string, string> = {};
     if (parsed.optionsTx) {
       Object.keys(parsed.optionsTx).forEach(key => {
         optionsTx[key] = t(parsed.optionsTx[key]);
       });
     }
     return t(parsed.keyT, { ...(parsed.options ?? {}), ...optionsTx });
-  }, [parsed, t]);
+  }, [parsed, t, msg]);
 
   return resMsg;
 }
