@@ -10,7 +10,6 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   text: {
-    fontWeight: 'normal',
   },
   hiddenView: {
     position: 'absolute',

@@ -24,7 +24,6 @@ export const styles = StyleSheet.create({
   },
   label: {
     color: '#FFFFFF',
-    fontWeight: 'normal',
     fontFamily: undefined,
     paddingLeft: 5,
   },

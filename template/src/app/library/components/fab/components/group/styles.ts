@@ -27,7 +27,6 @@ export const styles = StyleSheet.create({
   },
   label: {
     color: '#FFFFFF',
-    fontWeight: 'normal',
     fontFamily: undefined,
     paddingLeft: 5,
   },
@@ -91,6 +90,5 @@ export const stylesButton = StyleSheet.create({
   },
   text: {
     fontFamily: undefined,
-    fontWeight: 'normal',
   },
 });

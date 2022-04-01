@@ -23,13 +23,11 @@ export const stylesText = StyleSheet.create({
   primary: {
     fontSize: sizeScale(16),
     fontFamily: FontDefault.primary,
-    fontWeight: '600',
   },
 
   outline: {
     fontSize: sizeScale(16),
     fontFamily: FontDefault.primary,
-    fontWeight: '600',
   },
   default: {},
 });

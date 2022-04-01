@@ -42,7 +42,6 @@ export const styles = StyleSheet.create({
   },
   title: {
     fontSize: sizeScale(15),
-    fontWeight: '700',
     alignSelf: 'center',
     color: '#333333',
   },

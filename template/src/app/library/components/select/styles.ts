@@ -31,7 +31,6 @@ export const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   text: {
-    fontWeight: 'normal',
     fontSize: sizeScale(14),
   },
 });
