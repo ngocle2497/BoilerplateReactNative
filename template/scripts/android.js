@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { loadEnvFile } from './common';
-
 const { execSync } = require('child_process');
+
+const { loadEnvFile } = require('./common');
 
 (async function () {
   const { argv, platform } = process;

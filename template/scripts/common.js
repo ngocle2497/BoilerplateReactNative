@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-export const loadEnvFile = () => {
+module.exports.loadEnvFile = () => {
   return new Promise((resolve, reject) => {
     fs.readFile(path.join('./', process.argv[2]), 'utf8', (err, data) => {
       if (err) {
