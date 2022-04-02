@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-escape */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CustomTextProps, MatchedPart, ParsedText, Pattern } from './type';
 
 import { CustomOmit } from '../../../common/type/index';

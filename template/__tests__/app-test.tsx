@@ -3,7 +3,9 @@
  */
 
  import React from 'react';
+
  import renderer from 'react-test-renderer';
+ 
  import 'react-native';
  import { MyApp } from '../src/app';
  

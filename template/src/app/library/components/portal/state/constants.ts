@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-shadow
 enum ACTIONS {
   REGISTER_HOST,
   UN_REGISTER_HOST,

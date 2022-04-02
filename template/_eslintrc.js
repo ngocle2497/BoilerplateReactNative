@@ -55,6 +55,7 @@ module.exports = {
     'react-native/no-raw-text': 0,
     'import/no-extraneous-dependencies': 2,
     'import/extensions': ['error', 'never', { svg: 'always' }],
+    'no-shadow': 0,
     'sort-imports': [
       'error',
       {

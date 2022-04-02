@@ -8,15 +8,15 @@
     "android:dev": "node ./scripts/android.js env/.dev devDebug",
     "android:dev:release": "node ./scripts/android.js env/.dev devRelease",
     "android:prod": "node ./scripts/android.js env/.prod prodDebug",
-    "ios:dev": "yarn clean-ios && npx react-native run-ios --scheme HelloWorld-Dev",
-    "ios:prod": "yarn clean-ios && npx react-native run-ios --scheme HelloWorld-Prod",
+    "ios:dev": "node ./scripts/ios.js env/.dev",
+    "ios:prod": "node ./scripts/ios.js env/.prod",
     "start": "npx react-native start --reset-cache",
     "format": "prettier --write **/*.{ts,tsx,js,json,md}",
     "type:check": "yarn tsc --noEmit --skipLibCheck",
     "test": "jest",
     "build:staging": "fastlane ios staging_build --env dev && fastlane android staging_build --env dev",
     "lint": "eslint  index.js ./__tests__/** ./scripts/*.js  ./src/** --ext .js,.ts,.tsx",
-    "postinstall": "./scripts/setup.sh",
+    "postinstall": "node ./scripts/setup.js",
     "prepare": "husky install"
   },
   "lint-staged": {
@@ -79,7 +79,6 @@
     "metro-react-native-babel-preset": "^0.66.2",
     "patch-package": "^6.4.7",
     "prettier": "^2.3.0",
-    "react-native-svg-transformer": "^1.0.0",
     "react-test-renderer": "17.0.2",
     "typescript": "^4.2.3"
   },

@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-shadow */
-import { RegisterOptions } from 'react-hook-form';
-export interface ResponseBase<T = any> {
+export interface ResponseBase<T = Record<string, unknown>> {
   code: number;
 
   msg?: string | undefined | null;
@@ -13,15 +10,11 @@ export interface ResponseBase<T = any> {
 
 export interface ParamsNetwork {
   url: string;
-  params?: any;
-  query?: any;
-  body?: any;
+  params?: Record<string, string | number>;
+  query?: Record<string, string | number>;
+  path?: Record<string, string | number>;
+  body?: Record<string, unknown>;
 }
-
-export type HookFormRules = Exclude<
-  RegisterOptions,
-  'valueAsNumber' | 'valueAsDate' | 'setValueAs'
->;
 
 export enum SLICE_NAME {
   APP = 'APP_',
@@ -30,6 +23,6 @@ export enum SLICE_NAME {
 
 export type ValidateMessageObject = {
   keyT: string;
-  optionsTx?: any;
-  options?: any;
+  optionsTx?: Record<string, string | number>;
+  options?: Record<string, string | number>;
 };

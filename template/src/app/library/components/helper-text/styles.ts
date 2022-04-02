@@ -9,8 +9,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     overflow: 'hidden',
   },
-  text: {
-  },
+  text: {},
   hiddenView: {
     position: 'absolute',
     zIndex: -999,
