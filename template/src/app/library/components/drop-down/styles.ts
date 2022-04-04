@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
 
+import { sizeScale } from '@common';
+
 export const styles = StyleSheet.create({
   labelStyle: {
     flex: 1,
-    paddingRight: 5,
+    paddingRight: sizeScale(5),
   },
   container: {
     width: '100%',
@@ -12,15 +14,15 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   wrapIcon: {
-    minHeight: 24,
+    minHeight: sizeScale(24),
   },
   placeHolder: {
     flex: 1,
-    paddingRight: 5,
+    paddingRight: sizeScale(5),
   },
   wrapView: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 3,
+    borderRadius: sizeScale(3),
     flex: 1,
     width: '100%',
     borderBottomWidth: StyleSheet.hairlineWidth,
@@ -41,9 +43,10 @@ export const styles = StyleSheet.create({
   dropStyle: {
     backgroundColor: '#FFFFFF',
     position: 'absolute',
+    overflow: 'hidden',
     // minHeight: 50,
-    maxHeight: 250,
-    paddingHorizontal: 10,
+    maxHeight: sizeScale(250),
+    paddingHorizontal: sizeScale(10),
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -63,8 +66,8 @@ export const styles = StyleSheet.create({
     borderBottomRightRadius: 3,
   },
   wrapPlaceholder: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    paddingHorizontal: sizeScale(10),
+    paddingVertical: sizeScale(10),
     alignItems: 'center',
     flexDirection: 'row',
   },

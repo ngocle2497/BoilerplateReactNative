@@ -3,6 +3,7 @@ export const styles = StyleSheet.create({
   modal: {
     ...StyleSheet.absoluteFillObject,
     zIndex: 9999,
+    backgroundColor: 'transparent',
   },
   content: {
     flex: 1,

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import { StyleProp, TextStyle, ViewStyle } from 'react-native';
+import { TextStyle, ViewStyle } from 'react-native';
 
 import Animated from 'react-native-reanimated';
 
@@ -26,25 +26,25 @@ export interface ItemProps {
    * Additional styles for the items.
    * @default undefined
    */
-  containerStyleItem?: StyleProp<ViewStyle>;
+  containerStyleItem?: ViewStyle;
 
   /**
    * Additional styles for the labels.
    * @default undefined
    */
-  labelStyle?: StyleProp<TextStyle>;
+  labelStyle?: TextStyle;
 
   /**
    * Additional styles for the active item.
    * @default undefined
    */
-  activeItemStyle?: StyleProp<ViewStyle>;
+  activeItemStyle?: ViewStyle;
 
   /**
    * Additional styles for the active label.
    * @default undefined
    */
-  activeLabelStyle?: StyleProp<TextStyle>;
+  activeLabelStyle?: TextStyle;
 
   /**
    * Customize the tick icon for item picker.
@@ -94,25 +94,25 @@ export interface DropDownProps
    * Additional styles for the placeholder text.
    * @default undefined
    */
-  placeholderStyle?: StyleProp<TextStyle>;
+  placeholderStyle?: TextStyle;
 
   /**
    * Additional styles for the picker.
    * @default undefined
    */
-  style?: StyleProp<ViewStyle>;
+  style?: ViewStyle;
 
   /**
    * 	Additional styles for the dropdown box.
    * @default undefined
    */
-  dropDownStyle?: StyleProp<ViewStyle>;
+  dropDownStyle?: ViewStyle;
 
   /**
    * 	Additional styles for the container view.
    * @default undefined
    */
-  containerStyle?: StyleProp<ViewStyle>;
+  containerStyle?: ViewStyle;
 
   /**
    * An option to show/hide the arrow.

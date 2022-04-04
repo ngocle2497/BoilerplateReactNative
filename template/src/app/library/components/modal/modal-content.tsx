@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 import {
   Keyboard,
+  StyleProp,
   StyleSheet,
   TouchableWithoutFeedback,
   useWindowDimensions,
@@ -28,7 +29,6 @@ import { sharedClamp, sharedTiming } from '@animated';
 import {
   AppModule,
   CustomOmit,
-  enhance,
   isIos,
   onCheckType,
   useDisableBackHandler,
@@ -77,15 +77,14 @@ const ModalContentComponent = forwardRef(
   ) => {
     // state
     const { height: screenHeight, width: screenWidth } = useWindowDimensions();
-    const modalStyle = useMemo<ViewStyle>(
-      () =>
-        enhance<ViewStyle>([
-          styles.modal,
-          {
-            width: screenWidth,
-            height: screenHeight + (isIos ? 0 : 25),
-          },
-        ]),
+    const modalStyle = useMemo<StyleProp<ViewStyle>>(
+      () => [
+        styles.modal,
+        {
+          width: screenWidth,
+          height: screenHeight + (isIos ? 0 : 25),
+        },
+      ],
       [screenHeight, screenWidth],
     );
     // reanimated state
@@ -96,16 +95,15 @@ const ModalContentComponent = forwardRef(
     const reBackdropOpacity = useSharedValue(0);
 
     // style
-    const backDropStyle = useMemo<ViewStyle>(
-      () =>
-        enhance([
-          StyleSheet.absoluteFillObject,
-          {
-            width: '100%',
-            height: '100%',
-            backgroundColor: backdropColor,
-          },
-        ]),
+    const backDropStyle = useMemo<StyleProp<ViewStyle>>(
+      () => [
+        StyleSheet.absoluteFillObject,
+        {
+          width: '100%',
+          height: '100%',
+          backgroundColor: backdropColor,
+        },
+      ],
       [backdropColor],
     );
 

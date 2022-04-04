@@ -7,10 +7,8 @@ import React, {
   useState,
 } from 'react';
 import {
-  FlatList,
   LayoutChangeEvent,
   ListRenderItemInfo,
-  StatusBar,
   StyleProp,
   Text,
   TouchableOpacity,
@@ -20,17 +18,18 @@ import {
 } from 'react-native';
 
 import isEqual from 'react-fast-compare';
+import { FlatList } from 'react-native-gesture-handler';
 import Animated, {
   measure,
-  runOnJS,
   runOnUI,
   useAnimatedRef,
   useAnimatedStyle,
+  useSharedValue,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useMix, useRadian, useSharedTransition } from '@animated';
-import { enhance, isIos, onCheckType } from '@common';
+import { onCheckType } from '@common';
 
 import { DropDownItem } from './drop-down-item';
 import { styles } from './styles';
@@ -41,18 +40,16 @@ import { Modal } from '../modal';
 
 const setLayoutOnUI = (
   ref: React.RefObject<View>,
-  updateFunc: React.Dispatch<
-    React.SetStateAction<{
-      width: number;
-      height: number;
-      x: number;
-      y: number;
-    }>
-  >,
+  wrapMeasured: Animated.SharedValue<{
+    width: number;
+    height: number;
+    x: number;
+    y: number;
+  }>,
 ) => {
   'worklet';
   const { width, height, pageX, pageY } = measure(ref);
-  runOnJS(updateFunc)({ width, height, x: pageX, y: pageY });
+  wrapMeasured.value = { width, height, x: pageX, y: pageY };
 };
 
 const DropDownComponent = forwardRef((props: DropDownProps, _) => {
@@ -80,6 +77,8 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   } = props;
 
   // state
+  const wrapMeasured = useSharedValue({ width: 0, height: 0, x: 0, y: 0 });
+  const dropHeight = useSharedValue(0);
   const { height: deviceH } = useWindowDimensions();
   const inset = useSafeAreaInsets();
   const _refDrop = useAnimatedRef<View>();
@@ -87,15 +86,19 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   const [selectedValue, setSelectedValue] = useState<string | Array<string>>(
     '',
   );
-  const [viewLayout, setViewLayout] = useState({
-    width: 0,
-    height: 0,
-    x: 0,
-    y: 0,
-  });
-  const [dropHeight, setDropHeight] = useState(0);
+
+  const isRenderOnBottom = useMemo(() => {
+    return (
+      deviceH - (wrapMeasured.value.y + inset.top + wrapMeasured.value.height) >
+      dropHeight.value + 50
+    );
+  }, [deviceH, wrapMeasured.value, dropHeight, inset.top]);
 
   // function
+  const hideDrop = useCallback(() => {
+    setIsVisible(false);
+  }, []);
+
   const onPressItem = useCallback(
     (value: string) => {
       setSelectedValue(d => {
@@ -110,11 +113,14 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
           return value === d ? '' : value;
         }
       });
+      if (!multiple) {
+        hideDrop();
+      }
     },
-    [multiple],
+    [hideDrop, multiple],
   );
 
-  const _onCheckSelected = useCallback(
+  const onCheckSelected = useCallback(
     (item: RowDropDown): boolean => {
       if (multiple && Array.isArray(selectedValue)) {
         const itemSelect = selectedValue.find(x => x === item.value);
@@ -138,7 +144,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
             activeLabelStyle,
             customTickIcon,
             labelStyle,
-            selected: _onCheckSelected(item),
+            selected: onCheckSelected(item),
           }}
         />
       );
@@ -150,33 +156,24 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
       activeLabelStyle,
       customTickIcon,
       labelStyle,
-      _onCheckSelected,
+      onCheckSelected,
     ],
   );
 
-  const _keyExtractor = useCallback((item: RowDropDown) => item.value, []);
+  const keyExtractor = useCallback((item: RowDropDown) => item.value, []);
 
-  const _onLayoutDrop = useCallback((e: LayoutChangeEvent) => {
-    const { height: DropH } = e.nativeEvent.layout;
-    setDropHeight(DropH);
-  }, []);
+  const onLayoutDrop = useCallback(
+    (e: LayoutChangeEvent) => {
+      const { height } = e.nativeEvent.layout;
+      dropHeight.value = height;
+    },
+    [dropHeight],
+  );
 
-  const _onCheckRenderBottom = useCallback((): boolean => {
-    const statusbarHeight = !isIos ? StatusBar.currentHeight ?? 24 : inset.top;
-    return (
-      deviceH - (viewLayout.y + statusbarHeight + viewLayout.height) >
-      dropHeight + 50
-    );
-  }, [deviceH, viewLayout, dropHeight, inset]);
-
-  const _onToggle = useCallback(() => {
-    runOnUI(setLayoutOnUI)(_refDrop, setViewLayout);
+  const onToggle = useCallback(() => {
+    runOnUI(setLayoutOnUI)(_refDrop, wrapMeasured);
     setIsVisible(val => !val);
-  }, [_refDrop]);
-
-  const _onHideDrop = useCallback(() => {
-    setIsVisible(false);
-  }, []);
+  }, [_refDrop, wrapMeasured]);
 
   const getTextPlaceHolder = useCallback((): string => {
     if (multiple) {
@@ -245,36 +242,19 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   }, [selectedValue]);
 
   // style
-  const wrapStyle = useMemo(
-    () =>
-      enhance([
-        styles.wrapView,
-        isVisible &&
-          (_onCheckRenderBottom()
-            ? styles.wrapViewBottomOpened
-            : styles.wrapViewTopOpened),
-        style,
-      ]) as StyleProp<ViewStyle>,
-    [isVisible, _onCheckRenderBottom, style],
-  );
-
-  const contentModalStyle = useMemo(
-    () =>
-      enhance([
-        styles.dropStyle,
-        dropDownStyle,
-        _onCheckRenderBottom() ? styles.dropBottomOpened : styles.dropTopOpened,
-        { width: viewLayout.width, left: viewLayout.x },
-        _onCheckRenderBottom()
-          ? { top: viewLayout.y + viewLayout.height }
-          : {
-              bottom:
-                deviceH -
-                viewLayout.y -
-                (!isIos ? StatusBar.currentHeight ?? 24 : 0),
-            },
-      ]) as StyleProp<ViewStyle>,
-    [dropDownStyle, _onCheckRenderBottom, viewLayout, deviceH],
+  const contentModalStyle = useMemo<StyleProp<ViewStyle>>(
+    () => [
+      styles.dropStyle,
+      dropDownStyle,
+      isRenderOnBottom ? styles.dropBottomOpened : styles.dropTopOpened,
+      { width: wrapMeasured.value.width, left: wrapMeasured.value.x },
+      isRenderOnBottom
+        ? { top: wrapMeasured.value.y + wrapMeasured.value.height }
+        : {
+            bottom: -wrapMeasured.value.y,
+          },
+    ],
+    [dropDownStyle, isRenderOnBottom, wrapMeasured.value],
   );
 
   // reanimated style
@@ -288,8 +268,19 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   // render
   return (
     <>
-      <View ref={_refDrop} style={wrapStyle}>
-        <TouchableOpacity onPress={_onToggle} disabled={disabled}>
+      <View
+        ref={_refDrop}
+        style={[
+          styles.wrapView,
+          // eslint-disable-next-line no-nested-ternary
+          isVisible
+            ? isRenderOnBottom
+              ? styles.wrapViewBottomOpened
+              : styles.wrapViewTopOpened
+            : undefined,
+          style,
+        ]}>
+        <TouchableOpacity onPress={onToggle} disabled={disabled}>
           <View style={[styles.wrapPlaceholder, containerStyle]}>
             <Text
               style={[styles.placeHolder, placeholderStyle]}
@@ -308,11 +299,12 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
         </TouchableOpacity>
       </View>
       <Modal
-        backdropOpacity={0}
+        backdropOpacity={0.3}
         animatedInDuration={300}
+        backdropColor="transparent"
         animatedOutDuration={300}
-        onBackButtonPress={_onHideDrop}
-        onBackdropPress={_onHideDrop}
+        onBackButtonPress={hideDrop}
+        onBackdropPress={hideDrop}
         onModalShow={onOpen}
         onModalHide={onClose}
         hasGesture={false}
@@ -320,12 +312,12 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
         animatedOut={'fadeOut'}
         style={[styles.modal]}
         isVisible={isVisible}>
-        <View onLayout={_onLayoutDrop} style={contentModalStyle}>
+        <View onLayout={onLayoutDrop} style={contentModalStyle}>
           <FlatList
             data={data}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
-            keyExtractor={_keyExtractor}
+            keyExtractor={keyExtractor}
             renderItem={_renderItem}
           />
         </View>
