@@ -6,6 +6,8 @@ import equals from 'react-fast-compare';
 
 import { ValidateMessageObject } from '@config/type';
 
+import { KANA_FULL_HALF_MAP } from '../constant';
+
 export const onChangeAlias = (value: string | number): string => {
   let str = value + '';
   str = str.toLowerCase();
@@ -79,13 +81,34 @@ export const trimObject = (source: any) => {
   });
   return newObject;
 };
-export const toFullWidth = (value: any) => {
-  return (
-    value +
-    ''.replace(/[A-Za-z0-9]/g, function (s) {
-      return String.fromCharCode(s.charCodeAt(0) + 0xfee0);
-    })
+export const toFullWidth = (value: string) => {
+  const kanaHalfFullMap: Record<string, string> = {};
+  Object.keys(KANA_FULL_HALF_MAP).forEach(key => {
+    kanaHalfFullMap[KANA_FULL_HALF_MAP[key]] = key;
+  });
+  const reg = new RegExp(
+    '(' + Object.keys(kanaHalfFullMap).join('|') + ')',
+    'g',
   );
+  return value
+    .replace(reg, function (match) {
+      return kanaHalfFullMap[match];
+    })
+    .replace(/ﾞ/g, '゛')
+    .replace(/ﾟ/g, '゜');
+};
+
+export const toHalfWidth = (source: string) => {
+  const reg = new RegExp(
+    '(' + Object.keys(KANA_FULL_HALF_MAP).join('|') + ')',
+    'g',
+  );
+  return source
+    .replace(reg, function (match) {
+      return KANA_FULL_HALF_MAP[match];
+    })
+    .replace(/゛/g, 'ﾞ')
+    .replace(/゜/g, 'ﾟ');
 };
 interface ResultHandleTagToArrayText {
   text: string;
