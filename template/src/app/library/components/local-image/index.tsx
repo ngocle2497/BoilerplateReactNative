@@ -7,14 +7,14 @@ import FastImage from 'react-native-fast-image';
 import { images } from '@assets/image';
 
 import { styles } from './styles';
-import { ImageProps } from './type';
+import { LocalImageProps } from './type';
 
-const ImgComponent = ({
+const LocalImageComponent = ({
   style: styleOverride,
   resizeMode = 'cover',
   source,
   containerStyle,
-}: ImageProps) => {
+}: LocalImageProps) => {
   // render
   return (
     <View style={containerStyle}>
@@ -26,4 +26,4 @@ const ImgComponent = ({
     </View>
   );
 };
-export const Img = memo(ImgComponent, equals);
+export const LocalImage = memo(LocalImageComponent, equals);

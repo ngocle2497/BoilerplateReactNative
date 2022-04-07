@@ -1,8 +1,12 @@
 import React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 
-import FastImage, { ImageStyle } from 'react-native-fast-image';
-export interface ImageRemoteProps {
+import FastImage, { FastImageProps, ImageStyle } from 'react-native-fast-image';
+
+import { CustomOmit } from '@common';
+
+export interface ImageProps
+  extends CustomOmit<FastImageProps, 'source' | 'style' | 'resizeMode'> {
   /**
    * Overwrite image style
    * @default undefined
@@ -18,7 +22,7 @@ export interface ImageRemoteProps {
   /**
    * (Required) Url of image
    */
-  source: string;
+  source: string | number | Record<string, unknown>;
 
   /**
    * Source thumb(lazy load)

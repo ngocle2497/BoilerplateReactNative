@@ -3,16 +3,16 @@ import { StyleSheet, View } from 'react-native';
 
 import equals from 'react-fast-compare';
 import { Blurhash } from 'react-native-blurhash';
-import FastImage from 'react-native-fast-image';
+import FastImage, { OnLoadEvent } from 'react-native-fast-image';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 
 import { useSharedTransition } from '@animated';
-import { useAsyncState, useMounted } from '@common';
+import { onCheckType, useAsyncState, useMounted } from '@common';
 
 import { styles } from './styles';
-import { ImageRemoteProps } from './type';
+import { ImageProps } from './type';
 
-const ImageRemoteComponent = ({
+const ImageComponent = ({
   style: styleOverride = {},
   source,
   blurHashOnLoad = 'L9AB*A%LPqys8_H=yDR5nMMeVXR5',
@@ -21,8 +21,11 @@ const ImageRemoteComponent = ({
   containerStyle,
   childrenError,
   childrenOnload,
+  onLoad,
+  onLoadStart,
+  onError,
   ...rest
-}: ImageRemoteProps) => {
+}: ImageProps) => {
   // state
 
   const [loadSucceeded, setLoadSucceeded] = useState<boolean>(false);
@@ -34,21 +37,32 @@ const ImageRemoteComponent = ({
   const opacityOnLoad = useSharedTransition(!loadThumbSucceeded);
 
   // function
-  const _onLoadImageStart = () => {
+  const onLoadImageStart = () => {
     setError(false);
+    if (onCheckType(onLoadStart, 'function')) {
+      onLoadStart();
+    }
   };
 
-  const _onLoadThumbSucceeded = () => {
+  const onLoadThumbSucceeded = () => {
     setLoadThumbSucceeded(true);
   };
 
-  const _onLoadImageSucceeded = () => {
-    setError(false);
-    setLoadSucceeded(true);
+  const onLoadImageSucceeded = (event: OnLoadEvent) => {
+    setTimeout(() => {
+      setError(false);
+      setLoadSucceeded(true);
+    }, 200);
+    if (onCheckType(onLoad, 'function')) {
+      onLoad(event);
+    }
   };
 
-  const _onLoadError = () => {
+  const onLoadError = () => {
     setError(true);
+    if (onCheckType(onError, 'function')) {
+      onError();
+    }
   };
 
   // reanimated style
@@ -78,7 +92,7 @@ const ImageRemoteComponent = ({
         <Animated.View style={[StyleSheet.absoluteFillObject]}>
           {thumbBlurHash !== undefined && (
             <Blurhash
-              onLoadEnd={_onLoadThumbSucceeded}
+              onLoadEnd={onLoadThumbSucceeded}
               blurhash={thumbBlurHash ?? ''}
               style={[StyleSheet.absoluteFillObject]}
             />
@@ -87,13 +101,17 @@ const ImageRemoteComponent = ({
       </Animated.View>
       <Animated.View style={[StyleSheet.absoluteFillObject, imageStyle]}>
         <FastImage
-          onLoadStart={_onLoadImageStart}
-          resizeMode={resizeMode}
-          onError={_onLoadError}
-          onLoad={_onLoadImageSucceeded}
-          style={[styles.img, styleOverride]}
-          source={{ uri: source }}
           {...rest}
+          onLoadStart={onLoadImageStart}
+          resizeMode={resizeMode}
+          onError={onLoadError}
+          onLoad={onLoadImageSucceeded}
+          style={[styles.img, styleOverride]}
+          source={
+            onCheckType(source, 'string')
+              ? { uri: source as string }
+              : (source as number | Record<string, unknown>)
+          }
         />
       </Animated.View>
       {error && (
@@ -104,7 +122,7 @@ const ImageRemoteComponent = ({
     </View>
   );
 };
-export const ImageRemote = memo((props: ImageRemoteProps) => {
+export const Image = memo((props: ImageProps) => {
   const [isChange, setIsChange] = useAsyncState<boolean>(false);
 
   useMounted(() => {
@@ -113,5 +131,5 @@ export const ImageRemote = memo((props: ImageRemoteProps) => {
     });
   }, [props.source]);
 
-  return isChange ? null : <ImageRemoteComponent {...props} />;
+  return isChange ? null : <ImageComponent {...props} />;
 }, equals);

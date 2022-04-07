@@ -8,7 +8,7 @@ const { loadEnvFile } = require('./common');
   const envJson = await loadEnvFile();
   if (platform === 'darwin') {
     await execSync(
-      `ENVFILE=${argv[2]} && cd android && ./gradlew clean '-PdefaultEnvFile=${argv[2]}' && cd .. && npx react-native run-android --variant=${argv[3]} --appId=${envJson.BUNDLE_IDENTIFIER}`,
+      `ENVFILE=${argv[2]} && cd android && ./gradlew clean -PdefaultEnvFile=${argv[2]} && cd .. && npx react-native run-android --variant=${argv[3]} --appId=${envJson.BUNDLE_IDENTIFIER}`,
       { stdio: 'inherit' },
     );
   } else if (platform === 'win32') {

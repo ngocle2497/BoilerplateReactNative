@@ -2,7 +2,7 @@ import React, { memo, useCallback, useRef, useState } from 'react';
 import { TouchableOpacity, useWindowDimensions, View } from 'react-native';
 
 import isEqual from 'react-fast-compare';
-import FastImage, { OnLoadEvent, Source } from 'react-native-fast-image';
+import { OnLoadEvent, Source } from 'react-native-fast-image';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -10,6 +10,8 @@ import Animated, {
 
 import { imageTransitionRef } from './image-transition';
 import { styles } from './styles';
+
+import { Image } from '../image';
 
 interface LightBoxProps {
   source: Source | number;
@@ -81,11 +83,11 @@ const LightBoxComponent = ({ source }: LightBoxProps) => {
       <View ref={_refRoot} collapsable={false} style={[styles.container]}>
         <TouchableOpacity disabled={disableButton} onPress={_onImagePress}>
           <Animated.View style={imageStyle}>
-            <FastImage
+            <Image
               onLoad={_onLoadedImage}
               style={[styles.img]}
               source={source}
-              resizeMode={'contain'}
+              resizeMode={'cover'}
             />
           </Animated.View>
         </TouchableOpacity>

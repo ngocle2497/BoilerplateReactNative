@@ -16,7 +16,7 @@ import { ChatProps, MessageProps } from './type';
 import { Block } from '../block';
 import { Button } from '../button';
 import { Icon } from '../icon';
-import { ImageRemote } from '../img-remote';
+import { Image } from '../image';
 import { Text } from '../text';
 
 const SIZE_AVATAR = sizeScale(20);
@@ -157,7 +157,7 @@ const ChatComponent = ({
                 width={SIZE_AVATAR * 2}
                 height={SIZE_AVATAR * 2}
                 borderRadius={SIZE_AVATAR}>
-                <ImageRemote style={styles.imgAvatar} source={friendAvatar} />
+                <Image style={styles.imgAvatar} source={friendAvatar} />
                 <Block
                   style={[styles.dotStatus]}
                   borderWidth={sizeScale(1)}

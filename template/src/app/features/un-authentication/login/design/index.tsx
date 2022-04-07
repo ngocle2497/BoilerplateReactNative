@@ -64,7 +64,11 @@ const LoginComponent = () => {
         backgroundColor={'transparent'}>
         <FormLogin onSubmit={onSubmit} />
         <Block block height={150}>
-          <LightBox source={{ uri: 'https://picsum.photos/id/11/400/400' }} />
+          <LightBox
+            source={{
+              uri: 'https://images.unsplash.com/photo-1648152298347-ee10674a14fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80',
+            }}
+          />
         </Block>
 
         <Block paddingVertical={15} middle direction={'row'}>

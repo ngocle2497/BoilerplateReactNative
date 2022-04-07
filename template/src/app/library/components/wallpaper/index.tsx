@@ -6,7 +6,7 @@ import equals from 'react-fast-compare';
 import { styles } from './styles';
 import { WallpaperProps } from './type';
 
-import { Img } from '../img';
+import { LocalImage } from '../local-image';
 
 const deviceH = Dimensions.get('screen').height;
 
@@ -23,7 +23,7 @@ const WallpaperComponent = ({
   // render
   return (
     <View pointerEvents={'none'} style={[styles.container, containerStyle]}>
-      <Img source={backgroundImage} />
+      <LocalImage source={backgroundImage} />
     </View>
   );
 };

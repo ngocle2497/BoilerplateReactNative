@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 export const icons = {
   send: require('./source/send.png'),
   back: require('./source/arrow-left.png'),

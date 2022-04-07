@@ -6,7 +6,7 @@ import { ImageTypes } from '@assets/image';
 
 type ResizeMode = 'contain' | 'cover' | 'stretch' | 'center';
 
-export interface ImageProps {
+export interface LocalImageProps {
   /**
    * Overwrite image style
    * @default undefined

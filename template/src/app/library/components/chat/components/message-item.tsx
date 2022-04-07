@@ -10,7 +10,7 @@ import { ImageMessage } from './image-message';
 import { TextMessage } from './text-message';
 
 import { Block } from '../../block';
-import { ImageRemote } from '../../img-remote';
+import { Image } from '../../image';
 import { Text } from '../../text';
 import { ChatProps, MessageProps, SourceMessage } from '../type';
 
@@ -93,7 +93,7 @@ const MessageItemComponent = ({
             height={SIZE_AVATAR * 2}>
             {showAvatar === true &&
               (prevType === 'mine' || prevType === null) && (
-                <ImageRemote
+                <Image
                   style={[styles.img]}
                   resizeMode={'cover'}
                   source={friendAvatar}
@@ -114,7 +114,7 @@ const MessageItemComponent = ({
             height={SIZE_AVATAR * 2}>
             {showAvatar === true &&
               (prevType === 'friend' || prevType === null) && (
-                <ImageRemote
+                <Image
                   style={[styles.img]}
                   resizeMode={'cover'}
                   source={yourAvatar}

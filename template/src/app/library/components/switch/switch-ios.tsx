@@ -21,7 +21,7 @@ import { SwitchProps } from './tye';
 const THUMB_SIZE = 28;
 const WIDTH = 51;
 const MARGIN = 3;
-const OFF_POSITION = -0.5;
+const OFF_POSITION = 0.5;
 const ON_POSITION = WIDTH - THUMB_SIZE - MARGIN - 0.5;
 const BORDER_RADIUS = (THUMB_SIZE * 3) / 4;
 
@@ -78,7 +78,7 @@ const SwitchComponent = ({
   );
 
   // function
-  const _onToggle = useCallback(() => {
+  const toggle = useCallback(() => {
     if (typeof overwriteValue === 'boolean') {
       if (onCheckType(onToggle, 'function')) {
         onToggle && onToggle(!overwriteValue);
@@ -103,7 +103,7 @@ const SwitchComponent = ({
 
   // render
   return (
-    <TouchableWithoutFeedback disabled={disable} onPress={_onToggle}>
+    <TouchableWithoutFeedback disabled={disable} onPress={toggle}>
       <Animated.View style={[styles.track, animatedTrackStyle]}>
         <Animated.View style={[styles.thumb, animatedThumbStyle]} />
       </Animated.View>

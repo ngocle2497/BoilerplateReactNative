@@ -17,6 +17,7 @@ module.exports = {
           prev[key] = value;
           return prev;
         }, {});
+        console.log({ envJson });
         resolve(envJson);
       });
     });

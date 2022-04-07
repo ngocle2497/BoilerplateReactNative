@@ -91,7 +91,7 @@ const SwitchComponent = ({
   );
 
   // function
-  const _onToggle = useCallback(() => {
+  const toggle = useCallback(() => {
     if (typeof overwriteValue === 'boolean') {
       if (onCheckType(onToggle, 'function')) {
         onToggle && onToggle(!overwriteValue);
@@ -121,7 +121,7 @@ const SwitchComponent = ({
   // render
   return (
     <Animated.View style={[styles.wrap, wrapAnimatedStyle]}>
-      <TouchableWithoutFeedback disabled={disable} onPress={_onToggle}>
+      <TouchableWithoutFeedback disabled={disable} onPress={toggle}>
         <Animated.View style={[styles.track, animatedTrackStyle]}>
           <Animated.View style={[styles.thumb, animatedThumbStyle]} />
         </Animated.View>

@@ -1,7 +1,7 @@
 export * from './create-form-data';
 export * from './hooks';
 export * from './handle-error';
-// export * from './requestPermission';
+// export * from './request-permission';
 export * from './constant';
 export * from './string';
 export * from './scale';
