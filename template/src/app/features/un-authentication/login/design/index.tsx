@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 
 import isEqual from 'react-fast-compare';
 
-import { AppModule, dispatch, useAnimatedState } from '@common';
+import { dispatch, useAnimatedState } from '@common';
 import {
   ActionSheet,
   Block,
@@ -50,11 +50,7 @@ const LoginComponent = () => {
   }, []);
 
   const _onShowAction = useCallback(async () => {
-    // _refAction.current?.show();
-    const res = await AppModule.MMKVStorage.setNumber('test', 1);
-    console.log({ res });
-    const get = await AppModule.MMKVStorage.getNumber('test');
-    console.log({ get });
+    _refAction.current?.show();
   }, []);
 
   // render

@@ -109,7 +109,7 @@ module.exports = {
     'react-hooks/rules-of-hooks': 1,
     'react-hooks/exhaustive-deps': [
       'warn',
-      { additionalHooks: '(useMemoOne)' },
+      { additionalHooks: '(useDidMount)' },
     ],
     'jest/no-identical-title': 2,
     'jest/valid-expect': 2,
