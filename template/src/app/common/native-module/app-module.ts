@@ -140,7 +140,7 @@ export const usePhotosPermissionChange = (callback: () => void) => {
     }
     return () => {
       if (isIos) {
-        photosChangeEvent.removeSubscription(subscription);
+        subscription.remove();
       }
     };
   }, [callback]);
@@ -152,78 +152,81 @@ export type MMKVOption = {
   cryptKey: string;
 };
 export const MMKVStorage = {
-  setString: async (key: string, value: string, option?: MMKVOption) => {
-    const res: boolean = await AppModule.mmkvSetString(
+  setString: (
+    key: string,
+    value: string,
+    option?: MMKVOption,
+  ): Promise<boolean> => {
+    return AppModule.mmkvSetString(
       key,
       value,
       option?.id ?? undefined,
       option?.cryptKey ?? undefined,
     );
-    return res;
   },
-  setNumber: async (key: string, value: number, option?: MMKVOption) => {
-    const res: boolean = await AppModule.mmkvSetNumber(
+  setNumber: (
+    key: string,
+    value: number,
+    option?: MMKVOption,
+  ): Promise<boolean> => {
+    return AppModule.mmkvSetNumber(
       key,
       value,
       option?.id ?? undefined,
       option?.cryptKey ?? undefined,
     );
-    return res;
   },
-  setBoolean: async (key: string, value: boolean, option?: MMKVOption) => {
-    const res: boolean = await AppModule.mmkvSetBoolean(
+  setBoolean: (
+    key: string,
+    value: boolean,
+    option?: MMKVOption,
+  ): Promise<boolean> => {
+    return AppModule.mmkvSetBoolean(
       key,
       value,
       option?.id ?? undefined,
       option?.cryptKey ?? undefined,
     );
-    return res;
   },
-  getString: async (key: string, option?: MMKVOption) => {
-    const res: string | null = await AppModule.mmkvGetString(
+  getString: (key: string, option?: MMKVOption): Promise<string | null> => {
+    return AppModule.mmkvGetString(
       key,
       option?.id ?? undefined,
       option?.cryptKey ?? undefined,
     );
-    return res;
   },
-  getNumber: async (key: string, option?: MMKVOption) => {
-    const res: number = await AppModule.mmkvGetNumber(
+  getNumber: (key: string, option?: MMKVOption): Promise<number> => {
+    return AppModule.mmkvGetNumber(
       key,
       option?.id ?? undefined,
       option?.cryptKey ?? undefined,
     );
-    return res;
   },
-  getBoolean: async (key: string, option?: MMKVOption) => {
-    const res: boolean = await AppModule.mmkvGetBoolean(
+  getBoolean: (key: string, option?: MMKVOption): Promise<boolean> => {
+    return AppModule.mmkvGetBoolean(
       key,
       option?.id ?? undefined,
       option?.cryptKey ?? undefined,
     );
-    return res;
   },
-  getAllKeys: async (option?: MMKVOption) => {
-    const res: Array<string> = await AppModule.mmkvGetAllKeys(
+  getAllKeys: async (option?: MMKVOption): Promise<string[]> => {
+    return AppModule.mmkvGetAllKeys(
       option?.id ?? undefined,
       option?.cryptKey ?? undefined,
     );
-    return res;
   },
-  clearAll: async (option?: MMKVOption) => {
-    const res: Array<string> = await AppModule.mmkvClearAll(
+  clearAll: (option?: MMKVOption): Promise<string[]> => {
+    return AppModule.mmkvClearAll(
       option?.id ?? undefined,
       option?.cryptKey ?? undefined,
     );
-    return res;
   },
-  delete: async (key: string, option?: MMKVOption) => {
-    const res: boolean = await AppModule.mmkvDelete(
+  delete: (key: string, option?: MMKVOption): Promise<boolean> => {
+    return AppModule.mmkvDelete(
       key,
       option?.id ?? undefined,
       option?.cryptKey ?? undefined,
     );
-    return res;
   },
 };
 

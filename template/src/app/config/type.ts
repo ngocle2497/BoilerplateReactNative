@@ -1,7 +1,7 @@
 export interface ResponseBase<T = Record<string, unknown>> {
   code: number;
 
-  msg?: string | undefined | null;
+  msg?: string | null;
 
   data?: T;
 

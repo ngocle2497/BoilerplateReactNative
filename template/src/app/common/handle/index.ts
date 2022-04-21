@@ -23,7 +23,7 @@ export const propsToStyle = <T = any>(arrStyle: Array<T>) => {
         !['opacity', 'zIndex', 'flex'].includes(firstKey as never) &&
         typeof firstValue === 'number'
       ) {
-        curr[firstKey as string] = sizeScale(firstValue);
+        curr[firstKey] = sizeScale(firstValue);
       }
       return { ...prev, ...curr };
     }, {});

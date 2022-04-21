@@ -1,21 +1,46 @@
 import React, { memo, useMemo } from 'react';
-import { StatusBar, useWindowDimensions, View, ViewStyle } from 'react-native';
+import {
+  StatusBar,
+  useWindowDimensions,
+  View,
+  ViewProps,
+  ViewStyle,
+} from 'react-native';
 
 import isEqual from 'react-fast-compare';
 import Animated from 'react-native-reanimated';
 import {
   Edge,
   SafeAreaView,
+  SafeAreaViewProps,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 
-import { Block } from '@components';
 import { useTheme } from '@theme';
 
 import { styles } from './styles';
-import { InsetComponentProps, InsetProps, ScreenProps } from './type';
+import {
+  InsetComponentProps,
+  InsetProps,
+  ScreenComponentProps,
+  ScreenProps,
+} from './type';
 
 const INSETS: Edge[] = ['top', 'bottom', 'left', 'right'];
+
+const getEdges = (
+  excludeEdges: ScreenProps['excludeEdges'],
+  hiddenStatusBar: boolean,
+) => {
+  if (excludeEdges === 'all') {
+    return [];
+  }
+  const actualEdges = INSETS.filter(x => !(excludeEdges ?? []).includes(x));
+  if (hiddenStatusBar) {
+    return actualEdges.filter(x => x !== 'top');
+  }
+  return actualEdges;
+};
 
 const Inset = memo(
   ({ color, height, width, bottom, left, right, top }: InsetProps) => {
@@ -99,43 +124,25 @@ const InsetComponent = memo(
   isEqual,
 );
 
-function ScreenWithoutScrolling(props: ScreenProps) {
+function ScreenWithoutScrolling(
+  Wrapper: React.ComponentType<ViewProps | SafeAreaViewProps>,
+  props: ScreenComponentProps,
+) {
   // state
   const { colors } = useTheme();
   const {
+    statusBarStyle,
+    backgroundColor,
+    actualUnsafe,
+    children,
+    edges,
     hiddenStatusBar = false,
     statusColor = undefined,
     bottomInsetColor = colors.background,
     style = {},
     rightInsetColor = colors.background,
     leftInsetColor = colors.background,
-    statusBarStyle,
-    backgroundColor,
-    excludeEdges,
-    unsafe = false,
-    children,
   } = props;
-
-  const edges = useMemo<Edge[]>(() => {
-    if (excludeEdges === 'all') {
-      return [];
-    }
-    const actualEdges = INSETS.filter(x => !(excludeEdges ?? []).includes(x));
-    if (hiddenStatusBar) {
-      return actualEdges.filter(x => x !== 'top');
-    }
-    return actualEdges;
-  }, [excludeEdges, hiddenStatusBar]);
-
-  const actualUnsafe = useMemo<boolean>(
-    () => unsafe || edges.length <= 0,
-    [edges.length, unsafe],
-  );
-
-  const Wrapper = useMemo(
-    () => (actualUnsafe ? Block : SafeAreaView),
-    [actualUnsafe],
-  );
 
   // render
   return (
@@ -163,43 +170,26 @@ function ScreenWithoutScrolling(props: ScreenProps) {
   );
 }
 
-function ScreenWithScrolling(props: ScreenProps) {
+function ScreenWithScrolling(
+  Wrapper: React.ComponentType<ViewProps | SafeAreaViewProps>,
+  props: ScreenComponentProps,
+) {
   // state
   const { colors } = useTheme();
   const {
+    statusBarStyle,
+    backgroundColor,
+    actualUnsafe,
+    children,
+    onScroll,
+    edges,
     hiddenStatusBar = false,
     statusColor = undefined,
     bottomInsetColor = colors.background,
     style = {},
     leftInsetColor = colors.background,
     rightInsetColor = colors.background,
-    statusBarStyle,
-    backgroundColor,
-    excludeEdges,
-    unsafe = false,
-    children,
-    onScroll,
   } = props;
-  const edges = useMemo<Edge[]>(() => {
-    if (excludeEdges === 'all') {
-      return [];
-    }
-    const actualEdges = INSETS.filter(x => !(excludeEdges ?? []).includes(x));
-    if (hiddenStatusBar) {
-      return actualEdges.filter(x => x !== 'top');
-    }
-    return actualEdges;
-  }, [excludeEdges, hiddenStatusBar]);
-
-  const actualUnsafe = useMemo<boolean>(
-    () => unsafe || edges.length <= 0,
-    [edges.length, unsafe],
-  );
-
-  const Wrapper = useMemo(
-    () => (actualUnsafe ? Block : SafeAreaView),
-    [actualUnsafe],
-  );
 
   // render
   return (
@@ -232,11 +222,24 @@ function ScreenWithScrolling(props: ScreenProps) {
 }
 
 function ScreenComponent(props: ScreenProps) {
-  const { scroll = false } = props;
-  if (scroll) {
-    return <ScreenWithScrolling {...props} />;
+  // state
+  const edges = useMemo<Edge[]>(
+    () => getEdges(props.excludeEdges, props?.hiddenStatusBar ?? false),
+    [props.excludeEdges, props.hiddenStatusBar],
+  );
+  const actualUnsafe = useMemo<boolean>(
+    () => props.unsafe || edges.length <= 0,
+    [edges.length, props.unsafe],
+  );
+  const Wrapper = useMemo(
+    () => (actualUnsafe ? View : SafeAreaView),
+    [actualUnsafe],
+  );
+  // render
+  if (props.scroll) {
+    return ScreenWithScrolling(Wrapper, { ...props, actualUnsafe, edges });
   } else {
-    return <ScreenWithoutScrolling {...props} />;
+    return ScreenWithoutScrolling(Wrapper, { ...props, actualUnsafe, edges });
   }
 }
 export const Screen = memo(ScreenComponent, isEqual);

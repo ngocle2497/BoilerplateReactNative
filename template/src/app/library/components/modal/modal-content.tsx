@@ -263,7 +263,7 @@ const ModalContentComponent = forwardRef(
       return (
         <TouchableWithoutFeedback onPress={onBackdropPress}>
           <Animated.View style={[backDropStyle, reBackdropStyle]}>
-            {customBackDrop && customBackDrop}
+            {customBackDrop}
           </Animated.View>
         </TouchableWithoutFeedback>
       );

@@ -10,7 +10,7 @@ import android.util.Log;
 import com.facebook.react.bridge.ReactApplicationContext;
 
 public class DeviceInfo {
-    private static String DefaultStringReturnType = "Unknown";
+    private static String defaultStringReturnType = "Unknown";
     private Context context;
 
     public DeviceInfo(ReactApplicationContext reactContext) {
@@ -25,8 +25,8 @@ public class DeviceInfo {
         try {
             return getPackageInfo().versionName;
         } catch (Exception ex) {
-            Log.d("Error", ex.getMessage());
-            return DefaultStringReturnType;
+            Log.d("Error getAppVersion", ex.getMessage());
+            return defaultStringReturnType;
         }
     }
 
@@ -34,8 +34,8 @@ public class DeviceInfo {
         try {
             return Integer.toString(getPackageInfo().versionCode);
         } catch (Exception ex) {
-            Log.d("Error", ex.getMessage());
-            return DefaultStringReturnType;
+            Log.d("Error getBuildNumber", ex.getMessage());
+            return defaultStringReturnType;
         }
     }
 
@@ -43,8 +43,8 @@ public class DeviceInfo {
         try {
             return context.getApplicationInfo().loadLabel(context.getPackageManager()).toString();
         } catch (Exception ex) {
-            Log.d("Error", ex.getMessage());
-            return DefaultStringReturnType;
+            Log.d("Error getAppName", ex.getMessage());
+            return defaultStringReturnType;
         }
     }
 
@@ -52,8 +52,8 @@ public class DeviceInfo {
         try {
             return getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         } catch (Exception ex) {
-            Log.d("Error", ex.getMessage());
-            return DefaultStringReturnType;
+            Log.d("Error getDeviceId", ex.getMessage());
+            return defaultStringReturnType;
         }
     }
 }

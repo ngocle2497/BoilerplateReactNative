@@ -24,7 +24,7 @@ export interface ImageTransitionProps {
   source: Source | number;
 }
 
-const ImageTransitionComponent = forwardRef((props, ref) => {
+const ImageTransitionComponent = forwardRef((_, ref) => {
   useImperativeHandle(
     ref,
     () => ({

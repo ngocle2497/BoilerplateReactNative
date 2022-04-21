@@ -33,9 +33,7 @@ export const VectorIcon = memo((props: VectorIconProps) => {
       size={24}
       {...props}
       name={ICONS[props.icon]}
-      color={
-        props.colorTheme ? (colors[props.colorTheme] as string) : props.color
-      }
+      color={props.colorTheme ? colors[props.colorTheme] : props.color}
     />
   );
 }, isEqual) as MemoExoticComponent<NamedExoticComponent<VectorIconProps>> & {

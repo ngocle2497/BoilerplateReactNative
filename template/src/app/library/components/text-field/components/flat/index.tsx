@@ -231,7 +231,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
             onBlur={_onBlur}
           />
         </View>
-        {rightChildren && rightChildren}
+        {rightChildren}
       </View>
     </Animated.View>
   );

@@ -560,7 +560,7 @@ function useMessageYupTranslation(msg?: string) {
     }
   }, [msg]);
 
-  const resMsg = useMemo<string | undefined>(() => {
+  return useMemo<string | undefined>(() => {
     if (!parsed && typeof msg === 'string') {
       return t(msg);
     }
@@ -571,13 +571,13 @@ function useMessageYupTranslation(msg?: string) {
     const optionsTx: Record<string, string> = {};
     if (parsed.optionsTx) {
       Object.keys(parsed.optionsTx).forEach(key => {
-        optionsTx[key] = t(parsed.optionsTx[key]);
+        optionsTx[key] = t(
+          String((parsed.optionsTx as Record<string, string | number>)[key]),
+        );
       });
     }
     return t(parsed.keyT, { ...(parsed.options ?? {}), ...optionsTx });
   }, [parsed, t, msg]);
-
-  return resMsg;
 }
 
 export {

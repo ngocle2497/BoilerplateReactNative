@@ -108,8 +108,7 @@ export function getDaysByMonth(
   if (isGTE(to, days[days.length - 1])) {
     after = daysFromTo(days[days.length - 1], to);
   }
-  const latest = before.concat(days.slice(1, days.length - 1), after);
-  return latest;
+  return before.concat(days.slice(1, days.length - 1), after);
 }
 
 /**

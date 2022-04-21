@@ -44,10 +44,10 @@ export const compareValue = (val1: any, val2: any) => {
   return equals(val1, val2);
 };
 export const removeChar = (source = '') => {
-  return source.replace(/[^0-9]/g, '');
+  return source.replace(/\D/g, '');
 };
 export const trimArray = (sourceArr: Array<unknown> = []): Array<unknown> => {
-  const newArr = sourceArr.map((element: any) => {
+  return sourceArr.map((element: any) => {
     if (Array.isArray(element)) {
       return trimArray(element);
     }
@@ -60,7 +60,6 @@ export const trimArray = (sourceArr: Array<unknown> = []): Array<unknown> => {
         return element;
     }
   });
-  return newArr;
 };
 
 export const trimObject = (source: any) => {
@@ -189,8 +188,7 @@ export const checkPasswordContainUserName = (
 
   // now check all invalidCombinations
   let invalid = false;
-  for (let i = 0; i < invalidCombinations.length; i++) {
-    const curCombination = invalidCombinations[i];
+  for (const curCombination of invalidCombinations) {
     if (password.indexOf(curCombination) !== -1) {
       invalid = true;
       break;

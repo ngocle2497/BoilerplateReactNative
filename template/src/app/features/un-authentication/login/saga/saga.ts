@@ -17,8 +17,8 @@ export function* onLogin(action: Action) {
       },
     );
     yield* put(onEndProcess());
-    if (response) {
-      /// TODO
+    if (!response) {
+      return;
     }
   }
 }

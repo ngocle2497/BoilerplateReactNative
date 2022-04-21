@@ -21,7 +21,7 @@ public class NotificationHelper {
         this.context = context;
     }
 
-    public void clearNotification(){
+    public void clearNotification() {
         NotificationManagerCompat.from(context).cancelAll();
     }
 
@@ -33,8 +33,7 @@ public class NotificationHelper {
         if (manager == null) {
             return null;
         }
-        NotificationChannel channel = manager.getNotificationChannel(channelId);
-        return channel;
+        return manager.getNotificationChannel(channelId);
     }
 
     public void deleteChannel(String channelId) {
@@ -58,7 +57,7 @@ public class NotificationHelper {
         String soundName = channelInfo.hasKey("soundName") ? channelInfo.getString("soundName") : "default";
         int importance = channelInfo.hasKey("importance") ? channelInfo.getInt("importance") : 4;
         boolean vibrate = channelInfo.hasKey("vibrate") && channelInfo.getBoolean("vibrate");
-        long[] vibratePattern = vibrate ? new long[] { 0, DEFAULT_VIBRATION } : null;
+        long[] vibratePattern = vibrate ? new long[]{0, DEFAULT_VIBRATION} : null;
 
         NotificationManager manager = notificationManager();
 
@@ -67,27 +66,29 @@ public class NotificationHelper {
         return checkOrCreateChannel(manager, channelId, channelName, channelDescription, soundUri, importance, vibratePattern);
     }
 
-    private boolean checkOrCreateChannel(NotificationManager manager, String channel_id, String channel_name, String channel_description, Uri soundUri, int importance, long[] vibratePattern) {
+    private boolean checkOrCreateChannel(NotificationManager manager, String channelId,
+                                         String channelName, String channelDescription,
+                                         Uri soundUri, int importance, long[] vibratePattern) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
             return false;
         if (manager == null)
             return false;
 
-        NotificationChannel channel = manager.getNotificationChannel(channel_id);
+        NotificationChannel channel = manager.getNotificationChannel(channelId);
 
         if (
-                channel == null && channel_name != null && channel_description != null ||
+                channel == null && channelName != null && channelDescription != null ||
                         channel != null &&
                                 (
-                                        channel_name != null && !channel_name.equals(channel.getName()) ||
-                                                channel_description != null && !channel_description.equals(channel.getDescription())
+                                        channelName != null && !channelName.equals(channel.getName()) ||
+                                                channelDescription != null && !channelDescription.equals(channel.getDescription())
                                 )
         ) {
             // If channel doesn't exist create a new one.
             // If channel name or description is updated then update the existing channel.
-            channel = new NotificationChannel(channel_id, channel_name, importance);
+            channel = new NotificationChannel(channelId, channelName, importance);
 
-            channel.setDescription(channel_description);
+            channel.setDescription(channelDescription);
             channel.enableLights(true);
             channel.enableVibration(vibratePattern != null);
             channel.setVibrationPattern(vibratePattern);

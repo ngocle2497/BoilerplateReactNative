@@ -103,9 +103,7 @@ const MasonryComponent = ({
       const dataOf = _data
         .map((cell, index) => assignObjectColumn(_columns, index, cell))
         .map((cell, index) => assignObjectIndex(offset + index, cell));
-
-      for (let index = 0; index < dataOf.length; index++) {
-        const element = dataOf[index];
+      for (const element of dataOf) {
         Image.getSize(
           element.uri,
           (width, height) => {

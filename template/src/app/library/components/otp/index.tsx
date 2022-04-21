@@ -85,7 +85,7 @@ const OtpComponent = (props: OtpProps) => {
         {length &&
           Array(length)
             .fill(0)
-            .map((item, index) => {
+            .map((_, index) => {
               return (
                 <View key={index} style={styles.row}>
                   <View

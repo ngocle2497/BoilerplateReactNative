@@ -37,8 +37,9 @@ import {
   Tail,
   TakeEffect,
 } from 'redux-saga/effects';
+type ArgsFunc = (...args: any[]) => any;
 export type SagaReturnType<
-  S extends (...args: any[]) => any,
+  S extends ArgsFunc,
   T = ReturnType<S>,
 > = T extends SagaIterator<infer RT>
   ? RT
@@ -78,10 +79,7 @@ export declare function takeEvery<P extends ActionPattern>(
   pattern: P,
   worker: (action: ActionMatchingPattern<P>) => any,
 ): SagaGenerator<never, ForkEffect<never>>;
-export declare function takeEvery<
-  P extends ActionPattern,
-  Fn extends (...args: any[]) => any,
->(
+export declare function takeEvery<P extends ActionPattern, Fn extends ArgsFunc>(
   pattern: P,
   worker: Fn,
   ...args: HelperWorkerParameters<ActionMatchingPattern<P>, Fn>
@@ -90,10 +88,7 @@ export declare function takeEvery<A extends Action>(
   pattern: ActionPattern<A>,
   worker: (action: A) => any,
 ): SagaGenerator<never, ForkEffect<never>>;
-export declare function takeEvery<
-  A extends Action,
-  Fn extends (...args: any[]) => any,
->(
+export declare function takeEvery<A extends Action, Fn extends ArgsFunc>(
   pattern: ActionPattern<A>,
   worker: Fn,
   ...args: HelperWorkerParameters<A, Fn>
@@ -102,7 +97,7 @@ export declare function takeEvery<T>(
   channel: TakeableChannel<T>,
   worker: (item: T) => any,
 ): SagaGenerator<never, ForkEffect<never>>;
-export declare function takeEvery<T, Fn extends (...args: any[]) => any>(
+export declare function takeEvery<T, Fn extends ArgsFunc>(
   channel: TakeableChannel<T>,
   worker: Fn,
   ...args: HelperWorkerParameters<T, Fn>
@@ -114,7 +109,7 @@ export declare function takeLatest<P extends ActionPattern>(
 ): SagaGenerator<never, ForkEffect<never>>;
 export declare function takeLatest<
   P extends ActionPattern,
-  Fn extends (...args: any[]) => any,
+  Fn extends ArgsFunc,
 >(
   pattern: P,
   worker: Fn,
@@ -124,10 +119,7 @@ export declare function takeLatest<A extends Action>(
   pattern: ActionPattern<A>,
   worker: (action: A) => any,
 ): SagaGenerator<never, ForkEffect<never>>;
-export declare function takeLatest<
-  A extends Action,
-  Fn extends (...args: any[]) => any,
->(
+export declare function takeLatest<A extends Action, Fn extends ArgsFunc>(
   pattern: ActionPattern<A>,
   worker: Fn,
   ...args: HelperWorkerParameters<A, Fn>
@@ -136,7 +128,7 @@ export declare function takeLatest<T>(
   channel: TakeableChannel<T>,
   worker: (item: T) => any,
 ): SagaGenerator<never, ForkEffect<never>>;
-export declare function takeLatest<T, Fn extends (...args: any[]) => any>(
+export declare function takeLatest<T, Fn extends ArgsFunc>(
   channel: TakeableChannel<T>,
   worker: Fn,
   ...args: HelperWorkerParameters<T, Fn>
@@ -148,7 +140,7 @@ export declare function takeLeading<P extends ActionPattern>(
 ): SagaGenerator<never, ForkEffect<never>>;
 export declare function takeLeading<
   P extends ActionPattern,
-  Fn extends (...args: any[]) => any,
+  Fn extends ArgsFunc,
 >(
   pattern: P,
   worker: Fn,
@@ -158,10 +150,7 @@ export declare function takeLeading<A extends Action>(
   pattern: ActionPattern<A>,
   worker: (action: A) => any,
 ): SagaGenerator<never, ForkEffect<never>>;
-export declare function takeLeading<
-  A extends Action,
-  Fn extends (...args: any[]) => any,
->(
+export declare function takeLeading<A extends Action, Fn extends ArgsFunc>(
   pattern: ActionPattern<A>,
   worker: Fn,
   ...args: HelperWorkerParameters<A, Fn>
@@ -170,7 +159,7 @@ export declare function takeLeading<T>(
   channel: TakeableChannel<T>,
   worker: (item: T) => any,
 ): SagaGenerator<never, ForkEffect<never>>;
-export declare function takeLeading<T, Fn extends (...args: any[]) => any>(
+export declare function takeLeading<T, Fn extends ArgsFunc>(
   channel: TakeableChannel<T>,
   worker: Fn,
   ...args: HelperWorkerParameters<T, Fn>
@@ -188,7 +177,7 @@ export declare function putResolve<A extends Action>(
   action: A,
 ): SagaGenerator<A, PutEffect<A>>;
 
-export declare function call<Fn extends (...args: any[]) => any>(
+export declare function call<Fn extends ArgsFunc>(
   fn: Fn,
   ...args: Parameters<Fn>
 ): SagaGenerator<SagaReturnType<Fn>, CallEffect<SagaReturnType<Fn>>>;
@@ -256,7 +245,7 @@ export declare function apply<
 export declare function cps<Fn extends (cb: CpsCallback<any>) => any>(
   fn: Fn,
 ): SagaGenerator<ReturnType<Fn>, CpsEffect<ReturnType<Fn>>>;
-export declare function cps<Fn extends (...args: any[]) => any>(
+export declare function cps<Fn extends ArgsFunc>(
   fn: Fn,
   ...args: CpsFunctionParameters<Fn>
 ): SagaGenerator<ReturnType<Fn>, CpsEffect<ReturnType<Fn>>>;
@@ -298,7 +287,7 @@ interface FixedTask<A> extends Task {
   result: <T = A>() => T | undefined;
   toPromise: <T = A>() => Promise<T>;
 }
-export declare function fork<Fn extends (...args: any[]) => any>(
+export declare function fork<Fn extends ArgsFunc>(
   fn: Fn,
   ...args: Parameters<Fn>
 ): SagaGenerator<FixedTask<SagaReturnType<Fn>>, ForkEffect<SagaReturnType<Fn>>>;
@@ -341,7 +330,7 @@ export declare function fork<
   ...args: Parameters<Fn>
 ): SagaGenerator<FixedTask<SagaReturnType<Fn>>, ForkEffect<SagaReturnType<Fn>>>;
 
-export declare function spawn<Fn extends (...args: any[]) => any>(
+export declare function spawn<Fn extends ArgsFunc>(
   fn: Fn,
   ...args: Parameters<Fn>
 ): SagaGenerator<FixedTask<SagaReturnType<Fn>>, ForkEffect<SagaReturnType<Fn>>>;
@@ -433,10 +422,7 @@ export declare function throttle<P extends ActionPattern>(
   pattern: P,
   worker: (action: ActionMatchingPattern<P>) => any,
 ): SagaGenerator<never, ForkEffect<never>>;
-export declare function throttle<
-  P extends ActionPattern,
-  Fn extends (...args: any[]) => any,
->(
+export declare function throttle<P extends ActionPattern, Fn extends ArgsFunc>(
   ms: number,
   pattern: P,
   worker: Fn,
@@ -447,10 +433,7 @@ export declare function throttle<A extends Action>(
   pattern: ActionPattern<A>,
   worker: (action: A) => any,
 ): SagaGenerator<never, ForkEffect<never>>;
-export declare function throttle<
-  A extends Action,
-  Fn extends (...args: any[]) => any,
->(
+export declare function throttle<A extends Action, Fn extends ArgsFunc>(
   ms: number,
   pattern: ActionPattern<A>,
   worker: Fn,
@@ -461,7 +444,7 @@ export declare function throttle<T>(
   channel: TakeableChannel<T>,
   worker: (item: T) => any,
 ): SagaGenerator<never, ForkEffect<never>>;
-export declare function throttle<T, Fn extends (...args: any[]) => any>(
+export declare function throttle<T, Fn extends ArgsFunc>(
   ms: number,
   channel: TakeableChannel<T>,
   worker: Fn,
@@ -473,10 +456,7 @@ export declare function debounce<P extends ActionPattern>(
   pattern: P,
   worker: (action: ActionMatchingPattern<P>) => any,
 ): SagaGenerator<never, ForkEffect<never>>;
-export declare function debounce<
-  P extends ActionPattern,
-  Fn extends (...args: any[]) => any,
->(
+export declare function debounce<P extends ActionPattern, Fn extends ArgsFunc>(
   ms: number,
   pattern: P,
   worker: Fn,
@@ -487,10 +467,7 @@ export declare function debounce<A extends Action>(
   pattern: ActionPattern<A>,
   worker: (action: A) => any,
 ): SagaGenerator<never, ForkEffect<never>>;
-export declare function debounce<
-  A extends Action,
-  Fn extends (...args: any[]) => any,
->(
+export declare function debounce<A extends Action, Fn extends ArgsFunc>(
   ms: number,
   pattern: ActionPattern<A>,
   worker: Fn,
@@ -502,14 +479,14 @@ export declare function debounce<T>(
   channel: TakeableChannel<T>,
   worker: (item: T) => any,
 ): SagaGenerator<never, ForkEffect<never>>;
-export declare function debounce<T, Fn extends (...args: any[]) => any>(
+export declare function debounce<T, Fn extends ArgsFunc>(
   ms: number,
   channel: TakeableChannel<T>,
   worker: Fn,
   ...args: HelperWorkerParameters<T, Fn>
 ): SagaGenerator<never, ForkEffect<never>>;
 
-export declare function retry<Fn extends (...args: any[]) => any>(
+export declare function retry<Fn extends ArgsFunc>(
   maxTries: number,
   delayLength: number,
   fn: Fn,

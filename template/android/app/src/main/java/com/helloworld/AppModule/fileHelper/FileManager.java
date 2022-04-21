@@ -1,6 +1,7 @@
 package com.helloworld.AppModule.fileHelper;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 
@@ -20,7 +21,8 @@ public class FileManager {
                 onDeleteRecursive(child);
             }
         }
-        fileOrDirectory.delete();
+        boolean result = fileOrDirectory.delete();
+        Log.d("Result Delete", String.valueOf(result));
     }
 
     public void clearCache() {

@@ -8,7 +8,9 @@ import {
 
 import { Edge } from 'react-native-safe-area-context';
 
-export interface ScreenProps {
+import { CustomOmit } from '@common';
+
+export type ScreenProps = {
   /**
    * Children of Screen
    */
@@ -84,7 +86,7 @@ export interface ScreenProps {
    * @default undefined
    */
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
-}
+};
 
 export type InsetComponentProps = Pick<
   ScreenProps,
@@ -108,3 +110,10 @@ export interface InsetProps {
   right?: number;
   bottom?: number;
 }
+export type ScreenComponentProps = CustomOmit<
+  ScreenProps,
+  'unsafe' | 'scroll' | 'excludeEdges'
+> & {
+  edges: Edge[];
+  actualUnsafe: boolean;
+};

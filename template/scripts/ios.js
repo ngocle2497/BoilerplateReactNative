@@ -10,7 +10,7 @@ const { loadEnvFile } = require('./common');
   }
   const envJson = await loadEnvFile();
   const simulator = 'iPhone 11';
-  await execSync(
+  execSync(
     `cd ios && xcodebuild clean && cd .. && npx react-native run-ios --scheme ${envJson.APP_PLACEHOLDER_NAME}-${envJson.APP_ENV} --simulator="${simulator}"`,
     { stdio: 'inherit' },
   );

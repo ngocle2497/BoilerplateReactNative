@@ -24,8 +24,7 @@ export {};
 // };
 
 // export const getDeviceToken = async () => {
-//   const token = await messaging().getToken();
-//   return token;
+//   return messaging().getToken();
 // };
 
 // /**

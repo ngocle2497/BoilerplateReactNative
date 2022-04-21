@@ -1,18 +1,24 @@
-// import {ENVConfig} from '@config/env';
+// import { Platform } from 'react-native';
+
+// import { ENVConfig } from '@config/env';
 // import {
 //   appleAuth,
 //   appleAuthAndroid,
 // } from '@invertase/react-native-apple-authentication';
-// import {loadString, saveString} from '@utils';
+// import { load, save } from '@utils';
 // import jwt_decode from 'jwt-decode';
-// import {Platform} from 'react-native';
 export {};
+// import { randomUniqueId } from '../string/index';
 
-// import {randomUniqueId} from '../string/index';
-
-// async function pickInfoAppleResponse(info: any = {}, appleId: string) {
+// async function pickInfoAppleResponse({
+//   appleId,
+//   info = {},
+// }: {
+//   info?: Record<string, unknown>;
+//   appleId: string;
+// }) {
 //   try {
-//     const infoCache = await loadString(appleId);
+//     const infoCache = await load(appleId);
 
 //     const infoName = infoCache ? infoCache : info;
 //     let userFullName = `${infoName?.familyName?.trim?.() || ''}${
@@ -26,7 +32,7 @@ export {};
 //     }
 
 //     if (!Object.keys(infoCache || {})?.length) {
-//       saveString(appleId, JSON.stringify(info));
+//       save(appleId, info);
 //     }
 
 //     return userFullName;
@@ -40,7 +46,7 @@ export {};
 // };
 // type LoginResult = {
 //   success?: boolean;
-//   data?: {userFullName?: string} & AppleResponse;
+//   data?: { userFullName?: string } & AppleResponse;
 // };
 // export const AppleService = {
 //   isSupport:
@@ -55,10 +61,10 @@ export {};
 //           requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
 //         });
 
-//         const userFullName = await pickInfoAppleResponse(
-//           appleAuthRequestResponse.fullName,
-//           appleAuthRequestResponse.user,
-//         );
+//         const userFullName = await pickInfoAppleResponse({
+//           info: appleAuthRequestResponse.fullName,
+//           appleId: appleAuthRequestResponse.user,
+//         });
 
 //         return {
 //           success: true,
@@ -110,13 +116,13 @@ export {};
 //         };
 
 //         const appleId = infoLogin.sub;
-//         const {nonce} = infoLogin;
+//         const { nonce } = infoLogin;
 //         const identityToken = response.id_token || '';
 //         // apple return full name one times. so save full name util push to BE successfully
-//         const userFullName = await pickInfoAppleResponse(
-//           response.user?.name,
+//         const userFullName = await pickInfoAppleResponse({
+//           info: response.user?.name,
 //           appleId,
-//         );
+//         });
 //         return {
 //           success: true,
 //           data: {

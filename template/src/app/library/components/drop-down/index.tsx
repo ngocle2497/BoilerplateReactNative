@@ -94,6 +94,15 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
     );
   }, [deviceH, wrapMeasured.value, dropHeight, inset.top]);
 
+  const wrapCustomStyle = useMemo<ViewStyle | undefined>(() => {
+    if (isVisible) {
+      if (isRenderOnBottom) {
+        return styles.wrapViewBottomOpened;
+      }
+      return styles.wrapViewTopOpened;
+    }
+  }, [isRenderOnBottom, isVisible]);
+
   // function
   const hideDrop = useCallback(() => {
     setIsVisible(false);
@@ -223,7 +232,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
       if (Array.isArray(selectedValue)) {
         onChangeItem(
           selectedValue,
-          data.reduce((prev, current, i, arr) => {
+          data.reduce((prev, current, _, arr) => {
             const index = arr.findIndex(x => x.value === current.value);
             if (index >= 0) {
               prev.push(index);
@@ -268,18 +277,7 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
   // render
   return (
     <>
-      <View
-        ref={_refDrop}
-        style={[
-          styles.wrapView,
-          // eslint-disable-next-line no-nested-ternary
-          isVisible
-            ? isRenderOnBottom
-              ? styles.wrapViewBottomOpened
-              : styles.wrapViewTopOpened
-            : undefined,
-          style,
-        ]}>
+      <View ref={_refDrop} style={[styles.wrapView, wrapCustomStyle, style]}>
         <TouchableOpacity onPress={onToggle} disabled={disabled}>
           <View style={[styles.wrapPlaceholder, containerStyle]}>
             <Text

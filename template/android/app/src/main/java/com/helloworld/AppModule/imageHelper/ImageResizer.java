@@ -8,6 +8,7 @@ import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
@@ -22,8 +23,8 @@ import java.io.InputStream;
 import java.util.UUID;
 
 public class ImageResizer {
-    private final String SCHEME_CONTENT = "content";
-    private final String SCHEME_FILE = "file";
+    private static final String SCHEME_CONTENT = "content";
+    private static final String SCHEME_FILE = "file";
     private ReactApplicationContext context;
 
     public ImageResizer(ReactApplicationContext reactContext) {
@@ -33,7 +34,7 @@ public class ImageResizer {
     public void createResizedImageWithExceptions(String path, int newWidth, int newHeight, Callback successCb, Callback failureCb) throws IOException {
         Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.PNG;
         Uri imageUrl = Uri.parse(path);
-        Bitmap image = createImage( imageUrl, newWidth, newHeight);
+        Bitmap image = createImage(imageUrl, newWidth, newHeight);
         if (image == null) {
             throw new IOException("The image failed to be resized; invalid Bitmap result.");
         }
@@ -147,11 +148,12 @@ public class ImageResizer {
         try {
             String[] proj = {MediaStore.Images.Media.DATA};
             cursor = context.getContentResolver().query(uri, proj, null, null, null);
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             cursor.moveToFirst();
-            String realPath = cursor.getString(column_index);
+            String realPath = cursor.getString(columnIndex);
             file = new File(realPath);
-        } catch (Exception ignored) {
+        } catch (Exception ex) {
+            ex.printStackTrace();
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -169,7 +171,6 @@ public class ImageResizer {
         // Set a sample size according to the image size to lower memory usage.
         options.inSampleSize = calculateInSampleSize(options, newWidth, newHeight);
         options.inJustDecodeBounds = false;
-        //System.out.println(options.inSampleSize);
         return loadBitmap(imageUri, options);
     }
 
@@ -230,12 +231,15 @@ public class ImageResizer {
 
         outputStream.flush();
         outputStream.close();
-
         FileOutputStream fos = new FileOutputStream(newFile);
-        fos.write(bitmapData);
-        fos.flush();
-        fos.close();
-
+        try {
+            fos.write(bitmapData);
+            fos.flush();
+        } catch (IOException exception) {
+            Log.e("Error SaveImage", exception.getMessage());
+        } finally {
+            fos.close();
+        }
         return newFile;
     }
 }

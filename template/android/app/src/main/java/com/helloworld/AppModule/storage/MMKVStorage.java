@@ -49,8 +49,7 @@ public class MMKVStorage {
     }
 
     public String[] getAllKeys(String keyId, String cryptKey) {
-        String[] listKeys = getMMKVbyKey(keyId, cryptKey).allKeys();
-        return listKeys;
+        return getMMKVbyKey(keyId, cryptKey).allKeys();
     }
 
     public void clearAll(String keyId, String cryptKey) {

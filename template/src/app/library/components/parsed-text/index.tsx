@@ -15,7 +15,7 @@ const ParsedTextComponent = (props: ParsedTextProps) => {
 
   // function
   const onGetPatterns = useCallback(() => {
-    const res = parse.map(option => {
+    return parse.map(option => {
       const { type, ...patternOption } = option;
       if (type && PATTERNS[type]) {
         patternOption.pattern = PATTERNS[type];
@@ -23,7 +23,6 @@ const ParsedTextComponent = (props: ParsedTextProps) => {
 
       return patternOption;
     });
-    return res;
   }, [parse]);
 
   const onGetParsedText = useCallback(() => {

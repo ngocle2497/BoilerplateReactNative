@@ -87,7 +87,7 @@ const _unsubscribeAction = (
     ({ action }) => action !== filterAction,
   );
   listenerContainer.length = 0;
-  listenerContainer.concat(filteredListenerContainer);
+  listenerContainer.push(...filteredListenerContainer);
 };
 
 export const unsubscribeActionBefore = (action: string) => {

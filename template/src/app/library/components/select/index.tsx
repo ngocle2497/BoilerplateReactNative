@@ -95,7 +95,7 @@ const SelectComponent = (props: SelectProps) => {
         <TouchableOpacity onPress={showDrop} activeOpacity={0.68}>
           <View style={[styles.rowButton]}>
             <Text children={selectedText} />
-            {rightChildren && rightChildren}
+            {rightChildren}
           </View>
         </TouchableOpacity>
         <Modal

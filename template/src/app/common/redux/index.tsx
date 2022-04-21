@@ -13,20 +13,20 @@ type ActionBase<T = any> = {
   payload?: T;
 };
 
-const RXStoreComponent = forwardRef((props, ref) => {
-  const dispatch = useDispatch();
+const RXStoreComponent = forwardRef((_, ref) => {
+  const dispatchRx = useDispatch();
   const store = useSelector(x => x);
   useImperativeHandle(
     ref,
     () => ({
       dispatch: (action: ActionBase) => {
-        dispatch(action);
+        dispatchRx(action);
       },
       getState: (state: keyof RootState) => {
         return store[state];
       },
     }),
-    [dispatch, store],
+    [dispatchRx, store],
   );
   return null;
 });
