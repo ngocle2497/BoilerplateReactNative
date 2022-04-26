@@ -47,24 +47,18 @@ export const handleErrorAxios = (error: AxiosError): ResponseBase => {
   }
   return HandleErrorApi(ERROR_NETWORK_CODE);
 };
-export const handleQuery = (url: string, query: ParamsNetwork['query']) => {
-  if (!query || Object.keys(query).length <= 0) {
-    return url;
-  }
-  let resUrl = url;
-  Object.keys(query).forEach(k => {
-    resUrl = replaceAll(resUrl, `:${k}`, String(query[k]));
-  });
-  return resUrl;
-};
 
-export const handlePath = (url: string, path: ParamsNetwork['path']) => {
+export const handlePath = (
+  url: string,
+  path: ParamsNetwork['path'],
+) => {
   if (!path || Object.keys(path).length <= 0) {
     return url;
   }
   let resUrl = url;
   Object.keys(path).forEach(k => {
     resUrl = replaceAll(resUrl, `{${k}}`, String(path[k]));
+    resUrl = replaceAll(resUrl, `:${k}`, String(path[k]));
   });
   return resUrl;
 };
@@ -73,12 +67,11 @@ export const handleParameter = <T extends ParamsNetwork>(
   props: T,
   method: Method,
 ): AxiosRequestConfig => {
-  const { url, body, path, params, query } = props;
-  const resQuery = handleQuery(url, query);
+  const { url, body, path, params } = props;
   return {
     ...props,
     method,
-    url: handlePath(resQuery, path),
+    url: handlePath(url, path),
     data: body,
     params,
   };
