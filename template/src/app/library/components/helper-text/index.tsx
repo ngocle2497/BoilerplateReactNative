@@ -1,5 +1,12 @@
-import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import { LayoutChangeEvent, LayoutRectangle, Text, View } from 'react-native';
+import React, { memo, useEffect, useMemo, useState } from 'react';
+import {
+  LayoutChangeEvent,
+  LayoutRectangle,
+  StyleProp,
+  Text,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 import equals from 'react-fast-compare';
 import Animated, {
@@ -8,7 +15,6 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { sharedTiming, useInterpolate, useSharedTransition } from '@animated';
-import { enhance } from '@common';
 import { useTheme } from '@theme';
 import { ColorDefault } from '@theme/color';
 
@@ -31,28 +37,26 @@ const HelperTextComponent = (props: HelperTextProps) => {
   const opacity = useInterpolate(progress, [0, 1], [0, 1]);
 
   // function
-  const _onLayoutContent = useCallback((e: LayoutChangeEvent) => {
+  const _onLayoutContent = (e: LayoutChangeEvent) => {
     setMeasured({ ...e.nativeEvent.layout });
-  }, []);
+  };
 
   // style
-  const textStyle = useMemo(
-    () =>
-      enhance([
-        styles.text,
-        { height: measured.height },
-        type === 'error'
-          ? {
-              color: colorThemeError
-                ? theme.colors[colorThemeError]
-                : ColorDefault.error,
-            }
-          : {
-              color: colorThemeInfo
-                ? theme.colors[colorThemeInfo]
-                : ColorDefault.info,
-            },
-      ]),
+  const textStyle = useMemo<StyleProp<ViewStyle>>(
+    () => [
+      { height: measured.height },
+      type === 'error'
+        ? {
+            color: colorThemeError
+              ? theme.colors[colorThemeError]
+              : ColorDefault.error,
+          }
+        : {
+            color: colorThemeInfo
+              ? theme.colors[colorThemeInfo]
+              : ColorDefault.info,
+          },
+    ],
     [colorThemeError, colorThemeInfo, measured.height, theme.colors, type],
   );
 
@@ -88,7 +92,7 @@ const HelperTextComponent = (props: HelperTextProps) => {
         <Text style={[styles.text]}>{currentMessage}</Text>
       </Animated.View>
       <Animated.View style={[style]}>
-        <Text style={[textStyle]}>{currentMessage}</Text>
+        <Text style={[styles.text, textStyle]}>{currentMessage}</Text>
       </Animated.View>
     </View>
   );

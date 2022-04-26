@@ -38,7 +38,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
     label,
     labelTx,
     placeholder,
-    placeholderTx,
+    placeholderT18n,
     placeholderColor = UN_ACTIVE_COLOR,
     trigger,
     nameTrigger,
@@ -169,8 +169,8 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
   );
 
   const placeHolder = useMemo(
-    () => (placeholderTx && t(placeholderTx)) || placeholder || '',
-    [placeholder, placeholderTx, t],
+    () => (placeholderT18n && t(placeholderT18n)) || placeholder || '',
+    [placeholder, placeholderT18n, t],
   );
 
   // reanimated style
@@ -196,10 +196,10 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
         containerAnimatedStyle,
       ]}>
       <View style={[styles.content]}>
-        {(placeholderTx || placeholder) && value.length === 0 && (
+        {(placeholderT18n || placeholder) && value.length === 0 && (
           <View style={[styles.wrapPlaceHolder]} pointerEvents={'none'}>
             <Text
-              tx={placeholderTx}
+              t18n={placeholderT18n}
               text={placeHolder}
               color={placeholderColor}
             />

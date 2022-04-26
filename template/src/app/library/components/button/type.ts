@@ -15,7 +15,7 @@ export interface ButtonProps extends TouchableOpacityProps {
    * Text which is looked up via i18n.
    * @default undefined
    */
-  tx?: string;
+  t18n?: string;
 
   /**
    * Using text instead i18n

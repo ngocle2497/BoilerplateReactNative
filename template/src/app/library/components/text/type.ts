@@ -44,13 +44,13 @@ export interface TextProps extends TextProperties {
    * Text which is looked up via i18n.
    * @default undefined
    */
-  tx?: string;
+  t18n?: string;
 
   /**
    * Option of i18n
    * @default undefined
    */
-  txOptions?: any;
+  t18nOptions?: any;
 
   /**
    * Using text string instead i18n

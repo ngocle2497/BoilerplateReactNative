@@ -245,6 +245,11 @@ export interface BlockProps extends ViewProps {
   colorTheme?: keyof Colors;
 
   /**
+   * Overwrite border color with theme
+   */
+  borderColorTheme?: keyof Colors;
+
+  /**
    * Using justify content
    * @default undefined
    */

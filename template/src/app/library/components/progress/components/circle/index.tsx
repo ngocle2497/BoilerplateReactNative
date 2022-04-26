@@ -12,7 +12,6 @@ import Animated, {
 import Svg, { Circle, CircleProps } from 'react-native-svg';
 
 import { sharedTiming } from '@animated';
-import { enhance } from '@common';
 
 import { styles } from './styles';
 import { ProgressCircleProps } from './type';
@@ -47,11 +46,6 @@ export const ProgressCircleComponent = ({
         Extrapolate.CLAMP,
       ) * radius,
   );
-  // style
-  const textStyles = useMemo(
-    () => enhance([styles.textProgress, textProgressStyle]),
-    [textProgressStyle],
-  );
 
   // function
   const renderText = useCallback(() => {
@@ -79,7 +73,10 @@ export const ProgressCircleComponent = ({
   return (
     <View style={styles.container}>
       {showTextProgress && (
-        <AnimatedText style={[textStyles]} children={renderText()} />
+        <AnimatedText
+          style={[styles.textProgress, textProgressStyle]}
+          children={renderText()}
+        />
       )}
       <View style={[styles.wrapCircle]}>
         <Svg width={radius * 2 + strokeWidth} height={radius * 2 + strokeWidth}>

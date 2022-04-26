@@ -138,7 +138,7 @@ const ChatComponent = ({
   const _renderListFooter = useCallback(() => {
     return (
       <Block justifyContent={'center'} middle paddingVertical={15}>
-        <Text style={[styles.textTitle]} tx={'common:greetingChat'} />
+        <Text style={[styles.textTitle]} t18n={'common:greetingChat'} />
       </Block>
     );
   }, []);

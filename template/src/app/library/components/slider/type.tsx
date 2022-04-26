@@ -38,9 +38,18 @@ export interface SliderProps {
    * Event when range slider change value
    * @default undefined
    */
-  onChangeRange?: ({ lower, upper }: { lower: number; upper: number }) => void;
+  onChangeRange?: ({ lower, upper }: ArgsChangeRange) => void;
 }
 export type SliderRangeProps = Omit<
   SliderProps,
   'type' | 'initialLinear' | 'onChangeLinear'
 >;
+
+export type ArgsChangeRange = {
+  lower: number;
+  upper: number;
+  /**
+   * this value is true when thumb left slide over thumb right
+   */
+  reverted: boolean;
+};

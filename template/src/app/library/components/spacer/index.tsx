@@ -1,5 +1,5 @@
 import React, { memo, useMemo } from 'react';
-import { View } from 'react-native';
+import { StyleProp, View, ViewStyle } from 'react-native';
 
 import equals from 'react-fast-compare';
 
@@ -11,7 +11,7 @@ const SpacerComponent = (props: SpacerProps) => {
   const { height = 0, width = 0 } = props;
 
   // style
-  const actualStyle = useMemo(
+  const actualStyle = useMemo<StyleProp<ViewStyle>>(
     () => ({
       width: typeof width === 'number' ? sizeScale(width) : width,
       height: typeof height === 'number' ? sizeScale(height) : height,

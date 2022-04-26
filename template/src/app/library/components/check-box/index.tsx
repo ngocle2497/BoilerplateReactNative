@@ -18,7 +18,7 @@ const CheckBoxComponent = ({
   outlineStyle: outlineStyleOverwrite,
   style,
   text,
-  tx,
+  t18n,
   disable = false,
   initialValue = false,
   value,
@@ -60,7 +60,7 @@ const CheckBoxComponent = ({
         <View style={[styles.outline, outlineStyleOverwrite]}>
           <Animated.View style={[styles.fill, fillStyle, styleAnimated]} />
         </View>
-        <Text text={text} tx={tx} style={styles.label} />
+        <Text text={text} t18n={t18n} style={styles.label} />
       </>
     </TouchableOpacity>
   );

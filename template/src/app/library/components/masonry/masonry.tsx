@@ -193,10 +193,10 @@ const MasonryComponent = ({
   useEffect(() => {
     if (Array.isArray(data)) {
       const _actualColumn = columns > data.length ? data.length : columns;
-      const driffData = containMatchingUri(oldData, data);
-      const _uniqueCount = driffData.length + data.length;
+      const diffData = containMatchingUri(oldData, data);
+      const _uniqueCount = diffData.length + data.length;
       _formatData(
-        driffData.length === 0 ? oldData : driffData,
+        diffData.length === 0 ? oldData : diffData,
         _actualColumn,
         oldColumn !== _actualColumn,
         _uniqueCount,

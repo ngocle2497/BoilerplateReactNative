@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { initReactI18next } from 'react-i18next';
 
 import { ENVConfig } from '@config/env';
@@ -12,8 +11,12 @@ const languageDetector: LanguageDetectorAsyncModule = {
   detect: (callback: (lng: string | readonly string[] | undefined) => void) => {
     callback(ENVConfig.DEFAULT_FALLBACK_LNG_I18n);
   },
-  init: () => {},
-  cacheUserLanguage: () => {},
+  init: () => {
+    console.log('init I18n');
+  },
+  cacheUserLanguage: () => {
+    console.log('cacheUserLanguage I18n');
+  },
 };
 
 export const initOptionsI18n = (source: Resource) => {

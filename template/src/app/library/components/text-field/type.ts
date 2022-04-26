@@ -117,7 +117,7 @@ export interface InputBaseProps extends TextInputProps {
    * Placeholder of input using i18n
    * @default undefined
    */
-  placeholderTx?: string;
+  placeholderT18n?: string;
 
   /**
    * Placeholder of input

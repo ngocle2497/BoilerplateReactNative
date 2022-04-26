@@ -19,7 +19,6 @@ const responseDefault: ResponseBase<Record<string, unknown>> = {
 
 export const onPushLogout = async () => {
   logout();
-  // TODO
   /**
    * do something when logout
    */

@@ -1,12 +1,18 @@
-import React, { memo, useCallback, useMemo, useState } from 'react';
-import { TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import React, { memo, useMemo, useState } from 'react';
+import {
+  StyleProp,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 import isEqual from 'react-fast-compare';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useMix, useRadian, useSharedSpringTransition } from '@animated';
-import { enhance, onCheckType } from '@common';
+import { onCheckType } from '@common';
 import { Text } from '@library/components/text';
 
 import { ButtonGroup } from './button-group';
@@ -26,32 +32,29 @@ const FABGroupComponent = (props: FABGroupProps) => {
   const inset = useSafeAreaInsets();
 
   // function
-  const _onToggle = useCallback(() => {
+  const _onToggle = () => {
     setIsShow(v => !v);
-  }, []);
+  };
 
-  const _onHide = useCallback(() => {
+  const _onHide = () => {
     setIsShow(false);
-  }, []);
+  };
 
-  const onStartShouldSetResponder = useCallback(() => true, []);
+  const onStartShouldSetResponder = () => true;
 
-  const onPressItem = useCallback((onPressAction?: () => void) => {
+  const onPressItem = (onPressAction?: () => void) => {
     setIsShow(false);
     if (onCheckType(onPressAction, 'function')) {
       onPressAction();
     }
-  }, []);
+  };
 
   // style
-  const styleBase = useMemo(
-    () =>
-      enhance([
-        styles.wrap,
-        { right: inset.right + 15, height: SIZE_FAB, bottom: inset.bottom + 5 },
-        style ?? {},
-      ]),
-    [inset, style],
+  const styleBase = useMemo<StyleProp<ViewStyle>>(
+    () => [
+      { right: inset.right + 15, height: SIZE_FAB, bottom: inset.bottom + 5 },
+    ],
+    [inset],
   );
 
   const iconAnimatedStyle = useAnimatedStyle(() => ({
@@ -64,7 +67,7 @@ const FABGroupComponent = (props: FABGroupProps) => {
       <TouchableOpacity
         onPress={_onToggle}
         activeOpacity={0.8}
-        style={[styleBase]}>
+        style={[styles.wrap, styleBase, style]}>
         <Animated.View style={iconAnimatedStyle}>
           <Icon icon={icon} />
         </Animated.View>

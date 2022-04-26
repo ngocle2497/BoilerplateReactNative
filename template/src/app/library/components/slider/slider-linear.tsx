@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { LayoutChangeEvent, View } from 'react-native';
 
 import isEqual from 'react-fast-compare';
@@ -11,7 +11,7 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 
-import { sharedClamp, sharedSpring } from '@animated';
+import { sharedClamp, sharedSpring, useInterpolate } from '@animated';
 import { onCheckType } from '@common';
 
 import { FIXED_AFTER, LOWER_BOUND, THUMB_SIZE, UPPER_BOUND } from './constants';
@@ -39,11 +39,12 @@ const SliderLinearComponent = ({
   const progress = useSharedValue(0);
 
   const translateX = useDerivedValue(() =>
-    sharedClamp(
-      translationX.value,
-      lowerBound - THUMB_SIZE,
-      width - THUMB_SIZE,
-    ),
+    sharedClamp(translationX.value, -THUMB_SIZE, width - THUMB_SIZE),
+  );
+  const progressValue = useInterpolate(
+    translateX,
+    [-THUMB_SIZE, width - THUMB_SIZE],
+    [lowerBound, upperBound],
   );
   // function
   const gestureHandler = Gesture.Pan()
@@ -57,22 +58,19 @@ const SliderLinearComponent = ({
       }
     });
 
-  const _onLayout = useCallback(
-    ({
-      nativeEvent: {
-        layout: { width: widthWrap },
-      },
-    }: LayoutChangeEvent) => {
-      setWidth(widthWrap);
+  const onLayout = ({
+    nativeEvent: {
+      layout: { width: widthWrap },
     },
-    [],
-  );
+  }: LayoutChangeEvent) => {
+    setWidth(widthWrap);
+  };
 
   // effect
   useEffect(() => {
-    translationX.value = sharedSpring(
-      (initialLinear / upperBound) * width - THUMB_SIZE,
-    );
+    const percentLeft =
+      (initialLinear - lowerBound) / (upperBound - lowerBound);
+    translationX.value = sharedSpring(percentLeft * width - THUMB_SIZE);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
 
@@ -84,14 +82,10 @@ const SliderLinearComponent = ({
   }, []);
 
   useAnimatedReaction(
-    () =>
-      parseFloat(
-        (((translateX.value + THUMB_SIZE) / width) * upperBound).toFixed(
-          FIXED_AFTER,
-        ),
-      ),
+    () => progressValue.value,
     result => {
-      progress.value = result;
+      const value1 = parseFloat(result.toFixed(FIXED_AFTER));
+      progress.value = value1;
     },
   );
 
@@ -102,7 +96,7 @@ const SliderLinearComponent = ({
 
   // render
   return (
-    <View onLayout={_onLayout} style={[styles.root]}>
+    <View onLayout={onLayout} style={[styles.root]}>
       <View style={[styles.container]}>
         <Animated.View style={[styles.track]} />
         <GestureDetector gesture={gestureHandler}>

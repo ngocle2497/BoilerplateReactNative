@@ -15,7 +15,7 @@ import {
 } from '@animated';
 import { onCheckType } from '@common';
 
-import { SwitchProps } from './tye';
+import { SwitchProps } from './type';
 
 // dimensions
 const THUMB_SIZE = 28;

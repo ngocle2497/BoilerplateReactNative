@@ -19,7 +19,7 @@ const loginSlice = createSlice({
       return { ...initialState };
     },
     onStart: () => {
-      /// TODO
+      console.log('onStart');
     },
   },
 });

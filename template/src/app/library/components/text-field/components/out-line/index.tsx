@@ -42,7 +42,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
     nameTrigger,
     placeholderColor = UN_ACTIVE_COLOR,
     rxRemove,
-    placeholderTx,
+    placeholderT18n,
     inputStyle: inputStyleOverwrite = {},
     errorBorderColor = ERROR_COLOR,
     errorLabelColor = ERROR_COLOR,
@@ -165,8 +165,8 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
   );
 
   const placeHolder = useMemo(
-    () => (placeholderTx && t(placeholderTx)) || placeholder || '',
-    [placeholder, placeholderTx, t],
+    () => (placeholderT18n && t(placeholderT18n)) || placeholder || '',
+    [placeholder, placeholderT18n, t],
   );
 
   // reanimated style
@@ -192,10 +192,10 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
         containerAnimatedStyle,
       ]}>
       <View style={[styles.content]}>
-        {(placeholderTx || placeholder) && value.length === 0 && (
+        {(placeholderT18n || placeholder) && value.length === 0 && (
           <View style={[styles.wrapPlaceHolder]} pointerEvents={'none'}>
             <Text
-              tx={placeholderTx}
+              t18n={placeholderT18n}
               text={placeHolder}
               color={placeholderColor}
             />

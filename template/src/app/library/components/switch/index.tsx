@@ -4,7 +4,7 @@ import isEqual from 'react-fast-compare';
 
 import { Switch as SwitchAndroid } from './switch-android';
 import { Switch as SwitchIOS } from './switch-ios';
-import { SwitchProps } from './tye';
+import { SwitchProps } from './type';
 
 const SwitchComponent = (props: SwitchProps) => {
   // render

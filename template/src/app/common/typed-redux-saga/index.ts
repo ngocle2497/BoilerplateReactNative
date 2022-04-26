@@ -282,7 +282,6 @@ export declare function cps<
   ...args: CpsFunctionParameters<Fn>
 ): SagaGenerator<ReturnType<Fn>, CpsEffect<ReturnType<Fn>>>;
 
-// FIXME This should be done upstream.
 interface FixedTask<A> extends Task {
   result: <T = A>() => T | undefined;
   toPromise: <T = A>() => Promise<T>;

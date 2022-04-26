@@ -47,7 +47,7 @@ export interface CheckboxProps {
    * Key to using i18n
    * @default undefined
    */
-  tx?: string;
+  t18n?: string;
 
   /**
    * On change function

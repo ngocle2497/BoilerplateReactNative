@@ -2,6 +2,7 @@ import React, { memo, useCallback, useMemo, useState } from 'react';
 import {
   FlatList,
   ListRenderItemInfo,
+  StyleProp,
   Text,
   TouchableOpacity,
   View,
@@ -11,8 +12,6 @@ import {
 import equals from 'react-fast-compare';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
-import { enhance } from '@common';
 
 import { SelectItem } from './select-item';
 import { styles } from './styles';
@@ -70,22 +69,18 @@ const SelectComponent = (props: SelectProps) => {
     [customItem, onPressOption, textItemStyle],
   );
 
-  const _keyExtractor = useCallback(
-    (item: SelectOption) =>
-      item.text +
-      new Date().getTime().toString() +
-      Math.floor(Math.random() * Math.floor(new Date().getTime())).toString(),
-    [],
-  );
+  const _keyExtractor = (item: SelectOption) =>
+    item.text +
+    new Date().getTime().toString() +
+    Math.floor(Math.random() * Math.floor(new Date().getTime())).toString();
+
   // style
-  const content = useMemo<ViewStyle>(
-    () =>
-      enhance<ViewStyle>([
-        styles.content,
-        {
-          paddingBottom: useBottomInset ? inset.bottom : 0,
-        },
-      ]),
+  const content = useMemo<StyleProp<ViewStyle>>(
+    () => [
+      {
+        paddingBottom: useBottomInset ? inset.bottom : 0,
+      },
+    ],
     [inset.bottom, useBottomInset],
   );
   // render
@@ -108,7 +103,7 @@ const SelectComponent = (props: SelectProps) => {
           backdropOpacity={0.3}
           isVisible={visible}>
           <View>
-            <View style={[content]}>
+            <View style={[styles.content, content]}>
               <FlatList
                 data={data}
                 keyExtractor={_keyExtractor}

@@ -5,7 +5,6 @@ import equals from 'react-fast-compare';
 import FastImage, { ImageStyle } from 'react-native-fast-image';
 
 import { icons } from '@assets/icon';
-import { enhance } from '@common';
 import { useTheme } from '@theme';
 
 import { IconProps } from './type';
@@ -25,7 +24,7 @@ const IconComponent = (props: IconProps) => {
   const theme = useTheme();
   // style
   const style = useMemo<StyleProp<ImageStyle>>(
-    () => enhance([{ width: size, height: size }]),
+    () => [{ width: size, height: size }],
     [size],
   );
 

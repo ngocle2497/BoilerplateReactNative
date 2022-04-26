@@ -8,9 +8,13 @@ import { MainScreen } from './authen/index';
 import { APP_SCREEN, RootStackParamList } from './screen-types';
 import { UnAuthentication } from './un-authen/index';
 
+import { useSelector } from '../common/hooks';
+
 const RootStack = createStackNavigator<RootStackParamList>();
 
-export const RootNavigation = ({ token }: { token?: string }) => {
+export const RootNavigation = () => {
+  // state
+  const token = useSelector(x => x.app.token);
   // effect
   useEffect(() => {
     const id = setTimeout(() => {

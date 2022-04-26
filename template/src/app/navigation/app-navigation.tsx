@@ -19,7 +19,7 @@ import { RootNavigation } from './root-navigator';
 
 export const AppContainer = () => {
   // state
-  const { token, loadingApp, showDialog, theme } = useSelector(x => x.app);
+  const { loadingApp, showDialog, theme } = useSelector(x => x.app);
 
   // effect
   useEffect(() => {
@@ -54,7 +54,7 @@ export const AppContainer = () => {
         {!loadingApp && (
           <>
             <PortalHost name={'AppModal'} />
-            <RootNavigation token={token} />
+            <RootNavigation />
             <ProgressDialog />
             <SnackBar />
             <ImageTransition />
