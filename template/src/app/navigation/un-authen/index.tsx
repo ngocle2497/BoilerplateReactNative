@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
 
 import { AppModule } from '@common';
-import { Login } from '@features/un-authentication/login/design';
-import { Register } from '@features/un-authentication/register/design';
+import { Login } from '@features/un-authentication/login';
+import { Register } from '@features/un-authentication/register';
+import { APP_SCREEN } from '@navigation/screen-types';
 import {
   createStackNavigator,
   TransitionPresets,
 } from '@react-navigation/stack';
-
-import { APP_SCREEN } from '../screen-types';
 
 const Stack = createStackNavigator();
 

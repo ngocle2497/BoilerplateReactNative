@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ERROR_NETWORK_CODE } from '@config/api';
 import { ResponseBase } from '@config/type';
-import { translate } from '@utils';
+import { translate } from '@utils/i18n/translate';
 
-const handleData = (responseError: ResponseBase<any>) => {
+const handleData = (responseError: ResponseBase<null>) => {
   return responseError;
 };
 
-export const HandleErrorApi = (status: number) => {
+export const handleErrorApi = (status: number) => {
   switch (status) {
     case ERROR_NETWORK_CODE:
       return handleData({

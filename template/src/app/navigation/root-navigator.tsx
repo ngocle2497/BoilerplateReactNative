@@ -2,13 +2,11 @@ import React, { useEffect } from 'react';
 
 import BootSplash from 'react-native-bootsplash';
 
+import { useSelector } from '@hooks';
+import { MainScreen } from '@navigation/authen/index';
+import { APP_SCREEN, RootStackParamList } from '@navigation/screen-types';
+import { UnAuthentication } from '@navigation/un-authen/index';
 import { createStackNavigator } from '@react-navigation/stack';
-
-import { MainScreen } from './authen/index';
-import { APP_SCREEN, RootStackParamList } from './screen-types';
-import { UnAuthentication } from './un-authen/index';
-
-import { useSelector } from '../common/hooks';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 

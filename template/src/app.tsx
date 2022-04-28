@@ -8,10 +8,10 @@ import { Provider } from 'react-redux';
 
 import { AppModule, isIos } from '@common';
 import { PortalProvider } from '@components';
+import { AppContainer } from '@navigation/app-navigation';
 import { store } from '@store/store';
+import I18n from '@utils/i18n/i18n';
 
-import I18n from './app/library/utils/i18n/i18n';
-import { AppContainer } from './app/navigation/app-navigation';
 declare module 'react' {
   // eslint-disable-next-line @typescript-eslint/ban-types
   function forwardRef<T, P = {}>(

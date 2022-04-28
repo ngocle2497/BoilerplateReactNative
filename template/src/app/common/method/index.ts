@@ -2,8 +2,8 @@
 import { Alert, Platform } from 'react-native';
 
 import { R } from '@assets/value';
-import { onLogout } from '@store/app-redux/reducer';
-import { remove } from '@utils';
+import { appActions } from '@redux-slice';
+import { remove } from '@storage';
 
 import { dispatch } from '../redux';
 
@@ -29,6 +29,6 @@ export const onCheckType = (
 export const isIos = Platform.OS === 'ios';
 
 export const logout = () => {
-  dispatch(onLogout());
+  dispatch(appActions.onLogout());
   remove(R.strings.TOKEN);
 };

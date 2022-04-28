@@ -46,7 +46,7 @@ const BlockComponent = forwardRef(
       borderRadius,
       shadow,
       flex,
-      shadowConfig,
+      shadowConfig = {},
       position,
       flexWrap,
       left,
@@ -88,7 +88,7 @@ const BlockComponent = forwardRef(
           borderColor: '#bbb',
         },
         colorTheme && { backgroundColor: theme.colors[colorTheme] },
-        borderColorTheme && { borc: theme.colors[borderColorTheme] },
+        borderColorTheme && { borderColor: theme.colors[borderColorTheme] },
         middle && { alignItems: 'center' },
         shadow && {
           shadowColor: '#000',
@@ -102,6 +102,7 @@ const BlockComponent = forwardRef(
           elevation: 5,
           ...shadowConfig,
         },
+
         propsToStyle([
           { margin },
           { marginLeft },

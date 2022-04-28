@@ -6,8 +6,8 @@ import Animated, { runOnJS } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { sharedTiming } from '@animated';
-import { VectorIcon, VectorIconName } from '@assets/vector-icon/vector-icon';
-import { useMessageYupTranslation } from '@common';
+import { VectorIcon, VectorIconIcon } from '@assets/vector-icon/vector-icon';
+import { useMessageYupTranslation } from '@hooks';
 
 import {
   BG_ERROR,
@@ -37,7 +37,7 @@ const getColor = (typeMessage: TypeMessage): string => {
   }
 };
 
-const getIcon = (typeMessage: TypeMessage): VectorIconName => {
+const getIcon = (typeMessage: TypeMessage): VectorIconIcon => {
   switch (typeMessage) {
     case TYPE_MESSAGE.SUCCESS:
       return 'bx_success';
@@ -139,9 +139,9 @@ export const SnackItem = memo(
         entering={CustomEnteringAnimation}
         exiting={CustomExitAnimation}
         style={[styles.itemBar, containStyle]}>
-        <VectorIcon icon={getIcon(item.type)} colorTheme="white" />
+        <VectorIcon icon={getIcon(item.type)} color="white" />
         <Spacer width={10} />
-        <Text style={[styles.text]} preset="linkMedium" colorTheme="white">
+        <Text style={[styles.text]} preset="linkMedium" color="white">
           {message}
         </Text>
       </Animated.View>

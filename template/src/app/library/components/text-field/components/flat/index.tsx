@@ -22,10 +22,11 @@ import Animated, {
 
 import { useInterpolate, useSharedTransition } from '@animated';
 import { onCheckType } from '@common';
-import { Text } from '@library/components/text';
 
 import { styles } from './styles';
 import { InputFlatProps } from './type';
+
+import { Text } from '../../../text';
 
 const UN_ACTIVE_COLOR = 'rgb(159,152,146)';
 const ACTIVE_COLOR = 'rgb(0,87,231)';

@@ -1,5 +1,11 @@
 import React from 'react';
-import { FlexAlignType, StyleProp, ViewProps, ViewStyle } from 'react-native';
+import {
+  ColorValue,
+  FlexAlignType,
+  StyleProp,
+  ViewProps,
+  ViewStyle,
+} from 'react-native';
 
 import { Colors } from '@theme';
 
@@ -20,14 +26,10 @@ type FlexWrap = 'wrap' | 'nowrap' | 'wrap-reverse';
 type OverFlow = 'visible' | 'hidden' | 'scroll';
 
 export type ShadowConfig = {
-  shadowColor?: string;
-  shadowOffset?: {
-    width?: number;
-    height?: number;
-  };
-  shadowOpacity?: number;
-  shadowRadius?: number;
-  elevation?: number;
+  shadowColor?: ColorValue | undefined;
+  shadowOffset?: { width: number; height: number } | undefined;
+  shadowOpacity?: number | undefined;
+  shadowRadius?: number | undefined;
 };
 export interface BlockProps extends ViewProps {
   flexWrap?: FlexWrap;

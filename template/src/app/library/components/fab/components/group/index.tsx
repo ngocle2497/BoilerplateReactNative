@@ -13,7 +13,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useMix, useRadian, useSharedSpringTransition } from '@animated';
 import { onCheckType } from '@common';
-import { Text } from '@library/components/text';
 
 import { ButtonGroup } from './button-group';
 import { SIZE_FAB, SPACE_BETWEEN } from './constants';
@@ -21,6 +20,7 @@ import { styles } from './styles';
 import { Actions, FABGroupProps } from './type';
 
 import { Icon } from '../../../icon';
+import { Text } from '../../../text';
 
 const FABGroupComponent = (props: FABGroupProps) => {
   const { style, icon = 'plus', label, actions = [] } = props;

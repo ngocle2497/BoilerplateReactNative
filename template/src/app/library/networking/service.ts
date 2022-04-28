@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { StyleSheet } from 'react-native';
 
 import { dispatch, getState } from '@common';
 import { RESULT_CODE_PUSH_OUT, TIME_OUT } from '@config/api';
 import { ENVConfig } from '@config/env';
 import { ParamsNetwork, ResponseBase } from '@config/type';
-import { onSetToken } from '@store/app-redux/reducer';
-import { AppState } from '@store/app-redux/type';
+import { AppState } from '@model/app';
+import { appActions } from '@redux-slice';
 import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { ApiConstants } from './api';
@@ -40,7 +39,7 @@ AxiosInstance.interceptors.response.use(
       if (newToken === null) {
         return Promise.reject(error);
       }
-      dispatch(onSetToken(newToken));
+      dispatch(appActions.onSetToken(newToken));
       originalRequest.headers[tokenKeyHeader] = newToken;
       return AxiosInstance(originalRequest);
     }
@@ -49,14 +48,17 @@ AxiosInstance.interceptors.response.use(
 );
 
 // refresh token
-async function refreshToken(originalRequest: any) {
+async function refreshToken(originalRequest: Record<string, unknown>) {
   return AxiosInstance.get(ApiConstants.REFRESH_TOKEN, originalRequest)
     .then((res: AxiosResponse) => res.data)
     .catch(() => null);
 }
 
 // base
-function Request<T = unknown>(config: AxiosRequestConfig, isCheckOut = true) {
+function Request<T = Record<string, unknown>>(
+  config: AxiosRequestConfig,
+  isCheckOut = true,
+) {
   const { token }: AppState = getState('app');
   const defaultConfig: AxiosRequestConfig = {
     baseURL: ENVConfig.API_URL,
@@ -72,16 +74,16 @@ function Request<T = unknown>(config: AxiosRequestConfig, isCheckOut = true) {
         const result = handleResponseAxios(res);
         rs(result);
       })
-      .catch((error: AxiosError) => {
+      .catch((error: AxiosError<T>) => {
         const result = handleErrorAxios(error);
         if (!isCheckOut) {
-          rs(result);
+          rs(result as ResponseBase<T>);
         }
         if (result.code === RESULT_CODE_PUSH_OUT && isCheckOut) {
           onPushLogout();
           rs(null);
         } else {
-          rs(result);
+          rs(result as ResponseBase<T>);
         }
       });
   });

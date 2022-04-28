@@ -1,4 +1,4 @@
-import { HandleErrorApi, logout, replaceAll } from '@common';
+import { handleErrorApi, logout, replaceAll } from '@common';
 import {
   CODE_SUCCESS,
   CODE_TIME_OUT,
@@ -7,9 +7,9 @@ import {
   STATUS_TIME_OUT,
 } from '@config/api';
 import { ParamsNetwork, ResponseBase } from '@config/type';
+import { translate } from '@utils/i18n/translate';
 import { AxiosError, AxiosRequestConfig, AxiosResponse, Method } from 'axios';
 
-import { translate } from '../utils';
 const responseDefault: ResponseBase<Record<string, unknown>> = {
   code: -500,
   status: false,
@@ -24,7 +24,7 @@ export const onPushLogout = async () => {
    */
 };
 
-export const handleResponseAxios = <T>(
+export const handleResponseAxios = <T = Record<string, unknown>>(
   res: AxiosResponse<T>,
 ): ResponseBase<T> => {
   if (res.data) {
@@ -32,26 +32,26 @@ export const handleResponseAxios = <T>(
   }
   return responseDefault as ResponseBase<T>;
 };
-
-export const handleErrorAxios = (error: AxiosError): ResponseBase => {
+export const handleErrorAxios = <T = Record<string, unknown>>(
+  error: AxiosError,
+): ResponseBase<T> => {
   if (error.code === STATUS_TIME_OUT) {
     // timeout
-    return HandleErrorApi(CODE_TIME_OUT);
+    return handleErrorApi(CODE_TIME_OUT) as unknown as ResponseBase<T>;
   }
   if (error.response) {
     if (error.response.status === RESULT_CODE_PUSH_OUT) {
-      return HandleErrorApi(RESULT_CODE_PUSH_OUT);
+      return handleErrorApi(RESULT_CODE_PUSH_OUT) as unknown as ResponseBase<T>;
     } else {
-      return HandleErrorApi(error.response.status);
+      return handleErrorApi(
+        error.response.status,
+      ) as unknown as ResponseBase<T>;
     }
   }
-  return HandleErrorApi(ERROR_NETWORK_CODE);
+  return handleErrorApi(ERROR_NETWORK_CODE) as unknown as ResponseBase<T>;
 };
 
-export const handlePath = (
-  url: string,
-  path: ParamsNetwork['path'],
-) => {
+export const handlePath = (url: string, path: ParamsNetwork['path']) => {
   if (!path || Object.keys(path).length <= 0) {
     return url;
   }

@@ -9,7 +9,7 @@ import { ActivityIndicator, View } from 'react-native';
 
 import isEqual from 'react-fast-compare';
 
-import { useDisableBackHandler, useDismissKeyboard } from '@common';
+import { useDisableBackHandler, useDismissKeyboard } from '@hooks';
 import { useTheme } from '@theme';
 
 import { styles } from './styles';

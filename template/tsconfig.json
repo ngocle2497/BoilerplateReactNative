@@ -35,29 +35,32 @@
     // "noUnusedParameters": true,            /* Report errors on unused parameters. */
     // "noImplicitReturns": true,             /* Report error when not all code paths in function return a value. */
     // "noFallthroughCasesInSwitch": true,    /* Report errors for fallthrough cases in switch statement. */
-
     /* Module Resolution Options */
     "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
     "baseUrl": "." /* Base directory to resolve non-absolute module names. */,
     "paths": {
       "@assets/*": ["./src/app/assets/*"],
       "@common": ["./src/app/common/index"],
+      "@hooks": ["./src/app/common/hooks/index"],
       "@typed-redux-saga": ["src/app/common/typed-redux-saga"],
       "@animated": ["./src/app/common/animated/index"],
       "@config/*": ["./src/app/config/*"],
       "@features/*": ["./src/app/features/*"],
       "@components": ["./src/app/library/components/index"],
-      "@utils": ["./src/app/library/utils/index"],
-      "@library/*": ["./src/app/library/*"],
+      "@components/*": ["./src/app/library/components/*"],
+      "@utils/*": ["./src/app/library/utils/*"],
+      "@storage": ["./src/app/library/utils/storage/index"],
       "@networking": ["./src/app/library/networking/index"],
       "@networking/*": ["./src/app/library/networking/*"],
       "@model/*": ["./src/app/model/*"],
       "@navigation/*": ["./src/app/navigation/*"],
-      "@store/*": ["./src/app/store/*"],
+      "@store/*": ["./src/app/redux/store/*"],
+      "@redux-slice": ["./src/app/redux/action-slice/index"],
+      "@redux-action-type/*": ["./src/app/redux/action-type/*"],
+      "@saga": ["./src/app/redux/saga/index"],
       "@theme": ["./src/app/themes/index"],
       "@theme/*": ["./src/app/themes/*"],
-      "@transition": ["./src/app/transition/index"],
-      "@app_redux/*": ["./src/app/store/app_redux/*"]
+      "@transition": ["./src/app/transition/index"]
     } /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */,
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "typeRoots": [],                       /* List of folders to include type definitions from. */

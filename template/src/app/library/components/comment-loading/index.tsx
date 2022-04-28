@@ -3,7 +3,7 @@ import { useWindowDimensions, View } from 'react-native';
 
 import isEqual from 'react-fast-compare';
 
-import { useAsyncState, useInterval } from '@common';
+import { useAsyncState, useInterval } from '@hooks';
 
 import {
   DELAY_MS,

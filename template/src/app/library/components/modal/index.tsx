@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 import isEqual from 'react-fast-compare';
 
-import { useDismissKeyboard } from '@common';
+import { useDismissKeyboard } from '@hooks';
 
 import { ModalContent } from './modal-content';
 import { ModalProps } from './type';
