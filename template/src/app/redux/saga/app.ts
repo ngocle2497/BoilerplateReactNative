@@ -1,5 +1,8 @@
-import { R } from '@assets/value';
-import { checkKeyInObject } from '@common';
+import {
+  checkKeyInObject,
+  STORAGE_KEY_APP_THEME,
+  STORAGE_KEY_TOKEN,
+} from '@common';
 import { appActions } from '@redux-slice';
 import { loadString } from '@storage';
 import { MyAppTheme, ThemeType } from '@theme';
@@ -11,8 +14,8 @@ export function* appSaga() {
 
 function* onLoadAppModeAndTheme() {
   const { appTheme, token } = yield* all({
-    appTheme: call(loadString, R.strings.APP_THEME),
-    token: call(loadString, R.strings.TOKEN),
+    appTheme: call(loadString, STORAGE_KEY_APP_THEME),
+    token: call(loadString, STORAGE_KEY_TOKEN),
   });
 
   if (typeof token === 'string') {

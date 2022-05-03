@@ -8,21 +8,14 @@ import React, {
 import { StyleSheet } from 'react-native';
 
 import isEqual from 'react-fast-compare';
-import { Source } from 'react-native-fast-image';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
 
-import { Measure } from '.';
-
 import { GestureHOC } from './gesture-hoc';
 import { styles } from './styles';
-
-export interface ImageTransitionProps {
-  image: Measure;
-  source: Source | number;
-}
+import { ImageTransitionProps } from './type';
 
 const ImageTransitionComponent = forwardRef((_, ref) => {
   useImperativeHandle(

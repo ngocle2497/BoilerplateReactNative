@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useRef, useState } from 'react';
+import React, { memo, useRef, useState } from 'react';
 import { Alert } from 'react-native';
 
 import isEqual from 'react-fast-compare';
@@ -11,7 +11,6 @@ import {
   CheckBox,
   Divider,
   DropDown,
-  FAB,
   HelperText,
   LightBox,
   Otp,
@@ -45,14 +44,14 @@ const LoginComponent = () => {
   }>({ lower: 0, upper: 0 });
 
   // function
-  const onSubmit = useCallback((data: FormLoginType) => {
+  const onSubmit = (data: FormLoginType) => {
     dispatch(appActions.onSetAppTheme('dark'));
     Alert.alert(JSON.stringify(data));
-  }, []);
+  };
 
-  const _onShowAction = useCallback(async () => {
+  const _onShowAction = async () => {
     _refAction.current?.show();
-  }, []);
+  };
 
   // render
   return (
@@ -197,15 +196,6 @@ const LoginComponent = () => {
           <Switch type={'android'} />
         </Block>
       </Screen>
-      <FAB
-        label="Float"
-        type={'group'}
-        actions={[
-          { icon: 'home', label: 'Icon1' },
-          { icon: 'search', label: 'Icon2' },
-          { icon: 'send', label: 'Icon3' },
-        ]}
-      />
     </Block>
   );
 };

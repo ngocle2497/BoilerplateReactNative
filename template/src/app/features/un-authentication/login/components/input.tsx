@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { memo } from 'react';
+import React from 'react';
 
-import isEqual from 'react-fast-compare';
 import { useController, useFormContext } from 'react-hook-form';
 
 import { CustomOmit } from '@common';
@@ -15,7 +14,7 @@ interface InputProps<T extends Record<string, any>>
   name: keyof T;
   nameTrigger?: keyof T;
 }
-const InputComponent = <T extends Record<string, any>>({
+export const Input = <T extends Record<string, any>>({
   onSubmit,
   label,
   name,
@@ -52,7 +51,3 @@ const InputComponent = <T extends Record<string, any>>({
     </>
   );
 };
-
-export const Input = memo(InputComponent, isEqual) as <T>(
-  props: InputProps<T>,
-) => React.ReactElement;

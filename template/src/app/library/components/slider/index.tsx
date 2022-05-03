@@ -1,12 +1,10 @@
-import React, { memo } from 'react';
-
-import isEqual from 'react-fast-compare';
+import React from 'react';
 
 import { SliderLinear } from './slider-linear';
 import { SliderRange } from './slider-range';
 import { SliderProps } from './type';
 
-const SliderComponent = (props: SliderProps) => {
+export const Slider = (props: SliderProps) => {
   // render
   return props.type === 'range' ? (
     <SliderRange {...props} />
@@ -14,5 +12,3 @@ const SliderComponent = (props: SliderProps) => {
     <SliderLinear {...props} />
   );
 };
-
-export const Slider = memo(SliderComponent, isEqual);

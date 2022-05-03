@@ -1,11 +1,10 @@
-import React, { forwardRef, memo } from 'react';
+import React, { forwardRef } from 'react';
 
-import isEqual from 'react-fast-compare';
 import Animated from 'react-native-reanimated';
 
 import { StackViewProps } from './type';
 
-const StackViewComponent = forwardRef(
+export const StackView = forwardRef(
   (
     { children, ...rest }: StackViewProps,
     ref: React.ForwardedRef<Animated.ScrollView>,
@@ -23,5 +22,3 @@ const StackViewComponent = forwardRef(
     );
   },
 );
-
-export const StackView = memo(StackViewComponent, isEqual);

@@ -1,12 +1,10 @@
-import React, { memo } from 'react';
-
-import equals from 'react-fast-compare';
+import React from 'react';
 
 import { ProgressCircle } from './components/circle';
 import { ProgressLinear } from './components/linear';
 import { ProgressProps } from './type';
 
-const ProgressComponent = (props: ProgressProps) => {
+export const Progress = (props: ProgressProps) => {
   // state
   const { type = 'linear' } = props;
 
@@ -17,4 +15,3 @@ const ProgressComponent = (props: ProgressProps) => {
     <ProgressCircle {...props} />
   );
 };
-export const Progress = memo(ProgressComponent, equals);

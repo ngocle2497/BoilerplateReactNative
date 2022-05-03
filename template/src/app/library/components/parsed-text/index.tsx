@@ -1,6 +1,4 @@
-import React, { memo, useCallback } from 'react';
-
-import isEqual from 'react-fast-compare';
+import React, { useCallback } from 'react';
 
 import { onCheckType } from '@common';
 
@@ -9,10 +7,7 @@ import { PATTERNS, textExtraction } from './utils';
 
 import { Text } from '../text';
 
-const ParsedTextComponent = (props: ParsedTextProps) => {
-  // state
-  const { parse, ...rest } = props;
-
+export const ParsedText = ({ parse, children, ...rest }: ParsedTextProps) => {
   // function
   const onGetPatterns = useCallback(() => {
     return parse.map(option => {
@@ -26,18 +21,16 @@ const ParsedTextComponent = (props: ParsedTextProps) => {
   }, [parse]);
 
   const onGetParsedText = useCallback(() => {
-    if (!parse || !onCheckType(props.children, 'string')) {
-      return props.children;
+    if (!parse || !onCheckType(children, 'string')) {
+      return children;
     }
-    const text = textExtraction(props.children, onGetPatterns());
+    const text = textExtraction(children, onGetPatterns());
     return text.map((localProps, index) => {
       const { style, ...restText } = localProps;
       return <Text key={`parsedText-${index}`} style={[style]} {...restText} />;
     });
-  }, [onGetPatterns, parse, props]);
+  }, [children, onGetPatterns, parse]);
 
   // render
   return <Text {...rest}>{onGetParsedText()}</Text>;
 };
-
-export const ParsedText = memo(ParsedTextComponent, isEqual);

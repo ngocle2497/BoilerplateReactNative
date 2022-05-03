@@ -1,14 +1,14 @@
 import React, {
   forwardRef,
-  memo,
   useCallback,
   useImperativeHandle,
   useState,
 } from 'react';
 import { Text, View } from 'react-native';
 
-import equals from 'react-fast-compare';
 import { useTranslation } from 'react-i18next';
+
+import { invoke } from '@common';
 
 import { styles } from './styles';
 import { ActionSheetProps, OptionData } from './type';
@@ -17,22 +17,22 @@ import { Button } from '../button';
 import { Divider } from '../divider';
 import { Modal } from '../modal';
 
-const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
+export const ActionSheet = forwardRef((props: ActionSheetProps, ref) => {
   // state
   const [t] = useTranslation();
   const {
-    onPressCancel,
-    textCancelStyle: textCancelStyleOverwrite,
+    title,
     rootStyle,
+    onPressCancel,
     wrapCancelStyle,
     textOptionStyle,
     wrapOptionStyle,
-    title,
+    onBackDropPress: onBackDropPressOverwrite,
+    textCancelStyle: textCancelStyleOverwrite,
     onPressOption,
-    onBackDropPress,
     textCancel = t('dialog:cancel'),
     backDropColor = 'rgba(0,0,0,.5)',
-    closeOnBackDrop = true,
+    closeOnBackDropPress = true,
     option = [],
   } = props;
   const [actionVisible, setActionVisible] = useState(false);
@@ -50,7 +50,7 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
     [],
   );
   // function
-  const _onPress = useCallback(
+  const onPress = useCallback(
     (item: OptionData, index: number) => {
       return () => {
         setActionVisible(false);
@@ -60,15 +60,17 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
     [onPressOption],
   );
 
-  const _onCancel = useCallback(() => {
+  const onCancel = useCallback(() => {
     onPressCancel && onPressCancel();
     setActionVisible(false);
   }, [onPressCancel]);
 
-  const _onBackDropPress = useCallback(() => {
-    typeof onBackDropPress === 'function' && onBackDropPress();
-    closeOnBackDrop === true && setActionVisible(false);
-  }, [closeOnBackDrop, onBackDropPress]);
+  const onBackDropPress = useCallback(() => {
+    invoke(onBackDropPressOverwrite);
+    if (closeOnBackDropPress) {
+      setActionVisible(false);
+    }
+  }, [closeOnBackDropPress, onBackDropPressOverwrite]);
 
   // render
   return (
@@ -78,8 +80,8 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
       backdropOpacity={1}
       animatedIn={'slideInUp'}
       animatedOut={'slideOutDown'}
-      onBackdropPress={_onBackDropPress}
-      onBackButtonPress={_onCancel}
+      onBackdropPress={onBackDropPress}
+      onBackButtonPress={onCancel}
       isVisible={actionVisible}
       backdropColor={backDropColor}>
       <View style={[styles.wrap, rootStyle]}>
@@ -97,7 +99,7 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
             ))}
           {option.map((item: OptionData, index: number) => {
             return (
-              <Button onPress={_onPress(item, index)} key={item.text}>
+              <Button onPress={onPress(item, index)} key={item.text}>
                 <View style={[styles.wrapTextOption]}>
                   <Text style={[textOptionStyle]} children={item.text} />
                 </View>
@@ -106,7 +108,7 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
           })}
         </View>
         <View style={[styles.wrapCancel, wrapCancelStyle]}>
-          <Button onPress={_onCancel}>
+          <Button onPress={onCancel}>
             <View style={[styles.wrapTextCancel]}>
               <Text
                 style={[styles.textCancel, textCancelStyleOverwrite]}
@@ -119,7 +121,7 @@ const ActionSheetComponent = forwardRef((props: ActionSheetProps, ref) => {
     </Modal>
   );
 });
-export const ActionSheet = memo(ActionSheetComponent, equals);
+
 export interface ActionSheet {
   show(): void;
   hide(): void;

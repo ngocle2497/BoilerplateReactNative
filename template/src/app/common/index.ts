@@ -1,11 +1,9 @@
 export * from './create-form-data';
-export * from './handle-error';
 // export * from './request-permission';
 export * from './constant';
 export * from './string';
 export * from './scale';
 export * from './array';
-export * from './handle';
 export * from './method';
 export * from './math';
 export * from './redux';

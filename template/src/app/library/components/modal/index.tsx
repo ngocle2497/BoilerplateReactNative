@@ -1,6 +1,4 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
-
-import isEqual from 'react-fast-compare';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useDismissKeyboard } from '@hooks';
 
@@ -9,15 +7,15 @@ import { ModalProps } from './type';
 
 import { Portal } from '../portal';
 
-const ModalComponent = (props: ModalProps) => {
+export const Modal = (props: ModalProps) => {
   // state
   const [visible, setVisible] = useState<boolean>(props.isVisible);
   const modalContent = useRef<ModalContent>(null);
 
   // function
-  const closeModal = useCallback(() => {
+  const closeModal = () => {
     setVisible(false);
-  }, []);
+  };
 
   // effect
   useDismissKeyboard(visible);
@@ -39,5 +37,3 @@ const ModalComponent = (props: ModalProps) => {
     </Portal>
   );
 };
-
-export const Modal = memo(ModalComponent, isEqual);

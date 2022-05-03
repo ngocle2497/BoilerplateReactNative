@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   FlatList,
   ListRenderItemInfo,
@@ -9,7 +9,6 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import equals from 'react-fast-compare';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -19,17 +18,17 @@ import { SelectOption, SelectProps } from './type';
 
 import { Modal } from '../modal';
 
-const SelectComponent = (props: SelectProps) => {
+export const Select = (props: SelectProps) => {
   // state
   const [t] = useTranslation();
   const inset = useSafeAreaInsets();
   const {
-    onPress,
     textItemStyle,
     rightChildren,
+    onPress,
+    customItem = undefined,
     useBottomInset = true,
     defaultSelect = t('dialog:select'),
-    customItem = undefined,
     data = [],
     ...rest
   } = props;
@@ -37,14 +36,11 @@ const SelectComponent = (props: SelectProps) => {
   const [visible, setVisible] = useState(false);
 
   // function
-  const onPressOption = useCallback(
-    (item: SelectOption, index: number) => {
-      setVisible(false);
-      setSelectedText(item.text);
-      onPress && onPress(item, index);
-    },
-    [onPress],
-  );
+  const onPressOption = (item: SelectOption, index: number) => {
+    setVisible(false);
+    setSelectedText(item.text);
+    onPress && onPress(item, index);
+  };
 
   const showDrop = () => {
     setVisible(true);
@@ -54,25 +50,25 @@ const SelectComponent = (props: SelectProps) => {
     setVisible(false);
   };
 
-  const _renderItem = useCallback(
-    ({ item, index }: ListRenderItemInfo<SelectOption>) => {
-      return (
-        <SelectItem
-          customItem={customItem}
-          textItemStyle={textItemStyle}
-          onPress={onPressOption}
-          item={item}
-          index={index}
-        />
-      );
-    },
-    [customItem, onPressOption, textItemStyle],
-  );
+  const renderItem = ({ item, index }: ListRenderItemInfo<SelectOption>) => {
+    return (
+      <SelectItem
+        customItem={customItem}
+        textItemStyle={textItemStyle}
+        onPress={onPressOption}
+        item={item}
+        index={index}
+      />
+    );
+  };
 
-  const _keyExtractor = (item: SelectOption) =>
-    item.text +
-    new Date().getTime().toString() +
-    Math.floor(Math.random() * Math.floor(new Date().getTime())).toString();
+  const keyExtractor = useCallback(
+    (item: SelectOption) =>
+      item.text +
+      new Date().getTime().toString() +
+      Math.floor(Math.random() * Math.floor(new Date().getTime())).toString(),
+    [],
+  );
 
   // style
   const content = useMemo<StyleProp<ViewStyle>>(
@@ -106,8 +102,8 @@ const SelectComponent = (props: SelectProps) => {
             <View style={[styles.content, content]}>
               <FlatList
                 data={data}
-                keyExtractor={_keyExtractor}
-                renderItem={_renderItem}
+                keyExtractor={keyExtractor}
+                renderItem={renderItem}
                 {...rest}
               />
             </View>
@@ -117,4 +113,3 @@ const SelectComponent = (props: SelectProps) => {
     </>
   );
 };
-export const Select = memo(SelectComponent, equals);

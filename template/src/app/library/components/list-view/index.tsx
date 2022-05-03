@@ -1,26 +1,26 @@
-import React, { memo, useCallback } from 'react';
+import React from 'react';
 import { FlatList, RefreshControl } from 'react-native';
 
-import equals from 'react-fast-compare';
+import { invoke } from '@common';
 
 import { ListViewProps } from './type';
 
-const ListViewComponent = (props: ListViewProps) => {
+export const ListView = (props: ListViewProps) => {
   // state
   const {
-    onLoadMore,
     onRefresh,
+    onLoadMore,
     canRefresh = true,
     canLoadMore = false,
     refreshing = false,
   } = props;
 
   // function
-  const loadMore = useCallback(() => {
-    if (canLoadMore && onLoadMore && typeof onLoadMore === 'function') {
-      onLoadMore();
+  const loadMore = () => {
+    if (canLoadMore) {
+      invoke(onLoadMore);
     }
-  }, [canLoadMore, onLoadMore]);
+  };
 
   // render
   return (
@@ -38,5 +38,3 @@ const ListViewComponent = (props: ListViewProps) => {
     />
   );
 };
-
-export const ListView = memo(ListViewComponent, equals);

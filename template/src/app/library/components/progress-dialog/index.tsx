@@ -54,10 +54,10 @@ const ProgressDialogComponent = forwardRef((_, ref) => {
 });
 
 export const progressDialogRef = createRef<ProgressDialogRef>();
-export const ProgressDialog = memo(
-  () => <ProgressDialogComponent ref={progressDialogRef} />,
-  isEqual,
+export const ProgressDialog = () => (
+  <ProgressDialogComponent ref={progressDialogRef} />
 );
+
 export const showLoading = () => {
   progressDialogRef.current?.show();
 };

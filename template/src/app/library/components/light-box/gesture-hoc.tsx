@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect } from 'react';
 import { BackHandler, useWindowDimensions } from 'react-native';
 
 import isEqual from 'react-fast-compare';
-import FastImage, { Source } from 'react-native-fast-image';
+import FastImage from 'react-native-fast-image';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   Extrapolate,
@@ -17,16 +17,8 @@ import Animated, {
 
 import { sharedTiming, useInterpolate, useVector } from '@animated';
 
-import { Measure } from '.';
-
 import { styles } from './styles';
-
-export interface GestureHOCProps {
-  image: Measure;
-  source: Source | number;
-  onClose: () => void;
-  backDropOpacity: Animated.SharedValue<number>;
-}
+import { GestureHOCProps } from './type';
 
 const timingConfig: WithTimingConfig = {
   duration: 300,

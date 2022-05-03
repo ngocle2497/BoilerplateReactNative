@@ -1,7 +1,6 @@
-import React, { memo, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { GestureResponderEvent, TouchableWithoutFeedback } from 'react-native';
 
-import equals from 'react-fast-compare';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -13,14 +12,14 @@ import { onCheckType } from '@common';
 import { styles } from './styles';
 import { TouchableScaleProps } from './type';
 
-const TouchableScaleComponent = (props: TouchableScaleProps) => {
+export const TouchableScale = (props: TouchableScaleProps) => {
   // props
   const {
     children,
-    minScale = 0.9,
-    containerStyle: overwriteContainerStyle,
     onPressIn,
     onPressOut,
+    minScale = 0.9,
+    containerStyle: overwriteContainerStyle,
     ...rest
   } = props;
 
@@ -70,4 +69,3 @@ const TouchableScaleComponent = (props: TouchableScaleProps) => {
     </TouchableWithoutFeedback>
   );
 };
-export const TouchableScale = memo(TouchableScaleComponent, equals);

@@ -1,6 +1,5 @@
 import React, {
   forwardRef,
-  memo,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -8,7 +7,6 @@ import React, {
 } from 'react';
 import { LayoutChangeEvent, View } from 'react-native';
 
-import isEqual from 'react-fast-compare';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
@@ -40,13 +38,13 @@ import { ArgsChangeRange, SliderRangeProps } from './type';
 
 import { Text } from '../text';
 
-const SliderRangeComponent = forwardRef(
+export const SliderRange = forwardRef(
   (
     {
+      onChangeRange,
       lowerBound = LOWER_BOUND,
       upperBound = UPPER_BOUND,
       initialRange = INITIAL_RANGE,
-      onChangeRange,
     }: SliderRangeProps,
     ref,
   ) => {
@@ -232,7 +230,6 @@ const SliderRangeComponent = forwardRef(
   },
 );
 
-export const SliderRange = memo(SliderRangeComponent, isEqual);
 export type SliderRange = {
   setRange: (args: ArgsChangeRange) => void;
 };

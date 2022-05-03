@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { createRef, forwardRef, memo, useImperativeHandle } from 'react';
+import React, { createRef, forwardRef, useImperativeHandle } from 'react';
 
-import isEqual from 'react-fast-compare';
 import { useDispatch } from 'react-redux';
 
 import { RootState } from '@store/all-reducers';
@@ -14,8 +13,11 @@ type ActionBase<T = any> = {
 };
 
 const RXStoreComponent = forwardRef((_, ref) => {
+  // state
   const dispatchRx = useDispatch();
   const store = useSelector(x => x);
+
+  // effect
   useImperativeHandle(
     ref,
     () => ({
@@ -38,7 +40,7 @@ type RXStoreType = {
 
 const storeRef = createRef<RXStoreType>();
 
-export const RXStore = memo(() => <RXStoreComponent ref={storeRef} />, isEqual);
+export const RXStore = () => <RXStoreComponent ref={storeRef} />;
 
 export const dispatch = (action: ActionBase) => {
   if (storeRef.current) {

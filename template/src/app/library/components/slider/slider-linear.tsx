@@ -1,7 +1,6 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LayoutChangeEvent, View } from 'react-native';
 
-import isEqual from 'react-fast-compare';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
@@ -20,11 +19,11 @@ import { SliderProps } from './type';
 
 import { Text } from '../text';
 
-const SliderLinearComponent = ({
+export const SliderLinear = ({
+  onChangeLinear,
   lowerBound = LOWER_BOUND,
   upperBound = UPPER_BOUND,
   initialLinear = 50,
-  onChangeLinear,
 }: SliderProps) => {
   if (lowerBound >= upperBound) {
     throw Error('lowerBound must be less than upperBound');
@@ -110,5 +109,3 @@ const SliderLinearComponent = ({
     </View>
   );
 };
-
-export const SliderLinear = memo(SliderLinearComponent, isEqual);

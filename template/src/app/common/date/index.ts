@@ -164,3 +164,16 @@ export function getTimeDifference(date: Date | string): {
       return { count: null, tx: 'txFewSecondsAgo' };
   }
 }
+export const dayBetweenRange = ({
+  endDate,
+  startDate,
+  format = 'DD/MM/YYYY',
+}: {
+  startDate?: string;
+  endDate?: string;
+  format?: string;
+}) => {
+  const mStartDate = moment(startDate, format);
+  const mEndDate = moment(endDate, format);
+  return mEndDate.diff(mStartDate, 'days') + 1;
+};

@@ -1,7 +1,6 @@
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Button } from 'react-native';
 
-import isEqual from 'react-fast-compare';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -14,7 +13,7 @@ interface FormLoginProps {
   onSubmit: (data: FormLoginType) => void;
 }
 
-const FormLoginComponent = ({ onSubmit }: FormLoginProps) => {
+export const FormLogin = ({ onSubmit }: FormLoginProps) => {
   // state
   const validate = useMemo<yup.SchemaOf<FormLoginType>>(
     () =>
@@ -34,10 +33,9 @@ const FormLoginComponent = ({ onSubmit }: FormLoginProps) => {
   });
 
   // function
-  const onSubmitKey = useCallback(() => {
+  const onSubmitKey = () => {
     formMethod.handleSubmit(onSubmit)();
-  }, [formMethod, onSubmit]);
-
+  };
   // render
   return (
     <FormProvider {...formMethod}>
@@ -56,5 +54,3 @@ const FormLoginComponent = ({ onSubmit }: FormLoginProps) => {
     </FormProvider>
   );
 };
-
-export const FormLogin = memo(FormLoginComponent, isEqual);

@@ -1,7 +1,6 @@
-import React, { memo, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { LayoutChangeEvent, ViewStyle } from 'react-native';
 
-import equals from 'react-fast-compare';
 import Animated, {
   useAnimatedStyle,
   useDerivedValue,
@@ -14,12 +13,12 @@ import { ProgressLinearProps } from './type';
 
 import { COLOR_BG, COLOR_FG, STROKE_WIDTH } from '../constant';
 
-export const ProgressLinearComponent = ({
+export const ProgressLinear = ({
   progress,
   bg = COLOR_BG,
   fg = COLOR_FG,
-  strokeWidth = STROKE_WIDTH,
   radius = 4,
+  strokeWidth = STROKE_WIDTH,
 }: ProgressLinearProps) => {
   // state
   const [widthProgress, setWidthProgress] = useState(0);
@@ -31,6 +30,7 @@ export const ProgressLinearComponent = ({
     [-widthProgress, 0],
   );
 
+  // style
   const bgStyle = useMemo<ViewStyle[]>(
     () => [
       styles.bg,
@@ -70,5 +70,3 @@ export const ProgressLinearComponent = ({
     </Animated.View>
   );
 };
-
-export const ProgressLinear = memo(ProgressLinearComponent, equals);

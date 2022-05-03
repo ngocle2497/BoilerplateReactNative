@@ -1,13 +1,12 @@
-import React, { memo, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import equals from 'react-fast-compare';
 import { Blurhash } from 'react-native-blurhash';
 import FastImage, { OnLoadEvent } from 'react-native-fast-image';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 
 import { useSharedTransition } from '@animated';
-import { onCheckType } from '@common';
+import { invoke, onCheckType } from '@common';
 import { useAsyncState, useMounted } from '@hooks';
 
 import { styles } from './styles';
@@ -40,9 +39,7 @@ const ImageComponent = ({
   // function
   const onLoadImageStart = () => {
     setError(false);
-    if (onCheckType(onLoadStart, 'function')) {
-      onLoadStart();
-    }
+    invoke(onLoadStart);
   };
 
   const onLoadThumbSucceeded = () => {
@@ -54,16 +51,12 @@ const ImageComponent = ({
       setError(false);
       setLoadSucceeded(true);
     }, 200);
-    if (onCheckType(onLoad, 'function')) {
-      onLoad(event);
-    }
+    invoke(onLoad, event);
   };
 
   const onLoadError = () => {
     setError(true);
-    if (onCheckType(onError, 'function')) {
-      onError();
-    }
+    invoke(onError);
   };
 
   // reanimated style
@@ -123,7 +116,8 @@ const ImageComponent = ({
     </View>
   );
 };
-export const Image = memo((props: ImageProps) => {
+
+export const Image = (props: ImageProps) => {
   const [isChange, setIsChange] = useAsyncState<boolean>(false);
 
   useMounted(() => {
@@ -133,4 +127,4 @@ export const Image = memo((props: ImageProps) => {
   }, [props.source]);
 
   return isChange ? null : <ImageComponent {...props} />;
-}, equals);
+};

@@ -1,7 +1,6 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
-import equals from 'react-fast-compare';
 import Animated, {
   Extrapolate,
   useAnimatedStyle,
@@ -13,37 +12,35 @@ import {
   useMix,
   useSharedTransition,
 } from '@animated';
-import { onCheckType } from '@common';
+import { invoke } from '@common';
 
+import {
+  BORDER_OFF_COLOR,
+  BORDER_RADIUS_IOS,
+  MARGIN,
+  OFF_COLOR,
+  OFF_POSITION_IOS,
+  ON_COLOR,
+  ON_POSITION_IOS,
+  THUMB_SIZE_IOS,
+  WIDTH,
+} from './constants';
 import { SwitchProps } from './type';
-
-// dimensions
-const THUMB_SIZE = 28;
-const WIDTH = 51;
-const MARGIN = 3;
-const OFF_POSITION = 0.5;
-const ON_POSITION = WIDTH - THUMB_SIZE - MARGIN - 0.5;
-const BORDER_RADIUS = (THUMB_SIZE * 3) / 4;
-
-// colors
-const ON_COLOR = '#34C759';
-const OFF_COLOR = 'rgba(255,255,255,0.05)';
-const BORDER_OFF_COLOR = 'rgba(0, 0, 0, 0.1)';
 
 const styles = StyleSheet.create({
   track: {
     width: WIDTH,
-    height: THUMB_SIZE + MARGIN,
-    borderRadius: BORDER_RADIUS,
+    height: THUMB_SIZE_IOS + MARGIN,
+    borderRadius: BORDER_RADIUS_IOS,
     borderWidth: MARGIN / 2,
     borderColor: 'transparent',
   },
   thumb: {
     position: 'absolute',
-    width: THUMB_SIZE,
-    height: THUMB_SIZE,
+    width: THUMB_SIZE_IOS,
+    height: THUMB_SIZE_IOS,
     borderColor: BORDER_OFF_COLOR,
-    borderRadius: THUMB_SIZE / 2,
+    borderRadius: THUMB_SIZE_IOS / 2,
     backgroundColor: '#FFFFFF',
     shadowColor: BORDER_OFF_COLOR,
     shadowOffset: { width: 1, height: 2 },
@@ -53,11 +50,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const SwitchComponent = ({
+export const Switch = ({
   onToggle,
-  initialValue = false,
-  disable = false,
   value: overwriteValue,
+  disable = false,
+  initialValue = false,
 }: Omit<SwitchProps, 'type'>) => {
   // state
   const [value, setValue] = useState<boolean>(initialValue);
@@ -68,7 +65,7 @@ const SwitchComponent = ({
   const translateX = useInterpolate(
     progress,
     [0, 1],
-    [OFF_POSITION, ON_POSITION],
+    [OFF_POSITION_IOS, ON_POSITION_IOS],
     Extrapolate.CLAMP,
   );
   const backgroundColor = useInterpolateColor(
@@ -78,15 +75,11 @@ const SwitchComponent = ({
   );
 
   // function
-  const toggle = useCallback(() => {
+  const _onToggle = useCallback(() => {
     if (typeof overwriteValue === 'boolean') {
-      if (onCheckType(onToggle, 'function')) {
-        onToggle && onToggle(!overwriteValue);
-      }
+      invoke(onToggle, overwriteValue);
     } else {
-      if (onCheckType(onToggle, 'function')) {
-        onToggle && onToggle(!value);
-      }
+      invoke(onToggle, !value);
       setValue(v => !v);
     }
   }, [onToggle, overwriteValue, value]);
@@ -103,11 +96,10 @@ const SwitchComponent = ({
 
   // render
   return (
-    <TouchableWithoutFeedback disabled={disable} onPress={toggle}>
+    <TouchableWithoutFeedback disabled={disable} onPress={_onToggle}>
       <Animated.View style={[styles.track, animatedTrackStyle]}>
         <Animated.View style={[styles.thumb, animatedThumbStyle]} />
       </Animated.View>
     </TouchableWithoutFeedback>
   );
 };
-export const Switch = memo(SwitchComponent, equals);

@@ -1,7 +1,6 @@
-import React, { memo, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { StyleProp, TouchableOpacity } from 'react-native';
 
-import equals from 'react-fast-compare';
 import FastImage, { ImageStyle } from 'react-native-fast-image';
 
 import { icons } from '@assets/icon';
@@ -11,16 +10,16 @@ import { IconProps } from './type';
 
 const SIZE = 24;
 
-const IconComponent = (props: IconProps) => {
+export const Icon = ({
+  icon,
+  color,
+  colorTheme,
+  onPress,
+  size = SIZE,
+  resizeMode = 'contain',
+}: IconProps) => {
   // state
-  const {
-    size = SIZE,
-    icon,
-    colorTheme,
-    resizeMode = 'contain',
-    onPress,
-    color,
-  } = props;
+
   const theme = useTheme();
   // style
   const style = useMemo<StyleProp<ImageStyle>>(
@@ -42,4 +41,3 @@ const IconComponent = (props: IconProps) => {
     </TouchableOpacity>
   );
 };
-export const Icon = memo(IconComponent, equals);

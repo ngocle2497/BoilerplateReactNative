@@ -36,7 +36,7 @@ export interface ActionSheetProps {
    * Function of cancel button
    * @default undefined
    */
-  onPressCancel?: Function;
+  onPressCancel?: () => void;
 
   /**
    * Text to display on cancel button
@@ -48,13 +48,13 @@ export interface ActionSheetProps {
    * Background press function
    * @default undefined
    */
-  onBackDropPress?: Function;
+  onBackDropPress?: () => void;
 
   /**
    * Enable to click backdrop to close
    * @default true
    */
-  closeOnBackDrop?: boolean;
+  closeOnBackDropPress?: boolean;
 
   /**
    * Overwrite style for text option

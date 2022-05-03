@@ -1,7 +1,6 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 
-import equals from 'react-fast-compare';
 import FastImage from 'react-native-fast-image';
 
 import { images } from '@assets/image';
@@ -9,11 +8,11 @@ import { images } from '@assets/image';
 import { styles } from './styles';
 import { LocalImageProps } from './type';
 
-const LocalImageComponent = ({
-  style: styleOverride,
-  resizeMode = 'cover',
+export const LocalImage = ({
   source,
   containerStyle,
+  style: styleOverride,
+  resizeMode = 'cover',
 }: LocalImageProps) => {
   // render
   return (
@@ -26,4 +25,3 @@ const LocalImageComponent = ({
     </View>
   );
 };
-export const LocalImage = memo(LocalImageComponent, equals);

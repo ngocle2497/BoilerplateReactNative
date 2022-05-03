@@ -1,15 +1,12 @@
 import React, {
   createRef,
   forwardRef,
-  memo,
   useCallback,
   useEffect,
   useImperativeHandle,
   useState,
 } from 'react';
 import { StyleSheet, View } from 'react-native';
-
-import isEqual from 'react-fast-compare';
 
 import { randomUniqueId } from '@common';
 
@@ -51,7 +48,7 @@ const SnackBarComponent = forwardRef((_, ref) => {
   const [data, setData] = useState<Item[]>([]);
 
   // function
-  const _onPop = useCallback(
+  const onPop = useCallback(
     (item: Item) => {
       const newData = queueData.length <= 0 ? [] : [queueData[0]];
       setQueueData(d => d.filter(x => x.id !== item.id));
@@ -60,9 +57,8 @@ const SnackBarComponent = forwardRef((_, ref) => {
     [queueData],
   );
 
-  const _renderItem = useCallback(
-    (item: Item) => <SnackItem key={item.id} {...{ item, onPop: _onPop }} />,
-    [_onPop],
+  const _renderItem = (item: Item) => (
+    <SnackItem key={item.id} {...{ item, onPop }} />
   );
 
   // effect
@@ -85,10 +81,7 @@ type SnackBar = {
   show: (data: { msg: string; interval?: number; type?: TypeMessage }) => void;
 };
 export const snackBarRef = createRef<SnackBar>();
-export const SnackBar = memo(
-  () => <SnackBarComponent ref={snackBarRef} />,
-  isEqual,
-);
+export const SnackBar = () => <SnackBarComponent ref={snackBarRef} />;
 
 export const showSnack = ({
   msg,

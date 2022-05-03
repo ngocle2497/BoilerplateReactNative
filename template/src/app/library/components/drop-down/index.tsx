@@ -1,6 +1,5 @@
 import React, {
   forwardRef,
-  memo,
   useCallback,
   useEffect,
   useMemo,
@@ -17,7 +16,6 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import isEqual from 'react-fast-compare';
 import { FlatList } from 'react-native-gesture-handler';
 import Animated, {
   measure,
@@ -52,28 +50,28 @@ const setLayoutOnUI = (
   wrapMeasured.value = { width, height, x: pageX, y: pageY };
 };
 
-const DropDownComponent = forwardRef((props: DropDownProps, _) => {
+export const DropDown = forwardRef((props: DropDownProps, _) => {
   const {
     data,
-    defaultValue,
     style,
-    containerStyleItem,
-    customTickIcon,
-    activeItemStyle,
-    activeLabelStyle,
-    renderArrow,
-    placeholderStyle,
-    containerStyle,
+    disabled,
+    labelStyle,
+    defaultValue,
     dropDownStyle,
-    placeHolder = 'Select an item',
-    multiple = false,
-    multipleText = '%d items have been selected',
+    containerStyle,
+    activeItemStyle,
+    placeholderStyle,
+    activeLabelStyle,
+    containerStyleItem,
+    renderArrow,
+    customTickIcon,
     onClose,
     onOpen,
     onChangeItem,
-    disabled,
+    multiple = false,
     showArrow = true,
-    labelStyle,
+    placeHolder = 'Select an item',
+    multipleText = '%d items have been selected',
   } = props;
 
   // state
@@ -129,55 +127,38 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
     [hideDrop, multiple],
   );
 
-  const onCheckSelected = useCallback(
-    (item: RowDropDown): boolean => {
-      if (multiple && Array.isArray(selectedValue)) {
-        const itemSelect = selectedValue.find(x => x === item.value);
-        return itemSelect !== undefined;
-      } else {
-        return selectedValue === item.value;
-      }
-    },
-    [multiple, selectedValue],
-  );
+  const onCheckSelected = (item: RowDropDown): boolean => {
+    if (multiple && Array.isArray(selectedValue)) {
+      const itemSelect = selectedValue.find(x => x === item.value);
+      return itemSelect !== undefined;
+    } else {
+      return selectedValue === item.value;
+    }
+  };
 
-  const _renderItem = useCallback(
-    ({ item }: ListRenderItemInfo<RowDropDown>) => {
-      return (
-        <DropDownItem
-          {...{
-            item,
-            onPressItem,
-            activeItemStyle,
-            containerStyleItem,
-            activeLabelStyle,
-            customTickIcon,
-            labelStyle,
-            selected: onCheckSelected(item),
-          }}
-        />
-      );
-    },
-    [
-      onPressItem,
-      activeItemStyle,
-      containerStyleItem,
-      activeLabelStyle,
-      customTickIcon,
-      labelStyle,
-      onCheckSelected,
-    ],
-  );
+  const _renderItem = ({ item }: ListRenderItemInfo<RowDropDown>) => {
+    return (
+      <DropDownItem
+        {...{
+          item,
+          onPressItem,
+          activeItemStyle,
+          containerStyleItem,
+          activeLabelStyle,
+          customTickIcon,
+          labelStyle,
+          selected: onCheckSelected(item),
+        }}
+      />
+    );
+  };
 
-  const keyExtractor = useCallback((item: RowDropDown) => item.value, []);
+  const keyExtractor = (item: RowDropDown) => item.value;
 
-  const onLayoutDrop = useCallback(
-    (e: LayoutChangeEvent) => {
-      const { height } = e.nativeEvent.layout;
-      dropHeight.value = height;
-    },
-    [dropHeight],
-  );
+  const onLayoutDrop = (e: LayoutChangeEvent) => {
+    const { height } = e.nativeEvent.layout;
+    dropHeight.value = height;
+  };
 
   const onToggle = useCallback(() => {
     runOnUI(setLayoutOnUI)(_refDrop, wrapMeasured);
@@ -323,5 +304,3 @@ const DropDownComponent = forwardRef((props: DropDownProps, _) => {
     </>
   );
 });
-
-export const DropDown = memo(DropDownComponent, isEqual);

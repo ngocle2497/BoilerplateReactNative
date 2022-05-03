@@ -1,7 +1,5 @@
-import React, { memo, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
-
-import equals from 'react-fast-compare';
 
 import { useTheme } from '@theme';
 
@@ -10,19 +8,19 @@ import { ButtonProps } from './type';
 
 import { Text } from '../text';
 
-const ButtonComponent = (props: ButtonProps) => {
+export const Button = (props: ButtonProps) => {
   // state
   const {
-    preset = 'default',
-    textColor,
-    textColorTheme,
-    t18n,
     text,
+    t18n,
+    children,
+    textColor,
+    buttonColor,
+    textColorTheme,
+    buttonColorTheme,
     style: styleOverride = {},
     textStyle: textStyleOverride = {},
-    children,
-    buttonColor,
-    buttonColorTheme,
+    preset = 'default',
     ...rest
   } = props;
   const theme = useTheme();
@@ -56,4 +54,3 @@ const ButtonComponent = (props: ButtonProps) => {
     </TouchableOpacity>
   );
 };
-export const Button = memo(ButtonComponent, equals);

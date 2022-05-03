@@ -1,6 +1,5 @@
 import React, {
   forwardRef,
-  memo,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -16,7 +15,6 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import isEqual from 'react-fast-compare';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
@@ -40,33 +38,33 @@ import { styles } from './styles';
 import { ModalProps } from './type';
 import { withAnimated } from './untils';
 
-const ModalContentComponent = forwardRef(
+export const ModalContent = forwardRef(
   (
     {
+      style,
+      children,
       customBackDrop,
       swipingDirection,
-      backdropOpacity = BACK_DROP_OPACITY,
-      animatedInDuration = ANIMATED_IN_DURATION,
-      backdropInDuration = ANIMATED_IN_DURATION,
-      animatedOutDuration = ANIMATED_OUT_DURATION,
-      backdropOutDuration = ANIMATED_OUT_DURATION,
+      hasGesture = true,
       animatedIn = 'fadeIn',
       animatedOut = 'fadeOut',
       backdropColor = 'black',
       moveContentWhenDrag = false,
       swipeThreshold = SWIPE_THRESHOLD,
-      hasGesture = true,
-      children,
-      style,
-      onBackdropPress,
-      customGesture,
-      onSwipeComplete,
-      onBackButtonPress: onBackAndroidPress,
+      backdropOpacity = BACK_DROP_OPACITY,
+      animatedInDuration = ANIMATED_IN_DURATION,
+      backdropInDuration = ANIMATED_IN_DURATION,
+      animatedOutDuration = ANIMATED_OUT_DURATION,
+      backdropOutDuration = ANIMATED_OUT_DURATION,
+      onSetClose,
       onModalHide,
       onModalShow,
+      customGesture,
+      onBackdropPress,
+      onSwipeComplete,
       onModalWillHide,
       onModalWillShow,
-      onSetClose,
+      onBackButtonPress: onBackAndroidPress,
     }: CustomOmit<ModalProps, 'isVisible'> & { onSetClose: () => void },
     ref,
   ) => {
@@ -254,7 +252,7 @@ const ModalContentComponent = forwardRef(
         translateX.value = sharedTiming(0, { duration: 150 });
       });
 
-    const renderBackdrop = useCallback(() => {
+    const renderBackdrop = () => {
       return (
         <TouchableWithoutFeedback onPress={onBackdropPress}>
           <Animated.View style={[backDropStyle, reBackdropStyle]}>
@@ -262,16 +260,16 @@ const ModalContentComponent = forwardRef(
           </Animated.View>
         </TouchableWithoutFeedback>
       );
-    }, [onBackdropPress, backDropStyle, reBackdropStyle, customBackDrop]);
+    };
 
-    const onBackButtonPress = useCallback(() => {
+    const onBackButtonPress = () => {
       if (onCheckType(onBackAndroidPress, 'function')) {
         onBackAndroidPress();
       }
       return true;
-    }, [onBackAndroidPress]);
+    };
 
-    const contentView = useCallback(() => {
+    const contentView = () => {
       return (
         <Animated.View
           pointerEvents="box-none"
@@ -294,15 +292,7 @@ const ModalContentComponent = forwardRef(
           </Animated.View>
         </Animated.View>
       );
-    }, [
-      children,
-      customGesture,
-      gestureHandle,
-      hasGesture,
-      reContentStyle,
-      style,
-      wrapContentStyle,
-    ]);
+    };
 
     // effect
     useImperativeHandle(
@@ -337,7 +327,6 @@ const ModalContentComponent = forwardRef(
   },
 );
 
-export const ModalContent = memo(ModalContentComponent, isEqual);
 export type ModalContent = {
   dismiss: () => void;
 };

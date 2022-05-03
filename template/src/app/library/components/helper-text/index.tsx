@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   LayoutChangeEvent,
   LayoutRectangle,
@@ -8,7 +8,6 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import equals from 'react-fast-compare';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -21,9 +20,14 @@ import { ColorDefault } from '@theme/color';
 import { styles } from './styles';
 import { HelperTextProps } from './type';
 
-const HelperTextComponent = (props: HelperTextProps) => {
+export const HelperText = ({
+  msg,
+  type,
+  colorThemeInfo,
+  colorThemeError,
+  visible = false,
+}: HelperTextProps) => {
   // state
-  const { visible = false, msg, type, colorThemeError, colorThemeInfo } = props;
   const theme = useTheme();
   const [measured, setMeasured] = useState<LayoutRectangle>({
     height: 0,
@@ -97,4 +101,3 @@ const HelperTextComponent = (props: HelperTextProps) => {
     </View>
   );
 };
-export const HelperText = memo(HelperTextComponent, equals);

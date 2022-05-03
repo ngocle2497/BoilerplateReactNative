@@ -1,7 +1,5 @@
-import React, { forwardRef, memo, useMemo } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-
-import isEquals from 'react-fast-compare';
 
 import { propsToStyle } from '@common';
 import { useTheme } from '@theme';
@@ -14,71 +12,73 @@ const styles = StyleSheet.create({
   },
 });
 
-const BlockComponent = forwardRef(
-  (props: BlockProps, ref: React.ForwardedRef<View>) => {
-    // state
-    const theme = useTheme();
-    const {
+export const Block = forwardRef(
+  (
+    {
+      left,
+      flex,
+      top,
       block,
-      margin,
-      marginLeft,
-      alignItems,
-      alignSelf,
-      marginRight,
-      marginTop,
-      marginBottom,
-      direction: flexDirection,
-      padding,
-      paddingHorizontal,
-      paddingVertical,
+      right,
       width,
       height,
       border,
-      borderWidth,
-      borderColor,
-      color: backgroundColor,
-      justifyContent,
       middle,
-      paddingRight,
-      paddingBottom,
-      paddingLeft,
-      paddingTop,
-      borderRadius,
+      bottom,
+      zIndex,
+      margin,
       shadow,
-      flex,
-      shadowConfig = {},
+      opacity,
+      padding,
+      children,
+      maxWidth,
+      overflow,
       position,
       flexWrap,
-      left,
-      right,
-      bottom,
-      top,
-      zIndex,
-      overflow,
-      borderBottomWidth,
-      borderLeftWidth,
-      borderRightWidth,
+      minWidth,
+      alignSelf,
+      maxHeight,
+      minHeight,
+      marginTop,
+      marginLeft,
+      alignItems,
+      colorTheme,
+      paddingTop,
+      marginRight,
+      borderStyle,
+      paddingLeft,
+      borderColor,
+      borderWidth,
+      borderRadius,
+      paddingRight,
+      marginBottom,
+      paddingBottom,
+      borderTopColor,
+      justifyContent,
       borderTopWidth,
-      borderBottomColor,
-      borderBottomLeftRadius,
-      borderBottomRightRadius,
+      paddingVertical,
+      borderLeftWidth,
       borderLeftColor,
       borderRightColor,
-      borderStyle,
-      borderTopColor,
+      borderRightWidth,
+      borderColorTheme,
+      paddingHorizontal,
+      borderBottomColor,
+      borderBottomWidth,
       borderTopLeftRadius,
       borderTopRightRadius,
-      opacity,
-      maxHeight,
-      maxWidth,
-      minHeight,
-      minWidth,
+      color: backgroundColor,
+      borderBottomLeftRadius,
+      borderBottomRightRadius,
+      direction: flexDirection,
+      shadowConfig = {},
       style = {},
-      children,
-      colorTheme,
-      borderColorTheme,
       ...rest
-    } = props;
+    }: BlockProps,
+    ref: React.ForwardedRef<View>,
+  ) => {
+    // state
+    const theme = useTheme();
 
     const styleComponent = useMemo<StyleProp<ViewStyle>>(
       () => [
@@ -102,7 +102,6 @@ const BlockComponent = forwardRef(
           elevation: 5,
           ...shadowConfig,
         },
-
         propsToStyle([
           { margin },
           { marginLeft },
@@ -224,4 +223,3 @@ const BlockComponent = forwardRef(
     );
   },
 );
-export const Block = memo(BlockComponent, isEquals);

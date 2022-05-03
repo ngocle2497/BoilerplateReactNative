@@ -1,7 +1,6 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
-import equals from 'react-fast-compare';
 import Animated, {
   Extrapolate,
   useAnimatedStyle,
@@ -13,26 +12,24 @@ import {
   useMix,
   useSharedTransition,
 } from '@animated';
-import { onCheckType } from '@common';
+import { invoke } from '@common';
 
+import {
+  BORDER_OFF_COLOR,
+  BORDER_RADIUS_ANDROID,
+  MARGIN,
+  OFF_COLOR,
+  OFF_POSITION_ANDROID,
+  OFF_TRACK_COLOR,
+  ON_COLOR,
+  ON_POSITION_ANDROID,
+  ON_TRACK_COLOR,
+  SHADOW_COLOR,
+  THUMB_SIZE_ANDROID,
+  TRACK_HEIGHT,
+  WIDTH,
+} from './constants';
 import { SwitchProps } from './type';
-
-// dimensions
-const THUMB_SIZE = 20;
-const TRACK_HEIGHT = 16;
-const WIDTH = 28;
-const MARGIN = 2;
-const OFF_POSITION = -THUMB_SIZE / 3;
-const ON_POSITION = WIDTH - THUMB_SIZE * 0.75;
-const BORDER_RADIUS = (THUMB_SIZE * 3) / 4;
-
-// colors
-const ON_COLOR = '#34C759';
-const ON_TRACK_COLOR = 'rgba(52, 199, 89, 0.4)';
-const OFF_TRACK_COLOR = 'rgba(0, 0, 0, 0.3)';
-const OFF_COLOR = '#e6e6e6';
-const BORDER_OFF_COLOR = 'rgba(0, 0, 0, 0.05)';
-const SHADOW_COLOR = 'rgba(0, 0, 0, 0.3)';
 
 const styles = StyleSheet.create({
   wrap: {
@@ -41,17 +38,17 @@ const styles = StyleSheet.create({
   track: {
     width: WIDTH,
     height: TRACK_HEIGHT,
-    borderRadius: BORDER_RADIUS,
+    borderRadius: BORDER_RADIUS_ANDROID,
     borderWidth: MARGIN / 2,
     borderColor: BORDER_OFF_COLOR,
   },
   thumb: {
     position: 'absolute',
-    width: THUMB_SIZE,
-    top: -(THUMB_SIZE - TRACK_HEIGHT + MARGIN) / 2,
-    height: THUMB_SIZE,
+    width: THUMB_SIZE_ANDROID,
+    top: -(THUMB_SIZE_ANDROID - TRACK_HEIGHT + MARGIN) / 2,
+    height: THUMB_SIZE_ANDROID,
     borderColor: BORDER_OFF_COLOR,
-    borderRadius: THUMB_SIZE / 2,
+    borderRadius: THUMB_SIZE_ANDROID / 2,
     backgroundColor: '#FFFFFF',
     shadowColor: SHADOW_COLOR,
     shadowOffset: { width: 1, height: 2 },
@@ -61,11 +58,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const SwitchComponent = ({
-  onToggle,
-  initialValue = false,
-  disable = false,
+export const Switch = ({
   value: overwriteValue,
+  onToggle,
+  disable = false,
+  initialValue = false,
 }: Omit<SwitchProps, 'type'>) => {
   // state
   const [value, setValue] = useState<boolean>(initialValue);
@@ -76,7 +73,7 @@ const SwitchComponent = ({
   const translateX = useInterpolate(
     progress,
     [0, 1],
-    [OFF_POSITION, ON_POSITION],
+    [OFF_POSITION_ANDROID, ON_POSITION_ANDROID],
     Extrapolate.CLAMP,
   );
   const backgroundTrackColor = useInterpolateColor(
@@ -91,15 +88,11 @@ const SwitchComponent = ({
   );
 
   // function
-  const toggle = useCallback(() => {
+  const _onToggle = useCallback(() => {
     if (typeof overwriteValue === 'boolean') {
-      if (onCheckType(onToggle, 'function')) {
-        onToggle && onToggle(!overwriteValue);
-      }
+      invoke(onToggle, overwriteValue);
     } else {
-      if (onCheckType(onToggle, 'function')) {
-        onToggle && onToggle(!value);
-      }
+      invoke(onToggle, !value);
       setValue(v => !v);
     }
   }, [onToggle, overwriteValue, value]);
@@ -121,7 +114,7 @@ const SwitchComponent = ({
   // render
   return (
     <Animated.View style={[styles.wrap, wrapAnimatedStyle]}>
-      <TouchableWithoutFeedback disabled={disable} onPress={toggle}>
+      <TouchableWithoutFeedback disabled={disable} onPress={_onToggle}>
         <Animated.View style={[styles.track, animatedTrackStyle]}>
           <Animated.View style={[styles.thumb, animatedThumbStyle]} />
         </Animated.View>
@@ -129,4 +122,3 @@ const SwitchComponent = ({
     </Animated.View>
   );
 };
-export const Switch = memo(SwitchComponent, equals);

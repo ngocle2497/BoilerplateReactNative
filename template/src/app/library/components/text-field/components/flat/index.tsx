@@ -1,11 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import {
   LayoutChangeEvent,
   NativeSyntheticEvent,
@@ -35,32 +29,32 @@ const ERROR_COLOR = 'rgb(214,45,32)';
 export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
   // props
   const {
-    defaultValue,
     label,
     labelTx,
-    placeholder,
-    placeholderT18n,
-    placeholderColor = UN_ACTIVE_COLOR,
-    trigger,
+    rxRemove,
     nameTrigger,
-    inputStyle: inputStyleOverwrite = {},
-    errorBorderColor = ERROR_COLOR,
-    errorLabelColor = ERROR_COLOR,
-    disabledLabelColor = UN_ACTIVE_COLOR,
-    activeTintBorderColor = ACTIVE_COLOR,
-    activeTintLabelColor = ACTIVE_COLOR,
-    unActiveTintBorderColor = UN_ACTIVE_COLOR,
-    unActiveTintLabelColor = UN_ACTIVE_COLOR,
-    disabledBorderColor = UN_ACTIVE_COLOR,
-    disabled = false,
+    placeholder,
+    defaultValue,
+    placeholderT18n,
     error = undefined,
+    disabled = false,
+    inputStyle: inputStyleOverwrite = {},
     rightChildren = undefined,
     containerStyle: containerStyleOverwrite = {},
-    onChangeText,
-    onFocus,
+    errorLabelColor = ERROR_COLOR,
+    errorBorderColor = ERROR_COLOR,
+    placeholderColor = UN_ACTIVE_COLOR,
+    disabledLabelColor = UN_ACTIVE_COLOR,
+    disabledBorderColor = UN_ACTIVE_COLOR,
+    activeTintLabelColor = ACTIVE_COLOR,
+    activeTintBorderColor = ACTIVE_COLOR,
+    unActiveTintLabelColor = UN_ACTIVE_COLOR,
+    unActiveTintBorderColor = UN_ACTIVE_COLOR,
     onBlur,
+    trigger,
+    onFocus,
     onSubmit,
-    rxRemove,
+    onChangeText,
     ...rest
   } = props;
 
@@ -111,49 +105,40 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
   });
 
   // function
-  const onLayoutContainerInput = useCallback((e: LayoutChangeEvent) => {
+  const onLayoutContainerInput = (e: LayoutChangeEvent) => {
     setHeightContainerInput(e.nativeEvent.layout.height);
-  }, []);
+  };
 
-  const _onFocus = useCallback(
-    (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-      if (onCheckType(onFocus, 'function')) {
-        onFocus(e);
-      }
-      setFocused(true);
-    },
-    [onFocus],
-  );
+  const _onFocus = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+    if (onCheckType(onFocus, 'function')) {
+      onFocus(e);
+    }
+    setFocused(true);
+  };
 
-  const _onBlur = useCallback(
-    (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-      if (onCheckType(onBlur, 'function')) {
-        onBlur(e);
-      }
-      setFocused(false);
-    },
-    [onBlur],
-  );
+  const _onBlur = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+    if (onCheckType(onBlur, 'function')) {
+      onBlur(e);
+    }
+    setFocused(false);
+  };
 
-  const _onChangeText = useCallback(
-    (text: string) => {
-      const actualText =
-        rxRemove !== undefined ? text.replace(rxRemove, '') : text;
-      setValue(actualText);
-      if (onCheckType(onChangeText, 'function')) {
-        onChangeText(actualText);
-      }
-      if (
-        onCheckType(trigger, 'function') &&
-        onCheckType(nameTrigger, 'string')
-      ) {
-        setTimeout(() => {
-          trigger(nameTrigger);
-        }, 0);
-      }
-    },
-    [nameTrigger, onChangeText, rxRemove, trigger],
-  );
+  const _onChangeText = (text: string) => {
+    const actualText =
+      rxRemove !== undefined ? text.replace(rxRemove, '') : text;
+    setValue(actualText);
+    if (onCheckType(onChangeText, 'function')) {
+      onChangeText(actualText);
+    }
+    if (
+      onCheckType(trigger, 'function') &&
+      onCheckType(nameTrigger, 'string')
+    ) {
+      setTimeout(() => {
+        trigger(nameTrigger);
+      }, 0);
+    }
+  };
 
   // effect
   useEffect(() => {

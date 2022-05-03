@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import {
   StatusBar,
   useWindowDimensions,
@@ -7,7 +7,6 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import isEqual from 'react-fast-compare';
 import Animated from 'react-native-reanimated';
 import {
   Edge,
@@ -42,87 +41,89 @@ const getEdges = (
   return actualEdges;
 };
 
-const Inset = memo(
-  ({ color, height, width, bottom, left, right, top }: InsetProps) => {
-    // state
-    const style = useMemo<ViewStyle>(
-      () => ({
-        backgroundColor: color,
-        width,
-        height,
-        top,
-        left,
-        bottom,
-        right,
-      }),
-      [bottom, color, height, left, right, top, width],
-    );
-    // render
-    return <View style={[styles.insets, style]} />;
-  },
-  isEqual,
-);
+const Inset = ({
+  color,
+  height,
+  width,
+  bottom,
+  left,
+  right,
+  top,
+}: InsetProps) => {
+  // state
+  const style = useMemo<ViewStyle>(
+    () => ({
+      backgroundColor: color,
+      width,
+      height,
+      top,
+      left,
+      bottom,
+      right,
+    }),
+    [bottom, color, height, left, right, top, width],
+  );
+  // render
+  return <View style={[styles.insets, style]} />;
+};
 
-const InsetComponent = memo(
-  ({
-    edges,
-    bottomInsetColor,
-    hiddenStatusBar,
-    leftInsetColor,
-    rightInsetColor,
-    statusColor,
-    unsafe,
-    statusBarStyle,
-  }: InsetComponentProps) => {
-    // state
-    const inset = useSafeAreaInsets();
-    const { width: screenWidth, height: screenHeight } = useWindowDimensions();
-    // render
-    return (
-      <>
-        <StatusBar
-          hidden={hiddenStatusBar}
-          backgroundColor={'transparent'}
-          translucent
-          barStyle={statusBarStyle || 'light-content'}
+const InsetComponent = ({
+  edges,
+  bottomInsetColor,
+  hiddenStatusBar,
+  leftInsetColor,
+  rightInsetColor,
+  statusColor,
+  unsafe,
+  statusBarStyle,
+}: InsetComponentProps) => {
+  // state
+  const inset = useSafeAreaInsets();
+  const { width: screenWidth, height: screenHeight } = useWindowDimensions();
+  // render
+  return (
+    <>
+      <StatusBar
+        hidden={hiddenStatusBar}
+        backgroundColor={'transparent'}
+        translucent
+        barStyle={statusBarStyle || 'light-content'}
+      />
+      {!unsafe && edges.includes('top') && (
+        <Inset
+          color={statusColor}
+          top={0}
+          height={inset.top}
+          width={screenWidth}
         />
-        {!unsafe && edges.includes('top') && (
-          <Inset
-            color={statusColor}
-            top={0}
-            height={inset.top}
-            width={screenWidth}
-          />
-        )}
-        {!unsafe && edges.includes('left') && (
-          <Inset
-            color={leftInsetColor}
-            left={0}
-            height={screenHeight}
-            width={inset.left}
-          />
-        )}
-        {!unsafe && edges.includes('right') && (
-          <Inset
-            color={rightInsetColor}
-            right={0}
-            height={screenHeight}
-            width={inset.right}
-          />
-        )}
-        {!unsafe && edges.includes('bottom') && (
-          <Inset
-            color={bottomInsetColor}
-            bottom={0}
-            height={inset.bottom}
-            width={screenWidth}
-          />
-        )}
-      </>
-    );
-  },
-  isEqual,
-);
+      )}
+      {!unsafe && edges.includes('left') && (
+        <Inset
+          color={leftInsetColor}
+          left={0}
+          height={screenHeight}
+          width={inset.left}
+        />
+      )}
+      {!unsafe && edges.includes('right') && (
+        <Inset
+          color={rightInsetColor}
+          right={0}
+          height={screenHeight}
+          width={inset.right}
+        />
+      )}
+      {!unsafe && edges.includes('bottom') && (
+        <Inset
+          color={bottomInsetColor}
+          bottom={0}
+          height={inset.bottom}
+          width={screenWidth}
+        />
+      )}
+    </>
+  );
+};
 
 function ScreenWithoutScrolling(
   Wrapper: React.ComponentType<ViewProps | SafeAreaViewProps>,
@@ -221,7 +222,7 @@ function ScreenWithScrolling(
   );
 }
 
-function ScreenComponent(props: ScreenProps) {
+export const Screen = (props: ScreenProps) => {
   // state
   const edges = useMemo<Edge[]>(
     () => getEdges(props.excludeEdges, props?.hiddenStatusBar ?? false),
@@ -241,5 +242,4 @@ function ScreenComponent(props: ScreenProps) {
   } else {
     return ScreenWithoutScrolling(Wrapper, { ...props, actualUnsafe, edges });
   }
-}
-export const Screen = memo(ScreenComponent, isEqual);
+};

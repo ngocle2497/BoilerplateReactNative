@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo } from 'react';
 import { Text, View } from 'react-native';
 
 import equals from 'react-fast-compare';
@@ -11,18 +11,18 @@ import { SelectItemProps } from './type';
 import { Button } from '../button';
 
 const SelectItemComponent = ({
-  index,
   item,
+  index,
+  textItemStyle,
   onPress,
   customItem,
-  textItemStyle,
 }: SelectItemProps) => {
   // function
-  const _onPress = useCallback(() => {
+  const _onPress = () => {
     if (onCheckType(onPress, 'function')) {
       onPress(item, index);
     }
-  }, [index, item, onPress]);
+  };
 
   // render
   return (
@@ -40,4 +40,5 @@ const SelectItemComponent = ({
     </Button>
   );
 };
+
 export const SelectItem = memo(SelectItemComponent, equals);

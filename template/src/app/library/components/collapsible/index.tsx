@@ -1,7 +1,6 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LayoutChangeEvent, LayoutRectangle, Text, View } from 'react-native';
 
-import isEqual from 'react-fast-compare';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedStyle,
@@ -13,10 +12,10 @@ import { sharedTiming, useSharedTransition } from '@animated';
 import { styles } from './styles';
 import { CollapsibleProps } from './type';
 
-const CollapsibleComponent = ({
+export const Collapsible = ({
+  children,
   renderContent,
   renderMasterView,
-  children,
 }: CollapsibleProps) => {
   // state
   const [measured, setMeasured] = useState<LayoutRectangle>({
@@ -32,13 +31,13 @@ const CollapsibleComponent = ({
   const height = useSharedValue(0);
 
   // function
-  const _onPress = useCallback(() => {
+  const onPress = () => {
     setIsShow(v => !v);
-  }, []);
+  };
 
-  const _onLayoutContent = useCallback((e: LayoutChangeEvent) => {
+  const onLayoutContent = (e: LayoutChangeEvent) => {
     setMeasured(e.nativeEvent.layout);
-  }, []);
+  };
 
   // reanimated style
   const contentStyle = useAnimatedStyle(() => ({
@@ -59,11 +58,11 @@ const CollapsibleComponent = ({
     <View>
       <Animated.View
         pointerEvents={'none'}
-        onLayout={_onLayoutContent}
+        onLayout={onLayoutContent}
         style={[styles.base, styles.hiddenView]}>
         {renderContent ? renderContent(progress) : children}
       </Animated.View>
-      <TouchableOpacity onPress={_onPress}>
+      <TouchableOpacity onPress={onPress}>
         {renderMasterView ? (
           renderMasterView(progress)
         ) : (
@@ -79,5 +78,3 @@ const CollapsibleComponent = ({
     </View>
   );
 };
-
-export const Collapsible = memo(CollapsibleComponent, isEqual);

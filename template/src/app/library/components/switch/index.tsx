@@ -1,12 +1,10 @@
-import React, { memo } from 'react';
-
-import isEqual from 'react-fast-compare';
+import React from 'react';
 
 import { Switch as SwitchAndroid } from './switch-android';
 import { Switch as SwitchIOS } from './switch-ios';
 import { SwitchProps } from './type';
 
-const SwitchComponent = (props: SwitchProps) => {
+export const Switch = (props: SwitchProps) => {
   // render
   return props.type === 'android' ? (
     <SwitchAndroid {...props} />
@@ -14,5 +12,3 @@ const SwitchComponent = (props: SwitchProps) => {
     <SwitchIOS {...props} />
   );
 };
-
-export const Switch = memo(SwitchComponent, isEqual);

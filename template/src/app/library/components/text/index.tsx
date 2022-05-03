@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import {
   Text as ReactNativeText,
   StyleProp,
@@ -6,7 +6,6 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import equals from 'react-fast-compare';
 import { useTranslation } from 'react-i18next';
 
 import { propsToStyle, sizeScale } from '@common';
@@ -21,29 +20,28 @@ const styles = StyleSheet.create({
   },
 });
 
-const TextComponent = (props: TextProps) => {
+export const Text = ({
+  t18n,
+  text,
+  flex,
+  color,
+  center,
+  children,
+  textAlign,
+  fontStyle,
+  lineHeight,
+  fontWeight,
+  colorTheme,
+  t18nOptions,
+  textTransform,
+  letterSpacing,
+  fontSize = 14,
+  fontFamily = 'primary',
+  style: styleOverride = {},
+  ...rest
+}: TextProps) => {
   // state
   const theme = useTheme();
-  const {
-    t18n,
-    t18nOptions,
-    text,
-    children,
-    flex,
-    fontSize = 14,
-    fontWeight,
-    fontFamily = 'primary',
-    color,
-    center,
-    textTransform,
-    textAlign,
-    fontStyle,
-    letterSpacing,
-    lineHeight,
-    colorTheme,
-    style: styleOverride = {},
-    ...rest
-  } = props;
   const [t] = useTranslation();
   const i18nText = useMemo(
     () => t18n && t(t18n, t18nOptions),
@@ -99,4 +97,3 @@ const TextComponent = (props: TextProps) => {
     </ReactNativeText>
   );
 };
-export const Text = memo(TextComponent, equals);

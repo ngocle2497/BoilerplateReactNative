@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 import isEqual from 'react-fast-compare';
@@ -10,18 +10,18 @@ import { Icon } from '../icon';
 
 const DropDownItemComponent = ({
   item,
-  onPressItem,
-  selected = false,
+  labelStyle,
   activeItemStyle,
   activeLabelStyle,
   containerStyleItem,
+  onPressItem,
   customTickIcon,
-  labelStyle,
+  selected = false,
 }: ItemProps) => {
   // function
-  const _onItemPress = useCallback(() => {
+  const _onItemPress = () => {
     onPressItem && item && onPressItem(item.value ?? '');
-  }, [item, onPressItem]);
+  };
 
   // render
   return (

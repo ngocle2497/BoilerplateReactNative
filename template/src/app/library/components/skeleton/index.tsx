@@ -1,7 +1,6 @@
-import React, { memo, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useWindowDimensions, View, ViewStyle } from 'react-native';
 
-import isEqual from 'react-fast-compare';
 import LinearGradient from 'react-native-linear-gradient';
 import Animated, {
   useAnimatedStyle,
@@ -16,7 +15,7 @@ import { BaseContent } from './base-content';
 import { styles } from './styles';
 import { SkeletonProps } from './type';
 
-const SkeletonComponent = ({
+export const Skeleton = ({
   children,
   overlayColor = 'rgba(113, 128, 147, 0.4)',
   linearColor = [
@@ -84,5 +83,3 @@ const SkeletonComponent = ({
     </MaskedView>
   );
 };
-
-export const Skeleton = memo(SkeletonComponent, isEqual);

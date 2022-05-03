@@ -1,7 +1,6 @@
-import React, { memo, useCallback, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Text, View } from 'react-native';
 
-import equals from 'react-fast-compare';
 import Animated, {
   Extrapolate,
   interpolate,
@@ -21,15 +20,15 @@ import { COLOR_BG, COLOR_FG, RADIUS, STROKE_WIDTH } from '../constant';
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
-export const ProgressCircleComponent = ({
+export const ProgressCircle = ({
   round,
+  progress,
+  textProgressStyle,
   bg = COLOR_BG,
   fg = COLOR_FG,
   radius = RADIUS,
-  progress,
   strokeWidth = STROKE_WIDTH,
   showTextProgress = true,
-  textProgressStyle,
 }: ProgressCircleProps) => {
   // state
   const strokeDasharray = useMemo(
@@ -48,7 +47,7 @@ export const ProgressCircleComponent = ({
   );
 
   // function
-  const renderText = useCallback(() => {
+  const renderText = () => {
     if (progress < 0) {
       return 0 + '';
     }
@@ -56,7 +55,7 @@ export const ProgressCircleComponent = ({
       return 100 + '';
     }
     return progress + '';
-  }, [progress]);
+  };
 
   // effect
   useEffect(() => {
@@ -102,4 +101,3 @@ export const ProgressCircleComponent = ({
     </View>
   );
 };
-export const ProgressCircle = memo(ProgressCircleComponent, equals);

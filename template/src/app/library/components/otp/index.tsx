@@ -1,50 +1,47 @@
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
-
-import equals from 'react-fast-compare';
 
 import { styles } from './styles';
 import { OtpProps } from './type';
 
 import { Spacer } from '../spacer';
 
-const OtpComponent = (props: OtpProps) => {
+export const Otp = ({
+  length,
+  textEntry,
+  onOtpValid,
+  onOtpInValid,
+  textStyle = {},
+  defaultOtp = '',
+  wrapInputStyle = {},
+  containerStyle = {},
+  wrapInputActiveStyle = {},
+  ...rest
+}: OtpProps) => {
   // state
-  const {
-    length,
-    defaultOtp = '',
-    onOtpValid,
-    onOtpInValid,
-    textEntry,
-    wrapInputActiveStyle = {},
-    wrapInputStyle = {},
-    containerStyle = {},
-    textStyle = {},
-    ...rest
-  } = props;
   const [otp, setOtp] = useState('');
   const _inputRef = useRef<TextInput>(null);
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   // function
-  const _onOtpChange = (text: string) => {
+  const onOtpChange = (text: string) => {
     const textTrim = text.trim().toString();
     if (textTrim.length <= length) {
       setOtp(text.trim().toString());
     }
   };
 
-  const _setFocus = () => {
+  const setFocus = () => {
     if (_inputRef.current) {
       _inputRef.current.focus();
     }
   };
 
-  const _onFocus = () => {
+  const onFocus = () => {
     setIsFocused(true);
   };
 
-  const _onBlur = () => {
+  const onBlur = () => {
     setIsFocused(false);
   };
 
@@ -67,17 +64,17 @@ const OtpComponent = (props: OtpProps) => {
 
   // render
   return (
-    <TouchableWithoutFeedback onPress={_setFocus}>
+    <TouchableWithoutFeedback onPress={setFocus}>
       <View style={[styles.wrap, styles.row, containerStyle]}>
         <TextInput
           ref={_inputRef}
           value={otp}
-          onFocus={_onFocus}
-          onBlur={_onBlur}
+          onFocus={onFocus}
+          onBlur={onBlur}
           autoCapitalize={'none'}
           autoFocus={false}
           underlineColorAndroid={'transparent'}
-          onChangeText={_onOtpChange}
+          onChangeText={onOtpChange}
           selectionColor={'transparent'}
           style={styles.input}
           {...rest}
@@ -116,4 +113,3 @@ const OtpComponent = (props: OtpProps) => {
     </TouchableWithoutFeedback>
   );
 };
-export const Otp = memo(OtpComponent, equals);

@@ -1,15 +1,11 @@
-import React, { memo, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
-
-import equals from 'react-fast-compare';
 
 import { sizeScale } from '@common';
 
 import { SpacerProps } from './type';
 
-const SpacerComponent = (props: SpacerProps) => {
-  const { height = 0, width = 0 } = props;
-
+export const Spacer = ({ height = 0, width = 0 }: SpacerProps) => {
   // style
   const actualStyle = useMemo<StyleProp<ViewStyle>>(
     () => ({
@@ -22,4 +18,3 @@ const SpacerComponent = (props: SpacerProps) => {
   // render
   return <View style={actualStyle} />;
 };
-export const Spacer = memo(SpacerComponent, equals);

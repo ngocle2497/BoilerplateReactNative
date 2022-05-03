@@ -1,27 +1,26 @@
 import React, { useCallback, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
-import equals from 'react-fast-compare';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 
 import { useMix, useSharedTransition } from '@animated';
-import { onCheckType } from '@common';
+import { invoke } from '@common';
 
 import { styles } from './styles';
 import { CheckboxProps } from './type';
 
 import { Text } from '../text';
 
-const CheckBoxComponent = ({
-  fillStyle,
-  onToggle,
-  outlineStyle: outlineStyleOverwrite,
-  style,
+export const CheckBox = ({
   text,
   t18n,
+  value,
+  style,
+  fillStyle,
+  outlineStyle: outlineStyleOverwrite,
+  onToggle,
   disable = false,
   initialValue = false,
-  value,
 }: CheckboxProps) => {
   // state
   const [localValue, setLocalValue] = useState<boolean>(initialValue);
@@ -32,13 +31,9 @@ const CheckBoxComponent = ({
   // function
   const onPress = useCallback(() => {
     if (typeof value === 'boolean') {
-      if (onCheckType(onToggle, 'function')) {
-        onToggle && onToggle(!value);
-      }
+      invoke(onToggle, !value);
     } else {
-      if (onCheckType(onToggle, 'function')) {
-        onToggle && onToggle(!localValue);
-      }
+      invoke(onToggle, !localValue);
       setLocalValue(v => !v);
     }
   }, [localValue, onToggle, value]);
@@ -65,4 +60,3 @@ const CheckBoxComponent = ({
     </TouchableOpacity>
   );
 };
-export const CheckBox = React.memo(CheckBoxComponent, equals);

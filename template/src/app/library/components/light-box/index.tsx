@@ -17,18 +17,6 @@ interface LightBoxProps {
   source: Source | number;
 }
 
-export type Measure = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  px: number;
-  py: number;
-  targetHeight: number;
-  targetWidth: number;
-  imageOpacity: Animated.SharedValue<number>;
-};
-
 const LightBoxComponent = ({ source }: LightBoxProps) => {
   // state
   const _refRoot = useRef<View>(null);

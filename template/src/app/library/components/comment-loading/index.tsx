@@ -1,7 +1,5 @@
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useWindowDimensions, View } from 'react-native';
-
-import isEqual from 'react-fast-compare';
 
 import { useAsyncState, useInterval } from '@hooks';
 
@@ -15,7 +13,7 @@ import { ItemComment } from './item-comment';
 import { styles } from './styles';
 import { CommentLoadingProps } from './type';
 
-const CommentLoadingComponent = ({
+export const CommentLoading = ({
   overlayColor = OVERLAY_COLOR,
 }: CommentLoadingProps) => {
   // state
@@ -30,14 +28,11 @@ const CommentLoadingComponent = ({
   );
 
   // function
-  const renderItem = useCallback(
-    (item: number) => {
-      return reRender ? null : (
-        <ItemComment overlayColor={overlayColor} key={item} index={item} />
-      );
-    },
-    [overlayColor, reRender],
-  );
+  const renderItem = (item: number) => {
+    return reRender ? null : (
+      <ItemComment overlayColor={overlayColor} key={item} index={item} />
+    );
+  };
 
   useInterval(() => {
     setReRender(
@@ -51,5 +46,3 @@ const CommentLoadingComponent = ({
   // render
   return <View style={[styles.wrap]}>{listItem.map(renderItem)}</View>;
 };
-
-export const CommentLoading = memo(CommentLoadingComponent, isEqual);
