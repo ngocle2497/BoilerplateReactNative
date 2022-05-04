@@ -6,7 +6,7 @@ import FastImage, { OnLoadEvent } from 'react-native-fast-image';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 
 import { useSharedTransition } from '@animated';
-import { invoke, onCheckType } from '@common';
+import { execFunc, onCheckType } from '@common';
 import { useAsyncState, useMounted } from '@hooks';
 
 import { styles } from './styles';
@@ -39,7 +39,7 @@ const ImageComponent = ({
   // function
   const onLoadImageStart = () => {
     setError(false);
-    invoke(onLoadStart);
+    execFunc(onLoadStart);
   };
 
   const onLoadThumbSucceeded = () => {
@@ -51,12 +51,12 @@ const ImageComponent = ({
       setError(false);
       setLoadSucceeded(true);
     }, 200);
-    invoke(onLoad, event);
+    execFunc(onLoad, event);
   };
 
   const onLoadError = () => {
     setError(true);
-    invoke(onError);
+    execFunc(onError);
   };
 
   // reanimated style

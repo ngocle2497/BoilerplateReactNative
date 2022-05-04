@@ -8,7 +8,7 @@ import {
   useInterpolateColor,
   useSharedTransition,
 } from '@animated';
-import { invoke } from '@common';
+import { execFunc } from '@common';
 
 import { ACTIVE_COLOR, SIZE, STROKE_WIDTH, UN_ACTIVE_COLOR } from './constants';
 import { styles } from './styles';
@@ -37,9 +37,9 @@ export const RadioButton = ({
   // function
   const onPress = () => {
     if (typeof value === 'boolean') {
-      invoke(onToggle, !value);
+      execFunc(onToggle, !value);
     } else {
-      invoke(onToggle, !localValue);
+      execFunc(onToggle, !localValue);
       setLocalValue(v => !v);
     }
   };

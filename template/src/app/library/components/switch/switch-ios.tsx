@@ -12,7 +12,7 @@ import {
   useMix,
   useSharedTransition,
 } from '@animated';
-import { invoke } from '@common';
+import { execFunc } from '@common';
 
 import {
   BORDER_OFF_COLOR,
@@ -77,9 +77,9 @@ export const Switch = ({
   // function
   const _onToggle = useCallback(() => {
     if (typeof overwriteValue === 'boolean') {
-      invoke(onToggle, overwriteValue);
+      execFunc(onToggle, overwriteValue);
     } else {
-      invoke(onToggle, !value);
+      execFunc(onToggle, !value);
       setValue(v => !v);
     }
   }, [onToggle, overwriteValue, value]);

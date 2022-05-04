@@ -55,7 +55,7 @@ export const propsToStyle = <T = Record<string, number | string>>(
     }, {} as Record<string, number | string>);
 };
 
-export const invoke = <Fn extends (...args: any[]) => any>(
+export const execFunc = <Fn extends (...args: any[]) => any>(
   func?: Fn,
   ...args: Parameters<Fn>
 ) => {

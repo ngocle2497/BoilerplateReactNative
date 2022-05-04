@@ -4,7 +4,7 @@ import { TouchableOpacity, View } from 'react-native';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 
 import { useMix, useSharedTransition } from '@animated';
-import { invoke } from '@common';
+import { execFunc } from '@common';
 
 import { styles } from './styles';
 import { CheckboxProps } from './type';
@@ -31,9 +31,9 @@ export const CheckBox = ({
   // function
   const onPress = useCallback(() => {
     if (typeof value === 'boolean') {
-      invoke(onToggle, !value);
+      execFunc(onToggle, !value);
     } else {
-      invoke(onToggle, !localValue);
+      execFunc(onToggle, !localValue);
       setLocalValue(v => !v);
     }
   }, [localValue, onToggle, value]);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, RefreshControl } from 'react-native';
 
-import { invoke } from '@common';
+import { execFunc } from '@common';
 
 import { ListViewProps } from './type';
 
@@ -18,7 +18,7 @@ export const ListView = (props: ListViewProps) => {
   // function
   const loadMore = () => {
     if (canLoadMore) {
-      invoke(onLoadMore);
+      execFunc(onLoadMore);
     }
   };
 

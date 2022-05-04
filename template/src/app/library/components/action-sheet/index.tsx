@@ -8,7 +8,7 @@ import { Text, View } from 'react-native';
 
 import { useTranslation } from 'react-i18next';
 
-import { invoke } from '@common';
+import { execFunc } from '@common';
 
 import { styles } from './styles';
 import { ActionSheetProps, OptionData } from './type';
@@ -66,7 +66,7 @@ export const ActionSheet = forwardRef((props: ActionSheetProps, ref) => {
   }, [onPressCancel]);
 
   const onBackDropPress = useCallback(() => {
-    invoke(onBackDropPressOverwrite);
+    execFunc(onBackDropPressOverwrite);
     if (closeOnBackDropPress) {
       setActionVisible(false);
     }
