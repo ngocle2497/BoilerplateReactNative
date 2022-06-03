@@ -147,25 +147,6 @@ import {<function_name>} from "@common"
     const fixedImage = await fixRotation(image: Image); 
     ```
 
-- MMKVStorage
-
-```tsx
-type MMKVOption = {
-  id: string;
-  cryptKey: string;
-};
-const res: boolean = await MMKVStorage.setString(key: string, value: string, option?: MMKVOption)
-const res: boolean = await MMKVStorage.setNumber(key: string, value: number, option?: MMKVOption)
-const res: boolean = await MMKVStorage.setBoolean(key: string, value: boolean, option?: MMKVOption)
-const res: string | null  = await MMKVStorage.getString(key: string, option?: MMKVOption)
-const res: number  = await MMKVStorage.getNumber(key: string, option?: MMKVOption)
-const res: boolean  = await MMKVStorage.getBoolean(key: string, option?: MMKVOption)
-const res: Array<string>  = await MMKVStorage.getAllKeys(option?: MMKVOption)
-const res: boolean  = await MMKVStorage.clearAll(option?: MMKVOption)
-const res: boolean  = await MMKVStorage.delete(key: string, option?: MMKVOption)
-
-```
-
 - registerPhotosChanges : Register photos changes (IOS) (1)
 
     ```tsx
