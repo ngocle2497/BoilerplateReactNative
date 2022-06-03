@@ -19,6 +19,7 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.uimanager.ViewManagerRegistry;
+import com.helloworld.AppModule.AppTurboModulePackage;
 import com.helloworld.BuildConfig;
 import com.helloworld.newarchitecture.components.MainComponentsRegistry;
 import com.helloworld.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
@@ -49,6 +50,7 @@ public class MainApplicationReactNativeHost extends ReactNativeHost {
     //     packages.add(new MyReactNativePackage());
     // TurboModules must also be loaded here providing a valid TurboReactPackage implementation:
     //     packages.add(new TurboReactPackage() { ... });
+    packages.add(new AppTurboModulePackage());
     // If you have custom Fabric Components, their ViewManagers should also be loaded here
     // inside a ReactPackage.
     return packages;

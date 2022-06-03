@@ -16,6 +16,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
+import com.facebook.react.module.annotations.ReactModule;
 import com.helloworld.AppModule.deviceInfo.DeviceInfo;
 import com.helloworld.AppModule.fileHelper.FileManager;
 import com.helloworld.AppModule.imageHelper.ImageResizer;
@@ -23,7 +24,9 @@ import com.helloworld.AppModule.notificationHelper.NotificationHelper;
 import com.helloworld.AppModule.storage.MMKVStorage;
 import java.io.IOException;
 
+@ReactModule(name = AppModule.NAME)
 public class AppModule extends ReactContextBaseJavaModule {
+    public   static final String NAME = "AppModule";
     private final ReactApplicationContext reactContext;
     private DeviceInfo mDeviceInfo;
     private FileManager mFileManager;
@@ -44,7 +47,7 @@ public class AppModule extends ReactContextBaseJavaModule {
     @NonNull
     @Override
     public String getName() {
-        return "AppModule";
+        return NAME;
     }
 
     @ReactMethod(isBlockingSynchronousMethod = true)

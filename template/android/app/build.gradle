@@ -1,9 +1,9 @@
 apply plugin: "com.android.application"
 project.ext.envConfigFiles = [
-        devDebug: 'env/.dev',
-        devRelease: 'env/.dev',
+        devDebug   : 'env/.dev',
+        devRelease : 'env/.dev',
 
-        prodDebug: 'env/.prod',
+        prodDebug  : 'env/.prod',
         prodRelease: 'env/.prod',
 ]
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
@@ -86,7 +86,7 @@ import org.apache.tools.ant.taskdefs.condition.Os
  */
 
 project.ext.react = [
-    enableHermes: true,  // clean and rebuild if changing
+        enableHermes: true,  // clean and rebuild if changing
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -140,7 +140,7 @@ android {
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
-flavorDimensions 'default'
+    flavorDimensions 'default'
 
     productFlavors {
         dev {
@@ -175,12 +175,12 @@ flavorDimensions 'default'
             externalNativeBuild {
                 ndkBuild {
                     arguments "APP_PLATFORM=android-21",
-                        "APP_STL=c++_shared",
-                        "NDK_TOOLCHAIN_VERSION=clang",
-                        "GENERATED_SRC_DIR=$buildDir/generated/source",
-                        "PROJECT_BUILD_DIR=$buildDir",
-                        "REACT_ANDROID_DIR=$rootDir/../node_modules/react-native/ReactAndroid",
-                        "REACT_ANDROID_BUILD_DIR=$rootDir/../node_modules/react-native/ReactAndroid/build"
+                            "APP_STL=c++_shared",
+                            "NDK_TOOLCHAIN_VERSION=clang",
+                            "GENERATED_SRC_DIR=$buildDir/generated/source",
+                            "PROJECT_BUILD_DIR=$buildDir",
+                            "REACT_ANDROID_DIR=$rootDir/../node_modules/react-native/ReactAndroid",
+                            "REACT_ANDROID_BUILD_DIR=$rootDir/../node_modules/react-native/ReactAndroid/build"
                     cFlags "-Wall", "-Werror", "-fexceptions", "-frtti", "-DWITH_INSPECTOR=1"
                     cppFlags "-std=c++17"
                     // Make sure this target name is the same you specify inside the
@@ -195,7 +195,7 @@ flavorDimensions 'default'
             }
             if (!enableSeparateBuildPerCPUArchitecture) {
                 ndk {
-                    abiFilters (*reactNativeArchitectures())
+                    abiFilters(*reactNativeArchitectures())
                 }
             }
         }
@@ -223,22 +223,33 @@ flavorDimensions 'default'
             // If you wish to add a custom TurboModule or component locally,
             // you should uncomment this line.
             // preBuild.dependsOn("generateCodegenArtifactsFromSchema")
-            preDebugBuild.dependsOn(packageReactNdkDebugLibs)
-            preReleaseBuild.dependsOn(packageReactNdkReleaseLibs)
+            
+            android.applicationVariants.all { def variant ->
+        def variantName = variant.name.capitalize()
+        def preVariantBuildTask = tasks.findByName("pre${variantName}Build")
 
-            // Due to a bug inside AGP, we have to explicitly set a dependency
-            // between configureNdkBuild* tasks and the preBuild tasks.
-            // This can be removed once this is solved: https://issuetracker.google.com/issues/207403732
-            configureNdkBuildRelease.dependsOn(preReleaseBuild)
-            configureNdkBuildDebug.dependsOn(preDebugBuild)
+        // Due to a bug inside AGP, we have to explicitly set a dependency
+        // between configureNdkBuild* tasks and the preBuild tasks.
+        // This can be removed once this is solved: https://issuetracker.google.com/issues/207403732
+        if (variantName.endsWith("Debug")) {
+            preVariantBuildTask.dependsOn(packageReactNdkDebugLibs)
+            configureNdkBuildDebug.dependsOn(preVariantBuildTask)
             reactNativeArchitectures().each { architecture ->
                 tasks.findByName("configureNdkBuildDebug[${architecture}]")?.configure {
-                    dependsOn("preDebugBuild")
-                }
-                tasks.findByName("configureNdkBuildRelease[${architecture}]")?.configure {
-                    dependsOn("preReleaseBuild")
+                    dependsOn(preVariantBuildTask.name)
                 }
             }
+        }
+        if (variantName.endsWith("Release")) {
+            preVariantBuildTask.dependsOn(packageReactNdkReleaseLibs)
+            configureNdkBuildRelease.dependsOn(preVariantBuildTask)
+            reactNativeArchitectures().each { architecture ->
+                tasks.findByName("configureNdkBuildRelease[${architecture}]")?.configure {
+                    dependsOn(preVariantBuildTask.name)
+                }
+            }
+        }
+    }
         }
     }
 
@@ -247,7 +258,7 @@ flavorDimensions 'default'
             reset()
             enable enableSeparateBuildPerCPUArchitecture
             universalApk false  // If true, also generate a universal APK
-            include (*reactNativeArchitectures())
+            include(*reactNativeArchitectures())
         }
     }
     signingConfigs {
@@ -298,16 +309,16 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.fbjni'
+        exclude group: 'com.facebook.fbjni'
     }
 
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.flipper'
-        exclude group:'com.squareup.okhttp3', module:'okhttp'
+        exclude group: 'com.facebook.flipper'
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     }
 
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.flipper'
+        exclude group: 'com.facebook.flipper'
     }
 
     if (enableHermes) {
