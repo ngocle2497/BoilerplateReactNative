@@ -12,6 +12,7 @@ import { propsToStyle, sizeScale } from '@common';
 import { useTheme } from '@theme';
 import { FontDefault } from '@theme/typography';
 
+import { textPresets } from './preset';
 import { TextProps } from './type';
 
 const styles = StyleSheet.create({
@@ -35,6 +36,7 @@ export const Text = ({
   t18nOptions,
   textTransform,
   letterSpacing,
+  preset = 'default',
   fontSize = 14,
   fontFamily = 'primary',
   style: styleOverride = {},
@@ -55,6 +57,7 @@ export const Text = ({
   const styleComponent = useMemo<StyleProp<ViewStyle>>(
     () => [
       [
+        textPresets[preset],
         flex === true && styles.flex,
         { fontSize: sizeScale(fontSize) },
         { fontFamily: FontDefault[fontFamily] },

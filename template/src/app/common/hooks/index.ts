@@ -417,16 +417,6 @@ function useAsyncState<T>(
   return [state, _setState];
 }
 
-type Init<T> = () => T;
-function useConst<T>(init: Init<T>) {
-  const ref = useRef<T | null>(null);
-
-  if (ref.current === null) {
-    ref.current = init();
-  }
-
-  return ref.current;
-}
 
 function useUnMount(callback: () => void) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -536,16 +526,6 @@ function useMounted(callback: () => void, deps: any[] = []) {
   }, [...deps]);
 }
 
-function useIsMounted() {
-  const isMountedRef = useRef<boolean | null>(null);
-  useEffect(() => {
-    isMountedRef.current = true;
-    return () => {
-      isMountedRef.current = false;
-    };
-  }, []);
-  return isMountedRef;
-}
 
 function useMessageYupTranslation(msg?: string) {
   const [t] = useTranslation();
@@ -616,7 +596,6 @@ const useEventCallback = <Fn extends (...args: any[]) => ReturnType<Fn>>(
 
 export {
   useMessageYupTranslation,
-  useIsMounted,
   useDisableBackHandler,
   useDismissKeyboard,
   useInterval,
@@ -630,7 +609,6 @@ export {
   useSetState,
   useStyle,
   useAsyncState,
-  useConst,
   useUnMount,
   useForceUpdate,
   useAnimatedState,

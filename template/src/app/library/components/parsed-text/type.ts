@@ -7,9 +7,12 @@ export type ParsedText = { children: string; _matched?: boolean };
 export type ParsedTexts = Array<ParsedText>;
 export type CustomTextProps = CustomOmit<
   TextProps,
-  'tx' | 'txOptions' | 'children' | 'text' | 'onPress' | 'onLongPress'
+  't18n' | 't18nOptions' | 'children' | 'text' | 'onPress' | 'onLongPress'
 >;
-export type MatchedPart = CustomOmit<TextProps, 'tx' | 'txOptions' | 'text'> & {
+export type MatchedPart = CustomOmit<
+  TextProps,
+  't18n' | 't18nOptions' | 'text'
+> & {
   _matched: boolean;
 };
 export type Pattern = {
