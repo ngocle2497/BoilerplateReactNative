@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 import { Colors } from '@theme';
+import { I18nKeys } from '@utils/i18n/locales';
 
 import { ButtonPresetNames } from './preset';
 
@@ -15,7 +16,7 @@ export interface ButtonProps extends TouchableOpacityProps {
    * Text which is looked up via i18n.
    * @default undefined
    */
-  t18n?: string;
+  t18n?: I18nKeys;
 
   /**
    * Using text instead i18n

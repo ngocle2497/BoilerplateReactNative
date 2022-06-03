@@ -22,7 +22,6 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		840B4DAC284A7BF50095EB28 /* AppModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 840B4DAB284A7BF50095EB28 /* AppModule.mm */; };
 		840B4DAE284A7C120095EB28 /* AppModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B4DAD284A7C120095EB28 /* AppModule.swift */; };
-		840B4DB0284A7C250095EB28 /* MMKKVStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B4DAF284A7C250095EB28 /* MMKKVStorage.swift */; };
 		84A05207284A6983006E9CDE /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A05205284A6983006E9CDE /* BootSplash.storyboard */; };
 		84A0520D284A6BB2006E9CDE /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 84A0520C284A6BB2006E9CDE /* Config.xcconfig */; };
 /* End PBXBuildFile section */
@@ -57,7 +56,6 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = HelloWorld/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		840B4DAB284A7BF50095EB28 /* AppModule.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppModule.mm; path = HelloWorld/AppModule.mm; sourceTree = "<group>"; };
 		840B4DAD284A7C120095EB28 /* AppModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModule.swift; sourceTree = "<group>"; };
-		840B4DAF284A7C250095EB28 /* MMKKVStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMKKVStorage.swift; sourceTree = "<group>"; };
 		84A05204284A6969006E9CDE /* HelloWorld-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HelloWorld-Bridging-Header.h"; sourceTree = "<group>"; };
 		84A05205284A6983006E9CDE /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = HelloWorld/BootSplash.storyboard; sourceTree = "<group>"; };
 		84A0520C284A6BB2006E9CDE /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
@@ -183,7 +181,6 @@
 			children = (
 				840B4DAB284A7BF50095EB28 /* AppModule.mm */,
 				840B4DAD284A7C120095EB28 /* AppModule.swift */,
-				840B4DAF284A7C250095EB28 /* MMKKVStorage.swift */,
 			);
 			name = AppModule;
 			sourceTree = "<group>";
@@ -472,7 +469,6 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				840B4DAE284A7C120095EB28 /* AppModule.swift in Sources */,
 				840B4DAC284A7BF50095EB28 /* AppModule.mm in Sources */,
-				840B4DB0284A7C250095EB28 /* MMKKVStorage.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

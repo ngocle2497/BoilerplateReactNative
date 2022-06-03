@@ -4,6 +4,8 @@ import { StyleProp, TextInputProps, TextStyle, ViewStyle } from 'react-native';
 
 import { UseFormTrigger } from 'react-hook-form';
 
+import { I18nKeys } from '@utils/i18n/locales';
+
 export interface InputBaseProps extends TextInputProps {
   /**
    * Disable input or not
@@ -117,7 +119,7 @@ export interface InputBaseProps extends TextInputProps {
    * Placeholder of input using i18n
    * @default undefined
    */
-  placeholderT18n?: string;
+  placeholderT18n?: I18nKeys;
 
   /**
    * Placeholder of input

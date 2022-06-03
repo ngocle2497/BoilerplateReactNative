@@ -15,13 +15,7 @@ import UIKit
 class AppModule: RCTEventEmitter {
   private static var DefaultStringReturnType: String = "Unknown"
   private var PhotoChangeEvent: String = "PhotosChange"
-  private var mmkvStorage: MMKVStorage
-  
-  override init() {
-    mmkvStorage = MMKVStorage()
-    super.init()
-    
-  }
+
   @objc override static func requiresMainQueueSetup() -> Bool {
     return true
   }
@@ -150,87 +144,6 @@ class AppModule: RCTEventEmitter {
     })
   }
   
-  @objc
-  func mmkvSetString(
-    _ keyName: String, value: String, keyId: String?, cryptKey: String?,
-    resolver resolve: RCTPromiseResolveBlock,
-    rejecter reject: RCTPromiseRejectBlock
-  ) {
-    mmkvStorage.setValue(keyName, value, keyId, cryptKey)
-    resolve(true)
-  }
-  @objc
-  func mmkvSetNumber(
-    _ keyName: String, value: Double, keyId: String?, cryptKey: String?,
-    resolver resolve: RCTPromiseResolveBlock,
-    rejecter reject: RCTPromiseRejectBlock
-  ) {
-    mmkvStorage.setValue(keyName, value, keyId, cryptKey)
-    resolve(true)
-  }
-  @objc
-  func mmkvSetBoolean(
-    _ keyName: String, value: Bool, keyId: String?, cryptKey: String?,
-    resolver resolve: RCTPromiseResolveBlock,
-    rejecter reject: RCTPromiseRejectBlock
-  ) {
-    mmkvStorage.setValue(keyName, value, keyId, cryptKey)
-    resolve(true)
-  }
-  
-  @objc
-  func mmkvGetString(
-    _ keyName: String, keyId: String?, cryptKey: String?, resolver resolve: RCTPromiseResolveBlock,
-    rejecter reject: RCTPromiseRejectBlock
-  ) {
-    let result = mmkvStorage.getString(keyName, keyId, cryptKey)
-    resolve(result)
-  }
-  
-  @objc
-  func mmkvGetNumber(
-    _ keyName: String, keyId: String?, cryptKey: String?, resolver resolve: RCTPromiseResolveBlock,
-    rejecter reject: RCTPromiseRejectBlock
-  ) {
-    let result = mmkvStorage.getDouble(keyName, keyId, cryptKey)
-    resolve(result)
-  }
-  
-  @objc
-  func mmkvGetBoolean(
-    _ keyName: String, keyId: String?, cryptKey: String?, resolver resolve: RCTPromiseResolveBlock,
-    rejecter reject: RCTPromiseRejectBlock
-  ) {
-    let result = mmkvStorage.getBoolean(keyName, keyId, cryptKey)
-    resolve(result)
-  }
-  
-  @objc
-  func mmkvDelete(
-    _ keyName: String, keyId: String?, cryptKey: String?, resolver resolve: RCTPromiseResolveBlock,
-    rejecter reject: RCTPromiseRejectBlock
-  ) {
-    mmkvStorage.delete(keyName, keyId, cryptKey)
-    resolve(true)
-  }
-  
-  @objc
-  func mmkvGetAllKeys(
-    _  keyId: String?, cryptKey: String?, resolver resolve: RCTPromiseResolveBlock,
-    rejecter reject: RCTPromiseRejectBlock
-  ) {
-    let listKeys = mmkvStorage.getAllKeys(keyId, cryptKey)
-    let result = NSArray(array: listKeys)
-    resolve(result)
-  }
-  
-  @objc
-  func mmkvClearAll(_ keyId: String?, cryptKey: String?, resolver resolve: RCTPromiseResolveBlock,
-                    rejecter reject: RCTPromiseRejectBlock
-  ) {
-    mmkvStorage.clearAll( keyId, cryptKey)
-    resolve(true)
-  }
   
   @objc
   func setIQKeyboardOption(

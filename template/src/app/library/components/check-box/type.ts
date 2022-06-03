@@ -1,5 +1,7 @@
 import { StyleProp, ViewStyle } from 'react-native';
 
+import { I18nKeys } from '@utils/i18n/locales';
+
 export interface CheckboxProps {
   /**
    * Overwrite style for button
@@ -47,7 +49,7 @@ export interface CheckboxProps {
    * Key to using i18n
    * @default undefined
    */
-  t18n?: string;
+  t18n?: I18nKeys;
 
   /**
    * On change function

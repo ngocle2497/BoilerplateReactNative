@@ -6,7 +6,6 @@ install! 'cocoapods', :deterministic_uuids => false
 # dynamic_frameworks = ['libWantToUseUserFramework']
 target 'HelloWorld' do
   config = use_native_modules!
-  pod 'MMKV'
   pod 'IQKeyboardManagerSwift'
   # Flags change depending on the env values.
   flags = get_default_flags()

@@ -8,6 +8,7 @@ import {
 
 import { Colors } from '@theme';
 import { FontFamily } from '@theme/typography';
+import { I18nKeys } from '@utils/i18n/locales';
 
 import { TextPresetNames } from './preset';
 
@@ -44,7 +45,7 @@ export interface TextProps extends TextProperties {
    * Text which is looked up via i18n.
    * @default undefined
    */
-  t18n?: string;
+  t18n?: I18nKeys;
 
   /**
    * Option of i18n
