@@ -1,4 +1,4 @@
-import { Action, Dispatch, Middleware, MiddlewareAPI } from 'redux';
+import { Action, Dispatch, Middleware, MiddlewareAPI } from '@reduxjs/toolkit';
 
 import { onCheckType } from '../method/index';
 

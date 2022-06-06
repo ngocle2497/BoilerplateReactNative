@@ -1,7 +1,7 @@
 import { ApiConstants, NetWorkResponseType, NetWorkService } from '@networking';
 import { appActions, loginActions } from '@redux-slice';
+import { Action } from '@reduxjs/toolkit';
 import { call, put, takeLatest } from '@typed-redux-saga';
-import { Action } from 'redux';
 
 export function* loginSaga() {
   yield* takeLatest(loginActions.onLogin.type, onLogin);

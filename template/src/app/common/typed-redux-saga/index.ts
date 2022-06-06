@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { ActionMatchingPattern, Buffer, SagaIterator } from '@redux-saga/types';
-import { Action } from 'redux';
+import { Action } from '@reduxjs/toolkit';
 import {
   Channel,
   END,
