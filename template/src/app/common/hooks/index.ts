@@ -417,7 +417,6 @@ function useAsyncState<T>(
   return [state, _setState];
 }
 
-
 function useUnMount(callback: () => void) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   return useEffect(() => () => callback(), []);
@@ -526,7 +525,6 @@ function useMounted(callback: () => void, deps: any[] = []) {
   }, [...deps]);
 }
 
-
 function useMessageYupTranslation(msg?: string) {
   const [t] = useTranslation();
 
@@ -567,11 +565,11 @@ function useMessageYupTranslation(msg?: string) {
  * It will return previous value like usePrevious. first render will return undefined.
  * @example
  * This will render the previous value. don't use this:
- * ```tsx 
+ * ```tsx
  * const total = useEventCallback(() => state1 + state2)
  * <Text>{total()}</Text>
  * ```
- * 
+ *
  * Use this:
  * ```tsx
  * const [msg,setMsg] = useState('');
@@ -615,5 +613,5 @@ export {
   useMounted,
   useIsKeyboardShown,
   useDidMount,
-  useEventCallback
+  useEventCallback,
 };
