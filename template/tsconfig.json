@@ -42,6 +42,7 @@
       "@assets/*": ["./src/app/assets/*"],
       "@common": ["./src/app/common/index"],
       "@hooks": ["./src/app/common/hooks/index"],
+      "@listener": ["./src/app/common/redux/listener.ts"],
       "@typed-redux-saga": ["src/app/common/typed-redux-saga"],
       "@animated": ["./src/app/common/animated/index"],
       "@config/*": ["./src/app/config/*"],

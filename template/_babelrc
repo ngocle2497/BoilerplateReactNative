@@ -13,6 +13,7 @@
           "@assets": "./src/app/assets",
           "@common": "./src/app/common",
           "@hooks": "./src/app/common/hooks",
+          "@listener": "./src/app/common/redux/listener.ts",
           "@typed-redux-saga": "./src/app/common/typed-redux-saga",
           "@animated": "./src/app/common/animated",
           "@config": "./src/app/config",
