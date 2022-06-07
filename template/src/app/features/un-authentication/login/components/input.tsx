@@ -26,7 +26,7 @@ export const Input = <T extends Record<string, any>>({
   const { trigger, getValues } = useFormContext<FormLoginType>();
   const {
     field,
-    fieldState: { invalid, error },
+    fieldState: { error },
   } = useController({
     name: name as string,
     defaultValue,
@@ -39,7 +39,7 @@ export const Input = <T extends Record<string, any>>({
         ref={field.ref}
         nameTrigger={nameTrigger as string}
         trigger={trigger}
-        error={invalid}
+        error={error?.message !== undefined}
         label={label}
         onChangeText={field.onChange}
         onBlur={field.onBlur}
@@ -47,7 +47,11 @@ export const Input = <T extends Record<string, any>>({
         typeInput={'flat'}
         {...rest}
       />
-      <HelperText visible={invalid} msg={error?.message ?? ''} type={'error'} />
+      <HelperText
+        visible={error?.message !== undefined}
+        msg={error?.message ?? ''}
+        type={'error'}
+      />
     </>
   );
 };
