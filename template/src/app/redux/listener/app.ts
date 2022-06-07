@@ -9,7 +9,7 @@ import { loadString } from '@utils/storage';
 
 import { appActions } from '../action-slice/app';
 
-takeLatestListeners({
+takeLatestListeners()({
   actionCreator: appActions.onLoadApp,
   effect: async (_, listenerApi) => {
     const appTheme = loadString(STORAGE_KEY_APP_THEME);
