@@ -13,8 +13,9 @@
           "@assets": "./src/app/assets",
           "@common": "./src/app/common",
           "@hooks": "./src/app/common/hooks",
+          "@validate": "./src/app/common/yup-validate",
+          "@native-module": "./src/app/common/native-module",
           "@listener": "./src/app/common/redux/listener.ts",
-          "@typed-redux-saga": "./src/app/common/typed-redux-saga",
           "@animated": "./src/app/common/animated",
           "@config": "./src/app/config",
           "@features": "./src/app/features",
@@ -27,7 +28,6 @@
           "@store": "./src/app/redux/store",
           "@redux-slice": "./src/app/redux/action-slice",
           "@redux-action-type": "./src/app/redux/action-type",
-          "@saga": "./src/app/redux/saga",
           "@theme": "./src/app/themes",
           "@transition": "./src/app/transition"
         }

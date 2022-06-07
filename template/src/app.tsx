@@ -6,8 +6,9 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 
-import { AppModule, isIos } from '@common';
+import { isIos } from '@common';
 import { PortalProvider } from '@components';
+import { AppModule } from '@native-module';
 import { AppContainer } from '@navigation/app-navigation';
 import { store } from '@store/store';
 import I18n from '@utils/i18n/i18n';

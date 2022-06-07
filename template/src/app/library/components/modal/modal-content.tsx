@@ -24,8 +24,9 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { sharedClamp, sharedTiming } from '@animated';
-import { AppModule, CustomOmit, isIos, onCheckType } from '@common';
+import { CustomOmit, isIos, onCheckType } from '@common';
 import { useDisableBackHandler } from '@hooks';
+import { AppModule } from '@native-module';
 
 import {
   ANIMATED_IN_DURATION,

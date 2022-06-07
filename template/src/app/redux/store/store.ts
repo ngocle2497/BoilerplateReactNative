@@ -13,6 +13,7 @@ import { listenerMiddleware } from '../listener';
  *   allReducer,
  * );
  */
+
 const devMode = __DEV__;
 const middleware = [subscribeActionMiddleware];
 
@@ -20,7 +21,7 @@ export const store = configureStore({
   reducer: allReducer,
   devTools: devMode,
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware()
+    getDefaultMiddleware({ serializableCheck: false })
       .prepend(listenerMiddleware.middleware)
       .concat(middleware),
 });
