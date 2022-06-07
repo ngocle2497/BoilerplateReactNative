@@ -42,6 +42,7 @@
       "@assets/*": ["./src/app/assets/*"],
       "@common": ["./src/app/common/index"],
       "@hooks": ["./src/app/common/hooks/index"],
+      "@native-module": ["./src/app/common/native-module/index"],
       "@validate/*": ["./src/app/common/yup-validate/*"],
       "@listener": ["./src/app/common/redux/listener.ts"],
       "@animated": ["./src/app/common/animated/index"],
