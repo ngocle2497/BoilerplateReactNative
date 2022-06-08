@@ -175,7 +175,6 @@ import {<function_name>} from "@common"
 - [redux](http://redux.js.org)
 - [redux-listener-middleware](https://redux-toolkit.js.org/api/createListenerMiddleware)
 - [react-native-fast-image](https://github.com/DylanVann/react-native-fast-image#readme)
-- [mmkv](https://github.com/Tencent/MMKV)
 - [react-fast-compare](https://github.com/FormidableLabs/react-fast-compare)
 
     ... and more
