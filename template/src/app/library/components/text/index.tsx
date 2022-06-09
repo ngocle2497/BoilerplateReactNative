@@ -28,17 +28,17 @@ export const Text = ({
   color,
   center,
   children,
+  fontSize,
   textAlign,
   fontStyle,
   lineHeight,
+  fontFamily,
   fontWeight,
   colorTheme,
   t18nOptions,
   textTransform,
   letterSpacing,
   preset = 'default',
-  fontSize = 14,
-  fontFamily = 'primary',
   style: styleOverride = {},
   ...rest
 }: TextProps) => {
@@ -59,8 +59,8 @@ export const Text = ({
       [
         textPresets[preset],
         flex === true && styles.flex,
-        { fontSize: sizeScale(fontSize) },
-        { fontFamily: FontDefault[fontFamily] },
+        fontSize && { fontSize: sizeScale(fontSize) },
+        fontFamily && { fontFamily: FontDefault[fontFamily] },
         colorTheme && { color: theme.colors[colorTheme] },
         center && { textAlign: 'center' },
         propsToStyle([
