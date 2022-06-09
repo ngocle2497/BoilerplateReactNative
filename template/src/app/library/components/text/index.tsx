@@ -3,7 +3,7 @@ import {
   Text as ReactNativeText,
   StyleProp,
   StyleSheet,
-  ViewStyle,
+  TextStyle,
 } from 'react-native';
 
 import { useTranslation } from 'react-i18next';
@@ -32,8 +32,8 @@ export const Text = ({
   textAlign,
   fontStyle,
   lineHeight,
-  fontFamily,
   fontWeight,
+  fontFamily,
   colorTheme,
   t18nOptions,
   textTransform,
@@ -54,14 +54,14 @@ export const Text = ({
     [i18nText, text, children],
   );
 
-  const styleComponent = useMemo<StyleProp<ViewStyle>>(
+  const styleComponent = useMemo<StyleProp<TextStyle>>(
     () => [
       [
         textPresets[preset],
         flex === true && styles.flex,
-        fontSize && { fontSize: sizeScale(fontSize) },
-        fontFamily && { fontFamily: FontDefault[fontFamily] },
-        colorTheme && { color: theme.colors[colorTheme] },
+        fontSize !== undefined && { fontSize: sizeScale(fontSize) },
+        fontFamily !== undefined && { fontFamily: FontDefault[fontFamily] },
+        colorTheme !== undefined && { color: theme.colors[colorTheme] },
         center && { textAlign: 'center' },
         propsToStyle([
           { fontWeight },
