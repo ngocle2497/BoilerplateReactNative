@@ -6,6 +6,7 @@ import {
   TextStyle,
 } from 'react-native';
 
+import { NullableStyleProps } from '@common';
 import { Colors } from '@theme';
 import { FontFamily } from '@theme/typography';
 import { I18nKeys } from '@utils/i18n/locales';
@@ -29,11 +30,11 @@ type TextAlign = 'auto' | 'left' | 'right' | 'center' | 'justify';
 type TextTransform = 'none' | 'capitalize' | 'uppercase' | 'lowercase';
 
 export interface TextProps extends TextProperties {
-  fontStyle?: 'normal' | 'italic';
+  fontStyle?: NullableStyleProps<'normal' | 'italic'>;
 
-  letterSpacing?: number;
+  letterSpacing?: NullableStyleProps<number>;
 
-  lineHeight?: number;
+  lineHeight?: NullableStyleProps<number>;
 
   /**
    * Children of text
@@ -75,7 +76,7 @@ export interface TextProps extends TextProperties {
    * Overwrite font weight
    * @default undefined
    */
-  fontWeight?: FontWeight;
+  fontWeight?: NullableStyleProps<FontWeight>;
 
   /**
    * Overwrite font family
@@ -87,7 +88,7 @@ export interface TextProps extends TextProperties {
    * Using color
    * @default undefined
    */
-  color?: string;
+  color?: NullableStyleProps<string>;
 
   /**
    * Overwrite background color with theme
@@ -104,13 +105,13 @@ export interface TextProps extends TextProperties {
    * Overwrite textAlign
    * @default undefined
    */
-  textAlign?: TextAlign;
+  textAlign?: NullableStyleProps<TextAlign>;
 
   /**
    * Overwrite textTransform
    * @default undefined
    */
-  textTransform?: TextTransform;
+  textTransform?: NullableStyleProps<TextTransform>;
 
   /**
    * Overwrite style of text component
