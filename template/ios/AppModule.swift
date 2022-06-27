@@ -41,8 +41,8 @@ class AppModule: RCTEventEmitter {
   
   @objc
   func getVersion() -> String {
-    let appVerison = Bundle.main.infoDictionary?["CFBundleShortVersionString"]
-    return (appVerison ?? AppModule.DefaultStringReturnType) as! String
+    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"]
+    return (appVersion ?? AppModule.DefaultStringReturnType) as! String
   }
   
   @objc
@@ -68,7 +68,7 @@ class AppModule: RCTEventEmitter {
     let cacheURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
     let fileManager = FileManager.default
     do {
-      // Get the directory contents urls (including subfolders urls)
+      // Get the directory contents urls (including sub folders urls)
       let directoryContents = try FileManager.default.contentsOfDirectory(
         at: cacheURL, includingPropertiesForKeys: nil, options: [])
       for file in directoryContents {
