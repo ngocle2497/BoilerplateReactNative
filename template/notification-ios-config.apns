@@ -1,0 +1,10 @@
+{
+    "aps":{
+        "alert":"Test noti",
+        "sound":"default",
+        "badge":1
+    },
+    "key_data":"key_data",
+    "other_key_data":"key_data",
+    "gcm.message_id":"20021"
+}
