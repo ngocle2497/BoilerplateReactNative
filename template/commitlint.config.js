@@ -11,7 +11,7 @@ module.exports = {
       'never',
       ['sentence-case', 'start-case', 'pascal-case', 'upper-case'],
     ],
-    'scope-enum': [2, 'always', ['mobile', 'backend', 'frontend', 'docs']],
+    'scope-enum': [2, 'always', ['ios', 'android', 'all', 'docs']],
     'scope-empty': [2, 'never'],
     'subject-empty': [2, 'never'],
     'subject-full-stop': [2, 'never', '.'],

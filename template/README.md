@@ -44,6 +44,4 @@
 - Android [Source sets](https://developer.android.com/studio/build/build-variants#sourcesets)
 - IOS follow below step:
   - Create new App Icon assets
-  - Go to Target => Build Settings => Assets Catalog Compiler - Options
-  - Change Primary App Icon Set Name (App Icon assets name)
-  - This will change icon for current schema
+  - Change ASSETCATALOG_COMPILER_APPICON_NAME to your respective App Icon Assets (in respective env file)
