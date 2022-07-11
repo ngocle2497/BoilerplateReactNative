@@ -15,11 +15,11 @@ export const takeLatestListeners =
         listenerApi.cancelActiveListeners();
         await listenerApi.delay(15);
         if (withLoading) {
-          listenerApi.dispatch(appActions.onStartProcess());
+          listenerApi.dispatch(appActions.startProcess());
         }
         await startListeningOption.effect(action, listenerApi);
         if (withLoading) {
-          listenerApi.dispatch(appActions.onEndProcess());
+          listenerApi.dispatch(appActions.endProcess());
         }
       },
     });
@@ -32,11 +32,11 @@ export const takeLeadingListeners =
       effect: async (action, listenerApi) => {
         listenerApi.unsubscribe();
         if (withLoading) {
-          listenerApi.dispatch(appActions.onStartProcess());
+          listenerApi.dispatch(appActions.startProcess());
         }
         await startListeningOption.effect(action, listenerApi);
         if (withLoading) {
-          listenerApi.dispatch(appActions.onEndProcess());
+          listenerApi.dispatch(appActions.endProcess());
         }
         listenerApi.subscribe();
       },
@@ -52,11 +52,11 @@ export const debounceListeners =
         listenerApi.cancelActiveListeners();
         await listenerApi.delay(msDuration);
         if (withLoading) {
-          listenerApi.dispatch(appActions.onStartProcess());
+          listenerApi.dispatch(appActions.startProcess());
         }
         await startListeningOption.effect(action, listenerApi);
         if (withLoading) {
-          listenerApi.dispatch(appActions.onEndProcess());
+          listenerApi.dispatch(appActions.endProcess());
         }
       },
     });
@@ -70,11 +70,11 @@ export const throttleListeners =
       effect: async (action, listenerApi) => {
         listenerApi.unsubscribe();
         if (withLoading) {
-          listenerApi.dispatch(appActions.onStartProcess());
+          listenerApi.dispatch(appActions.startProcess());
         }
         await startListeningOption.effect(action, listenerApi);
         if (withLoading) {
-          listenerApi.dispatch(appActions.onEndProcess());
+          listenerApi.dispatch(appActions.endProcess());
         }
         await listenerApi.delay(msDuration);
         listenerApi.subscribe();

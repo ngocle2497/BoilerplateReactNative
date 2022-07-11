@@ -3,7 +3,6 @@ export type FormLoginType = {
   password: string;
 };
 
-export interface LoginState {
+export interface AuthenticationState {
   loading: boolean;
-  count: number;
 }

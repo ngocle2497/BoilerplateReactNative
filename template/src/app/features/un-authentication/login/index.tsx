@@ -27,7 +27,7 @@ import {
   Wallpaper,
 } from '@components';
 import { useAnimatedState } from '@hooks';
-import { FormLoginType } from '@model/login';
+import { FormLoginType } from '@model/authentication';
 import { appActions } from '@redux-slice';
 
 import { FormLogin } from './components/form-login';
@@ -45,7 +45,7 @@ const LoginComponent = () => {
 
   // function
   const onSubmit = (data: FormLoginType) => {
-    dispatch(appActions.onSetAppTheme('dark'));
+    dispatch(appActions.setAppTheme('dark'));
     Alert.alert(JSON.stringify(data));
   };
 

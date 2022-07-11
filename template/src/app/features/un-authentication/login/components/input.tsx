@@ -6,7 +6,7 @@ import { useController, useFormContext } from 'react-hook-form';
 import { CustomOmit } from '@common';
 import { HelperText, TextField } from '@components';
 import { InputFlatProps } from '@components/text-field/components/flat/type';
-import { FormLoginType } from '@model/login';
+import { FormLoginType } from '@model/authentication';
 
 interface InputProps<T extends Record<string, any>>
   extends CustomOmit<InputFlatProps, 'nameTrigger'>,

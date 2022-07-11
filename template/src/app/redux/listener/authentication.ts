@@ -2,10 +2,10 @@ import { handleErrorResponse } from '@common'
 import { takeLatestListeners } from '@listener';
 import { ApiConstants, NetWorkService } from '@networking';
 
-import { loginActions } from '../action-slice/login';
+import { authenticationActions } from '../action-slice/authentication';
 
 takeLatestListeners(true)({
-  actionCreator: loginActions.onLogin,
+  actionCreator: authenticationActions.login,
   effect: async (action, listenerApi) => {
     const { body } = action.payload;
     console.log({ body });

@@ -39,7 +39,7 @@ AxiosInstance.interceptors.response.use(
       if (newToken === null) {
         return Promise.reject(error);
       }
-      dispatch(appActions.onSetToken(newToken));
+      dispatch(appActions.setToken(newToken));
       originalRequest.headers[tokenKeyHeader] = newToken;
       return AxiosInstance(originalRequest);
     }

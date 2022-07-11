@@ -4,7 +4,7 @@ import { Button } from 'react-native';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FormLoginType } from '@model/login';
+import { FormLoginType } from '@model/authentication';
 import { loginValidation } from '@validate/login';
 
 import { Input } from './input';

@@ -80,7 +80,7 @@ export const execFunc = <Fn extends (...args: any[]) => any>(
 export const isIos = Platform.OS === 'ios';
 
 export const logout = () => {
-  dispatch(appActions.onLogout());
+  dispatch(appActions.logout());
   remove(STORAGE_KEY_TOKEN);
 };
 

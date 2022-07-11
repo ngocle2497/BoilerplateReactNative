@@ -18,31 +18,31 @@ const appSlice = createSlice({
   name: SLICE_NAME.APP,
   initialState: initialAppState,
   reducers: {
-    onSetInternet: (state, { payload }: PayloadAction<boolean>) => {
+    setInternetState: (state, { payload }: PayloadAction<boolean>) => {
       state.internetState = payload;
     },
-    onSetToken: (state, { payload }: PayloadAction<string>) => {
+    setToken: (state, { payload }: PayloadAction<string>) => {
       state.token = payload;
     },
-    onSetAppProfile: (state, { payload }: PayloadAction<unknown>) => {
+    setAppProfile: (state, { payload }: PayloadAction<unknown>) => {
       state.profile = payload;
     },
-    onSetAppTheme: (state, { payload }: PayloadAction<ThemeType>) => {
+    setAppTheme: (state, { payload }: PayloadAction<ThemeType>) => {
       state.theme = payload;
     },
-    onLoadApp: state => {
+    startLoadApp: state => {
       state.loadingApp = true;
     },
-    onLoadAppEnd: state => {
+    endLoadApp: state => {
       state.loadingApp = false;
     },
-    onStartProcess: state => {
+    startProcess: state => {
       state.showDialog = true;
     },
-    onEndProcess: state => {
+    endProcess: state => {
       state.showDialog = false;
     },
-    onLogout: state => {
+    logout: state => {
       state.token = undefined;
       state.profile = {};
     },

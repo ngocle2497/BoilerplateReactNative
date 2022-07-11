@@ -1,4 +1,4 @@
 export { listenerMiddleware } from '@listener';
 
-export * from './login';
+export * from './authentication';
 export * from './app';

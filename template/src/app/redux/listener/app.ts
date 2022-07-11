@@ -10,20 +10,20 @@ import { loadString } from '@utils/storage';
 import { appActions } from '../action-slice/app';
 
 takeLatestListeners()({
-  actionCreator: appActions.onLoadApp,
+  actionCreator: appActions.startLoadApp,
   effect: async (_, listenerApi) => {
     const appTheme = loadString(STORAGE_KEY_APP_THEME);
     const token = loadString(STORAGE_KEY_TOKEN);
     if (typeof token === 'string') {
-      listenerApi.dispatch(appActions.onSetToken(token));
+      listenerApi.dispatch(appActions.setToken(token));
     }
 
     if (
       typeof appTheme === 'string' &&
       checkKeyInObject(MyAppTheme, appTheme)
     ) {
-      listenerApi.dispatch(appActions.onSetAppTheme(appTheme as ThemeType));
+      listenerApi.dispatch(appActions.setAppTheme(appTheme as ThemeType));
     }
-    listenerApi.dispatch(appActions.onLoadAppEnd());
+    listenerApi.dispatch(appActions.endLoadApp());
   },
 });

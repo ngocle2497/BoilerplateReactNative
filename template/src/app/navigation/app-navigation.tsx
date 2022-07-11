@@ -24,7 +24,7 @@ export const AppContainer = () => {
 
   // effect
   useEffect(() => {
-    dispatch(appActions.onLoadApp());
+    dispatch(appActions.startLoadApp());
   }, []);
 
   useEffect(() => {
