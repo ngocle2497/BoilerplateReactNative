@@ -14,7 +14,6 @@ const responseDefault: ResponseBase<Record<string, unknown>> = {
   code: -500,
   status: false,
   msg: translate('error:errorData'),
-  data: {},
 };
 
 export const onPushLogout = async () => {
@@ -28,7 +27,7 @@ export const handleResponseAxios = <T = Record<string, unknown>>(
   res: AxiosResponse<T>,
 ): ResponseBase<T> => {
   if (res.data) {
-    return { code: CODE_SUCCESS, status: true, data: res.data, msg: null };
+    return { code: CODE_SUCCESS, status: true, data: res.data, };
   }
   return responseDefault as ResponseBase<T>;
 };

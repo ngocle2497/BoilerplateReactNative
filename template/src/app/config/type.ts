@@ -1,13 +1,17 @@
-export interface ResponseBase<T = Record<string, unknown>> {
+export type ResponseBase<T = any, TStatus = boolean> = {
   code: number;
+} & (TStatus extends true
+  ? {
+      data: T;
 
-  msg?: string | null;
+      status: true;
+    }
+  : {
+      status: false;
 
-  data?: T;
+      msg?: string |null;
 
-  status: boolean;
-}
-
+    });
 export interface ParamsNetwork {
   url: string;
   params?: Record<string, string | number>;

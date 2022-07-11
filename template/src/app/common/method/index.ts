@@ -55,6 +55,19 @@ export const propsToStyle = <T = Record<string, number | string>>(
     }, {} as Record<string, number | string>);
 };
 
+/**
+ * return true when success and false when error
+ */
+ export const handleErrorResponse = (
+  response: ResponseBase<any>,
+): response is ResponseBase<any, true> => {
+  if (!response.status) {
+    // TODO: handle error
+    return false;
+  }
+  return true;
+};
+
 export const execFunc = <Fn extends (...args: any[]) => any>(
   func?: Fn,
   ...args: Parameters<Fn>

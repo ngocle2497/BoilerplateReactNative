@@ -1,3 +1,4 @@
+import { handleErrorResponse } from '@common'
 import { takeLatestListeners } from '@listener';
 import { ApiConstants, NetWorkService } from '@networking';
 
@@ -15,6 +16,9 @@ takeLatestListeners(true)({
     });
     if (!response) {
       return;
+    }
+    if (handleErrorResponse(response)) {
+      // TODO: do something when login success
     }
   },
 });
