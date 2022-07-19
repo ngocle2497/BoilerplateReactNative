@@ -1,6 +1,5 @@
-import React, { memo, MemoExoticComponent, NamedExoticComponent } from 'react';
+import React from 'react';
 
-import isEqual from 'react-fast-compare';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 
 import { CustomOmit } from '@common';
@@ -16,7 +15,6 @@ const VectorIconBase = createIconSetFromIcoMoon(
   'icons.ttf',
 );
 
-const Icon = memo(VectorIconBase, isEqual);
 export type VectorIconIcon = keyof typeof ICONS;
 
 type VectorIconProps = CustomOmit<IconProps, 'name'> & {
@@ -24,18 +22,16 @@ type VectorIconProps = CustomOmit<IconProps, 'name'> & {
   colorTheme?: keyof Colors;
 };
 
-export const VectorIcon = memo((props: VectorIconProps) => {
+export const VectorIcon = (props: VectorIconProps) => {
   // state
   const { colors } = useTheme();
   // render
   return (
-    <Icon
+    <VectorIconBase
       size={24}
       {...props}
       name={ICONS[props.icon]}
       color={props.colorTheme ? colors[props.colorTheme] : props.color}
     />
   );
-}, isEqual) as MemoExoticComponent<NamedExoticComponent<VectorIconProps>> & {
-  icons: typeof ICONS;
 };
