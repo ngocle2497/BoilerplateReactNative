@@ -1,40 +1,6 @@
 import moment, { Moment } from 'moment';
 
 /**
- * Return 2 date is same month.
- */
-export function sameMonth(a: Moment, b: Moment) {
-  return (
-    a.toDate().getFullYear() === b.toDate().getFullYear() &&
-    a.toDate().getMonth() === b.toDate().getMonth()
-  );
-}
-
-/**
- * Return 2 date is same month, year, day.
- */
-export function sameDate(a: Moment, b: Moment) {
-  return (
-    a.toDate().getFullYear() === b.toDate().getFullYear() &&
-    a.toDate().getMonth() === b.toDate().getMonth() &&
-    a.toDate().getDate() === b.toDate().getDate()
-  );
-}
-/**
- * Greater than equal.
- */
-function isGTE(a: Moment, b: Moment) {
-  return a.diff(b, 'day') > -1;
-}
-
-/**
- * Less than equal.
- */
-function isLTE(a: Moment, b: Moment) {
-  return b.diff(a, 'day') > -1;
-}
-
-/**
  * Return list days between 2 date.
  */
 function daysFromTo(a: Moment | Date, b: Moment | Date) {
@@ -78,9 +44,9 @@ export function getDaysByMonth(
   const days = daysInMonth(mDate);
   let before: Moment[] = [];
   let after: Moment[] = [];
-  // caculate first day of week(ex: firstDayOfWeek > 7)
+  // calculate first day of week(ex: firstDayOfWeek > 7)
   const fdow = (7 + firstDayOfWeek) % 7 || 7;
-  // caculate last day of week by first day of week
+  // calculate last day of week by first day of week
   const ldow = (fdow + 6) % 7;
   const from = moment(days[0]);
   const daysBefore = from.day();
@@ -93,7 +59,7 @@ export function getDaysByMonth(
   const to = moment(days[days.length - 1]);
   const day = to.day();
   if (day !== ldow) {
-    // add if laste date not equals last day of week
+    // add if lasted date not equals last day of week
     to.add((ldow + 7 - day) % 7, 'day');
   }
 
@@ -102,10 +68,10 @@ export function getDaysByMonth(
   if (showSixWeeks && !daysForSixWeeks) {
     to.add(7, 'day');
   }
-  if (isLTE(from, moment(days[0]))) {
+  if (from.isBefore(moment(days[0]), 'days')) {
     before = daysFromTo(from, days[0]);
   }
-  if (isGTE(to, days[days.length - 1])) {
+  if ((to.isAfter(days[days.length - 1]), 'days')) {
     after = daysFromTo(days[days.length - 1], to);
   }
   return before.concat(days.slice(1, days.length - 1), after);

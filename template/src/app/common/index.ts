@@ -3,7 +3,6 @@ export * from './create-form-data';
 export * from './constant';
 export * from './string';
 export * from './scale';
-export * from './array';
 export * from './method';
 export * from './math';
 export * from './redux';
