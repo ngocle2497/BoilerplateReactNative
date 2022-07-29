@@ -3,8 +3,13 @@ const { execSync } = require('child_process');
 
 (function () {
   execSync('yarn patch-package', { stdio: 'inherit' });
-  execSync('npx react-native link', { stdio: 'inherit' });
-  console.log('Link Done!!✨✨✨✨✨');
+  execSync('mkdir -p android/app/src/main/assets', {
+    stdio: 'inherit',
+  });
+  execSync('cp -r src/app/assets/fonts android/app/src/main/assets', {
+    stdio: 'inherit',
+  });
+  console.log('Link font Android Done!!✨✨✨✨✨');
   if (process.platform === 'darwin') {
     execSync('cd ios && touch tmp.xcconfig');
     console.log(

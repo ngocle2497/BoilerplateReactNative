@@ -12,7 +12,7 @@ const { loadEnvFile } = require('./common');
     try {
       execSync(`adb uninstall ${envJson.BUNDLE_IDENTIFIER}`);
     } catch {
-      console.log('Not have app');
+      console.log('Old App not found');
     }
   }
   if (platform === 'darwin') {

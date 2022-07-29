@@ -1,4 +1,4 @@
-import { handleErrorResponse } from '@common'
+import { handleErrorResponse } from '@common';
 import { takeLatestListeners } from '@listener';
 import { ApiConstants, NetWorkService } from '@networking';
 

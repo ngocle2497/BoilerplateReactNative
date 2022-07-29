@@ -10,6 +10,7 @@ export {};
 
 // export interface RemoteNotification<T>
 //   extends CustomOmit<FirebaseMessagingTypes.RemoteMessage, 'data'> {
+// // Nested data from fcm is string. carefully when use
 //   data?: T;
 // }
 
