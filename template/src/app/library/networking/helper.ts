@@ -1,4 +1,4 @@
-import { handleErrorApi, logout, replaceAll } from '@common';
+import { handleErrorApi, logout } from '@common';
 import {
   CODE_SUCCESS,
   CODE_TIME_OUT,
@@ -27,7 +27,7 @@ export const handleResponseAxios = <T = Record<string, unknown>>(
   res: AxiosResponse<T>,
 ): ResponseBase<T> => {
   if (res.data) {
-    return { code: CODE_SUCCESS, status: true, data: res.data, };
+    return { code: CODE_SUCCESS, status: true, data: res.data };
   }
   return responseDefault as ResponseBase<T>;
 };
@@ -56,8 +56,8 @@ export const handlePath = (url: string, path: ParamsNetwork['path']) => {
   }
   let resUrl = url;
   Object.keys(path).forEach(k => {
-    resUrl = replaceAll(resUrl, `{${k}}`, String(path[k]));
-    resUrl = replaceAll(resUrl, `:${k}`, String(path[k]));
+    resUrl = resUrl.replaceAll(`{${k}}`, String(path[k]));
+    resUrl = resUrl.replaceAll(`:${k}`, String(path[k]));
   });
   return resUrl;
 };
