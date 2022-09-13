@@ -219,7 +219,7 @@ export const Block = forwardRef(
 
     // render
     return (
-      <View style={[styleComponent]} {...rest} ref={ref} children={children} />
+      <View style={styleComponent} {...rest} ref={ref} children={children} />
     );
   },
 );

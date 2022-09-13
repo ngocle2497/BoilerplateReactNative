@@ -7,7 +7,6 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import { NullableStyleProps } from '@common';
 import { Colors } from '@theme';
 
 type Direction = 'row' | 'column' | 'column-reverse' | 'row-reverse';
@@ -35,53 +34,53 @@ export type ShadowConfig = {
 
 type StyleStringOrNumber = string | number;
 export interface BlockProps extends ViewProps {
-  flexWrap?: NullableStyleProps<FlexWrap>;
+  flexWrap?: FlexWrap;
 
-  left?: NullableStyleProps<StyleStringOrNumber>;
+  left?: StyleStringOrNumber;
 
-  right?: NullableStyleProps<StyleStringOrNumber>;
+  right?: StyleStringOrNumber;
 
-  bottom?: NullableStyleProps<StyleStringOrNumber>;
+  bottom?: StyleStringOrNumber;
 
-  top?: NullableStyleProps<StyleStringOrNumber>;
+  top?: StyleStringOrNumber;
 
-  zIndex?: NullableStyleProps<number>;
+  zIndex?: number;
 
   overflow?: OverFlow;
 
-  borderBottomWidth?: NullableStyleProps<number>;
+  borderBottomWidth?: number;
 
-  borderLeftWidth?: NullableStyleProps<number>;
+  borderLeftWidth?: number;
 
-  borderRightWidth?: NullableStyleProps<number>;
+  borderRightWidth?: number;
 
-  borderTopWidth?: NullableStyleProps<number>;
+  borderTopWidth?: number;
 
-  borderBottomColor?: NullableStyleProps<string>;
+  borderBottomColor?: string;
 
-  borderBottomLeftRadius?: NullableStyleProps<number>;
+  borderBottomLeftRadius?: number;
 
-  borderBottomRightRadius?: NullableStyleProps<number>;
+  borderBottomRightRadius?: number;
 
-  borderLeftColor?: NullableStyleProps<string>;
+  borderLeftColor?: string;
 
-  borderRightColor?: NullableStyleProps<string>;
+  borderRightColor?: string;
 
   borderStyle?: 'solid' | 'dotted' | 'dashed';
 
-  borderTopColor?: NullableStyleProps<string>;
+  borderTopColor?: string;
 
-  borderTopLeftRadius?: NullableStyleProps<number>;
+  borderTopLeftRadius?: number;
 
-  borderTopRightRadius?: NullableStyleProps<number>;
+  borderTopRightRadius?: number;
 
-  opacity?: NullableStyleProps<number>;
+  opacity?: number;
 
   /**
    * Config position
    * @default undefined
    */
-  position?: NullableStyleProps<Position>;
+  position?: Position;
 
   /**
    * Enable to using {flex:1}
@@ -93,132 +92,132 @@ export interface BlockProps extends ViewProps {
    * Using margin
    * @default undefined
    */
-  margin?: NullableStyleProps<number>;
+  margin?: number;
 
   /**
    * overwrite flex box
    */
-  flex?: NullableStyleProps<number>;
+  flex?: number;
 
   /**
    * Using align items
    * @default undefined
    */
-  alignItems?: NullableStyleProps<FlexAlignType>;
+  alignItems?: FlexAlignType;
 
   /**
    * Using align self
    * @default undefined
    */
-  alignSelf?: NullableStyleProps<'auto' | FlexAlignType>;
+  alignSelf?: 'auto' | FlexAlignType;
 
   /**
    * Using margin left
    * @default undefined
    */
-  marginLeft?: NullableStyleProps<number>;
+  marginLeft?: number;
 
   /**
    * Using margin right
    * @default undefined
    */
-  marginRight?: NullableStyleProps<number>;
+  marginRight?: number;
 
   /**
    * Using margin bottom
    * @default undefined
    */
-  marginBottom?: NullableStyleProps<number>;
+  marginBottom?: number;
 
   /**
    * Using margin top
    * @default undefined
    */
-  marginTop?: NullableStyleProps<number>;
+  marginTop?: number;
 
   /**
    * Using flex direction
    * @default undefined
    */
-  direction?: NullableStyleProps<Direction>;
+  direction?: Direction;
 
   /**
    * Using padding
    * @default undefined
    */
-  padding?: NullableStyleProps<number>;
+  padding?: number;
 
   /**
    * Using padding top
    * @default undefined
    */
-  paddingTop?: NullableStyleProps<number>;
+  paddingTop?: number;
 
   /**
    * Using padding bottom
    * @default undefined
    */
-  paddingBottom?: NullableStyleProps<number>;
+  paddingBottom?: number;
 
   /**
    * Using padding left
    * @default undefined
    */
-  paddingLeft?: NullableStyleProps<number>;
+  paddingLeft?: number;
 
   /**
    * Using padding right
    * @default undefined
    */
-  paddingRight?: NullableStyleProps<number>;
+  paddingRight?: number;
 
   /**
    * Using padding horizontal
    * @default undefined
    */
-  paddingHorizontal?: NullableStyleProps<number>;
+  paddingHorizontal?: number;
 
   /**
    * Using padding vertical
    * @default undefined
    */
-  paddingVertical?: NullableStyleProps<number>;
+  paddingVertical?: number;
 
   /**
    * Actual width
    * @default undefined
    */
-  width?: NullableStyleProps<StyleStringOrNumber>;
+  width?: StyleStringOrNumber;
 
   /**
    * Actual max width
    * @default undefined
    */
-  maxWidth?: NullableStyleProps<StyleStringOrNumber>;
+  maxWidth?: StyleStringOrNumber;
 
   /**
    * Actual min width
    * @default undefined
    */
-  minWidth?: NullableStyleProps<StyleStringOrNumber>;
+  minWidth?: StyleStringOrNumber;
 
   /**
    * Actual height
    * @default undefined
    */
-  height?: NullableStyleProps<StyleStringOrNumber>;
+  height?: StyleStringOrNumber;
 
   /**
    * Actual max width
    * @default undefined
    */
-  maxHeight?: NullableStyleProps<StyleStringOrNumber>;
+  maxHeight?: StyleStringOrNumber;
 
   /**
    * Actual min width
    * @default undefined
    */
-  minHeight?: NullableStyleProps<StyleStringOrNumber>;
+  minHeight?: StyleStringOrNumber;
 
   /**
    * Using border
@@ -230,19 +229,19 @@ export interface BlockProps extends ViewProps {
    * Set width for border
    * @default undefined
    */
-  borderWidth?: NullableStyleProps<number>;
+  borderWidth?: number;
 
   /**
    * Set color for border
    * @default undefined
    */
-  borderColor?: NullableStyleProps<string>;
+  borderColor?: string;
 
   /**
    * Using background color
    * @default undefined
    */
-  color?: NullableStyleProps<string>;
+  color?: string;
 
   /**
    * Overwrite background color with theme
@@ -258,7 +257,7 @@ export interface BlockProps extends ViewProps {
    * Using justify content
    * @default undefined
    */
-  justifyContent?: NullableStyleProps<JustifyContent>;
+  justifyContent?: JustifyContent;
 
   /**
    * Set true for using alignItems = 'center'
@@ -270,7 +269,7 @@ export interface BlockProps extends ViewProps {
    * Using border radius
    * @default undefined
    */
-  borderRadius?: NullableStyleProps<number>;
+  borderRadius?: number;
 
   /**
    * Using shadow
@@ -281,7 +280,7 @@ export interface BlockProps extends ViewProps {
   /**
    * Overwrite shadow
    */
-  shadowConfig?: NullableStyleProps<ShadowConfig>;
+  shadowConfig?: ShadowConfig;
 
   /**
    * Overwrite style for Block

@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { createRef, forwardRef, useImperativeHandle } from 'react';
 
-import { useDispatch } from 'react-redux';
+import isEqual from 'react-fast-compare';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '@store/all-reducers';
-
-import { useSelector } from '../hooks';
+import { createSelectorCreator, defaultMemoize } from 'reselect';
 
 type ActionBase<T = any> = {
   type: string;
@@ -15,7 +15,7 @@ type ActionBase<T = any> = {
 const RXStoreComponent = forwardRef((_, ref) => {
   // state
   const dispatchRx = useDispatch();
-  const store = useSelector(x => x);
+  const store = useSelector((x: RootState) => x);
 
   // effect
   useImperativeHandle(
@@ -53,3 +53,7 @@ export function getState<K extends keyof RootState>(selector: K): RootState[K] {
   }
   return {} as RootState[K];
 }
+export const createDeepEqualSelector = createSelectorCreator(
+  defaultMemoize,
+  isEqual,
+);

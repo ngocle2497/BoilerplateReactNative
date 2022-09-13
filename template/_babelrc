@@ -27,6 +27,7 @@
           "@navigation": "./src/app/navigation",
           "@store": "./src/app/redux/store",
           "@redux-slice": "./src/app/redux/action-slice",
+          "@redux-selector": "./src/app/redux/selector",
           "@redux-action-type": "./src/app/redux/action-type",
           "@theme": "./src/app/themes",
           "@transition": "./src/app/transition"

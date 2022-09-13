@@ -1,19 +1,20 @@
 import React, { useEffect } from 'react';
 
 import BootSplash from 'react-native-bootsplash';
+import { useSelector } from 'react-redux';
 
 import { Home } from '@features/authentication/home';
 import { Login } from '@features/un-authentication/login';
-import { useSelector } from '@hooks';
 import { AppModule } from '@native-module';
 import { APP_SCREEN, RootStackParamList } from '@navigation/screen-types';
 import { createStackNavigator } from '@react-navigation/stack';
+import { selectAppToken } from '@redux-selector/app';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
 export const RootNavigation = () => {
   // state
-  const token = useSelector(x => x.app.token);
+  const token = useSelector(selectAppToken);
 
   // effect
   useEffect(() => {

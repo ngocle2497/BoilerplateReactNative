@@ -18,14 +18,11 @@ import {
   Platform,
 } from 'react-native';
 
-import isEqual from 'react-fast-compare';
 import { useTranslation } from 'react-i18next';
-import { useSelector as useReduxSelector } from 'react-redux';
 
 import { onCheckType } from '@common';
 import { ValidateMessageObject } from '@config/type';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
-import { RootState } from '@store/all-reducers';
 import { AppTheme, useTheme } from '@theme';
 
 type UseStateFull<T = any> = {
@@ -33,12 +30,6 @@ type UseStateFull<T = any> = {
   setValue: React.Dispatch<SetStateAction<T>>;
 };
 
-function useSelector<T>(
-  selector: (state: RootState) => T,
-  equalityFn = isEqual,
-): T {
-  return useReduxSelector<RootState, T>(selector, equalityFn);
-}
 type ConfigAnimated = {
   duration: number;
   type: keyof typeof LayoutAnimation.Types;
@@ -597,7 +588,6 @@ export {
   useDisableBackHandler,
   useDismissKeyboard,
   useInterval,
-  useSelector,
   useNetWorkStatus,
   useArray,
   useBoolean,

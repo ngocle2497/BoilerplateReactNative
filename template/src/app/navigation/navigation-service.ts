@@ -23,25 +23,6 @@ export function navigate<RouteName extends keyof RootStackParamList>(
   );
 }
 
-export function navigateMerge<RouteName extends keyof RootStackParamList>(
-  options: undefined extends RootStackParamList[RouteName]
-    ? {
-        name: RouteName;
-        params?: RootStackParamList[RouteName];
-      }
-    : {
-        name: RouteName;
-        params: RootStackParamList[RouteName];
-      },
-) {
-  navigationRef.current?.navigate({
-    key: options.name,
-    name: options.name,
-    params: options.params,
-    merge: true,
-  });
-}
-
 export function goBack() {
   navigationRef.current?.dispatch(CommonActions.goBack);
 }
