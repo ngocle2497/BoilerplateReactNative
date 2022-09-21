@@ -7,7 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 
 import { isIos } from '@common';
-import { PortalProvider } from '@components';
+import { PortalProvider } from '@gorhom/portal';
 import { AppModule } from '@native-module';
 import { AppContainer } from '@navigation/app-navigation';
 import { store } from '@store/store';

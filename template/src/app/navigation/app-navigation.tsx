@@ -6,12 +6,12 @@ import { useSelector } from 'react-redux';
 import { dispatch, RXStore } from '@common';
 import {
   hideLoading,
-  PortalHost,
   ProgressDialog,
   showLoading,
   SnackBar,
 } from '@components';
 import { ImageTransition } from '@components/light-box/image-transition';
+import { PortalHost } from '@gorhom/portal';
 import { AppModule } from '@native-module';
 import { navigationRef } from '@navigation/navigation-service';
 import { RootNavigation } from '@navigation/root-navigator';

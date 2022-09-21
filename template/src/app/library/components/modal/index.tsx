@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+import { Portal } from '@gorhom/portal';
 import { useDismissKeyboard } from '@hooks';
 
 import { ModalContent } from './modal-content';
 import { ModalProps } from './type';
-
-import { Portal } from '../portal';
 
 export const Modal = (props: ModalProps) => {
   // state

@@ -30,5 +30,4 @@ export * from './collapsible';
 export * from './modal';
 export * from './skeleton';
 export * from './comment-loading';
-export * from './portal';
 export * from './parsed-text';
