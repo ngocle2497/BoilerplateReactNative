@@ -25,6 +25,7 @@
     ]
   },
   "dependencies": {
+    "@gorhom/portal": "^1.0.14",
     "@hookform/resolvers": "^2.9.8",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/netinfo": "^9.3.1",
