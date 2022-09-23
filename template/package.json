@@ -44,7 +44,7 @@
     "react-native-bootsplash": "^4.3.2",
     "react-native-config": "^1.4.6",
     "react-native-fast-image": "^8.6.1",
-    "react-native-gesture-handler": "^2.6.1",
+    "react-native-gesture-handler": "^2.6.2",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-mmkv": "^2.4.3",
     "react-native-reanimated": "^2.10.0",
@@ -53,7 +53,7 @@
     "react-native-svg": "^13.2.0",
     "react-native-vector-icons": "^9.2.0",
     "reselect": "^4.1.6",
-    "react-redux": "^8.0.2",
+    "react-redux": "^8.0.4",
     "yup": "^0.32.11"
   },
   "devDependencies": {
