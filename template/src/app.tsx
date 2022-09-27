@@ -35,7 +35,10 @@ LogBox.ignoreLogs([
  *   pv[replaceAll(curr.properties.name, '-', '_')] = curr.properties.name;
  *   return pv;
  * }, {});
- * console.log(key);
+ * console.log(
+ * Object.entries(key)
+ *    .sort(([, a], [, b]) => a - b)
+ *     .reduce((r, [k, v]) => ({ ...r, [k]: v }), {}),
  */
 if (!isIos) {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
