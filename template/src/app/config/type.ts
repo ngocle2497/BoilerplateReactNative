@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type ResponseBase<T = any, TStatus = boolean> = {
   code: number;
 } & (TStatus extends true

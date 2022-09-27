@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "lint": "eslint  index.js ./__tests__/** ./scripts/*.js  ./src/** --ext .js,.ts,.tsx",
+    "lint": "eslint  index.js ./scripts/*.js  ./src/** --ext .js,.ts,.tsx",
     "start": "npx react-native start --reset-cache",
     "format": "prettier --write **/*.{ts,tsx,js,json,md}",
     "splash": "yarn react-native generate-bootsplash splash/splash.png --background-color=FFFFFF --logo-width=150  --assets-path=assets --flavor=main",
