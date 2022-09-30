@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const jimp = require('jimp');
+const sharp = require('sharp');
 
 const fs = require('fs');
 
@@ -26,11 +26,10 @@ module.exports = async config => {
 
   // create images by list icon size
   for (const size of iosIconsSize) {
-    const image = await jimp.read(config.pathImage);
+    const image = await sharp(config.pathImage);
     await image
       .resize(size, size)
-      .quality(100)
-      .write(`${IOS_IMAGE_ASSETS_DIR}/${appIconFileName}/${size}.png`);
+      .toFile(`${IOS_IMAGE_ASSETS_DIR}/${appIconFileName}/${size}.png`);
   }
 
   // overwrite Contents.json
