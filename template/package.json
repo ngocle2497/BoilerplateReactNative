@@ -8,6 +8,7 @@
     "start": "npx react-native start --reset-cache",
     "format": "prettier --write **/*.{ts,tsx,js,json,md}",
     "splash": "yarn react-native generate-bootsplash splash/splash.png --background-color=FFFFFF --logo-width=150  --assets-path=assets --flavor=main",
+    "app-icon": "npx rn-ml appicon -s appicon/icon.png",
     "ios:dev": "node ./scripts/ios.js env/.dev",
     "prepare": "husky install",
     "notification:ios:dev": "node ./scripts/notification-ios.js env/.dev",
@@ -81,7 +82,8 @@
     "patch-package": "^6.4.7",
     "prettier": "^2.3.0",
     "react-test-renderer": "18.1.0",
-    "typescript": "^4.4.4"
+    "typescript": "^4.4.4",
+    "rn-ml": "*"
   },
   "resolutions": {
     "@types/react": "^17"
