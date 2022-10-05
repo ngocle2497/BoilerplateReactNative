@@ -18,4 +18,7 @@ type Path<T> = T extends Readonly<infer V>
       }[TupleKeys<T>]
     : PathImpl<string, V>
   : never;
-export type I18nKeys = Path<typeof en>;
+
+type ValueOf<T> = T[keyof T];
+
+export type I18nKeys = Path<ValueOf<typeof resources>>;
