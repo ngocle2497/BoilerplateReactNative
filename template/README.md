@@ -39,9 +39,11 @@
 - Change App build number ``` VERSION_CODE ``` on ``` env/(.dev/.prod) ```
 - Change App URL ``` API_URL ``` on ``` env/(.dev/.prod) ```
 
-### Change app icon by env
+### Gen app icon and Change app icon by env
 
-- Android [Source sets](https://developer.android.com/studio/build/build-variants#sourcesets)
-- IOS follow below step:
-  - Create new App Icon assets
-  - Change ASSETCATALOG_COMPILER_APPICON_NAME to your respective App Icon Assets (in respective env file)
+Build with: [rn-ml](https://github.com/MasonLe2497/cli-tools)
+
+- Update app icon file from appicon folder
+- Run: ``` yarn app-icon ``` or ``` yarn app-icon:dev ```
+  - Android: auto change flavor script
+  - IOS: Change ASSETCATALOG_COMPILER_APPICON_NAME to your respective App Icon Assets (in respective env file)
