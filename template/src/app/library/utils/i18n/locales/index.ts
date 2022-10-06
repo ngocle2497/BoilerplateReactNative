@@ -19,6 +19,5 @@ type Path<T> = T extends Readonly<infer V>
     : PathImpl<string, V>
   : never;
 
-type ValueOf<T> = T[keyof T];
-
-export type I18nKeys = Path<ValueOf<typeof resources>>;
+type ResourceType = typeof resources;
+export type I18nKeys = Path<ResourceType[keyof ResourceType]>;

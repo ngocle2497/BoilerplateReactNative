@@ -30,7 +30,7 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
   // props
   const {
     label,
-    labelTx,
+    labelT18n,
     rxRemove,
     nameTrigger,
     placeholder,
@@ -150,8 +150,8 @@ export const InputFlat = forwardRef<any, InputFlatProps>((props, ref) => {
 
   // string
   const labelText = useMemo(
-    () => (labelTx && t(labelTx)) || label || undefined,
-    [labelTx, label, t],
+    () => (labelT18n && t(labelT18n)) || label || undefined,
+    [labelT18n, label, t],
   );
 
   const placeHolder = useMemo(

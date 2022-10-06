@@ -28,7 +28,7 @@ export interface InputBaseProps extends TextInputProps {
   /**
    * Label text using i18n
    */
-  labelTx?: string;
+  labelT18n?: I18nKeys;
 
   /**
    * Call trigger react hook form

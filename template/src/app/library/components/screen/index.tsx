@@ -1,11 +1,5 @@
 import React, { useMemo } from 'react';
-import {
-  StatusBar,
-  useWindowDimensions,
-  View,
-  ViewProps,
-  ViewStyle,
-} from 'react-native';
+import { useWindowDimensions, View, ViewProps, ViewStyle } from 'react-native';
 
 import Animated from 'react-native-reanimated';
 import {
@@ -24,6 +18,8 @@ import {
   ScreenComponentProps,
   ScreenProps,
 } from './type';
+
+import { FocusAwareStatusBar } from '../focus-aware-status-bar';
 
 const INSETS: Edge[] = ['top', 'bottom', 'left', 'right'];
 
@@ -83,7 +79,7 @@ const InsetComponent = ({
   // render
   return (
     <>
-      <StatusBar
+      <FocusAwareStatusBar
         hidden={hiddenStatusBar}
         backgroundColor={'transparent'}
         translucent
@@ -195,16 +191,6 @@ function ScreenWithScrolling(
   // render
   return (
     <>
-      <InsetComponent
-        edges={edges}
-        bottomInsetColor={bottomInsetColor}
-        statusColor={statusColor}
-        statusBarStyle={statusBarStyle}
-        hiddenStatusBar={hiddenStatusBar}
-        leftInsetColor={leftInsetColor}
-        rightInsetColor={rightInsetColor}
-        unsafe={actualUnsafe}
-      />
       <Wrapper edges={edges} style={[styles.outer]}>
         <Animated.ScrollView
           scrollEventThrottle={16}
@@ -218,6 +204,16 @@ function ScreenWithScrolling(
           children={children}
         />
       </Wrapper>
+      <InsetComponent
+        edges={edges}
+        bottomInsetColor={bottomInsetColor}
+        statusColor={statusColor}
+        statusBarStyle={statusBarStyle}
+        hiddenStatusBar={hiddenStatusBar}
+        leftInsetColor={leftInsetColor}
+        rightInsetColor={rightInsetColor}
+        unsafe={actualUnsafe}
+      />
     </>
   );
 }

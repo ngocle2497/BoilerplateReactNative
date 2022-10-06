@@ -30,7 +30,7 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
   // props
   const {
     label,
-    labelTx,
+    labelT18n,
     rxRemove,
     placeholder,
     nameTrigger,
@@ -146,8 +146,8 @@ export const InputOutline = forwardRef<any, InputOutlineProps>((props, ref) => {
 
   // string
   const labelText = useMemo(
-    () => (labelTx && t(labelTx)) || label || undefined,
-    [labelTx, label, t],
+    () => (labelT18n && t(labelT18n)) || label || undefined,
+    [labelT18n, label, t],
   );
 
   const placeHolder = useMemo(

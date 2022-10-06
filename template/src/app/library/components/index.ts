@@ -31,3 +31,4 @@ export * from './modal';
 export * from './skeleton';
 export * from './comment-loading';
 export * from './parsed-text';
+export * from './focus-aware-status-bar';
