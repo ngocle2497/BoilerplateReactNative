@@ -32,7 +32,7 @@ import { appActions } from '@redux-slice';
 
 import { FormLogin } from './components/form-login';
 
-const LoginComponent = () => {
+export const Login = () => {
   // state
   const _refAction = useRef<ActionSheet>();
   const [visible, setVisible] = useAnimatedState<boolean>(false);
@@ -199,4 +199,3 @@ const LoginComponent = () => {
     </Block>
   );
 };
-export const Login = memo(LoginComponent, isEqual);
