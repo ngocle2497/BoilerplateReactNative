@@ -39,6 +39,7 @@ LogBox.ignoreLogs([
  * Object.entries(key)
  *    .sort(([, a], [, b]) => a - b)
  *     .reduce((r, [k, v]) => ({ ...r, [k]: v }), {}),
+ * )
  */
 if (!isIos) {
   if (UIManager.setLayoutAnimationEnabledExperimental) {

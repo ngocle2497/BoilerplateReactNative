@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { I18nKeys } from '@utils/i18n/locales';
+
 export type ResponseBase<T = any, TStatus = boolean> = {
   code: number;
 } & (TStatus extends true
@@ -25,7 +27,7 @@ export enum SLICE_NAME {
 }
 
 export type ValidateMessageObject = {
-  keyT: string;
-  optionsTx?: Record<string, string | number>;
+  keyT: I18nKeys;
+  optionsTx?: Record<string, I18nKeys>;
   options?: Record<string, string | number>;
 };

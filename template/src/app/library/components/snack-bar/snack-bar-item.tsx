@@ -40,17 +40,17 @@ const getColor = (typeMessage: TypeMessage): string => {
 const getIcon = (typeMessage: TypeMessage): VectorIconIcon => {
   switch (typeMessage) {
     case TYPE_MESSAGE.SUCCESS:
-      return 'bx_success';
+      return 'tick_square';
 
     case TYPE_MESSAGE.LINK:
     case TYPE_MESSAGE.WARN:
-      return 'bx_info_circle';
+      return 'info_circle';
 
     case TYPE_MESSAGE.ERROR:
-      return 'bx_error';
+      return 'danger';
 
     default:
-      return 'bx_info_circle';
+      return 'info_circle';
   }
 };
 
