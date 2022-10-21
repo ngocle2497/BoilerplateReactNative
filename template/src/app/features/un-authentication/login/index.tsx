@@ -1,7 +1,5 @@
-import React, { memo, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Alert } from 'react-native';
-
-import isEqual from 'react-fast-compare';
 
 import { dispatch } from '@common';
 import {

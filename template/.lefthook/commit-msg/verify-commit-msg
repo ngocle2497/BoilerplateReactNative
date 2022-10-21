@@ -1,0 +1,18 @@
+INPUT_FILE=$1
+START_LINE=`head -n1 $INPUT_FILE`
+
+TYPE="feat|fix|refactor|doc|chore|ci|style|test|perf|revert"
+PLATFORM="all|android|ios"
+
+PATTERN="^($TYPE)\(($PLATFORM)\): "
+
+if ! [[ "$START_LINE" =~ $PATTERN ]]; then
+  echo "Bad commit message, see example: feat(all): some text"
+  exit 1
+fi
+
+MESSAGE=$(echo $START_LINE| cut -d':' -f 2 |xargs)
+if [ ${#MESSAGE} -lt 12 ]; then
+  echo "Your message must greater than 12 chacracters"
+  exit 1
+fi
