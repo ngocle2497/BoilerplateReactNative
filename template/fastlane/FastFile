@@ -31,11 +31,10 @@ lane :build_release do |options|
       workspace: "ios/#{ENV['APP_PLACEHOLDER_NAME']}.xcworkspace",
       scheme: "#{ENV['APP_PLACEHOLDER_NAME']}-#{ENV['APP_ENV']}",
       export_method: ENV['EXPORT_METHOD'],
-      include_bitcode: false,
       output_name: "#{BUILD_IOS_FILENAME}.ipa",
       export_options: {
         provisioningProfiles: { 
-          "#{ENV['BUNDLE_IDENTIFIER']}" => "#{ENV['PROVISIONING_PROFILES']}"
+          "#{ENV['BUNDLE_IDENTIFIER']}" => "#{ENV['RELEASE_PROVISIONING_PROFILE']}"
         }
       }
     )
@@ -49,7 +48,11 @@ platform :ios do
   desc "IOS build IPA then upload to TestFlight"
   lane :staging_build do |params|
     build_release(isAndroid: false)
-    upload_to_testflight()
+    upload_to_testflight({
+      itc_provider: ENV['FASTLANE_ITC_PROVIDER'],
+      app_identifier: ENV['BUNDLE_IDENTIFIER'],
+      username: ENV['FASTLANE_USER']
+    })
     notify_testers(
       text: "#{ENV['GOOGLE_CHAT_TAG_USER']} *#{ENV['APP_DISPLAY_NAME']}* has an ios release on TestFlight",
     )
