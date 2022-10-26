@@ -16,12 +16,13 @@
     "android:report":"cd android && ./gradlew signingReport",
     "android:hash":"keytool -exportcert -alias androiddebugkey -keystore android/app/debug.keystore | openssl sha1 -binary | openssl base64",
     "android:prod:hash":"keytool -exportcert -alias my-key-alias -keystore android/app/my-upload-key.keystore | openssl sha1 -binary | openssl base64",
+    "android:gen-key":"keytool -genkeypair -v -storetype PKCS12 -keystore my-upload-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000",
     "ios:prod": "node ./scripts/ios.js env/.prod",
     "type:check": "yarn tsc --noEmit --skipLibCheck",
     "android:dev": "node ./scripts/android.js env/.dev devDebug",
     "postinstall": "node ./scripts/setup.js",
     "android:prod": "node ./scripts/android.js env/.prod prodDebug",
-    "build:staging": "fastlane ios staging_build --env dev && fastlane android staging_build --env dev",
+    "build:staging": "bundle exec ios staging_build --env dev && bundle exec android staging_build --env dev",
     "android:dev:release": "node ./scripts/android.js env/.dev devRelease"
   },
   "dependencies": {
@@ -36,7 +37,7 @@
     "i18next": "^20.4.0",
     "moment": "^2.29.1",
     "react": "18.1.0",
-    "react-native": "0.70.3",
+    "react-native": "0.70.4",
     "react-fast-compare": "^3.2.0",
     "react-hook-form": "^7.36.0",
     "react-i18next": "^11.11.4",
