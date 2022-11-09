@@ -36,5 +36,25 @@ declare global {
      * Replaces all match with string
      */
     replaceAll(searchValue: string, replaceValue: string): string;
+
+    /**
+     * Convert string color to hex color
+     */
+    toHexColor(): string;
+
+    /**
+     * Convert japanese full width to half width
+     */
+    toHalfWidth(): string;
+
+    /**
+     * Convert japanese half width to full width
+     */
+    toFullWidth(): string;
+
+    /**
+     * Create random string ID
+     */
+    randomUniqueId(): string;
   }
 }

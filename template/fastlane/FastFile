@@ -67,7 +67,12 @@ platform :ios do
 end
 
 platform :android do 
-  desc "Android build apk"
+  desc "Build local apk"
+  lane :apk do 
+    build_release(isAndroid: true)
+  end
+
+  desc "Android build apk and upload"
   lane :staging_build do |params|
     build_release(isAndroid: true)
     upload_to_appcenter(

@@ -1,9 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { processColor } from 'react-native';
-
 import { ValidateMessageObject } from '@config/type';
-
-import { KANA_FULL_HALF_MAP } from '../constant';
 
 export const trimArray = (sourceArr: Array<unknown> = []): Array<unknown> => {
   return sourceArr.map((element: any) => {
@@ -39,35 +35,7 @@ export const trimObject = (source: any) => {
   });
   return newObject;
 };
-export const toFullWidth = (value: string) => {
-  const kanaHalfFullMap: Record<string, string> = {};
-  Object.keys(KANA_FULL_HALF_MAP).forEach(key => {
-    kanaHalfFullMap[KANA_FULL_HALF_MAP[key]] = key;
-  });
-  const reg = new RegExp(
-    '(' + Object.keys(kanaHalfFullMap).join('|') + ')',
-    'g',
-  );
-  return value
-    .replace(reg, function (match) {
-      return kanaHalfFullMap[match];
-    })
-    .replace(/ﾞ/g, '゛')
-    .replace(/ﾟ/g, '゜');
-};
 
-export const toHalfWidth = (source: string) => {
-  const reg = new RegExp(
-    '(' + Object.keys(KANA_FULL_HALF_MAP).join('|') + ')',
-    'g',
-  );
-  return source
-    .replace(reg, function (match) {
-      return KANA_FULL_HALF_MAP[match];
-    })
-    .replace(/゛/g, 'ﾞ')
-    .replace(/゜/g, 'ﾟ');
-};
 interface ResultHandleTagToArrayText {
   text: string;
   bold: boolean;
@@ -94,24 +62,6 @@ export const onHandleTagToArrayText = (
     }
   });
   return arrText;
-};
-
-export const randomUniqueId = () => {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    // eslint-disable-next-line no-bitwise
-    const r = (Math.random() * 16) | 0,
-      // eslint-disable-next-line no-bitwise
-      v = c === 'x' ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-};
-
-export const hexStringFromCSSColor = (color: string) => {
-  const processedColor = processColor(color);
-  const colorStr = `${(processedColor ?? '').toString(16)}`;
-  const withoutAlpha = colorStr.substring(2, colorStr.length);
-  const alpha = colorStr.substring(0, 2);
-  return `#${withoutAlpha}${alpha}`;
 };
 
 export const checkPasswordContainUserName = (

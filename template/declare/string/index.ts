@@ -1,4 +1,8 @@
 /* eslint-disable no-extend-native */
+import { processColor } from 'react-native';
+
+import { KANA_FULL_HALF_MAP } from './constant';
+
 String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);
 };
@@ -45,6 +49,52 @@ String.prototype.replaceAll = function (
   replaceValue: string,
 ) {
   return this.split(searchValue).join(replaceValue);
+};
+
+String.prototype.toHexColor = function () {
+  const processedColor = processColor(this as string);
+  const colorStr = `${(processedColor ?? '').toString(16)}`;
+  const withoutAlpha = colorStr.substring(2, colorStr.length);
+  const alpha = colorStr.substring(0, 2);
+  return `#${withoutAlpha}${alpha}`;
+};
+
+String.prototype.toHalfWidth = function () {
+  const reg = new RegExp(
+    '(' + Object.keys(KANA_FULL_HALF_MAP).join('|') + ')',
+    'g',
+  );
+  return this.replace(reg, function (match) {
+    return KANA_FULL_HALF_MAP[match];
+  })
+    .replace(/゛/g, 'ﾞ')
+    .replace(/゜/g, 'ﾟ');
+};
+
+String.prototype.toFullWidth = function () {
+  const kanaHalfFullMap: Record<string, string> = {};
+  Object.keys(KANA_FULL_HALF_MAP).forEach(key => {
+    kanaHalfFullMap[KANA_FULL_HALF_MAP[key]] = key;
+  });
+  const reg = new RegExp(
+    '(' + Object.keys(kanaHalfFullMap).join('|') + ')',
+    'g',
+  );
+  return this.replace(reg, function (match) {
+    return kanaHalfFullMap[match];
+  })
+    .replace(/ﾞ/g, '゛')
+    .replace(/ﾟ/g, '゜');
+};
+
+String.prototype.randomUniqueId = function () {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    // eslint-disable-next-line no-bitwise
+    const r = (Math.random() * 16) | 0,
+      // eslint-disable-next-line no-bitwise
+      v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
 };
 
 export {};

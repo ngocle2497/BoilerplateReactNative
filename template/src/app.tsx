@@ -28,19 +28,19 @@ declare module 'react' {
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
 ]);
-/**
- * get icon name by file json
- * const json = require('./app/assets/vector-icon/selection.json');
- * const key = json.icons.reduce((pv, curr) => {
- *   pv[replaceAll(curr.properties.name, '-', '_')] = curr.properties.name;
- *   return pv;
- * }, {});
- * console.log(
- * Object.entries(key)
- *    .sort(([, a], [, b]) => a - b)
- *     .reduce((r, [k, v]) => ({ ...r, [k]: v }), {}),
- * )
- */
+
+// const json = require('./app/assets/vector-icon/selection.json');
+// const key = json.icons.reduce((pv, curr) => {
+//   pv[(curr.properties.name as string).replaceAll('-', '_')] =
+//     curr.properties.name;
+//   return pv;
+// }, {});
+// console.log(
+//   Object.entries(key)
+//     .sort(([, a], [, b]) => a - b)
+//     .reduce((r, [k, v]) => ({ ...r, [k]: v }), {}),
+// );
+
 if (!isIos) {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
     UIManager.setLayoutAnimationEnabledExperimental(true);

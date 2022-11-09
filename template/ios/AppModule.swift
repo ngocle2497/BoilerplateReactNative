@@ -10,11 +10,9 @@ import React
 import UIKit
 
 @objc(AppModule)
-// Use this to listen photo change
-// class AppModule: RCTEventEmitter, PHPhotoLibraryChangeObserver
+// class AppModule: RCTEventEmitter
 class AppModule: RCTEventEmitter {
   private static var DefaultStringReturnType: String = "Unknown"
-  private var PhotoChangeEvent: String = "PhotosChange"
 
   @objc override static func requiresMainQueueSetup() -> Bool {
     return true
@@ -22,10 +20,6 @@ class AppModule: RCTEventEmitter {
   override func supportedEvents() -> [String]! {
     return []
   }
-  // Sent event when photos change
-  // func photoLibraryDidChange(_ changeInstance: PHChange) {
-  //   sendEvent(withName: PhotoChangeEvent, body: nil)
-  // }
   
   @objc
   func getDeviceId() -> String {
@@ -95,11 +89,6 @@ class AppModule: RCTEventEmitter {
       }
     }
   }
-  // Listen photo library changes
-  // @objc
-  // func registerPhotosChanges() -> Void {
-  //   PHPhotoLibrary.shared().register(self);
-  // }
   
   @objc
   func fixRotation(

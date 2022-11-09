@@ -1,13 +1,6 @@
-import { useEffect } from 'react';
-import {
-  EmitterSubscription,
-  NativeEventEmitter,
-  NativeModules,
-} from 'react-native';
+import { NativeModules } from 'react-native';
 
 import { CustomOmit, isIos } from '@common';
-
-import { hexStringFromCSSColor } from '../string';
 
 const { AppModule } = NativeModules;
 
@@ -129,25 +122,6 @@ export const fixRotation = ({ uri, height = 800, width = 600 }: Image) => {
   });
 };
 
-export const usePhotosPermissionChange = (callback: () => void) => {
-  // effect
-  useEffect(() => {
-    let photosChangeEvent: NativeEventEmitter,
-      subscription: EmitterSubscription;
-    if (isIos) {
-      photosChangeEvent = new NativeEventEmitter(AppModule);
-      subscription = photosChangeEvent.addListener('PhotosChange', callback);
-    }
-    return () => {
-      if (isIos) {
-        subscription.remove();
-      }
-    };
-  }, [callback]);
-
-  return null;
-};
-
 export const setEnableIQKeyboard = (enable: boolean) => {
   if (!isIos) {
     return;
@@ -179,14 +153,10 @@ export const setIQKeyboardOption = (options: {
   }
   const actualOption = { ...options };
   if (options.toolbarBarTintColor) {
-    actualOption.toolbarBarTintColor = hexStringFromCSSColor(
-      options.toolbarBarTintColor,
-    );
+    actualOption.toolbarBarTintColor = options.toolbarBarTintColor.toHexColor();
   }
   if (options.toolbarTintColor) {
-    actualOption.toolbarTintColor = hexStringFromCSSColor(
-      options.toolbarTintColor,
-    );
+    actualOption.toolbarTintColor = options.toolbarTintColor.toHexColor();
   }
   AppModule.setIQKeyboardOption(actualOption);
 };
