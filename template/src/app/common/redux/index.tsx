@@ -4,13 +4,9 @@ import React, { createRef, forwardRef, useImperativeHandle } from 'react';
 import isEqual from 'react-fast-compare';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { ActionBase } from '@config/type';
 import { RootState } from '@store/all-reducers';
 import { createSelectorCreator, defaultMemoize } from 'reselect';
-
-type ActionBase<T = any> = {
-  type: string;
-  payload?: T;
-};
 
 const RXStoreComponent = forwardRef((_, ref) => {
   // state

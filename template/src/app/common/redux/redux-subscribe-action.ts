@@ -1,8 +1,9 @@
-import { Action, Dispatch, Middleware, MiddlewareAPI } from '@reduxjs/toolkit';
+import { ActionBase } from '@config/type';
+import { Dispatch, Middleware, MiddlewareAPI } from '@reduxjs/toolkit';
 
 import { onCheckType } from '../method/index';
 
-export type Listener = (action: Action) => void;
+export type Listener = (action: ActionBase) => void;
 type ActionListenerContainer = {
   action: string;
   listener: Listener;
@@ -103,7 +104,7 @@ export const unsubscribeActionAll = (action: string) => {
   unsubscribeActionAfter(action);
 };
 
-const _callListeners = (action: Action, listenerContainer: Listener[]) => {
+const _callListeners = (action: ActionBase, listenerContainer: Listener[]) => {
   for (let i = listenerContainer.length - 1; i >= 0; i--) {
     const listener = listenerContainer[i];
     if (typeof action === 'object') {
@@ -113,7 +114,7 @@ const _callListeners = (action: Action, listenerContainer: Listener[]) => {
 };
 
 const _callActionListeners = (
-  action: Action,
+  action: ActionBase,
   listenerContainer: ActionListenerContainer[],
 ) => {
   for (let i = listenerContainer.length - 1; i >= 0; i--) {
@@ -130,7 +131,7 @@ const _callActionListeners = (
 export const subscribeActionMiddleware: Middleware =
   (_storeApi: MiddlewareAPI) =>
   (next: Dispatch) =>
-  <A extends Action>(action: A) => {
+  <A extends ActionBase>(action: A) => {
     _callListeners(action, _subscribedBefore);
     _callActionListeners(action, _actionsSubscribedBefore);
     const result = next(action);
