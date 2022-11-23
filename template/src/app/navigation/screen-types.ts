@@ -1,8 +1,8 @@
+import { RegisterNavigationParams } from '@model/navigation-params';
 import { StackScreenProps as RNStackScreenProps } from '@react-navigation/stack';
 
 export enum APP_SCREEN {
   UN_AUTHORIZE = 'UN_AUTHORIZE',
-  SPLASH = 'SPLASH',
   LOGIN = 'LOGIN',
   REGISTER = 'REGISTER',
 
@@ -10,19 +10,13 @@ export enum APP_SCREEN {
   HOME = 'HOME',
 }
 
-export type UnAuthorizeParamsList = {
-  [APP_SCREEN.LOGIN]: undefined;
-  [APP_SCREEN.REGISTER]: undefined;
-  [APP_SCREEN.SPLASH]: undefined;
-};
-export type AuthorizeParamsList = {
-  [APP_SCREEN.HOME]: undefined;
-};
 export type RootStackParamList = {
+  [APP_SCREEN.LOGIN]: undefined;
+  [APP_SCREEN.REGISTER]: RegisterNavigationParams;
   [APP_SCREEN.UN_AUTHORIZE]: undefined;
   [APP_SCREEN.AUTHORIZE]: undefined;
-} & UnAuthorizeParamsList &
-  AuthorizeParamsList;
+  [APP_SCREEN.HOME]: undefined;
+};
 
 export type StackScreenProps<T extends keyof RootStackParamList> =
   RNStackScreenProps<RootStackParamList, T>;

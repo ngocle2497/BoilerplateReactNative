@@ -4,18 +4,17 @@ import React from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 
 import { CustomOmit } from '@common';
-import { HelperText, TextField } from '@components';
-import { InputFlatProps } from '@components/text-field/components/flat/type';
+import { HelperText, TextInput } from '@components';
+import { TextInputProps } from '@components/text-input/type';
 import { FormLoginType } from '@model/authentication';
 
 interface InputProps<T extends Record<string, any>>
-  extends CustomOmit<InputFlatProps, 'nameTrigger'>,
+  extends CustomOmit<TextInputProps, 'nameTrigger'>,
     React.RefAttributes<any> {
   name: keyof T;
   nameTrigger?: keyof T;
 }
 export const Input = <T extends Record<string, any>>({
-  onSubmit,
   label,
   name,
   nameTrigger,
@@ -34,8 +33,7 @@ export const Input = <T extends Record<string, any>>({
   // render
   return (
     <>
-      <TextField
-        onSubmit={onSubmit}
+      <TextInput
         ref={field.ref}
         nameTrigger={nameTrigger as string}
         trigger={trigger}
@@ -44,7 +42,6 @@ export const Input = <T extends Record<string, any>>({
         onChangeText={field.onChange}
         onBlur={field.onBlur}
         defaultValue={(getValues() as Record<string, string>)[name as string]}
-        typeInput={'flat'}
         {...rest}
       />
       <HelperText

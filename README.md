@@ -2,7 +2,7 @@
 
 :fireworks: Clean and minimalist React Native template for a quick start with TypeScript and so much more components.
 
-## Current version: 0.70.5
+## Current version: 0.70.6
 
 ## :star: Features
 
@@ -62,28 +62,10 @@ Args command:
 import {<function_name>} from "@common" 
 ```
 
-- getVersion : Get app version
-
-    ```tsx
-    const version = getVersion(); 
-    ```
-
-- getAppName : Get app name
-
-    ```tsx
-    const appName = getAppName(); 
-    ```
-
 - getDeviceId : Get device id
 
     ```tsx
     const deviceId = getDeviceId(); 
-    ```
-
-- getBuildNumber : Get build number
-
-    ```tsx
-    const buildNumber = getBuildNumber(); 
     ```
 
 - setAppBadges : Set app badges (IOS)
@@ -132,13 +114,11 @@ import {<function_name>} from "@common"
     createChannel(channel: Channel); 
     ```
 
-- fixRotation : Fix image rotate when upload
+- fixImageRotation : Fix image rotate when upload
 
     ```tsx
     type Image = {
     uri: string;
-    width?: number;// default 600
-    height?: number;// default 800
     };
     type ImageResponse = {
     uri: string;
@@ -146,22 +126,6 @@ import {<function_name>} from "@common"
     };
     const fixedImage = await fixRotation(image: Image); 
     ```
-
-- registerPhotosChanges : Register photos changes (IOS) (1)
-
-    ```tsx
-    registerPhotosChanges(); 
-    ```
-
-- usePhotosPermissionChange : Hook to check photos permission changes (IOS). ex: Photo selected changes when ask permission (1)
-
-    ```tsx
-    usePhotosPermissionChange(() => {
-    console.log("Changed");
-    });
-    ```
-  
->(1): Open AppModule.swift, uncomment code to use 2 function
 
 ## Library
 
