@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { MMKV } from 'react-native-mmkv';
+import { initializeMMKVFlipper } from 'react-native-mmkv-flipper-plugin';
 
 const appName = 'APP_Name';
 const AppKey = '7268428d-d814-4eca-8829-3dbe0e2eaa7a';
@@ -8,6 +9,10 @@ export const AppStorage = new MMKV({
   id: `user-${appName}-storage`,
   encryptionKey: AppKey,
 });
+
+if (__DEV__) {
+  initializeMMKVFlipper({ default: AppStorage });
+}
 
 /**
  * Loads a string from storage.

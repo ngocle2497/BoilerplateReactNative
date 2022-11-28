@@ -15,6 +15,7 @@ import { PortalHost } from '@gorhom/portal';
 import { AppModule } from '@native-module';
 import { navigationRef } from '@navigation/navigation-service';
 import { RootNavigation } from '@navigation/root-navigator';
+import { useFlipper } from '@react-navigation/devtools';
 import { NavigationContainer } from '@react-navigation/native';
 import { selectAppConfig } from '@redux-selector/app';
 import { appActions } from '@redux-slice';
@@ -48,6 +49,10 @@ export const AppContainer = () => {
       });
     }
   }, [theme]);
+
+  if (__DEV__) {
+    useFlipper(navigationRef);
+  }
 
   // render
   return (

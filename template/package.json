@@ -46,6 +46,7 @@
     "react-native-bootsplash": "^4.3.2",
     "react-native-config": "^1.4.11",
     "react-native-fast-image": "^8.6.3",
+    "react-native-flipper": "^0.174.0",
     "react-native-gesture-handler": "^2.8.0",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-mmkv": "^2.5.1",
@@ -80,7 +81,10 @@
     "patch-package": "^6.4.7",
     "prettier": "^2.3.0",
     "react-test-renderer": "18.1.0",
-    "typescript": "^4.4.4"
+    "typescript": "^4.4.4",
+    "@react-navigation/devtools": "^6.0.11",
+    "react-native-mmkv-flipper-plugin": "^1.0.0",
+    "redux-flipper": "^2.0.2"
   },
   "resolutions": {
     "@types/react": "^17"
