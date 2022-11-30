@@ -38,7 +38,7 @@ export interface SliderProps {
    * Event when range slider change value
    * @default undefined
    */
-  onChangeRange?: ({ lower, upper }: ArgsChangeRange) => void;
+  onChangeRange?: (changed: ArgsChangeRange) => void;
 }
 export type SliderRangeProps = Omit<
   SliderProps,

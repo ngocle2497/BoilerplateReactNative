@@ -43,7 +43,7 @@ export const sharedMax = (...args: number[]) => {
 /**
  * Select a point where the animation should snap to given the value of the gesture and it's velocity on UI thread.
  */
-export const SharedSnapPoint = (
+export const sharedSnapPoint = (
   value: number,
   velocity: number,
   points: number[],
