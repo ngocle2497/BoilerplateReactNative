@@ -1,5 +1,6 @@
 {
   "error": {
+    "-100": "Connection errors! Please check the connection again.",
     "0": "Request Timeout",
     "400": "Bad Request",
     "401": "Unauthorized",
@@ -25,12 +26,10 @@
     "503": "Service Unavailable",
     "504": "Gateway Timeout",
     "505": "HTTP Version Not Supported",
-    "haveError": "An error occurred. Please try again later",
-    "errorOnRequest": "An error occurred while sending the request",
-    "errorOnHandle": "An error occurred while processing data",
-    "serverError": "Server Error",
-    "errorNetwork": "Connection errors! Please check the connection again.",
-    "errorGetPermission": "Error during application permission check"
+    "have_error": "An error occurred. Please try again later",
+    "error_on_request": "An error occurred while sending the request",
+    "error_on_handle": "An error occurred while processing data",
+    "server_error": "Server Error"
   },
   "dialog": {
     "error": "Error",
@@ -39,14 +38,7 @@
     "loading": "Loading",
     "select": "Select"
   },
-  "main": {
-    "chatTab": {
-      "tvChat": "Chat",
-      "tvTabLabel": "Chat"
-    },
-    "profileTab": {
-      "tvProfile": "Profile",
-      "tvTabLabel": "Profile"
-    }
+  "validation": {
+    "email_required": "Email is required"
   }
 }

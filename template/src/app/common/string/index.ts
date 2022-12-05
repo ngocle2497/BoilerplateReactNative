@@ -97,9 +97,9 @@ export const checkPasswordContainUserName = (
  * fieldName must translate with i18n
  * so fieldName option will be push on optionsTx
  * This will support translate Option on translate
- * Read hook useMessageYupTranslation
+ * Read hook useErrorMessageTranslation
  */
-export const stringifyObjectValidateYup = ({
+export const stringifyObjectValidate = ({
   keyT,
   options,
   optionsTx,

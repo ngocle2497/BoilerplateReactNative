@@ -13,7 +13,7 @@ import { AxiosError, AxiosRequestConfig, AxiosResponse, Method } from 'axios';
 const responseDefault: ResponseBase<Record<string, unknown>> = {
   code: -500,
   status: false,
-  msg: translate('error:haveError'),
+  msg: translate('error:have_error'),
 };
 
 export const onPushLogout = async () => {

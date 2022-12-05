@@ -57,7 +57,7 @@
     "react-native-vector-icons": "^9.2.0",
     "reselect": "^4.1.7",
     "react-redux": "^8.0.5",
-    "yup": "^0.32.11"
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

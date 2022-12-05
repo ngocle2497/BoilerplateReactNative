@@ -516,7 +516,7 @@ function useMounted(callback: () => void, deps: any[] = []) {
   }, [...deps]);
 }
 
-function useMessageYupTranslation(msg?: string) {
+function useErrorMessageTranslation(msg?: string) {
   const [t] = useTranslation();
 
   const parsed = useMemo<ValidateMessageObject | undefined>(() => {
@@ -584,7 +584,7 @@ const useEventCallback = <Fn extends (...args: any[]) => ReturnType<Fn>>(
 };
 
 export {
-  useMessageYupTranslation,
+  useErrorMessageTranslation,
   useDisableBackHandler,
   useDismissKeyboard,
   useInterval,

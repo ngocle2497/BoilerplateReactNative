@@ -1,4 +1,4 @@
-import { handleErrorResponse } from '@common';
+import { validResponse } from '@common';
 import { takeLatestListeners } from '@listener';
 import { ApiConstants, NetWorkService } from '@networking';
 
@@ -17,7 +17,7 @@ takeLatestListeners(true)({
     if (!response) {
       return;
     }
-    if (handleErrorResponse(response)) {
+    if (validResponse(response)) {
       // TODO: do something when login success
     }
   },

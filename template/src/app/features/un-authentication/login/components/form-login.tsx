@@ -3,7 +3,7 @@ import { Button } from 'react-native';
 
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { yupResolver } from '@hookform/resolvers/yup';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { FormLoginType } from '@model/authentication';
 import { loginValidation } from '@validate/login';
 
@@ -15,7 +15,7 @@ export const FormLogin = ({ onSubmit }: FormLoginProps) => {
   // state
   const formMethod = useForm<FormLoginType>({
     mode: 'all',
-    resolver: yupResolver(loginValidation),
+    resolver: zodResolver(loginValidation),
   });
 
   // function

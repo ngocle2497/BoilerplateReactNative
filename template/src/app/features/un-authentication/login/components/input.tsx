@@ -6,6 +6,7 @@ import { useController, useFormContext } from 'react-hook-form';
 import { CustomOmit } from '@common';
 import { HelperText, TextInput } from '@components';
 import { TextInputProps } from '@components/text-input/type';
+import { useErrorMessageTranslation } from '@hooks';
 import { FormLoginType } from '@model/authentication';
 
 interface InputProps<T extends Record<string, any>>
@@ -30,6 +31,8 @@ export const Input = <T extends Record<string, any>>({
     name: name as string,
     defaultValue,
   });
+  const message = useErrorMessageTranslation(error?.message);
+
   // render
   return (
     <>
@@ -45,8 +48,8 @@ export const Input = <T extends Record<string, any>>({
         {...rest}
       />
       <HelperText
-        visible={error?.message !== undefined}
-        msg={error?.message ?? ''}
+        visible={message !== undefined}
+        msg={message ?? ''}
         type={'error'}
       />
     </>
