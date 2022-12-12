@@ -17,5 +17,10 @@ declare global {
      * @param maxDecimals @default 2
      */
     roundMaxFixed(maxDecimals?: number): number;
+
+    /**
+     * Convert number to 1K, 1M, 1G, ... if
+     */
+    toStringKMG(digits?: number): string;
   }
 }
