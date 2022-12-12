@@ -8,12 +8,13 @@
 
 - Elegant usage directly within the RN-Boiler Cli
 - Fastlane (App center included)
+- Lefthook
 - Boot Splash
 - Blur Hash
+- Declare String, Number, Array
 - Consistent with the default React Native template
 - Minimal additional dependencies
 - Lots of built-in components
-- Native modules
 - Multiple schema ios(Dev/Prod as default)
 - Multiple productFlavors android (dev/prod as default)
 
@@ -63,7 +64,7 @@ Args command:
 - [axios](https://axios-http.com)
 - [react-hook-form](https://www.react-hook-form.com)
 - [react-native-mmkv](https://github.com/mrousavy/react-native-mmkv)
-- [yup](https://github.com/jquense/yup)
+- [zod](https://github.com/colinhacks/zod)
 - [react-native-bootsplash](https://github.com/zoontek/react-native-bootsplash)
 - [react-native-reanimated-v2](https://github.com/software-mansion/react-native-reanimated#readme)
 - [redux](http://redux.js.org)

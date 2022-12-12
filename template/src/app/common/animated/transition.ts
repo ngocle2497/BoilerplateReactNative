@@ -18,8 +18,9 @@ import { sharedBin } from './math';
 export const useSharedTransition = (
   state: boolean | number,
   config?: WithTimingConfig,
+  initialValue?: number,
 ): Animated.SharedValue<number> => {
-  const value = useSharedValue(0);
+  const value = useSharedValue(initialValue ?? 0);
   useEffect(() => {
     value.value = typeof state === 'boolean' ? sharedBin(state) : state;
   }, [state, value]);
@@ -40,8 +41,9 @@ export const useSharedTransition = (
 export const useSharedSpringTransition = (
   state: boolean,
   config?: WithSpringConfig,
+  initialValue?: number,
 ): Animated.SharedValue<number> => {
-  const value = useSharedValue(0);
+  const value = useSharedValue(initialValue ?? 0);
   useEffect(() => {
     value.value = typeof state === 'boolean' ? sharedBin(state) : state;
   }, [state, value]);

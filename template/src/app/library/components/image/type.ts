@@ -31,18 +31,6 @@ export interface ImageProps
   blurHashOnLoad?: string;
 
   /**
-   * Source thumb(lazy load)
-   * @default undefined
-   */
-  thumbBlurHash?: string;
-
-  /**
-   * Element when image load start
-   * @default element with color #bbb
-   */
-  childrenOnload?: React.ReactNode;
-
-  /**
    * Element when image load error
    * @default element with color #bbb
    */

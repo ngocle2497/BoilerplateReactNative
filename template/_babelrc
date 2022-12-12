@@ -14,7 +14,6 @@
           "@common": "./src/app/common",
           "@hooks": "./src/app/common/hooks",
           "@validate": "./src/app/common/yup-validate",
-          "@native-module": "./src/app/common/native-module",
           "@listener": "./src/app/common/redux/listener.ts",
           "@animated": "./src/app/common/animated",
           "@config": "./src/app/config",

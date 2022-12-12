@@ -16,11 +16,9 @@ const ImageComponent = ({
   style: styleOverride = {},
   source,
   blurHashOnLoad = 'L9AB*A%LPqys8_H=yDR5nMMeVXR5',
-  thumbBlurHash,
   resizeMode = 'cover',
   containerStyle,
   childrenError,
-  childrenOnload,
   onLoad,
   onLoadStart,
   onError,
@@ -28,84 +26,69 @@ const ImageComponent = ({
 }: ImageProps) => {
   // state
 
-  const [loadSucceeded, setLoadSucceeded] = useState<boolean>(false);
-  const [loadThumbSucceeded, setLoadThumbSucceeded] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const [loadImageEnded, setLoadImageEnded] = useState<boolean>(false);
 
-  const opacityImg = useSharedTransition(loadSucceeded);
-  const opacityBlur = useSharedTransition(loadThumbSucceeded);
-  const opacityOnLoad = useSharedTransition(!loadThumbSucceeded);
+  const opacityBlur = useSharedTransition(
+    !loadImageEnded,
+    { duration: 1000 },
+    1,
+  );
 
   // function
-  const onLoadImageStart = () => {
+  const handleLoadStart = () => {
     setError(false);
     execFunc(onLoadStart);
   };
 
-  const onLoadThumbSucceeded = () => {
-    setLoadThumbSucceeded(true);
+  const handleLoadImageEnd = () => {
+    setLoadImageEnded(true);
   };
 
-  const onLoadImageSucceeded = (event: OnLoadEvent) => {
+  const handleSucceeded = (event: OnLoadEvent) => {
     setTimeout(() => {
       setError(false);
-      setLoadSucceeded(true);
     }, 200);
     execFunc(onLoad, event);
   };
 
-  const onLoadError = () => {
+  const handleLoadError = () => {
     setError(true);
     execFunc(onError);
   };
 
   // reanimated style
-  const imageStyle = useAnimatedStyle(() => ({
-    opacity: opacityImg.value,
-  }));
-
-  const imageOnloadStyle = useAnimatedStyle(() => ({
-    opacity: opacityOnLoad.value,
-  }));
   const imageBlurStyle = useAnimatedStyle(() => ({
     opacity: opacityBlur.value,
+    backgroundColor: 'red',
+    zIndex: 999,
   }));
 
   // render
   return (
     <View style={[styles.container, containerStyle]}>
-      <Animated.View style={[styles.viewOnLoad, imageOnloadStyle]}>
-        {childrenOnload || (
-          <Blurhash
-            blurhash={blurHashOnLoad}
-            style={[StyleSheet.absoluteFillObject]}
-          />
-        )}
-      </Animated.View>
-      <Animated.View style={[StyleSheet.absoluteFillObject, imageBlurStyle]}>
-        <Animated.View style={[StyleSheet.absoluteFillObject]}>
-          {thumbBlurHash !== undefined && (
-            <Blurhash
-              onLoadEnd={onLoadThumbSucceeded}
-              blurhash={thumbBlurHash ?? ''}
-              style={[StyleSheet.absoluteFillObject]}
-            />
-          )}
-        </Animated.View>
-      </Animated.View>
-      <Animated.View style={[StyleSheet.absoluteFillObject, imageStyle]}>
+      <Animated.View style={[StyleSheet.absoluteFillObject]}>
         <FastImage
           {...rest}
-          onLoadStart={onLoadImageStart}
+          onLoadStart={handleLoadStart}
           resizeMode={resizeMode}
-          onError={onLoadError}
-          onLoad={onLoadImageSucceeded}
+          onError={handleLoadError}
+          onLoad={handleSucceeded}
+          onLoadEnd={handleLoadImageEnd}
           style={[styles.img, styleOverride]}
           source={
             onCheckType(source, 'string')
               ? { uri: source as string }
               : (source as number | Record<string, unknown>)
           }
+        />
+      </Animated.View>
+      <Animated.View
+        pointerEvents={'none'}
+        style={[StyleSheet.absoluteFillObject, imageBlurStyle]}>
+        <Blurhash
+          blurhash={blurHashOnLoad ?? ''}
+          style={[StyleSheet.absoluteFillObject]}
         />
       </Animated.View>
       {error && (

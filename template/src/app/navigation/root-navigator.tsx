@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 
 import { Home } from '@features/authentication/home';
 import { Login } from '@features/un-authentication/login';
-import { AppModule } from '@native-module';
 import { APP_SCREEN, RootStackParamList } from '@navigation/screen-types';
 import { createStackNavigator } from '@react-navigation/stack';
 import { selectAppToken } from '@redux-selector/app';
@@ -23,13 +22,6 @@ export const RootNavigation = () => {
     }, 1000);
     return () => clearTimeout(id);
   }, []);
-
-  useEffect(() => {
-    if (!token) {
-      // clean cache when logout
-      AppModule.clearCache();
-    }
-  }, [token]);
 
   // render
   return (
