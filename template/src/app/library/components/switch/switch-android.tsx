@@ -17,7 +17,6 @@ import { execFunc } from '@common';
 import {
   BORDER_OFF_COLOR,
   BORDER_RADIUS_ANDROID,
-  MARGIN,
   OFF_COLOR,
   OFF_POSITION_ANDROID,
   OFF_TRACK_COLOR,
@@ -26,8 +25,8 @@ import {
   ON_TRACK_COLOR,
   SHADOW_COLOR,
   THUMB_SIZE_ANDROID,
-  TRACK_HEIGHT,
-  WIDTH,
+  TRACK_HEIGHT_ANDROID,
+  TRACK_WIDTH_ANDROID,
 } from './constants';
 import { SwitchProps } from './type';
 
@@ -36,16 +35,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   track: {
-    width: WIDTH,
-    height: TRACK_HEIGHT,
+    width: TRACK_WIDTH_ANDROID,
+    height: TRACK_HEIGHT_ANDROID,
     borderRadius: BORDER_RADIUS_ANDROID,
-    borderWidth: MARGIN / 2,
+    borderWidth: 1,
     borderColor: BORDER_OFF_COLOR,
+    justifyContent: 'center',
   },
   thumb: {
     position: 'absolute',
     width: THUMB_SIZE_ANDROID,
-    top: -(THUMB_SIZE_ANDROID - TRACK_HEIGHT + MARGIN) / 2,
     height: THUMB_SIZE_ANDROID,
     borderColor: BORDER_OFF_COLOR,
     borderRadius: THUMB_SIZE_ANDROID / 2,

@@ -8,8 +8,6 @@ import React, {
 } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { randomUniqueId } from '@common';
-
 import { DURATION_HIDE } from './constants';
 import { SnackItem } from './snack-bar-item';
 import { styles } from './styles';
@@ -31,7 +29,7 @@ const SnackBarComponent = forwardRef((_, ref) => {
         setQueueData(d =>
           d.concat([
             {
-              id: randomUniqueId(),
+              id: String().randomUniqueId(),
               msg,
               type,
               interval,

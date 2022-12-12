@@ -7,7 +7,6 @@ install! 'cocoapods', :deterministic_uuids => false
 # dynamic_frameworks = ['libWantToUseUserFramework']
 target 'HelloWorld' do
   config = use_native_modules!
-  pod 'IQKeyboardManagerSwift'
   # Flags change depending on the env values.
   flags = get_default_flags()
 
@@ -26,11 +25,6 @@ target 'HelloWorld' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
-
-  target 'HelloWorldTests' do
-    inherit! :complete
-    # Pods for testing
-  end
 
   # If u want to enable use_frameworks for one or more library.
   # unconment below and dynamic_frameworks (Line 5)

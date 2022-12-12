@@ -1,0 +1,43 @@
+diff --git a/node_modules/react-native-keyboard-manager/ReactNativeKeyboardManager.podspec b/node_modules/react-native-keyboard-manager/ReactNativeKeyboardManager.podspec
+index 4fbdeff..817599d 100644
+--- a/node_modules/react-native-keyboard-manager/ReactNativeKeyboardManager.podspec
++++ b/node_modules/react-native-keyboard-manager/ReactNativeKeyboardManager.podspec
+@@ -20,5 +20,5 @@ Pod::Spec.new do |s|
+ 
+ 	s.dependency 'React-Core'
+ 	s.dependency 'React-RCTText'
+-	s.dependency 'IQKeyboardManagerSwift', iqVersion
++	s.dependency 'IQKeyboardManagerSwift'
+ end
+diff --git a/node_modules/react-native-keyboard-manager/index.js b/node_modules/react-native-keyboard-manager/index.js
+index e80770c..5ba063c 100644
+--- a/node_modules/react-native-keyboard-manager/index.js
++++ b/node_modules/react-native-keyboard-manager/index.js
+@@ -30,4 +30,26 @@ const { OS } = Platform;
+ 
+ export const PreviousNextView = OS === 'ios' ? requireNativeComponent('RNKMPreviousNextView') : View;
+ 
+-export default NativeModules.ReactNativeKeyboardManager;
++const KeyboardManager = OS === 'ios' ? NativeModules.ReactNativeKeyboardManager : {
++    setEnable: () => {},
++    setEnableDebugging: () => {},
++    setLayoutIfNeededOnUpdate: () => {},
++    setKeyboardDistanceFromTextField: () => {},
++    setEnableAutoToolbar: () => {},
++    setToolbarDoneBarButtonItemText: () => {},
++    setToolbarManageBehaviourBy: () => {},
++    setToolbarPreviousNextButtonEnable: () => {},
++    setToolbarTintColor: () => {},
++    setToolbarBarTintColor: () => {},
++    setShouldShowToolbarPlaceholder: () => {},
++    setOverrideKeyboardAppearance: () => {},
++    setKeyboardAppearance: () => {},
++    setShouldResignOnTouchOutside: () => {},
++    setShouldPlayInputClicks: () => {},
++    setShouldToolbarUsesTextFieldTintColor: () => {},
++    resignFirstResponder: () => {},
++    reloadLayoutIfNeeded: () => {},
++    isKeyboardShowing: () => {},
++}
++
++export default KeyboardManager;

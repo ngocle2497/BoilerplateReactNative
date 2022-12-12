@@ -10,6 +10,5 @@ export * from './redux';
 export * from './redux/redux-subscribe-action';
 export * from './type';
 export * from './date';
-export * from './native-module';
 // export * from './firebase';
 // export * from './social-login'

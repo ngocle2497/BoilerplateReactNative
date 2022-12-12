@@ -17,23 +17,24 @@ import { execFunc } from '@common';
 import {
   BORDER_OFF_COLOR,
   BORDER_RADIUS_IOS,
-  MARGIN,
   OFF_COLOR,
   OFF_POSITION_IOS,
   ON_COLOR,
   ON_POSITION_IOS,
   THUMB_SIZE_IOS,
-  WIDTH,
+  TRACK_HEIGHT_IOS,
+  TRACK_WIDTH_IOS,
 } from './constants';
 import { SwitchProps } from './type';
 
 const styles = StyleSheet.create({
   track: {
-    width: WIDTH,
-    height: THUMB_SIZE_IOS + MARGIN,
+    width: TRACK_WIDTH_IOS,
+    height: TRACK_HEIGHT_IOS,
     borderRadius: BORDER_RADIUS_IOS,
-    borderWidth: MARGIN / 2,
+    borderWidth: 1,
     borderColor: 'transparent',
+    justifyContent: 'center',
   },
   thumb: {
     position: 'absolute',

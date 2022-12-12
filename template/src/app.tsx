@@ -3,12 +3,12 @@ import { LogBox, StyleSheet, UIManager } from 'react-native';
 
 import { I18nextProvider } from 'react-i18next';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import KeyboardManager from 'react-native-keyboard-manager';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 
 import { isIos } from '@common';
 import { PortalProvider } from '@gorhom/portal';
-import { AppModule } from '@native-module';
 import { AppContainer } from '@navigation/app-navigation';
 import { store } from '@store/store';
 import I18n from '@utils/i18n/i18n';
@@ -46,19 +46,18 @@ if (!isIos) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 }
-AppModule.setIQKeyboardOption({
-  enable: true,
-  layoutIfNeededOnUpdate: true,
-  enableDebugging: false,
-  keyboardDistanceFromTextField: 10,
-  enableAutoToolbar: false,
-  overrideKeyboardAppearance: true,
-  keyboardAppearance: 'default',
-  shouldResignOnTouchOutside: true,
-  shouldPlayInputClicks: true,
-  resignFirstResponder: true,
-  reloadLayoutIfNeeded: true,
-});
+
+KeyboardManager.setEnable(true);
+KeyboardManager.setEnableDebugging(false);
+KeyboardManager.setKeyboardDistanceFromTextField(10);
+KeyboardManager.setLayoutIfNeededOnUpdate(true);
+KeyboardManager.setEnableAutoToolbar(false);
+KeyboardManager.setOverrideKeyboardAppearance(true);
+KeyboardManager.setKeyboardAppearance('default'); // "default" | "light" | "dark"
+KeyboardManager.setShouldResignOnTouchOutside(true);
+KeyboardManager.setShouldPlayInputClicks(true);
+KeyboardManager.resignFirstResponder();
+KeyboardManager.reloadLayoutIfNeeded();
 
 const styles = StyleSheet.create({
   root: {

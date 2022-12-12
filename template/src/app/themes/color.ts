@@ -7,6 +7,7 @@ export const ColorDefault = {
   notification: 'rgb(255, 59, 48)',
   error: 'rgb(255, 59, 48)',
   info: '#ffd700',
+  line: 'gray',
 };
 export const ColorDark = {
   primary: 'rgb(10, 132, 255)',
@@ -17,4 +18,5 @@ export const ColorDark = {
   notification: 'rgb(255, 69, 58)',
   error: 'rgb(255, 59, 48)',
   info: '#ffd700',
+  line: 'gray',
 };

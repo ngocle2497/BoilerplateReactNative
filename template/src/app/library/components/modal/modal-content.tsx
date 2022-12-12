@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import KeyboardManager from 'react-native-keyboard-manager';
 import Animated, {
   runOnJS,
   useAnimatedStyle,
@@ -26,7 +27,6 @@ import Animated, {
 import { sharedClamp, sharedTiming } from '@animated';
 import { CustomOmit, isIos, onCheckType } from '@common';
 import { useDisableBackHandler } from '@hooks';
-import { AppModule } from '@native-module';
 
 import {
   ANIMATED_IN_DURATION,
@@ -310,10 +310,10 @@ export const ModalContent = forwardRef(
     useDisableBackHandler(true, onBackButtonPress);
 
     useEffect(() => {
-      AppModule.setEnableIQKeyboard(false);
+      KeyboardManager.setEnable(false);
       openModal();
       return () => {
-        AppModule.setEnableIQKeyboard(true);
+        KeyboardManager.setEnable(true);
       };
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

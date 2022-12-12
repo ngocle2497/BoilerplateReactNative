@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { sharedTiming } from '@animated';
 import { VectorIcon, VectorIconIcon } from '@assets/vector-icon/vector-icon';
-import { useMessageYupTranslation } from '@hooks';
+import { useErrorMessageTranslation } from '@hooks';
 
 import {
   BG_ERROR,
@@ -59,9 +59,7 @@ export const SnackItem = memo(
     // state
     const insets = useSafeAreaInsets();
     const [isShow, setIsShow] = useState<boolean>(true);
-    console.log({ item });
-    const message = useMessageYupTranslation(item.msg);
-    console.log({ message });
+    const message = useErrorMessageTranslation(item.msg);
     // style
     const containStyle = useMemo<ViewStyle>(
       () => ({

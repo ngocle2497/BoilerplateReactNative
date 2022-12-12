@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { Alert } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
+
+import LinearGradient from 'react-native-linear-gradient';
 
 import { dispatch } from '@common';
 import {
@@ -20,7 +22,7 @@ import {
   Spacer,
   Switch,
   Text,
-  TextField,
+  TextInput,
   TouchableScale,
   Wallpaper,
 } from '@components';
@@ -55,7 +57,10 @@ export const Login = () => {
   return (
     <Block block paddingTop={0} paddingHorizontal={15}>
       <Wallpaper />
-
+      <LinearGradient
+        style={StyleSheet.absoluteFillObject}
+        colors={['rgba(255,255,255,.2)', 'rgba(255,255,255,.1)']}
+      />
       <Screen
         bottomInsetColor="transparent"
         scroll
@@ -159,17 +164,10 @@ export const Login = () => {
           </Block>
         </Block>
         <Block paddingVertical={15} middle direction={'row'}>
-          <Text>TextField Flat</Text>
+          <Text>TextInput</Text>
           <Spacer width={10} />
           <Block block>
-            <TextField label={'Flat'} typeInput={'flat'} />
-          </Block>
-        </Block>
-        <Block paddingVertical={15} middle direction={'row'}>
-          <Text>TextField Outline</Text>
-          <Spacer width={10} />
-          <Block block>
-            <TextField typeInput={'outline'} label={'Outline'} />
+            <TextInput label={'TextInput'} />
           </Block>
         </Block>
         <Spacer height={10} />

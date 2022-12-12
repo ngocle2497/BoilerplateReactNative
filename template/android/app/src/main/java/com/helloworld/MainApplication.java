@@ -12,7 +12,6 @@ import com.facebook.soloader.SoLoader;
 import com.helloworld.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import com.helloworld.AppModule.AppModulePackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -29,7 +28,6 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
-          packages.add((new AppModulePackage()));
           return packages;
         }
 
