@@ -1,11 +1,11 @@
-type AssetType = "All" | "Videos" | "Photos"
+type AssetType = 'All' | 'Videos' | 'Photos';
 
 export interface GalleryOptions {
-    pageSize?: number;
-    assetType: AssetType;
+  pageSize?: number;
+  assetType: AssetType;
 }
-  
-export  type MediaType = 'image' | 'video';
+
+export type MediaType = 'image' | 'video';
 
 export interface Media {
   uri: string;
@@ -13,7 +13,7 @@ export interface Media {
   playableDuration?: number;
 }
 
-export  interface GalleryLogic {
+export interface GalleryLogic {
   medias: Array<Media>;
   loadNextPage: () => void;
   isLoading: boolean;

@@ -1,6 +1,6 @@
 // import { useCallback, useEffect, useState } from 'react';
 // import { AppState, EmitterSubscription, Platform } from 'react-native';
-export {}
+export {};
 // import {
 //   cameraRollEventEmitter,
 //   CameraRoll as PhotoGallery,

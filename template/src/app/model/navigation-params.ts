@@ -1,3 +1,4 @@
 export type RegisterNavigationParams = {
-    count: number;
+  count: number;
 };
+  
