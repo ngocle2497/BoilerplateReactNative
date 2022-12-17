@@ -15,7 +15,9 @@ const { execSync } = require('child_process');
     console.log(
       '                  🧐🧐🧐🧐🧐 Starting bundle install!! 🧐🧐🧐🧐🧐',
     );
-    execSync('bundle install');
+    execSync('bundle install', {
+      stdio: 'inherit',
+    });
     console.log('bundle install Done!!✨✨✨✨✨');
     console.log(
       '                  🧐🧐🧐🧐🧐 Starting pod install!! 🧐🧐🧐🧐🧐',
