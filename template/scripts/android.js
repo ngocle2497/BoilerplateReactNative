@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { execSync } = require('child_process');
 
-const { loadEnvFile } = require('./common');
+const { loadEnvFile, setupEnv } = require('./common');
 
 (async function () {
   const { argv, platform } = process;
+  await setupEnv(argv[2]);
   const envJson = await loadEnvFile();
   // uninstall android app with adb
   const devicesString = execSync('adb devices').toString().trim();

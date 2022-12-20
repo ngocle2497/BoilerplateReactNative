@@ -1,6 +1,6 @@
 import { initReactI18next } from 'react-i18next';
 
-import { ENVConfig } from '@config/env';
+import { DEFAULT_FALLBACK_LNG_I18n } from '@env';
 import i18n, { LanguageDetectorAsyncModule, Resource } from 'i18next';
 
 import { resources } from './locales';
@@ -9,7 +9,7 @@ const languageDetector: LanguageDetectorAsyncModule = {
   type: 'languageDetector',
   async: true, // flags below detection to be async
   detect: (callback: (lng: string | readonly string[] | undefined) => void) => {
-    callback(ENVConfig.DEFAULT_FALLBACK_LNG_I18n);
+    callback(DEFAULT_FALLBACK_LNG_I18n);
   },
   init: () => {
     console.log('init I18n');
@@ -21,7 +21,7 @@ const languageDetector: LanguageDetectorAsyncModule = {
 
 export const initOptionsI18n = (source: Resource) => {
   return {
-    fallbackLng: ENVConfig.DEFAULT_FALLBACK_LNG_I18n,
+    fallbackLng: DEFAULT_FALLBACK_LNG_I18n,
 
     resources: source,
 

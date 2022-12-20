@@ -1,13 +1,16 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { execSync } = require('child_process');
 
-const { loadEnvFile } = require('./common');
+const { loadEnvFile, setupEnv } = require('./common');
 
 (async function () {
-  if (process.platform !== 'darwin') {
+  const { argv, platform } = process;
+
+  if (platform !== 'darwin') {
     console.log('This script is only for macOS');
     return;
   }
+  await setupEnv(argv[2]);
   const envJson = await loadEnvFile();
   const simulator = 'iPhone 11';
   try {

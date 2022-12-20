@@ -2,8 +2,8 @@ import { StyleSheet } from 'react-native';
 
 import { dispatch, getState } from '@common';
 import { RESULT_CODE_PUSH_OUT, TIME_OUT } from '@config/api';
-import { ENVConfig } from '@config/env';
 import { ParamsNetwork, ResponseBase } from '@config/type';
+import { API_URL } from '@env';
 import { AppState } from '@model/app';
 import { appActions } from '@redux-slice';
 import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
@@ -33,7 +33,7 @@ AxiosInstance.interceptors.response.use(
       originalRequest._retry = true;
       refreshTokenRequest = refreshTokenRequest
         ? refreshTokenRequest
-        : refreshToken(originalRequest);
+        : refreshToken();
       const newToken = await refreshTokenRequest;
       refreshTokenRequest = null;
       if (newToken === null) {
@@ -48,10 +48,20 @@ AxiosInstance.interceptors.response.use(
 );
 
 // refresh token
-async function refreshToken(originalRequest: Record<string, unknown>) {
-  return AxiosInstance.get(ApiConstants.REFRESH_TOKEN, originalRequest)
-    .then((res: AxiosResponse) => res.data)
-    .catch(() => null);
+async function refreshToken(): Promise<any | null> {
+  return new Promise<any | null>(rs => {
+    AxiosInstance.request({
+      method: 'POST',
+      url: ApiConstants.REFRESH_TOKEN,
+      _retry: true,
+      baseURL: API_URL,
+      data: {
+        refresh_token: '',
+      },
+    } as AxiosRequestConfig)
+      .then((res: AxiosResponse<any>) => rs(res.data))
+      .catch(() => rs(null));
+  });
 }
 
 // base
@@ -61,7 +71,7 @@ function Request<T = Record<string, unknown>>(
 ) {
   const { token }: AppState = getState('app');
   const defaultConfig: AxiosRequestConfig = {
-    baseURL: ENVConfig.API_URL,
+    baseURL: API_URL,
     timeout: TIME_OUT,
     headers: {
       'Content-Type': 'application/json',

@@ -9,22 +9,26 @@ const { execSync } = require('child_process');
   execSync('cp -r src/app/assets/fonts android/app/src/main/assets', {
     stdio: 'inherit',
   });
-  console.log('Link font Android Done!!✨✨✨✨✨');
+  console.log(
+    '                  🧶🧶🧶🧶🧶 Link font Android done!! 🧶🧶🧶🧶🧶',
+  );
   if (process.platform === 'darwin') {
     execSync('cd ios && touch tmp.xcconfig');
     console.log(
-      '                  🧐🧐🧐🧐🧐 Starting bundle install!! 🧐🧐🧐🧐🧐',
+      '                  ⌛️⌛️⌛️⌛️⌛️ Starting bundle install!! ⏳⏳⏳⏳⏳',
     );
     execSync('bundle install', {
       stdio: 'inherit',
     });
-    console.log('bundle install Done!!✨✨✨✨✨');
     console.log(
-      '                  🧐🧐🧐🧐🧐 Starting pod install!! 🧐🧐🧐🧐🧐',
+      '                  💯💯💯💯💯 Bundle install done!! 💯💯💯💯💯',
+    );
+    console.log(
+      '                  ⌛️⌛️⌛️⌛️⌛️ Starting pod install!! ⏳⏳⏳⏳⏳',
     );
     execSync('bundle exec pod install --project-directory=ios', {
       stdio: 'inherit',
     });
-    console.log('                      ✨✨✨✨✨ Pod done!!! ✨✨✨✨✨');
+    console.log('                      🥙🥙🥙🥙🥙 Pod done!!! 🥙🥙🥙🥙🥙');
   }
 })();
