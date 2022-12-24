@@ -74,7 +74,10 @@ export function getDaysByMonth(
   if ((to.isAfter(days[days.length - 1]), 'days')) {
     after = daysFromTo(days[days.length - 1], to);
   }
-  return before.concat(days.slice(1, days.length - 1), after);
+  return before.concat(
+    days.slice(before.length > 0 ? 1 : 0, days.length - 1),
+    after,
+  );
 }
 
 /**
