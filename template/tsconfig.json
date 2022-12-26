@@ -42,7 +42,7 @@
       "@assets/*": ["./src/app/assets/*"],
       "@common": ["./src/app/common/index"],
       "@hooks": ["./src/app/common/hooks/index"],
-      "@validate/*": ["./src/app/common/yup-validate/*"],
+      "@validate/*": ["./src/app/common/zod-validate/*"],
       "@listener": ["./src/app/common/redux/listener.ts"],
       "@animated": ["./src/app/common/animated/index"],
       "@config/*": ["./src/app/config/*"],

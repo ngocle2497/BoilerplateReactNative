@@ -69,7 +69,9 @@ export const TextInput = forwardRef(
       const actualText =
         rxFormat !== undefined ? text.replace(rxFormat, '') : text;
       execFunc(onChangeText, actualText);
-      execFunc(trigger, nameTrigger);
+      if(nameTrigger){
+        execFunc(trigger, nameTrigger);
+      }
     };
 
     const handleFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {

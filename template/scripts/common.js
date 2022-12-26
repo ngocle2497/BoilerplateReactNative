@@ -17,8 +17,7 @@ module.exports = {
           reject(err);
         }
         infoJsEnv += data;
-        execSync('npm cache verify');
-        execSync('npx kill-port 8081');
+        execSync('rm -rf $TMPDIR/metro-*');
         fs.writeFileSync(path.join('.base.env'), infoJsEnv, 'utf8');
         console.error('✨✨✨✨✨ SET UP Env done ✨✨✨✨✨');
         resolve(infoJsEnv);
