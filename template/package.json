@@ -12,19 +12,19 @@
     "splash": "yarn react-native generate-bootsplash splash/splash.png --background-color=FFFFFF --logo-width=150  --assets-path=assets --flavor=main",
     "app-icon": "npx rn-ml appicon -s appicon/appicon.png",
     "app-icon:dev": "npx rn-ml appicon -s appicon/appicon-dev.png -f dev -icn AppIcon-Dev",
-    "ios:dev": "node ./scripts/ios.js env/.dev",
     "notification:ios:dev": "node ./scripts/notification-ios.js env/.dev",
     "android:report": "cd android && ./gradlew signingReport",
     "android:hash": "keytool -exportcert -alias androiddebugkey -keystore android/app/debug.keystore | openssl sha1 -binary | openssl base64",
     "android:prod:hash": "keytool -exportcert -alias my-key-alias -keystore android/app/my-upload-key.keystore | openssl sha1 -binary | openssl base64",
     "android:gen-key": "keytool -genkeypair -v -storetype PKCS12 -keystore android/app/my-upload-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000",
+    "ios:dev": "node ./scripts/ios.js env/.dev",
     "ios:prod": "node ./scripts/ios.js env/.prod",
     "type:check": "yarn tsc --noEmit --skipLibCheck",
     "android:dev": "node ./scripts/android.js env/.dev devDebug",
     "android:prod": "node ./scripts/android.js env/.prod prodDebug",
-    "build:staging": "bundle exec fastlane ios staging_build --env dev && bundle exec fastlane android staging_build --env dev",
     "android:dev:release": "node ./scripts/android.js env/.dev devRelease",
-    "dev:apk": "bundle exec fastlane android apk --env dev"
+    "fastlane:dev": "node ./scripts/fastlane.js staging_build env/.dev dev",
+    "fastlane:apk": "node ./scripts/fastlane.js apk env/.dev --env dev android"
   },
   "dependencies": {
     "@gorhom/portal": "^1.0.14",
