@@ -25,7 +25,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { sharedClamp, sharedTiming } from '@animated';
-import { CustomOmit, isIos, onCheckType } from '@common';
+import { CustomOmit, onCheckType } from '@common';
 import { useDisableBackHandler } from '@hooks';
 
 import {
@@ -71,16 +71,6 @@ export const ModalContent = forwardRef(
   ) => {
     // state
     const { height: screenHeight, width: screenWidth } = useWindowDimensions();
-    const modalStyle = useMemo<StyleProp<ViewStyle>>(
-      () => [
-        styles.modal,
-        {
-          width: screenWidth,
-          height: screenHeight + (isIos ? 0 : 25),
-        },
-      ],
-      [screenHeight, screenWidth],
-    );
     // reanimated state
     const translateY = useSharedValue(0);
     const translateX = useSharedValue(0);
@@ -320,7 +310,7 @@ export const ModalContent = forwardRef(
 
     // render
     return (
-      <View style={[modalStyle]}>
+      <View style={styles.modal}>
         {renderBackdrop()}
         {contentView()}
       </View>
