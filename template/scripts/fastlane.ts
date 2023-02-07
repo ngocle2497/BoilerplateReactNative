@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const { execSync } = require('child_process');
+import { execSync } from 'child_process';
 
-const { setupEnv } = require('./common');
+import { loadEnvFile, setupEnv } from './common';
 
-(async function () {
+(function () {
   const { argv } = process;
   const [, , lane, envPath, fastlaneEnv, platform] = argv;
-  await setupEnv(envPath);
+  const envJson = loadEnvFile(envPath);
+  setupEnv(envPath, envJson);
   if (platform === 'ios' || !platform) {
     execSync(`bundle exec fastlane ios ${lane} --env ${fastlaneEnv} `, {
       stdio: 'inherit',

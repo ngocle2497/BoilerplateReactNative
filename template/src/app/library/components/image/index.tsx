@@ -60,7 +60,6 @@ const ImageComponent = ({
   // reanimated style
   const imageBlurStyle = useAnimatedStyle(() => ({
     opacity: opacityBlur.value,
-    backgroundColor: 'red',
     zIndex: 999,
   }));
 

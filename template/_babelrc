@@ -1,14 +1,18 @@
 {
   "env": {
     "production": {
-      "plugins": ["transform-remove-console"]
+      "plugins": [
+        "transform-remove-console"
+      ]
     }
   },
   "plugins": [
     [
       "module-resolver",
       {
-        "root": ["./"],
+        "root": [
+          "./"
+        ],
         "alias": {
           "@assets": "./src/app/assets",
           "@common": "./src/app/common",
@@ -28,8 +32,7 @@
           "@redux-slice": "./src/app/redux/action-slice",
           "@redux-selector": "./src/app/redux/selector",
           "@redux-action-type": "./src/app/redux/action-type",
-          "@theme": "./src/app/themes",
-          "@transition": "./src/app/transition"
+          "@theme": "./src/app/themes"
         }
       }
     ]

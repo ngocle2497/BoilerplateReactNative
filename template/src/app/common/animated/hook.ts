@@ -112,14 +112,13 @@ export function useInsideView<T extends Component>(
   });
 
   useDerivedValue(() => {
-    try {
-      const measured = measure(ref);
-      rectTop.value = measured.pageY - top;
-      rectBottom.value = measured.pageY + measured.height - top;
-      toggle.value = toggle.value === 1 ? 0 : 1;
-    } catch {
-      toggle.value = toggle.value === 1 ? 0 : 1;
+    const measured = measure(ref);
+    if (!measured) {
+      return;
     }
+    rectTop.value = measured.pageY - top;
+    rectBottom.value = measured.pageY + measured.height - top;
+    toggle.value = toggle.value === 1 ? 0 : 1;
   });
   return [ref, visible];
 }

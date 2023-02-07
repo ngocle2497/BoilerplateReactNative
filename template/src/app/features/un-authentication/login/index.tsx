@@ -44,12 +44,12 @@ export const Login = () => {
   }>({ lower: 0, upper: 0 });
 
   // function
-  const onSubmit = (data: FormLoginType) => {
+  const handleSubmit = (data: FormLoginType) => {
     dispatch(appActions.setAppTheme('dark'));
     Alert.alert(JSON.stringify(data));
   };
 
-  const _onShowAction = async () => {
+  const handleShowAction = async () => {
     _refAction.current?.show();
   };
 
@@ -66,7 +66,7 @@ export const Login = () => {
         scroll
         style={{ paddingVertical: 0, paddingHorizontal: 10 }}
         backgroundColor={'transparent'}>
-        <FormLogin onSubmit={onSubmit} />
+        <FormLogin onSubmit={handleSubmit} />
         <Block block height={150}>
           <LightBox
             source={{
@@ -78,7 +78,7 @@ export const Login = () => {
         <Block paddingVertical={15} middle direction={'row'}>
           <Text>Action Sheet</Text>
           <Spacer width={10} />
-          <Button onPress={_onShowAction}>
+          <Button onPress={handleShowAction}>
             <Text>Show Action</Text>
           </Button>
           <ActionSheet

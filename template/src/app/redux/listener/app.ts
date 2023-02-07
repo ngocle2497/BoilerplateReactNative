@@ -17,7 +17,6 @@ takeLatestListeners()({
     if (typeof token === 'string') {
       listenerApi.dispatch(appActions.setToken(token));
     }
-
     if (
       typeof appTheme === 'string' &&
       checkKeyInObject(MyAppTheme, appTheme)

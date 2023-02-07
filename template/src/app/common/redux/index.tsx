@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { createRef, forwardRef, useImperativeHandle } from 'react';
 
 import isEqual from 'react-fast-compare';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { ActionBase } from '@config/type';
 import { RootState } from '@store/all-reducers';
 import { createSelectorCreator, defaultMemoize } from 'reselect';
 
@@ -38,11 +36,11 @@ const storeRef = createRef<RXStoreType>();
 
 export const RXStore = () => <RXStoreComponent ref={storeRef} />;
 
-export const dispatch = (action: ActionBase) => {
+export function dispatch<T = undefined>(action: ActionBase<T>) {
   if (storeRef.current) {
     storeRef.current.dispatch(action);
   }
-};
+}
 export function getState<K extends keyof RootState>(selector: K): RootState[K] {
   if (storeRef.current) {
     return storeRef.current.getState(selector);

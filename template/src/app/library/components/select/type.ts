@@ -2,8 +2,6 @@
 import React from 'react';
 import { FlatListProps, StyleProp, TextStyle } from 'react-native';
 
-import { CustomOmit } from '@common';
-
 export interface SelectOption {
   /**
    * (Required)Text to display

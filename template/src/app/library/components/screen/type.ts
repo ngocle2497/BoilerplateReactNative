@@ -8,8 +8,6 @@ import {
 
 import { Edge } from 'react-native-safe-area-context';
 
-import { CustomOmit } from '@common';
-
 export type ScreenProps = {
   /**
    * Children of Screen

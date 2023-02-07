@@ -46,8 +46,11 @@ const setLayoutOnUI = (
   }>,
 ) => {
   'worklet';
-  const { width, height, pageX, pageY } = measure(ref);
-  wrapMeasured.value = { width, height, x: pageX, y: pageY };
+  const measured = measure(ref);
+  if (measured) {
+    const { width, height, pageX, pageY } = measured;
+    wrapMeasured.value = { width, height, x: pageX, y: pageY };
+  }
 };
 
 export const DropDown = forwardRef((props: DropDownProps, _) => {

@@ -1,19 +1,22 @@
-import { ActionBase } from '@config/type';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dispatch, Middleware, MiddlewareAPI } from '@reduxjs/toolkit';
 
 import { onCheckType } from '../method/index';
 
-export type Listener = (action: ActionBase) => void;
-type ActionListenerContainer = {
+export type Listener<T = undefined> = (action: ActionBase<T>) => void;
+type ActionListenerContainer<T = undefined> = {
   action: string;
-  listener: Listener;
+  listener: Listener<T>;
 };
-const _subscribedBefore: Listener[] = [];
-const _subscribedAfter: Listener[] = [];
-const _actionsSubscribedBefore: ActionListenerContainer[] = [];
-const _actionsSubscribedAfter: ActionListenerContainer[] = [];
+const subscribedBefore: Array<Listener<any>> = [];
+const subscribedAfter: Array<Listener<any>> = [];
+const actionsSubscribedBefore: Array<ActionListenerContainer<any>> = [];
+const actionsSubscribedAfter: Array<ActionListenerContainer<any>> = [];
 
-const _subscribe = (listener: Listener, listenerContainer: Listener[]) => {
+const subscribe = <T = undefined>(
+  listener: Listener<T>,
+  listenerContainer: Array<Listener<T>>,
+) => {
   if (!onCheckType(listener, 'function')) {
     throw new Error('Expected the listener to be a function.');
   }
@@ -23,16 +26,17 @@ const _subscribe = (listener: Listener, listenerContainer: Listener[]) => {
     listenerContainer.splice(index, 1);
   };
 };
-export const subscribeBefore = (listener: Listener) => {
-  return _subscribe(listener, _subscribedBefore);
+export const subscribeBefore = <T = undefined>(listener: Listener<T>) => {
+  return subscribe(listener, subscribedBefore);
 };
 
-export const subscribeAfter = (listener: Listener) => {
-  return _subscribe(listener, _subscribedAfter);
+export const subscribeAfter = <T = undefined>(listener: Listener<T>) => {
+  return subscribe(listener, subscribedAfter);
 };
-const _subscribeAction = (
-  actionListenerContainer: ActionListenerContainer,
-  listenerContainer: ActionListenerContainer[],
+
+const subscribeAction = <T = undefined>(
+  actionListenerContainer: ActionListenerContainer<T>,
+  listenerContainer: ActionListenerContainer<T>[],
 ) => {
   if (!onCheckType(actionListenerContainer.action, 'string')) {
     throw new Error('Expected the action to be a string.');
@@ -47,30 +51,36 @@ const _subscribeAction = (
   };
 };
 
-export const subscribeActionBefore = (action: string, listener: Listener) => {
+export const subscribeActionBefore = <T = undefined>(
+  action: string,
+  listener: Listener<T>,
+) => {
   const actionListenerContainer = { action, listener };
-  return _subscribeAction(actionListenerContainer, _actionsSubscribedBefore);
+  return subscribeAction(actionListenerContainer, actionsSubscribedBefore);
 };
 
-export const subscribeActionAfter = (action: string, listener: Listener) => {
+export const subscribeActionAfter = <T = undefined>(
+  action: string,
+  listener: Listener<T>,
+) => {
   const actionListenerContainer = { action, listener };
-  return _subscribeAction(actionListenerContainer, _actionsSubscribedAfter);
+  return subscribeAction(actionListenerContainer, actionsSubscribedAfter);
 };
 
 export const unsubscribeBefore = () => {
-  _subscribedBefore.length = 0;
+  subscribedBefore.length = 0;
 };
 
 export const unsubscribeActionsBefore = () => {
-  _actionsSubscribedBefore.length = 0;
+  actionsSubscribedBefore.length = 0;
 };
 
 export const unsubscribeAfter = () => {
-  _subscribedAfter.length = 0;
+  subscribedAfter.length = 0;
 };
 
 export const unsubscribeActionsAfter = () => {
-  _actionsSubscribedAfter.length = 0;
+  actionsSubscribedAfter.length = 0;
 };
 
 export const unsubscribeAll = () => {
@@ -92,11 +102,11 @@ const _unsubscribeAction = (
 };
 
 export const unsubscribeActionBefore = (action: string) => {
-  _unsubscribeAction(_actionsSubscribedBefore, action);
+  _unsubscribeAction(actionsSubscribedBefore, action);
 };
 
 export const unsubscribeActionAfter = (action: string) => {
-  _unsubscribeAction(_actionsSubscribedAfter, action);
+  _unsubscribeAction(actionsSubscribedAfter, action);
 };
 
 export const unsubscribeActionAll = (action: string) => {
@@ -132,11 +142,11 @@ export const subscribeActionMiddleware: Middleware =
   (_storeApi: MiddlewareAPI) =>
   (next: Dispatch) =>
   <A extends ActionBase>(action: A) => {
-    _callListeners(action, _subscribedBefore);
-    _callActionListeners(action, _actionsSubscribedBefore);
+    _callListeners(action, subscribedBefore);
+    _callActionListeners(action, actionsSubscribedBefore);
     const result = next(action);
-    _callListeners(action, _subscribedAfter);
-    _callActionListeners(action, _actionsSubscribedAfter);
+    _callListeners(action, subscribedAfter);
+    _callActionListeners(action, actionsSubscribedAfter);
     return result;
   };
 /**

@@ -3,8 +3,6 @@ import { StyleProp, ViewStyle } from 'react-native';
 
 import FastImage, { FastImageProps, ImageStyle } from 'react-native-fast-image';
 
-import { CustomOmit } from '@common';
-
 export interface ImageProps
   extends CustomOmit<FastImageProps, 'source' | 'style' | 'resizeMode'> {
   /**

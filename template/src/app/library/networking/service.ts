@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { StyleSheet } from 'react-native';
 
 import { dispatch, getState } from '@common';
 import { RESULT_CODE_PUSH_OUT, TIME_OUT } from '@config/api';
-import { ParamsNetwork, ResponseBase } from '@config/type';
+import { ParamsNetwork } from '@config/type';
 import { API_URL } from '@env';
 import { AppState } from '@model/app';
 import { appActions } from '@redux-slice';
@@ -10,6 +11,7 @@ import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { ApiConstants } from './api';
 import {
+  controller,
   handleErrorAxios,
   handleParameter,
   handleResponseAxios,
@@ -65,10 +67,7 @@ async function refreshToken(): Promise<any | null> {
 }
 
 // base
-function Request<T = Record<string, unknown>>(
-  config: AxiosRequestConfig,
-  isCheckOut = true,
-) {
+function Request<T = Record<string, unknown>>(config: ParamsNetwork) {
   const { token }: AppState = getState('app');
   const defaultConfig: AxiosRequestConfig = {
     baseURL: API_URL,
@@ -79,17 +78,24 @@ function Request<T = Record<string, unknown>>(
     },
   };
   return new Promise<ResponseBase<T> | null>(rs => {
-    AxiosInstance.request(StyleSheet.flatten([defaultConfig, config]))
+    AxiosInstance.request(
+      StyleSheet.flatten([
+        defaultConfig,
+        config,
+        { signal: config?.controller?.signal || controller.current?.signal },
+      ]),
+    )
       .then((res: AxiosResponse<T>) => {
         const result = handleResponseAxios(res);
         rs(result);
       })
       .catch((error: AxiosError<T>) => {
-        const result = handleErrorAxios(error);
-        if (!isCheckOut) {
-          rs(result as ResponseBase<T>);
+        if (error.code === AxiosError.ERR_CANCELED) {
+          rs(null);
         }
-        if (result.code === RESULT_CODE_PUSH_OUT && isCheckOut) {
+        const result = handleErrorAxios(error);
+
+        if (result.code === RESULT_CODE_PUSH_OUT) {
           onPushLogout();
           rs(null);
         } else {

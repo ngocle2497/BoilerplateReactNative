@@ -25,7 +25,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { sharedClamp, sharedTiming } from '@animated';
-import { CustomOmit, onCheckType } from '@common';
+import { onCheckType } from '@common';
 import { useDisableBackHandler } from '@hooks';
 
 import {

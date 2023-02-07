@@ -1,3 +1,5 @@
+import { createRef } from 'react';
+
 import { handleErrorApi, logout } from '@common';
 import {
   CODE_SUCCESS,
@@ -6,9 +8,9 @@ import {
   RESULT_CODE_PUSH_OUT,
   STATUS_TIME_OUT,
 } from '@config/api';
-import { ParamsNetwork, ResponseBase } from '@config/type';
+import { ParamsNetwork } from '@config/type';
 import { translate } from '@utils/i18n/translate';
-import { AxiosError, AxiosRequestConfig, AxiosResponse, Method } from 'axios';
+import { AxiosError, AxiosResponse, Method } from 'axios';
 
 const responseDefault: ResponseBase<Record<string, unknown>> = {
   code: -500,
@@ -21,6 +23,21 @@ export const onPushLogout = async () => {
   /**
    * do something when logout
    */
+};
+
+export const controller = createRef<AbortController>();
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+// init controller
+controller.current = new AbortController();
+
+export const cancelAllRequest = () => {
+  controller.current?.abort();
+  // reset controller, if not. all request cannot execute
+  // because old controller was aborted
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  controller.current = new AbortController();
 };
 
 export const handleResponseAxios = <T = Record<string, unknown>>(
@@ -65,7 +82,7 @@ export const handlePath = (url: string, path: ParamsNetwork['path']) => {
 export const handleParameter = <T extends ParamsNetwork>(
   props: T,
   method: Method,
-): AxiosRequestConfig => {
+): ParamsNetwork => {
   const { url, body, path, params } = props;
   return {
     ...props,

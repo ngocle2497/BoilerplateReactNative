@@ -2,7 +2,6 @@ import React from 'react';
 
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 
-import { CustomOmit } from '@common';
 import { Colors, useTheme } from '@theme';
 import { IconProps } from 'react-native-vector-icons/Icon';
 

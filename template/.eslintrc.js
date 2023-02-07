@@ -35,6 +35,7 @@ module.exports = {
     '@react-native-community',
   ],
   rules: {
+    'no-undef': 'off',
     quotes: [
       'error',
       'single',

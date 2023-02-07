@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-    zIndex: 998,
+    zIndex: 1,
   },
   wrapOption: {
     backgroundColor: '#FFFFFF',

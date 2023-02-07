@@ -24,25 +24,13 @@ Number.prototype.roundMaxFixed = function (maxDecimals = 2) {
   );
 };
 
-Number.prototype.toStringKMG = function (digits = 1) {
-  const lookup = [
-    { value: 1, symbol: '' },
-    { value: 1e3, symbol: 'k' },
-    { value: 1e6, symbol: 'M' },
-    { value: 1e9, symbol: 'G' },
-    { value: 1e12, symbol: 'T' },
-    { value: 1e15, symbol: 'P' },
-    { value: 1e18, symbol: 'E' },
-  ];
-  const thisValue = Number(this);
-  const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-  const item = lookup
-    .slice()
-    .reverse()
-    .find(function (l) {
-      return thisValue >= l.value;
-    });
-  return item
-    ? (thisValue / item.value).toFixed(digits).replace(rx, '$1') + item.symbol
-    : '0';
+Number.prototype.toStringKMG = function () {
+  const abbreviations = ['', 'k', 'M', 'G', 'T', 'P', 'E'];
+  let actualNumber = Number(this);
+  let index = 0;
+  while (actualNumber >= 1000 && index < abbreviations.length - 1) {
+    actualNumber /= 1000;
+    index++;
+  }
+  return Math.floor(actualNumber * 10) / 10 + abbreviations[index];
 };

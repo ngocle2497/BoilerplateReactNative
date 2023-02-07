@@ -1,4 +1,3 @@
-import { ZodShape } from '@config/type';
 import { FormLoginType } from '@model/authentication';
 import { z } from 'zod';
 

@@ -3,7 +3,6 @@ import React from 'react';
 
 import { useController, useFormContext } from 'react-hook-form';
 
-import { CustomOmit } from '@common';
 import { HelperText, TextInput } from '@components';
 import { TextInputProps } from '@components/text-input/type';
 import { useErrorMessageTranslation } from '@hooks';

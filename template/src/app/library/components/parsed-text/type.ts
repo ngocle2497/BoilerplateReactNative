@@ -1,6 +1,5 @@
 import { PATTERNS } from './utils';
 
-import { CustomOmit } from '../../../common/type/index';
 import { TextProps } from '../text/type';
 
 export type ParsedText = { children: string; _matched?: boolean };

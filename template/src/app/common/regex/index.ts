@@ -3,3 +3,5 @@ export const rxEmail = new RegExp(
 );
 export const rxPassword =
   /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\W])(?!.*['"]).{8,}$/;
+
+export const rxNumber = /[^\d]+/g;
