@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Alert, Platform } from 'react-native';
 
-import { ResponseBase } from '@config/type';
 import { appActions } from '@redux-slice';
 import { remove } from '@storage';
 import { I18nKeys } from '@utils/i18n/locales';

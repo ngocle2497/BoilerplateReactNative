@@ -10,7 +10,7 @@ const createWithPhoto = (photo: Array<any>, body: any) => {
         name: element.node.image.filename,
         uri: element.node.image.uri,
         type: element.node.type,
-      });
+      } as any);
     });
   }
 
