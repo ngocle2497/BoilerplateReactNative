@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "npx lefthook install",
     "postinstall": "npx ts-node ./scripts/setup.ts",
-    "lint": "eslint  index.js ./scripts/*.js  ./src/** --ext .js,.ts,.tsx",
+    "lint": "eslint  index.js ./scripts/*.ts  ./src/** --ext .js,.ts,.tsx",
     "start": "npx react-native start --reset-cache",
     "format": "prettier --write **/*.{ts,tsx,js,json,md}",
     "splash": "yarn react-native generate-bootsplash splash/splash.png --background-color=0E1019 --logo-width=150  --assets-path=assets --flavor=main",

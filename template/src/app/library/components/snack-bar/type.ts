@@ -5,7 +5,7 @@ export const TYPE_MESSAGE = {
   LINK: 'link',
 } as const;
 
-export type TypeMessage = typeof TYPE_MESSAGE[keyof typeof TYPE_MESSAGE];
+export type TypeMessage = (typeof TYPE_MESSAGE)[keyof typeof TYPE_MESSAGE];
 
 export type Item = {
   id: string;

@@ -1,0 +1,21 @@
+declare module '@env' {
+  export const APP_ENV: string;
+  export const API_URL: string;
+  export const APP_DISPLAY_NAME: string;
+  export const VERSION_CODE: string;
+  export const VERSION_NAME: string;
+  export const BUNDLE_IDENTIFIER: string;
+  export const DEFAULT_FALLBACK_LNG_I18n: string;
+  export const APP_PLACEHOLDER_NAME: string;
+  export const ASSETCATALOG_COMPILER_APPICON_NAME: string;
+  export const DEBUG_PROVISIONING_PROFILE: string;
+  export const RELEASE_PROVISIONING_PROFILE: string;
+  export const APPLE_DEVELOPMENT_TEAM: string;
+  export const IOS_CODE_PUSH_DEVELOPMENT_KEY: string;
+  export const ANDROID_CODE_PUSH_DEVELOPMENT_KEY: string;
+  export const ANDROID_KEY_STORE_FILE: string;
+  export const ANDROID_KEY_STORE_PASSWORD: string;
+  export const ANDROID_KEY_STORE_KEY_ALIAS: string;
+  export const ANDROID_KEY_STORE_KEY_PASSWORD: string;
+  export const APP_BUILD_VERSION: string;
+}

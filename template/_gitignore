@@ -45,6 +45,11 @@ local.properties
 *.ap_
 release/
 
+# Auto generate env
+
+.base.env
+env.d.ts
+
 # node.js
 
 #

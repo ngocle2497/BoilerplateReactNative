@@ -43,6 +43,7 @@ export const AppContainer = () => {
   }, [theme]);
 
   if (__DEV__) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useFlipper(navigationRef);
   }
 

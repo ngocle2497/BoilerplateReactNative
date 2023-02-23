@@ -1,6 +1,6 @@
 {
   "name": "rn-boiler-template",
-  "version": "1.70.30",
+  "version": "1.70.31",
   "description": "Clean and minimalist React Native template for a quick start with TypeScript and components",
   "scripts": {
     "test": "exit 0"

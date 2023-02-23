@@ -69,7 +69,7 @@ export const TextInput = forwardRef(
       const actualText =
         rxFormat !== undefined ? text.replace(rxFormat, '') : text;
       execFunc(onChangeText, actualText);
-      if(nameTrigger){
+      if (nameTrigger) {
         execFunc(trigger, nameTrigger);
       }
     };
