@@ -7,26 +7,44 @@ before_all do |lane|
   unless environment.nil?
       puts "Load .env file of #{environment}"
       Dotenv.overload "../" + ENV['ENVFILE']
-      ANDROID_BUILD_PATH_DEFAULT = "../android/app/build/outputs/apk/#{ENV['APP_ENV'].downcase}/release/app-#{ENV['APP_ENV'].downcase}-release.apk"
+
+      ANDROID_PROJECT_DIR = "android/"
+
+      ANDROID_VARIANT = "#{ENV['APP_ENV'].gsub("-", "_").downcase}"
+      
+      ANDROID_AAB_BUILD_PATH_DEFAULT = "../#{ANDROID_PROJECT_DIR}app/build/outputs/bundle/#{ANDROID_VARIANT}Release/app-#{ANDROID_VARIANT}-release.aab"
+      
+      ANDROID_APK_BUILD_PATH_DEFAULT = "../#{ANDROID_PROJECT_DIR}app/build/outputs/apk/#{ANDROID_VARIANT}/release/app-#{ANDROID_VARIANT}-release.apk"
      
       ANDROID_BUILD_FILE_NAME = "#{ENV['APP_DISPLAY_NAME']}-#{ENV['EXPORT_APP_ANDROID_NAME_SUFFIX']}"
 
-      ANDROID_BUILD_PATH_UPLOAD = "android/app/build/outputs/apk/#{ENV['APP_ENV'].downcase}/release/#{ANDROID_BUILD_FILE_NAME}-#{ENV['VERSION_NAME']}.apk"
+      ANDROID_APK_BUILD_PATH_UPLOAD = "#{ANDROID_PROJECT_DIR}app/build/outputs/apk/#{ANDROID_VARIANT}/release/#{ANDROID_BUILD_FILE_NAME}-#{ENV['VERSION_NAME']}-#{ENV['VERSION_CODE']}.apk"
+
+      ANDROID_AAB_BUILD_PATH_UPLOAD = "#{ANDROID_PROJECT_DIR}app/build/outputs/bundle/#{ANDROID_VARIANT}Release/#{ANDROID_BUILD_FILE_NAME}-#{ENV['VERSION_NAME']}-#{ENV['VERSION_CODE']}.aab"
       
-      BUILD_IOS_FILENAME = "#{ENV['APP_DISPLAY_NAME']}-#{ENV['EXPORT_APP_IOS_NAME_SUFFIX']}-#{ENV['APP_ENV']}-#{ENV['VERSION_NAME']}"
+      BUILD_IOS_FILENAME = "#{ENV['APP_DISPLAY_NAME']}-#{ENV['EXPORT_APP_IOS_NAME_SUFFIX']}-#{ANDROID_VARIANT}-#{ENV['VERSION_NAME']}-#{ENV['VERSION_CODE']}"
   end
 end
 
 
+platform :ios do
 
+  desc "Upload IPA to TestFlight"
+  private_lane :ios_upload_to_TF do
+    upload_to_testflight({
+      app_identifier: ENV['BUNDLE_IDENTIFIER'],
+      username: ENV['FASTLANE_USER']
+    })
+  end
 
-lane :build_release do |options|
-  if options[:isAndroid]
-    gradle(task: 'clean', project_dir: 'android/', properties:{"defaultEnvFile" => ENV['ENVFILE']})
-    gradle(task: "assemble", build_type: "#{ENV['APP_ENV'].downcase}Release", project_dir: "android/" )
-    File.rename(ANDROID_BUILD_PATH_DEFAULT,  "../#{ANDROID_BUILD_PATH_UPLOAD}")
+  desc "iOS remove build output file"
+  private_lane :clean_cache do
+    File.delete("../#{BUILD_IOS_FILENAME}.ipa") if File.exist?("../#{BUILD_IOS_FILENAME}.ipa")
+    File.delete("../#{BUILD_IOS_FILENAME}.app.dSYM.zip") if File.exist?("../#{BUILD_IOS_FILENAME}.app.dSYM.zip")
+  end
 
-  else
+  desc "IOS ipa"
+  private_lane :ios_build_ipa do
     build_app(
       workspace: "ios/#{ENV['APP_PLACEHOLDER_NAME']}.xcworkspace",
       scheme: "#{ENV['APP_PLACEHOLDER_NAME']}-#{ENV['APP_ENV']}",
@@ -34,54 +52,76 @@ lane :build_release do |options|
       output_name: "#{BUILD_IOS_FILENAME}.ipa",
       export_options: {
         provisioningProfiles: { 
-          "#{ENV['BUNDLE_IDENTIFIER']}" => "#{ENV['RELEASE_PROVISIONING_PROFILE']}"
+          "#{ENV['BUNDLE_IDENTIFIER']}" => "#{ENV['PUBLISH_PROVISIONING_PROFILE']}"
         }
       }
     )
-
   end
-end
-
-
-platform :ios do
 
   desc "IOS build IPA then upload to TestFlight"
-  lane :staging_build do |params|
-    build_release(isAndroid: false)
-    upload_to_testflight({
-      itc_provider: ENV['FASTLANE_ITC_PROVIDER'],
-      app_identifier: ENV['BUNDLE_IDENTIFIER'],
-      username: ENV['FASTLANE_USER']
-    })
-    notify_testers(
-      text: "#{ENV['GOOGLE_CHAT_TAG_USER']} *#{ENV['APP_DISPLAY_NAME']}* has an ios release on TestFlight",
-    )
+  lane :appcenter_and_TF_build do |params|
+    ios_build_ipa
+    ios_upload_to_TF
+    # notify_testers(
+    #   text: "#{ENV['GOOGLE_CHAT_TAG_USER']} *#{ENV['APP_DISPLAY_NAME']}* has an ios release on TestFlight",
+    # )
     clean_cache
   end
 
-  desc "iOS clean file cache"
-  private_lane :clean_cache do
-    File.delete("../#{BUILD_IOS_FILENAME}.ipa") if File.exist?("../#{BUILD_IOS_FILENAME}.ipa")
-    File.delete("../#{BUILD_IOS_FILENAME}.app.dSYM.zip") if File.exist?("../#{BUILD_IOS_FILENAME}.app.dSYM.zip")
+  desc "IOS code push"
+  lane :code_push do 
+    appcenter_codepush_release_react(
+      api_token: ENV['APP_CENTER_API_TOKEN'],
+      owner_name: ENV['APP_CENTER_OWNER_NAME'],
+      app_name: ENV['APP_CENTER_IOS_NAME'],
+      deployment: ENV['APP_CENTER_DEVELOPMENT'],
+      target_version: ENV['VERSION_NAME'],
+       mandatory: false
+    )
   end
 end
 
 platform :android do 
-  desc "Build local apk"
-  lane :apk do 
-    build_release(isAndroid: true)
+  desc "Android clean"
+  private_lane :clean_android do 
+     gradle(task: 'clean', project_dir: "#{ANDROID_PROJECT_DIR}", properties:{"defaultEnvFile" => ENV['ENVFILE']})
   end
 
-  desc "Android build apk and upload"
-  lane :staging_build do |params|
-    build_release(isAndroid: true)
+  desc "Android build bundle(aab)"
+  private_lane :aab_android do
+     gradle(task: "bundle", build_type: "Release",flavor: "#{ANDROID_VARIANT}", project_dir: "#{ANDROID_PROJECT_DIR}" )
+     File.rename(ANDROID_AAB_BUILD_PATH_DEFAULT,  "../#{ANDROID_AAB_BUILD_PATH_UPLOAD}")
+  end
+
+  desc "Android build release(apk)"
+  private_lane :apk_android do
+     gradle(task: "assemble", build_type: "Release",flavor: "#{ANDROID_VARIANT}", project_dir: "#{ANDROID_PROJECT_DIR}" )
+     File.rename(ANDROID_APK_BUILD_PATH_DEFAULT,  "../#{ANDROID_APK_BUILD_PATH_UPLOAD}")
+  end
+
+
+  desc "Android build apk then upload to app center"
+  lane :appcenter_and_TF_build do |params|
+    apk_android
     upload_to_appcenter(
       app_name: ENV['APP_CENTER_ANDROID_NAME'], 
-      file: "#{ANDROID_BUILD_PATH_UPLOAD}",
+      file: "#{ANDROID_APK_BUILD_PATH_UPLOAD}",
     )
-    notify_testers(
-      title: ENV['GOOGLE_CHAT_ANDROID_TITLE'], 
-      text: "#{ENV['GOOGLE_CHAT_TAG_USER']} *#{ENV['APP_DISPLAY_NAME']}* has an android release",
-      buttonUrl: "#{ENV['GOOGLE_CHAT_BTN_URL']}/#{ENV['APP_CENTER_OWNER_NAME']}/apps/#{ENV['APP_CENTER_ANDROID_NAME']}")
+    # notify_testers(
+    #   title: ENV['GOOGLE_CHAT_ANDROID_TITLE'], 
+    #   text: "#{ENV['GOOGLE_CHAT_TAG_USER']} *#{ENV['APP_DISPLAY_NAME']}* has an android release",
+    #   buttonUrl: "#{ENV['GOOGLE_CHAT_BTN_URL']}/#{ENV['APP_CENTER_OWNER_NAME']}/apps/#{ENV['APP_CENTER_ANDROID_NAME']}")
     end
+
+  desc "Android code push"
+  lane :code_push do 
+    appcenter_codepush_release_react(
+      api_token: ENV['APP_CENTER_API_TOKEN'],
+      owner_name: ENV['APP_CENTER_OWNER_NAME'],
+      app_name: ENV['APP_CENTER_ANDROID_NAME'],
+      deployment: ENV['APP_CENTER_DEVELOPMENT'],
+      target_version: ENV['VERSION_NAME'],
+      mandatory: false
+    )
+  end
 end
