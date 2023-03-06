@@ -34,10 +34,10 @@
     "i18next": "^20.4.0",
     "moment": "^2.29.4",
     "react": "18.2.0",
-    "react-native": "0.71.3",
     "react-fast-compare": "^3.2.0",
     "react-hook-form": "^7.43.5",
     "react-i18next": "^11.11.4",
+    "react-native": "0.71.3",
     "react-native-blurhash": "^1.1.10",
     "react-native-bootsplash": "^4.5.2",
     "react-native-config": "^1.5.0",
@@ -65,7 +65,7 @@
     "@react-navigation/devtools": "^6.0.11",
     "@tsconfig/react-native": "^2.0.2",
     "@types/jest": "^29.2.1",
-    "@types/node": "^18.11.18",
+    "@types/node": "^18.14.6",
     "@types/react": "^18.0.24",
     "@types/react-native-vector-icons": "^6.4.11",
     "@types/react-redux": "^7.1.24",
@@ -85,10 +85,10 @@
     "react-native-mmkv-flipper-plugin": "^1.0.0",
     "react-test-renderer": "18.2.0",
     "redux-flipper": "^2.0.2",
-    "typescript": "4.8.4"
+    "typescript": "4.9.5"
   },
   "resolutions": {
-    "@types/react": "^17"
+    "@types/react": "^18"
   },
   "jest": {
     "preset": "react-native",
