@@ -10,6 +10,7 @@ declare module '@env' {
   export const ASSETCATALOG_COMPILER_APPICON_NAME: string;
   export const DEBUG_PROVISIONING_PROFILE: string;
   export const RELEASE_PROVISIONING_PROFILE: string;
+  export const PUBLISH_PROVISIONING_PROFILE: string;
   export const APPLE_DEVELOPMENT_TEAM: string;
   export const IOS_CODE_PUSH_DEVELOPMENT_KEY: string;
   export const ANDROID_CODE_PUSH_DEVELOPMENT_KEY: string;

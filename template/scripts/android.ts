@@ -24,12 +24,12 @@ const run = (props: {
   }
   if (props.platform === 'darwin') {
     execSync(
-      `npx react-native run-android --variant=${props.variant} --appId=${envJson.BUNDLE_IDENTIFIER}`,
+      `npx react-native run-android --mode=${props.variant} --appId=${envJson.BUNDLE_IDENTIFIER}`,
       { stdio: 'inherit' },
     );
   } else if (props.platform === 'win32') {
     execSync(
-      `npx react-native run-android --variant=${props.variant} --appId=${envJson.BUNDLE_IDENTIFIER}`,
+      `npx react-native run-android --mode=${props.variant} --appId=${envJson.BUNDLE_IDENTIFIER}`,
       { stdio: 'inherit', shell: 'cmd.exe' },
     );
   }

@@ -10,7 +10,7 @@ index 4fbdeff..817599d 100644
 +	s.dependency 'IQKeyboardManagerSwift'
  end
 diff --git a/node_modules/react-native-keyboard-manager/index.js b/node_modules/react-native-keyboard-manager/index.js
-index e80770c..5ba063c 100644
+index e80770c..df0d48b 100644
 --- a/node_modules/react-native-keyboard-manager/index.js
 +++ b/node_modules/react-native-keyboard-manager/index.js
 @@ -30,4 +30,26 @@ const { OS } = Platform;
@@ -41,3 +41,4 @@ index e80770c..5ba063c 100644
 +}
 +
 +export default KeyboardManager;
+\ No newline at end of file
