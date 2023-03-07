@@ -16,11 +16,13 @@ const run = (props: { platform: NodeJS.Platform; envPath: string }) => {
   } catch {
     execSync(`xcrun simctl boot "${simulator}"`);
   }
-
+  const udid = execSync(
+    `xcrun simctl list devices | grep "${simulator}" | grep "Booted" | grep -E -o -i "([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})"`,
+  ).toString();
   // uninstall app using xcrun
   execSync(`xcrun simctl uninstall booted "${envJson.BUNDLE_IDENTIFIER}"`);
   execSync(
-    `npx react-native run-ios --scheme ${envJson.APP_PLACEHOLDER_NAME}-${envJson.APP_ENV} --simulator="${simulator}"`,
+    `npx react-native run-ios --scheme ${envJson.APP_PLACEHOLDER_NAME}-${envJson.APP_ENV} --udid=${udid}`,
     { stdio: 'inherit' },
   );
 };
