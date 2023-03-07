@@ -78,7 +78,10 @@ export const ProgressCircle = ({
         />
       )}
       <View style={[styles.wrapCircle]}>
-        <Svg width={radius * 2 + strokeWidth} height={radius * 2 + strokeWidth}>
+        <Svg
+          fill={'transparent'}
+          width={radius * 2 + strokeWidth}
+          height={radius * 2 + strokeWidth}>
           <AnimatedCircle
             r={radius}
             x={radius + strokeWidth / 2}

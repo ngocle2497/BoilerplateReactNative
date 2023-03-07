@@ -21,7 +21,7 @@ import { execSync } from 'child_process';
     console.log(
       '                  🧐🧐🧐🧐🧐 Starting pod install!! 🧐🧐🧐🧐🧐',
     );
-    execSync('bundle exec pod install --project-directory=ios', {
+    execSync('bundle exec pod install --project-directory=ios --verbose', {
       stdio: 'inherit',
     });
     console.log('                      ✨✨✨✨✨ Pod done!!! ✨✨✨✨✨');

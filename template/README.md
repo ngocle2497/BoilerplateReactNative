@@ -4,7 +4,7 @@
 
 - Setup development environment [React Native CLI](https://reactnative.dev/docs/environment-setup)
 - We recommended to use [yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable)
-- Ruby version: 2.7.5 (recommended use [rbenv](https://github.com/rbenv/rbenv) to manage the Ruby programming language)
+- Ruby version: 2.7.6 (recommended use [rbenv](https://github.com/rbenv/rbenv) to manage the Ruby programming language)
 
 # Importance before commit
 

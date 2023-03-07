@@ -165,7 +165,9 @@ export const DropDown = forwardRef((props: DropDownProps, _) => {
 
   const onToggle = useCallback(() => {
     runOnUI(setLayoutOnUI)(_refDrop, wrapMeasured);
-    setIsVisible(val => !val);
+    setTimeout(() => {
+      setIsVisible(val => !val);
+    }, 0);
   }, [_refDrop, wrapMeasured]);
 
   const getTextPlaceHolder = useCallback((): string => {
@@ -282,9 +284,9 @@ export const DropDown = forwardRef((props: DropDownProps, _) => {
       </View>
       <Modal
         backdropOpacity={0.3}
-        animatedInDuration={300}
+        animatedInDuration={100}
         backdropColor="transparent"
-        animatedOutDuration={300}
+        animatedOutDuration={100}
         onBackButtonPress={hideDrop}
         onBackdropPress={hideDrop}
         onModalShow={onOpen}

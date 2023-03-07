@@ -2,7 +2,6 @@ import { execSync } from 'child_process';
 
 import { loadEnvFile, setupEnv } from './common';
 
-// eslint-disable-next-line no-undef
 const run = (props: { platform: NodeJS.Platform; envPath: string }) => {
   if (props.platform !== 'darwin') {
     console.log('This script is only for macOS');
@@ -30,7 +29,6 @@ const pushNotification = ({
   envPath,
   platform,
 }: {
-  // eslint-disable-next-line no-undef
   platform: NodeJS.Platform;
   envPath: string;
 }) => {

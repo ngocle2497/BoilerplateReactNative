@@ -70,7 +70,7 @@ export const Login = () => {
         <Block block height={150}>
           <LightBox
             source={{
-              uri: 'https://images.unsplash.com/photo-1650704098443-241484a53bd7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
+              uri: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
             }}
           />
         </Block>

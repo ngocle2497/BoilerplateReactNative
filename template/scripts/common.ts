@@ -49,7 +49,7 @@ export const loadEnvFile = (envPath: string): Record<string, string> => {
         return prev;
       }
       envDTS += `\n  export const ${key}: string;`;
-      prev[key] = value;
+      prev[key] = value.replace('"', '').replace('"', '');
       return prev;
     }, {} as Record<string, string>);
     envDTS += '\n  export const APP_BUILD_VERSION: string;';
