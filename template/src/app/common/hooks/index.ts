@@ -1,203 +1,345 @@
-import React, { Component, useEffect } from 'react';
-import { useWindowDimensions } from 'react-native';
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, {
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import {
+  BackHandler,
+  EmitterSubscription,
+  Keyboard,
+  Platform,
+} from 'react-native';
 
-import Animated, {
-  AnimationCallback,
-  Easing,
-  ExtrapolationType,
-  interpolate,
-  interpolateColor,
-  measure,
-  useAnimatedRef,
-  useDerivedValue,
-  useSharedValue,
-  withDelay,
-  withSpring,
-  WithSpringConfig,
-  withTiming,
-  WithTimingConfig,
-} from 'react-native-reanimated';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 
-import { sharedClamp, sharedMax, sharedMin } from './math';
+import { onCheckType } from '@common';
+import { ValidateMessageObject } from '@config/type';
+import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
+import { AppTheme, useTheme } from '@theme';
 
-/**
- * Interpolate number
- */
-export const useInterpolate = (
-  progress: Animated.SharedValue<number>,
-  input: number[],
-  output: number[],
-  type?: ExtrapolationType,
-) => useDerivedValue(() => interpolate(progress.value, input, output, type));
+type NetInfoTuple = [boolean, boolean];
+function useNetWorkStatus(): NetInfoTuple {
+  const [status, setStatus] = useState<boolean>(false);
+  const [canAccess, setCanAccess] = useState<boolean>(false);
 
-/**
- * Interpolate color
- */
-export const useInterpolateColor = (
-  progress: Animated.SharedValue<number>,
-  input: number[],
-  output: (number | string)[],
-  colorSpace?: 'RGB' | 'HSV' | undefined,
-) => {
-  'worklet';
-  return useDerivedValue(() =>
-    interpolateColor(progress.value, input, output, colorSpace),
-  );
-};
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state: NetInfoState) => {
+      setStatus(state.isConnected ?? false);
+      setCanAccess(state.isInternetReachable ?? false);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
-/**
- * Linear interpolation between x and y using a to weight between them
- */
-export const useMix = (
-  progress: Animated.SharedValue<number>,
-  x: number,
-  y: number,
-) => {
-  'worklet';
-  return useDerivedValue(() => x + progress.value * (y - x));
-};
-
-/**
- * Convert number to radian
- */
-export const useRadian = (value: Animated.SharedValue<number>) =>
-  useDerivedValue(() => {
-    'worklet';
-    return `${value.value}deg`;
-  });
-
-/**
- * Clamp value when out of range
- */
-export const useShareClamp = (
-  value: Animated.SharedValue<number>,
-  lowerValue: number,
-  upperValue: number,
-) => {
-  'worklet';
-  return useDerivedValue(() =>
-    sharedClamp(value.value, lowerValue, upperValue),
-  );
-};
-/**
- * Return min number of args
- */
-export const useMin = (...args: Animated.SharedValue<number>[]) => {
-  'worklet';
-  return useDerivedValue(() => sharedMin(...args.map(x => x.value)));
-};
-
-/**
- * Return max number of args
- */
-export const useMax = (...args: Animated.SharedValue<number>[]) => {
-  'worklet';
-  return useDerivedValue(() => sharedMax(...args.map(x => x.value)));
-};
-
-/**
- * Return view inside screen or not
- */
-export function useInsideView<T extends Component>(
-  wrapHeight: number | undefined = undefined,
-): [React.RefObject<T>, Animated.SharedValue<boolean>] {
-  const { height } = useWindowDimensions();
-  const { top } = useSafeAreaInsets();
-  const ref = useAnimatedRef<T>();
-  const toggle = useSharedValue(0);
-  const rectBottom = useSharedValue(0);
-  const rectTop = useSharedValue(0);
-  const visible = useDerivedValue(() => {
-    return rectTop.value <= (wrapHeight || height) && rectBottom.value >= 0;
-  });
-
-  useDerivedValue(() => {
-    const measured = measure(ref);
-    if (!measured) {
-      return;
-    }
-    rectTop.value = measured.pageY - top;
-    rectBottom.value = measured.pageY + measured.height - top;
-    toggle.value = toggle.value === 1 ? 0 : 1;
-  });
-  return [ref, visible];
+  return [status, canAccess];
 }
 
-type Vector = {
-  x: number;
-  y: number;
+function useInterval(callback: Function, delay: number) {
+  const savedCallback = useRef<Function>();
+
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  useEffect(() => {
+    function tick() {
+      savedCallback.current && savedCallback.current();
+    }
+    if (delay !== null) {
+      const id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
+}
+
+function usePrevious<T = any>(value: T): T | undefined {
+  const ref = useRef<T>();
+
+  useEffect(() => {
+    ref.current = value;
+  }, [value]);
+
+  return ref.current;
+}
+
+type UseSetArrayStateAction<T extends object> = React.Dispatch<
+  SetStateAction<Partial<T>>
+>;
+type UseSetStateArray<T extends object> = [
+  T,
+  UseSetArrayStateAction<T>,
+  () => void,
+];
+function useSetStateArray<T extends object>(
+  initialValue: T,
+): UseSetStateArray<T> {
+  const [value, setValue] = useState<T>(initialValue);
+
+  const setState = useCallback(
+    (v: SetStateAction<Partial<T>>) => {
+      return setValue(oldValue => ({
+        ...oldValue,
+        ...(typeof v === 'function' ? v(oldValue) : v),
+      }));
+    },
+    [setValue],
+  );
+
+  const resetState = useCallback(() => setValue(initialValue), [initialValue]);
+
+  return [value, setState, resetState];
+}
+
+type UseSetStateAction<T extends object> = React.Dispatch<
+  SetStateAction<Partial<T>>
+>;
+type UseSetState<T extends object> = {
+  setState: UseSetStateAction<T>;
+  state: T;
+  resetState: () => void;
 };
+function useSetState<T extends object>(initialValue: T): UseSetState<T> {
+  const [state, setState, resetState] = useSetStateArray(initialValue);
+
+  return useMemo(
+    () => ({
+      setState,
+      resetState,
+      state,
+    }),
+    [setState, resetState, state],
+  );
+}
+
+function useStyle<T>(style: (theme: AppTheme) => T): T {
+  const theme = useTheme();
+  return style(theme);
+}
+
+function useAsyncState<T>(
+  initialValue: T,
+): [
+  T,
+  (newValue: SetStateAction<T>, callback?: (newState: T) => void) => void,
+] {
+  const [state, setState] = useState(initialValue);
+  const _callback = useRef<(newState: T) => void>();
+
+  const _setState = (
+    newValue: SetStateAction<T>,
+    callback?: (newState: T) => void,
+  ) => {
+    if (callback) {
+      _callback.current = callback;
+    }
+    setState(newValue);
+  };
+
+  useEffect(() => {
+    if (typeof _callback.current === 'function') {
+      _callback.current(state);
+      _callback.current = undefined;
+    }
+  }, [state]);
+  return [state, _setState];
+}
+
+function useUnMount(callback: () => void) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  return useEffect(() => () => callback(), []);
+}
+
+function useDidMount(callback: () => void) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  return useEffect(callback, []);
+}
+
+function useForceUpdate() {
+  const unloadingRef = useRef(false);
+  const [forcedRenderCount, setForcedRenderCount] = useState(0);
+
+  useUnMount(() => (unloadingRef.current = true));
+
+  return useCallback(() => {
+    !unloadingRef.current && setForcedRenderCount(forcedRenderCount + 1);
+  }, [forcedRenderCount]);
+}
+
+function useIsKeyboardShown() {
+  const [isKeyboardShown, setIsKeyboardShown] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleKeyboardShow = () => setIsKeyboardShown(true);
+    const handleKeyboardHide = () => setIsKeyboardShown(false);
+    let keyboardWillShow: EmitterSubscription;
+    let keyboardWillHide: EmitterSubscription;
+    let keyboardDidShow: EmitterSubscription;
+    let keyboardDidHide: EmitterSubscription;
+    if (Platform.OS === 'ios') {
+      keyboardWillShow = Keyboard.addListener(
+        'keyboardWillShow',
+        handleKeyboardShow,
+      );
+      keyboardWillHide = Keyboard.addListener(
+        'keyboardWillHide',
+        handleKeyboardHide,
+      );
+    } else {
+      keyboardDidShow = Keyboard.addListener(
+        'keyboardDidShow',
+        handleKeyboardShow,
+      );
+      keyboardDidHide = Keyboard.addListener(
+        'keyboardDidHide',
+        handleKeyboardHide,
+      );
+    }
+
+    return () => {
+      if (Platform.OS === 'ios') {
+        keyboardWillShow.remove();
+        keyboardWillHide.remove();
+      } else {
+        keyboardDidShow.remove();
+        keyboardDidHide.remove();
+      }
+    };
+  }, []);
+
+  return isKeyboardShown;
+}
+
+function useDisableBackHandler(disabled: boolean, callback?: () => void) {
+  // function
+  const onBackPress = useCallback(() => {
+    if (onCheckType(callback, 'function')) {
+      callback();
+    }
+    return true;
+  }, [callback]);
+
+  useEffect(() => {
+    if (disabled) {
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    } else {
+      BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }
+    return () =>
+      BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+  }, [disabled, onBackPress]);
+}
+
+function useDismissKeyboard(isHide: boolean) {
+  useEffect(() => {
+    if (isHide) {
+      Keyboard.dismiss();
+    }
+  }, [isHide]);
+}
+
+function useMounted(callback: () => void, deps: any[] = []) {
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      callback();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [...deps]);
+}
+
+function useErrorMessageTranslation(msg?: string) {
+  const [t] = useTranslation();
+
+  const parsed = useMemo<ValidateMessageObject | undefined>(() => {
+    if (!msg) {
+      return undefined;
+    }
+    try {
+      return JSON.parse(msg);
+    } catch {
+      return undefined;
+    }
+  }, [msg]);
+
+  return useMemo<string | undefined>(() => {
+    if (!parsed && typeof msg === 'string') {
+      return t(msg);
+    }
+    if (!parsed) {
+      return undefined;
+    }
+
+    const optionsTx: Record<string, string> = {};
+    if (parsed.optionsTx) {
+      Object.keys(parsed.optionsTx).forEach(key => {
+        optionsTx[key] = t(
+          String((parsed.optionsTx as Record<string, string | number>)[key]),
+        );
+      });
+    }
+    return t(parsed.keyT, { ...(parsed.options ?? {}), ...optionsTx });
+  }, [parsed, t, msg]);
+}
+
 /**
- * Create Animated Shared Value Vector
+ * @description Like 'useCallback' but with empty deps array.
+ * Don't use this hooks when you want to render something on React Tree.
+ * It will return previous value like usePrevious. first render will return undefined.
+ * @example
+ * This will render the previous value. don't use this:
+ * ```tsx
+ * const total = useEventCallback(() => state1 + state2)
+ * <Text>{total()}</Text>
+ * ```
+ *
+ * Use this:
+ * ```tsx
+ * const [msg,setMsg] = useState('');
+ * const sendMsg = useEventCallback(() => sendMsgToApi(msg));
+ * ```
  */
-export const useVector = ({ x, y }: Vector) => {
-  const ox = useSharedValue(x);
-  const oy = useSharedValue(y);
-  return [ox, oy];
-};
+const useEventCallback = <Fn extends (...args: any[]) => ReturnType<Fn>>(
+  func: Fn,
+) => {
+  const callbackRef = useRef<(...args: Parameters<Fn>) => ReturnType<Fn>>();
 
-type UseTimingParams = {
-  toValue?: number;
-  from?: number;
-  config?: WithTimingConfig;
-  callback?: AnimationCallback;
-  delay?: number;
-};
-export const useTiming = ({
-  callback,
-  config,
-  from = 0,
-  toValue = 1,
-  delay = 0,
-}: UseTimingParams = {}) => {
-  const progress = useSharedValue(from);
-
-  // effect
-  useEffect(() => {
-    progress.value = withDelay(
-      delay,
-      withTiming(
-        toValue,
-        Object.assign(
-          {
-            duration: 500,
-            easing: Easing.bezier(0.33, 0.01, 0, 1),
-          },
-          config,
-        ),
-        callback,
-      ),
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  const callbackMemoized = useCallback((...args: Parameters<Fn>) => {
+    return callbackRef.current?.(...args);
   }, []);
 
-  // result
-  return progress;
+  useLayoutEffect(() => {
+    callbackRef.current = (...args) => func(...args);
+  });
+
+  return callbackMemoized;
 };
 
-type UseSpringParams = {
-  toValue?: number;
-  from?: number;
-  config?: WithSpringConfig;
-  callback?: AnimationCallback;
-  delay?: number;
-};
-export const useSpring = ({
-  callback,
-  config,
-  from = 0,
-  toValue = 1,
-  delay = 0,
-}: UseSpringParams = {}) => {
-  const progress = useSharedValue(from);
-
-  // effect
-  useEffect(() => {
-    progress.value = withDelay(delay, withSpring(toValue, config, callback));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // result
-  return progress;
+export {
+  useErrorMessageTranslation,
+  useDisableBackHandler,
+  useDismissKeyboard,
+  useInterval,
+  useNetWorkStatus,
+  usePrevious,
+  useSetState,
+  useStyle,
+  useAsyncState,
+  useUnMount,
+  useForceUpdate,
+  useMounted,
+  useIsKeyboardShown,
+  useDidMount,
+  useEventCallback,
 };
