@@ -26,7 +26,6 @@ import {
   TouchableScale,
   Wallpaper,
 } from '@components';
-import { useAnimatedState } from '@hooks';
 import { FormLoginType } from '@model/authentication';
 import { appActions } from '@redux-slice';
 
@@ -35,7 +34,7 @@ import { FormLogin } from './components/form-login';
 export const Login = () => {
   // state
   const _refAction = useRef<ActionSheet>();
-  const [visible, setVisible] = useAnimatedState<boolean>(false);
+  const [visible, setVisible] = useState(false);
   const [progress] = useState(10);
   const [sliderProgress, setSliderProgress] = useState<number>(0);
   const [sliderRangeProgress, setSliderRangeProgress] = useState<{

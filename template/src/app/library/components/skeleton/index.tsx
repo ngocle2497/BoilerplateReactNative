@@ -9,7 +9,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { sharedTiming } from '@animated';
-import MaskedView from '@react-native-community/masked-view';
+import MaskedView from '@react-native-masked-view/masked-view';
 
 import { BaseContent } from './base-content';
 import { styles } from './styles';
