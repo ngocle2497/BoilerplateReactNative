@@ -3,6 +3,7 @@ export * from './create-form-data';
 // export * from './camera-roll';
 export * from './constant';
 export * from './string';
+export * from './emitter';
 export * from './regex';
 export * from './scale';
 export * from './method';
