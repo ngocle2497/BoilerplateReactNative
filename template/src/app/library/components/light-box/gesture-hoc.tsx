@@ -28,12 +28,16 @@ export const GestureHOC = memo(
   ({ image, source, onClose, backDropOpacity }: GestureHOCProps) => {
     // state
     const { height: heightDevice } = useWindowDimensions();
+
     const animatedProgress = useSharedValue(0);
+
     const scale = useSharedValue(1);
+
     const [targetX, targetY] = useVector({
       x: 0,
       y: (heightDevice - image.targetHeight) / 2,
     });
+
     const [translateX, translateY] = useVector({
       x: 0,
       y: 0,
@@ -60,12 +64,14 @@ export const GestureHOC = memo(
           Extrapolate.CLAMP,
         ),
     );
+
     const width = useInterpolate(
       animatedProgress,
       [0, 1],
       [image.width, image.targetWidth],
       Extrapolate.CLAMP,
     );
+
     const height = useInterpolate(
       animatedProgress,
       [0, 1],
@@ -79,6 +85,7 @@ export const GestureHOC = memo(
         'worklet';
         if (finished) {
           image.imageOpacity.value = 1;
+
           runOnJS(onClose)();
         }
       },
@@ -87,10 +94,15 @@ export const GestureHOC = memo(
 
     const closeLightBox = useCallback(() => {
       targetX.value = translateX.value - targetX.value * -1;
+
       targetY.value = translateY.value - targetY.value * -1;
+
       translateX.value = 0;
+
       translateY.value = 0;
+
       backDropOpacity.value = sharedTiming(0, timingConfig);
+
       animatedProgress.value = sharedTiming(
         0,
         timingConfig,
@@ -105,9 +117,11 @@ export const GestureHOC = memo(
       translateX,
       translateY,
     ]);
+
     const panGesture = Gesture.Pan()
       .onUpdate(event => {
         translateX.value = event.translationX;
+
         translateY.value = event.translationY;
 
         scale.value = interpolate(
@@ -129,14 +143,18 @@ export const GestureHOC = memo(
           runOnJS(closeLightBox)();
         } else {
           backDropOpacity.value = sharedTiming(1, timingConfig);
+
           translateX.value = sharedTiming(0, timingConfig);
+
           translateY.value = sharedTiming(0, timingConfig);
         }
+
         scale.value = sharedTiming(1, timingConfig);
       });
 
     const onBackButtonPress = useCallback(() => {
       closeLightBox();
+
       return true;
     }, [closeLightBox]);
 
@@ -145,7 +163,9 @@ export const GestureHOC = memo(
       runOnUI(() => {
         'worklet';
         image.imageOpacity.value = 0;
+
         animatedProgress.value = sharedTiming(1, timingConfig);
+
         backDropOpacity.value = sharedTiming(1, timingConfig);
       })();
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -153,6 +173,7 @@ export const GestureHOC = memo(
 
     useEffect(() => {
       BackHandler.addEventListener('hardwareBackPress', onBackButtonPress);
+
       return () =>
         BackHandler.removeEventListener('hardwareBackPress', onBackButtonPress);
       // eslint-disable-next-line react-hooks/exhaustive-deps

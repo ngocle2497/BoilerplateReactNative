@@ -7,10 +7,13 @@ const ApiEndPoint = {
 
 const configApi = () => {
   const apiOb: Record<string, string> = {};
+
   Object.keys(ApiEndPoint).forEach(x => {
     const valueApi = ApiEndPoint[x as keyof typeof ApiEndPoint];
+
     apiOb[x] = API_VERSION + valueApi;
   });
+
   return apiOb;
 };
 

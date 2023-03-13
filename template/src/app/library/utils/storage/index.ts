@@ -3,6 +3,7 @@ import { MMKV } from 'react-native-mmkv';
 import { initializeMMKVFlipper } from 'react-native-mmkv-flipper-plugin';
 
 const appName = 'APP_Name';
+
 const AppKey = '7268428d-d814-4eca-8829-3dbe0e2eaa7a';
 
 export const AppStorage = new MMKV({
@@ -37,6 +38,7 @@ export function loadString(key: string) {
 export function saveString(key: string, value: string) {
   try {
     AppStorage.set(key, value);
+
     return true;
   } catch {
     return false;
@@ -51,6 +53,7 @@ export function saveString(key: string, value: string) {
 export function load(key: string) {
   try {
     const almostThere = AppStorage.getString(key);
+
     return typeof almostThere === 'string' ? JSON.parse(almostThere) : null;
   } catch {
     return null;
@@ -66,6 +69,7 @@ export function load(key: string) {
 export function save(key: string, value: any) {
   try {
     AppStorage.set(key, JSON.stringify(value));
+
     return true;
   } catch {
     return false;
@@ -88,17 +92,21 @@ interface Storage {
   setItem(key: string, value: any, ...args: Array<any>): any;
   removeItem(key: string, ...args: Array<any>): any;
 }
+
 export const reduxPersistStorage: Storage = {
   setItem: (key, value) => {
     AppStorage.set(key, value);
+
     return Promise.resolve(true);
   },
   getItem: key => {
     const value = AppStorage.getString(key);
+
     return Promise.resolve(value);
   },
   removeItem: key => {
     AppStorage.delete(key);
+
     return Promise.resolve();
   },
 };

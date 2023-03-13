@@ -40,6 +40,7 @@ export interface SliderProps {
    */
   onChangeRange?: (changed: ArgsChangeRange) => void;
 }
+
 export type SliderRangeProps = Omit<
   SliderProps,
   'type' | 'initialLinear' | 'onChangeLinear'

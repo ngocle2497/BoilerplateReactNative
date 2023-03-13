@@ -20,6 +20,7 @@ export const RootNavigation = () => {
     const id = setTimeout(() => {
       BootSplash.hide({ fade: true });
     }, 1000);
+
     return () => clearTimeout(id);
   }, []);
 

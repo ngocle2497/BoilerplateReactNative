@@ -20,4 +20,5 @@ type Path<T> = T extends Readonly<infer V>
   : never;
 
 type ResourceType = typeof resources;
+
 export type I18nKeys = Path<ResourceType[keyof ResourceType]>;

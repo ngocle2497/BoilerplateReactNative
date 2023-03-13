@@ -5,9 +5,11 @@ import moment, { Moment } from 'moment';
  */
 function daysFromTo(a: Moment | Date, b: Moment | Date) {
   const days = [];
+
   // convert moment to time. moment().getTime()
   let localFrom = +a;
   const localTo = +b;
+
   for (
     ;
     localFrom <= localTo;
@@ -15,6 +17,7 @@ function daysFromTo(a: Moment | Date, b: Moment | Date) {
   ) {
     days.push(moment(localFrom));
   }
+
   return days;
 }
 
@@ -23,11 +26,15 @@ function daysFromTo(a: Moment | Date, b: Moment | Date) {
  */
 function daysInMonth(_date: string | Date | Moment | number) {
   const date = moment(_date).toDate();
+
   const year = date.getFullYear();
+
   const month = date.getMonth();
+
   const days = new Date(year, month + 1, 0).getDate();
 
   const firstDay = new Date(year, month, 1, 0, 0, 0);
+
   const lastDay = new Date(year, month, days, 0, 0, 0);
 
   return daysFromTo(firstDay, lastDay);
@@ -42,13 +49,17 @@ export function getDaysByMonth(
   showSixWeeks?: boolean,
 ) {
   const days = daysInMonth(mDate);
+
   let before: Moment[] = [];
   let after: Moment[] = [];
   // calculate first day of week(ex: firstDayOfWeek > 7)
   const fdow = (7 + firstDayOfWeek) % 7 || 7;
+
   // calculate last day of week by first day of week
   const ldow = (fdow + 6) % 7;
+
   const from = moment(days[0]);
+
   const daysBefore = from.day();
 
   if (from.day() !== fdow) {
@@ -57,23 +68,30 @@ export function getDaysByMonth(
   }
 
   const to = moment(days[days.length - 1]);
+
   const day = to.day();
+
   if (day !== ldow) {
     // add if lasted date not equals last day of week
     to.add((ldow + 7 - day) % 7, 'day');
   }
 
   const daysForSixWeeks = (daysBefore + days.length) / 6 >= 6;
+
   // check size days pluss days before divide 6 enough or not 6 weeks
   if (showSixWeeks && !daysForSixWeeks) {
     to.add(7, 'day');
   }
+
   if (from.isBefore(moment(days[0]), 'days')) {
     before = daysFromTo(from, days[0]);
   }
+
+  // eslint-disable-next-line no-constant-condition
   if ((to.isAfter(days[days.length - 1]), 'days')) {
     after = daysFromTo(days[days.length - 1], to);
   }
+
   return before.concat(
     days.slice(before.length > 0 ? 1 : 0, days.length - 1),
     after,
@@ -90,15 +108,23 @@ export function getTimeDifference(date: Date | string): {
   const timeDifference = moment().diff(moment.utc(date).local(), 'seconds');
 
   const yearTime = 60 * 60 * 24 * 365;
+
   const monthTime = 60 * 60 * 24 * 30;
+
   const dayTime = 60 * 60 * 24;
+
   const hourTime = 60 * 60;
+
   const minutesTime = 60;
 
   const yearCalculator = Math.floor(timeDifference / yearTime);
+
   const monthCalculator = Math.floor(timeDifference / monthTime);
+
   const dayCalculator = Math.floor(timeDifference / dayTime);
+
   const hourCalculator = Math.floor(timeDifference / hourTime);
+
   const minutesCalculator = Math.floor(timeDifference / minutesTime);
 
   switch (true) {
@@ -129,10 +155,12 @@ export function getTimeDifference(date: Date | string): {
 
     case timeDifference > 1:
       return { count: timeDifference, tx: 'txSecondsAgo' };
+
     default:
       return { count: null, tx: 'txFewSecondsAgo' };
   }
 }
+
 export const dayBetweenRange = ({
   endDate,
   startDate,
@@ -143,6 +171,8 @@ export const dayBetweenRange = ({
   format?: string;
 }) => {
   const mStartDate = moment(startDate, format);
+
   const mEndDate = moment(endDate, format);
+
   return mEndDate.diff(mStartDate, 'days') + 1;
 };

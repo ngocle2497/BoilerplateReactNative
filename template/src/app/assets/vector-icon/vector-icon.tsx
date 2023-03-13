@@ -24,6 +24,7 @@ type VectorIconProps = CustomOmit<IconProps, 'name'> & {
 export const VectorIcon = (props: VectorIconProps) => {
   // state
   const { colors } = useTheme();
+
   // render
   return (
     <VectorIconBase

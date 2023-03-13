@@ -28,6 +28,7 @@ export const Skeleton = ({
 }: SkeletonProps) => {
   // state
   const { width: screenWidth } = useWindowDimensions();
+
   const translateX = useSharedValue(-screenWidth);
 
   // reanimated style

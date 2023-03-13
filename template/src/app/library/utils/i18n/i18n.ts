@@ -7,7 +7,8 @@ import { resources } from './locales';
 
 const languageDetector: LanguageDetectorAsyncModule = {
   type: 'languageDetector',
-  async: true, // flags below detection to be async
+  // flags below detection to be async
+  async: true,
   detect: (callback: (lng: string | readonly string[] | undefined) => void) => {
     callback(DEFAULT_FALLBACK_LNG_I18n);
   },
@@ -35,7 +36,8 @@ export const initOptionsI18n = (source: Resource) => {
     // },
 
     interpolation: {
-      escapeValue: false, // not needed for react as it does escape per default to prevent xss!
+      // not needed for react as it does escape per default to prevent xss!
+      escapeValue: false,
     },
   };
 };

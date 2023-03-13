@@ -1,4 +1,5 @@
 import { StyleProp, TextStyle } from 'react-native';
+
 export interface ProgressCircleProps {
   /**
    * Current progress

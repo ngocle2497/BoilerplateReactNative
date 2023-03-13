@@ -24,10 +24,12 @@ export const Collapsible = ({
     x: 0,
     y: 0,
   });
+
   const [isShow, setIsShow] = useState(false);
 
   // reanimated
   const progress = useSharedTransition(isShow);
+
   const height = useSharedValue(0);
 
   // function

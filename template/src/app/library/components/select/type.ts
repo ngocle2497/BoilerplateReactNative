@@ -69,6 +69,7 @@ export type SelectProps = {
    */
   useBottomInset?: boolean;
 } & CustomOmit<FlatListProps<SelectOption>, 'renderItem'>;
+
 export interface SelectItemProps {
   /**
    * Data item

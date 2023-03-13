@@ -19,6 +19,7 @@ export const stylesView = StyleSheet.create({
   },
   default: {},
 });
+
 export const stylesText = StyleSheet.create({
   primary: {
     fontSize: sizeScale(16),

@@ -7,6 +7,7 @@ import { createAction, createSlice } from '@reduxjs/toolkit';
 const initialState: AuthenticationState = {
   loading: false,
 };
+
 const authenticationSlice = createSlice({
   name: SLICE_NAME.AUTHENTICATION,
   initialState: initialState,
@@ -25,5 +26,7 @@ const login = createAction(
     },
   }),
 );
+
 export const authenticationActions = { ...authenticationSlice.actions, login };
+
 export const authenticationReducer = authenticationSlice.reducer;

@@ -35,8 +35,11 @@ const ItemCommentComponent = ({ index, overlayColor }: ItemCommentProps) => {
     () => MIN_HEIGHT_ITEM + Math.random() * (MAX_HEIGHT_ITEM - MIN_HEIGHT_ITEM),
     [],
   );
+
   const progress = useSharedValue(0);
+
   const translateY = useInterpolate(progress, [0, 1], [MAX_HEIGHT_ITEM, 0]);
+
   const opacity = useInterpolate(progress, [0, 1], [0, 1]);
 
   // reanimated style

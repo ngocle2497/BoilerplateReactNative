@@ -29,6 +29,7 @@ export const useInterpolate = (
   input: number[],
   output: number[],
   type?: ExtrapolationType,
+  // eslint-disable-next-line max-params
 ) => useDerivedValue(() => interpolate(progress.value, input, output, type));
 
 /**
@@ -39,8 +40,10 @@ export const useInterpolateColor = (
   input: number[],
   output: (number | string)[],
   colorSpace?: 'RGB' | 'HSV' | undefined,
+  // eslint-disable-next-line max-params
 ) => {
   'worklet';
+
   return useDerivedValue(() =>
     interpolateColor(progress.value, input, output, colorSpace),
   );
@@ -55,6 +58,7 @@ export const useMix = (
   y: number,
 ) => {
   'worklet';
+
   return useDerivedValue(() => x + progress.value * (y - x));
 };
 
@@ -64,6 +68,7 @@ export const useMix = (
 export const useRadian = (value: Animated.SharedValue<number>) =>
   useDerivedValue(() => {
     'worklet';
+
     return `${value.value}deg`;
   });
 
@@ -76,15 +81,18 @@ export const useShareClamp = (
   upperValue: number,
 ) => {
   'worklet';
+
   return useDerivedValue(() =>
     sharedClamp(value.value, lowerValue, upperValue),
   );
 };
+
 /**
  * Return min number of args
  */
 export const useMin = (...args: Animated.SharedValue<number>[]) => {
   'worklet';
+
   return useDerivedValue(() => sharedMin(...args.map(x => x.value)));
 };
 
@@ -93,6 +101,7 @@ export const useMin = (...args: Animated.SharedValue<number>[]) => {
  */
 export const useMax = (...args: Animated.SharedValue<number>[]) => {
   'worklet';
+
   return useDerivedValue(() => sharedMax(...args.map(x => x.value)));
 };
 
@@ -103,24 +112,35 @@ export function useInsideView<T extends Component>(
   wrapHeight: number | undefined = undefined,
 ): [React.RefObject<T>, Animated.SharedValue<boolean>] {
   const { height } = useWindowDimensions();
+
   const { top } = useSafeAreaInsets();
+
   const ref = useAnimatedRef<T>();
+
   const toggle = useSharedValue(0);
+
   const rectBottom = useSharedValue(0);
+
   const rectTop = useSharedValue(0);
+
   const visible = useDerivedValue(() => {
     return rectTop.value <= (wrapHeight || height) && rectBottom.value >= 0;
   });
 
   useDerivedValue(() => {
     const measured = measure(ref);
+
     if (!measured) {
       return;
     }
+
     rectTop.value = measured.pageY - top;
+
     rectBottom.value = measured.pageY + measured.height - top;
+
     toggle.value = toggle.value === 1 ? 0 : 1;
   });
+
   return [ref, visible];
 }
 
@@ -128,12 +148,15 @@ type Vector = {
   x: number;
   y: number;
 };
+
 /**
  * Create Animated Shared Value Vector
  */
 export const useVector = ({ x, y }: Vector) => {
   const ox = useSharedValue(x);
+
   const oy = useSharedValue(y);
+
   return [ox, oy];
 };
 
@@ -144,6 +167,7 @@ type UseTimingParams = {
   callback?: AnimationCallback;
   delay?: number;
 };
+
 export const useTiming = ({
   callback,
   config,
@@ -183,6 +207,7 @@ type UseSpringParams = {
   callback?: AnimationCallback;
   delay?: number;
 };
+
 export const useSpring = ({
   callback,
   config,

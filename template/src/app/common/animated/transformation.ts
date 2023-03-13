@@ -1,4 +1,5 @@
 import Animated from 'react-native-reanimated';
+
 /**
  * Keep current position when changing properties AnimatedTransform.
  */
@@ -7,6 +8,7 @@ export const sharedTransformOrigin = (
   ...transformations: Animated.AnimatedTransform
 ): Animated.AnimatedTransform => {
   'worklet';
+
   return [
     { translateX: x },
     { translateY: y },

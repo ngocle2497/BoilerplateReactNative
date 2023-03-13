@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
 const DURATION = 300;
 
 export const PostDelay = ({

@@ -15,6 +15,7 @@ const WallpaperComponent = ({
 }: WallpaperProps) => {
   // state
   const { width } = useWindowDimensions();
+
   const containerStyle = useMemo<ViewStyle>(
     () => ({ width, height: deviceH }),
     [width],
@@ -27,4 +28,5 @@ const WallpaperComponent = ({
     </View>
   );
 };
+
 export const Wallpaper = memo(WallpaperComponent, equals);

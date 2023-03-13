@@ -29,15 +29,20 @@ export const HelperText = ({
 }: HelperTextProps) => {
   // state
   const theme = useTheme();
+
   const [measured, setMeasured] = useState<LayoutRectangle>({
     height: 0,
     width: 0,
     x: 0,
     y: 0,
   });
+
   const [currentMessage, setCurrentMessage] = useState<string>(msg ?? '');
+
   const progress = useSharedTransition(visible);
+
   const height = useSharedValue(0);
+
   const opacity = useInterpolate(progress, [0, 1], [0, 1]);
 
   // function

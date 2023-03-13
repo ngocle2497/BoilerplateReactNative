@@ -32,6 +32,7 @@ const getColor = (typeMessage: TypeMessage): string => {
       return BG_WARN;
     case TYPE_MESSAGE.ERROR:
       return BG_ERROR;
+
     default:
       return BG_SUCCESS;
   }
@@ -58,8 +59,11 @@ export const SnackItem = memo(
   ({ item, onPop }: SnackBarItemProps) => {
     // state
     const insets = useSafeAreaInsets();
+
     const [isShow, setIsShow] = useState<boolean>(true);
+
     const message = useErrorMessageTranslation(item.msg);
+
     // style
     const containStyle = useMemo<ViewStyle>(
       () => ({
@@ -78,13 +82,16 @@ export const SnackItem = memo(
           { translateY: sharedTiming(0, { duration: DURATION_ANIMATED }) },
         ],
       };
+
       const initialValues = {
         // initial values for animations
         transform: [{ translateY: -values.targetHeight }],
       };
+
       const callback = (_: boolean) => {
         // optional callback that will fire when layout animation ends
       };
+
       return {
         initialValues,
         animations,
@@ -104,14 +111,17 @@ export const SnackItem = memo(
           },
         ],
       };
+
       const initialValues = {
         // initial values for animations
         transform: [{ translateY: 0 }],
       };
+
       const callback = (_: boolean) => {
         runOnJS(onPop)(item);
         // optional callback that will fire when layout animation ends
       };
+
       return {
         initialValues,
         animations,

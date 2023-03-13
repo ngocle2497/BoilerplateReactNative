@@ -14,6 +14,7 @@ const initialAppState: AppState = {
   showDialog: false,
   theme: 'default',
 };
+
 const appSlice = createSlice({
   name: SLICE_NAME.APP,
   initialState: initialAppState,
@@ -44,8 +45,10 @@ const appSlice = createSlice({
     },
     logout: state => {
       state.token = undefined;
+
       state.profile = {};
     },
   },
 });
+
 export const { reducer: appReducer, actions: appActions } = appSlice;

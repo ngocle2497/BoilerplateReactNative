@@ -32,15 +32,26 @@ if (!isIos) {
 }
 
 KeyboardManager.setEnable(true);
+
 KeyboardManager.setEnableDebugging(false);
+
 KeyboardManager.setKeyboardDistanceFromTextField(10);
+
 KeyboardManager.setLayoutIfNeededOnUpdate(true);
+
 KeyboardManager.setEnableAutoToolbar(false);
+
 KeyboardManager.setOverrideKeyboardAppearance(true);
-KeyboardManager.setKeyboardAppearance('default'); // "default" | "light" | "dark"
+
+// "default" | "light" | "dark"
+KeyboardManager.setKeyboardAppearance('default');
+
 KeyboardManager.setShouldResignOnTouchOutside(true);
+
 KeyboardManager.setShouldPlayInputClicks(true);
+
 KeyboardManager.resignFirstResponder();
+
 KeyboardManager.reloadLayoutIfNeeded();
 
 const styles = StyleSheet.create({

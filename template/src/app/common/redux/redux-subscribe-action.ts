@@ -9,8 +9,11 @@ type ActionListenerContainer<T = undefined> = {
   listener: Listener<T>;
 };
 const subscribedBefore: Array<Listener<any>> = [];
+
 const subscribedAfter: Array<Listener<any>> = [];
+
 const actionsSubscribedBefore: Array<ActionListenerContainer<any>> = [];
+
 const actionsSubscribedAfter: Array<ActionListenerContainer<any>> = [];
 
 const subscribe = <T = undefined>(
@@ -20,12 +23,16 @@ const subscribe = <T = undefined>(
   if (!onCheckType(listener, 'function')) {
     throw new Error('Expected the listener to be a function.');
   }
+
   listenerContainer.push(listener);
+
   return () => {
     const index = listenerContainer.indexOf(listener);
+
     listenerContainer.splice(index, 1);
   };
 };
+
 export const subscribeBefore = <T = undefined>(listener: Listener<T>) => {
   return subscribe(listener, subscribedBefore);
 };
@@ -41,12 +48,16 @@ const subscribeAction = <T = undefined>(
   if (!onCheckType(actionListenerContainer.action, 'string')) {
     throw new Error('Expected the action to be a string.');
   }
+
   if (!onCheckType(actionListenerContainer.listener, 'function')) {
     throw new Error('Expected the listener to be a function.');
   }
+
   listenerContainer.push(actionListenerContainer);
+
   return () => {
     const index = listenerContainer.indexOf(actionListenerContainer);
+
     listenerContainer.splice(index, 1);
   };
 };
@@ -56,6 +67,7 @@ export const subscribeActionBefore = <T = undefined>(
   listener: Listener<T>,
 ) => {
   const actionListenerContainer = { action, listener };
+
   return subscribeAction(actionListenerContainer, actionsSubscribedBefore);
 };
 
@@ -64,6 +76,7 @@ export const subscribeActionAfter = <T = undefined>(
   listener: Listener<T>,
 ) => {
   const actionListenerContainer = { action, listener };
+
   return subscribeAction(actionListenerContainer, actionsSubscribedAfter);
 };
 
@@ -85,8 +98,11 @@ export const unsubscribeActionsAfter = () => {
 
 export const unsubscribeAll = () => {
   unsubscribeBefore();
+
   unsubscribeActionsBefore();
+
   unsubscribeAfter();
+
   unsubscribeActionsAfter();
 };
 
@@ -97,7 +113,9 @@ const _unsubscribeAction = (
   const filteredListenerContainer = listenerContainer.filter(
     ({ action }) => action !== filterAction,
   );
+
   listenerContainer.length = 0;
+
   listenerContainer.push(...filteredListenerContainer);
 };
 
@@ -111,12 +129,14 @@ export const unsubscribeActionAfter = (action: string) => {
 
 export const unsubscribeActionAll = (action: string) => {
   unsubscribeActionBefore(action);
+
   unsubscribeActionAfter(action);
 };
 
 const _callListeners = (action: ActionBase, listenerContainer: Listener[]) => {
   for (let i = listenerContainer.length - 1; i >= 0; i--) {
     const listener = listenerContainer[i];
+
     if (typeof action === 'object') {
       listener(action);
     }
@@ -129,6 +149,7 @@ const _callActionListeners = (
 ) => {
   for (let i = listenerContainer.length - 1; i >= 0; i--) {
     const listener = listenerContainer[i];
+
     if (
       action &&
       onCheckType(action.type, 'string') &&
@@ -138,15 +159,21 @@ const _callActionListeners = (
     }
   }
 };
+
 export const subscribeActionMiddleware: Middleware =
   (_storeApi: MiddlewareAPI) =>
   (next: Dispatch) =>
   <A extends ActionBase>(action: A) => {
     _callListeners(action, subscribedBefore);
+
     _callActionListeners(action, actionsSubscribedBefore);
+
     const result = next(action);
+
     _callListeners(action, subscribedAfter);
+
     _callActionListeners(action, actionsSubscribedAfter);
+
     return result;
   };
 /**

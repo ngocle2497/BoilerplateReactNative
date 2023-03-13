@@ -9,6 +9,7 @@ import { ModalProps } from './type';
 export const Modal = (props: ModalProps) => {
   // state
   const [visible, setVisible] = useState<boolean>(props.isVisible);
+
   const modalContent = useRef<ModalContent>(null);
 
   // function

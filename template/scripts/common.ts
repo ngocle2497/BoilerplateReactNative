@@ -6,6 +6,7 @@ const padStart = (number: number) => {
   if (number.toString().length < 2) {
     return `0${number}`;
   }
+
   return String(number);
 };
 
@@ -16,47 +17,72 @@ export const setupEnv = (envPath: string, envJson: Record<string, string>) => {
 # once the code is regenerated.
 \n`;
   const data = readFileSync(join('./', envPath), 'utf8');
+
   if (data) {
     const todayDate = new Date();
+
     const year = todayDate.getFullYear();
+
     const month = todayDate.getMonth() + 1;
+
     const date = todayDate.getDate();
+
     const hours = todayDate.getHours();
+
     const minutes = todayDate.getMinutes();
+
     const APP_BUILD_VERSION = `${year}.${padStart(month)}.${padStart(
       date,
     )}.${padStart(hours)}.${padStart(minutes)}`;
+
     infoJsEnv += `\nAPP_BUILD_VERSION="${envJson.VERSION_NAME.replace(
       '"',
       '',
     ).replace('"', '')}.${APP_BUILD_VERSION}"\n`;
+
     infoJsEnv += data;
+
     execSync('rm -rf $TMPDIR/metro-*');
+
     writeFileSync(join('.base.env'), infoJsEnv, 'utf8');
+
     console.error('✨✨✨✨✨ SET UP Env done ✨✨✨✨✨');
   }
 };
 
 export const loadEnvFile = (envPath: string): Record<string, string> => {
   const data = readFileSync(join('./', envPath), 'utf8');
+
   if (data) {
     let envDTS = "declare module '@env' {";
     const envJson = data.split('\n').reduce((prev, curr) => {
       const firstEqualSign = curr.indexOf('=');
+
       const key = curr.slice(0, firstEqualSign);
+
       const value = curr.slice(firstEqualSign + 1);
+
       if (key.trim().length <= 0 || key.includes('#')) {
         return prev;
       }
+
       envDTS += `\n  export const ${key}: string;`;
+
       prev[key] = value.replace('"', '').replace('"', '');
+
       return prev;
     }, {} as Record<string, string>);
+
     envDTS += '\n  export const APP_BUILD_VERSION: string;';
+
     envDTS += '\n}\n';
+
     writeFileSync(join('declare', 'env.d.ts'), envDTS, 'utf8');
+
     console.log({ envJson });
+
     return envJson;
   }
+
   return {};
 };

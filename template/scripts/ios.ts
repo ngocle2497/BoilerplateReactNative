@@ -16,6 +16,7 @@ const bootDevice = (deviceName: string) => {
   } catch {
     execSync(`xcrun simctl boot "${deviceName}"`);
   }
+
   return execSync(
     `xcrun simctl list devices | grep "${deviceName}" | grep "Booted" | grep -E -o -i "([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})"`,
   ).toString();
@@ -29,13 +30,20 @@ const uninstallOldApp = (bundleId: string) => {
 const run = (props: { platform: NodeJS.Platform; envPath: string }) => {
   if (props.platform !== 'darwin') {
     console.log('This script is only for macOS');
+
     return;
   }
+
   const envJson = loadEnvFile(props.envPath);
+
   setupEnv(props.envPath, envJson);
+
   const simulator = 'iPhone 11';
+
   const udid = bootDevice(simulator);
+
   uninstallOldApp(envJson.BUNDLE_IDENTIFIER);
+
   execSync(
     `npx react-native run-ios --scheme ${envJson.APP_PLACEHOLDER_NAME}-${envJson.APP_ENV} --udid=${udid}`,
     { stdio: 'inherit' },
@@ -51,11 +59,16 @@ const pushNotification = ({
 }) => {
   if (platform !== 'darwin') {
     console.log('This script is only for macOS');
+
     return;
   }
+
   const envJson = loadEnvFile(envPath);
+
   const simulator = 'iPhone 11';
+
   const deviceId = bootDevice(simulator);
+
   execSync(
     `xcrun simctl push ${deviceId} ${envJson.BUNDLE_IDENTIFIER} notification-ios-config.apns`,
     { stdio: 'inherit' },
@@ -64,15 +77,21 @@ const pushNotification = ({
 
 (() => {
   const { argv, platform } = process;
+
   const actualArgv = argv.slice(2);
+
   const [nameFunc, envPath] = actualArgv;
+
   switch (nameFunc) {
     case 'run':
       run({ platform, envPath });
+
       break;
     case 'push-notification':
       pushNotification({ platform, envPath });
+
       break;
+
     default:
       break;
   }

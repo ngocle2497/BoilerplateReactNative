@@ -33,6 +33,7 @@ export type ShadowConfig = {
 };
 
 type StyleStringOrNumber = string | number;
+
 export interface BlockProps extends ViewProps {
   flexWrap?: FlexWrap;
 

@@ -17,6 +17,7 @@ import { styles } from './styles';
 const Spinner = memo(() => {
   // state
   const theme = useTheme();
+
   // render
   return <ActivityIndicator color={theme.colors.background} size={'large'} />;
 }, isEqual);
@@ -54,6 +55,7 @@ const ProgressDialogComponent = forwardRef((_, ref) => {
 });
 
 export const progressDialogRef = createRef<ProgressDialogRef>();
+
 export const ProgressDialog = () => (
   <ProgressDialogComponent ref={progressDialogRef} />
 );
@@ -65,6 +67,7 @@ export const showLoading = () => {
 export const hideLoading = () => {
   progressDialogRef.current?.hide();
 };
+
 export interface ProgressDialogRef {
   show(): void;
   hide(): void;

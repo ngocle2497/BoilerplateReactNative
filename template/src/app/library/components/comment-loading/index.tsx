@@ -18,7 +18,9 @@ export const CommentLoading = ({
 }: CommentLoadingProps) => {
   // state
   const [reRender, setReRender] = useAsyncState<boolean>(false);
+
   const { height: screenHeight } = useWindowDimensions();
+
   const listItem = useMemo<Array<number>>(
     () =>
       Array(Math.ceil(screenHeight / MIN_HEIGHT_ITEM))

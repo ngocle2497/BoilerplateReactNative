@@ -16,6 +16,7 @@ export const sharedTiming = (
   callBack?: AnimationCallback,
 ) => {
   'worklet';
+
   return withTiming(
     toValue,
     Object.assign(
@@ -38,5 +39,6 @@ export const sharedSpring = (
   callBack?: AnimationCallback,
 ) => {
   'worklet';
+
   return withSpring(toValue, config, callBack);
 };

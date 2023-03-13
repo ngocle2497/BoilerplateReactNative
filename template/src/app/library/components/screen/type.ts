@@ -108,6 +108,7 @@ export interface InsetProps {
   right?: number;
   bottom?: number;
 }
+
 export type ScreenComponentProps = CustomOmit<
   ScreenProps,
   'unsafe' | 'scroll' | 'excludeEdges'

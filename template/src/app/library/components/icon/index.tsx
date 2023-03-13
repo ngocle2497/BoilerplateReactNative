@@ -21,6 +21,7 @@ export const Icon = ({
   // state
 
   const theme = useTheme();
+
   // style
   const style = useMemo<StyleProp<ImageStyle>>(
     () => [{ width: size, height: size }],

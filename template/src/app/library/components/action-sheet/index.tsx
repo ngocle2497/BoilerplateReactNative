@@ -20,6 +20,7 @@ import { Modal } from '../modal';
 export const ActionSheet = forwardRef((props: ActionSheetProps, ref) => {
   // state
   const [t] = useTranslation();
+
   const {
     title,
     rootStyle,
@@ -35,6 +36,7 @@ export const ActionSheet = forwardRef((props: ActionSheetProps, ref) => {
     closeOnBackDropPress = true,
     option = [],
   } = props;
+
   const [actionVisible, setActionVisible] = useState(false);
 
   useImperativeHandle(
@@ -49,11 +51,13 @@ export const ActionSheet = forwardRef((props: ActionSheetProps, ref) => {
     }),
     [],
   );
+
   // function
   const onPress = useCallback(
     (item: OptionData, index: number) => {
       return () => {
         setActionVisible(false);
+
         onPressOption && onPressOption(item, index);
       };
     },
@@ -62,11 +66,13 @@ export const ActionSheet = forwardRef((props: ActionSheetProps, ref) => {
 
   const onCancel = useCallback(() => {
     onPressCancel && onPressCancel();
+
     setActionVisible(false);
   }, [onPressCancel]);
 
   const onBackDropPress = useCallback(() => {
     execFunc(onBackDropPressOverwrite);
+
     if (closeOnBackDropPress) {
       setActionVisible(false);
     }

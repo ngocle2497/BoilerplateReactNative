@@ -13,10 +13,12 @@ export type Item = {
   type: TypeMessage;
   interval: number;
 };
+
 export interface SnackBarItemProps {
   item: Item;
   onPop: (item: Item) => void;
 }
+
 export type DataShowMessage = {
   msg: string;
   type: TypeMessage;

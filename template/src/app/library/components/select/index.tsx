@@ -21,7 +21,9 @@ import { Modal } from '../modal';
 export const Select = (props: SelectProps) => {
   // state
   const [t] = useTranslation();
+
   const inset = useSafeAreaInsets();
+
   const {
     textItemStyle,
     rightChildren,
@@ -32,13 +34,17 @@ export const Select = (props: SelectProps) => {
     data = [],
     ...rest
   } = props;
+
   const [selectedText, setSelectedText] = useState(defaultSelect);
+
   const [visible, setVisible] = useState(false);
 
   // function
   const onPressOption = (item: SelectOption, index: number) => {
     setVisible(false);
+
     setSelectedText(item.text);
+
     onPress && onPress(item, index);
   };
 
@@ -79,6 +85,7 @@ export const Select = (props: SelectProps) => {
     ],
     [inset.bottom, useBottomInset],
   );
+
   // render
   return (
     <>

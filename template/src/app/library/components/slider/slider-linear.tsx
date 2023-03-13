@@ -28,23 +28,29 @@ export const SliderLinear = ({
   if (lowerBound >= upperBound) {
     throw Error('lowerBound must be less than upperBound');
   }
+
   if (onChangeLinear && !onCheckType(onChangeLinear, 'function')) {
     throw Error('onChangeLinear must be function');
   }
+
   // state
   const [width, setWidth] = useState<number>(0);
+
   // reanimated
   const translationX = useSharedValue(0);
+
   const progress = useSharedValue(0);
 
   const translateX = useDerivedValue(() =>
     sharedClamp(translationX.value, -THUMB_SIZE, width - THUMB_SIZE),
   );
+
   const progressValue = useInterpolate(
     translateX,
     [-THUMB_SIZE, width - THUMB_SIZE],
     [lowerBound, upperBound],
   );
+
   // function
   const gestureHandler = Gesture.Pan()
     .onChange(e => {
@@ -69,6 +75,7 @@ export const SliderLinear = ({
   useEffect(() => {
     const percentLeft =
       (initialLinear - lowerBound) / (upperBound - lowerBound);
+
     translationX.value = sharedSpring(percentLeft * width - THUMB_SIZE);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
@@ -84,6 +91,7 @@ export const SliderLinear = ({
     () => progressValue.value,
     result => {
       const value1 = parseFloat(result.toFixed(FIXED_AFTER));
+
       progress.value = value1;
     },
   );

@@ -33,6 +33,7 @@ controller.current = new AbortController();
 
 export const cancelAllRequest = () => {
   controller.current?.abort();
+
   // reset controller, if not. all request cannot execute
   // because old controller was aborted
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -46,8 +47,10 @@ export const handleResponseAxios = <T = Record<string, unknown>>(
   if (res.data) {
     return { code: CODE_SUCCESS, status: true, data: res.data };
   }
+
   return responseDefault as ResponseBase<T>;
 };
+
 export const handleErrorAxios = <T = Record<string, unknown>>(
   error: AxiosError,
 ): ResponseBase<T> => {
@@ -55,6 +58,7 @@ export const handleErrorAxios = <T = Record<string, unknown>>(
     // timeout
     return handleErrorApi(CODE_TIME_OUT) as unknown as ResponseBase<T>;
   }
+
   if (error.response) {
     if (error.response.status === RESULT_CODE_PUSH_OUT) {
       return handleErrorApi(RESULT_CODE_PUSH_OUT) as unknown as ResponseBase<T>;
@@ -64,6 +68,7 @@ export const handleErrorAxios = <T = Record<string, unknown>>(
       ) as unknown as ResponseBase<T>;
     }
   }
+
   return handleErrorApi(ERROR_NETWORK_CODE) as unknown as ResponseBase<T>;
 };
 
@@ -71,11 +76,14 @@ export const handlePath = (url: string, path: ParamsNetwork['path']) => {
   if (!path || Object.keys(path).length <= 0) {
     return url;
   }
+
   let resUrl = url;
   Object.keys(path).forEach(k => {
     resUrl = resUrl.replaceAll(`{${k}}`, String(path[k]));
+
     resUrl = resUrl.replaceAll(`:${k}`, String(path[k]));
   });
+
   return resUrl;
 };
 
@@ -84,6 +92,7 @@ export const handleParameter = <T extends ParamsNetwork>(
   method: Method,
 ): ParamsNetwork => {
   const { url, body, path, params } = props;
+
   return {
     ...props,
     method,

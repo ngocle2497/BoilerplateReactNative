@@ -24,8 +24,11 @@ export const CheckBox = ({
 }: CheckboxProps) => {
   // state
   const [localValue, setLocalValue] = useState<boolean>(initialValue);
+
   const progress = useSharedTransition(value ?? localValue);
+
   const scale = useMix(progress, 0, 1);
+
   const opacity = useMix(progress, 0, 1);
 
   // function
@@ -34,6 +37,7 @@ export const CheckBox = ({
       execFunc(onToggle, !value);
     } else {
       execFunc(onToggle, !localValue);
+
       setLocalValue(v => !v);
     }
   }, [localValue, onToggle, value]);

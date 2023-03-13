@@ -16,7 +16,9 @@ import { listenerMiddleware } from '../listener';
  */
 
 const devMode = __DEV__;
+
 const middleware = [subscribeActionMiddleware];
+
 if (devMode) {
   middleware.push(reduxDebugger());
 }

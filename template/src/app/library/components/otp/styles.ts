@@ -2,8 +2,11 @@ import { StyleSheet } from 'react-native';
 
 import { sizeScale } from '@common';
 import { ColorDefault } from '@theme/color';
+
 const WIDTH_OTP = 32;
+
 const HEIGHT_OTP = 40;
+
 export const styles = StyleSheet.create({
   wrap: {
     width: '100%',

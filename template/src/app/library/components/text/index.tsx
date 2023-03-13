@@ -44,11 +44,14 @@ export const Text = ({
 }: TextProps) => {
   // state
   const theme = useTheme();
+
   const [t] = useTranslation();
+
   const i18nText = useMemo(
     () => t18n && t(t18n, t18nOptions),
     [t18n, t18nOptions, t],
   );
+
   const content = useMemo(
     () => i18nText || text || children,
     [i18nText, text, children],
@@ -91,6 +94,7 @@ export const Text = ({
       lineHeight,
     ],
   );
+
   // render
   return (
     <ReactNativeText

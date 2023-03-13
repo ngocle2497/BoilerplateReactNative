@@ -10,4 +10,5 @@ export const FontDefault = {
     android: 'Roboto-Medium',
   }) as string,
 };
+
 export type FontFamily = keyof typeof FontDefault;

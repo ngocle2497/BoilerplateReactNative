@@ -12,13 +12,16 @@ export const subscribeEvent = <T extends EventKeyName>(
   listener: ListenerCallback<EventParamsList[T]>,
 ) => {
   const uuid = String.prototype.randomUniqueId();
+
   listeners.push({
     uuid,
     eventKey,
     listener,
   });
+
   return () => {
     const index = listeners.findIndex(x => x.uuid === uuid);
+
     listeners.slice(index, 1);
   };
 };
@@ -33,8 +36,10 @@ export const subscribeEventById = <T extends EventKeyName>(
     eventKey,
     listener,
   });
+
   return () => {
     const index = listeners.findIndex(x => x.uuid === id);
+
     listeners.slice(index, 1);
   };
 };
@@ -44,6 +49,7 @@ export const emitEvent = <T extends EventKeyName>(
 ) => {
   for (let index = 0; index < listeners.length; index++) {
     const element = listeners[index];
+
     if (element.eventKey === args[0]) {
       element.listener(args[1]);
     }

@@ -47,10 +47,15 @@ export const TextInput = forwardRef(
   ) => {
     // state
     const [t] = useTranslation();
+
     const { colors } = useTheme();
+
     const focusedValue = useSharedValue(false);
+
     const errorValue = useDerivedValue(() => error === true, [error]);
+
     const disabled = useDerivedValue(() => editable === false, [editable]);
+
     const borderColor = useDerivedValue(() => {
       switch (true) {
         case disabled.value:
@@ -59,6 +64,7 @@ export const TextInput = forwardRef(
           return colors.error;
         case focusedValue.value:
           return colors.primary;
+
         default:
           return colors.line;
       }
@@ -68,7 +74,9 @@ export const TextInput = forwardRef(
     const handleTextChange = (text: string) => {
       const actualText =
         rxFormat !== undefined ? text.replace(rxFormat, '') : text;
+
       execFunc(onChangeText, actualText);
+
       if (nameTrigger) {
         execFunc(trigger, nameTrigger);
       }
@@ -76,11 +84,13 @@ export const TextInput = forwardRef(
 
     const handleFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
       focusedValue.value = true;
+
       execFunc(onFocus, e);
     };
 
     const handleBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
       focusedValue.value = false;
+
       execFunc(onBlur, e);
     };
 

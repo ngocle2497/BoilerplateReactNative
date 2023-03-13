@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { sizeScale } from '@common';
 import { FontDefault } from '@theme/typography';
+
 export const textPresets = StyleSheet.create({
   linkTitle: {
     fontFamily: FontDefault.primary,

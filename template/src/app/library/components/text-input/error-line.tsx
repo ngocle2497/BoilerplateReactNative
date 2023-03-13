@@ -14,6 +14,7 @@ import { ErrorLineProps } from './type';
 export const ErrorLine = ({ error, disabled }: ErrorLineProps) => {
   // state
   const { colors } = useTheme();
+
   const widthPercent = useDerivedValue(
     () =>
       sharedTiming(error.value && !disabled.value ? 100 : 0, { duration: 200 }),

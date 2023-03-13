@@ -43,13 +43,16 @@ const SnackBarComponent = forwardRef((_, ref) => {
 
   // state
   const [queueData, setQueueData] = useState<Array<Item>>([]);
+
   const [data, setData] = useState<Item[]>([]);
 
   // function
   const onPop = useCallback(
     (item: Item) => {
       const newData = queueData.length <= 0 ? [] : [queueData[0]];
+
       setQueueData(d => d.filter(x => x.id !== item.id));
+
       setData(newData);
     },
     [queueData],
@@ -75,10 +78,13 @@ const SnackBarComponent = forwardRef((_, ref) => {
     </View>
   );
 });
+
 type SnackBar = {
   show: (data: { msg: string; interval?: number; type?: TypeMessage }) => void;
 };
+
 export const snackBarRef = createRef<SnackBar>();
+
 export const SnackBar = () => <SnackBarComponent ref={snackBarRef} />;
 
 export const showSnack = ({

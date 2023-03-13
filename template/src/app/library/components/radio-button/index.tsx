@@ -26,8 +26,11 @@ export const RadioButton = ({
   // state
 
   const [localValue, setLocalValue] = useState<boolean>(initialValue);
+
   const progress = useSharedTransition(value ?? localValue, { duration: 200 });
+
   const size = useInterpolate(progress, [0, 1], [0, sizeDot - strokeWidth]);
+
   const color = useInterpolateColor(
     progress,
     [0, 1],
@@ -40,6 +43,7 @@ export const RadioButton = ({
       execFunc(onToggle, !value);
     } else {
       execFunc(onToggle, !localValue);
+
       setLocalValue(v => !v);
     }
   };

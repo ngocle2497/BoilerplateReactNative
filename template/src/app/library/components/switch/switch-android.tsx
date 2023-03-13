@@ -68,18 +68,22 @@ export const Switch = ({
 
   // reanimated
   const progress = useSharedTransition(overwriteValue ?? value);
+
   const opacity = useMix(useSharedTransition(disable), 1, 0.5);
+
   const translateX = useInterpolate(
     progress,
     [0, 1],
     [OFF_POSITION_ANDROID, ON_POSITION_ANDROID],
     Extrapolate.CLAMP,
   );
+
   const backgroundTrackColor = useInterpolateColor(
     progress,
     [0, 1],
     [OFF_TRACK_COLOR, ON_TRACK_COLOR],
   );
+
   const backgroundThumbColor = useInterpolateColor(
     progress,
     [0, 1],
@@ -92,6 +96,7 @@ export const Switch = ({
       execFunc(onToggle, overwriteValue);
     } else {
       execFunc(onToggle, !value);
+
       setValue(v => !v);
     }
   }, [onToggle, overwriteValue, value]);

@@ -47,8 +47,10 @@ const setLayoutOnUI = (
 ) => {
   'worklet';
   const measured = measure(ref);
+
   if (measured) {
     const { width, height, pageX, pageY } = measured;
+
     wrapMeasured.value = { width, height, x: pageX, y: pageY };
   }
 };
@@ -79,11 +81,17 @@ export const DropDown = forwardRef((props: DropDownProps, _) => {
 
   // state
   const wrapMeasured = useSharedValue({ width: 0, height: 0, x: 0, y: 0 });
+
   const dropHeight = useSharedValue(0);
+
   const { height: deviceH } = useWindowDimensions();
+
   const inset = useSafeAreaInsets();
+
   const _refDrop = useAnimatedRef<View>();
+
   const [isVisible, setIsVisible] = useState(false);
+
   const [selectedValue, setSelectedValue] = useState<string | Array<string>>(
     '',
   );
@@ -100,6 +108,7 @@ export const DropDown = forwardRef((props: DropDownProps, _) => {
       if (isRenderOnBottom) {
         return styles.wrapViewBottomOpened;
       }
+
       return styles.wrapViewTopOpened;
     }
   }, [isRenderOnBottom, isVisible]);
@@ -114,6 +123,7 @@ export const DropDown = forwardRef((props: DropDownProps, _) => {
       setSelectedValue(d => {
         if (multiple && Array.isArray(d)) {
           const item = d.find(x => x === value);
+
           if (item) {
             return d.filter(x => x !== value);
           } else {
@@ -123,6 +133,7 @@ export const DropDown = forwardRef((props: DropDownProps, _) => {
           return value === d ? '' : value;
         }
       });
+
       if (!multiple) {
         hideDrop();
       }
@@ -133,6 +144,7 @@ export const DropDown = forwardRef((props: DropDownProps, _) => {
   const onCheckSelected = (item: RowDropDown): boolean => {
     if (multiple && Array.isArray(selectedValue)) {
       const itemSelect = selectedValue.find(x => x === item.value);
+
       return itemSelect !== undefined;
     } else {
       return selectedValue === item.value;
@@ -160,11 +172,13 @@ export const DropDown = forwardRef((props: DropDownProps, _) => {
 
   const onLayoutDrop = (e: LayoutChangeEvent) => {
     const { height } = e.nativeEvent.layout;
+
     dropHeight.value = height;
   };
 
   const onToggle = useCallback(() => {
     runOnUI(setLayoutOnUI)(_refDrop, wrapMeasured);
+
     setTimeout(() => {
       setIsVisible(val => !val);
     }, 0);
@@ -175,28 +189,36 @@ export const DropDown = forwardRef((props: DropDownProps, _) => {
       if (selectedValue.length <= 0) {
         return placeHolder;
       }
+
       if (selectedValue.length === 1) {
         const item = data.find(x => x.value === selectedValue[0]);
+
         if (item) {
           return item.label;
         }
+
         return placeHolder;
       }
+
       return multipleText.replace('%d', selectedValue.length + '');
     } else {
       if (selectedValue.length <= 0) {
         return placeHolder;
       }
+
       const item = data.find(x => x.value === selectedValue);
+
       if (item) {
         return item.label;
       }
+
       return placeHolder;
     }
   }, [multiple, selectedValue, multipleText, placeHolder, data]);
 
   // animated
   const progress = useSharedTransition(isVisible);
+
   const rotate = useRadian(useMix(progress, 0, -180));
 
   // effect
@@ -218,11 +240,14 @@ export const DropDown = forwardRef((props: DropDownProps, _) => {
       if (Array.isArray(selectedValue)) {
         onChangeItem(
           selectedValue,
-          data.reduce((prev, current, _, arr) => {
+          // eslint-disable-next-line max-params
+          data.reduce((prev, current, _index, arr) => {
             const index = arr.findIndex(x => x.value === current.value);
+
             if (index >= 0) {
               prev.push(index);
             }
+
             return prev;
           }, [] as number[]),
         );

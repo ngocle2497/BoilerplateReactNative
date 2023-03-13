@@ -15,5 +15,6 @@ export type ListenerCallback<T> = T extends undefined
 export type Listeners = Array<{
   uuid: string;
   eventKey: EventKeyName;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   listener: ListenerCallback<any>;
 }>;

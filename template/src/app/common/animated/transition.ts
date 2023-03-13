@@ -21,9 +21,11 @@ export const useSharedTransition = (
   initialValue?: number,
 ): Animated.SharedValue<number> => {
   const value = useSharedValue(initialValue ?? 0);
+
   useEffect(() => {
     value.value = typeof state === 'boolean' ? sharedBin(state) : state;
   }, [state, value]);
+
   return useDerivedValue(() =>
     withTiming(
       value.value,
@@ -44,8 +46,10 @@ export const useSharedSpringTransition = (
   initialValue?: number,
 ): Animated.SharedValue<number> => {
   const value = useSharedValue(initialValue ?? 0);
+
   useEffect(() => {
     value.value = typeof state === 'boolean' ? sharedBin(state) : state;
   }, [state, value]);
+
   return useDerivedValue(() => withSpring(value.value, config));
 };

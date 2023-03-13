@@ -9,6 +9,7 @@ import { createSelectorCreator, defaultMemoize } from 'reselect';
 const RXStoreComponent = forwardRef((_, ref) => {
   // state
   const dispatchRx = useDispatch();
+
   const store = useSelector((x: RootState) => x);
 
   // effect
@@ -24,6 +25,7 @@ const RXStoreComponent = forwardRef((_, ref) => {
     }),
     [dispatchRx, store],
   );
+
   return null;
 });
 
@@ -41,12 +43,15 @@ export function dispatch<T = undefined>(action: ActionBase<T>) {
     storeRef.current.dispatch(action);
   }
 }
+
 export function getState<K extends keyof RootState>(selector: K): RootState[K] {
   if (storeRef.current) {
     return storeRef.current.getState(selector);
   }
+
   return {} as RootState[K];
 }
+
 export const createDeepEqualSelector = createSelectorCreator(
   defaultMemoize,
   isEqual,

@@ -22,8 +22,11 @@ export const ProgressLinear = ({
 }: ProgressLinearProps) => {
   // state
   const [widthProgress, setWidthProgress] = useState(0);
+
   const progressAnimated = useDerivedValue(() => sharedTiming(progress));
+
   const actualProgress = useShareClamp(progressAnimated, 0, 100);
+
   const translateX = useInterpolate(
     actualProgress,
     [0, 100],
@@ -42,6 +45,7 @@ export const ProgressLinear = ({
     ],
     [bg, radius, strokeWidth],
   );
+
   const fgStyle = useMemo<ViewStyle[]>(
     () => [
       styles.fg,

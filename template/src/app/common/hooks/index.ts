@@ -26,13 +26,16 @@ import { AppTheme, useTheme } from '@theme';
 type NetInfoTuple = [boolean, boolean];
 function useNetWorkStatus(): NetInfoTuple {
   const [status, setStatus] = useState<boolean>(false);
+
   const [canAccess, setCanAccess] = useState<boolean>(false);
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state: NetInfoState) => {
       setStatus(state.isConnected ?? false);
+
       setCanAccess(state.isInternetReachable ?? false);
     });
+
     return () => {
       unsubscribe();
     };
@@ -52,8 +55,10 @@ function useInterval(callback: Function, delay: number) {
     function tick() {
       savedCallback.current && savedCallback.current();
     }
+
     if (delay !== null) {
       const id = setInterval(tick, delay);
+
       return () => clearInterval(id);
     }
   }, [delay]);
@@ -120,6 +125,7 @@ function useSetState<T extends object>(initialValue: T): UseSetState<T> {
 
 function useStyle<T>(style: (theme: AppTheme) => T): T {
   const theme = useTheme();
+
   return style(theme);
 }
 
@@ -130,6 +136,7 @@ function useAsyncState<T>(
   (newValue: SetStateAction<T>, callback?: (newState: T) => void) => void,
 ] {
   const [state, setState] = useState(initialValue);
+
   const _callback = useRef<(newState: T) => void>();
 
   const _setState = (
@@ -139,15 +146,18 @@ function useAsyncState<T>(
     if (callback) {
       _callback.current = callback;
     }
+
     setState(newValue);
   };
 
   useEffect(() => {
     if (typeof _callback.current === 'function') {
       _callback.current(state);
+
       _callback.current = undefined;
     }
   }, [state]);
+
   return [state, _setState];
 }
 
@@ -163,6 +173,7 @@ function useDidMount(callback: () => void) {
 
 function useForceUpdate() {
   const unloadingRef = useRef(false);
+
   const [forcedRenderCount, setForcedRenderCount] = useState(0);
 
   useUnMount(() => (unloadingRef.current = true));
@@ -177,7 +188,9 @@ function useIsKeyboardShown() {
 
   React.useEffect(() => {
     const handleKeyboardShow = () => setIsKeyboardShown(true);
+
     const handleKeyboardHide = () => setIsKeyboardShown(false);
+
     let keyboardWillShow: EmitterSubscription;
     let keyboardWillHide: EmitterSubscription;
     let keyboardDidShow: EmitterSubscription;
@@ -187,6 +200,7 @@ function useIsKeyboardShown() {
         'keyboardWillShow',
         handleKeyboardShow,
       );
+
       keyboardWillHide = Keyboard.addListener(
         'keyboardWillHide',
         handleKeyboardHide,
@@ -196,6 +210,7 @@ function useIsKeyboardShown() {
         'keyboardDidShow',
         handleKeyboardShow,
       );
+
       keyboardDidHide = Keyboard.addListener(
         'keyboardDidHide',
         handleKeyboardHide,
@@ -205,9 +220,11 @@ function useIsKeyboardShown() {
     return () => {
       if (Platform.OS === 'ios') {
         keyboardWillShow.remove();
+
         keyboardWillHide.remove();
       } else {
         keyboardDidShow.remove();
+
         keyboardDidHide.remove();
       }
     };
@@ -222,6 +239,7 @@ function useDisableBackHandler(disabled: boolean, callback?: () => void) {
     if (onCheckType(callback, 'function')) {
       callback();
     }
+
     return true;
   }, [callback]);
 
@@ -231,6 +249,7 @@ function useDisableBackHandler(disabled: boolean, callback?: () => void) {
     } else {
       BackHandler.removeEventListener('hardwareBackPress', onBackPress);
     }
+
     return () =>
       BackHandler.removeEventListener('hardwareBackPress', onBackPress);
   }, [disabled, onBackPress]);
@@ -266,6 +285,7 @@ function useErrorMessageTranslation(msg?: string) {
     if (!msg) {
       return undefined;
     }
+
     try {
       return JSON.parse(msg);
     } catch {
@@ -277,11 +297,13 @@ function useErrorMessageTranslation(msg?: string) {
     if (!parsed && typeof msg === 'string') {
       return t(msg);
     }
+
     if (!parsed) {
       return undefined;
     }
 
     const optionsTx: Record<string, string> = {};
+
     if (parsed.optionsTx) {
       Object.keys(parsed.optionsTx).forEach(key => {
         optionsTx[key] = t(
@@ -289,6 +311,7 @@ function useErrorMessageTranslation(msg?: string) {
         );
       });
     }
+
     return t(parsed.keyT, { ...(parsed.options ?? {}), ...optionsTx });
   }, [parsed, t, msg]);
 }

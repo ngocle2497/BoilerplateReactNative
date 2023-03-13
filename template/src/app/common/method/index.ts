@@ -50,6 +50,7 @@ export const validResponse = (
     // TODO: handle error
     return false;
   }
+
   return true;
 };
 
@@ -66,19 +67,26 @@ export const isIos = Platform.OS === 'ios';
 
 export const logout = () => {
   dispatch(appActions.logout());
+
   remove(STORAGE_KEY_TOKEN);
 };
 
 export const handleErrorApi = (status: number) => {
   const result = { status: false, code: status, msg: '' };
+
   if (status > 505) {
     result.msg = translate('error:server_error');
+
     return result;
   }
+
   if (status < 500 && status >= 418) {
     result.msg = translate('error:error_on_request');
+
     return result;
   }
+
   result.msg = translate(('error:' + status) as I18nKeys);
+
   return result;
 };

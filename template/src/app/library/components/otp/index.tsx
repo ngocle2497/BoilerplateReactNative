@@ -20,12 +20,15 @@ export const Otp = ({
 }: OtpProps) => {
   // state
   const [otp, setOtp] = useState('');
+
   const _inputRef = useRef<TextInput>(null);
+
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   // function
   const onOtpChange = (text: string) => {
     const textTrim = text.trim().toString();
+
     if (textTrim.length <= length) {
       setOtp(text.trim().toString());
     }

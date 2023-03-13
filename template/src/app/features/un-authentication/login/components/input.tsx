@@ -14,6 +14,7 @@ interface InputProps<T extends Record<string, any>>
   name: keyof T;
   nameTrigger?: keyof T;
 }
+
 export const Input = <T extends Record<string, any>>({
   label,
   name,
@@ -23,6 +24,7 @@ export const Input = <T extends Record<string, any>>({
 }: InputProps<T>) => {
   // state
   const { trigger, getValues } = useFormContext<FormLoginType>();
+
   const {
     field,
     fieldState: { error },
@@ -30,6 +32,7 @@ export const Input = <T extends Record<string, any>>({
     name: name as string,
     defaultValue,
   });
+
   const message = useErrorMessageTranslation(error?.message);
 
   // render

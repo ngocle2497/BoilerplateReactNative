@@ -25,6 +25,7 @@ const RowOverLay = memo(
       }),
       [borderRadius, height, width],
     );
+
     // render
     return <View style={[row]} />;
   },
@@ -67,6 +68,7 @@ const ItemBase = memo(() => {
 const BaseContentComponent = () => {
   // state
   const { height: screenHeight } = useWindowDimensions();
+
   const listItem = useMemo<Array<number>>(
     () =>
       Array(Math.ceil(screenHeight / BASE_ITEM_HEIGHT))

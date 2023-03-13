@@ -1,7 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 import { ColorDefault } from '@theme/color';
+
 const DIMENSIONS = { width: 16, height: 16 };
+
 export const styles = StyleSheet.create({
   root: {
     flexDirection: 'row',

@@ -30,10 +30,13 @@ const getEdges = (
   if (excludeEdges === 'all') {
     return [];
   }
+
   const actualEdges = INSETS.filter(x => !(excludeEdges ?? []).includes(x));
+
   if (hiddenStatusBar) {
     return actualEdges.filter(x => x !== 'top');
   }
+
   return actualEdges;
 };
 
@@ -59,6 +62,7 @@ const Inset = ({
     }),
     [bottom, color, height, left, right, top, width],
   );
+
   // render
   return <View style={[styles.insets, style]} />;
 };
@@ -75,7 +79,9 @@ const InsetComponent = ({
 }: InsetComponentProps) => {
   // state
   const inset = useSafeAreaInsets();
+
   const { width: screenWidth, height: screenHeight } = useWindowDimensions();
+
   // render
   return (
     <>
@@ -127,6 +133,7 @@ function ScreenWithoutScrolling(
 ) {
   // state
   const { colors } = useTheme();
+
   const {
     statusBarStyle,
     backgroundColor,
@@ -173,6 +180,7 @@ function ScreenWithScrolling(
 ) {
   // state
   const { colors } = useTheme();
+
   const {
     statusBarStyle,
     backgroundColor,
@@ -224,14 +232,17 @@ export const Screen = (props: ScreenProps) => {
     () => getEdges(props.excludeEdges, props?.hiddenStatusBar ?? false),
     [props.excludeEdges, props.hiddenStatusBar],
   );
+
   const actualUnsafe = useMemo<boolean>(
     () => props.unsafe || edges.length <= 0,
     [edges.length, props.unsafe],
   );
+
   const Wrapper = useMemo(
     () => (actualUnsafe ? View : SafeAreaView),
     [actualUnsafe],
   );
+
   // render
   if (props.scroll) {
     return ScreenWithScrolling(Wrapper, { ...props, actualUnsafe, edges });

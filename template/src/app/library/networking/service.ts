@@ -19,6 +19,7 @@ import {
 } from './helper';
 
 const tokenKeyHeader = 'authorization';
+
 let refreshTokenRequest: Promise<string | null> | null = null;
 const AxiosInstance = Axios.create({});
 
@@ -26,6 +27,7 @@ AxiosInstance.interceptors.response.use(
   response => response,
   async function (error) {
     const originalRequest = error.config;
+
     if (
       error &&
       error.response &&
@@ -33,18 +35,26 @@ AxiosInstance.interceptors.response.use(
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
+
       refreshTokenRequest = refreshTokenRequest
         ? refreshTokenRequest
         : refreshToken();
+
       const newToken = await refreshTokenRequest;
+
       refreshTokenRequest = null;
+
       if (newToken === null) {
         return Promise.reject(error);
       }
+
       dispatch(appActions.setToken(newToken));
+
       originalRequest.headers[tokenKeyHeader] = newToken;
+
       return AxiosInstance(originalRequest);
     }
+
     return Promise.reject(error);
   },
 );
@@ -69,6 +79,7 @@ async function refreshToken(): Promise<any | null> {
 // base
 function Request<T = Record<string, unknown>>(config: ParamsNetwork) {
   const { token }: AppState = getState('app');
+
   const defaultConfig: AxiosRequestConfig = {
     baseURL: API_URL,
     timeout: TIME_OUT,
@@ -77,6 +88,7 @@ function Request<T = Record<string, unknown>>(config: ParamsNetwork) {
       [tokenKeyHeader]: token ?? '',
     },
   };
+
   return new Promise<ResponseBase<T> | null>(rs => {
     AxiosInstance.request(
       StyleSheet.flatten([
@@ -87,16 +99,19 @@ function Request<T = Record<string, unknown>>(config: ParamsNetwork) {
     )
       .then((res: AxiosResponse<T>) => {
         const result = handleResponseAxios(res);
+
         rs(result);
       })
       .catch((error: AxiosError<T>) => {
         if (error.code === AxiosError.ERR_CANCELED) {
           rs(null);
         }
+
         const result = handleErrorAxios(error);
 
         if (result.code === RESULT_CODE_PUSH_OUT) {
           onPushLogout();
+
           rs(null);
         } else {
           rs(result as ResponseBase<T>);
@@ -119,10 +134,12 @@ type ParameterPostFormData = AxiosRequestConfig & ParamsNetwork;
 // post FormData
 async function PostFormData<T>(params: ParamsNetwork) {
   const { token }: AppState = getState('app');
+
   const headers: AxiosRequestConfig['headers'] = {
     [tokenKeyHeader]: token ?? '',
     'Content-Type': 'multipart/form-data',
   };
+
   return Request<T>(
     handleParameter<ParameterPostFormData>({ ...params, headers }, 'POST'),
   );
@@ -137,6 +154,7 @@ async function Put<T>(params: ParamsNetwork) {
 async function Delete<T>(params: ParamsNetwork) {
   return Request<T>(handleParameter(params, 'DELETE'));
 }
+
 export type NetWorkResponseType<T> = (
   params: ParamsNetwork,
 ) => Promise<ResponseBase<T> | null>;

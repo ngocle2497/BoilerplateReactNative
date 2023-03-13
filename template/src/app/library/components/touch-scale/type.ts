@@ -4,6 +4,7 @@ import {
   TouchableWithoutFeedbackProps,
   ViewStyle,
 } from 'react-native';
+
 export interface TouchableScaleProps extends TouchableWithoutFeedbackProps {
   /**
    * Children of Touchable

@@ -20,22 +20,30 @@ interface LightBoxProps {
 const LightBoxComponent = ({ source }: LightBoxProps) => {
   // state
   const _refRoot = useRef<View>(null);
+
   const [disableButton, setDisableButton] = useState<boolean>(true);
+
   const [sizeImage, setSizeImage] = useState<{ width: number; height: number }>(
     {
       width: 0,
       height: 0,
     },
   );
+
   const { width: widthDevice } = useWindowDimensions();
+
   const imageOpacity = useSharedValue(1);
 
   // function
   const _onImagePress = useCallback(() => {
+    // eslint-disable-next-line max-params
     _refRoot.current?.measure((x, y, width, height, px, py) => {
       const targetWidth = widthDevice;
+
       const scaleFactor = widthDevice / sizeImage.width;
+
       const targetHeight = sizeImage.height * scaleFactor;
+
       imageTransitionRef.current?.show({
         image: {
           x,
@@ -55,6 +63,7 @@ const LightBoxComponent = ({ source }: LightBoxProps) => {
 
   const _onLoadedImage = useCallback((e: OnLoadEvent) => {
     setDisableButton(false);
+
     setSizeImage(e.nativeEvent);
   }, []);
 

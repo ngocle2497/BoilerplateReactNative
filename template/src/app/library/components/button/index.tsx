@@ -23,6 +23,7 @@ export const Button = (props: ButtonProps) => {
     preset = 'default',
     ...rest
   } = props;
+
   const theme = useTheme();
 
   // style

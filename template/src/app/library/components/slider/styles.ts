@@ -37,6 +37,7 @@ export const styles = StyleSheet.create({
     marginTop: THUMB_SIZE / 2,
   },
 });
+
 export const stylesRange = StyleSheet.create({
   root: {
     width: '100%',

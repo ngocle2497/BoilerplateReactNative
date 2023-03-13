@@ -12,6 +12,7 @@ export const ParsedText = ({ parse, children, ...rest }: ParsedTextProps) => {
   const onGetPatterns = useCallback(() => {
     return parse.map(option => {
       const { type, ...patternOption } = option;
+
       if (type && PATTERNS[type]) {
         patternOption.pattern = PATTERNS[type];
       }
@@ -24,9 +25,12 @@ export const ParsedText = ({ parse, children, ...rest }: ParsedTextProps) => {
     if (!parse || !onCheckType(children, 'string')) {
       return children;
     }
+
     const text = textExtraction(children, onGetPatterns());
+
     return text.map((localProps, index) => {
       const { style, ...restText } = localProps;
+
       return <Text key={`parsedText-${index}`} style={[style]} {...restText} />;
     });
   }, [children, onGetPatterns, parse]);

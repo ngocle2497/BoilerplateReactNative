@@ -18,6 +18,7 @@ import { ProgressCircleProps } from './type';
 import { COLOR_BG, COLOR_FG, RADIUS, STROKE_WIDTH } from '../constant';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
 export const ProgressCircle = ({
@@ -35,7 +36,9 @@ export const ProgressCircle = ({
     () => `${radius * 2 * Math.PI} ${radius * 2 * Math.PI}`,
     [radius],
   );
+
   const progressValue = useSharedValue(0);
+
   const strokeDashoffset = useDerivedValue(
     () =>
       interpolate(
@@ -51,9 +54,11 @@ export const ProgressCircle = ({
     if (progress < 0) {
       return 0 + '';
     }
+
     if (progress > 100) {
       return 100 + '';
     }
+
     return progress + '';
   };
 

@@ -30,6 +30,7 @@ export const TouchableScale = (props: TouchableScaleProps) => {
   const _onPressIn = useCallback(
     (e: GestureResponderEvent) => {
       scale.value = sharedTiming(minScale, { duration: 150 });
+
       if (onCheckType(onPressIn, 'function')) {
         onPressIn(e);
       }
@@ -40,6 +41,7 @@ export const TouchableScale = (props: TouchableScaleProps) => {
   const _onPressOut = useCallback(
     (e: GestureResponderEvent) => {
       scale.value = sharedTiming(1, { duration: 150 });
+
       if (onCheckType(onPressOut, 'function')) {
         onPressOut(e);
       }

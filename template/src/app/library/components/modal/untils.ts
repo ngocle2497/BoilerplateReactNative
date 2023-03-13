@@ -86,6 +86,7 @@ const withAnimatedIn = ({
   ) => interpolate(progress.value, inputRange, outputRange);
 
   const fadeInOpacity = withInterpolate([0, 1]);
+
   const bounceInOpacity = withInterpolate([0, 1, 1], [0, 0.6, 1]);
 
   switch (typeIn) {
@@ -404,6 +405,7 @@ const withAnimatedIn = ({
           },
         ],
       };
+
     default:
       return { opacity: fadeInOpacity };
   }
@@ -422,6 +424,7 @@ const withAnimatedOut = ({
   ) => interpolate(progress.value, inputRange, outputRange);
 
   const fadeOutOpacity = withInterpolate([0, 1]);
+
   const bounceOutOpacity = withInterpolate([0, 1, 1], [0, 0.55, 1]);
 
   switch (typeOut) {
@@ -605,6 +608,7 @@ const withAnimatedOut = ({
           },
         ],
       };
+
     default:
       return { opacity: fadeOutOpacity };
   }
@@ -615,5 +619,6 @@ export const withAnimated = (data: AnimatedOption) => {
   if (data.isOut.value) {
     return withAnimatedOut(data);
   }
+
   return withAnimatedIn(data);
 };

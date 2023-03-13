@@ -23,4 +23,5 @@ const RegisterComponent = () => {
     </Block>
   );
 };
+
 export const Register = memo(RegisterComponent, isEqual);

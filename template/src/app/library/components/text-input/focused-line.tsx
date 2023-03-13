@@ -14,6 +14,7 @@ import { FocusedLineProps } from './type';
 export const FocusedLine = ({ focused, disabled }: FocusedLineProps) => {
   // state
   const { colors } = useTheme();
+
   const widthPercent = useDerivedValue(
     () =>
       sharedTiming(focused.value && !disabled.value ? 100 : 0, {

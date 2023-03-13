@@ -9,6 +9,7 @@ export const ColorDefault = {
   info: '#ffd700',
   line: 'gray',
 };
+
 export const ColorDark = {
   primary: 'rgb(10, 132, 255)',
   background: 'rgb(1, 1, 1)',

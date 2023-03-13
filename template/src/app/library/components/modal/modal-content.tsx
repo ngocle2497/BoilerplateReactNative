@@ -71,11 +71,16 @@ export const ModalContent = forwardRef(
   ) => {
     // state
     const { height: screenHeight, width: screenWidth } = useWindowDimensions();
+
     // reanimated state
     const translateY = useSharedValue(0);
+
     const translateX = useSharedValue(0);
+
     const isOut = useSharedValue(false);
+
     const progressIn = useSharedValue(0);
+
     const reBackdropOpacity = useSharedValue(0);
 
     // style
@@ -125,9 +130,11 @@ export const ModalContent = forwardRef(
         'worklet';
         if (isFinished) {
           progressIn.value = 0;
+
           if (typeof onSetClose === 'function') {
             runOnJS(onSetClose)();
           }
+
           if (typeof onModalHide === 'function') {
             runOnJS(onModalHide)();
           }
@@ -150,13 +157,17 @@ export const ModalContent = forwardRef(
 
     const openModal = useCallback(() => {
       isOut.value = false;
+
       if (onCheckType(onModalWillShow, 'function')) {
         onModalWillShow();
       }
+
       reBackdropOpacity.value = sharedTiming(backdropOpacity, {
         duration: backdropInDuration,
       });
+
       progressIn.value = 0;
+
       progressIn.value = sharedTiming(
         1,
         {
@@ -177,13 +188,17 @@ export const ModalContent = forwardRef(
 
     const closeModal = useCallback(() => {
       isOut.value = true;
+
       if (onCheckType(onModalWillHide, 'function')) {
         onModalWillHide();
       }
+
       reBackdropOpacity.value = withTiming(0, {
         duration: backdropOutDuration,
       });
+
       progressIn.value = 1;
+
       progressIn.value = sharedTiming(
         0,
         {
@@ -209,6 +224,7 @@ export const ModalContent = forwardRef(
             swipingDirection.includes('up') ? -MAX_TRANSLATE : 0,
             swipingDirection.includes('down') ? MAX_TRANSLATE : 0,
           );
+
           translateX.value = sharedClamp(
             translationX,
             swipingDirection.includes('left') ? -MAX_TRANSLATE : 0,
@@ -225,6 +241,7 @@ export const ModalContent = forwardRef(
               swipingDirection.includes('right') ? MAX_TRANSLATE : 0,
             ),
           );
+
           const actualDy = Math.abs(
             sharedClamp(
               translationY,
@@ -232,6 +249,7 @@ export const ModalContent = forwardRef(
               swipingDirection.includes('down') ? MAX_TRANSLATE : 0,
             ),
           );
+
           if (actualDy > swipeThreshold || actualDx > swipeThreshold) {
             if (typeof onSwipeComplete === 'function') {
               runOnJS(onSwipeComplete)();
@@ -240,6 +258,7 @@ export const ModalContent = forwardRef(
         }
 
         translateY.value = sharedTiming(0, { duration: 150 });
+
         translateX.value = sharedTiming(0, { duration: 150 });
       });
 
@@ -257,6 +276,7 @@ export const ModalContent = forwardRef(
       if (onCheckType(onBackAndroidPress, 'function')) {
         onBackAndroidPress();
       }
+
       return true;
     };
 
@@ -291,6 +311,7 @@ export const ModalContent = forwardRef(
       () => ({
         dismiss: () => {
           closeModal();
+
           Keyboard.dismiss();
         },
       }),
@@ -301,7 +322,9 @@ export const ModalContent = forwardRef(
 
     useEffect(() => {
       KeyboardManager.setEnable(false);
+
       openModal();
+
       return () => {
         KeyboardManager.setEnable(true);
       };

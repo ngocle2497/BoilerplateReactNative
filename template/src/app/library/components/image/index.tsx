@@ -27,6 +27,7 @@ const ImageComponent = ({
   // state
 
   const [error, setError] = useState<boolean>(false);
+
   const [loadImageEnded, setLoadImageEnded] = useState<boolean>(false);
 
   const opacityBlur = useSharedTransition(
@@ -38,6 +39,7 @@ const ImageComponent = ({
   // function
   const handleLoadStart = () => {
     setError(false);
+
     execFunc(onLoadStart);
   };
 
@@ -49,11 +51,13 @@ const ImageComponent = ({
     setTimeout(() => {
       setError(false);
     }, 200);
+
     execFunc(onLoad, event);
   };
 
   const handleLoadError = () => {
     setError(true);
+
     execFunc(onError);
   };
 

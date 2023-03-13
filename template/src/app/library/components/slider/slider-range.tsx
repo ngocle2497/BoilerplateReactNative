@@ -51,12 +51,15 @@ export const SliderRange = forwardRef(
     if (lowerBound >= upperBound) {
       throw Error('lowerBound must be less than upperBound');
     }
+
     if (!onCheckType(onChangeRange, 'function')) {
       throw Error('onChangeRange must be function');
     }
+
     if (initialRange.some(x => x > upperBound || x < lowerBound)) {
       throw Error('initialRange must be within range');
     }
+
     if (initialRange.length < 2 || initialRange[0] === initialRange[1]) {
       throw Error('initialRange must be format [min,max]');
     }
@@ -73,6 +76,7 @@ export const SliderRange = forwardRef(
     });
 
     const translationLeftX = useSharedValue(0);
+
     const translateLeftX = useDerivedValue(() =>
       sharedClamp(translationLeftX.value, -THUMB_SIZE, width - THUMB_SIZE),
     );
@@ -84,15 +88,19 @@ export const SliderRange = forwardRef(
     );
 
     const translationRightX = useSharedValue(0);
+
     const translateRightX = useDerivedValue(() =>
       sharedClamp(translationRightX.value, -THUMB_SIZE, width - THUMB_SIZE),
     );
+
     const rightThumbValue = useInterpolate(
       translateRightX,
       [-THUMB_SIZE, width - THUMB_SIZE],
       [lowerBound, upperBound],
     );
+
     const leftTrack = useMin(translateLeftX, translateRightX);
+
     const rightTrack = useDerivedValue(() =>
       sharedSub(
         width - THUMB_SIZE,
@@ -104,10 +112,12 @@ export const SliderRange = forwardRef(
     const onFinalize = () => {
       'worklet';
       const isRevert = translationLeftX.value > translateRightX.value;
+
       if (onChangeRange) {
         runOnJS(onChangeRange)({ ...resultChange.value, reverted: isRevert });
       }
     };
+
     const gestureHandlerThumbLeft = Gesture.Pan()
       .onChange(e => {
         'worklet';
@@ -137,11 +147,16 @@ export const SliderRange = forwardRef(
       (lowerValue: number, upperValue: number) => {
         const percentLeft =
           (lowerValue - lowerBound) / (upperBound - lowerBound);
+
         const percentRight =
           (upperValue - lowerBound) / (upperBound - lowerBound);
+
         const left = percentLeft * width;
+
         const right = percentRight * width;
+
         translationLeftX.value = sharedTiming(left - THUMB_SIZE);
+
         translationRightX.value = sharedTiming(right - THUMB_SIZE);
       },
       [lowerBound, translationLeftX, translationRightX, upperBound, width],
@@ -152,7 +167,9 @@ export const SliderRange = forwardRef(
       () => ({ v1: leftThumbValue.value, v2: rightThumbValue.value }),
       res => {
         const value1 = parseFloat(res.v1.toFixed(FIXED_AFTER));
+
         const value2 = parseFloat(res.v2.toFixed(FIXED_AFTER));
+
         resultChange.value = {
           lower: parseFloat(Math.min(value1, value2).toFixed(FIXED_AFTER)),
           upper: parseFloat(Math.max(value1, value2).toFixed(FIXED_AFTER)),
@@ -184,6 +201,7 @@ export const SliderRange = forwardRef(
       () => ({
         setRange: (args: ArgsChangeRange) => {
           console.log(JSON.stringify(args));
+
           runAnimation(
             args.reverted ? args.upper : args.lower,
             !args.reverted ? args.upper : args.lower,

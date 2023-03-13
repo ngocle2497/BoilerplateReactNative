@@ -34,9 +34,13 @@ import { FormLogin } from './components/form-login';
 export const Login = () => {
   // state
   const _refAction = useRef<ActionSheet>();
+
   const [visible, setVisible] = useState(false);
+
   const [progress] = useState(10);
+
   const [sliderProgress, setSliderProgress] = useState<number>(0);
+
   const [sliderRangeProgress, setSliderRangeProgress] = useState<{
     lower: number;
     upper: number;
@@ -45,6 +49,7 @@ export const Login = () => {
   // function
   const handleSubmit = (data: FormLoginType) => {
     dispatch(appActions.setAppTheme('dark'));
+
     Alert.alert(JSON.stringify(data));
   };
 

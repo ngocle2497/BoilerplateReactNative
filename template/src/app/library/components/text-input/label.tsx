@@ -11,7 +11,9 @@ import { LabelProps } from './type';
 export const Label = ({ label, labelI18n, required }: LabelProps) => {
   // state
   const [t] = useTranslation();
+
   const { colors } = useTheme();
+
   const content = useMemo(
     () => label || (labelI18n && t(labelI18n)),
     [label, labelI18n, t],
