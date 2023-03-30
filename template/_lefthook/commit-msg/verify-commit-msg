@@ -12,7 +12,7 @@ if ! [[ "$START_LINE" =~ $PATTERN ]]; then
 fi
 
 MESSAGE=$(echo $START_LINE| cut -d':' -f 2 |xargs)
-if [ ${#MESSAGE} -lt 10 ]; then
-  echo "Your message must greater than 10 chacracters"
+if [ ${#MESSAGE} -lt 12 ]; then
+  echo "Your message must greater than 12 chacracters"
   exit 1
 fi
