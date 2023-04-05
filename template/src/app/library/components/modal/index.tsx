@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 
-import { Portal } from '@gorhom/portal';
-import { useDismissKeyboard } from '@hooks';
+import { Portal } from "@gorhom/portal";
+import { useDismissKeyboard } from "@hooks";
 
-import { ModalContent } from './modal-content';
-import { ModalProps } from './type';
+import { ModalContent } from "./modal-content";
+import { ModalProps } from "./type";
 
 export const Modal = (props: ModalProps) => {
   // state
@@ -30,7 +30,7 @@ export const Modal = (props: ModalProps) => {
 
   // render
   return (
-    <Portal hostName={'AppModal'}>
+    <Portal hostName={"AppModal"}>
       {visible ? (
         <ModalContent onSetClose={closeModal} ref={modalContent} {...props} />
       ) : null}

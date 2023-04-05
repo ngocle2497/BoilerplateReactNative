@@ -1,9 +1,8 @@
-import { subscribeActionMiddleware } from '@common';
-import { configureStore } from '@reduxjs/toolkit';
-import { allReducer } from '@store/all-reducers';
-import reduxDebugger from 'redux-flipper';
+import { configureStore } from "@reduxjs/toolkit";
+import { allReducer } from "@store/all-reducers";
+import reduxDebugger from "redux-flipper";
 
-import { listenerMiddleware } from '../listener';
+import { listenerMiddleware } from "../listener";
 
 /**
  * Use this instead storage of reduxPersist
@@ -17,7 +16,7 @@ import { listenerMiddleware } from '../listener';
 
 const devMode = __DEV__;
 
-const middleware = [subscribeActionMiddleware];
+const middleware = [] as any[];
 
 if (devMode) {
   middleware.push(reduxDebugger());
@@ -26,7 +25,7 @@ if (devMode) {
 export const store = configureStore({
   reducer: allReducer,
   devTools: devMode,
-  middleware: getDefaultMiddleware =>
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false })
       .prepend(listenerMiddleware.middleware)
       .concat(middleware),

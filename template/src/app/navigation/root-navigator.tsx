@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
-import BootSplash from 'react-native-bootsplash';
-import { useSelector } from 'react-redux';
+import BootSplash from "react-native-bootsplash";
+import { useSelector } from "react-redux";
 
-import { Home } from '@features/authentication/home';
-import { Login } from '@features/un-authentication/login';
-import { APP_SCREEN, RootStackParamList } from '@navigation/screen-types';
-import { createStackNavigator } from '@react-navigation/stack';
-import { selectAppToken } from '@redux-selector/app';
+import { Home } from "@features/authentication/home";
+import { Login } from "@features/un-authentication/login";
+import { APP_SCREEN, RootStackParamList } from "@navigation/screen-types";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { selectAppToken } from "@redux-selector/app";
 
-const RootStack = createStackNavigator<RootStackParamList>();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootNavigation = () => {
   // state
@@ -30,8 +30,11 @@ export const RootNavigation = () => {
       {token === undefined ? (
         <RootStack.Group
           screenOptions={{
-            animationTypeForReplace: 'pop',
-          }}>
+            freezeOnBlur: true,
+            animationTypeForReplace: "pop",
+            gestureEnabled: true,
+          }}
+        >
           <RootStack.Screen name={APP_SCREEN.LOGIN} component={Login} />
         </RootStack.Group>
       ) : (
