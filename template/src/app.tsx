@@ -62,18 +62,18 @@ const styles = StyleSheet.create({
 
 export const MyApp = () => {
   return (
-      <SafeAreaProvider>
-        <Provider store={store}>
-          <I18nextProvider i18n={I18n}>
-            <Suspense fallback={null}>
-              <PortalProvider>
-                <GestureHandlerRootView style={styles.root}>
-                  <AppContainer />
-                </GestureHandlerRootView>
-              </PortalProvider>
-            </Suspense>
-          </I18nextProvider>
-        </Provider>
-      </SafeAreaProvider>
+    <SafeAreaProvider>
+      <Provider store={store}>
+        <I18nextProvider i18n={I18n}>
+          <Suspense fallback={null}>
+            <PortalProvider>
+              <GestureHandlerRootView style={styles.root}>
+                <AppContainer />
+              </GestureHandlerRootView>
+            </PortalProvider>
+          </Suspense>
+        </I18nextProvider>
+      </Provider>
+    </SafeAreaProvider>
   );
 };

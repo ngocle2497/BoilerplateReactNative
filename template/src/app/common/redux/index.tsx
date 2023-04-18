@@ -1,8 +1,8 @@
-import React, { createRef, forwardRef, useImperativeHandle } from "react";
+import React, { createRef, forwardRef, useImperativeHandle } from 'react';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 
-import { RootState } from "@store/all-reducers";
+import { RootState } from '@store/all-reducers';
 
 const RXStoreComponent = forwardRef((_, ref) => {
   // state
@@ -21,7 +21,7 @@ const RXStoreComponent = forwardRef((_, ref) => {
         return store[state];
       },
     }),
-    [dispatchRx, store]
+    [dispatchRx, store],
   );
 
   return null;

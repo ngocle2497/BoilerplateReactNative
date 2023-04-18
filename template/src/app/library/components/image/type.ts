@@ -1,3 +1,3 @@
-import { ImageProps as ExpoImageProps } from "expo-image";
+import { ImageProps as ExpoImageProps } from 'expo-image';
 
-export type ImageProps = Omit<ExpoImageProps, "style">;
+export type ImageProps = Omit<ExpoImageProps, 'style'>;

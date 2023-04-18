@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useImperativeHandle,
   useMemo,
-} from "react";
+} from 'react';
 import {
   Keyboard,
   StyleProp,
@@ -12,22 +12,22 @@ import {
   TouchableWithoutFeedback,
   View,
   ViewStyle,
-} from "react-native";
+} from 'react-native';
 
-import KeyboardManager from "react-native-keyboard-manager";
+import KeyboardManager from 'react-native-keyboard-manager';
 import Animated, {
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
 
-import { sharedTiming } from "@animated";
-import { execFunc, onCheckType } from "@common";
-import { useDisableBackHandler } from "@hooks";
+import { sharedTiming } from '@animated';
+import { execFunc, onCheckType } from '@common';
+import { useDisableBackHandler } from '@hooks';
 
-import { styles } from "./styles";
-import { ModalProps } from "./type";
+import { styles } from './styles';
+import { ModalProps } from './type';
 
 export const ModalContent = forwardRef(
   (
@@ -37,7 +37,7 @@ export const ModalContent = forwardRef(
       customBackDrop,
       entering,
       exiting,
-      backdropColor = "black",
+      backdropColor = 'black',
       backdropOpacity = 0.3,
       onSetClose,
       onModalHide,
@@ -46,8 +46,8 @@ export const ModalContent = forwardRef(
       onModalWillHide,
       onModalWillShow,
       onBackButtonPress: onBackAndroidPress,
-    }: CustomOmit<ModalProps, "isVisible"> & { onSetClose: () => void },
-    ref
+    }: CustomOmit<ModalProps, 'isVisible'> & { onSetClose: () => void },
+    ref,
   ) => {
     // reanimated state
 
@@ -58,48 +58,48 @@ export const ModalContent = forwardRef(
       () => [
         StyleSheet.absoluteFillObject,
         {
-          width: "100%",
-          height: "100%",
+          width: '100%',
+          height: '100%',
           backgroundColor: backdropColor,
         },
       ],
-      [backdropColor]
+      [backdropColor],
     );
 
     const reBackdropStyle = useAnimatedStyle(
       () => ({
         opacity: reBackdropOpacity.value,
       }),
-      []
+      [],
     );
 
     // function
     const onEndAnimatedClose = useCallback(
       (isFinished?: boolean) => {
-        "worklet";
+        'worklet';
         if (isFinished) {
-          if (typeof onSetClose === "function") {
+          if (typeof onSetClose === 'function') {
             runOnJS(onSetClose)();
           }
 
-          if (typeof onModalHide === "function") {
+          if (typeof onModalHide === 'function') {
             runOnJS(onModalHide)();
           }
         }
       },
-      [onModalHide, onSetClose]
+      [onModalHide, onSetClose],
     );
 
     const onEndAnimatedOpen = useCallback(
       (isFinished?: boolean) => {
-        "worklet";
+        'worklet';
         if (isFinished) {
-          if (typeof onModalShow === "function") {
+          if (typeof onModalShow === 'function') {
             runOnJS(onModalShow)();
           }
         }
       },
-      [onModalShow]
+      [onModalShow],
     );
 
     const openModal = useCallback(() => {
@@ -108,14 +108,14 @@ export const ModalContent = forwardRef(
       reBackdropOpacity.value = sharedTiming(
         backdropOpacity,
         undefined,
-        (isFinished) => {
-          "worklet";
+        isFinished => {
+          'worklet';
           if (isFinished) {
             if (!entering) {
               onEndAnimatedOpen(isFinished);
             }
           }
-        }
+        },
       );
     }, [
       backdropOpacity,
@@ -132,8 +132,8 @@ export const ModalContent = forwardRef(
         execFunc(onSetClose);
       }
 
-      reBackdropOpacity.value = withTiming(0, undefined, (isFinished) => {
-        "worklet";
+      reBackdropOpacity.value = withTiming(0, undefined, isFinished => {
+        'worklet';
         if (isFinished) {
           if (!exiting) {
             onEndAnimatedClose(isFinished);
@@ -159,7 +159,7 @@ export const ModalContent = forwardRef(
     };
 
     const onBackButtonPress = () => {
-      if (onCheckType(onBackAndroidPress, "function")) {
+      if (onCheckType(onBackAndroidPress, 'function')) {
         onBackAndroidPress();
       }
 
@@ -171,8 +171,7 @@ export const ModalContent = forwardRef(
         <Animated.View pointerEvents="box-none" style={[styles.content, style]}>
           <Animated.View
             entering={entering?.withCallback(onEndAnimatedOpen)}
-            exiting={exiting?.withCallback(onEndAnimatedClose)}
-          >
+            exiting={exiting?.withCallback(onEndAnimatedClose)}>
             {children}
           </Animated.View>
         </Animated.View>
@@ -189,7 +188,7 @@ export const ModalContent = forwardRef(
           Keyboard.dismiss();
         },
       }),
-      [closeModal]
+      [closeModal],
     );
 
     useDisableBackHandler(true, onBackButtonPress);
@@ -212,7 +211,7 @@ export const ModalContent = forwardRef(
         {contentView()}
       </View>
     );
-  }
+  },
 );
 
 export type ModalContent = {

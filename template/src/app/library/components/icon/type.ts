@@ -1,7 +1,6 @@
-import { ImageContentFit } from "expo-image";
-
-import { IconTypes } from "@assets/icon";
-import { Colors } from "@theme";
+import { IconTypes } from '@assets/icon';
+import { Colors } from '@theme';
+import { ImageContentFit } from 'expo-image';
 
 export interface IconProps {
   /**

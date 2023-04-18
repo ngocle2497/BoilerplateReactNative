@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   FlatList,
   ListRenderItemInfo,
@@ -7,17 +7,17 @@ import {
   TouchableOpacity,
   View,
   ViewStyle,
-} from "react-native";
+} from 'react-native';
 
-import { useTranslation } from "react-i18next";
-import { SlideInDown, SlideOutDown } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTranslation } from 'react-i18next';
+import { SlideInDown, SlideOutDown } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { SelectItem } from "./select-item";
-import { styles } from "./styles";
-import { SelectOption, SelectProps } from "./type";
+import { SelectItem } from './select-item';
+import { styles } from './styles';
+import { SelectOption, SelectProps } from './type';
 
-import { Modal } from "../modal";
+import { Modal } from '../modal';
 
 export const Select = (props: SelectProps) => {
   // state
@@ -31,7 +31,7 @@ export const Select = (props: SelectProps) => {
     onPress,
     customItem = undefined,
     useBottomInset = true,
-    defaultSelect = t("dialog:select"),
+    defaultSelect = t('dialog:select'),
     data = [],
     ...rest
   } = props;
@@ -74,7 +74,7 @@ export const Select = (props: SelectProps) => {
       item.text +
       new Date().getTime().toString() +
       Math.floor(Math.random() * Math.floor(new Date().getTime())).toString(),
-    []
+    [],
   );
 
   // style
@@ -84,7 +84,7 @@ export const Select = (props: SelectProps) => {
         paddingBottom: useBottomInset ? inset.bottom : 0,
       },
     ],
-    [inset.bottom, useBottomInset]
+    [inset.bottom, useBottomInset],
   );
 
   // render
@@ -104,8 +104,7 @@ export const Select = (props: SelectProps) => {
           exiting={SlideOutDown}
           style={[styles.modal]}
           backdropOpacity={0.3}
-          isVisible={visible}
-        >
+          isVisible={visible}>
           <View>
             <View style={[styles.content, content]}>
               <FlatList

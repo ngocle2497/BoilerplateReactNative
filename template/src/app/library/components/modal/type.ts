@@ -1,9 +1,9 @@
-import { ReactElement } from "react";
-import { ViewStyle } from "react-native";
+import { ReactElement } from 'react';
+import { ViewStyle } from 'react-native';
 
-import { ComplexAnimationBuilder } from "react-native-reanimated";
+import { ComplexAnimationBuilder } from 'react-native-reanimated';
 
-export type Direction = "up" | "down" | "left" | "right";
+export type Direction = 'up' | 'down' | 'left' | 'right';
 
 export interface ModalProps {
   /**
