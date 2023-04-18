@@ -1,9 +1,9 @@
-import { Source } from 'react-native-fast-image';
-import Animated from 'react-native-reanimated';
+import { ImageProps } from "expo-image";
+import Animated from "react-native-reanimated";
 
 export interface GestureHOCProps {
   image: Measure;
-  source: Source | number;
+  source: ImageProps["source"];
   onClose: () => void;
   backDropOpacity: Animated.SharedValue<number>;
 }
@@ -22,5 +22,5 @@ export type Measure = {
 
 export interface ImageTransitionProps {
   image: Measure;
-  source: Source | number;
+  source: ImageProps["source"];
 }
