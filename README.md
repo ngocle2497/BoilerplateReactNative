@@ -69,7 +69,7 @@ Args command:
 - [react-native-reanimated-v2](https://github.com/software-mansion/react-native-reanimated#readme)
 - [redux](http://redux.js.org)
 - [redux-listener-middleware](https://redux-toolkit.js.org/api/createListenerMiddleware)
-- [react-native-fast-image](https://github.com/DylanVann/react-native-fast-image#readme)
+- [expo-image](https://docs.expo.dev/versions/latest/sdk/image/)
 - [react-fast-compare](https://github.com/FormidableLabs/react-fast-compare)
 
     ... and more

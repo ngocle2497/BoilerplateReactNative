@@ -1,10 +1,8 @@
-import React, { createRef, forwardRef, useImperativeHandle } from 'react';
+import React, { createRef, forwardRef, useImperativeHandle } from "react";
 
-import isEqual from 'react-fast-compare';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
-import { RootState } from '@store/all-reducers';
-import { createSelectorCreator, defaultMemoize } from 'reselect';
+import { RootState } from "@store/all-reducers";
 
 const RXStoreComponent = forwardRef((_, ref) => {
   // state
@@ -23,7 +21,7 @@ const RXStoreComponent = forwardRef((_, ref) => {
         return store[state];
       },
     }),
-    [dispatchRx, store],
+    [dispatchRx, store]
   );
 
   return null;
@@ -51,8 +49,3 @@ export function getState<K extends keyof RootState>(selector: K): RootState[K] {
 
   return {} as RootState[K];
 }
-
-export const createDeepEqualSelector = createSelectorCreator(
-  defaultMemoize,
-  isEqual,
-);

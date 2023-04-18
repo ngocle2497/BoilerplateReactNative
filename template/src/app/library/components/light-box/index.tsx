@@ -1,20 +1,18 @@
-import React, { memo, useCallback, useRef, useState } from 'react';
-import { TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import React, { memo, useCallback, useRef, useState } from "react";
+import { TouchableOpacity, useWindowDimensions, View } from "react-native";
 
-import isEqual from 'react-fast-compare';
-import { OnLoadEvent, Source } from 'react-native-fast-image';
+import isEqual from "react-fast-compare";
+import { Image, ImageLoadEventData, ImageProps } from "expo-image";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 
-import { imageTransitionRef } from './image-transition';
-import { styles } from './styles';
-
-import { Image } from '../image';
+import { imageTransitionRef } from "./image-transition";
+import { styles } from "./styles";
 
 interface LightBoxProps {
-  source: Source | number;
+  source: ImageProps["source"];
 }
 
 const LightBoxComponent = ({ source }: LightBoxProps) => {
@@ -27,7 +25,7 @@ const LightBoxComponent = ({ source }: LightBoxProps) => {
     {
       width: 0,
       height: 0,
-    },
+    }
   );
 
   const { width: widthDevice } = useWindowDimensions();
@@ -61,16 +59,15 @@ const LightBoxComponent = ({ source }: LightBoxProps) => {
     });
   }, [widthDevice, imageOpacity, sizeImage, source]);
 
-  const _onLoadedImage = useCallback((e: OnLoadEvent) => {
+  const _onLoadedImage = useCallback((e: ImageLoadEventData) => {
     setDisableButton(false);
-
-    setSizeImage(e.nativeEvent);
+    setSizeImage(e.source);
   }, []);
 
   //reanimated style
   const imageStyle = useAnimatedStyle(() => ({
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
     opacity: imageOpacity.value,
   }));
 
@@ -82,9 +79,9 @@ const LightBoxComponent = ({ source }: LightBoxProps) => {
           <Animated.View style={imageStyle}>
             <Image
               onLoad={_onLoadedImage}
-              style={[styles.img]}
+              style={styles.img}
               source={source}
-              resizeMode={'cover'}
+              contentFit={"cover"}
             />
           </Animated.View>
         </TouchableOpacity>

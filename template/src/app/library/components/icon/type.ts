@@ -1,7 +1,7 @@
-import { ResizeMode } from 'react-native-fast-image';
+import { ImageContentFit } from "expo-image";
 
-import { IconTypes } from '@assets/icon';
-import { Colors } from '@theme';
+import { IconTypes } from "@assets/icon";
+import { Colors } from "@theme";
 
 export interface IconProps {
   /**
@@ -37,5 +37,5 @@ export interface IconProps {
    * Custom resizeMode
    * @default contain
    */
-  resizeMode?: ResizeMode;
+  resizeMode?: ImageContentFit;
 }

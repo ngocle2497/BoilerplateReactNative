@@ -1,3 +1,4 @@
 *.DS_Store
 template/node_modules
+template/ios/Pods
 node_modules
