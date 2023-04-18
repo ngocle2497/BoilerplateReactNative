@@ -1,13 +1,13 @@
-import { RegisterNavigationParams } from "@model/navigation-params";
-import { NativeStackScreenProps as RNStackScreenProps } from "@react-navigation/native-stack";
+import { RegisterNavigationParams } from '@model/navigation-params';
+import { NativeStackScreenProps as RNStackScreenProps } from '@react-navigation/native-stack';
 
 export enum APP_SCREEN {
-  UN_AUTHORIZE = "UN_AUTHORIZE",
-  LOGIN = "LOGIN",
-  REGISTER = "REGISTER",
+  UN_AUTHORIZE = 'UN_AUTHORIZE',
+  LOGIN = 'LOGIN',
+  REGISTER = 'REGISTER',
 
-  AUTHORIZE = "AUTHORIZE",
-  HOME = "HOME",
+  AUTHORIZE = 'AUTHORIZE',
+  HOME = 'HOME',
 }
 
 export type RootStackParamList = {
