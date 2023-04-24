@@ -1,5 +1,3 @@
-export * from './create-form-data';
-
 // export * from './request-permission';
 // export * from './camera-roll';
 export * from './constant';

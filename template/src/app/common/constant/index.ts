@@ -1,3 +1,4 @@
-export const STORAGE_KEY_TOKEN = 'TOKEN';
-
-export const STORAGE_KEY_APP_THEME = 'APP_THEME';
+export const MMKV_KEY = {
+  APP_TOKEN: 'APP_TOKEN',
+  APP_THEME: 'APP_THEME',
+} as const;

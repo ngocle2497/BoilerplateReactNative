@@ -6,7 +6,7 @@ import { remove } from '@storage';
 import { I18nKeys } from '@utils/i18n/locales';
 import { translate } from '@utils/i18n/translate';
 
-import { STORAGE_KEY_TOKEN } from '../constant';
+import { MMKV_KEY } from '../constant';
 import { dispatch } from '../redux';
 
 type TypesBase =
@@ -68,7 +68,7 @@ export const isIos = Platform.OS === 'ios';
 export const logout = () => {
   dispatch(appActions.logout());
 
-  remove(STORAGE_KEY_TOKEN);
+  remove(MMKV_KEY.APP_TOKEN);
 };
 
 export const handleErrorApi = (status: number) => {
