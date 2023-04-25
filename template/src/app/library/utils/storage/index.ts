@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { APP_DISPLAY_NAME } from "@env";
-import { MMKV } from "react-native-mmkv";
-import { initializeMMKVFlipper } from "react-native-mmkv-flipper-plugin";
+import { MMKV } from 'react-native-mmkv';
+import { initializeMMKVFlipper } from 'react-native-mmkv-flipper-plugin';
 
-const AppKey = "7268428d-d814-4eca-8829-3dbe0e2eaa7a";
+import { APP_DISPLAY_NAME } from '@env';
+
+const AppKey = '7268428d-d814-4eca-8829-3dbe0e2eaa7a';
 
 export const AppStorage = new MMKV({
   id: `user-${APP_DISPLAY_NAME}-storage`,
@@ -53,7 +54,7 @@ export function load(key: string) {
   try {
     const almostThere = AppStorage.getString(key);
 
-    return typeof almostThere === "string" ? JSON.parse(almostThere) : null;
+    return typeof almostThere === 'string' ? JSON.parse(almostThere) : null;
   } catch {
     return null;
   }
@@ -98,12 +99,12 @@ export const reduxPersistStorage: Storage = {
 
     return Promise.resolve(true);
   },
-  getItem: (key) => {
+  getItem: key => {
     const value = AppStorage.getString(key);
 
     return Promise.resolve(value);
   },
-  removeItem: (key) => {
+  removeItem: key => {
     AppStorage.delete(key);
 
     return Promise.resolve();

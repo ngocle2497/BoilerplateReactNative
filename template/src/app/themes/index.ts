@@ -1,10 +1,13 @@
 import { Theme, useTheme as useThemeRN } from '@react-navigation/native';
-import { ColorDark, ColorDefault } from '@theme/color';
 
-type ColorDefault = typeof ColorDefault;
-type ColorDark = typeof ColorDark;
+import { ColorDefault } from './colors/default';
+import { FontDefault } from './typography/default';
 
-export type Colors = ColorDefault & ColorDark;
+export { FontDefault } from './typography/default';
+
+type ColorDefaultType = typeof ColorDefault;
+
+export type Colors = ColorDefaultType;
 
 export type AppTheme = Theme & { colors: Colors };
 
@@ -13,14 +16,8 @@ const Default: AppTheme = {
   colors: ColorDefault,
 };
 
-const Dark: AppTheme = {
-  dark: true,
-  colors: ColorDark,
-};
-
 export const MyAppTheme = {
   default: Default,
-  dark: Dark,
 };
 
 export type ThemeType = keyof typeof MyAppTheme;
@@ -30,3 +27,5 @@ export const useTheme = () => {
 
   return payload;
 };
+
+export type FontFamily = keyof typeof FontDefault;
