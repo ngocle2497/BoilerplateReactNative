@@ -3,6 +3,8 @@ import { Theme, useTheme as useThemeRN } from '@react-navigation/native';
 import { ColorDefault } from './colors/default';
 import { FontDefault } from './typography/default';
 
+export { ColorDefault } from './colors/default';
+
 export { FontDefault } from './typography/default';
 
 type ColorDefaultType = typeof ColorDefault;

@@ -9,8 +9,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { propsToStyle, sizeScale } from '@common';
-import { useTheme } from '@theme';
-import { FontDefault } from '@theme/typography';
+import { FontDefault, useTheme } from '@theme';
 
 import { textPresets } from './preset';
 import { TextProps } from './type';

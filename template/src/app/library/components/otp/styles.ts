@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { sizeScale } from '@common';
-import { ColorDefault } from '@theme/color';
+import { ColorDefault } from '@theme';
 
 const WIDTH_OTP = 32;
 

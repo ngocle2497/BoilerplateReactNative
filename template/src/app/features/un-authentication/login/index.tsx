@@ -48,7 +48,7 @@ export const Login = () => {
 
   // function
   const handleSubmit = (data: FormLoginType) => {
-    dispatch(appActions.setAppTheme('dark'));
+    dispatch(appActions.setAppTheme('default'));
 
     Alert.alert(JSON.stringify(data));
   };

@@ -14,8 +14,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { sharedTiming, useInterpolate, useSharedTransition } from '@animated';
-import { useTheme } from '@theme';
-import { ColorDefault } from '@theme/color';
+import { ColorDefault, useTheme } from '@theme';
 
 import { styles } from './styles';
 import { HelperTextProps } from './type';

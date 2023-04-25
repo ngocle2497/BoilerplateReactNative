@@ -1,8 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { sizeScale } from '@common';
-import { ColorDefault } from '@theme/color';
-import { FontDefault } from '@theme/typography';
+import { ColorDefault, FontDefault } from '@theme';
 
 export const stylesView = StyleSheet.create({
   primary: {

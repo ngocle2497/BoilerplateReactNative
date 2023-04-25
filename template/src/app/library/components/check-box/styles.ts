@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { ColorDefault } from '@theme/color';
+import { ColorDefault } from '@theme';
 
 const DIMENSIONS = { width: 16, height: 16 };
 

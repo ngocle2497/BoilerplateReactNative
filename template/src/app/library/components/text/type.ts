@@ -6,8 +6,7 @@ import {
   TextStyle,
 } from 'react-native';
 
-import { Colors } from '@theme';
-import { FontFamily } from '@theme/typography';
+import { Colors, FontFamily } from '@theme';
 import { I18nKeys } from '@utils/i18n/locales';
 
 import { TextPresetNames } from './preset';
