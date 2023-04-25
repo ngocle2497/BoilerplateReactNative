@@ -1,9 +1,12 @@
 import { StyleSheet } from 'react-native';
 
 import { sizeScale } from '@common';
-import { FontDefault } from '@theme';
 
-export const textPresets = StyleSheet.create({
+import { TextPresetsType } from './type';
+
+import { FontDefault } from '../typography/default';
+
+const presets: TextPresetsType = {
   linkTitle: {
     fontFamily: FontDefault.primary,
     fontSize: sizeScale(24),
@@ -71,6 +74,6 @@ export const textPresets = StyleSheet.create({
     color: "#000000",
   },
   default: {},
-});
+};
 
-export type TextPresetNames = keyof typeof textPresets;
+export const MediumPresets = StyleSheet.create(presets);

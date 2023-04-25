@@ -9,9 +9,8 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { propsToStyle, sizeScale } from '@common';
-import { FontDefault, useTheme } from '@theme';
+import { FontDefault, SystemPresets, useTheme } from '@theme';
 
-import { textPresets } from './preset';
 import { TextProps } from './type';
 
 const styles = StyleSheet.create({
@@ -59,7 +58,7 @@ export const Text = ({
   const styleComponent = useMemo<StyleProp<TextStyle>>(
     () => [
       [
-        textPresets[preset],
+        SystemPresets.medium[preset],
         flex === true && styles.flex,
         fontSize !== undefined && { fontSize: sizeScale(fontSize) },
         fontFamily !== undefined && { fontFamily: FontDefault[fontFamily] },

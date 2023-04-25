@@ -6,10 +6,8 @@ import {
   TextStyle,
 } from 'react-native';
 
-import { Colors, FontFamily } from '@theme';
+import { Colors, FontFamily, TextPresetsType } from '@theme';
 import { I18nKeys } from '@utils/i18n/locales';
-
-import { TextPresetNames } from './preset';
 
 type FontWeight =
   | 'normal'
@@ -120,5 +118,5 @@ export interface TextProps extends TextProperties {
    * Preset for text
    * @default default
    */
-  preset?: TextPresetNames;
+  preset?: keyof TextPresetsType;
 }
