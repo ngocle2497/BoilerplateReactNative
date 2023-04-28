@@ -1,6 +1,9 @@
 import {
+  AnimatableValue,
   AnimationCallback,
+  defineAnimation,
   Easing,
+  SharedValue,
   withSpring,
   WithSpringConfig,
   withTiming,
@@ -41,4 +44,73 @@ export const sharedSpring = (
   'worklet';
 
   return withSpring(toValue, config, callBack);
+};
+
+export const sharePause = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  _nextAnimation: any,
+  paused: SharedValue<boolean>,
+) => {
+  'worklet';
+
+  return defineAnimation(_nextAnimation, () => {
+    'worklet';
+    const nextAnimation: any =
+      typeof _nextAnimation === 'function' ? _nextAnimation() : _nextAnimation;
+
+    const onFrame = (state: any, now: number) => {
+      const { lastTimestamp, elapsed } = state;
+
+      if (paused.value) {
+        state.elapsed = now - lastTimestamp;
+
+        return false;
+      }
+
+      const dt = now - elapsed;
+
+      const finished = nextAnimation.onFrame(nextAnimation, dt);
+
+      state.current = nextAnimation.current;
+
+      state.lastTimestamp = dt;
+
+      return finished;
+    };
+
+    const onStart = (
+      state: any,
+      value: AnimatableValue,
+      now: number,
+      previousState: any,
+      // eslint-disable-next-line max-params
+    ) => {
+      state.lastTimestamp = now;
+
+      state.elapsed = 0;
+
+      state.current = 0;
+
+      nextAnimation.onStart(nextAnimation, value, now, previousState);
+    };
+
+    const callback = (finished?: boolean): void => {
+      if (nextAnimation.callback) {
+        nextAnimation.callback(finished);
+      }
+    };
+
+    return {
+      onFrame,
+      onStart,
+      isHigherOrder: true,
+      current: nextAnimation.current,
+      callback,
+      previousAnimation: null,
+      startTime: 0,
+      started: false,
+      lastTimestamp: 0,
+      elapsed: 0,
+    };
+  });
 };

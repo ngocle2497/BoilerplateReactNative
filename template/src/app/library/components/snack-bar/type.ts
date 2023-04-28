@@ -16,6 +16,7 @@ export type Item = {
 
 export interface SnackBarItemProps {
   item: Item;
+  index: number;
   onPop: (item: Item) => void;
 }
 

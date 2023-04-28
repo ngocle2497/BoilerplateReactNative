@@ -2,10 +2,21 @@
 import React, { memo, useEffect, useMemo, useState } from 'react';
 import { ViewStyle } from 'react-native';
 
-import Animated, { runOnJS } from 'react-native-reanimated';
+import {
+  Directions,
+  Gesture,
+  GestureDetector,
+} from 'react-native-gesture-handler';
+import Animated, {
+  AnimatableValue,
+  Easing,
+  runOnJS,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { sharedTiming } from '@animated';
+import { sharedTiming, sharePause } from '@animated';
 import { VectorIcon, VectorIconIcon } from '@assets/vector-icon/vector-icon';
 import { useErrorMessageTranslation } from '@hooks';
 
@@ -56,13 +67,19 @@ const getIcon = (typeMessage: TypeMessage): VectorIconIcon => {
 };
 
 export const SnackItem = memo(
-  ({ item, onPop }: SnackBarItemProps) => {
+  ({ item, index, onPop }: SnackBarItemProps) => {
     // state
     const insets = useSafeAreaInsets();
 
     const [isShow, setIsShow] = useState<boolean>(true);
 
     const message = useErrorMessageTranslation(item.msg);
+
+    const paused = useSharedValue(false);
+
+    const shouldContinue = useSharedValue(true);
+
+    const progress = useSharedValue(1);
 
     // style
     const containStyle = useMemo<ViewStyle>(
@@ -103,9 +120,10 @@ export const SnackItem = memo(
       'worklet';
       const animations = {
         // your animations
+        zIndex: index,
         transform: [
           {
-            translateY: sharedTiming(-values.currentHeight, {
+            translateY: sharedTiming(-(values.currentHeight + insets.top), {
               duration: DURATION_ANIMATED,
             }),
           },
@@ -115,6 +133,7 @@ export const SnackItem = memo(
       const initialValues = {
         // initial values for animations
         transform: [{ translateY: 0 }],
+        zIndex: index,
       };
 
       const callback = (_: boolean) => {
@@ -129,30 +148,55 @@ export const SnackItem = memo(
       };
     };
 
+    const flingGestureHandler = Gesture.Fling()
+      .onStart(() => {
+        shouldContinue.value = false;
+
+        runOnJS(setIsShow)(false);
+      })
+      .onFinalize(() => {
+        if (shouldContinue.value) {
+          paused.value = false;
+        }
+      })
+      .direction(Directions.UP)
+      .onTouchesDown(() => {
+        paused.value = true;
+      });
+
     // effect
     useEffect(() => {
-      const id = setTimeout(() => {
-        setIsShow(false);
-      }, item.interval + DURATION_ANIMATED);
-
-      return () => {
-        clearTimeout(id);
-      };
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+      progress.value = sharePause(
+        withTiming(
+          0,
+          {
+            duration: item.interval + DURATION_ANIMATED,
+            easing: Easing.linear,
+          },
+          (finished?: boolean, _current?: AnimatableValue) => {
+            if (finished) {
+              runOnJS(setIsShow)(false);
+            }
+          },
+        ),
+        paused,
+      );
     }, []);
 
     // render
     return isShow ? (
-      <Animated.View
-        entering={CustomEnteringAnimation}
-        exiting={CustomExitAnimation}
-        style={[styles.itemBar, containStyle]}>
-        <VectorIcon icon={getIcon(item.type)} color="white" />
-        <Spacer width={10} />
-        <Text style={[styles.text]} preset="linkMedium" color="white">
-          {message}
-        </Text>
-      </Animated.View>
+      <GestureDetector gesture={flingGestureHandler}>
+        <Animated.View
+          entering={CustomEnteringAnimation}
+          exiting={CustomExitAnimation}
+          style={[styles.itemBar, containStyle]}>
+          <VectorIcon icon={getIcon(item.type)} color="white" />
+          <Spacer width={10} />
+          <Text style={[styles.text]} preset="linkMedium" color="white">
+            {message}
+          </Text>
+        </Animated.View>
+      </GestureDetector>
     ) : null;
   },
   () => true,

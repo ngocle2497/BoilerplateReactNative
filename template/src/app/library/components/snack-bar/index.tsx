@@ -2,7 +2,6 @@ import React, {
   createRef,
   forwardRef,
   useCallback,
-  useEffect,
   useImperativeHandle,
   useState,
 } from 'react';
@@ -14,6 +13,19 @@ import { styles } from './styles';
 import { Item, TypeMessage } from './type';
 
 const SnackBarComponent = forwardRef((_, ref) => {
+  // state
+  const [data, setData] = useState<Item[]>([]);
+
+  // function
+  const onPop = useCallback((item: Item) => {
+    setData(d => d.filter(x => x.id !== item.id));
+  }, []);
+
+  const _renderItem = (item: Item, index: number) => (
+    <SnackItem index={index} key={item.id} {...{ item, onPop }} />
+  );
+
+  // effect
   useImperativeHandle(
     ref,
     () => ({
@@ -26,7 +38,7 @@ const SnackBarComponent = forwardRef((_, ref) => {
         interval: number;
         type: TypeMessage;
       }) => {
-        setQueueData(d =>
+        setData(d =>
           d.concat([
             {
               id: String().randomUniqueId(),
@@ -40,34 +52,6 @@ const SnackBarComponent = forwardRef((_, ref) => {
     }),
     [],
   );
-
-  // state
-  const [queueData, setQueueData] = useState<Array<Item>>([]);
-
-  const [data, setData] = useState<Item[]>([]);
-
-  // function
-  const onPop = useCallback(
-    (item: Item) => {
-      const newData = queueData.length <= 0 ? [] : [queueData[0]];
-
-      setQueueData(d => d.filter(x => x.id !== item.id));
-
-      setData(newData);
-    },
-    [queueData],
-  );
-
-  const _renderItem = (item: Item) => (
-    <SnackItem key={item.id} {...{ item, onPop }} />
-  );
-
-  // effect
-  useEffect(() => {
-    if (queueData.length > 0) {
-      setData([queueData[0]]);
-    }
-  }, [queueData]);
 
   // render
   return (
