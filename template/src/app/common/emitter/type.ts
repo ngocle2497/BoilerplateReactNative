@@ -1,20 +1,22 @@
+import { EventSelectDate } from './event-type';
+
 export const EVENT_NAME = {
-  DEMO: 'DEMO',
+  DATE_SELECTED: 'DATE_SELECTED',
 } as const;
 
-export type EventParamsList = {
-  [EVENT_NAME.DEMO]: undefined;
-};
+export interface EventParamsList {
+  [EVENT_NAME.DATE_SELECTED]: EventSelectDate;
+}
 
 export type EventKeyName = keyof EventParamsList;
 
-export type ListenerCallback<T> = T extends undefined
-  ? () => void
-  : (data: T) => void;
+export type ListenerCallback<P, T> = T extends EventKeyName
+  ? (data: EventParamsList[T]) => void
+  : (data: P) => void;
 
 export type Listeners = Array<{
   uuid: string;
-  eventKey: EventKeyName;
+  eventKey: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  listener: ListenerCallback<any>;
+  listener: any;
 }>;

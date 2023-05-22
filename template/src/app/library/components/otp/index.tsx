@@ -1,5 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
+import {
+  Keyboard,
+  Text,
+  TextInput,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
+
+import { execFunc } from '@common';
 
 import { styles } from './styles';
 import { OtpProps } from './type';
@@ -9,13 +17,8 @@ import { Spacer } from '../spacer';
 export const Otp = ({
   length,
   textEntry,
-  onOtpValid,
-  onOtpInValid,
-  textStyle = {},
+  onOtpFilled,
   defaultOtp = '',
-  wrapInputStyle = {},
-  containerStyle = {},
-  wrapInputActiveStyle = {},
   ...rest
 }: OtpProps) => {
   // state
@@ -59,16 +62,16 @@ export const Otp = ({
 
   useEffect(() => {
     if (otp.length === length) {
-      onOtpValid && onOtpValid();
-    } else {
-      onOtpInValid && onOtpInValid();
+      execFunc(onOtpFilled, otp);
+
+      Keyboard.dismiss();
     }
-  }, [length, onOtpInValid, onOtpValid, otp]);
+  }, [otp]);
 
   // render
   return (
     <TouchableWithoutFeedback onPress={setFocus}>
-      <View style={[styles.wrap, styles.row, containerStyle]}>
+      <View style={[styles.wrap, styles.row]}>
         <TextInput
           ref={_inputRef}
           value={otp}
@@ -91,13 +94,9 @@ export const Otp = ({
                   <View
                     style={[
                       styles.otpView,
-                      wrapInputStyle,
                       (index === otp.length ||
                         (length === otp.length && index === otp.length - 1)) &&
-                        isFocused && [
-                          styles.otpViewActive,
-                          wrapInputActiveStyle,
-                        ],
+                        isFocused && [styles.otpViewActive],
                     ]}>
                     <Text
                       children={
@@ -105,7 +104,7 @@ export const Otp = ({
                           ? textEntry?.charAt(0) ?? otp.charAt(index)
                           : ''
                       }
-                      style={[styles.otpText, textStyle]}
+                      style={[styles.otpText]}
                     />
                   </View>
                   <Spacer width={15} />

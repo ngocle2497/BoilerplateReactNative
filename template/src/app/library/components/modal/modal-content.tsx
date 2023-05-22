@@ -1,6 +1,5 @@
 import React, {
   forwardRef,
-  useCallback,
   useEffect,
   useImperativeHandle,
   useMemo,
@@ -10,20 +9,21 @@ import {
   StyleProp,
   StyleSheet,
   TouchableWithoutFeedback,
-  View,
+  ViewProps,
   ViewStyle,
 } from 'react-native';
 
 import KeyboardManager from 'react-native-keyboard-manager';
 import Animated, {
   runOnJS,
+  useAnimatedProps,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
 
 import { sharedTiming } from '@animated';
-import { execFunc, onCheckType } from '@common';
+import { execFunc } from '@common';
 import { useDisableBackHandler } from '@hooks';
 
 import { styles } from './styles';
@@ -74,35 +74,32 @@ export const ModalContent = forwardRef(
     );
 
     // function
-    const onEndAnimatedClose = useCallback(
-      (isFinished?: boolean) => {
-        'worklet';
-        if (isFinished) {
-          if (typeof onSetClose === 'function') {
-            runOnJS(onSetClose)();
-          }
+    const openEnd = () => {
+      execFunc(onModalShow);
+    };
 
-          if (typeof onModalHide === 'function') {
-            runOnJS(onModalHide)();
-          }
-        }
-      },
-      [onModalHide, onSetClose],
-    );
+    const closeEnd = () => {
+      execFunc(onSetClose);
 
-    const onEndAnimatedOpen = useCallback(
-      (isFinished?: boolean) => {
-        'worklet';
-        if (isFinished) {
-          if (typeof onModalShow === 'function') {
-            runOnJS(onModalShow)();
-          }
-        }
-      },
-      [onModalShow],
-    );
+      execFunc(onModalHide);
+    };
 
-    const openModal = useCallback(() => {
+    const onEndAnimatedClose = (isFinished?: boolean) => {
+      'worklet';
+      if (isFinished) {
+        runOnJS(closeEnd)();
+      }
+    };
+
+    const onEndAnimatedOpen = (isFinished?: boolean) => {
+      'worklet';
+
+      if (isFinished) {
+        runOnJS(openEnd)();
+      }
+    };
+
+    const openModal = () => {
       execFunc(onModalWillShow);
 
       reBackdropOpacity.value = sharedTiming(
@@ -117,15 +114,10 @@ export const ModalContent = forwardRef(
           }
         },
       );
-    }, [
-      backdropOpacity,
-      entering,
-      onEndAnimatedOpen,
-      onModalWillShow,
-      reBackdropOpacity,
-    ]);
+    };
 
-    const closeModal = useCallback(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const closeModal = () => {
       execFunc(onModalWillHide);
 
       if (exiting) {
@@ -140,13 +132,7 @@ export const ModalContent = forwardRef(
           }
         }
       });
-    }, [
-      exiting,
-      onEndAnimatedClose,
-      onModalWillHide,
-      onSetClose,
-      reBackdropOpacity,
-    ]);
+    };
 
     const renderBackdrop = () => {
       return (
@@ -159,9 +145,7 @@ export const ModalContent = forwardRef(
     };
 
     const onBackButtonPress = () => {
-      if (onCheckType(onBackAndroidPress, 'function')) {
-        onBackAndroidPress();
-      }
+      execFunc(onBackAndroidPress);
 
       return true;
     };
@@ -204,12 +188,18 @@ export const ModalContent = forwardRef(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    // props
+    const modalViewProps = useAnimatedProps<ViewProps>(() => ({
+      pointerEvents:
+        reBackdropOpacity.value === backdropOpacity ? 'auto' : 'none',
+    }));
+
     // render
     return (
-      <View style={styles.modal}>
+      <Animated.View animatedProps={modalViewProps} style={styles.modal}>
         {renderBackdrop()}
         {contentView()}
-      </View>
+      </Animated.View>
     );
   },
 );

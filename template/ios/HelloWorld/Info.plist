@@ -16,8 +16,6 @@
 	<string>$(APP_DISPLAY_NAME)</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>CodePushDeploymentKey</key>
-	<string>$(IOS_CODE_PUSH_DEVELOPMENT_KEY)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>${VERSION_NAME}</string>
 	<key>CFBundleSignature</key>

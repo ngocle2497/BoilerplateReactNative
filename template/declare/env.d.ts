@@ -12,8 +12,6 @@ declare module '@env' {
   export const RELEASE_PROVISIONING_PROFILE: string;
   export const PUBLISH_PROVISIONING_PROFILE: string;
   export const APPLE_DEVELOPMENT_TEAM: string;
-  export const IOS_CODE_PUSH_DEVELOPMENT_KEY: string;
-  export const ANDROID_CODE_PUSH_DEVELOPMENT_KEY: string;
   export const ANDROID_KEY_STORE_FILE: string;
   export const ANDROID_KEY_STORE_PASSWORD: string;
   export const ANDROID_KEY_STORE_KEY_ALIAS: string;

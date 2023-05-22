@@ -1,4 +1,4 @@
-import { StyleProp, TextInputProps, TextStyle, ViewStyle } from 'react-native';
+import { StyleProp, TextInputProps, TextStyle } from 'react-native';
 
 export interface OtpProps extends TextInputProps {
   /**
@@ -11,24 +11,6 @@ export interface OtpProps extends TextInputProps {
    * @default undefined
    */
   defaultOtp?: string;
-
-  /**
-   * Overwrite container style
-   * @default undefined
-   */
-  containerStyle?: StyleProp<ViewStyle>;
-
-  /**
-   * Overwrite wrap input style
-   * @default undefined
-   */
-  wrapInputStyle?: StyleProp<ViewStyle>;
-
-  /**
-   * Overwrite wrap input style when focus
-   * @default undefined
-   */
-  wrapInputActiveStyle?: StyleProp<ViewStyle>;
 
   /**
    * Overwrite text input style
@@ -46,11 +28,5 @@ export interface OtpProps extends TextInputProps {
    * Call back when otp length equal length
    * @default undefined
    */
-  onOtpValid?: () => void;
-
-  /**
-   * Call back when otp length not equal length
-   * @default undefined
-   */
-  onOtpInValid?: () => void;
+  onOtpFilled?: (code: string) => void;
 }

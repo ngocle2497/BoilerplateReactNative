@@ -3,6 +3,7 @@ import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
 
 import { useTheme } from '@theme';
 
+import { useThrottle } from './hook';
 import { stylesText, stylesView } from './preset';
 import { ButtonProps } from './type';
 
@@ -15,9 +16,14 @@ export const Button = (props: ButtonProps) => {
     t18n,
     children,
     textColor,
+    throttleMs,
     buttonColor,
     textColorTheme,
     buttonColorTheme,
+    onPress,
+    onPressIn,
+    onPressOut,
+    onLongPress,
     style: styleOverride = {},
     textStyle: textStyleOverride = {},
     preset = 'default',
@@ -25,6 +31,13 @@ export const Button = (props: ButtonProps) => {
   } = props;
 
   const theme = useTheme();
+
+  const [, handlePress, handleLongPress, handlePressIn, handlePressOut] =
+    useThrottle({
+      throttleMs,
+      onPress,
+      onLongPress,
+    });
 
   // style
   const viewStyle = useMemo<StyleProp<ViewStyle>>(
@@ -42,7 +55,11 @@ export const Button = (props: ButtonProps) => {
   return (
     <TouchableOpacity
       style={[stylesView[preset], viewStyle, styleOverride]}
-      {...rest}>
+      {...rest}
+      onLongPress={handleLongPress}
+      onPress={handlePress}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}>
       {children || (
         <Text
           t18n={t18n}

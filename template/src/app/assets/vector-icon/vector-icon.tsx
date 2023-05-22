@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Animated from 'react-native-reanimated';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 
 import { Colors, useTheme } from '@theme';
@@ -13,6 +14,8 @@ const VectorIconBase = createIconSetFromIcoMoon(
   'icons',
   'icons.ttf',
 );
+
+export const AnimatedIcon = Animated.createAnimatedComponent(VectorIconBase);
 
 export type VectorIconIcon = keyof typeof ICONS;
 

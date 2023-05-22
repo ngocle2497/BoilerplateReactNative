@@ -3,13 +3,16 @@ import React, { useEffect } from 'react';
 import BootSplash from 'react-native-bootsplash';
 import { useSelector } from 'react-redux';
 
-import { Home } from '@features/authentication/home';
-import { Login } from '@features/un-authentication/login';
+import { Home } from '@screens/authentication/home';
+import { Login } from '@screens/un-authentication/login';
 import { APP_SCREEN, RootStackParamList } from '@navigation/screen-types';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {
+  createStackNavigator,
+  TransitionPresets,
+} from '@react-navigation/stack';
 import { selectAppToken } from '@redux-selector/app';
 
-const RootStack = createNativeStackNavigator<RootStackParamList>();
+const RootStack = createStackNavigator<RootStackParamList>();
 
 export const RootNavigation = () => {
   // state
@@ -31,8 +34,7 @@ export const RootNavigation = () => {
         <RootStack.Group
           screenOptions={{
             freezeOnBlur: true,
-            animationTypeForReplace: 'pop',
-            gestureEnabled: true,
+            ...TransitionPresets.SlideFromRightIOS,
           }}>
           <RootStack.Screen name={APP_SCREEN.LOGIN} component={Login} />
         </RootStack.Group>

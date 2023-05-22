@@ -2,6 +2,5 @@
 <resources>
     <color name="primary_dark">#00FFFFFF</color>
     <color name="white">#FFFFFF</color>
-    <color name="status_bar_color">#00FFFFFF</color>
-    <color name="bootsplash_background">#FFFFFF</color>
+    <color name="bootsplash_background">#0E1019</color>
 </resources>

@@ -70,4 +70,9 @@ export interface ButtonProps extends TouchableOpacityProps {
    * @default undefined
    */
   children?: React.ReactNode;
+
+  /**
+   * Disable button when press
+   */
+  throttleMs?: number;
 }

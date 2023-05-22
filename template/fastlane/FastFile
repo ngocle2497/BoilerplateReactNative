@@ -30,12 +30,35 @@ end
 platform :ios do
 
   desc "Upload IPA to TestFlight"
-  private_lane :ios_upload_to_TF do
-    upload_to_testflight({
-      app_identifier: ENV['BUNDLE_IDENTIFIER'],
-      username: ENV['FASTLANE_USER']
-    })
+    private_lane :ios_upload_to_TF do
+      if ENV['FASTLANE_USER']
+        upload_to_testflight({
+          app_identifier: ENV['BUNDLE_IDENTIFIER'],
+          username: ENV['FASTLANE_USER']
+        })
+      else
+        pi_key = app_store_connect_api_key(
+          key_id: ENV["APPSTORE_CONNECT_KEY_ID"],
+          issuer_id: ENV["APPSTORE_CONNECT_ISSUER_ID"],
+          key_filepath: ENV["APPSTORE_CONNECT_KEY_PATH"],
+          duration: 1200, 
+          in_house: false
+        )
+        upload_to_testflight({
+          api_key: api_key,
+          ipa: "#{BUILD_IOS_FILENAME}.ipa",
+          skip_submission: true,
+          app_identifier: ENV['BUNDLE_IDENTIFIER']
+        })
+      end
   end
+
+  desc "IOS build IPA then upload to TestFlight"
+  lane :test_flight_build do |params|
+    ios_build_ipa
+    ios_upload_to_TF
+    clean_cache
+  end 
 
   desc "iOS remove build output file"
   private_lane :clean_cache do
@@ -55,28 +78,6 @@ platform :ios do
           "#{ENV['BUNDLE_IDENTIFIER']}" => "#{ENV['PUBLISH_PROVISIONING_PROFILE']}"
         }
       }
-    )
-  end
-
-  desc "IOS build IPA then upload to TestFlight"
-  lane :appcenter_and_TF_build do |params|
-    ios_build_ipa
-    ios_upload_to_TF
-    # notify_testers(
-    #   text: "#{ENV['GOOGLE_CHAT_TAG_USER']} *#{ENV['APP_DISPLAY_NAME']}* has an ios release on TestFlight",
-    # )
-    clean_cache
-  end
-
-  desc "IOS code push"
-  lane :code_push do 
-    appcenter_codepush_release_react(
-      api_token: ENV['APP_CENTER_API_TOKEN'],
-      owner_name: ENV['APP_CENTER_OWNER_NAME'],
-      app_name: ENV['APP_CENTER_IOS_NAME'],
-      deployment: ENV['APP_CENTER_DEVELOPMENT'],
-      target_version: ENV['VERSION_NAME'],
-       mandatory: false
     )
   end
 end
@@ -99,29 +100,20 @@ platform :android do
      File.rename(ANDROID_APK_BUILD_PATH_DEFAULT,  "../#{ANDROID_APK_BUILD_PATH_UPLOAD}")
   end
 
-
   desc "Android build apk then upload to app center"
-  lane :appcenter_and_TF_build do |params|
-    apk_android
-    upload_to_appcenter(
-      app_name: ENV['APP_CENTER_ANDROID_NAME'], 
-      file: "#{ANDROID_APK_BUILD_PATH_UPLOAD}",
-    )
-    # notify_testers(
-    #   title: ENV['GOOGLE_CHAT_ANDROID_TITLE'], 
-    #   text: "#{ENV['GOOGLE_CHAT_TAG_USER']} *#{ENV['APP_DISPLAY_NAME']}* has an android release",
-    #   buttonUrl: "#{ENV['GOOGLE_CHAT_BTN_URL']}/#{ENV['APP_CENTER_OWNER_NAME']}/apps/#{ENV['APP_CENTER_ANDROID_NAME']}")
+  lane :google_internal do |params|
+    aab_android
+    if Dir.exist?(ENV['GOOGLE_API_KEY_PATH'])
+        upload_to_play_store(
+        package_name: ENV['BUNDLE_IDENTIFIER'],
+        track: 'internal',
+        rollout: "1",
+        skip_upload_apk: true,
+        aab: ANDROID_AAB_BUILD_PATH_UPLOAD,
+        json_key: ENV["GOOGLE_API_KEY_PATH"]
+      )
+    else
+      print "GOOGLE_API_KEY_PATH not found. You need to upload aab file manually"
     end
-
-  desc "Android code push"
-  lane :code_push do 
-    appcenter_codepush_release_react(
-      api_token: ENV['APP_CENTER_API_TOKEN'],
-      owner_name: ENV['APP_CENTER_OWNER_NAME'],
-      app_name: ENV['APP_CENTER_ANDROID_NAME'],
-      deployment: ENV['APP_CENTER_DEVELOPMENT'],
-      target_version: ENV['VERSION_NAME'],
-      mandatory: false
-    )
   end
 end

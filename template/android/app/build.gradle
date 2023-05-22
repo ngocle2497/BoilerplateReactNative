@@ -116,8 +116,6 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode project.env.get("VERSION_CODE").toInteger()
         versionName project.env.get("VERSION_NAME")
-        resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.format("\"%d\"", System.currentTimeMillis())
-  
     }
 
     splits {

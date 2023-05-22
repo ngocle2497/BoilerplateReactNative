@@ -1,22 +1,29 @@
-import {
-  EventKeyName,
-  EventParamsList,
-  ListenerCallback,
-  Listeners,
-} from './type';
+import { EventKeyName, EventParamsList, Listeners } from './type';
+
+export { EVENT_NAME } from './type';
+
+export type { EventKeyName } from './type';
+
+export * from './event-type';
 
 const listeners: Listeners = [];
 
-export const subscribeEvent = <T extends EventKeyName>(
-  eventKey: T,
-  listener: ListenerCallback<EventParamsList[T]>,
+export const subscribeEvent = <P, T extends string = string>(
+  ...args: T extends EventKeyName
+    ? [
+        eventKey: T,
+        listener: undefined extends EventParamsList[T]
+          ? () => void
+          : (data: EventParamsList[T]) => void,
+      ]
+    : [eventKey: T, listener: (data: P) => void]
 ) => {
   const uuid = String.prototype.randomUniqueId();
 
   listeners.push({
     uuid,
-    eventKey,
-    listener,
+    eventKey: args[0],
+    listener: args[1],
   });
 
   return () => {
@@ -26,26 +33,12 @@ export const subscribeEvent = <T extends EventKeyName>(
   };
 };
 
-export const subscribeEventById = <T extends EventKeyName>(
-  id: string,
-  eventKey: T,
-  listener: ListenerCallback<EventParamsList[T]>,
-) => {
-  listeners.push({
-    uuid: id,
-    eventKey,
-    listener,
-  });
-
-  return () => {
-    const index = listeners.findIndex(x => x.uuid === id);
-
-    listeners.slice(index, 1);
-  };
-};
-
-export const emitEvent = <T extends EventKeyName>(
-  ...args: undefined extends EventParamsList[T] ? [T] : [T, EventParamsList[T]]
+export const emitEvent = <P, T extends string = string>(
+  ...args: T extends EventKeyName
+    ? undefined extends EventParamsList[T]
+      ? [eventName: T]
+      : [eventName: T, payload: P | EventParamsList[T]]
+    : [eventName: T, payload?: P | any]
 ) => {
   for (let index = 0; index < listeners.length; index++) {
     const element = listeners[index];

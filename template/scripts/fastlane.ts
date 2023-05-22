@@ -5,21 +5,31 @@ import { loadEnvFile, setupEnv } from './common';
 (function () {
   const { argv } = process;
 
-  const [, , lane, envPath, fastlaneEnv, platform] = argv;
+  const [, , buildType, envPath, fastlaneEnv] = argv;
 
   const envJson = loadEnvFile(envPath);
 
   setupEnv(envPath, envJson);
 
-  if (platform === 'ios' || !platform) {
-    execSync(`bundle exec fastlane ios ${lane} --env ${fastlaneEnv} `, {
-      stdio: 'inherit',
-    });
-  }
+  switch (buildType) {
+    case 'google_internal_test_flight':
+      execSync(
+        `bundle exec fastlane android google_internal --env ${fastlaneEnv}`,
+        {
+          stdio: 'inherit',
+        },
+      );
 
-  if (platform === 'android' || !platform) {
-    execSync(`bundle exec fastlane android ${lane} --env ${fastlaneEnv}`, {
-      stdio: 'inherit',
-    });
+      execSync(
+        `bundle exec fastlane ios test_flight_build --env ${fastlaneEnv}`,
+        {
+          stdio: 'inherit',
+        },
+      );
+
+      break;
+
+    default:
+      break;
   }
 })();
