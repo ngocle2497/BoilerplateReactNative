@@ -52,5 +52,5 @@ export const styles = StyleSheet.create({
     borderBottomColor: 'transparent',
     color: 'transparent',
     opacity: 0,
-  }
+  },
 });

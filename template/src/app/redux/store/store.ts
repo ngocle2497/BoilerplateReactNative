@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { configureStore } from '@reduxjs/toolkit';
 import { allReducer } from '@store/all-reducers';
 import reduxDebugger from 'redux-flipper';

@@ -181,6 +181,7 @@ export const SnackItem = memo(
         ),
         paused,
       );
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // render

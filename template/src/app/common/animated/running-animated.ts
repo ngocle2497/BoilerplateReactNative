@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   AnimatableValue,
   AnimationCallback,
@@ -47,7 +48,6 @@ export const sharedSpring = (
 };
 
 export const sharePause = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   _nextAnimation: any,
   paused: SharedValue<boolean>,
 ) => {

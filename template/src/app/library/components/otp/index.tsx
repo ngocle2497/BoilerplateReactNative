@@ -66,6 +66,7 @@ export const Otp = ({
 
       Keyboard.dismiss();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [otp]);
 
   // render

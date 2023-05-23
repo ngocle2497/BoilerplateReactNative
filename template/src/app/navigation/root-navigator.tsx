@@ -3,14 +3,14 @@ import React, { useEffect } from 'react';
 import BootSplash from 'react-native-bootsplash';
 import { useSelector } from 'react-redux';
 
-import { Home } from '@screens/authentication/home';
-import { Login } from '@screens/un-authentication/login';
 import { APP_SCREEN, RootStackParamList } from '@navigation/screen-types';
 import {
   createStackNavigator,
   TransitionPresets,
 } from '@react-navigation/stack';
 import { selectAppToken } from '@redux-selector/app';
+import { Home } from '@screens/authentication/home';
+import { Login } from '@screens/un-authentication/login';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 

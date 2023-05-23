@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { EventKeyName, EventParamsList, Listeners } from './type';
 
 export { EVENT_NAME } from './type';

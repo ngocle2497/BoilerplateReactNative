@@ -3,7 +3,9 @@ import { Theme, useTheme as useThemeRN } from '@react-navigation/native';
 import { ColorDefault } from './colors/default';
 import { MediumPresets } from './text-presets/medium';
 import { FontDefault } from './typography/default';
+
 export type { TextPresetsType } from './text-presets/type';
+
 export { ColorDefault } from './colors/default';
 
 export { FontDefault } from './typography/default';

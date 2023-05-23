@@ -37,6 +37,8 @@ export const Button = (props: ButtonProps) => {
       throttleMs,
       onPress,
       onLongPress,
+      onPressIn,
+      onPressOut,
     });
 
   // style
