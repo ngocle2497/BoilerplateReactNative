@@ -112,6 +112,7 @@ export const TextInput = forwardRef(
             ref={ref}
             editable={editable}
             autoCorrect={false}
+            spellCheck={false}
             clearButtonMode={'never'}
             underlineColorAndroid={'transparent'}
             placeholderTextColor={

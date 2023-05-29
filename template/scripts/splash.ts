@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync, rmSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 
 (function () {
@@ -40,7 +40,7 @@ import { resolve } from 'path';
   );
 
   // remove old .imageset if exist
-  execSync(`rm -rf ${newBootSplashLogoPath}`);
+  rmSync(newBootSplashLogoPath, { recursive: true, force: true });
 
   execSync(
     `yarn react-native generate-bootsplash ${path} --background-color=${bgColor} --logo-width=${width}  --assets-path=assets --flavor=${flavor}`,

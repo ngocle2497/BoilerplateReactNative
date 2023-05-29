@@ -30,7 +30,7 @@ export const subscribeEvent = <P, T extends string = string>(
   return () => {
     const index = listeners.findIndex(x => x.uuid === uuid);
 
-    listeners.slice(index, 1);
+    listeners.splice(index, 1);
   };
 };
 

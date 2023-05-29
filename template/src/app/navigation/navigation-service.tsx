@@ -1,15 +1,44 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { createRef } from 'react';
+import React, { createRef, forwardRef, useImperativeHandle } from 'react';
 
-import { RootStackParamList } from '@navigation/screen-types';
 import {
   CommonActions,
-  NavigationContainerRef,
   StackActions,
+  useNavigation,
 } from '@react-navigation/native';
 
-export const navigationRef =
-  createRef<NavigationContainerRef<RootStackParamList>>();
+import { RootStackParamList } from './screen-types';
+
+const NavigationComponent = forwardRef((_, ref) => {
+  // state
+  const navigation = useNavigation();
+
+  // effect
+  useImperativeHandle(
+    ref,
+    () => ({
+      navigate: (...args: any[]) => {
+        navigation.navigate(...(args as never[]));
+      },
+      dispatch: (args: any) => {
+        navigation.dispatch(args);
+      },
+    }),
+    [navigation],
+  );
+
+  return null;
+});
+
+type NavigationRef = {
+  navigate: (...args: any[]) => void;
+  dispatch: (...args: any[]) => void;
+};
+
+const navigationRef = createRef<NavigationRef>();
+
+export const NavigationService = () => (
+  <NavigationComponent ref={navigationRef} />
+);
 
 export function navigateScreen<RouteName extends keyof RootStackParamList>(
   ...arg: undefined extends RootStackParamList[RouteName]
