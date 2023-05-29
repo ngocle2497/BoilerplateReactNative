@@ -10,19 +10,23 @@ before_all do |lane|
 
       ANDROID_PROJECT_DIR = "android/"
 
-      ANDROID_VARIANT = "#{ENV['APP_ENV'].gsub("-", "_").downcase}"
+      ANDROID_VARIANT = "#{ENV['FLAVOR']}"
+
+      ANDROID_APK_OUTPUT_DIR = "#{ANDROID_PROJECT_DIR}app/build/outputs/apk/#{ANDROID_VARIANT}/release"
+
+      ANDROID_AAB_OUTPUT_DIR = "#{ANDROID_PROJECT_DIR}app/build/outputs/bundle/#{ANDROID_VARIANT}Release"
       
-      ANDROID_AAB_BUILD_PATH_DEFAULT = "../#{ANDROID_PROJECT_DIR}app/build/outputs/bundle/#{ANDROID_VARIANT}Release/app-#{ANDROID_VARIANT}-release.aab"
+      ANDROID_AAB_BUILD_PATH_DEFAULT = "../#{ANDROID_AAB_OUTPUT_DIR}/app-#{ANDROID_VARIANT}-release.aab"
       
-      ANDROID_APK_BUILD_PATH_DEFAULT = "../#{ANDROID_PROJECT_DIR}app/build/outputs/apk/#{ANDROID_VARIANT}/release/app-#{ANDROID_VARIANT}-release.apk"
+      ANDROID_APK_BUILD_PATH_DEFAULT = "../#{ANDROID_APK_OUTPUT_DIR}/app-#{ANDROID_VARIANT}-release.apk"
      
-      ANDROID_BUILD_FILE_NAME = "#{ENV['APP_DISPLAY_NAME']}-#{ENV['EXPORT_APP_ANDROID_NAME_SUFFIX']}"
+      ANDROID_BUILD_FILE_NAME = "#{ENV['APP_DISPLAY_NAME']}-Android-#{ENV['VERSION_NAME']}-#{ENV['VERSION_CODE']}"
 
-      ANDROID_APK_BUILD_PATH_UPLOAD = "#{ANDROID_PROJECT_DIR}app/build/outputs/apk/#{ANDROID_VARIANT}/release/#{ANDROID_BUILD_FILE_NAME}-#{ENV['VERSION_NAME']}-#{ENV['VERSION_CODE']}.apk"
+      ANDROID_APK_BUILD_PATH_UPLOAD = "#{ANDROID_APK_OUTPUT_DIR}/#{ANDROID_BUILD_FILE_NAME}.apk"
 
-      ANDROID_AAB_BUILD_PATH_UPLOAD = "#{ANDROID_PROJECT_DIR}app/build/outputs/bundle/#{ANDROID_VARIANT}Release/#{ANDROID_BUILD_FILE_NAME}-#{ENV['VERSION_NAME']}-#{ENV['VERSION_CODE']}.aab"
+      ANDROID_AAB_BUILD_PATH_UPLOAD = "#{ANDROID_AAB_OUTPUT_DIR}/#{ANDROID_BUILD_FILE_NAME}.aab"
       
-      BUILD_IOS_FILENAME = "#{ENV['APP_DISPLAY_NAME']}-#{ENV['EXPORT_APP_IOS_NAME_SUFFIX']}-#{ANDROID_VARIANT}-#{ENV['VERSION_NAME']}-#{ENV['VERSION_CODE']}"
+      BUILD_IOS_FILENAME = "#{ENV['APP_DISPLAY_NAME']}-IOS-#{ENV['SCHEME_SUFFIX']}-#{ENV['VERSION_NAME']}-#{ENV['VERSION_CODE']}"
   end
 end
 
@@ -69,8 +73,8 @@ platform :ios do
   desc "IOS ipa"
   private_lane :ios_build_ipa do
     build_app(
-      workspace: "ios/#{ENV['APP_PLACEHOLDER_NAME']}.xcworkspace",
-      scheme: "#{ENV['APP_PLACEHOLDER_NAME']}-#{ENV['APP_ENV']}",
+      workspace: "ios/#{ENV['WORKSPACE_NAME']}.xcworkspace",
+      scheme: "#{ENV['WORKSPACE_NAME']}-#{ENV['SCHEME_SUFFIX']}",
       export_method: ENV['EXPORT_METHOD'],
       output_name: "#{BUILD_IOS_FILENAME}.ipa",
       export_options: {
@@ -107,8 +111,6 @@ platform :android do
         upload_to_play_store(
         package_name: ENV['BUNDLE_IDENTIFIER'],
         track: 'internal',
-        # rollout: "1" only work when your app is not draft
-        # rollout: "1",
         release_status: 'draft',
         skip_upload_apk: true,
         aab: ANDROID_AAB_BUILD_PATH_UPLOAD,

@@ -45,7 +45,7 @@ const run = (props: { platform: NodeJS.Platform; envPath: string }) => {
   uninstallOldApp(envJson.BUNDLE_IDENTIFIER);
 
   execSync(
-    `npx react-native run-ios --scheme ${envJson.APP_PLACEHOLDER_NAME}-${envJson.APP_ENV} --udid=${udid}`,
+    `npx react-native run-ios --scheme ${envJson.WORKSPACE_NAME}-${envJson.SCHEME_SUFFIX} --udid=${udid}`,
     { stdio: 'inherit' },
   );
 };
@@ -65,7 +65,7 @@ const pushNotification = ({
 
   const envJson = loadEnvFile(envPath);
 
-  const simulator = 'iPhone 11';
+  const simulator = 'iPhone 14 Pro';
 
   const deviceId = bootDevice(simulator);
 

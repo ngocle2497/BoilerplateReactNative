@@ -44,6 +44,8 @@ export const setupEnv = (envPath: string, envJson: Record<string, string>) => {
 
     execSync('rm -rf $TMPDIR/metro-*');
 
+    execSync('rm -rf node_modules/.cache/babel-loader/*');
+
     execSync('yarn kill-port 8081');
 
     writeFileSync(join('.base.env'), infoJsEnv, 'utf8');

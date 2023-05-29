@@ -112,11 +112,11 @@ Ex: New Environment named: Demo
 - ### IOS
 
   - Gen new `GoogleService-Info.plist` from Firebase
-  - Create new folder with name like `APP_ENV` section in env file to `ios/GoogleService/<APP_ENV>`. Then copy file `GoogleService-Info.plist` to this. More info, u can read `Setup Firebase Environment GoogleService-Info.plist` section in `Build Phase` in workspace file
+  - Create new folder with name like `SCHEME_SUFFIX` section in env file to `ios/GoogleService/<SCHEME_SUFFIX>`. Then copy file `GoogleService-Info.plist` to this. More info, u can read `Setup Firebase Environment GoogleService-Info.plist` section in `Build Phase` in workspace file
   - Open Open `HelloWorld.xcworkspace` via xcode
   - Select `HelloWorld-Dev` scheme then click edit scheme
   - Click Duplicate scheme.
-  - Rename Scheme like: `HelloWorld-<APP_ENV>`. `APP_ENV` in env file
+  - Rename Scheme like: `HelloWorld-<SCHEME_SUFFIX>`. `SCHEME_SUFFIX` in env file
   - Check `Shared` on the dialog
   - Select `Pre-actions`
   - On the first script, change env to load when xcode build. ex:

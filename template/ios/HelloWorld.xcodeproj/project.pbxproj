@@ -264,7 +264,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#INFO_PLIST_FILE=GoogleService-Info.plist\n#INFO_PLIST_FILE_PATH=${PROJECT_DIR}/GoogleService/${APP_ENV}/${INFO_PLIST_FILE}\n#echo ${PROJECT_DIR}\n#\n## Make sure the release version exists\n#echo \"Looking for ${INFO_PLIST_FILE} in ${INFO_PLIST_FILE_PATH}\"\n#if [ ! -f $INFO_PLIST_FILE_PATH ] ; then\n#    echo \"File ${INFO_PLIST_FILE} not found.\"\n#    exit 1\n#fi\n#\n#PLIST_DESTINATION=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\n#echo \"Copying ${INFO_PLIST_FILE} to final destination: ${PLIST_DESTINATION}\"\n#echo \"File ${INFO_PLIST_FILE_PATH} copied\"\n#cp \"${INFO_PLIST_FILE_PATH}\" \"${PLIST_DESTINATION}\"\n#\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#INFO_PLIST_FILE=GoogleService-Info.plist\n#INFO_PLIST_FILE_PATH=${PROJECT_DIR}/GoogleService/${SCHEME_SUFFIX}/${INFO_PLIST_FILE}\n#echo ${PROJECT_DIR}\n#\n## Make sure the release version exists\n#echo \"Looking for ${INFO_PLIST_FILE} in ${INFO_PLIST_FILE_PATH}\"\n#if [ ! -f $INFO_PLIST_FILE_PATH ] ; then\n#    echo \"File ${INFO_PLIST_FILE} not found.\"\n#    exit 1\n#fi\n#\n#PLIST_DESTINATION=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\n#echo \"Copying ${INFO_PLIST_FILE} to final destination: ${PLIST_DESTINATION}\"\n#echo \"File ${INFO_PLIST_FILE_PATH} copied\"\n#cp \"${INFO_PLIST_FILE_PATH}\" \"${PLIST_DESTINATION}\"\n#\n";
 		};
 		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

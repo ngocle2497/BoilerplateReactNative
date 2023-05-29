@@ -1,12 +1,13 @@
-declare module '@env' {
-  export const APP_ENV: string;
+declare module "@env" {
+  export const FLAVOR: string;
+  export const WORKSPACE_NAME: string;
+  export const SCHEME_SUFFIX: string;
   export const API_URL: string;
   export const APP_DISPLAY_NAME: string;
   export const VERSION_CODE: string;
   export const VERSION_NAME: string;
   export const BUNDLE_IDENTIFIER: string;
   export const DEFAULT_FALLBACK_LNG_I18n: string;
-  export const APP_PLACEHOLDER_NAME: string;
   export const ASSETCATALOG_COMPILER_APPICON_NAME: string;
   export const DEBUG_PROVISIONING_PROFILE: string;
   export const RELEASE_PROVISIONING_PROFILE: string;
