@@ -10,7 +10,7 @@
 - Fastlane (App center included)
 - Lefthook
 - Boot Splash
-- Blur Hash
+- Expo Image
 - Declare String, Number, Array
 - Consistent with the default React Native template
 - Minimal additional dependencies
@@ -66,7 +66,7 @@ Args command:
 - [react-native-mmkv](https://github.com/mrousavy/react-native-mmkv)
 - [zod](https://github.com/colinhacks/zod)
 - [react-native-bootsplash](https://github.com/zoontek/react-native-bootsplash)
-- [react-native-reanimated-v2](https://github.com/software-mansion/react-native-reanimated#readme)
+- [react-native-reanimated-v3](https://github.com/software-mansion/react-native-reanimated#readme)
 - [redux](http://redux.js.org)
 - [redux-listener-middleware](https://redux-toolkit.js.org/api/createListenerMiddleware)
 - [expo-image](https://docs.expo.dev/versions/latest/sdk/image/)
