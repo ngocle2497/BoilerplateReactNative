@@ -7,7 +7,7 @@ import { resolve } from 'path';
 
   const actualArgv = argv.slice(2);
 
-  const IOS_FOLDER_NAME = 'IRESS';
+  const IOS_FOLDER_NAME = 'HelloWorld';
 
   const [path, bgColor, width, flavor, iosName] = actualArgv;
 
@@ -21,6 +21,7 @@ import { resolve } from 'path';
   const newBootSplashPath = resolve(
     'ios',
     IOS_FOLDER_NAME,
+    'Splash',
     `${iosName}.storyboard`,
   );
 

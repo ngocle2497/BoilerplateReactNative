@@ -9,8 +9,8 @@
          <ExecutionAction
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
-               title = "Run Script"
-               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;rm &quot;${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}&quot;&#10;if [ &quot;${CONFIGURATION}&quot; == &quot;Debug&quot; ] ; then&#10;   echo &quot;env/.dev&quot; &gt; /tmp/envfile&#10;   echo &quot;Build load file .dev&quot;&#10;else &#10;   echo &quot;env/.dev&quot; &gt; /tmp/envfile&#10;   echo &quot;Build load file .dev&quot;&#10;fi&#10;">
+               title = "Prepare"
+               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;rm &quot;${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}&quot;&#10;ENV_PATH=&quot;env/.dev&quot;&#10;cd &quot;${SRCROOT}/..&quot;&#10;/bin/sh -c &quot;./scripts/prepare.sh $ENV_PATH&quot; &#10;echo $ENV_PATH &gt; /tmp/envfile&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"

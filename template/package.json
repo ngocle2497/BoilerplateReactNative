@@ -17,7 +17,8 @@
     "android:hash": "npx ts-node scripts/android.ts hash",
     "android:gen-key": "npx ts-node scripts/android.ts keystore",
     "ios:dev": "npx ts-node scripts/ios.ts run env/.dev",
-    "android:dev": "npx ts-node scripts/android.ts run env/.dev devDebug",
+    "android:dev": "npx ts-node scripts/android.ts run env/.dev Debug",
+    "android:release": "npx ts-node scripts/android.ts run env/.dev Release",
     "fastlane:dev": "npx ts-node scripts/fastlane.ts google_internal_test_flight env/.dev dev"
   },
   "dependencies": {

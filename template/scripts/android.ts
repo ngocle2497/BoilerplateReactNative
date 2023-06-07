@@ -3,19 +3,19 @@ import { existsSync, readdirSync } from 'fs';
 import { join } from 'path';
 import { createInterface } from 'readline';
 
-import { loadEnvFile, setupEnv } from './common';
+import { loadEnvFile } from './common';
 
 const run = (props: {
   platform: NodeJS.Platform;
-  variant: string;
+  buildType: string;
   envPath: string;
 }) => {
   const envJson = loadEnvFile(props.envPath);
 
-  setupEnv(props.envPath, envJson);
-
   // uninstall android app with adb
   const devicesString = execSync('adb devices').toString().trim();
+
+  const variant = envJson.FLAVOR + props.buildType;
 
   if (devicesString.split('\n').length > 1) {
     try {
@@ -27,12 +27,12 @@ const run = (props: {
 
   if (props.platform === 'darwin') {
     execSync(
-      `npx react-native run-android --mode=${props.variant} --appId=${envJson.BUNDLE_IDENTIFIER}`,
+      `npx react-native run-android --mode=${variant} --appId=${envJson.BUNDLE_IDENTIFIER}`,
       { stdio: 'inherit' },
     );
   } else if (props.platform === 'win32') {
     execSync(
-      `npx react-native run-android --mode=${props.variant} --appId=${envJson.BUNDLE_IDENTIFIER}`,
+      `npx react-native run-android --mode=${variant} --appId=${envJson.BUNDLE_IDENTIFIER}`,
       { stdio: 'inherit', shell: 'cmd.exe' },
     );
   }
@@ -137,11 +137,11 @@ const genKeyStore = async () => {
 
   const actualArgv = argv.slice(2);
 
-  const [nameFunc, envPath, variant] = actualArgv;
+  const [nameFunc, envPath, buildType] = actualArgv;
 
   switch (nameFunc) {
     case 'run':
-      run({ platform, variant, envPath });
+      run({ platform, buildType, envPath });
 
       break;
     case 'hash':

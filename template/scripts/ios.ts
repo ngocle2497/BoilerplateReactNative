@@ -1,6 +1,6 @@
 import { execSync } from 'child_process';
 
-import { loadEnvFile, setupEnv } from './common';
+import { loadEnvFile } from './common';
 
 const bootDevice = (deviceName: string) => {
   /**
@@ -35,8 +35,6 @@ const run = (props: { platform: NodeJS.Platform; envPath: string }) => {
   }
 
   const envJson = loadEnvFile(props.envPath);
-
-  setupEnv(props.envPath, envJson);
 
   const simulator = 'iPhone 11';
 

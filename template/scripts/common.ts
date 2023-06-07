@@ -46,11 +46,11 @@ export const setupEnv = (envPath: string, envJson: Record<string, string>) => {
 
     execSync('rm -rf node_modules/.cache/babel-loader/*');
 
-    execSync('yarn kill-port 8081');
+    execSync('npx kill-port 8081');
 
     writeFileSync(join('.base.env'), infoJsEnv, 'utf8');
 
-    console.error('✨✨✨✨✨ SET UP Env done ✨✨✨✨✨');
+    console.log('✨✨✨✨✨ SET UP Env done ✨✨✨✨✨');
   }
 };
 

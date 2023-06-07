@@ -192,3 +192,14 @@ dependencies {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
+task prepare() { 
+    def flavor = project.env.get("FLAVOR")
+    def buildType = gradle.startParameter.taskNames.any{it.toLowerCase().contains("debug")}?"debug":"release"
+    def envPath = project.ext.envConfigFiles.find({it.key == "$flavor$buildType"})?.value
+    exec {
+        workingDir = "$rootProject.projectDir".replace("/android", "")
+        args = ['./scripts/prepare.sh', envPath]
+        executable 'sh'
+    }
+}

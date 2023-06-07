@@ -117,21 +117,18 @@ Ex: New Environment named: Demo
   - Select `HelloWorld-Dev` scheme then click edit scheme
   - Click Duplicate scheme.
   - Rename Scheme like: `HelloWorld-<SCHEME_SUFFIX>`. `SCHEME_SUFFIX` in env file
-  - Check `Shared` on the dialog
+  - Check `Shared` checkbox on the dialog
   - Select `Pre-actions`
   - On the first script, change env to load when xcode build. ex:
-    - `echo "env/.dev" > /tmp/envfile` to `echo "env/.demo" > /tmp/envfile`
-    - `echo "Build load file .dev"` to `echo "Build load file .demo"`
+    - `ENV_PATH="env/.dev"` to `ENV_PATH="env/.demo"`
   - Complete script like:
 
-    - ```rm "${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}"
-      if [ "${CONFIGURATION}" == "Debug" ] ; then
-         echo "env/.demo" > /tmp/envfile
-         echo "Build load file .demo"
-      else 
-         echo "env/.demo" > /tmp/envfile
-         echo "Build load file .demo"
-      fi
+    ```
+        rm "${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}"
+        ENV_PATH="env/.dev"
+        cd "${SRCROOT}/.."
+        /bin/sh -c "./scripts/prepare.sh $ENV_PATH"
+        echo $ENV_PATH > /tmp/envfile
       ```
 
 ## Caution
