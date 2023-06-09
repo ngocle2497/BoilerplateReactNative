@@ -1,4 +1,4 @@
-import { SLICE_NAME } from '@config/type';
+import { SLICE_NAME } from '@common';
 import { AppState } from '@model/app';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ThemeType } from '@theme';

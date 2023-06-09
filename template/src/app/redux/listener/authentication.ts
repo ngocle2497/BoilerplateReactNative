@@ -16,6 +16,7 @@ takeLatestListeners(true)({
     const response = await NetWorkService.Post({
       url: ApiConstants.LOGIN,
       body,
+      signal: listenerApi.signal,
     });
 
     if (!response) {

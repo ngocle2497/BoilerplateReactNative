@@ -1,14 +1,6 @@
 import { createRef } from 'react';
 
-import { handleErrorApi, logout } from '@common';
-import {
-  CODE_SUCCESS,
-  CODE_TIME_OUT,
-  ERROR_NETWORK_CODE,
-  RESULT_CODE_PUSH_OUT,
-  STATUS_TIME_OUT,
-} from '@config/api';
-import { ParamsNetwork } from '@config/type';
+import { API_CONFIG, handleErrorApi, logout } from '@common';
 import { translate } from '@utils/i18n/translate';
 import { AxiosError, AxiosResponse, Method } from 'axios';
 
@@ -41,27 +33,31 @@ export const cancelAllRequest = () => {
   controller.current = new AbortController();
 };
 
-export const handleResponseAxios = <T = Record<string, unknown>>(
+export const handleResponseAxios = <T = Record<string, unknown>,>(
   res: AxiosResponse<T>,
 ): ResponseBase<T> => {
   if (res.data) {
-    return { code: CODE_SUCCESS, status: true, data: res.data };
+    return { code: API_CONFIG.CODE_SUCCESS, status: true, data: res.data };
   }
 
   return responseDefault as ResponseBase<T>;
 };
 
-export const handleErrorAxios = <T = Record<string, unknown>>(
+export const handleErrorAxios = <T = Record<string, unknown>,>(
   error: AxiosError,
 ): ResponseBase<T> => {
-  if (error.code === STATUS_TIME_OUT) {
+  if (error.code === API_CONFIG.STATUS_TIME_OUT) {
     // timeout
-    return handleErrorApi(CODE_TIME_OUT) as unknown as ResponseBase<T>;
+    return handleErrorApi(
+      API_CONFIG.CODE_TIME_OUT,
+    ) as unknown as ResponseBase<T>;
   }
 
   if (error.response) {
-    if (error.response.status === RESULT_CODE_PUSH_OUT) {
-      return handleErrorApi(RESULT_CODE_PUSH_OUT) as unknown as ResponseBase<T>;
+    if (error.response.status === API_CONFIG.RESULT_CODE_PUSH_OUT) {
+      return handleErrorApi(
+        API_CONFIG.RESULT_CODE_PUSH_OUT,
+      ) as unknown as ResponseBase<T>;
     } else {
       return handleErrorApi(
         error.response.status,
@@ -69,7 +65,9 @@ export const handleErrorAxios = <T = Record<string, unknown>>(
     }
   }
 
-  return handleErrorApi(ERROR_NETWORK_CODE) as unknown as ResponseBase<T>;
+  return handleErrorApi(
+    API_CONFIG.ERROR_NETWORK_CODE,
+  ) as unknown as ResponseBase<T>;
 };
 
 export const handlePath = (url: string, path: ParamsNetwork['path']) => {

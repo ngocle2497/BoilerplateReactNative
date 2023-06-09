@@ -19,7 +19,6 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { onCheckType } from '@common';
-import { ValidateMessageObject } from '@config/type';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { AppTheme, useTheme } from '@theme';
 

@@ -1,3 +1,5 @@
+import { I18nKeys } from '@utils/i18n/locales';
+import { AxiosRequestConfig } from 'axios';
 import { z } from 'zod';
 
 export {};
@@ -47,6 +49,7 @@ declare global {
     {
       [K in Keys]-?: Required<Pick<T, K>> & Partial<Pick<T, Exclude<Keys, K>>>;
     }[Keys];
+
   type ResponseBase<T = any, TStatus = boolean> = {
     code: number;
   } & (TStatus extends true
@@ -60,4 +63,16 @@ declare global {
 
         msg?: string | null;
       });
+  interface ParamsNetwork extends AxiosRequestConfig {
+    url: string;
+    params?: Record<string, string | number>;
+    path?: Record<string, string | number>;
+    body?: Record<string, unknown>;
+  }
+
+  type ValidateMessageObject = {
+    keyT: I18nKeys;
+    optionsTx?: Record<string, I18nKeys>;
+    options?: Record<string, string | number>;
+  };
 }

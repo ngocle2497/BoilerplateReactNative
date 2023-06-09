@@ -22,7 +22,6 @@
           "@validate": "./src/app/common/zod-validate",
           "@listener": "./src/app/common/redux/listener.ts",
           "@animated": "./src/app/common/animated",
-          "@config": "./src/app/config",
           "@screens": "./src/app/screens",
           "@components": "./src/app/library/components",
           "@networking": "./src/app/library/networking",

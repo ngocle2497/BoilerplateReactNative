@@ -48,7 +48,6 @@
       "@validate/*": ["./src/app/common/zod-validate/*"],
       "@listener": ["./src/app/common/redux/listener.ts"],
       "@animated": ["./src/app/common/animated/index"],
-      "@config/*": ["./src/app/config/*"],
       "@screens/*": ["src/app/screens/*"],
       "@components": ["./src/app/library/components/index"],
       "@components/*": ["./src/app/library/components/*"],

@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { StyleSheet } from 'react-native';
 
-import { dispatch, getState } from '@common';
-import { RESULT_CODE_PUSH_OUT, TIME_OUT } from '@config/api';
-import { ParamsNetwork } from '@config/type';
+import { API_CONFIG, dispatch, getState } from '@common';
 import { API_URL } from '@env';
 import { AppState } from '@model/app';
 import { appActions } from '@redux-slice';
@@ -82,7 +80,7 @@ function Request<T = Record<string, unknown>>(config: ParamsNetwork) {
 
   const defaultConfig: AxiosRequestConfig = {
     baseURL: API_URL,
-    timeout: TIME_OUT,
+    timeout: API_CONFIG.TIME_OUT,
     headers: {
       'Content-Type': 'application/json',
       [tokenKeyHeader]: token ?? '',
@@ -94,7 +92,7 @@ function Request<T = Record<string, unknown>>(config: ParamsNetwork) {
       StyleSheet.flatten([
         defaultConfig,
         config,
-        { signal: config?.controller?.signal || controller.current?.signal },
+        { signal: config?.signal || controller.current?.signal },
       ]),
     )
       .then((res: AxiosResponse<T>) => {
@@ -109,7 +107,7 @@ function Request<T = Record<string, unknown>>(config: ParamsNetwork) {
 
         const result = handleErrorAxios(error);
 
-        if (result.code === RESULT_CODE_PUSH_OUT) {
+        if (result.code === API_CONFIG.RESULT_CODE_PUSH_OUT) {
           onPushLogout();
 
           rs(null);

@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ValidateMessageObject } from '@config/type';
-
 export const trimArray = (sourceArr: Array<unknown> = []): Array<unknown> => {
   return sourceArr.map((element: any) => {
     if (Array.isArray(element)) {

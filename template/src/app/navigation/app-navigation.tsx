@@ -11,18 +11,23 @@ import {
   showLoading,
   SnackBar,
 } from '@components';
-import { ImageTransition } from '@components/light-box/image-transition';
 import { PortalHost } from '@gorhom/portal';
-import { navigationRef } from '@navigation/navigation-service';
 import { RootNavigation } from '@navigation/root-navigator';
 import { useFlipper } from '@react-navigation/devtools';
-import { NavigationContainer } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  useNavigationContainerRef,
+} from '@react-navigation/native';
 import { selectAppConfig } from '@redux-selector/app';
 import { appActions } from '@redux-slice';
 import { MyAppTheme } from '@theme';
 
+import { NavigationService } from './navigation-service';
+
 export const AppContainer = () => {
   // state
+  const navigationRef = useNavigationContainerRef();
+
   const { loadingApp, showDialog, theme } = useSelector(selectAppConfig);
 
   // effect
@@ -51,17 +56,17 @@ export const AppContainer = () => {
   return (
     <NavigationContainer ref={navigationRef} theme={MyAppTheme[theme]}>
       <>
-        <StatusBar translucent backgroundColor={'transparent'} />
+        <StatusBar translucent backgroundColor={"transparent"} />
         {!loadingApp && (
           <>
             <RootNavigation />
-            <PortalHost name={'AppModal'} />
+            <PortalHost name={"AppModal"} />
             <ProgressDialog />
             <SnackBar />
-            <ImageTransition />
           </>
         )}
         <RXStore />
+        <NavigationService />
       </>
     </NavigationContainer>
   );
