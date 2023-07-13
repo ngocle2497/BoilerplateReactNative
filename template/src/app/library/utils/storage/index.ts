@@ -2,13 +2,11 @@
 import { MMKV } from 'react-native-mmkv';
 import { initializeMMKVFlipper } from 'react-native-mmkv-flipper-plugin';
 
-import { APP_DISPLAY_NAME } from '@env';
-
-const AppKey = '7268428d-d814-4eca-8829-3dbe0e2eaa7a';
+import { APP_DISPLAY_NAME, PRIVATE_KEY_STORAGE } from '@env';
 
 export const AppStorage = new MMKV({
   id: `user-${APP_DISPLAY_NAME}-storage`,
-  encryptionKey: AppKey,
+  encryptionKey: PRIVATE_KEY_STORAGE,
 });
 
 if (__DEV__) {
@@ -25,7 +23,7 @@ export function loadString(key: string) {
     return AppStorage.getString(key);
   } catch {
     // not sure why this would fail... even reading the RN docs I'm unclear
-    return null;
+    return undefined;
   }
 }
 
@@ -50,7 +48,7 @@ export function saveString(key: string, value: string) {
  *
  * @param key The key to fetch.
  */
-export function load(key: string) {
+export function load<T = Record<string, any>>(key: string): T | null {
   try {
     const almostThere = AppStorage.getString(key);
 

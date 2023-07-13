@@ -1,6 +1,6 @@
 import { execSync } from 'child_process';
 
-import { loadEnvFile } from './common';
+import { getEnvJsonFromPath } from './common';
 
 const bootDevice = (deviceName: string) => {
   /**
@@ -34,7 +34,7 @@ const run = (props: { platform: NodeJS.Platform; envPath: string }) => {
     return;
   }
 
-  const envJson = loadEnvFile(props.envPath);
+  const envJson = getEnvJsonFromPath(props.envPath);
 
   const simulator = 'iPhone 11';
 
@@ -61,7 +61,7 @@ const pushNotification = ({
     return;
   }
 
-  const envJson = loadEnvFile(envPath);
+  const envJson = getEnvJsonFromPath(envPath);
 
   const simulator = 'iPhone 14 Pro';
 

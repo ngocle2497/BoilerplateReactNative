@@ -1,12 +1,20 @@
-import { Platform } from 'react-native';
+/* eslint-disable import/extensions */
+
+import { useFonts } from 'expo-font';
 
 export const FontDefault = {
-  primary: Platform.select({
-    ios: 'Roboto-Medium',
-    android: 'Roboto-Medium',
-  }) as string,
-  secondary: Platform.select({
-    ios: 'Roboto-Medium',
-    android: 'Roboto-Medium',
-  }) as string,
+  primary: 'primary',
+  secondary: 'secondary',
+} as const;
+
+export const useLoadFont = () => {
+  // state
+  const [isLoaded] = useFonts({
+    // icons is default font for react native vector icons. flowing IcMoon to use icons
+    icons: require('@assets/fonts/icons.ttf'),
+    [FontDefault.primary]: require('@assets/fonts/Roboto-Medium.ttf'),
+    [FontDefault.secondary]: require('@assets/fonts/Roboto-Medium.ttf'),
+  });
+
+  return isLoaded;
 };

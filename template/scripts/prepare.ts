@@ -1,11 +1,9 @@
-import { loadEnvFile, setupEnv } from './common';
+import { setupEnv } from './common';
 
 (() => {
   const { argv } = process;
 
   const [, , envPath] = argv;
 
-  const envJson = loadEnvFile(envPath);
-
-  setupEnv(envPath, envJson);
+  setupEnv(envPath);
 })();

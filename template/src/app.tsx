@@ -11,6 +11,7 @@ import { Provider } from 'react-redux';
 import { PortalProvider } from '@gorhom/portal';
 import { AppContainer } from '@navigation/app-navigation';
 import { store } from '@store/store';
+import { useLoadFont } from '@theme/typography/default';
 import I18n from '@utils/i18n/i18n';
 // const json = require('./app/assets/vector-icon/selection.json');
 
@@ -57,6 +58,14 @@ const styles = StyleSheet.create({
 });
 
 export const MyApp = () => {
+  // state
+  const isLoaded = useLoadFont();
+
+  if (!isLoaded) {
+    return null;
+  }
+
+  // render
   return (
     <SafeAreaProvider>
       <KeyboardProvider statusBarTranslucent navigationBarTranslucent>

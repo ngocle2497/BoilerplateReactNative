@@ -7,7 +7,7 @@ import { resolve } from 'path';
 
   const actualArgv = argv.slice(2);
 
-  const IOS_FOLDER_NAME = 'HelloWorld';
+  const IOS_FOLDER_NAME = 'IRess';
 
   const [path, bgColor, width, flavor, iosName] = actualArgv;
 

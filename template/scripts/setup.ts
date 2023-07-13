@@ -3,16 +3,6 @@ import { execSync } from 'child_process';
 (function () {
   execSync('yarn patch-package', { stdio: 'inherit' });
 
-  execSync('mkdir -p android/app/src/main/assets', {
-    stdio: 'inherit',
-  });
-
-  execSync('cp -r src/app/assets/fonts android/app/src/main/assets', {
-    stdio: 'inherit',
-  });
-
-  console.log('Link font Android Done!!✨✨✨✨✨');
-
   if (process.platform === 'darwin') {
     execSync('cd ios && touch tmp.xcconfig');
 
@@ -30,7 +20,7 @@ import { execSync } from 'child_process';
       '                  🧐🧐🧐🧐🧐 Starting pod install!! 🧐🧐🧐🧐🧐',
     );
 
-    execSync('bundle exec pod install --project-directory=ios --verbose', {
+    execSync('bundle exec pod install --project-directory=ios --repo-update', {
       stdio: 'inherit',
     });
 

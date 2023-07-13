@@ -3,14 +3,14 @@ import { existsSync, readdirSync } from 'fs';
 import { join } from 'path';
 import { createInterface } from 'readline';
 
-import { loadEnvFile } from './common';
+import { getEnvJsonFromPath } from './common';
 
 const run = (props: {
   platform: NodeJS.Platform;
   buildType: string;
   envPath: string;
 }) => {
-  const envJson = loadEnvFile(props.envPath);
+  const envJson = getEnvJsonFromPath(props.envPath);
 
   // uninstall android app with adb
   const devicesString = execSync('adb devices').toString().trim();
@@ -65,7 +65,7 @@ const getHash = () => {
   console.log('');
 
   readdirSync('env').forEach(r => {
-    const envJson = loadEnvFile(join('env', r));
+    const envJson = getEnvJsonFromPath(join('env', r));
 
     console.log('🔑🔑🔑🔑🔑🔑🔑 Key hash for env => ', r, '🔑🔑🔑🔑🔑🔑🔑');
 

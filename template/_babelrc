@@ -14,6 +14,7 @@
           "./"
         ],
         "alias": {
+          "@env": "./env-config",
           "@assets": "./src/app/assets",
           "@common": "./src/app/common",
           "@app-emitter": "./src/app/common/emitter",

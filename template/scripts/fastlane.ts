@@ -1,15 +1,13 @@
 import { execSync } from 'child_process';
 
-import { loadEnvFile, setupEnv } from './common';
+import { setupEnv } from './common';
 
 (function () {
   const { argv } = process;
 
   const [, , buildType, envPath, fastlaneEnv] = argv;
 
-  const envJson = loadEnvFile(envPath);
-
-  setupEnv(envPath, envJson);
+  setupEnv(envPath);
 
   switch (buildType) {
     case 'google_internal_test_flight':

@@ -1,6 +1,11 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 project.ext.envConfigFiles = [
+// There are 2 files on each environment, one for debug and one for release
+// devdebug = dev(flavor name) + Debug(buildType)
+// devrelease = dev(flavor name) + Release(buildType)
+// Don't use devDebug. must be devdebug(lowercase)
+
         devdebug   : 'env/.dev',
         devrelease : 'env/.dev',
 
@@ -100,6 +105,9 @@ android {
     ndkVersion rootProject.ext.ndkVersion
     flavorDimensions("default")
     compileSdkVersion rootProject.ext.compileSdkVersion
+
+    // Keep productFlavors to create variant
+    // Multiple Google-service.json: Add file .json to folder Flavor
     productFlavors {
         dev {
            

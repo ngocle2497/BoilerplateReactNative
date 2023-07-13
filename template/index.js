@@ -11,6 +11,8 @@ Text.defaultProps = Text.defaultProps || {
 
 TextInput.defaultProps = TextInput.defaultProps || {
   allowFontScaling: false,
+  autoCorrect: false,
+  spellCheck: false,
 };
 
 AppRegistry.registerComponent(appName, () => MyApp);

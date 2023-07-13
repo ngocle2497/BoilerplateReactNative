@@ -50,7 +50,7 @@ release/
 
 .base.env
 env.d.ts
-
+env-config.ts
 # node.js
 
 #
