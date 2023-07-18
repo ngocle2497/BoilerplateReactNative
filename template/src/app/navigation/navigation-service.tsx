@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { createRef, forwardRef, useImperativeHandle } from 'react';
 
 import {
@@ -17,7 +19,8 @@ const NavigationComponent = forwardRef((_, ref) => {
     ref,
     () => ({
       navigate: (...args: any[]) => {
-        navigation.navigate(...(args as never[]));
+        // @ts-ignore
+        navigation.navigate(...(args as never));
       },
       dispatch: (args: any) => {
         navigation.dispatch(args);
