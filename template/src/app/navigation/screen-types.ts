@@ -1,5 +1,5 @@
 import { RegisterNavigationParams } from '@model/navigation-params';
-import { NativeStackScreenProps as RNStackScreenProps } from '@react-navigation/native-stack';
+import { StackScreenProps as RNStackScreenProps } from '@react-navigation/stack';
 
 export enum APP_SCREEN {
   UN_AUTHORIZE = 'UN_AUTHORIZE',

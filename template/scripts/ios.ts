@@ -36,7 +36,7 @@ const run = (props: { platform: NodeJS.Platform; envPath: string }) => {
 
   const envJson = getEnvJsonFromPath(props.envPath);
 
-  const simulator = 'iPhone 11';
+  const simulator = 'iPhone 14 Pro';
 
   const udid = bootDevice(simulator);
 

@@ -1,13 +1,15 @@
+import { DimensionValue } from 'react-native';
+
 export interface SpacerProps {
   /**
    * Width of size box
    * @default 0
    */
-  width?: number | string;
+  width?: DimensionValue;
 
   /**
    * Height of size box
    * @default 0
    */
-  height?: number | string;
+  height?: DimensionValue;
 }

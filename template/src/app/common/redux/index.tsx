@@ -1,14 +1,23 @@
-import React, { createRef, forwardRef, useImperativeHandle } from 'react';
+import React, {
+  createRef,
+  forwardRef,
+  memo,
+  useEffect,
+  useImperativeHandle,
+} from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSharedValue } from 'react-native-reanimated';
+import { useDispatch } from 'react-redux';
 
+import { addListener } from '@reduxjs/toolkit';
 import { RootState } from '@store/all-reducers';
+import { store } from '@store/store';
 
 const RXStoreComponent = forwardRef((_, ref) => {
   // state
   const dispatchRx = useDispatch();
 
-  const store = useSelector((x: RootState) => x);
+  const storeValue = useSharedValue<RootState>(store.getState());
 
   // effect
   useImperativeHandle(
@@ -18,11 +27,24 @@ const RXStoreComponent = forwardRef((_, ref) => {
         dispatchRx(action);
       },
       getState: (state: keyof RootState) => {
-        return store[state];
+        return storeValue.value[state];
       },
     }),
-    [dispatchRx, store],
+    [dispatchRx],
   );
+
+  useEffect(() => {
+    const unsubscribe = store.dispatch(
+      addListener({
+        predicate: () => true,
+        effect: (_, listenerApi) => {
+          storeValue.value = listenerApi.getState() as RootState;
+        },
+      }),
+    );
+
+    return unsubscribe;
+  }, []);
 
   return null;
 });
@@ -34,7 +56,10 @@ type RXStoreType = {
 
 const storeRef = createRef<RXStoreType>();
 
-export const RXStore = () => <RXStoreComponent ref={storeRef} />;
+export const RXStore = memo(
+  () => <RXStoreComponent ref={storeRef} />,
+  () => true,
+);
 
 export function dispatch<T = undefined>(action: ActionBase<T>) {
   if (storeRef.current) {

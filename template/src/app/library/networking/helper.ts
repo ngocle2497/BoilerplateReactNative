@@ -33,7 +33,7 @@ export const cancelAllRequest = () => {
   controller.current = new AbortController();
 };
 
-export const handleResponseAxios = <T = Record<string, unknown>,>(
+export const handleResponseAxios = <T = Record<string, unknown>>(
   res: AxiosResponse<T>,
 ): ResponseBase<T> => {
   if (res.data) {
@@ -43,7 +43,7 @@ export const handleResponseAxios = <T = Record<string, unknown>,>(
   return responseDefault as ResponseBase<T>;
 };
 
-export const handleErrorAxios = <T = Record<string, unknown>,>(
+export const handleErrorAxios = <T = Record<string, unknown>>(
   error: AxiosError,
 ): ResponseBase<T> => {
   if (error.code === API_CONFIG.STATUS_TIME_OUT) {

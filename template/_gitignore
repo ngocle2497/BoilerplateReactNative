@@ -27,6 +27,7 @@ DerivedData
 *.ipa
 *.xcuserstate
 .xcode.env.local
+ios/Podfile.lock
 
 # Android/IntelliJ
 
@@ -51,6 +52,7 @@ release/
 .base.env
 env.d.ts
 env-config.ts
+
 # node.js
 
 #
@@ -92,3 +94,7 @@ buck-out/
 ios/prebuild.log
 ios/tmp.xcconfig
 *.app.dSYM.zip
+
+# testing
+
+/coverage

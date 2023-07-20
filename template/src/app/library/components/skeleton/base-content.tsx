@@ -1,5 +1,10 @@
 import React, { memo, useCallback, useMemo } from 'react';
-import { useWindowDimensions, View, ViewStyle } from 'react-native';
+import {
+  DimensionValue,
+  useWindowDimensions,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 import isEqual from 'react-fast-compare';
 
@@ -9,7 +14,7 @@ import { styles } from './styles';
 import { Spacer } from '../spacer';
 
 type RowOverLayProps = {
-  width: number | string;
+  width: DimensionValue;
   height?: number;
   borderRadius?: number;
 };

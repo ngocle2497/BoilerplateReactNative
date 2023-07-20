@@ -32,7 +32,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    '@react-native-community',
+    '@react-native',
   ],
   rules: {
     'no-undef': 'off',

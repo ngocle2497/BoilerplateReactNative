@@ -56,11 +56,11 @@ export const AppContainer = () => {
   return (
     <NavigationContainer ref={navigationRef} theme={MyAppTheme[theme]}>
       <>
-        <StatusBar translucent backgroundColor={"transparent"} />
+        <StatusBar translucent backgroundColor={'transparent'} />
         {!loadingApp && (
           <>
             <RootNavigation />
-            <PortalHost name={"AppModal"} />
+            <PortalHost name={'AppModal'} />
             <ProgressDialog />
             <SnackBar />
           </>
