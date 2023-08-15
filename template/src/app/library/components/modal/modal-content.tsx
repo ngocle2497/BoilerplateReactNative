@@ -154,8 +154,8 @@ export const ModalContent = forwardRef(
       return (
         <Animated.View pointerEvents="box-none" style={[styles.content, style]}>
           <Animated.View
-            entering={entering?.withCallback(onEndAnimatedOpen)}
-            exiting={exiting?.withCallback(onEndAnimatedClose)}>
+            entering={(entering as any)?.withCallback(onEndAnimatedOpen)}
+            exiting={(entering as any)?.withCallback(onEndAnimatedClose)}>
             {children}
           </Animated.View>
         </Animated.View>
@@ -189,10 +189,12 @@ export const ModalContent = forwardRef(
     }, []);
 
     // props
-    const modalViewProps = useAnimatedProps<ViewProps>(() => ({
-      pointerEvents:
-        reBackdropOpacity.value === backdropOpacity ? 'auto' : 'none',
-    }));
+    const modalViewProps = useAnimatedProps<CustomOmit<ViewProps, 'style'>>(
+      () => ({
+        pointerEvents:
+          reBackdropOpacity.value === backdropOpacity ? 'auto' : 'none',
+      }),
+    );
 
     // render
     return (
