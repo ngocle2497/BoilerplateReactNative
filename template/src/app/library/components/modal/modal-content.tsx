@@ -124,14 +124,18 @@ export const ModalContent = forwardRef(
         execFunc(onSetClose);
       }
 
-      reBackdropOpacity.value = withTiming(0, undefined, isFinished => {
-        'worklet';
-        if (isFinished) {
-          if (!exiting) {
-            onEndAnimatedClose(isFinished);
+      reBackdropOpacity.value = sharedTiming(
+        0,
+        { duration: exiting ? 300 : 0 },
+        isFinished => {
+          'worklet';
+          if (isFinished) {
+            if (!exiting) {
+              onEndAnimatedClose(isFinished);
+            }
           }
-        }
-      });
+        },
+      );
     };
 
     const renderBackdrop = () => {
@@ -155,7 +159,7 @@ export const ModalContent = forwardRef(
         <Animated.View pointerEvents="box-none" style={[styles.content, style]}>
           <Animated.View
             entering={(entering as any)?.withCallback(onEndAnimatedOpen)}
-            exiting={(entering as any)?.withCallback(onEndAnimatedClose)}>
+            exiting={(exiting as any)?.withCallback(onEndAnimatedClose)}>
             {children}
           </Animated.View>
         </Animated.View>

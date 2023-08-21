@@ -1,10 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FlatListProps } from 'react-native';
 
-export type ListViewProps = CustomOmit<
-  FlatListProps<any>,
-  'onRefresh' | 'refreshControl' | 'refreshing'
-> & {
+import { FlashListProps } from '@shopify/flash-list';
+
+export type ListViewProps = (
+  | ({
+      type: 'flatlist';
+    } & CustomOmit<
+      FlatListProps<any>,
+      'onRefresh' | 'refreshControl' | 'refreshing'
+    >)
+  | ({ type?: 'flashlist' | undefined } & CustomOmit<
+      FlashListProps<any>,
+      'onRefresh' | 'refreshControl' | 'refreshing'
+    >)
+) & {
   /**
    * Function when refreshing
    * @default undefined
