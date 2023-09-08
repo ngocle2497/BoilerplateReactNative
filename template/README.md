@@ -134,3 +134,5 @@ Ex: New Environment named: Demo
 ## Caution
 
 - With gooogle play, u must publish .aab first time manually. Then, u can upload aab via fastlane. [fastlane/fastlane#14686](https://github.com/fastlane/fastlane/issues/14686)
+
+## [Gitlab CI Runner config](./GITLABRUNNER.MD)
