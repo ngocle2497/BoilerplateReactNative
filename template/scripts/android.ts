@@ -114,7 +114,7 @@ const genKeyStore = async () => {
 
   rl.close();
 
-  const keyStorePath = `android/app/release-keystore/${keyName}.keystore`;
+  const keyStorePath = `fastlane/release-keystore/${keyName}.keystore`;
 
   const exist = existsSync(keyStorePath);
 

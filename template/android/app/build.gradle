@@ -113,10 +113,6 @@ android {
             keyPassword 'android'
         }
         release {
-            storeFile file("./release-keystore/${project.env.get("ANDROID_KEY_STORE_FILE")}")
-            storePassword project.env.get("ANDROID_KEY_STORE_PASSWORD")
-            keyAlias project.env.get("ANDROID_KEY_STORE_KEY_ALIAS")
-            keyPassword project.env.get("ANDROID_KEY_STORE_KEY_PASSWORD")
         }
     }
     buildTypes {

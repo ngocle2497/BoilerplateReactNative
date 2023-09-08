@@ -20,7 +20,7 @@ import { execSync } from 'child_process';
       '                  🧐🧐🧐🧐🧐 Starting pod install!! 🧐🧐🧐🧐🧐',
     );
 
-    execSync('bundle exec pod install --project-directory=ios --repo-update', {
+    execSync('bundle exec pod install --project-directory=ios', {
       stdio: 'inherit',
     });
 

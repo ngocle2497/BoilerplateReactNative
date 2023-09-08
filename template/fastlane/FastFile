@@ -7,10 +7,12 @@ before_all do |lane|
   unless environment.nil?
       puts "Load .env file of #{environment}"
       Dotenv.overload "../" + ENV['ENVFILE']
-
+      
       ANDROID_PROJECT_DIR = "android/"
 
       ANDROID_VARIANT = "#{ENV['FLAVOR']}"
+
+      ANDROID_KEY_STORE_PATH = "/#{ANDROID_PROJECT_DIR}app/" +ENV["ANDROID_KEY_STORE_FILE"]
 
       ANDROID_APK_OUTPUT_DIR = "#{ANDROID_PROJECT_DIR}app/build/outputs/apk/#{ANDROID_VARIANT}/release"
 
@@ -34,49 +36,40 @@ end
 platform :ios do
 
   desc "Upload IPA to TestFlight"
-    private_lane :ios_upload_to_TF do
+  lane :upload_to_TF do |params|
+    ipa_path = "./fastlane/#{params[:export_dir]}" + "/#{BUILD_IOS_FILENAME}.ipa"
       if ENV['FASTLANE_USER']
         upload_to_testflight({
+          apple_id: ENV['APPLE_ID'],
+          ipa: ipa_path,
           app_identifier: ENV['BUNDLE_IDENTIFIER'],
-          username: ENV['FASTLANE_USER']
+          skip_waiting_for_build_processing: true,
         })
       else
         api_key = app_store_connect_api_key(
           key_id: ENV["APPSTORE_CONNECT_KEY_ID"],
           issuer_id: ENV["APPSTORE_CONNECT_ISSUER_ID"],
           key_filepath: ENV["APPSTORE_CONNECT_KEY_PATH"],
-          duration: 1200, 
+          duration: 1200,
           in_house: false
         )
         upload_to_testflight({
           api_key: api_key,
-          ipa: "#{BUILD_IOS_FILENAME}.ipa",
+          ipa: ipa_path,
           skip_submission: true,
           app_identifier: ENV['BUNDLE_IDENTIFIER']
         })
       end
   end
 
-  desc "IOS build IPA then upload to TestFlight"
-  lane :test_flight_build do |params|
-    ios_build_ipa
-    ios_upload_to_TF
-    clean_cache
-  end 
-
-  desc "iOS remove build output file"
-  private_lane :clean_cache do
-    File.delete("../#{BUILD_IOS_FILENAME}.ipa") if File.exist?("../#{BUILD_IOS_FILENAME}.ipa")
-    File.delete("../#{BUILD_IOS_FILENAME}.app.dSYM.zip") if File.exist?("../#{BUILD_IOS_FILENAME}.app.dSYM.zip")
-  end
-
   desc "IOS ipa"
-  private_lane :ios_build_ipa do
+  lane :build_ipa do |params|
     build_app(
       workspace: "ios/#{ENV['WORKSPACE_NAME']}.xcworkspace",
       scheme: "#{ENV['WORKSPACE_NAME']}-#{ENV['SCHEME_SUFFIX']}",
       export_method: ENV['EXPORT_METHOD'],
       output_name: "#{BUILD_IOS_FILENAME}.ipa",
+      output_directory: "./fastlane/#{params[:export_dir]}",
       export_options: {
         provisioningProfiles: { 
           "#{ENV['BUNDLE_IDENTIFIER']}" => "#{ENV['PUBLISH_PROVISIONING_PROFILE']}"
@@ -92,28 +85,68 @@ platform :android do
      gradle(task: 'clean', project_dir: "#{ANDROID_PROJECT_DIR}", properties:{"defaultEnvFile" => ENV['ENVFILE']})
   end
 
+  desc "Copy keystore file to android project"
+  private_lane :copy_keystore do
+    FileUtils.cp_r("./release-keystore/#{ENV['ANDROID_KEY_STORE_FILE']}", "../#{ANDROID_PROJECT_DIR}app/#{ENV['ANDROID_KEY_STORE_FILE']}")
+  end
+
   desc "Android build bundle(aab)"
-  private_lane :aab_android do
-     gradle(task: "bundle", build_type: "Release",flavor: "#{ANDROID_VARIANT}", project_dir: "#{ANDROID_PROJECT_DIR}" )
-     File.rename(ANDROID_AAB_BUILD_PATH_DEFAULT,  "../#{ANDROID_AAB_BUILD_PATH_UPLOAD}")
+  lane :aab_android do |params|
+    copy_keystore
+    gradle(
+      task: "bundle", 
+      build_type: "Release",
+      flavor: "#{ANDROID_VARIANT}", 
+      project_dir: "#{ANDROID_PROJECT_DIR}",
+      properties: {
+        "android.injected.signing.store.file" => ENV['PWD'] + ANDROID_KEY_STORE_PATH,
+        "android.injected.signing.store.password" => ENV["ANDROID_KEY_STORE_PASSWORD"],
+        "android.injected.signing.key.alias" => ENV["ANDROID_KEY_STORE_KEY_ALIAS"],
+        "android.injected.signing.key.password" => ENV["ANDROID_KEY_STORE_KEY_PASSWORD"],
+    })
+    File.rename(ANDROID_AAB_BUILD_PATH_DEFAULT,  "../#{ANDROID_AAB_BUILD_PATH_UPLOAD}")
+    export_android(export_dir: params[:export_dir])
   end
 
   desc "Android build release(apk)"
-  private_lane :apk_android do
-     gradle(task: "assemble", build_type: "Release",flavor: "#{ANDROID_VARIANT}", project_dir: "#{ANDROID_PROJECT_DIR}" )
-     File.rename(ANDROID_APK_BUILD_PATH_DEFAULT,  "../#{ANDROID_APK_BUILD_PATH_UPLOAD}")
+  lane :apk_android do |params|
+    copy_keystore
+    gradle(
+    task: "assemble", 
+    build_type: "Release",
+    flavor: "#{ANDROID_VARIANT}", 
+    project_dir: "#{ANDROID_PROJECT_DIR}",
+    properties: {
+      "android.injected.signing.store.file" => ENV['PWD'] + ANDROID_KEY_STORE_PATH,
+      "android.injected.signing.store.password" => ENV["ANDROID_KEY_STORE_PASSWORD"],
+      "android.injected.signing.key.alias" => ENV["ANDROID_KEY_STORE_KEY_ALIAS"],
+      "android.injected.signing.key.password" => ENV["ANDROID_KEY_STORE_KEY_PASSWORD"],
+    })
+    File.rename(ANDROID_APK_BUILD_PATH_DEFAULT,  "../#{ANDROID_APK_BUILD_PATH_UPLOAD}")
+    export_android(export_dir: params[:export_dir])
+  end
+
+  desc "Export aab/apk android to folder"
+  private_lane :export_android do |params|
+      ANDROID_EXPORT_DIR = params[:export_dir]
+      sh("mkdir -p #{ANDROID_EXPORT_DIR}")
+      if File.file?("../#{ANDROID_AAB_BUILD_PATH_UPLOAD}")
+        FileUtils.cp_r("../#{ANDROID_AAB_BUILD_PATH_UPLOAD}", "#{ANDROID_EXPORT_DIR}/#{ANDROID_BUILD_FILE_NAME}.aab")
+      end
+      if File.file?("../#{ANDROID_APK_BUILD_PATH_UPLOAD}")
+        FileUtils.cp_r("../#{ANDROID_APK_BUILD_PATH_UPLOAD}", "#{ANDROID_EXPORT_DIR}/#{ANDROID_BUILD_FILE_NAME}.apk")
+      end
   end
 
   desc "Android build apk then upload to app center"
   lane :google_internal do |params|
-    aab_android
     if File.file?("../#{ENV["GOOGLE_API_KEY_PATH"]}")
         upload_to_play_store(
         package_name: ENV['BUNDLE_IDENTIFIER'],
         track: 'internal',
         release_status: 'draft',
         skip_upload_apk: true,
-        aab: ANDROID_AAB_BUILD_PATH_UPLOAD,
+        aab: "fastlane/#{params[:export_dir]}/#{ANDROID_BUILD_FILE_NAME}.aab",
         json_key: ENV["GOOGLE_API_KEY_PATH"]
       )
     else

@@ -45,7 +45,8 @@ local.properties
 *.aab
 *.aar
 *.ap_
-release/
+android/**/*.keystore
+!debug.keystore
 
 # Auto generate env
 
