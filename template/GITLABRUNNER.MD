@@ -167,7 +167,7 @@ rm -rf repo/$branch
 mkdir -p repo/$branch
 cd repo/$branch
 rm -rf fastlane
-git clone $1 -b $branch .
+git clone $repo -b $branch .
 # copy fastlane and build_script to $branch folder
 cp -r ../../fastlane .
 cp -r ../../build_script .

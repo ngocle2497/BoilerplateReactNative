@@ -44,7 +44,7 @@ import { resolve } from 'path';
   rmSync(newBootSplashLogoPath, { recursive: true, force: true });
 
   execSync(
-    `yarn react-native generate-bootsplash ${path} --background-color=${bgColor} --logo-width=${width}  --assets-path=assets --flavor=${flavor}`,
+    `yarn react-native generate-bootsplash ${path} --background=${bgColor} --platforms=android,ios --logo-width=${width}  --assets-output=assets --flavor=${flavor}`,
     { stdio: 'inherit' },
   );
 
