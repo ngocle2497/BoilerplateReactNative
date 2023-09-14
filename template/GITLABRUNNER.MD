@@ -5,15 +5,15 @@ You can config gitlab CI runner to create build automatically.
 
 - Create new repo for gitlab CI
 - Create Runner for gitlab CI
-- Move fastlane, build_script folder to new repo
-- Add new files [README.MD](#readmemd), [.gitlab-ci.yml](#gitlab-ciyml), [pull_repo.sh](#pull_reposh), [release.sh](#releasesh) and [build_script](#build_script) folder to new repo
+- Move fastlane, build-ci folder to new repo
+- Add new files [README.MD](#readmemd), [.gitlab-ci.yml](#gitlab-ciyml), [pull_repo.sh](#pull_reposh), [release.sh](#releasesh) and [build-ci](#build-ci) folder to new repo
 
 ### README.MD
 
 ```md
 ## Requiement
 
-- [rbenv](https://github.com/rbenv/rbenv)
+- [rbenv](https://github.com/rbenv/rbenv)(version >= 2.7.6)
 - [fnm](https://github.com/Schniz/fnm)
 - [fastlane](https://fastlane.tools/)
 - [Gitlab-Runner](https://docs.gitlab.com/runner/) for macos. executor should be shell
@@ -201,7 +201,7 @@ done
 
 ```
 
-### build_script
+### build-ci
 
 #### build-android.ts
 
@@ -310,7 +310,7 @@ import { execSync } from 'child_process';
 
     .
     ├── fastlane                   
-    ├── build_script                    
+    ├── build-ci                    
     │   ├── build-android.ts
     │   ├── deploy-android.ts
     │   ├── build-ios.ts

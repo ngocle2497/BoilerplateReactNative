@@ -95,3 +95,28 @@ import Config from 'react-native-config';
 
   return envJson;
 };
+
+export const getRubyVersion = () => {
+  try {
+    return Number(
+      execSync('ruby -e "puts RUBY_VERSION"')
+        .toString()
+        .trim()
+        .split('.')
+        .join(''),
+    );
+  } catch {
+    return 0;
+  }
+};
+
+export const getAndroidHome = () => {
+  try {
+    return (
+      execSync('echo $ANDROID_HOME').toString().trim() ||
+      execSync('echo $ANDROID_SDK_ROOT').toString().trim()
+    );
+  } catch {
+    return '';
+  }
+};

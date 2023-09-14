@@ -7,7 +7,7 @@
 ## :star: Features
 
 - Elegant usage directly within the RN-Boiler Cli
-- Fastlane (App center included)
+- Fastlane
 - Lefthook
 - Boot Splash
 - Expo Image
@@ -43,16 +43,22 @@ npx rn-boiler MyApp
 
 Args command:
 
-- skip install deps:
-
-```sh
---skipInstall
 ```
+Usage: rn-boiler <project-name> [options]
 
-- skip init git:
+Arguments:
+  project-name                     Project name
 
-```sh
---skipGit
+Options:
+  -v, --version                    Output the current version
+  -pm, --package-manager <string>  Use different package manager (choices:
+                                   "yarn", "bun", "npm", default: "bun")
+  --skip-install                   Skip install dependencies. Default: false.
+                                   (default: false)
+  --skip-git                       Skip git init. Default: false. (default:
+                                   false)
+  --verbose                        Default: false. (default: false)
+  -h, --help                       display help for command
 ```
 
 <h3>Preview</h3>
