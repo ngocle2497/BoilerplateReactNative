@@ -4,7 +4,6 @@ import { Alert, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {
-  Block,
   CheckBox,
   Divider,
   DropDown,
@@ -15,12 +14,12 @@ import {
   Screen,
   Select,
   Spacer,
-  Text,
   TextInput,
   TouchableScale,
   Wallpaper,
 } from '@components';
 import { FormLoginType } from '@model/authentication';
+import { Text, View } from '@rn-core';
 
 import { FormLogin } from './components/form-login';
 
@@ -37,7 +36,7 @@ export const Login = () => {
 
   // render
   return (
-    <Block block paddingTop={0} paddingHorizontal={15}>
+    <View style={styles.root}>
       <Wallpaper />
       <LinearGradient
         style={StyleSheet.absoluteFillObject}
@@ -49,17 +48,17 @@ export const Login = () => {
         style={{ paddingVertical: 0, paddingHorizontal: 10 }}
         backgroundColor={'transparent'}>
         <FormLogin onSubmit={handleSubmit} />
-        <Block paddingVertical={15} middle direction={'row'}>
+        <View style={styles.rowItem}>
           <Text>Check box</Text>
           <Spacer width={10} />
           <CheckBox onToggle={setVisible} />
-        </Block>
-        <Block paddingVertical={15} middle direction={'row'}>
+        </View>
+        <View style={styles.rowItem}>
           <Text>OTP</Text>
           <Spacer width={10} />
           <Otp length={5} />
-        </Block>
-        <Block paddingVertical={15} middle direction={'row'}>
+        </View>
+        <View style={styles.rowItem}>
           <Text>DropDown</Text>
           <Spacer width={10} />
           <DropDown
@@ -68,58 +67,78 @@ export const Login = () => {
               { label: 'Option2', value: 2 },
             ]}
           />
-        </Block>
-        <Block paddingVertical={15} middle direction={'row'}>
+        </View>
+        <View style={styles.rowItem}>
           <Text>Select</Text>
           <Spacer width={10} />
           <Select data={[{ text: 'Option1' }, { text: 'Option2' }]} />
-        </Block>
-        <Block paddingVertical={15} middle direction={'row'}>
+        </View>
+        <View style={styles.rowItem}>
           <Text>Helper text</Text>
           <Spacer width={10} />
-          <Block>
+          <View>
             <HelperText visible={visible} msg={'Helper text'} type={'error'} />
             <HelperText visible={visible} msg={'Helper text'} type={'info'} />
-          </Block>
-        </Block>
-        <Block paddingVertical={15} middle direction={'row'}>
+          </View>
+        </View>
+        <View style={styles.rowItem}>
           <Text>Divider</Text>
           <Spacer width={10} />
           <Divider />
-        </Block>
-        <Block paddingVertical={15} middle direction={'row'}>
+        </View>
+        <View style={styles.rowItem}>
           <Text>Progress Circle</Text>
           <Spacer width={10} />
           <Progress type={'circle'} progress={progress} />
-        </Block>
-        <Block paddingVertical={15} middle direction={'row'}>
+        </View>
+        <View style={styles.rowItem}>
           <Text>Progress Line</Text>
           <Spacer width={10} />
           <Progress type={'linear'} progress={progress} />
-        </Block>
-        <Block paddingVertical={15} middle direction={'row'}>
+        </View>
+        <View style={styles.rowItem}>
           <Text>Radio Button</Text>
           <Spacer width={10} />
           <RadioButton />
-        </Block>
-        <Block paddingVertical={15} middle direction={'row'}>
+        </View>
+        <View style={styles.rowItem}>
           <Text>TextInput</Text>
           <Spacer width={10} />
-          <Block block>
+          <View style={styles.fill}>
             <TextInput label={'TextInput'} />
-          </Block>
-        </Block>
+          </View>
+        </View>
         <Spacer height={10} />
-        <Block paddingVertical={15} middle direction={'row'}>
+        <View style={styles.rowItem}>
           <Text>TouchableScale</Text>
           <Spacer width={10} />
           <TouchableScale>
-            <Block padding={5} color={'#bbb'}>
+            <View style={styles.buttonScale}>
               <Text>Press me!</Text>
-            </Block>
+            </View>
           </TouchableScale>
-        </Block>
+        </View>
       </Screen>
-    </Block>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  buttonScale: {
+    padding: 5,
+    backgroundColor: '#bbb',
+  },
+  root: {
+    flex: 1,
+    paddingTop: 0,
+    paddingHorizontal: 15,
+  },
+  fill: {
+    flex: 1,
+  },
+  rowItem: {
+    flexDirection: 'row',
+    paddingVertical: 15,
+    alignItems: 'center',
+  },
+});

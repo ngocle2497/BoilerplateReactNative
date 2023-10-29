@@ -1,0 +1,49 @@
+diff --git a/node_modules/react-native-reanimated/Common/cpp/SharedItems/Shareables.cpp b/node_modules/react-native-reanimated/Common/cpp/SharedItems/Shareables.cpp
+index 4616d4c..cb4f411 100644
+--- a/node_modules/react-native-reanimated/Common/cpp/SharedItems/Shareables.cpp
++++ b/node_modules/react-native-reanimated/Common/cpp/SharedItems/Shareables.cpp
+@@ -66,9 +66,9 @@ jsi::Value makeShareableClone(
+         shareable = std::make_shared<ShareableArray>(rt, object.asArray(rt));
+       }
+     } else if (object.isHostObject(rt)) {
+-      assert(
+-          !object.isHostObject<ShareableJSRef>(rt) &&
+-          "[Reanimated] Provided value is already an instance of ShareableJSRef.");
++      if (object.isHostObject<ShareableJSRef>(rt)) {
++        return object;
++      }
+       shareable =
+           std::make_shared<ShareableHostObject>(rt, object.getHostObject(rt));
+     } else {
+diff --git a/node_modules/react-native-reanimated/android/src/main/java/com/swmansion/reanimated/NodesManager.java b/node_modules/react-native-reanimated/android/src/main/java/com/swmansion/reanimated/NodesManager.java
+index 5db6885..a146a9e 100644
+--- a/node_modules/react-native-reanimated/android/src/main/java/com/swmansion/reanimated/NodesManager.java
++++ b/node_modules/react-native-reanimated/android/src/main/java/com/swmansion/reanimated/NodesManager.java
+@@ -1,7 +1,7 @@
+ package com.swmansion.reanimated;
+ 
+ import static java.lang.Float.NaN;
+-
++import android.util.Log;
+ import android.view.View;
+ import com.facebook.react.bridge.Arguments;
+ import com.facebook.react.bridge.GuardedRunnable;
+@@ -344,6 +344,18 @@ public class NodesManager implements EventDispatcherListener {
+   }
+ 
+   public void updateProps(int viewTag, Map<String, Object> props) {
++    // We need to check current view exist in UIManager or not
++    // Sometime, view can be replace, recycle, ... with wrong way (like FlashList)
++    // So before update, We need to check view tag exist in UIManager
++    try {
++        View view = mUIManager.resolveView(viewTag);
++        if(view == null) {
++          return;
++        }
++    } catch (Exception ex) {
++        Log.d("Reanimated-updateProps", "Skip update props cause viewTag not exist or have been removed!");
++        return;
++    }
+     // TODO: update PropsNode to use this method instead of its own way of updating props
+     boolean hasUIProps = false;
+     boolean hasNativeProps = false;

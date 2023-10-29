@@ -1,18 +1,14 @@
 {
   "env": {
     "production": {
-      "plugins": [
-        "transform-remove-console"
-      ]
+      "plugins": ["transform-remove-console"]
     }
   },
   "plugins": [
     [
       "module-resolver",
       {
-        "root": [
-          "./"
-        ],
+        "root": ["./"],
         "alias": {
           "@env": "./env-config",
           "@assets": "./src/app/assets",
@@ -25,6 +21,7 @@
           "@animated": "./src/app/common/animated",
           "@screens": "./src/app/screens",
           "@components": "./src/app/library/components",
+          "@rn-core": "./src/app/library/components/rn-core",
           "@networking": "./src/app/library/networking",
           "@utils": "./src/app/library/utils",
           "@storage": "./src/app/library/utils/storage",

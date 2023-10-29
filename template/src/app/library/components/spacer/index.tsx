@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
-import { StyleProp, View, ViewStyle } from 'react-native';
+import { StyleProp, ViewStyle } from 'react-native';
 
 import { sizeScale } from '@common';
+import { View } from '@rn-core';
 
 import { SpacerProps } from './type';
 
