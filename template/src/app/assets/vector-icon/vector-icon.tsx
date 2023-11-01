@@ -3,7 +3,7 @@ import React from 'react';
 import Animated from 'react-native-reanimated';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 
-import { Colors, useTheme } from '@theme';
+import { Colors, useStyles } from '@theme';
 import { IconProps } from 'react-native-vector-icons/Icon';
 
 import { ICONS } from './icon-name';
@@ -21,12 +21,14 @@ export type VectorIconIcon = keyof typeof ICONS;
 
 type VectorIconProps = ReOmit<IconProps, 'name'> & {
   icon: VectorIconIcon;
-  colorTheme?: keyof Colors;
+  colorTheme?: Colors;
 };
 
 export const VectorIcon = (props: VectorIconProps) => {
   // state
-  const { colors } = useTheme();
+  const {
+    theme: { color },
+  } = useStyles();
 
   // render
   return (
@@ -34,7 +36,11 @@ export const VectorIcon = (props: VectorIconProps) => {
       size={24}
       {...props}
       name={ICONS[props.icon]}
-      color={props.colorTheme ? colors[props.colorTheme] : props.color}
+      color={
+        props.colorTheme && typeof color[props.colorTheme] === 'string'
+          ? (color[props.colorTheme] as string)
+          : props.color
+      }
     />
   );
 };

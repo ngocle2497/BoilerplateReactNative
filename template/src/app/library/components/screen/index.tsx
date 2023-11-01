@@ -10,7 +10,7 @@ import {
 } from 'react-native-safe-area-context';
 
 import { View } from '@rn-core';
-import { useTheme } from '@theme';
+import { useStyles } from '@theme';
 
 import { styles } from './styles';
 import {
@@ -133,7 +133,7 @@ function ScreenWithoutScrolling(
   props: ScreenComponentProps,
 ) {
   // state
-  const { colors } = useTheme();
+  const { theme } = useStyles();
 
   const {
     statusBarStyle,
@@ -143,10 +143,10 @@ function ScreenWithoutScrolling(
     edges,
     hiddenStatusBar = false,
     statusColor = undefined,
-    bottomInsetColor = colors.background,
+    bottomInsetColor = theme.color.background,
     style = {},
-    rightInsetColor = colors.background,
-    leftInsetColor = colors.background,
+    rightInsetColor = theme.color.background,
+    leftInsetColor = theme.color.background,
   } = props;
 
   // render
@@ -159,7 +159,7 @@ function ScreenWithoutScrolling(
           style,
           backgroundColor ? { backgroundColor } : {},
         ]}>
-        <View style={[styles.flex]} children={children} />
+        <View style={styles.fill}>{children}</View>
       </Wrapper>
       <InsetComponent
         edges={edges}
@@ -180,7 +180,7 @@ function ScreenWithScrolling(
   props: ScreenComponentProps,
 ) {
   // state
-  const { colors } = useTheme();
+  const { theme } = useStyles();
 
   const {
     statusBarStyle,
@@ -191,10 +191,10 @@ function ScreenWithScrolling(
     edges,
     hiddenStatusBar = false,
     statusColor = undefined,
-    bottomInsetColor = colors.background,
+    bottomInsetColor = theme.color.background,
     style = {},
-    leftInsetColor = colors.background,
-    rightInsetColor = colors.background,
+    leftInsetColor = theme.color.background,
+    rightInsetColor = theme.color.background,
   } = props;
 
   // render
@@ -234,15 +234,9 @@ export const Screen = (props: ScreenProps) => {
     [props.excludeEdges, props.hiddenStatusBar],
   );
 
-  const actualUnsafe = useMemo<boolean>(
-    () => props.unsafe || edges.length <= 0,
-    [edges.length, props.unsafe],
-  );
+  const actualUnsafe = props.unsafe || edges.length <= 0;
 
-  const Wrapper = useMemo(
-    () => (actualUnsafe ? View : SafeAreaView),
-    [actualUnsafe],
-  );
+  const Wrapper = actualUnsafe ? View : SafeAreaView;
 
   // render
   if (props.scroll) {

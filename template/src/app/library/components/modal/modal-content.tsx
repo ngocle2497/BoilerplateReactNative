@@ -158,7 +158,9 @@ export const ModalContent = forwardRef(
       return (
         <AnimatedView pointerEvents="box-none" style={[styles.content, style]}>
           <AnimatedView
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             entering={(entering as any)?.withCallback(onEndAnimatedOpen)}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             exiting={(exiting as any)?.withCallback(onEndAnimatedClose)}>
             {children}
           </AnimatedView>

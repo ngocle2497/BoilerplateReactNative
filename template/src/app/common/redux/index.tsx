@@ -1,23 +1,15 @@
-import React, {
-  createRef,
-  forwardRef,
-  memo,
-  useEffect,
-  useImperativeHandle,
-} from 'react';
+import React, { createRef, forwardRef, memo, useImperativeHandle } from 'react';
 
-import { useSharedValue } from 'react-native-reanimated';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { addListener } from '@reduxjs/toolkit';
+import { selectRoot } from '@redux-selector/app';
 import { RootState } from '@store/all-reducers';
-import { store } from '@store/store';
 
 const RXStoreComponent = forwardRef((_, ref) => {
   // state
   const dispatchRx = useDispatch();
 
-  const storeValue = useSharedValue<RootState>(store.getState());
+  const storeValue = useSelector(selectRoot);
 
   // effect
   useImperativeHandle(
@@ -27,24 +19,11 @@ const RXStoreComponent = forwardRef((_, ref) => {
         dispatchRx(action);
       },
       getState: (state: keyof RootState) => {
-        return storeValue.value[state];
+        return storeValue[state];
       },
     }),
-    [dispatchRx],
+    [dispatchRx, storeValue],
   );
-
-  useEffect(() => {
-    const unsubscribe = store.dispatch(
-      addListener({
-        predicate: () => true,
-        effect: (_, listenerApi) => {
-          storeValue.value = listenerApi.getState() as RootState;
-        },
-      }),
-    );
-
-    return unsubscribe;
-  }, []);
 
   return null;
 });

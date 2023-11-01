@@ -5,12 +5,14 @@ export const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     flex: 1,
     justifyContent: 'flex-start',
+    overflow: 'hidden',
   },
   inner: {
     flex: 1,
     width: '100%',
+    overflow: 'hidden',
   },
-  flex: {
+  fill: {
     flex: 1,
   },
   insets: {

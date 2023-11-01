@@ -3,20 +3,12 @@ import { StyleProp, TouchableOpacityProps, ViewStyle } from 'react-native';
 
 import { Colors } from '@theme';
 
-import { ButtonPresetNames } from './preset';
-
 export interface ButtonProps extends TouchableOpacityProps {
   /**
    * Overwrite style for button
    * @default undefined
    */
   style?: StyleProp<ViewStyle>;
-
-  /**
-   * Preset for button
-   * @default default
-   */
-  preset?: ButtonPresetNames;
 
   /**
    * Overwrite background color with theme for text
@@ -32,7 +24,7 @@ export interface ButtonProps extends TouchableOpacityProps {
    * Overwrite button background with theme
    * @default undefined
    */
-  buttonColorTheme?: keyof Colors;
+  buttonColorTheme?: Colors;
 
   /**
    * Children for button

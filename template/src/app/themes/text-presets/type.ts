@@ -1,20 +1,31 @@
 import { TextStyle } from 'react-native';
 
 export type TextPresetsType = {
-  linkTitle: TextStyle;
-  linkSubtitle: TextStyle;
-  linkLarge: TextStyle;
+  H1: TextStyle;
+  H2: TextStyle;
+  H3: TextStyle;
+  H4: TextStyle;
+  H5: TextStyle;
 
-  linkMedium: TextStyle;
-  linkSmall: TextStyle;
-  linkXSmall: TextStyle;
+  caption: TextStyle;
+  overline: TextStyle;
 
-  linkXXSmall: TextStyle;
-  textMedium: TextStyle;
-  textSmall: TextStyle;
+  subtitle1: TextStyle;
+  subtitle2: TextStyle;
 
-  textXSmall: TextStyle;
-  textXXSmall: TextStyle;
+  paragraph1: TextStyle;
+  paragraph2: TextStyle;
 
-  default: TextStyle;
+  paragraphBold: TextStyle;
+
+  quotes: TextStyle;
+
+  label: TextStyle;
+  placeholder: TextStyle;
+  assistive: TextStyle;
+
+  CTAs: TextStyle;
+  CTALinks: TextStyle;
+  CTASmall: TextStyle;
+  extraSmall: TextStyle;
 };

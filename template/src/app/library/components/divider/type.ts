@@ -10,7 +10,7 @@ export interface DividerProps {
   /**
    * Overwrite color with theme
    */
-  colorTheme?: keyof Colors;
+  colorTheme?: Colors;
 
   /**
    * Height of divider

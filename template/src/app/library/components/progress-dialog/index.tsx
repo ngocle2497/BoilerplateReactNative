@@ -11,16 +11,16 @@ import isEqual from 'react-fast-compare';
 
 import { useDisableBackHandler, useDismissKeyboard } from '@hooks';
 import { View } from '@rn-core';
-import { useTheme } from '@theme';
+import { useStyles } from '@theme';
 
 import { styles } from './styles';
 
 const Spinner = memo(() => {
   // state
-  const theme = useTheme();
+  const { theme } = useStyles();
 
   // render
-  return <ActivityIndicator color={theme.colors.background} size={'large'} />;
+  return <ActivityIndicator color={theme.color.background} size={'large'} />;
 }, isEqual);
 
 const ProgressDialogComponent = forwardRef((_, ref) => {

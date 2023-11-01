@@ -6,11 +6,15 @@ export const selectAppConfig = createSelector(
   app => ({
     loadingApp: app.loadingApp,
     showDialog: app.showDialog,
-    theme: app.theme,
   }),
 );
 
 export const selectAppToken = createSelector(
   (state: RootState) => state.app,
   app => app.token,
+);
+
+export const selectRoot = createSelector(
+  (state: RootState) => state,
+  state => state,
 );

@@ -18,7 +18,7 @@ export interface IconProps {
   /**
    * Overwrite tint color with theme
    */
-  colorTheme?: keyof Colors;
+  colorTheme?: Colors;
 
   /**
    * Allow onPress to icon

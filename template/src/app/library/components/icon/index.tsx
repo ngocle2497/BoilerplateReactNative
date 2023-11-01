@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { TouchableOpacity } from 'react-native';
 
 import { icons } from '@assets/icon';
-import { useTheme } from '@theme';
+import { useStyles } from '@theme';
 import { Image, ImageStyle } from 'expo-image';
 
 import { IconProps } from './type';
@@ -19,7 +19,7 @@ export const Icon = ({
 }: IconProps) => {
   // state
 
-  const theme = useTheme();
+  const { theme } = useStyles();
 
   // style
   const style = useMemo<ImageStyle>(
@@ -34,7 +34,11 @@ export const Icon = ({
       onPress={onPress}>
       <Image
         style={style}
-        tintColor={colorTheme ? theme.colors[colorTheme] : color}
+        tintColor={
+          colorTheme && typeof theme.color[colorTheme] === 'string'
+            ? (theme.color[colorTheme] as string)
+            : color
+        }
         contentFit={resizeMode}
         source={icons[icon]}
       />

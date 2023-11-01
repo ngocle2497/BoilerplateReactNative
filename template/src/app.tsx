@@ -12,7 +12,7 @@ import { PortalProvider } from '@gorhom/portal';
 import { useDidMount } from '@hooks';
 import { AppContainer } from '@navigation/app-navigation';
 import { store } from '@store/store';
-import { useLoadFont } from '@theme/typography/default';
+import { useLoadFont } from '@theme/typography';
 import I18n from '@utils/i18n/i18n';
 // const json = require('./app/assets/vector-icon/selection.json');
 

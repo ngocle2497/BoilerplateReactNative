@@ -20,7 +20,6 @@ import { useTranslation } from 'react-i18next';
 
 import { isTypeof } from '@common';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
-import { AppTheme, useTheme } from '@theme';
 
 type NetInfoTuple = [boolean, boolean];
 function useNetWorkStatus(): NetInfoTuple {
@@ -120,12 +119,6 @@ function useSetState<T extends object>(initialValue: T): UseSetState<T> {
     }),
     [setState, resetState, state],
   );
-}
-
-function useStyle<T>(style: (theme: AppTheme) => T): T {
-  const theme = useTheme();
-
-  return style(theme);
 }
 
 function useAsyncState<T>(
@@ -349,19 +342,18 @@ const useEventCallback = <Fn extends (...args: any[]) => ReturnType<Fn>>(
 };
 
 export {
-  useErrorMessageTranslation,
+  useAsyncState,
+  useDidMount,
   useDisableBackHandler,
   useDismissKeyboard,
+  useErrorMessageTranslation,
+  useEventCallback,
+  useForceUpdate,
   useInterval,
+  useIsKeyboardShown,
+  useMounted,
   useNetWorkStatus,
   usePrevious,
   useSetState,
-  useStyle,
-  useAsyncState,
   useUnMount,
-  useForceUpdate,
-  useMounted,
-  useIsKeyboardShown,
-  useDidMount,
-  useEventCallback,
 };
