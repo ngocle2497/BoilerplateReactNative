@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo } from 'react';
-import { Text, View } from 'react-native';
 
 import Animated, {
   Extrapolate,
@@ -11,6 +10,7 @@ import Animated, {
 import Svg, { Circle, CircleProps } from 'react-native-svg';
 
 import { sharedTiming } from '@animated';
+import { AnimatedText, View } from '@rn-core';
 
 import { styles } from './styles';
 import { ProgressCircleProps } from './type';
@@ -18,8 +18,6 @@ import { ProgressCircleProps } from './type';
 import { COLOR_BG, COLOR_FG, RADIUS, STROKE_WIDTH } from '../constant';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
-
-const AnimatedText = Animated.createAnimatedComponent(Text);
 
 export const ProgressCircle = ({
   round,

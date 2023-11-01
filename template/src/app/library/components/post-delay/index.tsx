@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-import Animated, { FadeIn } from 'react-native-reanimated';
+import { FadeIn } from 'react-native-reanimated';
+
+import { AnimatedView } from '@rn-core';
 
 import { PostDelayProps } from './type';
 
@@ -33,10 +35,10 @@ export const PostDelay = ({
 
   // render
   return loaded ? (
-    <Animated.View
+    <AnimatedView
       entering={FadeIn.duration(durationMs)}
       style={[styles.container]}>
       {children}
-    </Animated.View>
+    </AnimatedView>
   ) : null;
 };

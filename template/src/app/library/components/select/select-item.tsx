@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
-import { Text, View } from 'react-native';
 
 import equals from 'react-fast-compare';
 
-import { onCheckType } from '@common';
+import { isTypeof } from '@common';
+import { Text, View } from '@rn-core';
 
 import { styles } from './styles';
 import { SelectItemProps } from './type';
@@ -19,7 +19,7 @@ const SelectItemComponent = ({
 }: SelectItemProps) => {
   // function
   const _onPress = () => {
-    if (onCheckType(onPress, 'function')) {
+    if (isTypeof(onPress, 'function')) {
       onPress(item, index);
     }
   };

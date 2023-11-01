@@ -5,7 +5,7 @@ import {
 
 import { Easing, useSharedValue, withTiming } from 'react-native-reanimated';
 
-import { execFunc, onCheckType } from '@common';
+import { execFunc, isTypeof } from '@common';
 import { useEventCallback } from '@hooks';
 
 export type UseThrottleParam = {
@@ -28,12 +28,12 @@ export const useThrottle = ({
 
   // func
   const handlePress = useEventCallback((e: GestureResponderEvent) => {
-    if (onCheckType(onPress, 'function')) {
+    if (isTypeof(onPress, 'function')) {
       if (progressToEnable.value > 0) {
         return;
       }
 
-      if (onCheckType(throttleMs, 'number')) {
+      if (isTypeof(throttleMs, 'number')) {
         progressToEnable.value = 1;
 
         progressToEnable.value = withTiming(0, {
@@ -47,12 +47,12 @@ export const useThrottle = ({
   });
 
   const handleLongPress = useEventCallback((e: GestureResponderEvent) => {
-    if (onCheckType(onLongPress, 'function')) {
+    if (isTypeof(onLongPress, 'function')) {
       if (progressToEnable.value > 0) {
         return;
       }
 
-      if (onCheckType(throttleMs, 'number')) {
+      if (isTypeof(throttleMs, 'number')) {
         progressToEnable.value = 1;
 
         progressToEnable.value = withTiming(0, {

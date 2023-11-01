@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
-import { View, ViewStyle } from 'react-native';
+import { ViewStyle } from 'react-native';
 
+import { View } from '@rn-core';
 import { useTheme } from '@theme';
 
 import { DividerProps } from './type';

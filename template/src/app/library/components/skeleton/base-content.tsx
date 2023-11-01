@@ -1,12 +1,9 @@
 import React, { memo, useCallback, useMemo } from 'react';
-import {
-  DimensionValue,
-  useWindowDimensions,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { DimensionValue, useWindowDimensions, ViewStyle } from 'react-native';
 
 import isEqual from 'react-fast-compare';
+
+import { View } from '@rn-core';
 
 import { BASE_ITEM_HEIGHT } from './constants';
 import { styles } from './styles';

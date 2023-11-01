@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 
 import { sizeScale } from '@common';
-import { View } from '@rn-core';
+import { View } from '@components/core';
 
 import { SpacerProps } from './type';
 

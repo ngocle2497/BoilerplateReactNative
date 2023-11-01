@@ -3,13 +3,14 @@ import React from 'react';
 
 import { useController, useFormContext } from 'react-hook-form';
 
-import { HelperText, TextInput } from '@components';
+import { HelperText } from '@components/helper-text';
+import { TextInput } from '@components/text-input';
 import { TextInputProps } from '@components/text-input/type';
 import { useErrorMessageTranslation } from '@hooks';
 import { FormLoginType } from '@model/authentication';
 
 interface InputProps<T extends Record<string, any>>
-  extends CustomOmit<TextInputProps, 'nameTrigger'>,
+  extends ReOmit<TextInputProps, 'nameTrigger'>,
     React.RefAttributes<any> {
   name: keyof T;
   nameTrigger?: keyof T;

@@ -6,13 +6,14 @@ import {
 } from 'react-native';
 
 import { useTranslation } from 'react-i18next';
-import Animated, {
+import {
   useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
 } from 'react-native-reanimated';
 
 import { execFunc } from '@common';
+import { AnimatedView } from '@rn-core';
 import { useTheme } from '@theme';
 
 import { ErrorLine } from './error-line';
@@ -106,7 +107,7 @@ export const TextInput = forwardRef(
     return (
       <>
         <Label label={label} labelI18n={labelI18n} required={required} />
-        <Animated.View style={[styles.containerInput, containerRestyle]}>
+        <AnimatedView style={[styles.containerInput, containerRestyle]}>
           <RNTextInput
             {...rest}
             ref={ref}
@@ -133,7 +134,7 @@ export const TextInput = forwardRef(
           {rightChildren}
           <FocusedLine focused={focusedValue} disabled={disabled} />
           <ErrorLine error={errorValue} disabled={disabled} />
-        </Animated.View>
+        </AnimatedView>
       </>
     );
   },

@@ -1,12 +1,10 @@
 import React, { useMemo, useState } from 'react';
 import { LayoutChangeEvent, ViewStyle } from 'react-native';
 
-import Animated, {
-  useAnimatedStyle,
-  useDerivedValue,
-} from 'react-native-reanimated';
+import { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated';
 
 import { sharedTiming, useInterpolate, useShareClamp } from '@animated';
+import { AnimatedView } from '@rn-core';
 
 import { styles } from './styles';
 import { ProgressLinearProps } from './type';
@@ -69,8 +67,8 @@ export const ProgressLinear = ({
 
   // render
   return (
-    <Animated.View onLayout={_onLayoutBg} style={bgStyle}>
-      <Animated.View style={[fgStyle, foregroundStyle]} />
-    </Animated.View>
+    <AnimatedView onLayout={_onLayoutBg} style={bgStyle}>
+      <AnimatedView style={[fgStyle, foregroundStyle]} />
+    </AnimatedView>
   );
 };

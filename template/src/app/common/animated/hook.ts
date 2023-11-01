@@ -1,13 +1,14 @@
 import React, { Component, useEffect } from 'react';
 import { useWindowDimensions } from 'react-native';
 
-import Animated, {
+import {
   AnimationCallback,
   Easing,
   ExtrapolationType,
   interpolate,
   interpolateColor,
   measure,
+  SharedValue,
   useAnimatedRef,
   useDerivedValue,
   useSharedValue,
@@ -25,7 +26,7 @@ import { sharedClamp, sharedMax, sharedMin } from './math';
  * Interpolate number
  */
 export const useInterpolate = (
-  progress: Animated.SharedValue<number>,
+  progress: SharedValue<number>,
   input: number[],
   output: number[],
   type?: ExtrapolationType,
@@ -36,9 +37,9 @@ export const useInterpolate = (
  * Interpolate color
  */
 export const useInterpolateColor = (
-  progress: Animated.SharedValue<number>,
+  progress: SharedValue<number>,
   input: number[],
-  output: (number | string)[],
+  output: string[],
   colorSpace?: 'RGB' | 'HSV' | undefined,
   // eslint-disable-next-line max-params
 ) => {
@@ -52,11 +53,7 @@ export const useInterpolateColor = (
 /**
  * Linear interpolation between x and y using a to weight between them
  */
-export const useMix = (
-  progress: Animated.SharedValue<number>,
-  x: number,
-  y: number,
-) => {
+export const useMix = (progress: SharedValue<number>, x: number, y: number) => {
   'worklet';
 
   return useDerivedValue(() => x + progress.value * (y - x));
@@ -65,7 +62,7 @@ export const useMix = (
 /**
  * Convert number to radian
  */
-export const useRadian = (value: Animated.SharedValue<number>) =>
+export const useRadian = (value: SharedValue<number>) =>
   useDerivedValue(() => {
     'worklet';
 
@@ -76,7 +73,7 @@ export const useRadian = (value: Animated.SharedValue<number>) =>
  * Clamp value when out of range
  */
 export const useShareClamp = (
-  value: Animated.SharedValue<number>,
+  value: SharedValue<number>,
   lowerValue: number,
   upperValue: number,
 ) => {
@@ -90,7 +87,7 @@ export const useShareClamp = (
 /**
  * Return min number of args
  */
-export const useMin = (...args: Animated.SharedValue<number>[]) => {
+export const useMin = (...args: SharedValue<number>[]) => {
   'worklet';
 
   return useDerivedValue(() => sharedMin(...args.map(x => x.value)));
@@ -99,7 +96,7 @@ export const useMin = (...args: Animated.SharedValue<number>[]) => {
 /**
  * Return max number of args
  */
-export const useMax = (...args: Animated.SharedValue<number>[]) => {
+export const useMax = (...args: SharedValue<number>[]) => {
   'worklet';
 
   return useDerivedValue(() => sharedMax(...args.map(x => x.value)));
@@ -110,7 +107,7 @@ export const useMax = (...args: Animated.SharedValue<number>[]) => {
  */
 export function useInsideView<T extends Component>(
   wrapHeight: number | undefined = undefined,
-): [React.RefObject<T>, Animated.SharedValue<boolean>] {
+): [React.RefObject<T>, SharedValue<boolean>] {
   const { height } = useWindowDimensions();
 
   const { top } = useSafeAreaInsets();

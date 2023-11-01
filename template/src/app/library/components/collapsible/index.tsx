@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { LayoutChangeEvent, LayoutRectangle, Text, View } from 'react-native';
+import { LayoutChangeEvent, LayoutRectangle } from 'react-native';
 
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-} from 'react-native-reanimated';
+import { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 
 import { sharedTiming, useSharedTransition } from '@animated';
+import { AnimatedView, Text, View } from '@rn-core';
 
 import { styles } from './styles';
 import { CollapsibleProps } from './type';
@@ -58,12 +56,12 @@ export const Collapsible = ({
   // render
   return (
     <View>
-      <Animated.View
+      <AnimatedView
         pointerEvents={'none'}
         onLayout={onLayoutContent}
         style={[styles.base, styles.hiddenView]}>
         {renderContent ? renderContent(progress) : children}
-      </Animated.View>
+      </AnimatedView>
       <TouchableOpacity onPress={onPress}>
         {renderMasterView ? (
           renderMasterView(progress)
@@ -74,9 +72,9 @@ export const Collapsible = ({
         )}
       </TouchableOpacity>
 
-      <Animated.View style={[styles.base, contentStyle]}>
+      <AnimatedView style={[styles.base, contentStyle]}>
         {renderContent ? renderContent(progress) : children}
-      </Animated.View>
+      </AnimatedView>
     </View>
   );
 };

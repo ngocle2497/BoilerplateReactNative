@@ -11,7 +11,7 @@ type Parsed = Array<Partial<MatchedPart & ParsedText>>;
 
 export const textExtraction = (
   text: string,
-  patterns: Array<CustomOmit<Pattern, 'lastIndex'> & CustomTextProps>,
+  patterns: Array<ReOmit<Pattern, 'lastIndex'> & CustomTextProps>,
 ) => {
   let parsedTexts: Parsed = [{ children: text ?? '' }];
   patterns.forEach((pattern: any) => {

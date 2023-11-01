@@ -1,11 +1,9 @@
 import React from 'react';
 
-import Animated, {
-  useAnimatedStyle,
-  useDerivedValue,
-} from 'react-native-reanimated';
+import { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated';
 
 import { sharedTiming } from '@animated';
+import { AnimatedView } from '@rn-core';
 import { useTheme } from '@theme';
 
 import { styles } from './styles';
@@ -32,7 +30,7 @@ export const ErrorLine = ({ error, disabled }: ErrorLineProps) => {
 
   // render
   return (
-    <Animated.View
+    <AnimatedView
       pointerEvents={'none'}
       style={[styles.lineStatus, lineStyle]}
     />

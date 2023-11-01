@@ -1,14 +1,15 @@
 import React, { memo, useEffect, useMemo } from 'react';
-import { View, ViewStyle } from 'react-native';
+import { ViewStyle } from 'react-native';
 
 import isEqual from 'react-fast-compare';
-import Animated, {
+import {
   useAnimatedStyle,
   useSharedValue,
   withDelay,
 } from 'react-native-reanimated';
 
 import { sharedTiming, useInterpolate } from '@animated';
+import { AnimatedView, View } from '@rn-core';
 
 import {
   DELAY_MS,
@@ -80,13 +81,13 @@ const ItemCommentComponent = ({ index, overlayColor }: ItemCommentProps) => {
 
   // render
   return (
-    <Animated.View style={[wrapStyle]}>
+    <AnimatedView style={[wrapStyle]}>
       <View style={[styles.row]}>
         <View style={[avatar]} />
         <Spacer width={10} />
         <View style={[bubble]} />
       </View>
-    </Animated.View>
+    </AnimatedView>
   );
 };
 

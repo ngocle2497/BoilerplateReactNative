@@ -9,19 +9,19 @@ import {
   LayoutChangeEvent,
   ListRenderItemInfo,
   StyleProp,
-  Text,
   TouchableOpacity,
   useWindowDimensions,
-  View,
   ViewStyle,
 } from 'react-native';
 
 import { FlatList } from 'react-native-gesture-handler';
-import Animated, {
+import {
+  AnimatedRef,
   FadeIn,
   FadeOut,
   measure,
   runOnUI,
+  SharedValue,
   useAnimatedRef,
   useAnimatedStyle,
   useSharedValue,
@@ -29,7 +29,8 @@ import Animated, {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useMix, useRadian, useSharedTransition } from '@animated';
-import { onCheckType } from '@common';
+import { isTypeof } from '@common';
+import { AnimatedView, Text, View } from '@rn-core';
 
 import { DropDownItem } from './drop-down-item';
 import { styles } from './styles';
@@ -39,8 +40,8 @@ import { Icon } from '../icon';
 import { Modal } from '../modal';
 
 const setLayoutOnUI = (
-  ref: React.RefObject<View>,
-  wrapMeasured: Animated.SharedValue<{
+  ref: AnimatedRef<View>,
+  wrapMeasured: SharedValue<{
     width: number;
     height: number;
     x: number;
@@ -238,7 +239,7 @@ export const DropDown = forwardRef((props: DropDownProps, _) => {
   }, [defaultValue, multiple]);
 
   useEffect(() => {
-    if (onCheckType(onChangeItem, 'function')) {
+    if (isTypeof(onChangeItem, 'function')) {
       if (Array.isArray(selectedValue)) {
         onChangeItem(
           selectedValue,
@@ -302,9 +303,9 @@ export const DropDown = forwardRef((props: DropDownProps, _) => {
               (renderArrow ? (
                 renderArrow(progress)
               ) : (
-                <Animated.View style={[arrowStyle]}>
+                <AnimatedView style={[arrowStyle]}>
                   <Icon icon={'arrow_down'} />
-                </Animated.View>
+                </AnimatedView>
               ))}
           </View>
         </TouchableOpacity>

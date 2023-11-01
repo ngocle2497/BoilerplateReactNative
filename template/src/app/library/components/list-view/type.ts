@@ -6,11 +6,11 @@ import { FlashListProps } from '@shopify/flash-list';
 export type ListViewProps = (
   | ({
       type: 'flatlist';
-    } & CustomOmit<
+    } & ReOmit<
       FlatListProps<any>,
       'onRefresh' | 'refreshControl' | 'refreshing'
     >)
-  | ({ type?: 'flashlist' | undefined } & CustomOmit<
+  | ({ type?: 'flashlist' | undefined } & ReOmit<
       FlashListProps<any>,
       'onRefresh' | 'refreshControl' | 'refreshing'
     >)

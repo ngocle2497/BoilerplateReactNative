@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
-import { Text, View } from 'react-native';
 
 import { useTranslation } from 'react-i18next';
 
+import { Text, View } from '@rn-core';
 import { useTheme } from '@theme';
 
 import { styles } from './styles';

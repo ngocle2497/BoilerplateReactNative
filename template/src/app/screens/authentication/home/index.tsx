@@ -1,7 +1,8 @@
 import React, { memo } from 'react';
-import { Text, View } from 'react-native';
 
 import isEqual from 'react-fast-compare';
+
+import { Text, View } from '@rn-core';
 
 const HomeComponent = () => {
   // render

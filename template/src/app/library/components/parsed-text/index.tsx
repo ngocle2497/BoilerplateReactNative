@@ -1,11 +1,10 @@
 import React, { useCallback } from 'react';
 
-import { onCheckType } from '@common';
+import { isTypeof } from '@common';
+import { Text } from '@rn-core';
 
 import { ParsedTextProps } from './type';
 import { PATTERNS, textExtraction } from './utils';
-
-import { Text } from '../text';
 
 export const ParsedText = ({ parse, children, ...rest }: ParsedTextProps) => {
   // function
@@ -22,7 +21,7 @@ export const ParsedText = ({ parse, children, ...rest }: ParsedTextProps) => {
   }, [parse]);
 
   const onGetParsedText = useCallback(() => {
-    if (!parse || !onCheckType(children, 'string')) {
+    if (!parse || !isTypeof(children, 'string')) {
       return children;
     }
 
@@ -31,7 +30,7 @@ export const ParsedText = ({ parse, children, ...rest }: ParsedTextProps) => {
     return text.map((localProps, index) => {
       const { style, ...restText } = localProps;
 
-      return <Text key={`parsedText-${index}`} style={[style]} {...restText} />;
+      return <Text key={`parsedText-${index}`} style={style} {...restText} />;
     });
   }, [children, onGetPatterns, parse]);
 

@@ -19,7 +19,7 @@ export const AnimatedIcon = Animated.createAnimatedComponent(VectorIconBase);
 
 export type VectorIconIcon = keyof typeof ICONS;
 
-type VectorIconProps = CustomOmit<IconProps, 'name'> & {
+type VectorIconProps = ReOmit<IconProps, 'name'> & {
   icon: VectorIconIcon;
   colorTheme?: keyof Colors;
 };

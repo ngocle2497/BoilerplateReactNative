@@ -1,7 +1,7 @@
 import React from 'react';
-import { View } from 'react-native';
 
 import { images } from '@assets/image';
+import { View } from '@rn-core';
 import { Image, ImageStyle } from 'expo-image';
 
 import { styles } from './styles';

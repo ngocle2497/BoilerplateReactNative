@@ -1,19 +1,17 @@
 import React, { useCallback, useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
-import Animated, { useAnimatedStyle } from 'react-native-reanimated';
+import { useAnimatedStyle } from 'react-native-reanimated';
 
 import { useMix, useSharedTransition } from '@animated';
 import { execFunc } from '@common';
+import { AnimatedView, Text, View } from '@rn-core';
 
 import { styles } from './styles';
 import { CheckboxProps } from './type';
 
-import { Text } from '../text';
-
 export const CheckBox = ({
   text,
-  t18n,
   value,
   style,
   fillStyle,
@@ -57,9 +55,9 @@ export const CheckBox = ({
       style={[styles.root, style]}>
       <>
         <View style={[styles.outline, outlineStyleOverwrite]}>
-          <Animated.View style={[styles.fill, fillStyle, styleAnimated]} />
+          <AnimatedView style={[styles.fill, fillStyle, styleAnimated]} />
         </View>
-        <Text text={text} t18n={t18n} style={styles.label} />
+        <Text children={text} style={styles.label} />
       </>
     </TouchableOpacity>
   );

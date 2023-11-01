@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 
-import Animated, { useAnimatedStyle } from 'react-native-reanimated';
+import { useAnimatedStyle } from 'react-native-reanimated';
 
 import {
   useInterpolate,
@@ -9,6 +9,7 @@ import {
   useSharedTransition,
 } from '@animated';
 import { execFunc } from '@common';
+import { AnimatedView } from '@rn-core';
 
 import { ACTIVE_COLOR, SIZE, STROKE_WIDTH, UN_ACTIVE_COLOR } from './constants';
 import { styles } from './styles';
@@ -74,9 +75,9 @@ export const RadioButton = ({
   // render
   return (
     <TouchableWithoutFeedback onPress={onPress}>
-      <Animated.View style={[styles.wrap, wrapStyle, wrapAnimaStyle]}>
-        <Animated.View pointerEvents={'none'} style={[styles.dot, dotStyle]} />
-      </Animated.View>
+      <AnimatedView style={[styles.wrap, wrapStyle, wrapAnimaStyle]}>
+        <AnimatedView pointerEvents={'none'} style={[styles.dot, dotStyle]} />
+      </AnimatedView>
     </TouchableWithoutFeedback>
   );
 };

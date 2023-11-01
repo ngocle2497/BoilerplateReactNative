@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
-import { useWindowDimensions, View } from 'react-native';
+import { useWindowDimensions } from 'react-native';
 
 import { useAsyncState, useInterval } from '@hooks';
+import { View } from '@rn-core';
 
 import {
   DELAY_MS,

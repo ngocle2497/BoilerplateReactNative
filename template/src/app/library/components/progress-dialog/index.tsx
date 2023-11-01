@@ -5,11 +5,12 @@ import React, {
   useImperativeHandle,
   useState,
 } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 
 import isEqual from 'react-fast-compare';
 
 import { useDisableBackHandler, useDismissKeyboard } from '@hooks';
+import { View } from '@rn-core';
 import { useTheme } from '@theme';
 
 import { styles } from './styles';

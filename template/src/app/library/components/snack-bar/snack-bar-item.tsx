@@ -7,7 +7,7 @@ import {
   Gesture,
   GestureDetector,
 } from 'react-native-gesture-handler';
-import Animated, {
+import {
   AnimatableValue,
   Easing,
   runOnJS,
@@ -19,6 +19,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { sharedTiming, sharePause } from '@animated';
 import { VectorIcon, VectorIconIcon } from '@assets/vector-icon/vector-icon';
 import { useErrorMessageTranslation } from '@hooks';
+import { AnimatedView, Text } from '@rn-core';
 
 import {
   BG_ERROR,
@@ -31,7 +32,6 @@ import { styles } from './styles';
 import { SnackBarItemProps, TYPE_MESSAGE, TypeMessage } from './type';
 
 import { Spacer } from '../spacer';
-import { Text } from '../text';
 
 const getColor = (typeMessage: TypeMessage): string => {
   switch (typeMessage) {
@@ -187,16 +187,14 @@ export const SnackItem = memo(
     // render
     return isShow ? (
       <GestureDetector gesture={flingGestureHandler}>
-        <Animated.View
+        <AnimatedView
           entering={CustomEnteringAnimation}
           exiting={CustomExitAnimation}
           style={[styles.itemBar, containStyle]}>
           <VectorIcon icon={getIcon(item.type)} color="white" />
           <Spacer width={10} />
-          <Text style={[styles.text]} preset="linkMedium" color="white">
-            {message}
-          </Text>
-        </Animated.View>
+          <Text style={styles.text}>{message}</Text>
+        </AnimatedView>
       </GestureDetector>
     ) : null;
   },

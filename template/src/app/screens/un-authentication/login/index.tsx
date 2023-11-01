@@ -3,23 +3,21 @@ import { Alert, StyleSheet } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 
-import {
-  CheckBox,
-  Divider,
-  DropDown,
-  HelperText,
-  Otp,
-  Progress,
-  RadioButton,
-  Screen,
-  Select,
-  Spacer,
-  TextInput,
-  TouchableScale,
-  Wallpaper,
-} from '@components';
+import { CheckBox } from '@components/check-box';
+import { Text, View } from '@components/core';
+import { Divider } from '@components/divider';
+import { DropDown } from '@components/drop-down';
+import { HelperText } from '@components/helper-text';
+import { Otp } from '@components/otp';
+import { Progress } from '@components/progress';
+import { RadioButton } from '@components/radio-button';
+import { Screen } from '@components/screen';
+import { Select } from '@components/select';
+import { Spacer } from '@components/spacer';
+import { TextInput } from '@components/text-input';
+import { TouchableScale } from '@components/touch-scale';
+import { Wallpaper } from '@components/wallpaper';
 import { FormLoginType } from '@model/authentication';
-import { Text, View } from '@rn-core';
 
 import { FormLogin } from './components/form-login';
 

@@ -3,17 +3,13 @@ import {
   LayoutChangeEvent,
   LayoutRectangle,
   StyleProp,
-  Text,
-  View,
   ViewStyle,
 } from 'react-native';
 
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-} from 'react-native-reanimated';
+import { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 
 import { sharedTiming, useInterpolate, useSharedTransition } from '@animated';
+import { AnimatedView, Text, View } from '@rn-core';
 import { ColorDefault, useTheme } from '@theme';
 
 import { styles } from './styles';
@@ -93,15 +89,15 @@ export const HelperText = ({
   // render
   return (
     <View style={[styles.container]}>
-      <Animated.View
+      <AnimatedView
         pointerEvents={'none'}
         onLayout={_onLayoutContent}
         style={[styles.hiddenView]}>
         <Text style={[styles.text]}>{currentMessage}</Text>
-      </Animated.View>
-      <Animated.View style={[style]}>
+      </AnimatedView>
+      <AnimatedView style={[style]}>
         <Text style={[styles.text, textStyle]}>{currentMessage}</Text>
-      </Animated.View>
+      </AnimatedView>
     </View>
   );
 };

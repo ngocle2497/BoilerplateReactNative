@@ -1,20 +1,14 @@
-import { PATTERNS } from './utils';
+import { TextProps } from 'react-native';
 
-import { TextProps } from '../text/type';
+import { PATTERNS } from './utils';
 
 export type ParsedText = { children: string; _matched?: boolean };
 
 export type ParsedTexts = Array<ParsedText>;
 
-export type CustomTextProps = CustomOmit<
-  TextProps,
-  't18n' | 't18nOptions' | 'children' | 'text' | 'onPress' | 'onLongPress'
->;
+export type CustomTextProps = TextProps;
 
-export type MatchedPart = CustomOmit<
-  TextProps,
-  't18n' | 't18nOptions' | 'text'
-> & {
+export type MatchedPart = TextProps & {
   _matched: boolean;
 };
 

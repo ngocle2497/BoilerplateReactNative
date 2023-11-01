@@ -14,17 +14,17 @@ import {
 } from 'react-native';
 
 import KeyboardManager from 'react-native-keyboard-manager';
-import Animated, {
+import {
   runOnJS,
   useAnimatedProps,
   useAnimatedStyle,
   useSharedValue,
-  withTiming,
 } from 'react-native-reanimated';
 
 import { sharedTiming } from '@animated';
 import { execFunc } from '@common';
 import { useDisableBackHandler } from '@hooks';
+import { AnimatedView } from '@rn-core';
 
 import { styles } from './styles';
 import { ModalProps } from './type';
@@ -46,7 +46,7 @@ export const ModalContent = forwardRef(
       onModalWillHide,
       onModalWillShow,
       onBackButtonPress: onBackAndroidPress,
-    }: CustomOmit<ModalProps, 'isVisible'> & { onSetClose: () => void },
+    }: ReOmit<ModalProps, 'isVisible'> & { onSetClose: () => void },
     ref,
   ) => {
     // reanimated state
@@ -141,9 +141,9 @@ export const ModalContent = forwardRef(
     const renderBackdrop = () => {
       return (
         <TouchableWithoutFeedback onPress={onBackdropPress}>
-          <Animated.View style={[backDropStyle, reBackdropStyle]}>
+          <AnimatedView style={[backDropStyle, reBackdropStyle]}>
             {customBackDrop}
-          </Animated.View>
+          </AnimatedView>
         </TouchableWithoutFeedback>
       );
     };
@@ -156,13 +156,13 @@ export const ModalContent = forwardRef(
 
     const contentView = () => {
       return (
-        <Animated.View pointerEvents="box-none" style={[styles.content, style]}>
-          <Animated.View
+        <AnimatedView pointerEvents="box-none" style={[styles.content, style]}>
+          <AnimatedView
             entering={(entering as any)?.withCallback(onEndAnimatedOpen)}
             exiting={(exiting as any)?.withCallback(onEndAnimatedClose)}>
             {children}
-          </Animated.View>
-        </Animated.View>
+          </AnimatedView>
+        </AnimatedView>
       );
     };
 
@@ -193,19 +193,17 @@ export const ModalContent = forwardRef(
     }, []);
 
     // props
-    const modalViewProps = useAnimatedProps<CustomOmit<ViewProps, 'style'>>(
-      () => ({
-        pointerEvents:
-          reBackdropOpacity.value === backdropOpacity ? 'auto' : 'none',
-      }),
-    );
+    const modalViewProps = useAnimatedProps<ReOmit<ViewProps, 'style'>>(() => ({
+      pointerEvents:
+        reBackdropOpacity.value === backdropOpacity ? 'auto' : 'none',
+    }));
 
     // render
     return (
-      <Animated.View animatedProps={modalViewProps} style={styles.modal}>
+      <AnimatedView animatedProps={modalViewProps} style={styles.modal}>
         {renderBackdrop()}
         {contentView()}
-      </Animated.View>
+      </AnimatedView>
     );
   },
 );

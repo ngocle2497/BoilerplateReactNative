@@ -1,7 +1,9 @@
 import React, { memo } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 import isEqual from 'react-fast-compare';
+
+import { Text, View } from '@rn-core';
 
 import { styles } from './styles';
 import { ItemProps } from './type';

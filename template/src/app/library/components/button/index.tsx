@@ -4,28 +4,21 @@ import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
 import { useTheme } from '@theme';
 
 import { useThrottle } from './hook';
-import { stylesText, stylesView } from './preset';
+import { stylesView } from './preset';
 import { ButtonProps } from './type';
-
-import { Text } from '../text';
 
 export const Button = (props: ButtonProps) => {
   // state
   const {
-    text,
-    t18n,
     children,
-    textColor,
     throttleMs,
     buttonColor,
-    textColorTheme,
     buttonColorTheme,
     onPress,
     onPressIn,
     onPressOut,
     onLongPress,
     style: styleOverride = {},
-    textStyle: textStyleOverride = {},
     preset = 'default',
     ...rest
   } = props;
@@ -62,15 +55,7 @@ export const Button = (props: ButtonProps) => {
       onPress={handlePress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}>
-      {children || (
-        <Text
-          t18n={t18n}
-          text={text}
-          style={[stylesText[preset], textStyleOverride]}
-          color={textColor}
-          colorTheme={textColorTheme}
-        />
-      )}
+      {children}
     </TouchableOpacity>
   );
 };

@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo } from 'react';
-import { useWindowDimensions, View, ViewStyle } from 'react-native';
+import { useWindowDimensions, ViewStyle } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
-import Animated, {
+import {
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
@@ -10,6 +10,7 @@ import Animated, {
 
 import { sharedTiming } from '@animated';
 import MaskedView from '@react-native-masked-view/masked-view';
+import { AnimatedView, View } from '@rn-core';
 
 import { BaseContent } from './base-content';
 import { styles } from './styles';
@@ -73,14 +74,14 @@ export const Skeleton = ({
         </View>
       }>
       <View style={[overlay]} />
-      <Animated.View style={reLinearStyle}>
+      <AnimatedView style={reLinearStyle}>
         <LinearGradient
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
           colors={linearColor}
           style={styles.linear}
         />
-      </Animated.View>
+      </AnimatedView>
     </MaskedView>
   );
 };

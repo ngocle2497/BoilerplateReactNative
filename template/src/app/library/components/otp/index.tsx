@@ -1,13 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Keyboard,
-  Text,
-  TextInput,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import { Keyboard, TextInput, TouchableWithoutFeedback } from 'react-native';
 
 import { execFunc } from '@common';
+import { Text, View } from '@rn-core';
 
 import { styles } from './styles';
 import { OtpProps } from './type';

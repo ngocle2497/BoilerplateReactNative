@@ -5,7 +5,7 @@ export {};
 // /* eslint-disable @typescript-eslint/no-explicit-any */
 // import database, {FirebaseDatabaseTypes} from '@react-native-firebase/database';
 
-// import {onCheckType} from '../method';
+// import {isTypeof} from '../method';
 // export async function getDatabase<T = any>(ref: string): Promise<Array<T>> {
 //   return await database()
 //     .ref(ref)
@@ -24,7 +24,7 @@ export {};
 //   database()
 //     .ref(ref)
 //     .on('value', (snapshot: FirebaseDatabaseTypes.DataSnapshot) => {
-//       if (onCheckType(onChange, 'function')) {
+//       if (isTypeof(onChange, 'function')) {
 //         onChange(snapshot.val());
 //       }
 //     });

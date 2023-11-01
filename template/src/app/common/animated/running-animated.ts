@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   AnimatableValue,
+  Animation,
   AnimationCallback,
+  AnimationObject,
   defineAnimation,
   Easing,
   SharedValue,
@@ -10,6 +12,9 @@ import {
   withTiming,
   WithTimingConfig,
 } from 'react-native-reanimated';
+
+import { HigherOrderAnimation } from 'react-native-reanimated/lib/typescript/reanimated2/animation';
+import { Timestamp } from 'react-native-reanimated/lib/typescript/reanimated2/commonTypes';
 
 /**
  * Updates position by running timing based animation from a given position to a destination determined by toValue.
@@ -47,70 +52,88 @@ export const sharedSpring = (
   return withSpring(toValue, config, callBack);
 };
 
-export const sharePause = (
-  _nextAnimation: any,
+type SharePauseType = <T extends AnimatableValue>(
+  nextAnimation: T,
   paused: SharedValue<boolean>,
-) => {
+) => T;
+interface PausedAnimation
+  extends Animation<PausedAnimation>,
+    HigherOrderAnimation {
+  startTime: Timestamp;
+  started: boolean;
+  previousAnimation: PausedAnimation | null;
+  current: AnimatableValue;
+}
+
+export const sharePause = function <T extends AnimationObject>(
+  _nextAnimation: T | (() => T),
+  paused: SharedValue<boolean>,
+) {
   'worklet';
 
-  return defineAnimation(_nextAnimation, () => {
-    'worklet';
-    const nextAnimation: any =
-      typeof _nextAnimation === 'function' ? _nextAnimation() : _nextAnimation;
+  return defineAnimation<PausedAnimation, T>(
+    _nextAnimation,
+    (): PausedAnimation => {
+      'worklet';
+      const nextAnimation: any =
+        typeof _nextAnimation === 'function'
+          ? _nextAnimation()
+          : _nextAnimation;
 
-    const onFrame = (state: any, now: number) => {
-      const { lastTimestamp, elapsed } = state;
+      const onFrame = (state: any, now: number) => {
+        const { lastTimestamp, elapsed } = state;
 
-      if (paused.value) {
-        state.elapsed = now - lastTimestamp;
+        if (paused.value) {
+          state.elapsed = now - lastTimestamp;
 
-        return false;
-      }
+          return false;
+        }
 
-      const dt = now - elapsed;
+        const dt = now - elapsed;
 
-      const finished = nextAnimation.onFrame(nextAnimation, dt);
+        const finished = nextAnimation.onFrame(nextAnimation, dt);
 
-      state.current = nextAnimation.current;
+        state.current = nextAnimation.current;
 
-      state.lastTimestamp = dt;
+        state.lastTimestamp = dt;
 
-      return finished;
-    };
+        return finished;
+      };
 
-    const onStart = (
-      state: any,
-      value: AnimatableValue,
-      now: number,
-      previousState: any,
-      // eslint-disable-next-line max-params
-    ) => {
-      state.lastTimestamp = now;
+      const onStart = (
+        state: any,
+        value: AnimatableValue,
+        now: number,
+        previousState: any,
+        // eslint-disable-next-line max-params
+      ) => {
+        state.lastTimestamp = now;
 
-      state.elapsed = 0;
+        state.elapsed = 0;
 
-      state.current = 0;
+        state.current = 0;
 
-      nextAnimation.onStart(nextAnimation, value, now, previousState);
-    };
+        nextAnimation.onStart(nextAnimation, value, now, previousState);
+      };
 
-    const callback = (finished?: boolean): void => {
-      if (nextAnimation.callback) {
-        nextAnimation.callback(finished);
-      }
-    };
+      const callback = (finished?: boolean): void => {
+        if (nextAnimation.callback) {
+          nextAnimation.callback(finished);
+        }
+      };
 
-    return {
-      onFrame,
-      onStart,
-      isHigherOrder: true,
-      current: nextAnimation.current,
-      callback,
-      previousAnimation: null,
-      startTime: 0,
-      started: false,
-      lastTimestamp: 0,
-      elapsed: 0,
-    };
-  });
-};
+      return {
+        isHigherOrder: true,
+        onFrame,
+        onStart,
+        current: nextAnimation.current,
+        callback,
+        previousAnimation: null,
+        startTime: 0,
+        started: false,
+        lastTimestamp: 0,
+        elapsed: 0,
+      };
+    },
+  );
+} as SharePauseType;

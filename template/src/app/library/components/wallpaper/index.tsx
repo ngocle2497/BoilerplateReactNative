@@ -1,7 +1,9 @@
 import React, { memo, useMemo } from 'react';
-import { Dimensions, useWindowDimensions, View, ViewStyle } from 'react-native';
+import { Dimensions, useWindowDimensions, ViewStyle } from 'react-native';
 
 import equals from 'react-fast-compare';
+
+import { View } from '@rn-core';
 
 import { styles } from './styles';
 import { WallpaperProps } from './type';

@@ -18,7 +18,7 @@ import {
 
 import { useTranslation } from 'react-i18next';
 
-import { onCheckType } from '@common';
+import { isTypeof } from '@common';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { AppTheme, useTheme } from '@theme';
 
@@ -235,7 +235,7 @@ function useIsKeyboardShown() {
 function useDisableBackHandler(disabled: boolean, callback?: () => void) {
   // function
   const onBackPress = useCallback(() => {
-    if (onCheckType(callback, 'function')) {
+    if (isTypeof(callback, 'function')) {
       callback();
     }
 

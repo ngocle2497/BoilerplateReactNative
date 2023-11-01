@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useWindowDimensions, View, ViewProps, ViewStyle } from 'react-native';
+import { useWindowDimensions, ViewProps, ViewStyle } from 'react-native';
 
 import Animated from 'react-native-reanimated';
 import {
@@ -9,6 +9,7 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 
+import { View } from '@rn-core';
 import { useTheme } from '@theme';
 
 import { styles } from './styles';

@@ -9,8 +9,8 @@ import {
   hideLoading,
   ProgressDialog,
   showLoading,
-  SnackBar,
-} from '@components';
+} from '@components/progress-dialog';
+import { SnackBar } from '@components/snack-bar';
 import { PortalHost } from '@gorhom/portal';
 import { RootNavigation } from '@navigation/root-navigator';
 import { useFlipper } from '@react-navigation/devtools';

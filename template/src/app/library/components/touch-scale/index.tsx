@@ -1,13 +1,11 @@
 import React, { useCallback } from 'react';
 import { GestureResponderEvent, TouchableWithoutFeedback } from 'react-native';
 
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-} from 'react-native-reanimated';
+import { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 
 import { sharedTiming } from '@animated';
-import { onCheckType } from '@common';
+import { isTypeof } from '@common';
+import { AnimatedView } from '@rn-core';
 
 import { styles } from './styles';
 import { TouchableScaleProps } from './type';
@@ -31,7 +29,7 @@ export const TouchableScale = (props: TouchableScaleProps) => {
     (e: GestureResponderEvent) => {
       scale.value = sharedTiming(minScale, { duration: 150 });
 
-      if (onCheckType(onPressIn, 'function')) {
+      if (isTypeof(onPressIn, 'function')) {
         onPressIn(e);
       }
     },
@@ -42,7 +40,7 @@ export const TouchableScale = (props: TouchableScaleProps) => {
     (e: GestureResponderEvent) => {
       scale.value = sharedTiming(1, { duration: 150 });
 
-      if (onCheckType(onPressOut, 'function')) {
+      if (isTypeof(onPressOut, 'function')) {
         onPressOut(e);
       }
     },
@@ -60,14 +58,14 @@ export const TouchableScale = (props: TouchableScaleProps) => {
       {...rest}
       onPressIn={_onPressIn}
       onPressOut={_onPressOut}>
-      <Animated.View
+      <AnimatedView
         style={[
           styles.container,
           overwriteContainerStyle,
           containerAnimatedStyle,
         ]}>
         {children}
-      </Animated.View>
+      </AnimatedView>
     </TouchableWithoutFeedback>
   );
 };

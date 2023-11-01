@@ -3,15 +3,15 @@ import {
   FlatList,
   ListRenderItemInfo,
   StyleProp,
-  Text,
   TouchableOpacity,
-  View,
   ViewStyle,
 } from 'react-native';
 
 import { useTranslation } from 'react-i18next';
 import { SlideInDown, SlideOutDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { Text, View } from '@rn-core';
 
 import { SelectItem } from './select-item';
 import { styles } from './styles';
