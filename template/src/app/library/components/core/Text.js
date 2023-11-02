@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
-import NativeText from 'react-native/Libraries/Text/TextNativeComponent';
+import { NativeText } from 'react-native/Libraries/Text/TextNativeComponent';
 
-const Text = forwardRef((props, ref) => {
+export const Text = forwardRef((props, ref) => {
   return (
     // eslint-disable-next-line react/jsx-filename-extension
     <NativeText
@@ -13,7 +13,3 @@ const Text = forwardRef((props, ref) => {
     />
   );
 });
-
-Text.displayName = 'Text';
-
-export { Text };

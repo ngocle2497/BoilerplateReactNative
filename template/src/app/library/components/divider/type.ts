@@ -2,12 +2,6 @@ import { Colors } from '@theme';
 
 export interface DividerProps {
   /**
-   * Background for divider
-   * @default #bbb
-   */
-  color?: string;
-
-  /**
    * Overwrite color with theme
    */
   colorTheme?: Colors;

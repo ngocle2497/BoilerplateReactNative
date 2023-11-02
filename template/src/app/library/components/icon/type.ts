@@ -1,6 +1,5 @@
 import { IconTypes } from '@assets/icon';
 import { Colors } from '@theme';
-import { ImageContentFit } from 'expo-image';
 
 export interface IconProps {
   /**
@@ -10,31 +9,13 @@ export interface IconProps {
   size?: number;
 
   /**
-   * Tint color of icon
-   * @default undefined
-   */
-  color?: string;
-
-  /**
    * Overwrite tint color with theme
    */
   colorTheme?: Colors;
-
-  /**
-   * Allow onPress to icon
-   * @default undefined
-   */
-  onPress?: () => void;
 
   /**
    * Icon type
    * @default undefined
    */
   icon: IconTypes;
-
-  /**
-   * Custom resizeMode
-   * @default contain
-   */
-  resizeMode?: ImageContentFit;
 }

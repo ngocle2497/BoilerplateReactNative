@@ -4,27 +4,29 @@ import { ApiConstants, NetWorkService } from '@networking';
 
 import { authenticationActions } from '../action-slice/authentication';
 
-takeLatestListeners(true)({
-  actionCreator: authenticationActions.login,
-  effect: async (action, listenerApi) => {
-    const { body } = action.payload;
+export const runAuthenticationListener = () => {
+  takeLatestListeners()({
+    actionCreator: authenticationActions.login,
+    effect: async (action, listenerApi) => {
+      const { body } = action.payload;
 
-    console.log({ body });
+      console.log({ body });
 
-    await listenerApi.delay(1000);
+      await listenerApi.delay(1000);
 
-    const response = await NetWorkService.Post({
-      url: ApiConstants.LOGIN,
-      body,
-      signal: listenerApi.signal,
-    });
+      const response = await NetWorkService.Post({
+        url: ApiConstants.LOGIN,
+        body,
+        signal: listenerApi.signal,
+      });
 
-    if (!response) {
-      return;
-    }
+      if (!response) {
+        return;
+      }
 
-    if (validResponse(response)) {
-      // TODO: do something when login success
-    }
-  },
-});
+      if (validResponse(response)) {
+        // TODO: do something when login success
+      }
+    },
+  });
+};

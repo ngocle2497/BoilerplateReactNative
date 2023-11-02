@@ -1,12 +1,12 @@
-export interface RadioButtonProps {
+export type CheckboxProps = {
   /**
-   * Default state of radio button
+   * Default state of checkbox
    * @default false
    */
   initialValue?: boolean;
 
   /**
-   * Radio button size
+   * checkbox button size
    * @default 24
    */
   size?: number;
@@ -18,13 +18,13 @@ export interface RadioButtonProps {
   value?: boolean;
 
   /**
-   * On radio button press
+   * On checkbox button press
    */
   onToggle?: (value: boolean) => void;
 
   /**
-   * Radio button is disabled
+   * checkbox button is disabled
    * @default false
    */
   disabled?: boolean;
-}
+};

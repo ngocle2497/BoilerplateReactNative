@@ -16,10 +16,18 @@ import {
   Platform,
 } from 'react-native';
 
-import { useTranslation } from 'react-i18next';
+import {
+  DefaultNamespace,
+  KeyPrefix,
+  Namespace,
+  TFuncReturn,
+  useTranslation as useRNTranslation,
+} from 'react-i18next';
 
 import { isTypeof } from '@common';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
+import { I18nKeys } from '@utils/i18n/locales';
+import { StringMap, TFunctionResult, TOptions } from 'i18next';
 
 type NetInfoTuple = [boolean, boolean];
 function useNetWorkStatus(): NetInfoTuple {
@@ -271,7 +279,7 @@ function useMounted(callback: () => void, deps: any[] = []) {
 }
 
 function useErrorMessageTranslation(msg?: string) {
-  const [t] = useTranslation();
+  const [t] = useRNTranslation();
 
   const parsed = useMemo<ValidateMessageObject | undefined>(() => {
     if (!msg) {
@@ -341,6 +349,33 @@ const useEventCallback = <Fn extends (...args: any[]) => ReturnType<Fn>>(
   return callbackMemoized;
 };
 
+const useTranslation = <
+  N extends Namespace = DefaultNamespace,
+  TKPrefix extends KeyPrefix<N> = undefined,
+>() => {
+  const [t] = useRNTranslation();
+
+  return t as {
+    <
+      TKeys extends I18nKeys,
+      TDefaultResult extends TFunctionResult | React.ReactNode = string,
+      TInterpolationMap extends object = StringMap,
+    >(
+      key: TKeys | TKeys[],
+      options?: TOptions<TInterpolationMap> | string,
+    ): TFuncReturn<N, TKeys, TDefaultResult, TKPrefix>;
+    <
+      TKeys extends I18nKeys,
+      TDefaultResult extends TFunctionResult | React.ReactNode = string,
+      TInterpolationMap extends object = StringMap,
+    >(
+      key: TKeys | TKeys[],
+      defaultValue?: string,
+      options?: TOptions<TInterpolationMap> | string,
+    ): TFuncReturn<N, TKeys, TDefaultResult, TKPrefix>;
+  };
+};
+
 export {
   useAsyncState,
   useDidMount,
@@ -355,5 +390,6 @@ export {
   useNetWorkStatus,
   usePrevious,
   useSetState,
+  useTranslation,
   useUnMount,
 };

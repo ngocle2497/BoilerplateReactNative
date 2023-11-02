@@ -1,41 +1,31 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 
-import { useAnimatedStyle } from 'react-native-reanimated';
+import { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 
-import {
-  useInterpolate,
-  useInterpolateColor,
-  useSharedTransition,
-} from '@animated';
-import { execFunc } from '@common';
+import { useSharedTransition } from '@animated';
+import { execFunc, isTypeof } from '@common';
 import { AnimatedView } from '@rn-core';
+import { useStyles } from '@theme';
 
-import { ACTIVE_COLOR, SIZE, STROKE_WIDTH, UN_ACTIVE_COLOR } from './constants';
-import { styles } from './styles';
+import { stylesSheet } from './styles';
 import { RadioButtonProps } from './type';
 
 export const RadioButton = ({
   value,
   onToggle,
-  sizeDot = SIZE - 10,
+  size = 24,
+  disabled = false,
   initialValue = false,
-  activeColor = ACTIVE_COLOR,
-  strokeWidth = STROKE_WIDTH,
-  unActiveColor = UN_ACTIVE_COLOR,
 }: RadioButtonProps) => {
   // state
+  const { styles } = useStyles(stylesSheet);
 
-  const [localValue, setLocalValue] = useState<boolean>(initialValue);
+  const [localValue, setLocalValue] = useState(initialValue);
 
-  const progress = useSharedTransition(value ?? localValue, { duration: 200 });
-
-  const size = useInterpolate(progress, [0, 1], [0, sizeDot - strokeWidth]);
-
-  const color = useInterpolateColor(
-    progress,
-    [0, 1],
-    [unActiveColor, activeColor],
+  const progress = useSharedTransition(
+    isTypeof(value, 'boolean') ? value : localValue,
+    { duration: 200 },
   );
 
   // function
@@ -50,33 +40,19 @@ export const RadioButton = ({
   };
 
   // style
-  const wrapStyle = useMemo(
-    () => ({
-      width: sizeDot + 10,
-      height: sizeDot + 10,
-      borderRadius: (sizeDot + 10) / 2,
-      borderWidth: strokeWidth,
-    }),
-    [sizeDot, strokeWidth],
-  );
-
-  // reanimated style
-  const wrapAnimaStyle = useAnimatedStyle(() => ({
-    borderColor: color.value as string,
-  }));
-
   const dotStyle = useAnimatedStyle(() => ({
-    width: size.value,
-    height: size.value,
-    borderRadius: (sizeDot - strokeWidth) / 2,
-    backgroundColor: color.value as string,
+    transform: [{ scale: interpolate(progress.value, [0, 1], [0, 1]) }],
+    opacity: progress.value,
   }));
 
   // render
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
-      <AnimatedView style={[styles.wrap, wrapStyle, wrapAnimaStyle]}>
-        <AnimatedView pointerEvents={'none'} style={[styles.dot, dotStyle]} />
+    <TouchableWithoutFeedback disabled={disabled} onPress={onPress}>
+      <AnimatedView style={styles.container(size, disabled)}>
+        <AnimatedView
+          pointerEvents={'none'}
+          style={[styles.dot(size, disabled), dotStyle]}
+        />
       </AnimatedView>
     </TouchableWithoutFeedback>
   );

@@ -21,7 +21,7 @@
           "@animated": "./src/app/common/animated",
           "@screens": "./src/app/screens",
           "@components": "./src/app/library/components",
-          "@rn-core": "./src/app/library/components/rn-core",
+          "@rn-core": "./src/app/library/components/core",
           "@networking": "./src/app/library/networking",
           "@utils": "./src/app/library/utils",
           "@storage": "./src/app/library/utils/storage",

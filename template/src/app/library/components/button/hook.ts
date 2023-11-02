@@ -26,6 +26,8 @@ export const useThrottle = ({
   // state
   const progressToEnable = useSharedValue(0);
 
+  const pressed = useSharedValue(false);
+
   // func
   const handlePress = useEventCallback((e: GestureResponderEvent) => {
     if (isTypeof(onPress, 'function')) {
@@ -70,6 +72,8 @@ export const useThrottle = ({
       return;
     }
 
+    pressed.value = true;
+
     execFunc(onPressIn, e);
   });
 
@@ -77,6 +81,8 @@ export const useThrottle = ({
     if (progressToEnable.value > 0) {
       return;
     }
+
+    pressed.value = false;
 
     execFunc(onPressOut, e);
   });
@@ -88,5 +94,6 @@ export const useThrottle = ({
     handleLongPress,
     handlePressIn,
     handlePressOut,
+    pressed,
   ] as const;
 };

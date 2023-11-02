@@ -1,39 +1,42 @@
 import React from 'react';
-import { StyleProp, TouchableOpacityProps, ViewStyle } from 'react-native';
+import { TouchableWithoutFeedbackProps } from 'react-native';
 
-import { Colors } from '@theme';
+import { IconTypes } from '@assets/icon';
+import { I18nKeys } from '@utils/i18n/locales';
 
-export interface ButtonProps extends TouchableOpacityProps {
-  /**
-   * Overwrite style for button
-   * @default undefined
-   */
-  style?: StyleProp<ViewStyle>;
+export type ButtonProps = RequireAtLeastOne<
+  {
+    /**
+     * Button size
+     * @default normal
+     */
+    size?: 'normal' | 'small' | 'extraSmall';
 
-  /**
-   * Overwrite background color with theme for text
-   */
+    /**
+     * Children for button
+     * @default undefined
+     */
+    children?: React.ReactNode;
 
-  /**
-   * Using color for button background color
-   * @default undefined
-   */
-  buttonColor?: string;
+    /**
+     * Left Icon
+     */
+    leftIcon?: IconTypes;
 
-  /**
-   * Overwrite button background with theme
-   * @default undefined
-   */
-  buttonColorTheme?: Colors;
+    /**
+     * Right Icon
+     */
+    rightIcon?: IconTypes;
 
-  /**
-   * Children for button
-   * @default undefined
-   */
-  children?: React.ReactNode;
+    /**
+     * Disable button when press
+     */
+    throttleMs?: number;
 
-  /**
-   * Disable button when press
-   */
-  throttleMs?: number;
-}
+    text: string;
+
+    t18n: I18nKeys;
+  },
+  't18n' | 'text'
+> &
+  TouchableWithoutFeedbackProps;

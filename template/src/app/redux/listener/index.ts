@@ -1,5 +1,10 @@
 export { listenerMiddleware } from '@listener';
 
-export * from './authentication';
+import { runAppListener } from './app';
+import { runAuthenticationListener } from './authentication';
 
-export * from './app';
+(() => {
+  runAppListener();
+
+  runAuthenticationListener();
+})();

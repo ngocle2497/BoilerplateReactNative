@@ -10,7 +10,6 @@ const initialAppState: AppState = {
    * default true to load app
    */
   loadingApp: false,
-  showDialog: false,
 };
 
 const appSlice = createSlice({
@@ -31,12 +30,6 @@ const appSlice = createSlice({
     },
     endLoadApp: state => {
       state.loadingApp = false;
-    },
-    startProcess: state => {
-      state.showDialog = true;
-    },
-    endProcess: state => {
-      state.showDialog = false;
     },
     logout: state => {
       state.token = undefined;

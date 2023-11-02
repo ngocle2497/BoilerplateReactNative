@@ -5,7 +5,6 @@ export const selectAppConfig = createSelector(
   (state: RootState) => state.app,
   app => ({
     loadingApp: app.loadingApp,
-    showDialog: app.showDialog,
   }),
 );
 

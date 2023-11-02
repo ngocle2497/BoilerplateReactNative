@@ -1,31 +1,29 @@
-import { TextStyle } from 'react-native';
-
 export type TextPresetsType = {
-  H1: TextStyle;
-  H2: TextStyle;
-  H3: TextStyle;
-  H4: TextStyle;
-  H5: TextStyle;
+  H1: any;
+  H2: any;
+  H3: any;
+  H4: any;
+  H5: any;
 
-  caption: TextStyle;
-  overline: TextStyle;
+  caption: any;
+  overline: any;
 
-  subtitle1: TextStyle;
-  subtitle2: TextStyle;
+  subtitle1: any;
+  subtitle2: any;
 
-  paragraph1: TextStyle;
-  paragraph2: TextStyle;
+  paragraph1: any;
+  paragraph2: any;
 
-  paragraphBold: TextStyle;
+  paragraphBold: any;
 
-  quotes: TextStyle;
+  quotes: any;
 
-  label: TextStyle;
-  placeholder: TextStyle;
-  assistive: TextStyle;
+  label: any;
+  placeholder: any;
+  assistive: any;
 
-  CTAs: TextStyle;
-  CTALinks: TextStyle;
-  CTASmall: TextStyle;
-  extraSmall: TextStyle;
+  CTAs: any;
+  CTALinks: any;
+  CTASmall: any;
+  extraSmall: any;
 };
