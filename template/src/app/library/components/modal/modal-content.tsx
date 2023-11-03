@@ -13,7 +13,6 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import KeyboardManager from 'react-native-keyboard-manager';
 import {
   runOnJS,
   useAnimatedProps,
@@ -22,7 +21,7 @@ import {
 } from 'react-native-reanimated';
 
 import { sharedTiming } from '@animated';
-import { execFunc } from '@common';
+import { execFunc } from '@common/method';
 import { useDisableBackHandler } from '@hooks';
 import { AnimatedView } from '@rn-core';
 
@@ -184,13 +183,7 @@ export const ModalContent = forwardRef(
     useDisableBackHandler(true, onBackButtonPress);
 
     useEffect(() => {
-      KeyboardManager.setEnable(false);
-
       openModal();
-
-      return () => {
-        KeyboardManager.setEnable(true);
-      };
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

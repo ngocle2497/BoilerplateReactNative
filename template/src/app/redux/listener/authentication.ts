@@ -1,4 +1,4 @@
-import { validResponse } from '@common';
+import { validResponse } from '@common/method';
 import { takeLatestListeners } from '@listener';
 import { ApiConstants, NetWorkService } from '@networking';
 

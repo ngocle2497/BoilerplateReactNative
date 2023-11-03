@@ -57,7 +57,6 @@ export const TabItem = ({ tab, index, selectedIndex }: TabItemProps) => {
 
 const styleSheet = createStyleSheet(theme => ({
   button: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 12,

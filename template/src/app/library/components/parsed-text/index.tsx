@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { isTypeof } from '@common';
+import { isTypeof } from '@common/method';
 import { Text } from '@rn-core';
 
 import { ParsedTextProps } from './type';

@@ -7,7 +7,7 @@ import { resolve } from 'path';
 
   const actualArgv = argv.slice(2);
 
-  const IOS_FOLDER_NAME = 'IRess';
+  const IOS_FOLDER_NAME = 'HelloWorld';
 
   const [path, bgColor, width, flavor, iosName] = actualArgv;
 
@@ -61,5 +61,7 @@ import { resolve } from 'path';
 
   execSync(`mv -f ${oldBootSplashPath} ${newBootSplashPath}`);
 
-  execSync(`mv -f ${oldBootSplashLogoPath} ${newBootSplashLogoPath}`);
+  if (oldBootSplashLogoPath !== newBootSplashLogoPath) {
+    execSync(`mv -f ${oldBootSplashLogoPath} ${newBootSplashLogoPath}`);
+  }
 })();

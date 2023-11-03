@@ -5,7 +5,7 @@ import { useMMKVObject } from 'react-native-mmkv';
 import { UnistylesTheme } from 'react-native-unistyles';
 import { useSelector } from 'react-redux';
 
-import { dispatch, RXStore } from '@common';
+import { dispatch, RXStore } from '@common/redux';
 import { SnackBar } from '@components/snack-bar';
 import { PortalHost } from '@gorhom/portal';
 import { RootNavigation } from '@navigation/root-navigator';
@@ -28,8 +28,6 @@ export const AppContainer = () => {
   const navigationRef = useNavigationContainerRef();
 
   const [appTheme] = useMMKVObject<AppTheme>('APP_THEME', AppStorage);
-
-  console.log({ appTheme });
 
   const { loadingApp } = useSelector(selectAppConfig);
 

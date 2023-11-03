@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { StyleSheet } from 'react-native';
 
-import { API_CONFIG, dispatch, getState } from '@common';
+import { API_CONFIG } from '@common/constant';
+import { dispatch, getState } from '@common/redux';
 import { API_URL } from '@env';
 import { AppState } from '@model/app';
 import { appActions } from '@redux-slice';

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import {
   StatusBar,
   StyleSheet,
@@ -6,11 +6,11 @@ import {
   ViewProps,
 } from 'react-native';
 
-import LinearGradient from 'react-native-linear-gradient';
 import {
   runOnJS,
   useAnimatedProps,
   useAnimatedStyle,
+  useDerivedValue,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
@@ -45,7 +45,8 @@ const wait = (ms: number) => {
 
 export const Login = () => {
   // state
-  const { width, height } = useWindowDimensions();
+
+  const { height } = useWindowDimensions();
 
   const r = useSharedValue(0);
 
@@ -61,8 +62,6 @@ export const Login = () => {
 
   // func
   const updateStatusBar = (prevType: string) => {
-    console.log({ prevType });
-
     StatusBar.setBarStyle(
       prevType !== 'dark' ? 'light-content' : 'dark-content',
     );
@@ -85,9 +84,9 @@ export const Login = () => {
 
     image2.value = overlay2;
 
-    await wait(100);
+    await wait(200);
 
-    r.value = withTiming(height * 1.1, { duration: 1000 }, f => {
+    r.value = withTiming(height * 1.5, { duration: 1000 }, f => {
       if (f) {
         runOnJS(updateStatusBar)(theme.type);
 
@@ -111,17 +110,25 @@ export const Login = () => {
     opacity: opacity.value,
   }));
 
+  const size = useSharedValue({ width: 0, height: 0 });
+
+  const widthCanvas = useDerivedValue(() => size.value.width);
+
+  const heightCanvas = useDerivedValue(() => size.value.height);
+
+  const circleC = useDerivedValue(() => ({
+    x: widthCanvas.value / 2,
+    y: heightCanvas.value,
+  }));
+
   // render
   return (
     <>
       <View ref={rootRef} style={styles.root}>
-        <LinearGradient
-          style={StyleSheet.absoluteFillObject}
-          colors={['rgba(255,255,255,.2)', 'rgba(255,255,255,.1)']}
-        />
         <Screen
           bottomInsetColor="transparent"
           scroll
+          excludeEdges={['bottom']}
           statusBarStyle="dark-content"
           style={{ paddingVertical: 0, paddingHorizontal: 10 }}
           backgroundColor={'transparent'}>
@@ -185,14 +192,20 @@ export const Login = () => {
       <AnimatedView
         style={[StyleSheet.absoluteFillObject, canvasStyle]}
         animatedProps={canvasProps}>
-        <Canvas style={[StyleSheet.absoluteFillObject]}>
-          <Image width={width} height={height} image={image1} />
+        <Canvas onSize={size} style={[StyleSheet.absoluteFillObject]}>
+          <Image
+            x={0}
+            y={0}
+            fit={'cover'}
+            width={widthCanvas}
+            height={heightCanvas}
+            image={image1}
+          />
 
-          <Circle c={{ x: width / 2, y: height }} r={r}>
+          <Circle c={circleC} r={r}>
             <ImageShader
-              key={String.prototype.randomUniqueId()}
-              width={width}
-              height={height}
+              width={widthCanvas}
+              height={heightCanvas}
               image={image2}
               fit={'cover'}
             />

@@ -4,7 +4,6 @@ import { StatusBar, StyleSheet } from 'react-native';
 import { I18nextProvider } from 'react-i18next';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider as RNKeyboardProvider } from 'react-native-keyboard-controller';
-import KeyboardManager from 'react-native-keyboard-manager';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 
@@ -28,29 +27,6 @@ import I18n from '@utils/i18n/i18n';
 //     .sort(([, a], [, b]) => a - b)
 //     .reduce((r, [k, v]) => ({ ...r, [k]: v }), {}),
 // );
-
-KeyboardManager.setEnable(true);
-
-KeyboardManager.setEnableDebugging(false);
-
-KeyboardManager.setKeyboardDistanceFromTextField(10);
-
-KeyboardManager.setLayoutIfNeededOnUpdate(true);
-
-KeyboardManager.setEnableAutoToolbar(false);
-
-KeyboardManager.setOverrideKeyboardAppearance(true);
-
-// "default" | "light" | "dark"
-KeyboardManager.setKeyboardAppearance('default');
-
-KeyboardManager.setShouldResignOnTouchOutside(true);
-
-KeyboardManager.setShouldPlayInputClicks(true);
-
-KeyboardManager.resignFirstResponder();
-
-KeyboardManager.reloadLayoutIfNeeded();
 
 const styles = StyleSheet.create({
   root: {

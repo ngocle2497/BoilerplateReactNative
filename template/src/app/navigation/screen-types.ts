@@ -1,4 +1,4 @@
-import { StackScreenProps as RNStackScreenProps } from '@react-navigation/stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export enum APP_SCREEN {
   UN_AUTHORIZE = 'UN_AUTHORIZE',
@@ -16,4 +16,4 @@ export type RootStackParamList = {
 };
 
 export type StackScreenProps<T extends keyof RootStackParamList> =
-  RNStackScreenProps<RootStackParamList, T>;
+  NativeStackScreenProps<RootStackParamList, T>;

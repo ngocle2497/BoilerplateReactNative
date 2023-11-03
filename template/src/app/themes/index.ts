@@ -16,6 +16,7 @@ const breakpoints = {
   tvLike: 4000,
 } as const;
 
-export const { createStyleSheet, useStyles } = createUnistyles<any, AppTheme>(
-  breakpoints,
-);
+export const { createStyleSheet, useStyles } = createUnistyles<
+  typeof breakpoints,
+  AppTheme
+>(breakpoints);

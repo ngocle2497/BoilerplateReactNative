@@ -6,6 +6,7 @@ before_all do |lane|
   import('HelperFile')
   unless environment.nil?
       puts "Load .env file of #{environment}"
+      load_env_from_json(file: "../" + ENV['ENVFILE'])
       Dotenv.overload "../" + ENV['ENVFILE']
       
       ANDROID_PROJECT_DIR = "android/"

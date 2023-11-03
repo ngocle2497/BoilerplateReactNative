@@ -5,7 +5,7 @@ import {
 
 import { Easing, useSharedValue, withTiming } from 'react-native-reanimated';
 
-import { execFunc, isTypeof } from '@common';
+import { execFunc, isTypeof } from '@common/method';
 import { useEventCallback } from '@hooks';
 
 export type UseThrottleParam = {

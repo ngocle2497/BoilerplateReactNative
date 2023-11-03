@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { SLICE_NAME } from '@common';
+import { SLICE_NAME } from '@common/constant';
 import { AuthenticationState } from '@model/authentication';
 import * as Action from '@redux-action-type/authentication';
 import { createAction, createSlice } from '@reduxjs/toolkit';

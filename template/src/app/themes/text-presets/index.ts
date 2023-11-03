@@ -1,12 +1,10 @@
 import { StyleSheet } from 'react-native';
 
-import { sizeScale } from '@common';
-
-import { TextPresetsType } from './type';
+import { sizeScale } from '@common/scale';
 
 import { FontDefault } from '../typography';
 
-const presets: TextPresetsType = {
+const presets = {
   caption: {
     color: '#000000',
     fontFamily: FontDefault.primary,

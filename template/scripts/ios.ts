@@ -40,10 +40,10 @@ const run = (props: { platform: NodeJS.Platform; envPath: string }) => {
 
   const udid = bootDevice(simulator);
 
-  uninstallOldApp(envJson.BUNDLE_IDENTIFIER);
+  uninstallOldApp(envJson.public.BUNDLE_IDENTIFIER);
 
   execSync(
-    `npx react-native run-ios --scheme ${envJson.WORKSPACE_NAME}-${envJson.SCHEME_SUFFIX} --udid=${udid}`,
+    `npx react-native run-ios --scheme ${envJson.public.WORKSPACE_NAME}-${envJson.public.SCHEME_SUFFIX} --udid=${udid}`,
     { stdio: 'inherit' },
   );
 };
@@ -68,7 +68,7 @@ const pushNotification = ({
   const deviceId = bootDevice(simulator);
 
   execSync(
-    `xcrun simctl push ${deviceId} ${envJson.BUNDLE_IDENTIFIER} notification-ios-config.apns`,
+    `xcrun simctl push ${deviceId} ${envJson.public.BUNDLE_IDENTIFIER} notification-ios-config.apns`,
     { stdio: 'inherit' },
   );
 };

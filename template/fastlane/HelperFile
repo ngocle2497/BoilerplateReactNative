@@ -76,3 +76,18 @@ lane :notify_testers do |params|
      UI.message(response.message)
    end
 end
+
+lane :load_env_from_json do |params|
+  # Load environment variables from the JSON file
+  env_file = 'env_variables.json'
+  json_data = JSON.parse(File.read(params[:file]))
+
+  # Set the environment variables
+  json_data.each do |key, value|
+    json_data.each do |scope, values|
+      values.each do |key, value|
+        ENV["#{key}"] = value
+      end
+    end
+  end
+end

@@ -1,0 +1,17 @@
+diff --git a/node_modules/react-redux/lib/hooks/useSelector.js b/node_modules/react-redux/lib/hooks/useSelector.js
+index 9470e86..274faf7 100644
+--- a/node_modules/react-redux/lib/hooks/useSelector.js
++++ b/node_modules/react-redux/lib/hooks/useSelector.js
+@@ -109,9 +109,9 @@ function createSelectorHook(context = _Context.ReactReduxContext) {
+                 } = e);
+               }
+ 
+-              console.warn('Selector ' + (selector.name || 'unknown') + ' returned the root state when called. This can lead to unnecessary rerenders.' + '\nSelectors that return the entire state are almost certainly a mistake, as they will cause a rerender whenever *anything* in state changes.', {
+-                stack
+-              });
++              // console.warn('Selector ' + (selector.name || 'unknown') + ' returned the root state when called. This can lead to unnecessary rerenders.' + '\nSelectors that return the entire state are almost certainly a mistake, as they will cause a rerender whenever *anything* in state changes.', {
++              //   stack
++              // });
+             }
+           }
+ 

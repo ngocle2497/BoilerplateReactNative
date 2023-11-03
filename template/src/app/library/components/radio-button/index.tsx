@@ -4,7 +4,7 @@ import { TouchableWithoutFeedback } from 'react-native';
 import { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 
 import { useSharedTransition } from '@animated';
-import { execFunc, isTypeof } from '@common';
+import { execFunc, isTypeof } from '@common/method';
 import { AnimatedView } from '@rn-core';
 import { useStyles } from '@theme';
 

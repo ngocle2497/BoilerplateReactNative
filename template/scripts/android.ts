@@ -15,11 +15,11 @@ const run = (props: {
   // uninstall android app with adb
   const devicesString = execSync('adb devices').toString().trim();
 
-  const variant = envJson.FLAVOR + props.buildType;
+  const variant = envJson.public.FLAVOR + props.buildType;
 
   if (devicesString.split('\n').length > 1) {
     try {
-      execSync(`adb uninstall ${envJson.BUNDLE_IDENTIFIER}`);
+      execSync(`adb uninstall ${envJson.public.BUNDLE_IDENTIFIER}`);
     } catch {
       console.log('Old App not found');
     }
@@ -27,12 +27,12 @@ const run = (props: {
 
   if (props.platform === 'darwin') {
     execSync(
-      `npx react-native run-android --mode=${variant} --appId=${envJson.BUNDLE_IDENTIFIER}`,
+      `npx react-native run-android --mode=${variant} --appId=${envJson.public.BUNDLE_IDENTIFIER}`,
       { stdio: 'inherit' },
     );
   } else if (props.platform === 'win32') {
     execSync(
-      `npx react-native run-android --mode=${variant} --appId=${envJson.BUNDLE_IDENTIFIER}`,
+      `npx react-native run-android --mode=${variant} --appId=${envJson.public.BUNDLE_IDENTIFIER}`,
       { stdio: 'inherit', shell: 'cmd.exe' },
     );
   }
@@ -71,9 +71,9 @@ const getHash = () => {
 
     execSync(
       getHashCommand({
-        keyStorePath: `release-keystore/${envJson.ANDROID_KEY_STORE_FILE}`,
-        keyStorePass: envJson.ANDROID_KEY_STORE_KEY_PASSWORD,
-        alias: envJson.ANDROID_KEY_STORE_KEY_ALIAS,
+        keyStorePath: `release-keystore/${envJson.public.ANDROID_KEY_STORE_FILE}`,
+        keyStorePass: envJson.public.ANDROID_KEY_STORE_KEY_PASSWORD,
+        alias: envJson.public.ANDROID_KEY_STORE_KEY_ALIAS,
       }),
       { stdio: 'inherit' },
     );

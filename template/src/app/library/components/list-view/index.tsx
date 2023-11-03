@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, RefreshControl } from 'react-native';
 
-import { execFunc } from '@common';
+import { execFunc } from '@common/method';
 import { FlashList } from '@shopify/flash-list';
 
 import { ListViewProps } from './type';

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { sizeScale } from '@common';
+import { sizeScale } from '@common/scale';
 
 export const styles = StyleSheet.create({
   container: {

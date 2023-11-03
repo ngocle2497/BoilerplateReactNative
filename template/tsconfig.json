@@ -14,7 +14,7 @@
     "paths": {
       "@env": ["./env-config.ts"],
       "@assets/*": ["./src/app/assets/*"],
-      "@common": ["./src/app/common/index"],
+      "@common/*": ["./src/app/common/*"],
       "@app-emitter": ["./src/app/common/emitter/index"],
       "@app-firebase": ["./src/app/common/firebase/index"],
       "@hooks": ["./src/app/common/hooks/index"],

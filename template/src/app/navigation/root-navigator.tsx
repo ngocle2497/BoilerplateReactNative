@@ -4,15 +4,12 @@ import BootSplash from 'react-native-bootsplash';
 import { useSelector } from 'react-redux';
 
 import { APP_SCREEN, RootStackParamList } from '@navigation/screen-types';
-import {
-  createStackNavigator,
-  TransitionPresets,
-} from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { selectAppToken } from '@redux-selector/app';
 import { Home } from '@screens/authentication/home';
 import { Login } from '@screens/un-authentication/login';
 
-const RootStack = createStackNavigator<RootStackParamList>();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootNavigation = () => {
   // state
@@ -29,12 +26,16 @@ export const RootNavigation = () => {
 
   // render
   return (
-    <RootStack.Navigator screenOptions={{ headerShown: false }}>
+    <RootStack.Navigator
+      screenOptions={{
+        headerShown: false,
+        statusBarTranslucent: true,
+        navigationBarColor: 'transparent',
+      }}>
       {token === undefined ? (
         <RootStack.Group
           screenOptions={{
             freezeOnBlur: true,
-            ...TransitionPresets.SlideFromRightIOS,
           }}>
           <RootStack.Screen name={APP_SCREEN.LOGIN} component={Login} />
         </RootStack.Group>

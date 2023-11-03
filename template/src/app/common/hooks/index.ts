@@ -24,7 +24,7 @@ import {
   useTranslation as useRNTranslation,
 } from 'react-i18next';
 
-import { isTypeof } from '@common';
+import { isTypeof } from '@common/method';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { I18nKeys } from '@utils/i18n/locales';
 import { StringMap, TFunctionResult, TOptions } from 'i18next';

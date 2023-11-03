@@ -1,4 +1,4 @@
-import { MMKV_KEY } from '@common';
+import { MMKV_KEY } from '@common/constant';
 import { takeLatestListeners } from '@listener';
 import { loadString } from '@utils/storage';
 

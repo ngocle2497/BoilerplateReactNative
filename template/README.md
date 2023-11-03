@@ -101,12 +101,12 @@ Ex: New Environment named: Demo
 
 - ## Setup Android/IOS
 
->## This project use [react-native-config](https://github.com/luggit/react-native-config) to switch env
+>## This project use [react-native-keys](https://github.com/numandev1/react-native-keys) to switch env
 
 - ### Android
 
   - Add new flavor `productFlavors` section in `android/app/build.gradle`
-  - Add env path to `project.ext.envConfigFiles` section in `android/app/build.gradle`.
+  - Add env path to `project.ext.keyFiles` section in `android/app/build.gradle`.
   - Gen new `google-services.json` from Firebase then copy to `android/app/src/<flavor_name>`. ex: `android/app/src/demo/google-services.json`.
   - If `android/app/src/<flavor_name>` not exits, create new folder for it
 
@@ -125,11 +125,15 @@ Ex: New Environment named: Demo
   - Complete script like:
 
     ```
+        # Type a script or drag a script file from your workspace to insert its path.
         rm "${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}"
-        ENV_PATH="env/.dev"
+        ENV_PATH="env/dev.json"
+        export KEYSFILE=$ENV_PATH
+
+        "${SRCROOT}/../node_modules/react-native-keys/keysIOS.js"
+
         cd "${SRCROOT}/.."
         /bin/sh -c "./scripts/prepare.sh $ENV_PATH"
-        echo $ENV_PATH > /tmp/envfile
       ```
 
 ## Caution

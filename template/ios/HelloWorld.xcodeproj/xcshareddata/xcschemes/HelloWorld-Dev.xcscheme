@@ -10,23 +10,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Prepare"
-               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;rm &quot;${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}&quot;&#10;ENV_PATH=&quot;env/.dev&quot;&#10;cd &quot;${SRCROOT}/..&quot;&#10;/bin/sh -c &quot;./scripts/prepare.sh $ENV_PATH&quot; &#10;echo $ENV_PATH &gt; /tmp/envfile&#10;">
-               <EnvironmentBuildable>
-                  <BuildableReference
-                     BuildableIdentifier = "primary"
-                     BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-                     BuildableName = "HelloWorld.app"
-                     BlueprintName = "HelloWorld"
-                     ReferencedContainer = "container:HelloWorld.xcodeproj">
-                  </BuildableReference>
-               </EnvironmentBuildable>
-            </ActionContent>
-         </ExecutionAction>
-         <ExecutionAction
-            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
-            <ActionContent
-               title = "Run Script"
-               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;&quot;${SRCROOT}/../node_modules/react-native-config/ios/ReactNativeConfig/BuildXCConfig.rb&quot; &quot;${SRCROOT}/..&quot; &quot;${SRCROOT}/tmp.xcconfig&quot;&#10;&#10;">
+               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;rm &quot;${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}&quot;&#10;ENV_PATH=&quot;env/dev.json&quot;&#10;export KEYSFILE=$ENV_PATH&#10;&#10;&quot;${SRCROOT}/../node_modules/react-native-keys/keysIOS.js&quot;&#10;&#10;cd &quot;${SRCROOT}/..&quot;&#10;/bin/sh -c &quot;./scripts/prepare.sh $ENV_PATH&quot;&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"

@@ -6,7 +6,6 @@ buildscript {
         minSdkVersion = 26
         compileSdkVersion = 33
         targetSdkVersion = 33
-        defaultEnvFile = file('env/.dev').absolutePath.replace("/android", "")
         // We use NDK 23 which has both M1 support and is the side-by-side NDK version from AGP.
         ndkVersion = "23.1.7779620"
     }

@@ -1,18 +1,13 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
-project.ext.envConfigFiles = [
-// There are 2 files on each environment, one for debug and one for release
-// devdebug = dev(flavor name) + Debug(buildType)
-// devrelease = dev(flavor name) + Release(buildType)
-// Don't use devDebug. must be devdebug(lowercase)
+project.ext.keyFiles = [
+        // Default key file when clean project
+        debug  : 'env/dev.json',
 
-        devdebug   : 'env/.dev',
-        devrelease : 'env/.dev',
-
-        proddebug  : 'env/.prod',
-        prodrelease: 'env/.prod',
+        // dev = flavor name
+        dev    : 'env/dev.json'
 ]
-apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+apply from: project(':react-native-keys').projectDir.getPath() + "/RNKeys.gradle"
 
 /**
  * This is the configuration block to customize your React Native Android app.
@@ -90,20 +85,17 @@ android {
     // Multiple Google-service.json: Add file .json to folder Flavor
     productFlavors {
         dev {
-           
-        }
 
-        prod {
         }
     }
     namespace "com.helloworld"
     defaultConfig {
         resValue "string", "build_config_package", "com.helloworld"
-        applicationId project.env.get("BUNDLE_IDENTIFIER")
+        applicationId project.keys.get("BUNDLE_IDENTIFIER")
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode project.env.get("VERSION_CODE").toInteger()
-        versionName project.env.get("VERSION_NAME")
+        versionCode project.keys.get("VERSION_CODE").toInteger()
+        versionName project.keys.get("VERSION_NAME")
     }
     signingConfigs {
         debug {
@@ -134,11 +126,9 @@ dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
 
-    implementation("androidx.core:core-splashscreen:1.0.0")
-
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.squareup.okhttp3', module:'okhttp'
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     }
 
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}")
@@ -151,10 +141,9 @@ dependencies {
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 
-task prepare() { 
-    def flavor = project.env.get("FLAVOR")
-    def buildType = gradle.startParameter.taskNames.any{it.toLowerCase().contains("debug")}?"debug":"release"
-    def envPath = project.ext.envConfigFiles.find({it.key == "$flavor$buildType"})?.value
+task prepare() {
+    def flavor = project.keys.get("FLAVOR")
+    def envPath = project.ext.keyFiles.find({ it.key == "$flavor" })?.value
     exec {
         workingDir = "$rootProject.projectDir".replace("/android", "")
         args = ['./scripts/prepare.sh', envPath]

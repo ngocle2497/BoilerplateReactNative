@@ -53,6 +53,7 @@ android/**/*.keystore
 .base.env
 env.d.ts
 env-config.ts
+Gemfile.lock
 
 # node.js
 

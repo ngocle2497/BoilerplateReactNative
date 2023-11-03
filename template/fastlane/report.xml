@@ -5,7 +5,22 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: increment_version_code" time="0.002234">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000913">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: Switch to android load_env_from_json lane" time="0.000529">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: Switch to android copy_keystore lane" time="0.000323">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: bundledevRelease" time="5.112693">
         
       </testcase>
     
