@@ -33,11 +33,11 @@
 
 ## Base config (Now u can config on env)
 
-- Change App name ``` APP_DISPLAY_NAME ``` on ``` env/(.dev/.prod) ```
-- Change App id ``` BUNDLE_IDENTIFIER ``` on ``` env/(.dev/.prod) ```
-- Change App version ``` VERSION_NAME ``` on ``` env/(.dev/.prod) ```
-- Change App build number ``` VERSION_CODE ``` on ``` env/(.dev/.prod) ```
-- Change App URL ``` API_URL ``` on ``` env/(.dev/.prod) ```
+- Change App name ``` APP_DISPLAY_NAME ``` on ``` env/(dev.json/.prod) ```
+- Change App id ``` BUNDLE_IDENTIFIER ``` on ``` env/(dev.json/.prod) ```
+- Change App version ``` VERSION_NAME ``` on ``` env/(dev.json/.prod) ```
+- Change App build number ``` VERSION_CODE ``` on ``` env/(dev.json/.prod) ```
+- Change App URL ``` API_URL ``` on ``` env/(dev.json/.prod) ```
 
 ### Gen app icon and Change app icon by env
 
@@ -57,13 +57,13 @@ Ex: New Environment named: Demo
 - ## Setup env
 
   - Create new env file in env folder (.demo)
-  - Copy all value from `.dev` to new env file
+  - Copy all value from `dev.json` to new env file
   - Update value in new env file
 
 - ## Setup fastlane
 
   - Create new env file with name syntax: .env.<env_name> (.env.demo)
-  - Copy app value from `.env.dev` to new env file
+  - Copy app value from `.envdev.json` to new env file
   - Update value in new env file
   - Get new apple and gooogle api file then copy to `api-key` folder. ex:
     - `api-key/apple/demo.p8`
@@ -121,7 +121,7 @@ Ex: New Environment named: Demo
   - Check `Shared` checkbox on the dialog
   - Select `Pre-actions`
   - On the first script, change env to load when xcode build. ex:
-    - `ENV_PATH="env/.dev"` to `ENV_PATH="env/.demo"`
+    - `ENV_PATH="env/dev.json"` to `ENV_PATH="env/.demo"`
   - Complete script like:
 
     ```

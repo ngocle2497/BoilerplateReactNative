@@ -12,13 +12,13 @@
     "type:check": "yarn tsc --noEmit --skipLibCheck",
     "app-icon": "npx rn-ml appicon -s appicon/appicon.png",
     "app-icon:dev": "npx rn-ml appicon -s appicon/appicon-dev.png -f dev -icn AppIcon-Dev",
-    "ios:notification:dev": "npx ts-node ./scripts/ios.ts push-notification env/.dev ",
+    "ios:notification:dev": "npx ts-node ./scripts/ios.ts push-notification env/dev.json ",
     "android:report": "npx ts-node scripts/android.ts report",
     "android:hash": "npx ts-node scripts/android.ts hash",
     "android:gen-key": "npx ts-node scripts/android.ts keystore",
-    "ios:dev": "npx ts-node scripts/ios.ts run env/.dev",
-    "android:dev": "npx ts-node scripts/android.ts run env/.dev Debug",
-    "android:release": "npx ts-node scripts/android.ts run env/.dev Release"
+    "ios:dev": "npx ts-node scripts/ios.ts run env/dev.json",
+    "android:dev": "npx ts-node scripts/android.ts run env/dev.json Debug",
+    "android:release": "npx ts-node scripts/android.ts run env/dev.json Release"
   },
   "dependencies": {
     "@gorhom/portal": "^1.0.14",

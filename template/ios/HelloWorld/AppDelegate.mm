@@ -1,6 +1,6 @@
 #import "AppDelegate.h"
 #import "RNBootSplash.h"
-#import "RNCConfig.h"
+#import "Keys.h"
 #import <React/RCTBundleURLProvider.h>
 
 @implementation AppDelegate
@@ -37,7 +37,7 @@
   UIView *rootView = [super createRootViewWithBridge:bridge
                                           moduleName:moduleName
                                            initProps:initProps];
-  NSString *bootsplash = [RNCConfig envFor:@"SPLASH_STORYBOARD_NAME"];
+  NSString *bootsplash = [Keys publicFor:@"SPLASH_STORYBOARD_NAME"];
   [RNBootSplash initWithStoryboard:bootsplash rootView:rootView]; // ⬅️ initialize the splash screen
 
   return rootView;
