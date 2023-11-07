@@ -47,7 +47,7 @@ const getHashCommand = ({
   keyStorePass: string;
   alias: string;
 }) => {
-  return `keytool -exportcert -alias ${alias} -keystore android/app/${keyStorePath} -storepass ${keyStorePass} | openssl sha1 -binary | openssl base64`;
+  return `keytool -exportcert -alias ${alias} -keystore ${keyStorePath} -storepass ${keyStorePass} | openssl sha1 -binary | openssl base64`;
 };
 
 const getHash = () => {
@@ -55,7 +55,7 @@ const getHash = () => {
 
   execSync(
     getHashCommand({
-      keyStorePath: 'debug.keystore',
+      keyStorePath: 'android/app/debug.keystore',
       keyStorePass: 'android',
       alias: 'androiddebugkey',
     }),
@@ -71,7 +71,7 @@ const getHash = () => {
 
     execSync(
       getHashCommand({
-        keyStorePath: `release-keystore/${envJson.public.ANDROID_KEY_STORE_FILE}`,
+        keyStorePath: `fastlane/release-keystore/${envJson.public.ANDROID_KEY_STORE_FILE}`,
         keyStorePass: envJson.public.ANDROID_KEY_STORE_KEY_PASSWORD,
         alias: envJson.public.ANDROID_KEY_STORE_KEY_ALIAS,
       }),
@@ -82,8 +82,35 @@ const getHash = () => {
   });
 };
 
+const getReportCommand = ({
+  alias,
+  keyStorePass,
+  keyStorePath,
+}: {
+  keyStorePath: string;
+  keyStorePass: string;
+  alias: string;
+}) => {
+  return `keytool -list -v -keystore ${keyStorePath} -alias ${alias} -storepass ${keyStorePass} -keypass ${keyStorePass}`;
+};
+
 const signingReport = () => {
+  console.log('🔑🔑🔑🔑🔑🔑🔑 Signing report for debug🔑🔑🔑🔑🔑🔑🔑');
+
+  execSync(
+    getReportCommand({
+      alias: 'androiddebugkey',
+      keyStorePath: 'android/app/debug.keystore',
+      keyStorePass: 'android',
+    }),
+    {
+      stdio: 'inherit',
+    },
+  );
+
   readdirSync('env').forEach(r => {
+    const envJson = getEnvJsonFromPath(join('env', r));
+
     console.log(
       '🔑🔑🔑🔑🔑🔑🔑 Signing report for env => ',
       r,
@@ -91,8 +118,14 @@ const signingReport = () => {
     );
 
     execSync(
-      `cd android && ./gradlew :app:signingReport -PdefaultEnvFile=env/${r}`,
-      { stdio: 'inherit' },
+      getReportCommand({
+        alias: `${envJson.public.ANDROID_KEY_STORE_KEY_ALIAS}`,
+        keyStorePath: `fastlane/release-keystore/${envJson.public.ANDROID_KEY_STORE_FILE}`,
+        keyStorePass: `${envJson.public.ANDROID_KEY_STORE_KEY_PASSWORD}`,
+      }),
+      {
+        stdio: 'inherit',
+      },
     );
 
     console.log('');
