@@ -1,7 +1,8 @@
 import React from 'react';
+import { ScrollViewProps } from 'react-native';
 
-import Animated, { AnimatedProps } from 'react-native-reanimated';
+import { AnimatedProps } from 'react-native-reanimated';
 
-export interface StackViewProps extends AnimatedProps<Animated.ScrollView> {
+export interface StackViewProps extends AnimatedProps<ScrollViewProps> {
   children?: React.ReactNode;
 }

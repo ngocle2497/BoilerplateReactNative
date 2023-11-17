@@ -6,7 +6,7 @@ export type ParsedText = { children: string; _matched?: boolean };
 
 export type ParsedTexts = Array<ParsedText>;
 
-export type CustomTextProps = TextProps;
+export type CustomTextProps = ReOmit<TextProps, 'onPress' | 'onLongPress'>;
 
 export type MatchedPart = TextProps & {
   _matched: boolean;

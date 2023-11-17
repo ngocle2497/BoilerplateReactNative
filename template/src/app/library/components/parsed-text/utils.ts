@@ -38,7 +38,9 @@ export const textExtraction = (
 
         parts.push({ children: previousText });
 
-        parts.push(getMatchedPart(pattern, matches, indexOfMatchedString));
+        parts.push(
+          getMatchedPart(pattern, matches[0], matches, indexOfMatchedString),
+        );
 
         textLeft = textLeft.substring(matches.index + matches[0].length);
 
@@ -60,9 +62,11 @@ export const textExtraction = (
   return parsedTexts.filter(t => !!t.children);
 };
 
+// eslint-disable-next-line max-params
 function getMatchedPart(
   pattern: Record<string, unknown>,
   text: string,
+  _match: Array<string>,
   index: number,
 ): MatchedPart & { children: string } {
   const props: MatchedPart = {} as MatchedPart;
