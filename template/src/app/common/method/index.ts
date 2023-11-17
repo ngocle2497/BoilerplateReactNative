@@ -1,5 +1,8 @@
+/* eslint-disable no-bitwise */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Alert, Platform } from 'react-native';
+import { Alert, ColorValue, Linking, Platform } from 'react-native';
+
+import { processColor } from 'react-native-reanimated';
 
 import { appActions } from '@redux-slice';
 import { remove } from '@storage';
@@ -80,4 +83,30 @@ export const handleErrorApi = (status: number) => {
   result.msg = translate(('error:' + status) as I18nKeys);
 
   return result;
+};
+
+export const openLinking = (url: string) => {
+  Linking.canOpenURL(url).then(supported => {
+    if (supported) {
+      Linking.openURL(url);
+    }
+  });
+};
+
+export const setAlpha = (color: ColorValue, alpha = 1) => {
+  'worklet';
+  let num = typeof color === 'number' ? color : processColor(color);
+
+  if (typeof num !== 'number') {
+    return color;
+  }
+
+  num >>>= 0;
+
+  const b = num & 0xff,
+    g = (num & 0xff00) >>> 8,
+    r = (num & 0xff0000) >>> 16;
+  // a = ((num & 0xff000000) >>> 24) / 255;
+
+  return 'rgba(' + [r, g, b, alpha].join(',') + ')';
 };
