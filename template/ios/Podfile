@@ -37,6 +37,9 @@ target 'HelloWorld' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+  # Fix for Undefined symbols for architecture arm64:
+  #  "_BIO_f_base64", referenced from
+  pod 'OpenSSL-Universal', :modular_headers => true, :configurations => ['Release']
 
   # If u want to enable use_frameworks for one or more library.
   # unconment below and dynamic_frameworks (Line 5)
