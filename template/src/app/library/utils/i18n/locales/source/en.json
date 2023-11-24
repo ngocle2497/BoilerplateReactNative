@@ -31,6 +31,20 @@
     "error_on_handle": "An error occurred while processing data",
     "server_error": "Server Error"
   },
+  "date": {
+    "just_now": "Just now",
+    "minute_ago": "{{count}} minute ago",
+    "minutes_ago": "{{count}} minutes ago",
+    "hour_ago": "{{count}} hour ago",
+    "hours_ago": "{{count}} hours ago",
+    "yesterday": "Yesterday",
+    "days_ago": "{{count}} days ago",
+    "last_week": "Last week",
+    "last_month": "Last month",
+    "months_ago": "{{count}} months ago",
+    "last_year": "Last year",
+    "years_ago": "{{count}} years ago"
+  },
   "dialog": {
     "error": "Error",
     "cancel": "Cancel",

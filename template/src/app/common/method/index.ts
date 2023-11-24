@@ -110,3 +110,90 @@ export const setAlpha = (color: ColorValue, alpha = 1) => {
 
   return 'rgba(' + [r, g, b, alpha].join(',') + ')';
 };
+
+
+export const timeAgo = (
+  date: Date,
+): {
+  title: I18nKeys;
+  options?: { count: number };
+} => {
+  const diff = (new Date().getTime() - date.getTime()) / 1000,
+    day_diff = Math.floor(diff / 86400);
+
+  if (isNaN(day_diff) || day_diff < 0 || day_diff >= 31) {
+    return {
+      title: 'date:just_now',
+    };
+  }
+
+  if (day_diff === 0 && diff < 60) {
+    return {
+      title: 'date:just_now',
+    };
+  }
+
+  if (day_diff === 0 && diff < 120) {
+    return {
+      title: 'date:minute_ago',
+      options: { count: 1 },
+    };
+  }
+
+  if (day_diff === 0 && diff < 3600) {
+    return {
+      title: 'date:minutes_ago',
+      options: { count: Math.floor(diff / 60) },
+    };
+  }
+
+  if (day_diff === 0 && diff < 7200) {
+    return {
+      title: 'date:hour_ago',
+      options: { count: 1 },
+    };
+  }
+
+  if (day_diff === 0 && diff < 86400) {
+    return {
+      title: 'date:hours_ago',
+      options: { count: Math.floor(diff / 3600) },
+    };
+  }
+
+  if (day_diff === 1) {
+    return {
+      title: 'date:yesterday',
+    };
+  }
+
+  if (day_diff < 7) {
+    return {
+      title: 'date:last_week',
+    };
+  }
+
+  if (day_diff < 31) {
+    return {
+      title: 'date:last_month',
+    };
+  }
+
+  if (day_diff < 365) {
+    return {
+      title: 'date:months_ago',
+      options: { count: Math.ceil(day_diff / 30) },
+    };
+  }
+
+  if (day_diff === 365) {
+    return {
+      title: 'date:last_year',
+    };
+  }
+
+  return {
+    title: 'date:years_ago',
+    options: { count: Math.floor(day_diff / 365) },
+  };
+};
