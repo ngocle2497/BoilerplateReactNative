@@ -1,7 +1,11 @@
-import { StyleProp, ViewStyle } from 'react-native';
+import {
+  ImageResizeMode,
+  ImageStyle,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 
 import { ImageTypes } from '@assets/image';
-import { ImageContentFit, ImageStyle } from 'expo-image';
 
 export interface LocalImageProps {
   /**
@@ -26,5 +30,5 @@ export interface LocalImageProps {
    * Custom resizeMode
    * @default contain
    */
-  resizeMode?: ImageContentFit;
+  resizeMode?: ImageResizeMode;
 }

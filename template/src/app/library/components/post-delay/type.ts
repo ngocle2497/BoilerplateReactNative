@@ -1,6 +1,5 @@
-import { ReactElement } from 'react';
+import { PropsWithChildren } from 'react';
 
-export interface PostDelayProps {
-  children: ReactElement | ReactElement[];
+export type PostDelayProps = {
   durationMs?: number;
-}
+} & PropsWithChildren;

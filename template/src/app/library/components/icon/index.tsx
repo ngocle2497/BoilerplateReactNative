@@ -1,10 +1,10 @@
 import React, { forwardRef, useMemo } from 'react';
+import { Image, ImageProps, ImageStyle } from 'react-native';
 
 import Animated, { AnimatedProps } from 'react-native-reanimated';
 
 import { icons } from '@assets/icon';
 import { useStyles } from '@theme';
-import { Image, ImageProps, ImageStyle } from 'expo-image';
 
 import { IconProps } from './type';
 
@@ -16,8 +16,8 @@ export const Icon = ({
   icon,
   colorTheme,
   size = SIZE,
-  contentFit = 'contain',
-}: IconProps & Pick<ImageProps, 'contentFit'>) => {
+  resizeMode = 'contain',
+}: IconProps & Pick<ImageProps, 'resizeMode'>) => {
   // state
   const { theme } = useStyles();
 
@@ -36,7 +36,7 @@ export const Icon = ({
           ? (theme.color[colorTheme] as string)
           : undefined
       }
-      contentFit={contentFit}
+      resizeMode={resizeMode}
       source={icons[icon]}
     />
   );
@@ -51,9 +51,9 @@ export const AnimatedIcon = forwardRef<
       icon,
       colorTheme,
       size = SIZE,
-      contentFit = 'contain',
+      resizeMode = 'contain',
       ...rest
-    }: AnimatedProps<ImageProps> & IconProps,
+    }: Partial<AnimatedProps<ImageProps>> & IconProps,
     ref,
   ) => {
     // state
@@ -75,7 +75,7 @@ export const AnimatedIcon = forwardRef<
             ? (theme.color[colorTheme] as string)
             : undefined
         }
-        contentFit={contentFit}
+        resizeMode={resizeMode}
         source={icons[icon]}
         {...rest}
       />

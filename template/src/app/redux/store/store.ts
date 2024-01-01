@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { configureStore } from '@reduxjs/toolkit';
 import { allReducer } from '@store/all-reducers';
-import reduxDebugger from 'redux-flipper';
 
 import { listenerMiddleware } from '../listener';
 
@@ -18,10 +17,6 @@ import { listenerMiddleware } from '../listener';
 const devMode = __DEV__;
 
 const middleware = [] as any[];
-
-if (devMode) {
-  middleware.push(reduxDebugger());
-}
 
 export const store = configureStore({
   reducer: allReducer,
