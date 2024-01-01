@@ -1,7 +1,7 @@
 {
   "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "CommonJS",
     "baseUrl": ".",
     "paths": {
       "@env": ["./env-config.ts"],
@@ -30,8 +30,8 @@
       "@theme/*": ["./src/app/themes/*"],
       "*": ["declare/*", "*"]
     },
-    "typeRoots": ["declare", "./node_modules/@types"],
-    "skipLibCheck": false
+    "types": ["jest", "node"],
+    "typeRoots": ["declare", "./node_modules/@types"]
   },
   "exclude": ["scripts"]
 }

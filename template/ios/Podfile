@@ -6,11 +6,14 @@ require Pod::Executable.execute_command('node', ['-p',
     {paths: [process.argv[1]]},
   )', __dir__]).strip
 
-platform :ios, '13'
+platform :ios, '13.4'
 install! 'cocoapods', :deterministic_uuids => false
 flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled(["Debug"], {'Flipper' => '0.163.0'})
-
-# dynamic_frameworks = ['libWantToUseUserFramework']
+linkage = ENV['USE_FRAMEWORKS']
+if linkage != nil
+  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+  use_frameworks! :linkage => linkage.to_sym
+end
 target 'HelloWorld' do
   use_expo_modules!
   post_integrate do |installer|
@@ -21,14 +24,9 @@ target 'HelloWorld' do
     end
   end
   config = use_native_modules!
-  # Flags change depending on the env values.
-  flags = get_default_flags()
 
   use_react_native!(
     :path => config[:reactNativePath],
-    # Hermes is now enabled by default. Disable by setting this flag to false.
-    :hermes_enabled => true,
-    :fabric_enabled => flags[:fabric_enabled],
     # Enables Flipper.
     #
     # Note that if you have use_frameworks! enabled, Flipper will not work and
@@ -41,22 +39,6 @@ target 'HelloWorld' do
   #  "_BIO_f_base64", referenced from
   pod 'OpenSSL-Universal', :modular_headers => true, :configurations => ['Release']
 
-  # If u want to enable use_frameworks for one or more library.
-  # unconment below and dynamic_frameworks (Line 5)
-  # pre_install do |installer|
-  #   installer.pod_targets.each do |pod|
-  #     if dynamic_frameworks.include?(pod.name)
-  #       puts "Overriding the dynamic_framework? method for #{pod.name}"
-  #       def pod.dynamic_framework?;
-  #         true
-  #       end
-  #       def pod.build_type;
-  #         Pod::BuildType.dynamic_framework
-  #       end
-  #     end
-  #   end
-  # end
-  
   post_install do |installer|
     # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
     react_native_post_install(
@@ -77,6 +59,5 @@ target 'HelloWorld' do
     #   config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = "arm64"
     #   end
     # end
-    __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
 end
