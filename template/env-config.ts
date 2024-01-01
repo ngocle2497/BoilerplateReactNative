@@ -4,7 +4,7 @@
 
 import Keys from 'react-native-keys';
 
-export const APP_BUILD_VERSION = '1.0.0.2023.11.04.00.13';
+export const APP_BUILD_VERSION = '1.0.0.2024.01.01.23.13';
 
 export const { DEFAULT_FALLBACK_LNG_I18n } = Keys;
 

@@ -9,8 +9,13 @@
   "files": [
     "template",
     "template.config.js",
-    "!template/node_modules",
-    "!node_modules",
+    "!template/node_modules/",
+    "!template/ios/Pods/",
+    "!template/android/build/",
+    "!template/android/app/build/",
+    "!template/android/.idea/",
+    "!template/android/.gradle/",
+    "!node_modules/",
     "!template/yarn.lock"
   ],
   "repository": {
