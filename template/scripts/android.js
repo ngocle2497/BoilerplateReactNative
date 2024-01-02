@@ -1,21 +1,21 @@
-import { execSync } from 'child_process';
-import { existsSync, readdirSync } from 'fs';
-import { join } from 'path';
-import { createInterface } from 'readline';
+/* eslint-disable import/order */
+/* eslint-disable padding-line-between-statements */
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { execSync } = require('child_process');
+const { existsSync, readdirSync } = require('fs');
+const { join } = require('path');
 
-import { getEnvJsonFromPath } from './common';
+const { createInterface } = require('readline');
 
-const run = (props: {
-  platform: NodeJS.Platform;
-  buildType: string;
-  envPath: string;
-}) => {
-  const envJson = getEnvJsonFromPath(props.envPath);
+const { getEnvJsonFromPath } = require('./common');
+
+const run = ({ platform, buildType, envPath }) => {
+  const envJson = getEnvJsonFromPath(envPath);
 
   // uninstall android app with adb
   const devicesString = execSync('adb devices').toString().trim();
 
-  const variant = envJson.public.FLAVOR + props.buildType;
+  const variant = envJson.public.FLAVOR + buildType;
 
   if (devicesString.split('\n').length > 1) {
     try {
@@ -25,12 +25,12 @@ const run = (props: {
     }
   }
 
-  if (props.platform === 'darwin') {
+  if (platform === 'darwin') {
     execSync(
       `npx react-native run-android --mode=${variant} --appId=${envJson.public.BUNDLE_IDENTIFIER}`,
       { stdio: 'inherit' },
     );
-  } else if (props.platform === 'win32') {
+  } else if (platform === 'win32') {
     execSync(
       `npx react-native run-android --mode=${variant} --appId=${envJson.public.BUNDLE_IDENTIFIER}`,
       { stdio: 'inherit', shell: 'cmd.exe' },
@@ -38,15 +38,7 @@ const run = (props: {
   }
 };
 
-const getHashCommand = ({
-  keyStorePath,
-  keyStorePass,
-  alias,
-}: {
-  keyStorePath: string;
-  keyStorePass: string;
-  alias: string;
-}) => {
+const getHashCommand = ({ keyStorePath, keyStorePass, alias }) => {
   return `keytool -exportcert -alias ${alias} -keystore ${keyStorePath} -storepass ${keyStorePass} | openssl sha1 -binary | openssl base64`;
 };
 
@@ -82,15 +74,7 @@ const getHash = () => {
   });
 };
 
-const getReportCommand = ({
-  alias,
-  keyStorePass,
-  keyStorePath,
-}: {
-  keyStorePath: string;
-  keyStorePass: string;
-  alias: string;
-}) => {
+const getReportCommand = ({ alias, keyStorePass, keyStorePath }) => {
   return `keytool -list -v -keystore ${keyStorePath} -alias ${alias} -storepass ${keyStorePass} -keypass ${keyStorePass}`;
 };
 
@@ -137,7 +121,7 @@ const rl = createInterface({
   output: process.stdout,
 });
 
-const prompt = (query: string) =>
+const prompt = query =>
   new Promise(resolve => {
     rl.question(query, resolve);
   });
@@ -194,5 +178,3 @@ const genKeyStore = async () => {
       break;
   }
 })();
-
-export {};

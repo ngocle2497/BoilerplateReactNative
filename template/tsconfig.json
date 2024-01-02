@@ -1,7 +1,6 @@
 {
   "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
-    "module": "CommonJS",
     "baseUrl": ".",
     "paths": {
       "@env": ["./env-config.ts"],
@@ -32,6 +31,5 @@
     },
     "types": ["jest", "node"],
     "typeRoots": ["declare", "./node_modules/@types"]
-  },
-  "exclude": ["scripts"]
+  }
 }

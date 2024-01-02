@@ -1,8 +1,10 @@
-import { execSync } from 'child_process';
-import { readFileSync, rmSync, writeFileSync } from 'fs';
-import { resolve } from 'path';
+/* eslint-disable import/order */
+/* eslint-disable padding-line-between-statements */
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { execSync } = require('child_process');
 
-(function () {
+const { readFileSync, rmSync, writeFileSync } = require('fs');
+const { resolve } = require('path')(function () {
   const { argv } = process;
 
   const actualArgv = argv.slice(2);
