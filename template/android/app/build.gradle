@@ -147,10 +147,9 @@ apply from: file("../../node_modules/@react-native-community/cli-platform-androi
 
 task prepare() {
     def flavor = project.keys.get("FLAVOR")
-    def envPath = project.ext.keyFiles.find({ it.key == "$flavor" })?.value
+    def envPath = project.ext.keyFiles.find { it.key == flavor }?.value
     exec {
-        workingDir = "$rootProject.projectDir".replace("/android", "")
-        args = ['./scripts/prepare.sh', envPath]
-        executable 'sh'
+        workingDir = rootProject.projectDir.path.replace("/android", "")
+        commandLine 'node', './scripts/prepare.js', envPath
     }
 }

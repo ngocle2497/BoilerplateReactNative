@@ -70,7 +70,7 @@ Ex: New Environment named: Demo
     - `api-key/google/demo.json`
   - More info to create api key for fastlane: [Google-Key](https://docs.fastlane.tools/actions/upload_to_play_store/), [Apple-Key](https://docs.fastlane.tools/app-store-connect-api/)
   - Create new script upload build: ex:
-    - `"fastlane:demo": "npx ts-node scripts/fastlane.ts google_internal_test_flight env/.demo demo"`
+    - `"fastlane:demo": "node scripts/fastlane.js google_internal_test_flight env/.demo demo"`
       - `env/.demo`: path to env file
       - `demo`: env file of fastlane. correct env file name for fastlane is: `.env.demo`
 
@@ -81,7 +81,7 @@ Ex: New Environment named: Demo
   - This project use [react-native-bootsplash](https://github.com/zoontek/react-native-bootsplash) to create splash file. Read the docs before continue
   - Get splash file then copy to `splash` folder named: `splash-<environment_name>.png`. ex: `splash-demo.png`
   - Create new script in `package.json` file. ex:
-    - `"splash-demo": "npx ts-node ./scripts/splash.ts splash/splash-demo.png 0E1019 150 demo BootSplashDemo",`
+    - `"splash-demo": "node ./scripts/splash.js splash/splash-demo.png 0E1019 150 demo BootSplashDemo",`
       - `0E1019`: background color of splash screen
       - `150`: width of icon splash
       - `demo`: flavor folder for `android`
@@ -132,8 +132,9 @@ Ex: New Environment named: Demo
 
         "${SRCROOT}/../node_modules/react-native-keys/keysIOS.js"
 
-        cd "${SRCROOT}/.."
-        /bin/sh -c "./scripts/prepare.sh $ENV_PATH"
+        cd "${SRCROOT}/../"
+        node "${SRCROOT}/../scripts/prepare.js" "$ENV_PATH"
+
       ```
 
 ## Caution
