@@ -2,7 +2,7 @@
 
 :fireworks: Clean and minimalist React Native template for a quick start with TypeScript and so much more components.
 
-## Current version: 0.72.7
+## Current version: 0.73.1
 
 ## :star: Features
 
@@ -86,4 +86,4 @@ This project is [MIT](LICENSE) licensed.
 
 ## Contribute
 
-Follow the [contribution guide](CONTRIBUTE.md)
+Follow the [contribution guide](CONTRIBUTE.MD)
