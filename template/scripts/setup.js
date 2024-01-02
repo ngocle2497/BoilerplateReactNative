@@ -1,6 +1,7 @@
-import { execSync } from 'child_process';
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { execSync } = require('child_process');
 
-import { getAndroidHome, getRubyVersion } from './common';
+const { getAndroidHome, getRubyVersion } = require('./common');
 
 (function () {
   execSync('yarn patch-package', { stdio: 'inherit' });

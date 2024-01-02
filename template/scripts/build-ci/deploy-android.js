@@ -1,4 +1,5 @@
-import { execSync } from 'child_process';
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { execSync } = require('child_process');
 
 (() => {
   const [envArgs, export_dir] = process.argv.slice(2);

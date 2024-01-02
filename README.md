@@ -83,3 +83,7 @@ Options:
 ## :bookmark: License
 
 This project is [MIT](LICENSE) licensed.
+
+## Contribute
+
+Follow the [contribution guide](CONTRIBUTE.md)

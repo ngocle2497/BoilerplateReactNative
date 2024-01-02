@@ -1,4 +1,15 @@
 *.DS_Store
 template/node_modules
 template/ios/Pods
+template/android/build/
+template/android/app/build/
 node_modules
+.idea
+.gradle/
+proguard/
+/ios/Pods/
+/vendor/bundle/
+ios/prebuild.log
+ios/tmp.xcconfig
+.xcode.env.local
+ios/Podfile.lock

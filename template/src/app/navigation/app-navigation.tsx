@@ -9,7 +9,6 @@ import { dispatch, RXStore } from '@common/redux';
 import { SnackBar } from '@components/snack-bar';
 import { PortalHost } from '@gorhom/portal';
 import { RootNavigation } from '@navigation/root-navigator';
-import { useFlipper } from '@react-navigation/devtools';
 import {
   DefaultTheme,
   NavigationContainer,
@@ -35,11 +34,6 @@ export const AppContainer = () => {
   useEffect(() => {
     dispatch(appActions.startLoadApp());
   }, []);
-
-  if (__DEV__) {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useFlipper(navigationRef);
-  }
 
   // render
   return (

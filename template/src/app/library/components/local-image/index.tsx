@@ -1,8 +1,8 @@
 import React from 'react';
+import { Image, ImageStyle } from 'react-native';
 
 import { images } from '@assets/image';
 import { View } from '@rn-core';
-import { Image, ImageStyle } from 'expo-image';
 
 import { styles } from './styles';
 import { LocalImageProps } from './type';
@@ -18,7 +18,7 @@ export const LocalImage = ({
     <View style={containerStyle}>
       <Image
         style={[styles.img, styleOverride as ImageStyle]}
-        contentFit={resizeMode}
+        resizeMode={resizeMode}
         source={images[source ?? 'default']}
       />
     </View>

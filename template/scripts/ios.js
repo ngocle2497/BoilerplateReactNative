@@ -1,8 +1,9 @@
-import { execSync } from 'child_process';
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { execSync } = require('child_process');
 
-import { getEnvJsonFromPath } from './common';
+const { getEnvJsonFromPath } = require('./common');
 
-const bootDevice = (deviceName: string) => {
+const bootDevice = deviceName => {
   /**
    * iPhone 8 (2292DF56-3D4D-4328-90CF-C804E8A1A7F5) (Shutdown)
    * iPhone 11 (7590DD1E-D039-4545-ADB1-586F2471D873) (Booted)
@@ -22,19 +23,19 @@ const bootDevice = (deviceName: string) => {
   ).toString();
 };
 
-const uninstallOldApp = (bundleId: string) => {
+const uninstallOldApp = bundleId => {
   // uninstall app using xcrun
   execSync(`xcrun simctl uninstall booted "${bundleId}"`);
 };
 
-const run = (props: { platform: NodeJS.Platform; envPath: string }) => {
-  if (props.platform !== 'darwin') {
+const run = ({ platform, envPath }) => {
+  if (platform !== 'darwin') {
     console.log('This script is only for macOS');
 
     return;
   }
 
-  const envJson = getEnvJsonFromPath(props.envPath);
+  const envJson = getEnvJsonFromPath(envPath);
 
   const simulator = 'iPhone 14 Pro';
 
@@ -48,13 +49,7 @@ const run = (props: { platform: NodeJS.Platform; envPath: string }) => {
   );
 };
 
-const pushNotification = ({
-  envPath,
-  platform,
-}: {
-  platform: NodeJS.Platform;
-  envPath: string;
-}) => {
+const pushNotification = ({ envPath, platform }) => {
   if (platform !== 'darwin') {
     console.log('This script is only for macOS');
 

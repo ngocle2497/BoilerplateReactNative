@@ -9,8 +9,13 @@
   "files": [
     "template",
     "template.config.js",
-    "!template/node_modules",
-    "!node_modules",
+    "!template/node_modules/",
+    "!template/ios/Pods/",
+    "!template/android/build/",
+    "!template/android/app/build/",
+    "!template/android/.idea/",
+    "!template/android/.gradle/",
+    "!node_modules/",
     "!template/yarn.lock"
   ],
   "repository": {
@@ -26,6 +31,11 @@
   ],
   "author": "MasonLe <lhngoc2497@gmail.com>",
   "license": "MIT",
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/MasonLe2497/BoilerplateReactNative/issues"
   },
