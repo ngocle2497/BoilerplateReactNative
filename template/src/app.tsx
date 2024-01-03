@@ -13,6 +13,8 @@ import { AppContainer } from '@navigation/app-navigation';
 import { store } from '@store/store';
 import { useLoadFont } from '@theme/typography';
 import I18n from '@utils/i18n/i18n';
+import './app/themes/index';
+import 'react-native-unistyles';
 // const json = require('./app/assets/vector-icon/selection.json');
 
 // const key = json.icons.reduce((pv, curr) => {

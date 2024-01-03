@@ -14,6 +14,7 @@ import {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+import { UnistylesRuntime } from 'react-native-unistyles';
 
 import { OutlineButton } from '@components/button/outline-button';
 import { PrimaryButton } from '@components/button/primary-button';
@@ -33,9 +34,7 @@ import {
   SkImage,
 } from '@shopify/react-native-skia';
 import { createStyleSheet, useStyles } from '@theme';
-import { darkTheme } from '@theme/dark';
-import { lightTheme } from '@theme/light';
-import { save } from '@utils/storage';
+import Axios from 'axios';
 
 const wait = (ms: number) => {
   return new Promise(resolve => {
@@ -76,7 +75,9 @@ export const Login = () => {
 
     await wait(100);
 
-    save('APP_THEME', theme.type === 'dark' ? lightTheme : darkTheme);
+    UnistylesRuntime.setTheme(
+      UnistylesRuntime.themeName !== 'dark' ? 'dark' : 'light',
+    );
 
     await wait(200);
 
@@ -163,7 +164,13 @@ export const Login = () => {
               onPress={handleChangeTheme}
               text="Button change theme"
             />
-            <PrimaryButton disabled text="Button" />
+            <PrimaryButton
+              // disabled
+              text="Button"
+              onPress={() => {
+                Axios.get('https://picsum.photos/v2/list');
+              }}
+            />
             <PrimaryButton leftIcon="chevron_left" text="Button" />
             <PrimaryButton disabled leftIcon="chevron_left" text="Button" />
             <PrimaryButton rightIcon="chevron_left" text="Button" />

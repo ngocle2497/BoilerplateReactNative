@@ -44,7 +44,7 @@ const run = ({ platform, envPath }) => {
   uninstallOldApp(envJson.public.BUNDLE_IDENTIFIER);
 
   execSync(
-    `npx react-native run-ios --scheme ${envJson.public.WORKSPACE_NAME}-${envJson.public.SCHEME_SUFFIX} --udid=${udid}`,
+    `npx expo run:ios --scheme ${envJson.public.WORKSPACE_NAME}-${envJson.public.SCHEME_SUFFIX}`,
     { stdio: 'inherit' },
   );
 };

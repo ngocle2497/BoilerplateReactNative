@@ -62,6 +62,7 @@ Gemfile.lock
 node_modules/
 npm-debug.log
 yarn-error.log
+yarn.lock
 
 # BUCK
 
@@ -100,3 +101,8 @@ ios/tmp.xcconfig
 # testing
 
 /coverage
+
+# Expo
+.expo
+dist/
+web-build/

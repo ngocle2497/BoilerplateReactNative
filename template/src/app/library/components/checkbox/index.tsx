@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
+import { ImageProps, TouchableWithoutFeedback } from 'react-native';
 
 import {
   interpolateColor,
@@ -12,7 +12,6 @@ import { execFunc, isTypeof } from '@common/method';
 import { AnimatedIcon } from '@components/icon';
 import { AnimatedView } from '@rn-core';
 import { useStyles } from '@theme';
-import { ImageProps } from 'expo-image';
 
 import { stylesSheet } from './styles';
 import { CheckboxProps } from './type';
