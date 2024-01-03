@@ -34,7 +34,6 @@ import {
   SkImage,
 } from '@shopify/react-native-skia';
 import { createStyleSheet, useStyles } from '@theme';
-import Axios from 'axios';
 
 const wait = (ms: number) => {
   return new Promise(resolve => {
@@ -164,13 +163,7 @@ export const Login = () => {
               onPress={handleChangeTheme}
               text="Button change theme"
             />
-            <PrimaryButton
-              // disabled
-              text="Button"
-              onPress={() => {
-                Axios.get('https://picsum.photos/v2/list');
-              }}
-            />
+            <PrimaryButton disabled text="Button" />
             <PrimaryButton leftIcon="chevron_left" text="Button" />
             <PrimaryButton disabled leftIcon="chevron_left" text="Button" />
             <PrimaryButton rightIcon="chevron_left" text="Button" />
