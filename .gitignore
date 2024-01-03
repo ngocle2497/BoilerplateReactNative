@@ -7,9 +7,12 @@ node_modules
 .idea
 .gradle/
 proguard/
-/ios/Pods/
-/vendor/bundle/
+ios/Pods/
+vendor/
 ios/prebuild.log
 ios/tmp.xcconfig
 .xcode.env.local
-ios/Podfile.lock
+yarn.lock
+Gemfile.lock
+Podfile.lock
+local.properties

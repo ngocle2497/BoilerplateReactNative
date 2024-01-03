@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
+import { ImageProps, TouchableWithoutFeedback } from 'react-native';
 
 import { useAnimatedProps, useAnimatedStyle } from 'react-native-reanimated';
 
@@ -7,7 +7,6 @@ import { AnimatedIcon } from '@components/icon';
 import { useTranslation } from '@hooks';
 import { AnimatedText, View } from '@rn-core';
 import { useStyles } from '@theme';
-import { ImageProps } from 'expo-image';
 
 import { useThrottle } from './hook';
 import { outlineButtonStyleSheet } from './styles';

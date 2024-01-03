@@ -3,7 +3,6 @@ import { AppState } from '@model/app';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialAppState: AppState = {
-  internetState: true,
   profile: {},
   token: undefined,
   /**
@@ -16,9 +15,6 @@ const appSlice = createSlice({
   name: SLICE_NAME.APP,
   initialState: initialAppState,
   reducers: {
-    setInternetState: (state, { payload }: PayloadAction<boolean>) => {
-      state.internetState = payload;
-    },
     setToken: (state, { payload }: PayloadAction<string>) => {
       state.token = payload;
     },
