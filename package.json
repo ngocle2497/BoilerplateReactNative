@@ -1,7 +1,7 @@
 {
   "name": "rn-boiler-template",
   "private": false,
-  "version": "1.72.22",
+  "version": "1.72.23",
   "description": "Clean and minimalist React Native template for a quick start with TypeScript and components",
   "scripts": {
     "test": "exit 0"
@@ -9,6 +9,7 @@
   "files": [
     "template",
     "template.config.js",
+    "!template/vendor/",
     "!template/node_modules/",
     "!template/ios/Pods/",
     "!template/android/build/",
@@ -20,7 +21,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/MasonLe2497/BoilerplateReactNative"
+    "url": "https://github.com/ngocle2497/BoilerplateReactNative"
   },
   "keywords": [
     "react-native",
@@ -37,7 +38,7 @@
     }
   ],
   "bugs": {
-    "url": "https://github.com/MasonLe2497/BoilerplateReactNative/issues"
+    "url": "https://github.com/ngocle2497/BoilerplateReactNative/issues"
   },
-  "homepage": "https://github.com/MasonLe2497/BoilerplateReactNative#readme"
+  "homepage": "https://github.com/ngocle2497/BoilerplateReactNative#readme"
 }

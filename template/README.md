@@ -41,7 +41,7 @@
 
 ### Gen app icon and Change app icon by env
 
-Build with: [rn-ml](https://github.com/MasonLe2497/cli-tools)
+Build with: [rn-ml](https://github.com/ngocle2497/cli-tools)
 
 - Update app icon file from appicon folder
 - Run: ``` yarn app-icon ``` or ``` yarn app-icon:dev ```
@@ -90,7 +90,7 @@ Ex: New Environment named: Demo
 
 - ### App icon
 
-  - This project use [rn-ml](https://github.com/MasonLe2497/cli-tools) to gen app icon automatically
+  - This project use [rn-ml](https://github.com/ngocle2497/cli-tools) to gen app icon automatically
     - App icon saved in `appicon` folder
     - Get new `png` file with dimension 1024x1024. <b>The file must not include transparent pixel.</b>
     - App icon named: `appicon-<environment_name>.png`. ex: `appicon-demo.pnd`
