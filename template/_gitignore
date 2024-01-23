@@ -27,7 +27,6 @@ DerivedData
 *.ipa
 *.xcuserstate
 .xcode.env.local
-ios/Podfile.lock
 
 # Android/IntelliJ
 
@@ -53,7 +52,6 @@ android/**/*.keystore
 .base.env
 env.d.ts
 env-config.ts
-Gemfile.lock
 
 # node.js
 
@@ -62,7 +60,6 @@ Gemfile.lock
 node_modules/
 npm-debug.log
 yarn-error.log
-yarn.lock
 
 # BUCK
 

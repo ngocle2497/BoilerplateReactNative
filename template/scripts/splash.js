@@ -55,9 +55,7 @@ const { resolve } = require('path')(function () {
 
   writeFileSync(
     oldBootSplashPath,
-    bootSplashFile
-      .replace('BootSplashLogo', `${iosName}Logo`)
-      .replace('BootSplashLogo', `${iosName}Logo`),
+    bootSplashFile.split('BootSplashLogo').join(`${iosName}Logo`),
     'utf8',
   );
 
