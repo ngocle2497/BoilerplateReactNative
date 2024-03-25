@@ -1,4 +1,5 @@
 *.DS_Store
+lefthook.yml
 template/node_modules
 template/ios/Pods
 template/android/build/

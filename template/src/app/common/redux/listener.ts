@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createListenerMiddleware } from '@reduxjs/toolkit';
 
@@ -8,6 +9,7 @@ type StartAppListening = typeof startAppListening;
 
 export const takeLatestListeners =
   (_withLoading?: boolean): StartAppListening =>
+  //@ts-ignore
   (startListeningOption: any) => {
     return startAppListening({
       ...startListeningOption,
@@ -23,6 +25,7 @@ export const takeLatestListeners =
 
 export const takeLeadingListeners =
   (_withLoading?: boolean): StartAppListening =>
+  //@ts-ignore
   (startListeningOption: any) => {
     return startAppListening({
       ...startListeningOption,
@@ -38,6 +41,7 @@ export const takeLeadingListeners =
 
 export const debounceListeners =
   (msDuration: number, _withLoading?: boolean): StartAppListening =>
+  //@ts-ignore
   (startListeningOption: any) => {
     return startAppListening({
       ...startListeningOption,
@@ -53,6 +57,7 @@ export const debounceListeners =
 
 export const throttleListeners =
   (msDuration: number, _withLoading?: boolean): StartAppListening =>
+  //@ts-ignore
   (startListeningOption: any) => {
     return startAppListening({
       ...startListeningOption,

@@ -1,15 +1,14 @@
 import React, { createRef, forwardRef, memo, useImperativeHandle } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 
-import { selectRoot } from '@redux-selector/app';
 import { RootState } from '@store/all-reducers';
 
 const RXStoreComponent = forwardRef((_, ref) => {
   // state
   const dispatchRx = useDispatch();
 
-  const storeValue = useSelector(selectRoot);
+  const { getState: store } = useStore<RootState>();
 
   // effect
   useImperativeHandle(
@@ -19,10 +18,10 @@ const RXStoreComponent = forwardRef((_, ref) => {
         dispatchRx(action);
       },
       getState: (state: keyof RootState) => {
-        return storeValue[state];
+        return store()[state];
       },
     }),
-    [dispatchRx, storeValue],
+    [dispatchRx, store],
   );
 
   return null;
