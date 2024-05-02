@@ -7,6 +7,20 @@
 - We recommended to use [yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable) or [bun](https://bun.sh/)
 - Ruby version: 2.7.6 (recommended use [rbenv](https://github.com/rbenv/rbenv))
 
+> Xcode run failed with status 127
+>
+> This error occurs when xcode cannot access node. Xcode use .bash_profile, so add PATH to .bash_profile.
+
+Example ```.bash_profile```:
+
+```
+  if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+  PATH=$PATH:/opt/homebrew/bin
+  export PATH=$PATH:/usr/local/bin
+```
+
+> Remember add ```source ~/.bash_profile``` to top of ```Pre-actions``` in xcode scheme
+
 # Importance before commit
 
 >### <strong>You must fix all bug of ESLint </strong>
@@ -125,16 +139,15 @@ Ex: New Environment named: Demo
   - Complete script like:
 
     ```
-        # Type a script or drag a script file from your workspace to insert its path.
-        rm "${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}"
-        ENV_PATH="env/dev.json"
-        export KEYSFILE=$ENV_PATH
-
-        "${SRCROOT}/../node_modules/react-native-keys/keysIOS.js"
-
-        cd "${SRCROOT}/../"
-        node "${SRCROOT}/../scripts/prepare.js" "$ENV_PATH"
-
+      rm "${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}"
+      source ~/.bash_profile
+      ENV_PATH="env/dev.json"
+      export KEYSFILE=$ENV_PATH
+      
+      "${SRCROOT}/../node_modules/react-native-keys/keysIOS.js"
+      
+      "${SRCROOT}/../scripts/prepare.js" "$ENV_PATH"
+      
       ```
 
 ## Caution

@@ -15,7 +15,10 @@ const padStart = number => {
 };
 
 const getEnvJsonFromPath = envPath => {
-  const data = readFileSync(join('./', envPath), 'utf8');
+  const data = readFileSync(
+    join(__dirname.replace('scripts', ''), envPath),
+    'utf8',
+  );
 
   if (data) {
     return JSON.parse(data);
@@ -75,7 +78,11 @@ import Keys from 'react-native-keys';
   execSync('rm -rf node_modules/.cache/babel-loader/*');
 
   // write env-config.ts
-  writeFileSync(join('env-config.ts'), infoJsEnv, 'utf8');
+  writeFileSync(
+    join(__dirname.replace('scripts', ''), 'env-config.ts'),
+    infoJsEnv,
+    'utf8',
+  );
 
   console.log('✨✨✨✨✨ SET UP Env done ✨✨✨✨✨');
 
