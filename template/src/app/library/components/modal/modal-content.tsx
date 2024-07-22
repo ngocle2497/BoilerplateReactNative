@@ -21,7 +21,6 @@ import {
 } from 'react-native-reanimated';
 
 import { sharedTiming } from '@animated';
-import { execFunc } from '@common/method';
 import { useDisableBackHandler } from '@hooks';
 import { AnimatedView } from '@rn-core';
 

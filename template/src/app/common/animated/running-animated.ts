@@ -13,8 +13,8 @@ import {
   WithTimingConfig,
 } from 'react-native-reanimated';
 
-import { HigherOrderAnimation } from 'react-native-reanimated/lib/typescript/reanimated2/animation';
-import { Timestamp } from 'react-native-reanimated/lib/typescript/reanimated2/commonTypes';
+import { HigherOrderAnimation } from 'react-native-reanimated/lib/typescript/animation';
+import { Timestamp } from 'react-native-reanimated/lib/typescript/commonTypes';
 
 /**
  * Updates position by running timing based animation from a given position to a destination determined by toValue.
@@ -28,13 +28,11 @@ export const sharedTiming = (
 
   return withTiming(
     toValue,
-    Object.assign(
-      {
-        duration: 500,
-        easing: Easing.bezier(0.33, 0.01, 0, 1),
-      },
-      config,
-    ),
+    {
+      duration: 500,
+      easing: Easing.bezier(0.33, 0.01, 0, 1),
+      ...(config ?? {}),
+    },
     callBack,
   );
 };

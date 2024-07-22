@@ -1,10 +1,5 @@
-import React, { useRef } from 'react';
-import {
-  StatusBar,
-  StyleSheet,
-  useWindowDimensions,
-  ViewProps,
-} from 'react-native';
+import React, { useRef, useState } from 'react';
+import { StyleSheet, useWindowDimensions, ViewProps } from 'react-native';
 
 import {
   runOnJS,
@@ -18,7 +13,6 @@ import { UnistylesRuntime } from 'react-native-unistyles';
 
 import { OutlineButton } from '@components/button/outline-button';
 import { PrimaryButton } from '@components/button/primary-button';
-import { SecondaryButton } from '@components/button/secondary-button';
 import { Checkbox } from '@components/checkbox';
 import { Divider } from '@components/divider';
 import { RadioButton } from '@components/radio-button';
@@ -34,10 +28,13 @@ import {
   SkImage,
 } from '@shopify/react-native-skia';
 import { createStyleSheet, useStyles } from '@theme';
+import { StatusBarStyle } from 'expo-status-bar';
 
 const wait = (ms: number) => {
   return new Promise(resolve => {
-    setTimeout(resolve, ms);
+    setTimeout(() => {
+      resolve(true);
+    }, ms);
   });
 };
 
@@ -58,11 +55,11 @@ export const Login = () => {
 
   const { styles, theme } = useStyles(styleSheet);
 
+  const [barStyle, setBarStyle] = useState<StatusBarStyle>('dark');
+
   // func
   const updateStatusBar = (prevType: string) => {
-    StatusBar.setBarStyle(
-      prevType !== 'dark' ? 'light-content' : 'dark-content',
-    );
+    setBarStyle(prevType !== 'dark' ? 'light' : 'dark');
   };
 
   const handleChangeTheme = async () => {
@@ -129,7 +126,7 @@ export const Login = () => {
           bottomInsetColor="transparent"
           scroll
           excludeEdges={['bottom']}
-          statusBarStyle="dark-content"
+          statusBarStyle={barStyle}
           style={{ paddingVertical: 0, paddingHorizontal: 10 }}
           backgroundColor={'transparent'}>
           <View style={styles.rowItem}>
@@ -168,15 +165,6 @@ export const Login = () => {
             <PrimaryButton disabled leftIcon="chevron_left" text="Button" />
             <PrimaryButton rightIcon="chevron_left" text="Button" />
             <PrimaryButton disabled rightIcon="chevron_left" text="Button" />
-          </View>
-          <View style={styles.colItem}>
-            <Text style={styles.text}>Secondary Button</Text>
-            <SecondaryButton text="Button" />
-            <SecondaryButton disabled text="Button" />
-            <SecondaryButton leftIcon="chevron_left" text="Button" />
-            <SecondaryButton disabled leftIcon="chevron_left" text="Button" />
-            <SecondaryButton rightIcon="chevron_left" text="Button" />
-            <SecondaryButton disabled rightIcon="chevron_left" text="Button" />
           </View>
           <View style={styles.colItem}>
             <Text style={styles.text}>Outline Button</Text>

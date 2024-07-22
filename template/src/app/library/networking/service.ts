@@ -28,23 +28,19 @@ AxiosInstance.interceptors.response.use(
     const originalRequest = error.config;
 
     if (
-      error &&
-      error.response &&
-      (error.response.status === 403 || error.response.status === 401) &&
+      (error?.response?.status === 403 || error?.response?.status === 401) &&
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
 
-      refreshTokenRequest = refreshTokenRequest
-        ? refreshTokenRequest
-        : refreshToken();
+      refreshTokenRequest = refreshTokenRequest ?? refreshToken();
 
       const newToken = await refreshTokenRequest;
 
       refreshTokenRequest = null;
 
       if (newToken === null) {
-        return Promise.reject(error);
+        return Promise.reject(error as Error);
       }
 
       dispatch(appActions.setToken(newToken));
@@ -54,13 +50,13 @@ AxiosInstance.interceptors.response.use(
       return AxiosInstance(originalRequest);
     }
 
-    return Promise.reject(error);
+    return Promise.reject(error as Error);
   },
 );
 
 // refresh token
-async function refreshToken(): Promise<any | null> {
-  return new Promise<any | null>(rs => {
+async function refreshToken(): Promise<any> {
+  return new Promise<any>(rs => {
     AxiosInstance.request({
       method: 'POST',
       url: ApiConstants.REFRESH_TOKEN,

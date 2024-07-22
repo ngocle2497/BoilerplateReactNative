@@ -57,7 +57,7 @@ export const onHandleTagToArrayText = (
   textSplit.forEach((text: string, i: number) => {
     const textData = { text: text, bold: false };
 
-    if (text[0] === char) {
+    if (text.startsWith(char)) {
       textData.bold = true;
 
       arrText.push(textData);

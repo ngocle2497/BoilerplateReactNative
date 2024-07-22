@@ -1,3 +1,5 @@
+import { Platform } from 'react-native';
+
 export const MMKV_KEY = {
   APP_TOKEN: 'APP_TOKEN',
 } as const;
@@ -16,3 +18,5 @@ export enum SLICE_NAME {
   APP = 'APP_',
   AUTHENTICATION = 'AUTHENTICATION_',
 }
+
+export const isIos = Platform.OS === 'ios';

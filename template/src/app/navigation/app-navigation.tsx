@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { StatusBar } from 'react-native';
 
 import { useSelector } from 'react-redux';
 
@@ -15,6 +14,7 @@ import {
 import { selectAppConfig } from '@redux-selector/app';
 import { appActions } from '@redux-slice';
 import { useStyles } from '@theme';
+import { StatusBar } from 'expo-status-bar';
 
 import { NavigationService } from './navigation-service';
 

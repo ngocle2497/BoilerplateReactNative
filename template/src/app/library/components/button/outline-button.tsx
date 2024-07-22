@@ -1,7 +1,11 @@
 import React from 'react';
 import { ImageProps, TouchableWithoutFeedback } from 'react-native';
 
-import { useAnimatedProps, useAnimatedStyle } from 'react-native-reanimated';
+import {
+  useAnimatedProps,
+  useAnimatedStyle,
+  useDerivedValue,
+} from 'react-native-reanimated';
 
 import { AnimatedIcon } from '@components/icon';
 import { useTranslation } from '@hooks';
@@ -9,7 +13,7 @@ import { AnimatedText, View } from '@rn-core';
 import { useStyles } from '@theme';
 
 import { useThrottle } from './hook';
-import { outlineButtonStyleSheet } from './styles';
+import { buttonStyleSheet } from './styles';
 import { ButtonProps } from './type';
 
 export const OutlineButton = ({
@@ -30,7 +34,7 @@ export const OutlineButton = ({
   const {
     styles,
     theme: { color },
-  } = useStyles(outlineButtonStyleSheet);
+  } = useStyles(buttonStyleSheet);
 
   const t = useTranslation();
 
@@ -49,25 +53,31 @@ export const OutlineButton = ({
     onPressOut,
   });
 
+  const tintColor = useDerivedValue(() => {
+    if (disabled) {
+      return color.neutral100;
+    }
+
+    if (pressed.value) {
+      return color.primary;
+    }
+
+    return color.primary500;
+  });
+
   // style
-  const textStyle = useAnimatedStyle(() => ({
-    // eslint-disable-next-line no-nested-ternary
-    color: disabled
-      ? color.neutral100
-      : pressed.value
-      ? color.primary
-      : color.primary500,
-  }));
+  const textStyle = useAnimatedStyle(() => {
+    return {
+      color: tintColor.value,
+    };
+  });
 
   // props
-  const iconProps = useAnimatedProps<ImageProps>(() => ({
-    // eslint-disable-next-line no-nested-ternary
-    tintColor: disabled
-      ? color.neutral100
-      : pressed.value
-      ? color.primary
-      : color.primary500,
-  }));
+  const iconProps = useAnimatedProps<ImageProps>(() => {
+    return {
+      tintColor: tintColor.value,
+    };
+  });
 
   // render
   return (
@@ -81,7 +91,7 @@ export const OutlineButton = ({
       <View
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        style={[styles[size], styles.buttonColor(disabled)]}>
+        style={[styles[size], styles.buttonColor(disabled), styles.outline]}>
         {leftIcon ? (
           <AnimatedIcon animatedProps={iconProps} icon={leftIcon} />
         ) : null}

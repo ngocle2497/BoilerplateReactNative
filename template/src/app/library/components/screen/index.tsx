@@ -90,7 +90,7 @@ const InsetComponent = ({
         hidden={hiddenStatusBar}
         backgroundColor={'transparent'}
         translucent
-        barStyle={statusBarStyle || 'light-content'}
+        style={statusBarStyle ?? 'light'}
       />
       {!unsafe && edges.includes('top') && (
         <Inset
@@ -209,9 +209,9 @@ function ScreenWithScrolling(
           keyboardShouldPersistTaps="handled"
           overScrollMode={'never'}
           style={[styles.inner, backgroundColor ? { backgroundColor } : {}]}
-          contentContainerStyle={[style]}
-          children={children}
-        />
+          contentContainerStyle={[style]}>
+          {children}
+        </Animated.ScrollView>
       </Wrapper>
       <InsetComponent
         edges={edges}

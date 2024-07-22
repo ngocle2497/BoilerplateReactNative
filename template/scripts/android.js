@@ -9,7 +9,7 @@ const { createInterface } = require('readline');
 
 const { getEnvJsonFromPath } = require('./common');
 
-const run = ({ platform, buildType, envPath }) => {
+const run = ({ buildType, envPath }) => {
   const envJson = getEnvJsonFromPath(envPath);
 
   // uninstall android app with adb
@@ -24,18 +24,10 @@ const run = ({ platform, buildType, envPath }) => {
       console.log('Old App not found');
     }
   }
-
-  if (platform === 'darwin') {
-    execSync(
-      `npx react-native run-android --mode=${variant} --appId=${envJson.public.BUNDLE_IDENTIFIER}`,
-      { stdio: 'inherit' },
-    );
-  } else if (platform === 'win32') {
-    execSync(
-      `npx react-native run-android --mode=${variant} --appId=${envJson.public.BUNDLE_IDENTIFIER}`,
-      { stdio: 'inherit', shell: 'cmd.exe' },
-    );
-  }
+  execSync(
+    `npx expo run:android --variant ${variant} --appId=${envJson.public.BUNDLE_IDENTIFIER}`,
+    { stdio: 'inherit' },
+  );
 };
 
 const getHashCommand = ({ keyStorePath, keyStorePass, alias }) => {

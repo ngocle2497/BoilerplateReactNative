@@ -4,7 +4,9 @@
 const { execSync } = require('child_process');
 
 const { readFileSync, rmSync, writeFileSync } = require('fs');
-const { resolve } = require('path')(function () {
+const { resolve } = require('path');
+
+(function () {
   const { argv } = process;
 
   const actualArgv = argv.slice(2);

@@ -1,96 +1,100 @@
-// import { Platform } from 'react-native';
-
-// import { APPLE_REDIRECT_URI, CLIENT_ID_APPLE_SERVICE } from '@env';
-// import {
-//   appleAuth,
-//   appleAuthAndroid,
-// } from '@invertase/react-native-apple-authentication';
 export {};
-// type AppleResponse = {
-//   nonce?: string;
-//   identityToken?: string;
-// };
-// type LoginResult = {
-//   success?: boolean;
-//   data?: AppleResponse;
-// };
+/**
+import { Platform } from 'react-native';
 
-// export const AppleService = {
-//   isSupport:
-//     Platform.OS === 'android'
-//       ? appleAuthAndroid.isSupported
-//       : appleAuth.isSupported,
-//   appleLogin: async (): Promise<LoginResult> => {
-//     if (Platform.OS === 'ios') {
-//       try {
-//         const appleAuthRequestResponse = await appleAuth.performRequest({
-//           requestedOperation: appleAuth.Operation.LOGIN,
-//           requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
-//         });
+import { APPLE_REDIRECT_URI, CLIENT_ID_APPLE_SERVICE } from '@env';
+import {
+  appleAuth,
+  appleAuthAndroid,
+} from '@invertase/react-native-apple-authentication';
 
-//         return {
-//           success: true,
-//           data: {
-//             nonce: appleAuthRequestResponse.nonce,
-//             identityToken: appleAuthRequestResponse.identityToken ?? '',
-//           },
-//         };
-//       } catch (err) {
-//         console.log('IOS-APPPLE-LOGIN-ERROR', err);
+type AppleResponse = {
+  nonce?: string;
+  identityToken?: string;
+};
+type LoginResult = {
+  success?: boolean;
+  data?: AppleResponse;
+};
 
-//         return {
-//           success: false,
-//         };
-//       }
-//     } else {
-//       try {
-//         // Generate secure, random values for state and nonce
-//         const rawNonce = String.prototype.randomUniqueId();
+export const AppleService = {
+  isSupport:
+    Platform.OS === 'android'
+      ? appleAuthAndroid.isSupported
+      : appleAuth.isSupported,
+  appleLogin: async (): Promise<LoginResult> => {
+    if (Platform.OS === 'ios') {
+      try {
+        const appleAuthRequestResponse = await appleAuth.performRequest({
+          requestedOperation: appleAuth.Operation.LOGIN,
+          requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+        });
 
-//         const state = String.prototype.randomUniqueId();
+        return {
+          success: true,
+          data: {
+            nonce: appleAuthRequestResponse.nonce,
+            identityToken: appleAuthRequestResponse.identityToken ?? '',
+          },
+        };
+      } catch (err) {
+        console.log('IOS-APPPLE-LOGIN-ERROR', err);
 
-//         // Configure the request
-//         appleAuthAndroid.configure({
-//           // The Service ID you registered with Apple
-//           clientId: CLIENT_ID_APPLE_SERVICE,
+        return {
+          success: false,
+        };
+      }
+    } else {
+      try {
+        // Generate secure, random values for state and nonce
+        const rawNonce = String.prototype.randomUniqueId();
 
-//           // Return URL added to your Apple dev console. We intercept this redirect, but it must still match
-//           // the URL you provided to Apple. It can be an empty route on your backend as it's never called.
-//           redirectUri: APPLE_REDIRECT_URI,
+        const state = String.prototype.randomUniqueId();
 
-//           // The type of response requested - code, id_token, or both.
-//           responseType: appleAuthAndroid.ResponseType.ALL,
+        // Configure the request
+        appleAuthAndroid.configure({
+          // The Service ID you registered with Apple
+          clientId: CLIENT_ID_APPLE_SERVICE,
 
-//           // The amount of user information requested from Apple.
-//           scope: appleAuthAndroid.Scope.ALL,
+          // Return URL added to your Apple dev console. We intercept this redirect, but it must still match
+          // the URL you provided to Apple. It can be an empty route on your backend as it's never called.
+          redirectUri: APPLE_REDIRECT_URI,
 
-//           // Random nonce value that will be SHA256 hashed before sending to Apple.
-//           nonce: rawNonce,
+          // The type of response requested - code, id_token, or both.
+          responseType: appleAuthAndroid.ResponseType.ALL,
 
-//           // Unique state value used to prevent CSRF attacks. A UUID will be generated if nothing is provided.
-//           state,
-//         });
+          // The amount of user information requested from Apple.
+          scope: appleAuthAndroid.Scope.ALL,
 
-//         // Open the browser window for user sign in
-//         const response = await appleAuthAndroid.signIn();
+          // Random nonce value that will be SHA256 hashed before sending to Apple.
+          nonce: rawNonce,
 
-//         const { nonce, id_token } = response;
+          // Unique state value used to prevent CSRF attacks. A UUID will be generated if nothing is provided.
+          state,
+        });
 
-//         return {
-//           success: true,
-//           data: {
-//             nonce,
-//             identityToken: id_token,
-//           },
-//         };
-//         // Send the authorization code to your backend for verification
-//       } catch (err) {
-//         console.log('ANDROID-APPPLE-LOGIN-ERROR', err);
+        // Open the browser window for user sign in
+        const response = await appleAuthAndroid.signIn();
 
-//         return {
-//           success: false,
-//         };
-//       }
-//     }
-//   },
-// };
+        const { nonce, id_token } = response;
+
+        return {
+          success: true,
+          data: {
+            nonce,
+            identityToken: id_token,
+          },
+        };
+        // Send the authorization code to your backend for verification
+      } catch (err) {
+        console.log('ANDROID-APPPLE-LOGIN-ERROR', err);
+
+        return {
+          success: false,
+        };
+      }
+    }
+  },
+};
+
+ */

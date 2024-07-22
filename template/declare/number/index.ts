@@ -19,7 +19,44 @@ Number.prototype.toTime = function () {
 };
 
 Number.prototype.currencyFormat = function (comma = ',') {
-  return String(this).replace(/(\d)(?=(\d{3})+\b)/g, `$1${comma}`);
+  const numberStr = this.toString();
+
+  console.log(numberStr);
+
+  // Split the number into integer and decimal parts
+  let [integerPart, decimalPart] = numberStr.split('.');
+
+  // Function to add commas to a part of the number
+  function addCommas(part: string) {
+    let result = '';
+    let count = 0;
+
+    // Traverse the part from right to left and add commas
+    for (let i = part.length - 1; i >= 0; i--) {
+      result = part[i] + result;
+
+      count++;
+
+      if (count === 3 && i !== 0) {
+        result = comma + result;
+
+        count = 0;
+      }
+    }
+
+    return result;
+  }
+
+  // Format integer and decimal parts
+  integerPart = addCommas(integerPart);
+
+  if (decimalPart) {
+    decimalPart = addCommas(decimalPart);
+
+    return `${integerPart}.${decimalPart}`;
+  } else {
+    return integerPart;
+  }
 };
 
 Number.prototype.roundMaxFixed = function (maxDecimals = 2) {

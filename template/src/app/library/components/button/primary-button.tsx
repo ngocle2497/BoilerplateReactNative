@@ -9,7 +9,7 @@ import { AnimatedView, Text } from '@rn-core';
 import { Colors, useStyles } from '@theme';
 
 import { useThrottle } from './hook';
-import { primaryButtonStyleSheet } from './styles';
+import { buttonStyleSheet } from './styles';
 import { ButtonProps } from './type';
 
 export const PrimaryButton = ({
@@ -30,7 +30,7 @@ export const PrimaryButton = ({
   const {
     styles,
     theme: { color },
-  } = useStyles(primaryButtonStyleSheet);
+  } = useStyles(buttonStyleSheet);
 
   const t = useTranslation();
 
@@ -53,14 +53,18 @@ export const PrimaryButton = ({
   const iconColor: Colors = disabled ? 'neutral200' : 'neutral50';
 
   // style
-  const containerStyle = useAnimatedStyle(() => ({
-    // eslint-disable-next-line no-nested-ternary
-    backgroundColor: disabled
-      ? color.neutral100
-      : pressed.value
-      ? color.primary
-      : color.primary500,
-  }));
+  const containerStyle = useAnimatedStyle(() => {
+    let backgroundColor: string = color.primary500;
+    if (disabled) {
+      backgroundColor = color.neutral100;
+    } else if (pressed.value) {
+      backgroundColor = color.primary;
+    }
+
+    return {
+      backgroundColor,
+    };
+  });
 
   // render
   return (

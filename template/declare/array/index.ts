@@ -15,3 +15,11 @@ Array.prototype.searchAllProps = function (keyword: string | number) {
     });
   });
 };
+
+Array.validArray = function <T>(source: T[]): T[] {
+  if (Array.isArray(source)) {
+    return source;
+  }
+
+  return [] as T[];
+};

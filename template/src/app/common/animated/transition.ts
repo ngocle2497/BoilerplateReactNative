@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 
-import Animated, {
+import {
   Easing,
+  SharedValue,
   useDerivedValue,
   useSharedValue,
   withSpring,
@@ -19,7 +20,7 @@ export const useSharedTransition = (
   state: boolean | number,
   config?: WithTimingConfig,
   initialValue?: number,
-): Animated.SharedValue<number> => {
+): SharedValue<number> => {
   const value = useSharedValue(initialValue ?? 0);
 
   useEffect(() => {
@@ -27,13 +28,11 @@ export const useSharedTransition = (
   }, [state, value]);
 
   return useDerivedValue(() =>
-    withTiming(
-      value.value,
-      Object.assign(
-        { duration: 500, easing: Easing.bezier(0.33, 0.01, 0, 1) },
-        config,
-      ),
-    ),
+    withTiming(value.value, {
+      duration: 500,
+      easing: Easing.bezier(0.33, 0.01, 0, 1),
+      ...(config ?? {}),
+    }),
   );
 };
 
@@ -44,7 +43,7 @@ export const useSharedSpringTransition = (
   state: boolean,
   config?: WithSpringConfig,
   initialValue?: number,
-): Animated.SharedValue<number> => {
+): SharedValue<number> => {
   const value = useSharedValue(initialValue ?? 0);
 
   useEffect(() => {

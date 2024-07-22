@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { StatusBar, StatusBarProps, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { PostDelay } from '@components/post-delay';
 import { useIsFocused } from '@react-navigation/native';
 import { View } from '@rn-core';
+import { StatusBar, StatusBarProps } from 'expo-status-bar';
 
 export const FocusAwareStatusBar = ({
-  barStyle = 'dark-content',
+  style = 'dark',
   ...props
 }: StatusBarProps) => {
   // state
@@ -16,7 +17,7 @@ export const FocusAwareStatusBar = ({
   return isFocused ? (
     <View style={styles.container}>
       <PostDelay>
-        <StatusBar barStyle={barStyle} {...props} />
+        <StatusBar style={style} {...props} />
       </PostDelay>
     </View>
   ) : null;

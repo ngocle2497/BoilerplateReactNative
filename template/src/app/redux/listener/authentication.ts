@@ -25,7 +25,9 @@ export const runAuthenticationListener = () => {
       }
 
       if (validResponse(response)) {
-        // TODO: do something when login success
+        /**
+         * Do something when login success
+         */
       }
     },
   });

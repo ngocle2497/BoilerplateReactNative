@@ -10,7 +10,7 @@ export type ListViewProps = (
       FlatListProps<any>,
       'onRefresh' | 'refreshControl' | 'refreshing'
     >)
-  | ({ type?: 'flashlist' | undefined } & ReOmit<
+  | ({ type?: 'flashlist' } & ReOmit<
       FlashListProps<any>,
       'onRefresh' | 'refreshControl' | 'refreshing'
     >)

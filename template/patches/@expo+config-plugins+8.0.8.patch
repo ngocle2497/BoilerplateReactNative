@@ -1,0 +1,13 @@
+diff --git a/node_modules/@expo/config-plugins/build/android/Package.js b/node_modules/@expo/config-plugins/build/android/Package.js
+index cbc7688..22cc5e3 100644
+--- a/node_modules/@expo/config-plugins/build/android/Package.js
++++ b/node_modules/@expo/config-plugins/build/android/Package.js
+@@ -281,7 +281,7 @@ async function getApplicationIdAsync(projectRoot) {
+     return null;
+   }
+   const buildGradle = await _fs().default.promises.readFile(buildGradlePath, 'utf8');
+-  const matchResult = buildGradle.match(/applicationId ['"](.*)['"]/);
++  const matchResult = buildGradle.match(/applicationId ['"](.*)['"]/) ?? buildGradle.match(/namespace ['"](.*)['"]/);
+   // TODO add fallback for legacy cases to read from AndroidManifest.xml
+   return matchResult?.[1] ?? null;
+ }

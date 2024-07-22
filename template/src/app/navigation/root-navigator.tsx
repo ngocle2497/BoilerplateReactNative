@@ -30,7 +30,7 @@ export const RootNavigation = () => {
       screenOptions={{
         headerShown: false,
         statusBarTranslucent: true,
-        navigationBarColor: 'transparent',
+        navigationBarColor: '#ffffff',
       }}>
       {token === undefined ? (
         <RootStack.Group

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, {
-  SetStateAction,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -24,7 +23,6 @@ import {
   useTranslation as useRNTranslation,
 } from 'react-i18next';
 
-import { isTypeof } from '@common/method';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { I18nKeys } from '@utils/i18n/locales';
 import { StringMap, TFunctionResult, TOptions } from 'i18next';
@@ -51,23 +49,17 @@ function useNetWorkStatus(): NetInfoTuple {
 }
 
 function useInterval(callback: Function, delay: number) {
-  const savedCallback = useRef<Function>();
-
-  useEffect(() => {
-    savedCallback.current = callback;
+  const tick = useCallback(() => {
+    callback?.();
   }, [callback]);
 
   useEffect(() => {
-    function tick() {
-      savedCallback.current && savedCallback.current();
-    }
-
     if (delay !== null) {
       const id = setInterval(tick, delay);
 
       return () => clearInterval(id);
     }
-  }, [delay]);
+  }, [delay, tick]);
 }
 
 function usePrevious<T = any>(value: T): T | undefined {
@@ -80,87 +72,6 @@ function usePrevious<T = any>(value: T): T | undefined {
   return ref.current;
 }
 
-type UseSetArrayStateAction<T extends object> = React.Dispatch<
-  SetStateAction<Partial<T>>
->;
-type UseSetStateArray<T extends object> = [
-  T,
-  UseSetArrayStateAction<T>,
-  () => void,
-];
-function useSetStateArray<T extends object>(
-  initialValue: T,
-): UseSetStateArray<T> {
-  const [value, setValue] = useState<T>(initialValue);
-
-  const setState = useCallback(
-    (v: SetStateAction<Partial<T>>) => {
-      return setValue(oldValue => ({
-        ...oldValue,
-        ...(typeof v === 'function' ? v(oldValue) : v),
-      }));
-    },
-    [setValue],
-  );
-
-  const resetState = useCallback(() => setValue(initialValue), [initialValue]);
-
-  return [value, setState, resetState];
-}
-
-type UseSetStateAction<T extends object> = React.Dispatch<
-  SetStateAction<Partial<T>>
->;
-type UseSetState<T extends object> = {
-  setState: UseSetStateAction<T>;
-  state: T;
-  resetState: () => void;
-};
-function useSetState<T extends object>(initialValue: T): UseSetState<T> {
-  const [state, setState, resetState] = useSetStateArray(initialValue);
-
-  return useMemo(
-    () => ({
-      setState,
-      resetState,
-      state,
-    }),
-    [setState, resetState, state],
-  );
-}
-
-function useAsyncState<T>(
-  initialValue: T,
-): [
-  T,
-  (newValue: SetStateAction<T>, callback?: (newState: T) => void) => void,
-] {
-  const [state, setState] = useState(initialValue);
-
-  const _callback = useRef<(newState: T) => void>();
-
-  const _setState = (
-    newValue: SetStateAction<T>,
-    callback?: (newState: T) => void,
-  ) => {
-    if (callback) {
-      _callback.current = callback;
-    }
-
-    setState(newValue);
-  };
-
-  useEffect(() => {
-    if (typeof _callback.current === 'function') {
-      _callback.current(state);
-
-      _callback.current = undefined;
-    }
-  }, [state]);
-
-  return [state, _setState];
-}
-
 function useUnMount(callback: () => void) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   return useEffect(() => () => callback(), []);
@@ -169,18 +80,6 @@ function useUnMount(callback: () => void) {
 function useDidMount(callback: () => void) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   return useEffect(callback, []);
-}
-
-function useForceUpdate() {
-  const unloadingRef = useRef(false);
-
-  const [forcedRenderCount, setForcedRenderCount] = useState(0);
-
-  useUnMount(() => (unloadingRef.current = true));
-
-  return useCallback(() => {
-    !unloadingRef.current && setForcedRenderCount(forcedRenderCount + 1);
-  }, [forcedRenderCount]);
 }
 
 function useIsKeyboardShown() {
@@ -377,19 +276,16 @@ const useTranslation = <
 };
 
 export {
-  useAsyncState,
   useDidMount,
   useDisableBackHandler,
   useDismissKeyboard,
   useErrorMessageTranslation,
   useEventCallback,
-  useForceUpdate,
   useInterval,
   useIsKeyboardShown,
   useMounted,
   useNetWorkStatus,
   usePrevious,
-  useSetState,
   useTranslation,
   useUnMount,
 };

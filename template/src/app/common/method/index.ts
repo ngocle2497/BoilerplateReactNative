@@ -1,6 +1,6 @@
 /* eslint-disable no-bitwise */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Alert, ColorValue, Linking, Platform } from 'react-native';
+import { Alert, ColorValue, Linking } from 'react-native';
 
 import { processColor } from 'react-native-reanimated';
 
@@ -12,22 +12,8 @@ import { translate } from '@utils/i18n/translate';
 import { MMKV_KEY } from '../constant';
 import { dispatch } from '../redux';
 
-type TypesBase =
-  | 'bigint'
-  | 'boolean'
-  | 'function'
-  | 'number'
-  | 'object'
-  | 'string'
-  | 'symbol'
-  | 'undefined';
-
 export const onShowErrorBase = (msg: string) => {
   Alert.alert(msg);
-};
-
-export const isTypeof = (source: any, type: TypesBase): source is TypesBase => {
-  return typeof source === type;
 };
 
 export const checkKeyInObject = (T: Record<string, unknown>, key: string) => {
@@ -41,23 +27,14 @@ export const validResponse = (
   response: ResponseBase<any>,
 ): response is ResponseBase<any, true> => {
   if (!response.status) {
-    // TODO: handle error
+    /**
+     * handler error
+     */
     return false;
   }
 
   return true;
 };
-
-export const execFunc = <Fn extends (...args: any[]) => any>(
-  func?: Fn,
-  ...args: Parameters<Fn>
-) => {
-  if (isTypeof(func, 'function')) {
-    func(...args);
-  }
-};
-
-export const isIos = Platform.OS === 'ios';
 
 export const logout = () => {
   dispatch(appActions.logout());
@@ -106,89 +83,72 @@ export const setAlpha = (color: ColorValue, alpha = 1) => {
   const b = num & 0xff,
     g = (num & 0xff00) >>> 8,
     r = (num & 0xff0000) >>> 16;
-  // a = ((num & 0xff000000) >>> 24) / 255;
 
   return 'rgba(' + [r, g, b, alpha].join(',') + ')';
 };
 
 export const timeAgo = (
   date: Date,
-): {
-  title: I18nKeys;
-  options?: { count: number };
-} => {
-  const diff = (new Date().getTime() - date.getTime()) / 1000,
-    day_diff = Math.floor(diff / 86400);
+): { title: I18nKeys; options?: { count: number } } => {
+  const diff = (new Date().getTime() - date.getTime()) / 1000;
 
-  if (isNaN(day_diff) || day_diff < 0 || day_diff >= 31) {
-    return {
-      title: 'date:just_now',
-    };
-  }
+  const day_diff = Math.floor(diff / 86400);
 
-  if (day_diff === 0 && diff < 60) {
-    return {
-      title: 'date:just_now',
-    };
-  }
+  const conditions: Array<{
+    check: boolean;
+    result: { title: I18nKeys; options?: any };
+  }> = [
+    {
+      check: isNaN(day_diff) || day_diff < 0 || day_diff >= 31,
+      result: { title: 'date:just_now' },
+    },
+    { check: day_diff === 0 && diff < 60, result: { title: 'date:just_now' } },
+    {
+      check: day_diff === 0 && diff < 120,
+      result: { title: 'date:minute_ago', options: { count: 1 } },
+    },
+    {
+      check: day_diff === 0 && diff < 3600,
+      result: {
+        title: 'date:minutes_ago',
+        options: { count: Math.floor(diff / 60) },
+      },
+    },
+    {
+      check: day_diff === 0 && diff < 7200,
+      result: { title: 'date:hour_ago', options: { count: 1 } },
+    },
+    {
+      check: day_diff === 0 && diff < 86400,
+      result: {
+        title: 'date:hours_ago',
+        options: { count: Math.floor(diff / 3600) },
+      },
+    },
+    { check: day_diff === 1, result: { title: 'date:yesterday' } },
+    { check: day_diff < 7, result: { title: 'date:last_week' } },
+    { check: day_diff < 31, result: { title: 'date:last_month' } },
+    {
+      check: day_diff < 365,
+      result: {
+        title: 'date:months_ago',
+        options: { count: Math.ceil(day_diff / 30) },
+      },
+    },
+    { check: day_diff === 365, result: { title: 'date:last_year' } },
+    {
+      check: true,
+      result: {
+        title: 'date:years_ago',
+        options: { count: Math.floor(day_diff / 365) },
+      },
+    },
+  ];
 
-  if (day_diff === 0 && diff < 120) {
-    return {
-      title: 'date:minute_ago',
-      options: { count: 1 },
-    };
-  }
-
-  if (day_diff === 0 && diff < 3600) {
-    return {
-      title: 'date:minutes_ago',
-      options: { count: Math.floor(diff / 60) },
-    };
-  }
-
-  if (day_diff === 0 && diff < 7200) {
-    return {
-      title: 'date:hour_ago',
-      options: { count: 1 },
-    };
-  }
-
-  if (day_diff === 0 && diff < 86400) {
-    return {
-      title: 'date:hours_ago',
-      options: { count: Math.floor(diff / 3600) },
-    };
-  }
-
-  if (day_diff === 1) {
-    return {
-      title: 'date:yesterday',
-    };
-  }
-
-  if (day_diff < 7) {
-    return {
-      title: 'date:last_week',
-    };
-  }
-
-  if (day_diff < 31) {
-    return {
-      title: 'date:last_month',
-    };
-  }
-
-  if (day_diff < 365) {
-    return {
-      title: 'date:months_ago',
-      options: { count: Math.ceil(day_diff / 30) },
-    };
-  }
-
-  if (day_diff === 365) {
-    return {
-      title: 'date:last_year',
-    };
+  for (const condition of conditions) {
+    if (condition.check) {
+      return condition.result;
+    }
   }
 
   return {

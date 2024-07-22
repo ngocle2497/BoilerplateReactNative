@@ -17,7 +17,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { sharedTiming, sharePause } from '@animated';
-import { VectorIcon, VectorIconIcon } from '@assets/vector-icon/vector-icon';
+import { VectorIcon, VIconName } from '@components/vector-icon';
 import { useErrorMessageTranslation } from '@hooks';
 import { AnimatedView, Text } from '@rn-core';
 
@@ -49,7 +49,7 @@ const getColor = (typeMessage: TypeMessage): string => {
   }
 };
 
-const getIcon = (typeMessage: TypeMessage): VectorIconIcon => {
+const getIcon = (typeMessage: TypeMessage): VIconName => {
   switch (typeMessage) {
     case TYPE_MESSAGE.SUCCESS:
       return 'tick_square';

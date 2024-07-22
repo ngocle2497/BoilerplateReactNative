@@ -17,10 +17,10 @@ const VectorIconBase = createIconSetFromIcoMoon(
 
 export const AnimatedIcon = Animated.createAnimatedComponent(VectorIconBase);
 
-export type VectorIconIcon = keyof typeof ICONS;
+export type VIconName = keyof typeof ICONS;
 
 type VectorIconProps = ReOmit<IconProps, 'name'> & {
-  icon: VectorIconIcon;
+  icon: VIconName;
   colorTheme?: Colors;
 };
 

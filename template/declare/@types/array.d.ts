@@ -11,4 +11,8 @@ declare global {
      */
     searchAllProps(keyword: string | number): Array<T>;
   }
+
+  interface ArrayConstructor {
+    validArray<T>(source: T[]): T[];
+  }
 }
