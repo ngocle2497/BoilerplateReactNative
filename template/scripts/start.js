@@ -12,7 +12,7 @@ const { getEnvJsonFromPath } = require('./common');
 
   const envJson = getEnvJsonFromPath(envPath);
 
-  execSync(`npx expo start --appId ${envJson.public.BUNDLE_IDENTIFIER}`, {
+  execSync(`npx expo start --appId ${envJson.public.BUNDLE_IDENTIFIER} --clear`, {
     stdio: 'inherit',
   });
 })();
