@@ -1,8 +1,9 @@
-import { validResponse } from '@common/method';
 import { takeLatestListeners } from '@listener';
-import { ApiConstants, NetWorkService } from '@networking';
+import { ApiConstants } from '@networking/api';
+import { validResponse } from '@networking/helper';
+import { NetWorkService } from '@networking/service';
 
-import { authenticationActions } from '../action-slice/authentication';
+import { authenticationActions } from '@redux-slice/authentication';
 
 export const runAuthenticationListener = () => {
   takeLatestListeners()({

@@ -5,10 +5,10 @@ import { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 
 import { useSharedTransition } from '@animated';
 import { AnimatedView } from '@rn-core';
-import { useStyles } from '@theme';
 
 import { stylesSheet } from './styles';
 import { RadioButtonProps } from './type';
+import { useStyles } from 'react-native-unistyles';
 
 export const RadioButton = ({
   value,

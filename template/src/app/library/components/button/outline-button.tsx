@@ -10,11 +10,11 @@ import {
 import { AnimatedIcon } from '@components/icon';
 import { useTranslation } from '@hooks';
 import { AnimatedText, View } from '@rn-core';
-import { useStyles } from '@theme';
 
 import { useThrottle } from './hook';
 import { buttonStyleSheet } from './styles';
 import { ButtonProps } from './type';
+import { useStyles } from 'react-native-unistyles';
 
 export const OutlineButton = ({
   t18n,

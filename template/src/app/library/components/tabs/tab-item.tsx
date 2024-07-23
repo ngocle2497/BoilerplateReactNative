@@ -5,9 +5,9 @@ import { useAnimatedStyle } from 'react-native-reanimated';
 import { DefaultButton } from '@components/button/default-button';
 import { useTranslation } from '@hooks';
 import { AnimatedText, AnimatedView, View } from '@rn-core';
-import { createStyleSheet, useStyles } from '@theme';
 
 import { TabItemProps } from './type';
+import { createStyleSheet, useStyles } from 'react-native-unistyles';
 
 export const TabItem = ({ tab, index, selectedIndex }: TabItemProps) => {
   // state

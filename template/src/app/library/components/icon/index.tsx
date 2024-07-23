@@ -4,9 +4,9 @@ import { Image, ImageProps, ImageStyle } from 'react-native';
 import Animated, { AnimatedProps } from 'react-native-reanimated';
 
 import { icons } from '@assets/icon';
-import { useStyles } from '@theme';
 
 import { IconProps } from './type';
+import { useStyles } from 'react-native-unistyles';
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 

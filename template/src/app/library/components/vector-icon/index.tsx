@@ -3,10 +3,11 @@ import React from 'react';
 import Animated from 'react-native-reanimated';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 
-import { Colors, useStyles } from '@theme';
 import { IconProps } from 'react-native-vector-icons/Icon';
 
 import { ICONS } from './icon-name';
+import { Colors } from '@theme/index';
+import { useStyles } from 'react-native-unistyles';
 
 const VectorIconBase = createIconSetFromIcoMoon(
   // eslint-disable-next-line @typescript-eslint/no-var-requires

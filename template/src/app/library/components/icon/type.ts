@@ -1,5 +1,5 @@
 import { IconTypes } from '@assets/icon';
-import { Colors } from '@theme';
+import { Colors } from '@theme/index';
 
 export interface IconProps {
   /**

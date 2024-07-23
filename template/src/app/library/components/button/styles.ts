@@ -1,4 +1,4 @@
-import { createStyleSheet } from '@theme';
+import { createStyleSheet } from 'react-native-unistyles';
 
 export const buttonStyleSheet = createStyleSheet(({ color, textPresets }) => ({
   normal: {

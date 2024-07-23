@@ -14,9 +14,9 @@ export const API_CONFIG = {
   CODE_TIME_OUT: 408,
 };
 
-export enum SLICE_NAME {
-  APP = 'APP_',
-  AUTHENTICATION = 'AUTHENTICATION_',
-}
+export const SLICE_NAME = {
+  APP: 'APP_',
+  AUTHENTICATION: 'AUTHENTICATION_',
+};
 
 export const isIos = Platform.OS === 'ios';

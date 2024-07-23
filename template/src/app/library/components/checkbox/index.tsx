@@ -10,10 +10,10 @@ import {
 import { useSharedTransition } from '@animated';
 import { AnimatedIcon } from '@components/icon';
 import { AnimatedView } from '@rn-core';
-import { useStyles } from '@theme';
 
 import { stylesSheet } from './styles';
 import { CheckboxProps } from './type';
+import { useStyles } from 'react-native-unistyles';
 
 export const Checkbox = ({
   value,

@@ -4,10 +4,9 @@ import { Alert, ColorValue, Linking } from 'react-native';
 
 import { processColor } from 'react-native-reanimated';
 
-import { appActions } from '@redux-slice';
+import { appActions } from '@redux-slice/app';
 import { remove } from '@storage';
 import { I18nKeys } from '@utils/i18n/locales';
-import { translate } from '@utils/i18n/translate';
 
 import { MMKV_KEY } from '../constant';
 import { dispatch } from '../redux';
@@ -20,46 +19,10 @@ export const checkKeyInObject = (T: Record<string, unknown>, key: string) => {
   return Object.keys(T).includes(key);
 };
 
-/**
- * return true when success and false when error
- */
-export const validResponse = (
-  response: ResponseBase<any>,
-): response is ResponseBase<any, true> => {
-  if (!response.status) {
-    /**
-     * handler error
-     */
-    return false;
-  }
-
-  return true;
-};
-
 export const logout = () => {
   dispatch(appActions.logout());
 
   remove(MMKV_KEY.APP_TOKEN);
-};
-
-export const handleErrorApi = (status: number) => {
-  const result = { status: false, code: status, msg: '' };
-
-  if (status > 505) {
-    result.msg = translate('error:server_error');
-
-    return result;
-  }
-
-  if (status < 500 && status >= 418) {
-    result.msg = translate('error:error_on_request');
-
-    return result;
-  }
-
-  result.msg = translate(('error:' + status) as I18nKeys);
-
-  return result;
 };
 
 export const openLinking = (url: string) => {

@@ -3,10 +3,10 @@ import React from 'react';
 import { useSharedValue } from 'react-native-reanimated';
 
 import { View } from '@rn-core';
-import { createStyleSheet, useStyles } from '@theme';
 
 import { TabItem } from './tab-item';
 import { Tab, TabsProps } from './type';
+import { createStyleSheet, useStyles } from 'react-native-unistyles';
 
 export const Tabs = ({ tabs, initialIndex = 0 }: TabsProps) => {
   // state

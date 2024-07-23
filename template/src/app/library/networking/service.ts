@@ -5,7 +5,7 @@ import { API_CONFIG } from '@common/constant';
 import { dispatch, getState } from '@common/redux';
 import { API_URL } from '@env';
 import { AppState } from '@model/app';
-import { appActions } from '@redux-slice';
+import { appActions } from '@redux-slice/app';
 import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { ApiConstants } from './api';

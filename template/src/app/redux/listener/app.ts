@@ -2,7 +2,7 @@ import { MMKV_KEY } from '@common/constant';
 import { takeLatestListeners } from '@listener';
 import { loadString } from '@utils/storage';
 
-import { appActions } from '../action-slice/app';
+import { appActions } from '@redux-slice/app';
 
 export const runAppListener = () => {
   takeLatestListeners()({

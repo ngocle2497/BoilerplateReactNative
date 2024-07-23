@@ -10,7 +10,6 @@ import {
 } from 'react-native-safe-area-context';
 
 import { View } from '@rn-core';
-import { useStyles } from '@theme';
 
 import { styles } from './styles';
 import {
@@ -21,6 +20,7 @@ import {
 } from './type';
 
 import { FocusAwareStatusBar } from '../focus-aware-status-bar';
+import { useStyles } from 'react-native-unistyles';
 
 const INSETS: Edge[] = ['top', 'bottom', 'left', 'right'];
 

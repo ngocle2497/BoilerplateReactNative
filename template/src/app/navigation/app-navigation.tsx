@@ -12,11 +12,11 @@ import {
   useNavigationContainerRef,
 } from '@react-navigation/native';
 import { selectAppConfig } from '@redux-selector/app';
-import { appActions } from '@redux-slice';
-import { useStyles } from '@theme';
+import { appActions } from '@redux-slice/app';
 import { StatusBar } from 'expo-status-bar';
 
 import { NavigationService } from './navigation-service';
+import { useStyles } from 'react-native-unistyles';
 
 export const AppContainer = () => {
   // state

@@ -6,11 +6,12 @@ import { useAnimatedStyle } from 'react-native-reanimated';
 import { Icon } from '@components/icon';
 import { useTranslation } from '@hooks';
 import { AnimatedView, Text } from '@rn-core';
-import { Colors, useStyles } from '@theme';
 
 import { useThrottle } from './hook';
 import { buttonStyleSheet } from './styles';
 import { ButtonProps } from './type';
+import { useStyles } from 'react-native-unistyles';
+import { Colors } from '@theme/index';
 
 export const PrimaryButton = ({
   t18n,

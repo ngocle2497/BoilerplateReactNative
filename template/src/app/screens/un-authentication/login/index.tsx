@@ -9,7 +9,11 @@ import {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import { UnistylesRuntime } from 'react-native-unistyles';
+import {
+  createStyleSheet,
+  UnistylesRuntime,
+  useStyles,
+} from 'react-native-unistyles';
 
 import { OutlineButton } from '@components/button/outline-button';
 import { PrimaryButton } from '@components/button/primary-button';
@@ -27,7 +31,6 @@ import {
   makeImageFromView,
   SkImage,
 } from '@shopify/react-native-skia';
-import { createStyleSheet, useStyles } from '@theme';
 import { StatusBarStyle } from 'expo-status-bar';
 
 const wait = (ms: number) => {

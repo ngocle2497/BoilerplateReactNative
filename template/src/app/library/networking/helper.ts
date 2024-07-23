@@ -1,9 +1,11 @@
 import { createRef } from 'react';
 
 import { API_CONFIG } from '@common/constant';
-import { handleErrorApi, logout } from '@common/method';
+
 import { translate } from '@utils/i18n/translate';
 import { AxiosError, AxiosResponse, Method } from 'axios';
+import { I18nKeys } from '@utils/i18n/locales';
+import { logout } from '@common/method';
 
 const responseDefault: ResponseBase<Record<string, unknown>> = {
   code: -500,
@@ -16,6 +18,22 @@ export const onPushLogout = async () => {
   /**
    * do something when logout
    */
+};
+
+/**
+ * return true when success and false when error
+ */
+export const validResponse = (
+  response: ResponseBase<any>,
+): response is ResponseBase<any, true> => {
+  if (!response.status) {
+    /**
+     * handler error
+     */
+    return false;
+  }
+
+  return true;
 };
 
 export const controller = createRef<AbortController>();
@@ -42,6 +60,26 @@ export const handleResponseAxios = <T = Record<string, unknown>>(
   }
 
   return responseDefault as ResponseBase<T>;
+};
+
+const handleErrorApi = (status: number) => {
+  const result = { status: false, code: status, msg: '' };
+
+  if (status > 505) {
+    result.msg = translate('error:server_error');
+
+    return result;
+  }
+
+  if (status < 500 && status >= 418) {
+    result.msg = translate('error:error_on_request');
+
+    return result;
+  }
+
+  result.msg = translate(('error:' + status) as I18nKeys);
+
+  return result;
 };
 
 export const handleErrorAxios = <T = Record<string, unknown>>(
