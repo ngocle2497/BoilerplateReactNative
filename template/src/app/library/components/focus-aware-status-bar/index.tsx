@@ -25,7 +25,7 @@ export const FocusAwareStatusBar = ({
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
     opacity: 0,
+    position: 'absolute',
   },
 });

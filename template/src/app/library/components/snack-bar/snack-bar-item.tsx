@@ -110,17 +110,15 @@ export const SnackItem = memo(
       };
 
       return {
-        initialValues,
         animations,
         callback,
+        initialValues,
       };
     };
 
     const CustomExitAnimation = (values: any) => {
       'worklet';
       const animations = {
-        // your animations
-        zIndex: index,
         transform: [
           {
             translateY: sharedTiming(-(values.currentHeight + insets.top), {
@@ -128,6 +126,8 @@ export const SnackItem = memo(
             }),
           },
         ],
+        // your animations
+        zIndex: index,
       };
 
       const initialValues = {
@@ -142,9 +142,9 @@ export const SnackItem = memo(
       };
 
       return {
-        initialValues,
         animations,
         callback,
+        initialValues,
       };
     };
 

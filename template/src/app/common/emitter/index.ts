@@ -22,9 +22,9 @@ export const subscribeEvent = <P, T extends string = string>(
   const uuid = randomUniqueId();
 
   listeners.push({
-    uuid,
     eventKey: args[0],
     listener: args[1],
+    uuid,
   });
 
   return () => {

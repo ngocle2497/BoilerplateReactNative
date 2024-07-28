@@ -10,8 +10,8 @@ export const Spacer = ({ height = 0, width = 0 }: SpacerProps) => {
   // style
   const actualStyle = useMemo<StyleProp<ViewStyle>>(
     () => ({
-      width: typeof width === 'number' ? sizeScale(width) : width,
       height: typeof height === 'number' ? sizeScale(height) : height,
+      width: typeof width === 'number' ? sizeScale(width) : width,
     }),
     [height, width],
   );

@@ -9,8 +9,8 @@ const initialState: AuthenticationState = {
 };
 
 const authenticationSlice = createSlice({
-  name: SLICE_NAME.AUTHENTICATION,
   initialState: initialState,
+  name: SLICE_NAME.AUTHENTICATION,
   reducers: {
     reset: () => initialState,
   },
@@ -21,8 +21,8 @@ const login = createAction(
   (body: any, onSucceeded: () => void, onFailure: (msg: string) => void) => ({
     payload: {
       body,
-      onSucceeded,
       onFailure,
+      onSucceeded,
     },
   }),
 );

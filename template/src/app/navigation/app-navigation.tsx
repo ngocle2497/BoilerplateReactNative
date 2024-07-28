@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 
+import { useStyles } from 'react-native-unistyles';
 import { useSelector } from 'react-redux';
 
 import { dispatch, RXStore } from '@common/redux';
@@ -16,7 +17,6 @@ import { appActions } from '@redux-slice/app';
 import { StatusBar } from 'expo-status-bar';
 
 import { NavigationService } from './navigation-service';
-import { useStyles } from 'react-native-unistyles';
 
 export const AppContainer = () => {
   // state

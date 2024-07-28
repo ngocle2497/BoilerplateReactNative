@@ -6,6 +6,7 @@ import {
   useAnimatedStyle,
   useDerivedValue,
 } from 'react-native-reanimated';
+import { useStyles } from 'react-native-unistyles';
 
 import { AnimatedIcon } from '@components/icon';
 import { useTranslation } from '@hooks';
@@ -14,7 +15,6 @@ import { AnimatedText, View } from '@rn-core';
 import { useThrottle } from './hook';
 import { buttonStyleSheet } from './styles';
 import { ButtonProps } from './type';
-import { useStyles } from 'react-native-unistyles';
 
 export const OutlineButton = ({
   t18n,
@@ -46,11 +46,11 @@ export const OutlineButton = ({
     handlePressOut,
     pressed,
   ] = useThrottle({
-    throttleMs,
-    onPress,
     onLongPress,
+    onPress,
     onPressIn,
     onPressOut,
+    throttleMs,
   });
 
   const tintColor = useDerivedValue(() => {

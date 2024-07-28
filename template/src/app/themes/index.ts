@@ -11,8 +11,8 @@ type AppThemes = {
 };
 
 UnistylesRegistry.addThemes({
-  light: lightTheme,
   dark: darkTheme,
+  light: lightTheme,
 }).addConfig({
   adaptiveThemes: false,
   initialTheme: 'light',

@@ -2,11 +2,11 @@ import React, { forwardRef, useMemo } from 'react';
 import { Image, ImageProps, ImageStyle } from 'react-native';
 
 import Animated, { AnimatedProps } from 'react-native-reanimated';
+import { useStyles } from 'react-native-unistyles';
 
 import { icons } from '@assets/icon';
 
 import { IconProps } from './type';
-import { useStyles } from 'react-native-unistyles';
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
@@ -23,7 +23,7 @@ export const Icon = ({
 
   // style
   const style = useMemo<ImageStyle>(
-    () => ({ width: size, height: size }),
+    () => ({ height: size, width: size }),
     [size],
   );
 
@@ -61,7 +61,7 @@ export const AnimatedIcon = forwardRef<
 
     // style
     const style = useMemo<ImageStyle>(
-      () => ({ width: size, height: size }),
+      () => ({ height: size, width: size }),
       [size],
     );
 

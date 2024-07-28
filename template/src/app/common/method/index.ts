@@ -68,24 +68,24 @@ export const timeAgo = (
     { check: day_diff === 0 && diff < 60, result: { title: 'date:just_now' } },
     {
       check: day_diff === 0 && diff < 120,
-      result: { title: 'date:minute_ago', options: { count: 1 } },
+      result: { options: { count: 1 }, title: 'date:minute_ago' },
     },
     {
       check: day_diff === 0 && diff < 3600,
       result: {
-        title: 'date:minutes_ago',
         options: { count: Math.floor(diff / 60) },
+        title: 'date:minutes_ago',
       },
     },
     {
       check: day_diff === 0 && diff < 7200,
-      result: { title: 'date:hour_ago', options: { count: 1 } },
+      result: { options: { count: 1 }, title: 'date:hour_ago' },
     },
     {
       check: day_diff === 0 && diff < 86400,
       result: {
-        title: 'date:hours_ago',
         options: { count: Math.floor(diff / 3600) },
+        title: 'date:hours_ago',
       },
     },
     { check: day_diff === 1, result: { title: 'date:yesterday' } },
@@ -94,16 +94,16 @@ export const timeAgo = (
     {
       check: day_diff < 365,
       result: {
-        title: 'date:months_ago',
         options: { count: Math.ceil(day_diff / 30) },
+        title: 'date:months_ago',
       },
     },
     { check: day_diff === 365, result: { title: 'date:last_year' } },
     {
       check: true,
       result: {
-        title: 'date:years_ago',
         options: { count: Math.floor(day_diff / 365) },
+        title: 'date:years_ago',
       },
     },
   ];
@@ -115,7 +115,7 @@ export const timeAgo = (
   }
 
   return {
-    title: 'date:years_ago',
     options: { count: Math.floor(day_diff / 365) },
+    title: 'date:years_ago',
   };
 };

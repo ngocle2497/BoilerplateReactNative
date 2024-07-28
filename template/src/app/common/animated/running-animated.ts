@@ -121,16 +121,16 @@ export const sharePause = function <T extends AnimationObject>(
       };
 
       return {
+        callback,
+        current: nextAnimation.current,
+        elapsed: 0,
         isHigherOrder: true,
+        lastTimestamp: 0,
         onFrame,
         onStart,
-        current: nextAnimation.current,
-        callback,
         previousAnimation: null,
         startTime: 0,
         started: false,
-        lastTimestamp: 0,
-        elapsed: 0,
       };
     },
   );

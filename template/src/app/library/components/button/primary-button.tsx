@@ -2,16 +2,16 @@ import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 
 import { useAnimatedStyle } from 'react-native-reanimated';
+import { useStyles } from 'react-native-unistyles';
 
 import { Icon } from '@components/icon';
 import { useTranslation } from '@hooks';
 import { AnimatedView, Text } from '@rn-core';
+import { Colors } from '@theme/index';
 
 import { useThrottle } from './hook';
 import { buttonStyleSheet } from './styles';
 import { ButtonProps } from './type';
-import { useStyles } from 'react-native-unistyles';
-import { Colors } from '@theme/index';
 
 export const PrimaryButton = ({
   t18n,
@@ -43,11 +43,11 @@ export const PrimaryButton = ({
     handlePressOut,
     pressed,
   ] = useThrottle({
-    throttleMs,
-    onPress,
     onLongPress,
+    onPress,
     onPressIn,
     onPressOut,
+    throttleMs,
   });
 
   // func

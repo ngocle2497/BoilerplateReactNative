@@ -115,8 +115,8 @@ const getAndroidHome = () => {
 };
 
 module.exports = {
-  getEnvJsonFromPath,
-  setupEnv,
-  getRubyVersion,
   getAndroidHome,
+  getEnvJsonFromPath,
+  getRubyVersion,
+  setupEnv,
 };

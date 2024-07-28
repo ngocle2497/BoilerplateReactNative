@@ -45,7 +45,7 @@ const { resolve } = require('path');
   );
 
   // remove old .imageset if exist
-  rmSync(newBootSplashLogoPath, { recursive: true, force: true });
+  rmSync(newBootSplashLogoPath, { force: true, recursive: true });
 
   execSync(
     `yarn react-native generate-bootsplash ${path} --background=${bgColor} --platforms=android,ios --logo-width=${width}  --assets-output=assets --flavor=${flavor}`,

@@ -1,16 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createRef } from 'react';
 
 import { API_CONFIG } from '@common/constant';
-
+import { logout } from '@common/method';
+import { I18nKeys } from '@utils/i18n/locales';
 import { translate } from '@utils/i18n/translate';
 import { AxiosError, AxiosResponse, Method } from 'axios';
-import { I18nKeys } from '@utils/i18n/locales';
-import { logout } from '@common/method';
 
 const responseDefault: ResponseBase<Record<string, unknown>> = {
   code: -500,
-  status: false,
   msg: translate('error:have_error'),
+  status: false,
 };
 
 export const onPushLogout = async () => {
@@ -56,14 +56,14 @@ export const handleResponseAxios = <T = Record<string, unknown>>(
   res: AxiosResponse<T>,
 ): ResponseBase<T> => {
   if (res.data) {
-    return { code: API_CONFIG.CODE_SUCCESS, status: true, data: res.data };
+    return { code: API_CONFIG.CODE_SUCCESS, data: res.data, status: true };
   }
 
   return responseDefault as ResponseBase<T>;
 };
 
 const handleErrorApi = (status: number) => {
-  const result = { status: false, code: status, msg: '' };
+  const result = { code: status, msg: '', status: false };
 
   if (status > 505) {
     result.msg = translate('error:server_error');
@@ -132,9 +132,9 @@ export const handleParameter = <T extends ParamsNetwork>(
 
   return {
     ...props,
-    method,
-    url: handlePath(url, path),
     data: body,
+    method,
     params,
+    url: handlePath(url, path),
   };
 };

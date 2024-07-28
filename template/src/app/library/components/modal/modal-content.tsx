@@ -56,9 +56,9 @@ export const ModalContent = forwardRef(
       () => [
         StyleSheet.absoluteFillObject,
         {
-          width: '100%',
-          height: '100%',
           backgroundColor: backdropColor,
+          height: '100%',
+          width: '100%',
         },
       ],
       [backdropColor],

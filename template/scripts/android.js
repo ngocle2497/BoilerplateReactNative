@@ -39,9 +39,9 @@ const getHash = () => {
 
   execSync(
     getHashCommand({
-      keyStorePath: 'android/app/debug.keystore',
-      keyStorePass: 'android',
       alias: 'androiddebugkey',
+      keyStorePass: 'android',
+      keyStorePath: 'android/app/debug.keystore',
     }),
     { stdio: 'inherit' },
   );
@@ -55,9 +55,9 @@ const getHash = () => {
 
     execSync(
       getHashCommand({
-        keyStorePath: `fastlane/release-keystore/${envJson.public.ANDROID_KEY_STORE_FILE}`,
-        keyStorePass: envJson.public.ANDROID_KEY_STORE_KEY_PASSWORD,
         alias: envJson.public.ANDROID_KEY_STORE_KEY_ALIAS,
+        keyStorePass: envJson.public.ANDROID_KEY_STORE_KEY_PASSWORD,
+        keyStorePath: `fastlane/release-keystore/${envJson.public.ANDROID_KEY_STORE_FILE}`,
       }),
       { stdio: 'inherit' },
     );
@@ -76,8 +76,8 @@ const signingReport = () => {
   execSync(
     getReportCommand({
       alias: 'androiddebugkey',
-      keyStorePath: 'android/app/debug.keystore',
       keyStorePass: 'android',
+      keyStorePath: 'android/app/debug.keystore',
     }),
     {
       stdio: 'inherit',
@@ -96,8 +96,8 @@ const signingReport = () => {
     execSync(
       getReportCommand({
         alias: `${envJson.public.ANDROID_KEY_STORE_KEY_ALIAS}`,
-        keyStorePath: `fastlane/release-keystore/${envJson.public.ANDROID_KEY_STORE_FILE}`,
         keyStorePass: `${envJson.public.ANDROID_KEY_STORE_KEY_PASSWORD}`,
+        keyStorePath: `fastlane/release-keystore/${envJson.public.ANDROID_KEY_STORE_FILE}`,
       }),
       {
         stdio: 'inherit',
@@ -150,7 +150,7 @@ const genKeyStore = async () => {
 
   switch (nameFunc) {
     case 'run':
-      run({ platform, buildType, envPath });
+      run({ buildType, envPath, platform });
 
       break;
     case 'hash':

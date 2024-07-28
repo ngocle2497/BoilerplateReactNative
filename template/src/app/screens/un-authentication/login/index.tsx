@@ -110,7 +110,7 @@ export const Login = () => {
     opacity: opacity.value,
   }));
 
-  const size = useSharedValue({ width: 0, height: 0 });
+  const size = useSharedValue({ height: 0, width: 0 });
 
   const widthCanvas = useDerivedValue(() => size.value.width);
 
@@ -130,7 +130,7 @@ export const Login = () => {
           scroll
           excludeEdges={['bottom']}
           statusBarStyle={barStyle}
-          style={{ paddingVertical: 0, paddingHorizontal: 10 }}
+          style={{ paddingHorizontal: 10, paddingVertical: 0 }}
           backgroundColor={'transparent'}>
           <View style={styles.rowItem}>
             <Text style={styles.text}>Divider</Text>
@@ -208,25 +208,25 @@ export const Login = () => {
 };
 
 const styleSheet = createStyleSheet(theme => ({
+  colItem: {
+    alignItems: 'flex-start',
+    paddingVertical: 15,
+    rowGap: 8,
+  },
+  root: {
+    backgroundColor: theme.color.background,
+    flex: 1,
+    paddingHorizontal: 15,
+    paddingTop: 0,
+  },
+  rowItem: {
+    alignItems: 'center',
+    columnGap: 8,
+    flexDirection: 'row',
+    paddingVertical: 15,
+  },
   text: {
     ...theme.textPresets.label,
     color: theme.color.neutral500,
-  },
-  root: {
-    flex: 1,
-    paddingTop: 0,
-    paddingHorizontal: 15,
-    backgroundColor: theme.color.background,
-  },
-  rowItem: {
-    flexDirection: 'row',
-    paddingVertical: 15,
-    alignItems: 'center',
-    columnGap: 8,
-  },
-  colItem: {
-    paddingVertical: 15,
-    rowGap: 8,
-    alignItems: 'flex-start',
   },
 }));

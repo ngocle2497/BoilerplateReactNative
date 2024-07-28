@@ -89,7 +89,7 @@ function getMatchedPart(
 
   return {
     ...props,
-    children: customChildren,
     _matched: true,
+    children: customChildren,
   };
 }

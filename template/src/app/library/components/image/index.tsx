@@ -12,10 +12,10 @@ export const Image = ({ ...rest }: ImageProps) => {
       transition={{ duration: 300, effect: 'cross-dissolve' }}
       placeholderContentFit="cover"
       placeholder={{
-        thumbhash: '3PcNNYSFeXh/k0oGLQaSVsN0BVhn2oq2Z5SQUQcZ',
         cacheKey:
           rest.recyclingKey ??
           (typeof rest.source === 'string' ? rest.source : undefined),
+        thumbhash: '3PcNNYSFeXh/k0oGLQaSVsN0BVhn2oq2Z5SQUQcZ',
       }}
       {...rest}
       style={StyleSheet.absoluteFillObject}

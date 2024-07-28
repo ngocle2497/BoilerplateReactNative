@@ -7,35 +7,37 @@ import i18n, { LanguageDetectorAsyncModule, Resource } from 'i18next';
 import { resources } from './locales';
 
 const languageDetector: LanguageDetectorAsyncModule = {
-  type: 'languageDetector',
   // flags below detection to be async
   async: true,
+
+  cacheUserLanguage: () => {},
   detect: (callback: (lng: string | readonly string[] | undefined) => void) => {
     callback(DEFAULT_FALLBACK_LNG_I18n);
   },
   init: () => {},
-  cacheUserLanguage: () => {},
+  type: 'languageDetector',
 };
 
 export const initOptionsI18n = (source: Resource) => {
   return {
-    fallbackLng: DEFAULT_FALLBACK_LNG_I18n,
-
-    resources: source,
-
-    // have a common namespace used around the full app
-    ns: ['common'],
-    defaultNS: 'common',
     debug: false,
+
+    defaultNS: 'common',
+
+    fallbackLng: DEFAULT_FALLBACK_LNG_I18n,
 
     // cache: {
     //   enabled: true
     // },
-
     interpolation: {
       // not needed for react as it does escape per default to prevent xss!
       escapeValue: false,
     },
+
+    // have a common namespace used around the full app
+    ns: ['common'],
+
+    resources: source,
   };
 };
 

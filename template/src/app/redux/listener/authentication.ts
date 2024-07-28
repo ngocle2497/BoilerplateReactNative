@@ -2,7 +2,6 @@ import { takeLatestListeners } from '@listener';
 import { ApiConstants } from '@networking/api';
 import { validResponse } from '@networking/helper';
 import { NetWorkService } from '@networking/service';
-
 import { authenticationActions } from '@redux-slice/authentication';
 
 export const runAuthenticationListener = () => {
@@ -16,9 +15,9 @@ export const runAuthenticationListener = () => {
       await listenerApi.delay(1000);
 
       const response = await NetWorkService.Post({
-        url: ApiConstants.LOGIN,
         body,
         signal: listenerApi.signal,
+        url: ApiConstants.LOGIN,
       });
 
       if (!response) {

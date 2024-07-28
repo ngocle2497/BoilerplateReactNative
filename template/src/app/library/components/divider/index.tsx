@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react';
 import { StyleSheet, ViewStyle } from 'react-native';
 
+import { useStyles } from 'react-native-unistyles';
+
 import { View } from '@rn-core';
 
 import { DividerProps } from './type';
-import { useStyles } from 'react-native-unistyles';
 
 export const Divider = ({
   height = 1,

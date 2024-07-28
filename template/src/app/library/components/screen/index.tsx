@@ -8,6 +8,7 @@ import {
   SafeAreaViewProps,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import { useStyles } from 'react-native-unistyles';
 
 import { View } from '@rn-core';
 
@@ -20,7 +21,6 @@ import {
 } from './type';
 
 import { FocusAwareStatusBar } from '../focus-aware-status-bar';
-import { useStyles } from 'react-native-unistyles';
 
 const INSETS: Edge[] = ['top', 'bottom', 'left', 'right'];
 
@@ -54,12 +54,12 @@ const Inset = ({
   const style = useMemo<ViewStyle>(
     () => ({
       backgroundColor: color,
-      width,
-      height,
-      top,
-      left,
       bottom,
+      height,
+      left,
       right,
+      top,
+      width,
     }),
     [bottom, color, height, left, right, top, width],
   );
