@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { execSync } = require('child_process');
 
-const { readFileSync, rmSync, writeFileSync } = require('fs');
+const { readFileSync, rmSync, writeFileSync, copyFileSync } = require('fs');
 const { resolve } = require('path');
 
 (function () {
@@ -61,7 +61,7 @@ const { resolve } = require('path');
     'utf8',
   );
 
-  execSync(`mv -f ${oldBootSplashPath} ${newBootSplashPath}`);
+  copyFileSync(oldBootSplashPath, newBootSplashPath);
 
   if (oldBootSplashLogoPath !== newBootSplashLogoPath) {
     execSync(`mv -f ${oldBootSplashLogoPath} ${newBootSplashLogoPath}`);
