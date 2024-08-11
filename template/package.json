@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "postinstall": "node ./scripts/setup.js",
     "lint": "eslint index.js ./declare/*.{ts,js,tsx} ./scripts/*.js  ./src/**/*.{ts,js,tsx} ",
     "start": "node scripts/start.js env/dev.json",
     "format": "prettier --write **/*.{ts,tsx,js,json,md}",
