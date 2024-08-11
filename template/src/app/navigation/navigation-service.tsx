@@ -18,12 +18,12 @@ const NavigationComponent = forwardRef((_, ref) => {
   useImperativeHandle(
     ref,
     () => ({
+      dispatch: (args: any) => {
+        navigation.dispatch(args);
+      },
       navigate: (...args: any[]) => {
         // @ts-ignore
         navigation.navigate(...(args as never));
-      },
-      dispatch: (args: any) => {
-        navigation.dispatch(args);
       },
     }),
     [navigation],

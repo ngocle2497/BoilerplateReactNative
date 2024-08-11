@@ -43,10 +43,10 @@ const SnackBarComponent = forwardRef((_, ref) => {
         setData(d =>
           d.concat([
             {
-              id: String().randomUniqueId(),
+              id: randomUniqueId(),
+              interval,
               msg,
               type,
-              interval,
             },
           ]),
         );
@@ -82,5 +82,5 @@ export const showSnack = ({
   interval?: number;
   type?: TypeMessage;
 }) => {
-  snackBarRef.current?.show({ msg, interval, type });
+  snackBarRef.current?.show({ interval, msg, type });
 };

@@ -1,4 +1,3 @@
-
 You can config gitlab CI runner to create build automatically.
 
 ## Config workflow
@@ -24,7 +23,6 @@ You can config gitlab CI runner to create build automatically.
     - Step 2: Add 2 variable:
       - BRANCH_NAME: branch of repo want to build. ex: develop, main, ...
       - BASE_ENV_ARGS: env want to build. String with "," separator. This will use for fastlane. ex: dev,prod
-
 ```
 
 ### .gitlab-ci.yml
@@ -38,13 +36,13 @@ default:
     - macos_shared
 
 variables:
-  GIT_CLEAN_FLAGS: "none"
+  GIT_CLEAN_FLAGS: 'none'
   # BRANCH_NAME: "develop"
-  FASTLANE_SCRIPT_ANDROID: "bundle exec fastlane android"
-  FASTLANE_SCRIPT_IOS: "bundle exec fastlane ios"
+  FASTLANE_SCRIPT_ANDROID: 'bundle exec fastlane android'
+  FASTLANE_SCRIPT_IOS: 'bundle exec fastlane ios'
   # BASE_ENV_ARGS: "dev"
-  EXPORT_DIR_ARGS_NAME: "export_dir"
-  EXPORT_FOLDER: "export/$BRANCH_NAME"
+  EXPORT_DIR_ARGS_NAME: 'export_dir'
+  EXPORT_FOLDER: 'export/$BRANCH_NAME'
 
 clone-code-project:
   stage: clone
@@ -97,7 +95,7 @@ build-android:
     - fnm use $NODE_VERSION
   script:
     - echo "sdk.dir=$ANDROID_HOME" > android/local.properties
-    - npx ts-node build_script/build-android.ts $BASE_ENV_ARGS $EXPORT_FOLDER
+    - node build-ci/build-android.js $BASE_ENV_ARGS $EXPORT_FOLDER
   needs:
     - job: install-dependencies
   allow_failure: true
@@ -108,7 +106,7 @@ deploy-android:
     - echo "Deploy android app ..."
     - cd repo/$BRANCH_NAME
   script:
-    - npx ts-node build_script/deploy-android.ts $BASE_ENV_ARGS $EXPORT_FOLDER
+    - node build-ci/deploy-android.js $BASE_ENV_ARGS $EXPORT_FOLDER
   needs:
     - job: build-android
   allow_failure: true
@@ -120,7 +118,7 @@ build-ios:
     - cd repo/$BRANCH_NAME
     - fnm use $NODE_VERSION
   script:
-    - npx ts-node build_script/build-ios.ts $BASE_ENV_ARGS $EXPORT_FOLDER
+    - node build-ci/build-ios.js $BASE_ENV_ARGS $EXPORT_FOLDER
   needs:
     - job: install-dependencies
   allow_failure: true
@@ -131,7 +129,7 @@ deploy-ios:
     - echo "Deploy ios app ..."
     - cd repo/$BRANCH_NAME
   script:
-    - npx ts-node build_script/deploy-ios.ts $BASE_ENV_ARGS $EXPORT_FOLDER
+    - node build-ci/deploy-ios.js $BASE_ENV_ARGS $EXPORT_FOLDER
   needs:
     - job: build-ios
   allow_failure: true
@@ -154,7 +152,6 @@ clean-up:
   script:
     - rm -rf $BRANCH_NAME
   needs: [release, deploy-ios, deploy-android]
-
 ```
 
 ### pull_repo.sh
@@ -168,9 +165,9 @@ mkdir -p repo/$branch
 cd repo/$branch
 rm -rf fastlane
 git clone $repo -b $branch .
-# copy fastlane and build_script to $branch folder
+# copy fastlane and build-ci to $branch folder
 cp -r ../../fastlane .
-cp -r ../../build_script .
+cp -r ../../build-ci .
 
 ```
 
@@ -203,9 +200,9 @@ done
 
 ### build-ci
 
-#### build-android.ts
+#### build-android.js
 
-```ts
+```js
 import { execSync } from 'child_process';
 
 (() => {
@@ -231,12 +228,11 @@ import { execSync } from 'child_process';
     );
   });
 })();
-
 ```
 
-#### deploy-android.ts
+#### deploy-android.js
 
-```ts
+```js
 import { execSync } from 'child_process';
 
 (() => {
@@ -255,12 +251,11 @@ import { execSync } from 'child_process';
     );
   });
 })();
-
 ```
 
-#### build-ios.ts
+#### build-ios.js
 
-```ts
+```js
 import { execSync } from 'child_process';
 
 (() => {
@@ -279,12 +274,11 @@ import { execSync } from 'child_process';
     );
   });
 })();
-
 ```
 
-#### deploy-ios.ts
+#### deploy-ios.js
 
-```ts
+```js
 import { execSync } from 'child_process';
 
 (() => {
@@ -303,19 +297,18 @@ import { execSync } from 'child_process';
     );
   });
 })();
-
 ```
 
 > Folder structure like:
 
     .
-    ├── fastlane                   
-    ├── build-ci                    
-    │   ├── build-android.ts
-    │   ├── deploy-android.ts
-    │   ├── build-ios.ts
-    │   └── deploy-ios.ts
-    ├── .gitlab-ci.yml                   
-    ├── pull_repo.sh                    
-    ├── release.sh                  
+    ├── fastlane
+    ├── build-ci
+    │   ├── build-android.js
+    │   ├── deploy-android.js
+    │   ├── build-ios.js
+    │   └── deploy-ios.js
+    ├── .gitlab-ci.yml
+    ├── pull_repo.sh
+    ├── release.sh
     └── README.md

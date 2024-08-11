@@ -55,21 +55,21 @@ export const onHandleTagToArrayText = (
   const arrText: ResultHandleTagToArrayText[] = [];
 
   textSplit.forEach((text: string, i: number) => {
-    const textData = { text: text, bold: false };
+    const textData = { bold: false, text: text };
 
-    if (text[0] === char) {
+    if (text.startsWith(char)) {
       textData.bold = true;
 
       arrText.push(textData);
     } else {
-      arrText.push({ text: text, bold: false });
+      arrText.push({ bold: false, text: text });
     }
 
     if (
       (text === '' && i !== textSplit.length - 1) ||
       i !== textSplit.length - 1
     ) {
-      arrText.push({ text: ' ', bold: false });
+      arrText.push({ bold: false, text: ' ' });
     }
   });
 

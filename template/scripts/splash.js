@@ -3,8 +3,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { execSync } = require('child_process');
 
-const { readFileSync, rmSync, writeFileSync } = require('fs');
-const { resolve } = require('path')(function () {
+const { readFileSync, rmSync, writeFileSync, copyFileSync } = require('fs');
+const { resolve } = require('path');
+
+(function () {
   const { argv } = process;
 
   const actualArgv = argv.slice(2);
@@ -43,7 +45,7 @@ const { resolve } = require('path')(function () {
   );
 
   // remove old .imageset if exist
-  rmSync(newBootSplashLogoPath, { recursive: true, force: true });
+  rmSync(newBootSplashLogoPath, { force: true, recursive: true });
 
   execSync(
     `yarn react-native generate-bootsplash ${path} --background=${bgColor} --platforms=android,ios --logo-width=${width}  --assets-output=assets --flavor=${flavor}`,
@@ -59,7 +61,7 @@ const { resolve } = require('path')(function () {
     'utf8',
   );
 
-  execSync(`mv -f ${oldBootSplashPath} ${newBootSplashPath}`);
+  copyFileSync(oldBootSplashPath, newBootSplashPath);
 
   if (oldBootSplashLogoPath !== newBootSplashLogoPath) {
     execSync(`mv -f ${oldBootSplashLogoPath} ${newBootSplashLogoPath}`);

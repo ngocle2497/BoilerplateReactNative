@@ -7,16 +7,20 @@ export const styles = StyleSheet.create({
     minHeight: 50,
   },
   itemBar: {
-    paddingHorizontal: sizeScale(15),
-    paddingVertical: sizeScale(13),
-    position: 'absolute',
-    width: '100%',
     // alignSelf: 'center',
     alignItems: 'center',
+
     flexDirection: 'row',
+
+    paddingHorizontal: sizeScale(15),
+
+    paddingVertical: sizeScale(13),
+
+    position: 'absolute',
+    width: '100%',
   },
   text: {
-    marginTop: sizeScale(-2),
     flex: 1,
+    marginTop: sizeScale(-2),
   },
 });

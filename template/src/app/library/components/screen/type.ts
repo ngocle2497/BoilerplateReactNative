@@ -8,6 +8,8 @@ import {
 
 import { Edge } from 'react-native-safe-area-context';
 
+import { StatusBarStyle } from 'expo-status-bar';
+
 export type ScreenProps = {
   /**
    * Children of Screen
@@ -30,7 +32,7 @@ export type ScreenProps = {
    * Status bar style
    * @default dark-content
    */
-  statusBarStyle?: 'light-content' | 'dark-content';
+  statusBarStyle?: StatusBarStyle;
 
   /**
    * Using safe area on ios

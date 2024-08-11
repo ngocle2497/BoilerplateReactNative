@@ -1,6 +1,6 @@
 /* eslint-disable import/order */
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { execSync } = require('child_process');
+const { execSync, spawnSync } = require('child_process');
 
 const { readFileSync, writeFileSync } = require('fs');
 
@@ -73,9 +73,9 @@ import Keys from 'react-native-keys';
   infoJsEnv += '\n';
 
   // remove cache
-  execSync('rm -rf $TMPDIR/metro-*');
+  spawnSync('rm -rf $TMPDIR/metro-*');
 
-  execSync('rm -rf node_modules/.cache/babel-loader/*');
+  spawnSync('rm -rf node_modules/.cache/babel-loader/*');
 
   // write env-config.ts
   writeFileSync(
@@ -115,8 +115,8 @@ const getAndroidHome = () => {
 };
 
 module.exports = {
-  getEnvJsonFromPath,
-  setupEnv,
-  getRubyVersion,
   getAndroidHome,
+  getEnvJsonFromPath,
+  getRubyVersion,
+  setupEnv,
 };

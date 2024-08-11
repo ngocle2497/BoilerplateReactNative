@@ -19,12 +19,12 @@ const devMode = __DEV__;
 const middleware = [] as any[];
 
 export const store = configureStore({
-  reducer: allReducer,
   devTools: devMode,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({ serializableCheck: false })
       .prepend(listenerMiddleware.middleware)
       .concat(middleware),
+  reducer: allReducer,
 });
 /**
  * export const persistore = persistStore(store);

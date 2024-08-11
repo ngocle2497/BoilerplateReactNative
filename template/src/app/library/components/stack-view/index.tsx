@@ -10,7 +10,7 @@ export const StackView = forwardRef(
     // render
     return (
       <Animated.ScrollView
-        ref={ref as any}
+        ref={ref}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={16}

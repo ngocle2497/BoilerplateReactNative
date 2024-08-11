@@ -21,7 +21,6 @@ import {
 } from 'react-native-reanimated';
 
 import { sharedTiming } from '@animated';
-import { execFunc } from '@common/method';
 import { useDisableBackHandler } from '@hooks';
 import { AnimatedView } from '@rn-core';
 
@@ -57,9 +56,9 @@ export const ModalContent = forwardRef(
       () => [
         StyleSheet.absoluteFillObject,
         {
-          width: '100%',
-          height: '100%',
           backgroundColor: backdropColor,
+          height: '100%',
+          width: '100%',
         },
       ],
       [backdropColor],

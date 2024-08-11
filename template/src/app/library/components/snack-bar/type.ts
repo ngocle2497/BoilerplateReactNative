@@ -1,8 +1,8 @@
 export const TYPE_MESSAGE = {
-  SUCCESS: 'success',
   ERROR: 'error',
-  WARN: 'warn',
   LINK: 'link',
+  SUCCESS: 'success',
+  WARN: 'warn',
 } as const;
 
 export type TypeMessage = (typeof TYPE_MESSAGE)[keyof typeof TYPE_MESSAGE];

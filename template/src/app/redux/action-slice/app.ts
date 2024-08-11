@@ -3,27 +3,20 @@ import { AppState } from '@model/app';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialAppState: AppState = {
-  profile: {},
-  token: undefined,
   /**
    * default true to load app
    */
   loadingApp: false,
+
+  profile: {},
+
+  token: undefined,
 };
 
 const appSlice = createSlice({
-  name: SLICE_NAME.APP,
   initialState: initialAppState,
+  name: SLICE_NAME.APP,
   reducers: {
-    setToken: (state, { payload }: PayloadAction<string>) => {
-      state.token = payload;
-    },
-    setAppProfile: (state, { payload }: PayloadAction<unknown>) => {
-      state.profile = payload;
-    },
-    startLoadApp: state => {
-      state.loadingApp = true;
-    },
     endLoadApp: state => {
       state.loadingApp = false;
     },
@@ -31,6 +24,15 @@ const appSlice = createSlice({
       state.token = undefined;
 
       state.profile = {};
+    },
+    setAppProfile: (state, { payload }: PayloadAction<unknown>) => {
+      state.profile = payload;
+    },
+    setToken: (state, { payload }: PayloadAction<string>) => {
+      state.token = payload;
+    },
+    startLoadApp: state => {
+      state.loadingApp = true;
     },
   },
 });

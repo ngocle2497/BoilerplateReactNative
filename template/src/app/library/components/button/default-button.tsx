@@ -15,11 +15,11 @@ export const DefaultButton = ({
 }: TouchableOpacityProps & Pick<ButtonProps, 'throttleMs'>) => {
   const [, handlePress, handleLongPress, handlePressIn, handlePressOut] =
     useThrottle({
-      throttleMs,
-      onPress,
       onLongPress,
+      onPress,
       onPressIn,
       onPressOut,
+      throttleMs,
     });
 
   // render

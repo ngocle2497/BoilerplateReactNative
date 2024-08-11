@@ -8,9 +8,9 @@ import {
   SafeAreaViewProps,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import { useStyles } from 'react-native-unistyles';
 
 import { View } from '@rn-core';
-import { useStyles } from '@theme';
 
 import { styles } from './styles';
 import {
@@ -54,12 +54,12 @@ const Inset = ({
   const style = useMemo<ViewStyle>(
     () => ({
       backgroundColor: color,
-      width,
-      height,
-      top,
-      left,
       bottom,
+      height,
+      left,
       right,
+      top,
+      width,
     }),
     [bottom, color, height, left, right, top, width],
   );
@@ -90,7 +90,7 @@ const InsetComponent = ({
         hidden={hiddenStatusBar}
         backgroundColor={'transparent'}
         translucent
-        barStyle={statusBarStyle || 'light-content'}
+        style={statusBarStyle ?? 'light'}
       />
       {!unsafe && edges.includes('top') && (
         <Inset
@@ -209,9 +209,9 @@ function ScreenWithScrolling(
           keyboardShouldPersistTaps="handled"
           overScrollMode={'never'}
           style={[styles.inner, backgroundColor ? { backgroundColor } : {}]}
-          contentContainerStyle={[style]}
-          children={children}
-        />
+          contentContainerStyle={[style]}>
+          {children}
+        </Animated.ScrollView>
       </Wrapper>
       <InsetComponent
         edges={edges}

@@ -1,5 +1,5 @@
 import React, { ReactNode, Suspense, useState } from 'react';
-import { StatusBar, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { I18nextProvider } from 'react-i18next';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -15,20 +15,21 @@ import { useLoadFont } from '@theme/typography';
 import I18n from '@utils/i18n/i18n';
 import './app/themes/index';
 
-// const json = require('./app/assets/vector-icon/selection.json');
-
-// const key = json.icons.reduce((pv, curr) => {
-//   pv[(curr.properties.name as string).replaceAll('-', '_')] =
-//     curr.properties.name;
-
-//   return pv;
-// }, {});
-
-// console.log(
-//   Object.entries(key)
-//     .sort(([, a], [, b]) => a - b)
-//     .reduce((r, [k, v]) => ({ ...r, [k]: v }), {}),
-// );
+/**
+ * const json = require('./app/library/components/vector-icon/selection.json');
+ * const key = json.icons.reduce((pv, curr) => {
+ *   pv[(curr.properties.name as string).replaceAll('-', '_')] =
+ *     curr.properties.name;
+ *
+ *   return pv;
+ * }, {});
+ *
+ * console.log(
+ *   Object.entries(key)
+ *     .sort(([, a], [, b]) => a - b)
+ *     .reduce((r, [k, v]) => ({ ...r, [k]: v }), {}),
+ * );
+ */
 
 const styles = StyleSheet.create({
   root: {
@@ -70,7 +71,6 @@ export const MyApp = () => {
   // render
   return (
     <SafeAreaProvider>
-      <StatusBar translucent backgroundColor={'transparent'} />
       <KeyboardProvider>
         <Provider store={store}>
           <I18nextProvider i18n={I18n}>

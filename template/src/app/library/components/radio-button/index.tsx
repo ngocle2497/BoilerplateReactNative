@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 
 import { interpolate, useAnimatedStyle } from 'react-native-reanimated';
+import { useStyles } from 'react-native-unistyles';
 
 import { useSharedTransition } from '@animated';
-import { execFunc, isTypeof } from '@common/method';
 import { AnimatedView } from '@rn-core';
-import { useStyles } from '@theme';
 
 import { stylesSheet } from './styles';
 import { RadioButtonProps } from './type';
@@ -41,8 +40,8 @@ export const RadioButton = ({
 
   // style
   const dotStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: interpolate(progress.value, [0, 1], [0, 1]) }],
     opacity: progress.value,
+    transform: [{ scale: interpolate(progress.value, [0, 1], [0, 1]) }],
   }));
 
   // render

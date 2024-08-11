@@ -1,7 +1,5 @@
 import { TextProps } from 'react-native';
 
-import { PATTERNS } from './utils';
-
 export type ParsedText = { children: string; _matched?: boolean };
 
 export type ParsedTexts = Array<ParsedText>;
@@ -19,7 +17,6 @@ export type Pattern = {
 };
 
 export type Parse = {
-  type?: keyof typeof PATTERNS;
   pattern?: RegExp;
 } & CustomTextProps & {
     onPress?: (text: string, index: number) => void;

@@ -32,7 +32,7 @@ export const sharedSub = (...args: number[]) => {
 export const sharedMin = (...args: number[]) => {
   'worklet';
 
-  return args.reduce((accumulator, curr) => Math.min(curr, accumulator));
+  return Math.min.call(null, ...args);
 };
 
 /**
@@ -41,7 +41,7 @@ export const sharedMin = (...args: number[]) => {
 export const sharedMax = (...args: number[]) => {
   'worklet';
 
-  return args.reduce((accumulator, curr) => Math.max(accumulator, curr));
+  return Math.max.call(null, ...args);
 };
 
 /**

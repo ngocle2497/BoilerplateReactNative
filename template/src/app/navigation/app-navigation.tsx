@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { StatusBar } from 'react-native';
 
+import { useStyles } from 'react-native-unistyles';
 import { useSelector } from 'react-redux';
 
 import { dispatch, RXStore } from '@common/redux';
@@ -13,8 +13,8 @@ import {
   useNavigationContainerRef,
 } from '@react-navigation/native';
 import { selectAppConfig } from '@redux-selector/app';
-import { appActions } from '@redux-slice';
-import { useStyles } from '@theme';
+import { appActions } from '@redux-slice/app';
+import { StatusBar } from 'expo-status-bar';
 
 import { NavigationService } from './navigation-service';
 

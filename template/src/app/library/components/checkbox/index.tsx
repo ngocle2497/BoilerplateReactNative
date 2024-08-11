@@ -6,12 +6,11 @@ import {
   useAnimatedProps,
   useAnimatedStyle,
 } from 'react-native-reanimated';
+import { useStyles } from 'react-native-unistyles';
 
 import { useSharedTransition } from '@animated';
-import { execFunc, isTypeof } from '@common/method';
 import { AnimatedIcon } from '@components/icon';
 import { AnimatedView } from '@rn-core';
-import { useStyles } from '@theme';
 
 import { stylesSheet } from './styles';
 import { CheckboxProps } from './type';
@@ -50,19 +49,19 @@ export const Checkbox = ({
   // style
   const containerStyle = useAnimatedStyle(() => {
     return {
-      borderColor: disabled
-        ? color.neutral200
-        : interpolateColor(
-            progress.value,
-            [0, 1],
-            [color.technical, color.primary500],
-          ),
       backgroundColor: disabled
         ? color.neutral50
         : interpolateColor(
             progress.value,
             [0, 1],
             [color.neutral50, color.primary500],
+          ),
+      borderColor: disabled
+        ? color.neutral200
+        : interpolateColor(
+            progress.value,
+            [0, 1],
+            [color.technical, color.primary500],
           ),
     };
   });

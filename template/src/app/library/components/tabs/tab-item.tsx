@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { useAnimatedStyle } from 'react-native-reanimated';
+import { createStyleSheet, useStyles } from 'react-native-unistyles';
 
 import { DefaultButton } from '@components/button/default-button';
 import { useTranslation } from '@hooks';
 import { AnimatedText, AnimatedView, View } from '@rn-core';
-import { createStyleSheet, useStyles } from '@theme';
 
 import { TabItemProps } from './type';
 
@@ -57,30 +57,30 @@ export const TabItem = ({ tab, index, selectedIndex }: TabItemProps) => {
 
 const styleSheet = createStyleSheet(theme => ({
   button: {
-    justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 12,
+    justifyContent: 'center',
     paddingHorizontal: 8,
+    paddingVertical: 12,
   },
   container: {
     flex: 1,
   },
   underline: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 2,
     backgroundColor: theme.color.primary500,
+    bottom: 0,
+    height: 2,
+    left: 0,
+    position: 'absolute',
+    right: 0,
     zIndex: 99,
   },
   underlineOverlay: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 2,
     backgroundColor: theme.color.primary50,
+    bottom: 0,
+    height: 2,
+    left: 0,
+    position: 'absolute',
+    right: 0,
     zIndex: 9,
   },
 }));

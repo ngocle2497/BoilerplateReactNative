@@ -4,8 +4,8 @@ import { MMKV } from 'react-native-mmkv';
 import { APP_DISPLAY_NAME, PRIVATE_KEY_STORAGE } from '@env';
 
 export const AppStorage = new MMKV({
-  id: `user-${APP_DISPLAY_NAME}-storage`,
   encryptionKey: PRIVATE_KEY_STORAGE,
+  id: `user-${APP_DISPLAY_NAME}-storage`,
 });
 
 /**
@@ -87,11 +87,6 @@ interface Storage {
 }
 
 export const reduxPersistStorage: Storage = {
-  setItem: (key, value) => {
-    AppStorage.set(key, value);
-
-    return Promise.resolve(true);
-  },
   getItem: key => {
     const value = AppStorage.getString(key);
 
@@ -101,5 +96,10 @@ export const reduxPersistStorage: Storage = {
     AppStorage.delete(key);
 
     return Promise.resolve();
+  },
+  setItem: (key, value) => {
+    AppStorage.set(key, value);
+
+    return Promise.resolve(true);
   },
 };

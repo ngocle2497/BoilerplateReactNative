@@ -5,7 +5,7 @@ import { API_CONFIG } from '@common/constant';
 import { dispatch, getState } from '@common/redux';
 import { API_URL } from '@env';
 import { AppState } from '@model/app';
-import { appActions } from '@redux-slice';
+import { appActions } from '@redux-slice/app';
 import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { ApiConstants } from './api';
@@ -28,23 +28,19 @@ AxiosInstance.interceptors.response.use(
     const originalRequest = error.config;
 
     if (
-      error &&
-      error.response &&
-      (error.response.status === 403 || error.response.status === 401) &&
+      (error?.response?.status === 403 || error?.response?.status === 401) &&
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
 
-      refreshTokenRequest = refreshTokenRequest
-        ? refreshTokenRequest
-        : refreshToken();
+      refreshTokenRequest = refreshTokenRequest ?? refreshToken();
 
       const newToken = await refreshTokenRequest;
 
       refreshTokenRequest = null;
 
       if (newToken === null) {
-        return Promise.reject(error);
+        return Promise.reject(error as Error);
       }
 
       dispatch(appActions.setToken(newToken));
@@ -54,21 +50,21 @@ AxiosInstance.interceptors.response.use(
       return AxiosInstance(originalRequest);
     }
 
-    return Promise.reject(error);
+    return Promise.reject(error as Error);
   },
 );
 
 // refresh token
-async function refreshToken(): Promise<any | null> {
-  return new Promise<any | null>(rs => {
+async function refreshToken(): Promise<any> {
+  return new Promise<any>(rs => {
     AxiosInstance.request({
-      method: 'POST',
-      url: ApiConstants.REFRESH_TOKEN,
       _retry: true,
       baseURL: API_URL,
       data: {
         refresh_token: '',
       },
+      method: 'POST',
+      url: ApiConstants.REFRESH_TOKEN,
     } as AxiosRequestConfig)
       .then((res: AxiosResponse<any>) => rs(res.data))
       .catch(() => rs(null));
@@ -81,11 +77,11 @@ function Request<T = Record<string, unknown>>(config: ParamsNetwork) {
 
   const defaultConfig: AxiosRequestConfig = {
     baseURL: API_URL,
-    timeout: API_CONFIG.TIME_OUT,
     headers: {
       'Content-Type': 'application/json',
       [tokenKeyHeader]: token ?? '',
     },
+    timeout: API_CONFIG.TIME_OUT,
   };
 
   return new Promise<ResponseBase<T> | null>(rs => {
@@ -135,8 +131,8 @@ async function PostFormData<T>(params: ParamsNetwork) {
   const { token }: AppState = getState('app');
 
   const headers: AxiosRequestConfig['headers'] = {
-    [tokenKeyHeader]: token ?? '',
     'Content-Type': 'multipart/form-data',
+    [tokenKeyHeader]: token ?? '',
   };
 
   return Request<T>(
@@ -159,10 +155,10 @@ export type NetWorkResponseType<T> = (
 ) => Promise<ResponseBase<T> | null>;
 
 export const NetWorkService = {
+  Delete,
   Get,
   Post,
-  Put,
-  Delete,
   PostFormData,
+  Put,
   Request,
 };

@@ -1,14 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createRef } from 'react';
 
 import { API_CONFIG } from '@common/constant';
-import { handleErrorApi, logout } from '@common/method';
+import { logout } from '@common/method';
+import { I18nKeys } from '@utils/i18n/locales';
 import { translate } from '@utils/i18n/translate';
 import { AxiosError, AxiosResponse, Method } from 'axios';
 
 const responseDefault: ResponseBase<Record<string, unknown>> = {
   code: -500,
-  status: false,
   msg: translate('error:have_error'),
+  status: false,
 };
 
 export const onPushLogout = async () => {
@@ -16,6 +18,22 @@ export const onPushLogout = async () => {
   /**
    * do something when logout
    */
+};
+
+/**
+ * return true when success and false when error
+ */
+export const validResponse = (
+  response: ResponseBase<any>,
+): response is ResponseBase<any, true> => {
+  if (!response.status) {
+    /**
+     * handler error
+     */
+    return false;
+  }
+
+  return true;
 };
 
 export const controller = createRef<AbortController>();
@@ -38,10 +56,30 @@ export const handleResponseAxios = <T = Record<string, unknown>>(
   res: AxiosResponse<T>,
 ): ResponseBase<T> => {
   if (res.data) {
-    return { code: API_CONFIG.CODE_SUCCESS, status: true, data: res.data };
+    return { code: API_CONFIG.CODE_SUCCESS, data: res.data, status: true };
   }
 
   return responseDefault as ResponseBase<T>;
+};
+
+const handleErrorApi = (status: number) => {
+  const result = { code: status, msg: '', status: false };
+
+  if (status > 505) {
+    result.msg = translate('error:server_error');
+
+    return result;
+  }
+
+  if (status < 500 && status >= 418) {
+    result.msg = translate('error:error_on_request');
+
+    return result;
+  }
+
+  result.msg = translate(('error:' + status) as I18nKeys);
+
+  return result;
 };
 
 export const handleErrorAxios = <T = Record<string, unknown>>(
@@ -94,9 +132,9 @@ export const handleParameter = <T extends ParamsNetwork>(
 
   return {
     ...props,
-    method,
-    url: handlePath(url, path),
     data: body,
+    method,
     params,
+    url: handlePath(url, path),
   };
 };

@@ -121,7 +121,7 @@ export function useInsideView<T extends Component>(
   const rectTop = useSharedValue(0);
 
   const visible = useDerivedValue(() => {
-    return rectTop.value <= (wrapHeight || height) && rectBottom.value >= 0;
+    return rectTop.value <= (wrapHeight ?? height) && rectBottom.value >= 0;
   });
 
   useDerivedValue(() => {
@@ -167,7 +167,7 @@ type UseTimingParams = {
 
 export const useTiming = ({
   callback,
-  config,
+  config = {},
   from = 0,
   toValue = 1,
   delay = 0,
@@ -180,13 +180,12 @@ export const useTiming = ({
       delay,
       withTiming(
         toValue,
-        Object.assign(
-          {
-            duration: 500,
-            easing: Easing.bezier(0.33, 0.01, 0, 1),
-          },
-          config,
-        ),
+        {
+          duration: 500,
+          easing: Easing.bezier(0.33, 0.01, 0, 1),
+          ...config,
+        },
+
         callback,
       ),
     );

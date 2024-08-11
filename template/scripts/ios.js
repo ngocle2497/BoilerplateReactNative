@@ -28,34 +28,22 @@ const uninstallOldApp = bundleId => {
   execSync(`xcrun simctl uninstall booted "${bundleId}"`);
 };
 
-const run = ({ platform, envPath }) => {
-  if (platform !== 'darwin') {
-    console.log('This script is only for macOS');
-
-    return;
-  }
-
+const run = ({ envPath }) => {
   const envJson = getEnvJsonFromPath(envPath);
 
-  const simulator = 'iPhone 14 Pro';
+  const simulator = 'iPhone 15 Pro Max';
 
   const udid = bootDevice(simulator);
 
   uninstallOldApp(envJson.public.BUNDLE_IDENTIFIER);
 
   execSync(
-    `npx react-native run-ios --scheme ${envJson.public.WORKSPACE_NAME}-${envJson.public.SCHEME_SUFFIX} --udid=${udid}`,
+    `npx expo run:ios --appId ${envJson.public.BUNDLE_IDENTIFIER} --scheme ${envJson.public.WORKSPACE_NAME}-${envJson.public.SCHEME_SUFFIX} --device ${udid}`,
     { stdio: 'inherit' },
   );
 };
 
-const pushNotification = ({ envPath, platform }) => {
-  if (platform !== 'darwin') {
-    console.log('This script is only for macOS');
-
-    return;
-  }
-
+const pushNotification = ({ envPath }) => {
   const envJson = getEnvJsonFromPath(envPath);
 
   const simulator = 'iPhone 14 Pro';
@@ -71,17 +59,23 @@ const pushNotification = ({ envPath, platform }) => {
 (() => {
   const { argv, platform } = process;
 
+  if (platform !== 'darwin') {
+    console.log('This script is only for macOS');
+
+    return;
+  }
+
   const actualArgv = argv.slice(2);
 
   const [nameFunc, envPath] = actualArgv;
 
   switch (nameFunc) {
     case 'run':
-      run({ platform, envPath });
+      run({ envPath });
 
       break;
     case 'push-notification':
-      pushNotification({ platform, envPath });
+      pushNotification({ envPath });
 
       break;
 

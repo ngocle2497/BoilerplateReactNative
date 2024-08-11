@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { useSharedValue } from 'react-native-reanimated';
+import { createStyleSheet, useStyles } from 'react-native-unistyles';
 
 import { View } from '@rn-core';
-import { createStyleSheet, useStyles } from '@theme';
 
 import { TabItem } from './tab-item';
 import { Tab, TabsProps } from './type';
@@ -32,7 +32,7 @@ export const Tabs = ({ tabs, initialIndex = 0 }: TabsProps) => {
 
 const styleSheet = createStyleSheet(theme => ({
   container: {
-    flexDirection: 'row',
     backgroundColor: theme.color.neutral50,
+    flexDirection: 'row',
   },
 }));

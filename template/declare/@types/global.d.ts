@@ -14,7 +14,27 @@ declare module 'react' {
     props: P & import('react').RefAttributes<T>,
   ) => import('react').ReactElement | null;
 }
+
 declare global {
+  type TypesBase =
+    | 'bigint'
+    | 'boolean'
+    | 'function'
+    | 'number'
+    | 'object'
+    | 'string'
+    | 'symbol'
+    | 'undefined';
+
+  function isTypeof(source: any, type: TypesBase): source is TypesBase;
+
+  function execFunc<Fn extends (...args: any[]) => any>(
+    func?: Fn,
+    ...args: Parameters<Fn>
+  ): void;
+
+  function randomUniqueId(): string;
+
   type ActionBase<T = undefined> = T extends undefined
     ? {
         type: string;

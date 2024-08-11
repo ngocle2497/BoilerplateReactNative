@@ -5,15 +5,20 @@ import { sizeScale } from '@common/scale';
 import { FontDefault } from '../typography';
 
 const presets = {
-  caption: {
+  CTALinks: {
     color: '#000000',
     fontFamily: FontDefault.primary,
-    fontSize: sizeScale(12),
+    fontSize: sizeScale(18),
   },
-  overline: {
+  CTASmall: {
     color: '#000000',
     fontFamily: FontDefault.primary,
-    fontSize: sizeScale(10),
+    fontSize: sizeScale(14),
+  },
+  CTAs: {
+    color: '#000000',
+    fontFamily: FontDefault.primary,
+    fontSize: sizeScale(16),
   },
   H1: {
     color: '#000000',
@@ -40,15 +45,30 @@ const presets = {
     fontFamily: FontDefault.primarySemiBold,
     fontSize: sizeScale(24),
   },
-  subtitle1: {
+  assistive: {
     color: '#000000',
-    fontFamily: FontDefault.primarySemiBold,
-    fontSize: sizeScale(20),
+    fontFamily: FontDefault.primary,
+    fontSize: sizeScale(1248),
   },
-  subtitle2: {
+  caption: {
     color: '#000000',
-    fontFamily: FontDefault.primarySemiBold,
-    fontSize: sizeScale(18),
+    fontFamily: FontDefault.primary,
+    fontSize: sizeScale(12),
+  },
+  extraSmall: {
+    color: '#000000',
+    fontFamily: FontDefault.primary,
+    fontSize: sizeScale(12),
+  },
+  label: {
+    color: '#000000',
+    fontFamily: FontDefault.primary,
+    fontSize: sizeScale(12),
+  },
+  overline: {
+    color: '#000000',
+    fontFamily: FontDefault.primary,
+    fontSize: sizeScale(10),
   },
   paragraph1: {
     color: '#000000',
@@ -65,45 +85,25 @@ const presets = {
     fontFamily: FontDefault.primaryBold,
     fontSize: sizeScale(14),
   },
-  quotes: {
-    color: '#000000',
-    fontFamily: FontDefault.secondaryItalic,
-    fontSize: sizeScale(18),
-  },
-  label: {
-    color: '#000000',
-    fontFamily: FontDefault.primary,
-    fontSize: sizeScale(12),
-  },
   placeholder: {
     color: '#000000',
     fontFamily: FontDefault.primary,
     fontSize: sizeScale(14),
   },
-  assistive: {
+  quotes: {
     color: '#000000',
-    fontFamily: FontDefault.primary,
-    fontSize: sizeScale(1248),
-  },
-  CTAs: {
-    color: '#000000',
-    fontFamily: FontDefault.primary,
-    fontSize: sizeScale(16),
-  },
-  CTALinks: {
-    color: '#000000',
-    fontFamily: FontDefault.primary,
+    fontFamily: FontDefault.secondaryItalic,
     fontSize: sizeScale(18),
   },
-  CTASmall: {
+  subtitle1: {
     color: '#000000',
-    fontFamily: FontDefault.primary,
-    fontSize: sizeScale(14),
+    fontFamily: FontDefault.primarySemiBold,
+    fontSize: sizeScale(20),
   },
-  extraSmall: {
+  subtitle2: {
     color: '#000000',
-    fontFamily: FontDefault.primary,
-    fontSize: sizeScale(12),
+    fontFamily: FontDefault.primarySemiBold,
+    fontSize: sizeScale(18),
   },
 };
 

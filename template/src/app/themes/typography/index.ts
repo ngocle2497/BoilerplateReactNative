@@ -1,5 +1,4 @@
-/* eslint-disable import/extensions */
-
+import { fonts } from '@assets/fonts';
 import { useFonts } from 'expo-font';
 
 export const FontDefault = {
@@ -14,12 +13,12 @@ export const useLoadFont = () => {
   // state
   const [isLoaded] = useFonts({
     // icons is default font for react native vector icons. flowing IcMoon to use icons
-    icons: require('@assets/fonts/icons.ttf'),
-    [FontDefault.primary]: require('@assets/fonts/Manrope-Medium.ttf'),
-    [FontDefault.primaryBold]: require('@assets/fonts/Manrope-Bold.ttf'),
-    [FontDefault.primarySemiBold]: require('@assets/fonts/Manrope-SemiBold.ttf'),
-    [FontDefault.secondary]: require('@assets/fonts/Roboto-Regular.ttf'),
-    [FontDefault.secondaryItalic]: require('@assets/fonts/Roboto-Italic.ttf'),
+    icons: fonts.icons,
+    [FontDefault.primary]: fonts.manrope_medium,
+    [FontDefault.primaryBold]: fonts.manrope_bold,
+    [FontDefault.primarySemiBold]: fonts.manrope_semibold,
+    [FontDefault.secondary]: fonts.roboto_regular,
+    [FontDefault.secondaryItalic]: fonts.roboto_italic,
   });
 
   return isLoaded;

@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { execSync } = require('child_process');
+const { execSync, spawnSync } = require('child_process');
 
 const { getAndroidHome, getRubyVersion } = require('./common');
 
 (function () {
   try {
-    execSync('npx lefthook install', { stdio: 'inherit' });
+    execSync('npx --yes patch-package', { stdio: 'inherit' });
 
-    execSync('yarn patch-package', { stdio: 'inherit' });
+    spawnSync('npx lefthook install', { stdio: 'inherit' });
 
     if (getAndroidHome() !== '') {
       execSync(

@@ -1,27 +1,27 @@
-import { createStyleSheet } from '@theme';
+import { createStyleSheet } from 'react-native-unistyles';
 
 export const stylesSheet = createStyleSheet(theme => ({
   container: (size: number, disabled?: boolean) => ({
-    justifyContent: 'center',
     alignItems: 'center',
-    position: 'relative',
-    width: size,
-    height: size,
-    borderRadius: size,
-    borderWidth: 1,
     backgroundColor: theme.color.neutral50,
     borderColor: disabled ? theme.color.neutral200 : theme.color.technical,
+    borderRadius: size,
+    borderWidth: 1,
+    height: size,
+    justifyContent: 'center',
+    position: 'relative',
+    width: size,
   }),
   dot: (size: number, disabled) => {
     return {
-      width: size / 2,
-      height: size / 2,
-      borderRadius: size / 4,
-      position: 'absolute',
       alignSelf: 'center',
       backgroundColor: disabled
         ? theme.color.neutral200
         : theme.color.primary500,
+      borderRadius: size / 4,
+      height: size / 2,
+      position: 'absolute',
+      width: size / 2,
     };
   },
 }));

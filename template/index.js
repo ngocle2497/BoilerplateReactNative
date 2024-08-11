@@ -1,3 +1,4 @@
+import 'expo-dev-client';
 import { AppRegistry, Text, TextInput } from 'react-native';
 
 import 'react-native-gesture-handler';

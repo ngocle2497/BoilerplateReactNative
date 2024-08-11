@@ -1,21 +1,21 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
+  fill: {
+    flex: 1,
+  },
+  inner: {
+    flex: 1,
+    overflow: 'hidden',
+    width: '100%',
+  },
+  insets: {
+    position: 'absolute',
+  },
   outer: {
     backgroundColor: 'transparent',
     flex: 1,
     justifyContent: 'flex-start',
     overflow: 'hidden',
-  },
-  inner: {
-    flex: 1,
-    width: '100%',
-    overflow: 'hidden',
-  },
-  fill: {
-    flex: 1,
-  },
-  insets: {
-    position: 'absolute',
   },
 });

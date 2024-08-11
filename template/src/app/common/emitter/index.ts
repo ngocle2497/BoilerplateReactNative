@@ -19,12 +19,12 @@ export const subscribeEvent = <P, T extends string = string>(
       ]
     : [eventKey: T, listener: (data: P) => void]
 ) => {
-  const uuid = String.prototype.randomUniqueId();
+  const uuid = randomUniqueId();
 
   listeners.push({
-    uuid,
     eventKey: args[0],
     listener: args[1],
+    uuid,
   });
 
   return () => {
@@ -39,11 +39,9 @@ export const emitEvent = <P, T extends string = string>(
     ? undefined extends EventParamsList[T]
       ? [eventName: T]
       : [eventName: T, payload: P | EventParamsList[T]]
-    : [eventName: T, payload?: P | any]
+    : [eventName: T, payload?: P]
 ) => {
-  for (let index = 0; index < listeners.length; index++) {
-    const element = listeners[index];
-
+  for (const element of listeners) {
     if (element.eventKey === args[0]) {
       element.listener(args[1]);
     }

@@ -1,9 +1,10 @@
 import React from 'react';
 
 import Animated from 'react-native-reanimated';
+import { useStyles } from 'react-native-unistyles';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 
-import { Colors, useStyles } from '@theme';
+import { Colors } from '@theme/index';
 import { IconProps } from 'react-native-vector-icons/Icon';
 
 import { ICONS } from './icon-name';
@@ -17,10 +18,10 @@ const VectorIconBase = createIconSetFromIcoMoon(
 
 export const AnimatedIcon = Animated.createAnimatedComponent(VectorIconBase);
 
-export type VectorIconIcon = keyof typeof ICONS;
+export type VIconName = keyof typeof ICONS;
 
 type VectorIconProps = ReOmit<IconProps, 'name'> & {
-  icon: VectorIconIcon;
+  icon: VIconName;
   colorTheme?: Colors;
 };
 
