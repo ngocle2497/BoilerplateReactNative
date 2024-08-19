@@ -13,6 +13,7 @@
 
     <!-- BootTheme should inherit from Theme.SplashScreen -->
     <style name="BootTheme" parent="Theme.BootSplash.EdgeToEdge">
+        <item name="android:textColor">#000000</item>
         <item name="bootSplashBackground">@color/bootsplash_background</item>
         <item name="bootSplashLogo">@drawable/bootsplash_logo</item>
         <item name="postBootSplashTheme">@style/AppTheme</item>

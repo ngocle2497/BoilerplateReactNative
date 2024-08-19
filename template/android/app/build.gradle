@@ -135,3 +135,11 @@ dependencies {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+task prepare() {
+    def flavor = project.keys.get("FLAVOR")
+    def envPath = project.ext.keyFiles.find { it.key == flavor }?.value
+    exec {
+        workingDir = rootProject.projectDir.path.replace("/android", "")
+        commandLine 'node', './scripts/prepare.js', envPath
+    }
+}
