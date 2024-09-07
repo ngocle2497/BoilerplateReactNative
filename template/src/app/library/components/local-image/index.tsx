@@ -1,10 +1,9 @@
 import React from 'react';
-import { Image, ImageStyle } from 'react-native';
+import { Image, ImageStyle, StyleSheet } from 'react-native';
 
 import { images } from '@assets/image';
 import { View } from '@rn-core';
 
-import { styles } from './styles';
 import { LocalImageProps } from './type';
 
 export const LocalImage = ({
@@ -24,3 +23,10 @@ export const LocalImage = ({
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  img: {
+    height: '100%',
+    width: '100%',
+  },
+});

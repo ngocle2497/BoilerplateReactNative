@@ -2,7 +2,7 @@
 
 :fireworks: Clean and minimalist React Native template for a quick start with TypeScript and so much more components.
 
-## Current version: 0.73.8
+## Current version: 0.74.5
 
 ## :star: Features
 
@@ -20,18 +20,18 @@
 
 ## Base config (Now u can config on env)
 
-- Change App name ``` APP_DISPLAY_NAME ``` on ``` env/(.dev/.prod) ```
-- Change App id ``` BUNDLE_IDENTIFIER ``` on ``` env/(.dev/.prod) ```
-- Change App version ``` VERSION_NAME ``` on ``` env/(.dev/.prod) ```
-- Change App build number ``` VERSION_CODE ``` on ``` env/(.dev/.prod) ```
-- Change App URL ``` API_URL ``` on ``` env/(.dev/.prod) ```
+- Change App name `APP_DISPLAY_NAME` on `env/(.dev/.prod)`
+- Change App id `BUNDLE_IDENTIFIER` on `env/(.dev/.prod)`
+- Change App version `VERSION_NAME` on `env/(.dev/.prod)`
+- Change App build number `VERSION_CODE` on `env/(.dev/.prod)`
+- Change App URL `API_URL` on `env/(.dev/.prod)`
 
 ### Gen app icon and Change app icon by env
 
 Build with: [rn-ml](https://github.com/ngocle2497/cli-tools)
 
 - Update app icon file from appicon folder
-- Run: ``` yarn app-icon ``` or ``` yarn app-icon:dev ```
+- Run: `yarn app-icon` or `yarn app-icon:dev`
   - Android: auto change flavor script
   - IOS: Change ASSETCATALOG_COMPILER_APPICON_NAME to your respective App Icon Assets (in respective env file)
 
@@ -78,7 +78,7 @@ Options:
 - [expo-image](https://docs.expo.dev/versions/latest/sdk/image/)
 - [react-fast-compare](https://github.com/FormidableLabs/react-fast-compare)
 
-    ... and more
+  ... and more
 
 ## :bookmark: License
 

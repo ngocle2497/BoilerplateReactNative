@@ -6,13 +6,12 @@ import {
   useAnimatedProps,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import { useStyles } from 'react-native-unistyles';
+import { createStyleSheet, useStyles } from 'react-native-unistyles';
 
 import { useSharedTransition } from '@animated';
 import { AnimatedIcon } from '@components/icon';
 import { AnimatedView } from '@rn-core';
 
-import { stylesSheet } from './styles';
 import { CheckboxProps } from './type';
 
 export const Checkbox = ({
@@ -85,3 +84,15 @@ export const Checkbox = ({
     </TouchableWithoutFeedback>
   );
 };
+
+const stylesSheet = createStyleSheet({
+  container: (size: number) => ({
+    alignItems: 'center',
+    borderRadius: 4,
+    borderWidth: 1,
+    height: size,
+    justifyContent: 'center',
+    position: 'relative',
+    width: size,
+  }),
+});

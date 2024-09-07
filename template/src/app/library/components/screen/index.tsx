@@ -1,5 +1,10 @@
 import React, { useMemo } from 'react';
-import { useWindowDimensions, ViewProps, ViewStyle } from 'react-native';
+import {
+  StyleSheet,
+  useWindowDimensions,
+  ViewProps,
+  ViewStyle,
+} from 'react-native';
 
 import Animated from 'react-native-reanimated';
 import {
@@ -12,7 +17,6 @@ import { useStyles } from 'react-native-unistyles';
 
 import { View } from '@rn-core';
 
-import { styles } from './styles';
 import {
   InsetComponentProps,
   InsetProps,
@@ -245,3 +249,23 @@ export const Screen = (props: ScreenProps) => {
     return ScreenWithoutScrolling(Wrapper, { ...props, actualUnsafe, edges });
   }
 };
+
+const styles = StyleSheet.create({
+  fill: {
+    flex: 1,
+  },
+  inner: {
+    flex: 1,
+    overflow: 'hidden',
+    width: '100%',
+  },
+  insets: {
+    position: 'absolute',
+  },
+  outer: {
+    backgroundColor: 'transparent',
+    flex: 1,
+    justifyContent: 'flex-start',
+    overflow: 'hidden',
+  },
+});

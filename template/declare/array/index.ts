@@ -1,9 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-extend-native */
 export {};
-
-Array.prototype.first = function (defaultValue: any) {
-  return this[0] || defaultValue || undefined;
-};
 
 Array.prototype.searchAllProps = function (keyword: string | number) {
   return this.filter(x => {

@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 
 import { interpolate, useAnimatedStyle } from 'react-native-reanimated';
-import { useStyles } from 'react-native-unistyles';
+import { createStyleSheet, useStyles } from 'react-native-unistyles';
 
 import { useSharedTransition } from '@animated';
 import { AnimatedView } from '@rn-core';
 
-import { stylesSheet } from './styles';
 import { RadioButtonProps } from './type';
 
 export const RadioButton = ({
@@ -56,3 +55,29 @@ export const RadioButton = ({
     </TouchableWithoutFeedback>
   );
 };
+
+const stylesSheet = createStyleSheet(theme => ({
+  container: (size: number, disabled?: boolean) => ({
+    alignItems: 'center',
+    backgroundColor: theme.color.neutral50,
+    borderColor: disabled ? theme.color.neutral200 : theme.color.technical,
+    borderRadius: size,
+    borderWidth: 1,
+    height: size,
+    justifyContent: 'center',
+    position: 'relative',
+    width: size,
+  }),
+  dot: (size: number, disabled) => {
+    return {
+      alignSelf: 'center',
+      backgroundColor: disabled
+        ? theme.color.neutral200
+        : theme.color.primary500,
+      borderRadius: size / 4,
+      height: size / 2,
+      position: 'absolute',
+      width: size / 2,
+    };
+  },
+}));

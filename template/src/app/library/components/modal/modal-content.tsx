@@ -24,7 +24,6 @@ import { sharedTiming } from '@animated';
 import { useDisableBackHandler } from '@hooks';
 import { AnimatedView } from '@rn-core';
 
-import { styles } from './styles';
 import { ModalProps } from './type';
 
 export const ModalContent = forwardRef(
@@ -205,3 +204,15 @@ export const ModalContent = forwardRef(
 export type ModalContent = {
   dismiss: () => void;
 };
+
+const styles = StyleSheet.create({
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  modal: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'transparent',
+    zIndex: 2,
+  },
+});
