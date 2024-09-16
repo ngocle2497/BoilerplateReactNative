@@ -6,7 +6,6 @@ import { processColor } from 'react-native-reanimated';
 
 import { appActions } from '@redux-slice/app';
 import { remove } from '@storage';
-import { I18nKeys } from '@utils/i18n/locales';
 
 import { MMKV_KEY } from '../constant';
 import { dispatch } from '../redux';

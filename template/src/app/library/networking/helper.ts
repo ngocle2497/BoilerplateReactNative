@@ -3,7 +3,6 @@ import { createRef } from 'react';
 
 import { API_CONFIG } from '@common/constant';
 import { logout } from '@common/method';
-import { I18nKeys } from '@utils/i18n/locales';
 import { translate } from '@utils/i18n/translate';
 import { AxiosError, AxiosResponse, Method } from 'axios';
 

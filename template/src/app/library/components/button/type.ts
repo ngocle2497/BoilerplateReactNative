@@ -2,7 +2,6 @@ import React from 'react';
 import { TouchableWithoutFeedbackProps } from 'react-native';
 
 import { IconTypes } from '@assets/icon';
-import { I18nKeys } from '@utils/i18n/locales';
 
 export type ButtonProps = RequireAtLeastOne<
   {

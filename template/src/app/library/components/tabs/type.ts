@@ -1,7 +1,5 @@
 import { SharedValue } from 'react-native-reanimated';
 
-import { I18nKeys } from '@utils/i18n/locales';
-
 export type Tab = {
   title: I18nKeys;
   key: string;

@@ -21,4 +21,6 @@ type Path<T> = T extends Readonly<infer V>
 
 type ResourceType = typeof resources;
 
-export type I18nKeys = Path<ResourceType[keyof ResourceType]>;
+declare global {
+  type I18nKeys = Path<ResourceType[keyof ResourceType]>;
+}
