@@ -1,9 +1,21 @@
 import { UnistylesRegistry, UnistylesThemes } from 'react-native-unistyles';
 
-import { darkTheme } from './dark';
-import { lightTheme } from './light';
+import { darkColors } from './colors/dark';
+import { lightColors } from './colors/light';
+import { textPresets } from './text-presets';
 
 export type Colors = keyof UnistylesThemes['dark']['color'];
+const darkTheme = {
+  color: darkColors,
+  textPresets: textPresets,
+  type: 'dark',
+};
+
+const lightTheme = {
+  color: lightColors,
+  textPresets: textPresets,
+  type: 'light',
+};
 
 type AppThemes = {
   light: typeof lightTheme;
