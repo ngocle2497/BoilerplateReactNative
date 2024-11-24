@@ -183,12 +183,6 @@ export default [
         },
       ],
       'prefer-destructuring': 2,
-      'prettier/prettier': [
-        'error',
-        {
-          endOfLine: 'auto',
-        },
-      ],
       quotes: [
         'error',
         'single',
