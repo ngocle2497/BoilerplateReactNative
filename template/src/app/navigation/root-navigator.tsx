@@ -1,19 +1,59 @@
 import React, { useEffect } from 'react';
 
 import BootSplash from 'react-native-bootsplash';
+import { useStyles } from 'react-native-unistyles';
 import { useSelector } from 'react-redux';
 
-import { APP_SCREEN, RootStackParamList } from '@navigation/screen-types';
+import { APP_SCREEN } from '@navigation/screen-types';
+import { createStaticNavigation, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { selectAppToken } from '@redux-selector/app';
 import { Home } from '@screens/authentication/home';
 import { Login } from '@screens/un-authentication/login';
 
-const RootStack = createNativeStackNavigator<RootStackParamList>();
+import { navigationRef } from './navigation-service';
+
+const useAppLoggedIn = () => {
+  return useSelector(selectAppToken) !== undefined;
+};
+
+const useAppLoggedOut = () => {
+  return !useAppLoggedIn();
+};
+
+const RootStack = createNativeStackNavigator({
+  groups: {
+    [APP_SCREEN.UN_AUTHORIZE]: {
+      if: useAppLoggedIn,
+      screens: {
+        [APP_SCREEN.HOME]: Home,
+      },
+    },
+    [APP_SCREEN.AUTHORIZE]: {
+      if: useAppLoggedOut,
+      screenOptions: {
+        headerShown: false,
+      },
+      screens: {
+        [APP_SCREEN.LOGIN]: {
+          screen: Login,
+        },
+      },
+    },
+  },
+  screenOptions: {
+    freezeOnBlur: true,
+    navigationBarColor: '#ffffff',
+    statusBarTranslucent: true,
+  },
+});
+
+const Navigation = createStaticNavigation(RootStack);
 
 export const RootNavigation = () => {
   // state
-  const token = useSelector(selectAppToken);
+
+  const { theme } = useStyles();
 
   // effect
   useEffect(() => {
@@ -26,24 +66,15 @@ export const RootNavigation = () => {
 
   // render
   return (
-    <RootStack.Navigator
-      screenOptions={{
-        headerShown: false,
-        navigationBarColor: '#ffffff',
-        statusBarTranslucent: true,
-      }}>
-      {token === undefined ? (
-        <RootStack.Group
-          screenOptions={{
-            freezeOnBlur: true,
-          }}>
-          <RootStack.Screen name={APP_SCREEN.LOGIN} component={Login} />
-        </RootStack.Group>
-      ) : (
-        <RootStack.Group>
-          <RootStack.Screen name={APP_SCREEN.HOME} component={Home} />
-        </RootStack.Group>
-      )}
-    </RootStack.Navigator>
+    <Navigation
+      ref={navigationRef}
+      theme={{
+        ...DefaultTheme,
+        colors: {
+          ...DefaultTheme.colors,
+          background: theme.color.background,
+        },
+      }}
+    />
   );
 };

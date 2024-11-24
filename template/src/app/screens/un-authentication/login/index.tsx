@@ -66,6 +66,8 @@ export const Login = () => {
   };
 
   const handleChangeTheme = async () => {
+    await wait(300);
+
     opacity.value = 1;
 
     const overlay1 = await makeImageFromView(rootRef);
