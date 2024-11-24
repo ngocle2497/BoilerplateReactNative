@@ -2,7 +2,7 @@
 
 :fireworks: Clean and minimalist React Native template for a quick start with TypeScript and so much more components.
 
-## Current version: 0.74.5
+## Current version: 0.75.4
 
 ## :star: Features
 
@@ -66,13 +66,13 @@ Options:
 
 ## Library
 
-- [react-navigation-v6](https://reactnavigation.org)
+- [react-navigation](https://reactnavigation.org)
 - [axios](https://axios-http.com)
 - [react-hook-form](https://www.react-hook-form.com)
 - [react-native-mmkv](https://github.com/mrousavy/react-native-mmkv)
 - [zod](https://github.com/colinhacks/zod)
 - [react-native-bootsplash](https://github.com/zoontek/react-native-bootsplash)
-- [react-native-reanimated-v3](https://github.com/software-mansion/react-native-reanimated#readme)
+- [react-native-reanimated](https://github.com/software-mansion/react-native-reanimated#readme)
 - [redux](http://redux.js.org)
 - [redux-listener-middleware](https://redux-toolkit.js.org/api/createListenerMiddleware)
 - [expo-image](https://docs.expo.dev/versions/latest/sdk/image/)

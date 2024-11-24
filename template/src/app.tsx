@@ -5,11 +5,12 @@ import { I18nextProvider } from 'react-i18next';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider as RNKeyboardProvider } from 'react-native-keyboard-controller';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { UnistylesProvider } from 'react-native-unistyles';
 import { Provider } from 'react-redux';
 
 import { PortalProvider } from '@gorhom/portal';
 import { useDidMount } from '@hooks';
-import { AppContainer } from '@navigation/app-navigation';
+import { AppContainer } from '@navigation/app-container';
 import { store } from '@store/store';
 import { useLoadFont } from '@theme/typography';
 import I18n from '@utils/i18n/i18n';
@@ -70,20 +71,22 @@ export const MyApp = () => {
 
   // render
   return (
-    <SafeAreaProvider>
-      <KeyboardProvider>
-        <Provider store={store}>
-          <I18nextProvider i18n={I18n}>
-            <Suspense fallback={null}>
-              <PortalProvider>
-                <GestureHandlerRootView style={styles.root}>
-                  <AppContainer />
-                </GestureHandlerRootView>
-              </PortalProvider>
-            </Suspense>
-          </I18nextProvider>
-        </Provider>
-      </KeyboardProvider>
-    </SafeAreaProvider>
+    <UnistylesProvider>
+      <SafeAreaProvider>
+        <KeyboardProvider>
+          <Provider store={store}>
+            <I18nextProvider i18n={I18n}>
+              <Suspense fallback={null}>
+                <PortalProvider>
+                  <GestureHandlerRootView style={styles.root}>
+                    <AppContainer />
+                  </GestureHandlerRootView>
+                </PortalProvider>
+              </Suspense>
+            </I18nextProvider>
+          </Provider>
+        </KeyboardProvider>
+      </SafeAreaProvider>
+    </UnistylesProvider>
   );
 };

@@ -1,10 +1,8 @@
-import React, { memo } from 'react';
-
-import isEqual from 'react-fast-compare';
+import React from 'react';
 
 import { Text, View } from '@rn-core';
 
-const HomeComponent = () => {
+export const Home = () => {
   // render
   return (
     <View>
@@ -12,5 +10,3 @@ const HomeComponent = () => {
     </View>
   );
 };
-
-export const Home = memo(HomeComponent, isEqual);
