@@ -22,7 +22,7 @@ DerivedData
 *.xcuserstate
 **/.xcode.env.local
 env-config.ts
-
+tmp.xcconfig
 # Android/IntelliJ
 #
 build/
