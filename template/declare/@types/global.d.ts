@@ -87,7 +87,7 @@ declare global {
     url: string;
     params?: Record<string, string | number>;
     path?: Record<string, string | number>;
-    body?: Record<string, unknown>;
+    body?: Record<string, unknown> | FormData;
   }
 
   type ValidateMessageObject = {
