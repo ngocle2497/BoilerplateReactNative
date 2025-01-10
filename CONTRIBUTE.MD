@@ -2,7 +2,7 @@
 
 ### 1: Clone project
 
-### 2: Renmame "_" file/folder to "." file/folder (Ex:_env -> .env)
+### 2: Rename "_" file/folder to "." file/folder (Ex:_env -> .env)
 >
 > Sometime on macos, macos disable copy dot file/folder to another folder, so we use "_" instead of "." to copy file/folder. then we rename it to "." file/folder
 >
