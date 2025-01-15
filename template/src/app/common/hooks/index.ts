@@ -187,7 +187,7 @@ function useErrorMessageTranslation(msg?: string) {
 
   return useMemo<string | undefined>(() => {
     if (!parsed && typeof msg === 'string') {
-      return t(msg);
+      return t(msg as I18nKeys);
     }
 
     if (!parsed) {
@@ -198,9 +198,7 @@ function useErrorMessageTranslation(msg?: string) {
 
     if (parsed.optionsTx) {
       Object.keys(parsed.optionsTx).forEach(key => {
-        optionsTx[key] = t(
-          String((parsed.optionsTx as Record<string, string | number>)[key]),
-        );
+        optionsTx[key] = t(String((parsed.optionsTx as TOptions)[key]) as any);
       });
     }
 
@@ -244,11 +242,7 @@ const useEventCallback = <Fn extends (...args: any[]) => ReturnType<Fn>>(
 const useTranslation = () => {
   const [t] = useRNTranslation();
 
-  return t as (
-    ...args:
-      | [key: I18nKeys | I18nKeys[], options?: TOptions]
-      | [key: I18nKeys | I18nKeys[], defaultValue?: string, options?: TOptions]
-  ) => ReturnType<typeof t>;
+  return t;
 };
 
 export {

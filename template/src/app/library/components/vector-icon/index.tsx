@@ -14,9 +14,11 @@ const VectorIconBase = createIconSetFromIcoMoon(
   require('./selection.json'),
   'icons',
   'icons.ttf',
-);
+) as any;
 
-export const AnimatedIcon = Animated.createAnimatedComponent(VectorIconBase);
+export const AnimatedIcon = Animated.createAnimatedComponent(
+  VectorIconBase as any,
+);
 
 export type VIconName = keyof typeof ICONS;
 

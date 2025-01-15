@@ -1,4 +1,9 @@
 {
   "name": "HelloWorld",
-  "displayName": "HelloWorld"
+  "displayName": "HelloWorld",
+  "expo": {
+    "name": "HelloWorld",
+    "slug": "HelloWorld",
+    "platforms": ["android", "ios"]
+  }
 }
