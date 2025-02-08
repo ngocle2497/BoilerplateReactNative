@@ -1,6 +1,5 @@
 #import "AppDelegate.h"
 #import "RNBootSplash.h"
-#import "Keys.h"
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTLinkingManager.h>
 
@@ -8,21 +7,23 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  self.moduleName = @"HelloWorld";
+  self.moduleName = @"main";
+
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
-  return [super application:application didFinishLaunchingWithOptions:launchOptions];
-}
 
-- (void)customizeRootView:(RCTRootView *)rootView {
-  NSString *bootsplash = [Keys publicFor:@"SPLASH_STORYBOARD_NAME"];
-  [RNBootSplash initWithStoryboard:bootsplash rootView:rootView];
+  return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
   return [self bundleURL];
+}
+
+- (void)customizeRootView:(RCTRootView *)rootView {
+  [super customizeRootView:rootView];
+  [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView]; // ⬅️ initialize the splash screen
 }
 
 - (NSURL *)bundleURL
@@ -33,7 +34,6 @@
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
 }
-
 
 // Linking API
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
@@ -63,6 +63,5 @@
 {
   return [super application:application didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
 }
-
 
 @end
