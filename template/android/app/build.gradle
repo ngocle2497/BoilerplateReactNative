@@ -2,6 +2,16 @@ apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
+project.ext.keyFiles = [
+        // Default key file when clean project
+        debug: 'env/dev.json',
+
+        // dev = flavor name
+        dev  : 'env/dev.json'
+]
+apply from: project(':react-native-keys').projectDir.getPath() + "/RNKeys.gradle"
+
+
 def projectRoot = rootDir.getAbsoluteFile().getParentFile().getAbsolutePath()
 
 /**
@@ -67,10 +77,6 @@ react {
  */
 def enableProguardInReleaseBuilds = (findProperty('android.enableProguardInReleaseBuilds') ?: false).toBoolean()
 
-project.ext.IS_EXAMPLE = false;
-project.ext.DEFAULT_FILE_NAME = "keys.development.json"
-apply from: project(':react-native-keys').projectDir.getPath() + "/RNKeys.gradle"
-  
 
 /**
  * The preferred build flavor of JavaScriptCore (JSC)
@@ -90,14 +96,19 @@ android {
 
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
-
+    flavorDimensions "default"
+    productFlavors {
+        dev {
+        }
+    }
     namespace 'com.helloworld'
     defaultConfig {
-        applicationId 'com.helloworld'
+        resValue "string", "build_config_package", "com.helloworld"
+        applicationId project.keys.get("BUNDLE_IDENTIFIER")
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0.0"
+        versionCode project.keys.get("VERSION_CODE").toInteger()
+        versionName project.keys.get("VERSION_NAME")
     }
     signingConfigs {
         debug {
@@ -177,5 +188,14 @@ dependencies {
         implementation("com.facebook.react:hermes-android")
     } else {
         implementation jscFlavor
+    }
+}
+
+task prepare() {
+    def flavor = project.keys.get("FLAVOR")
+    def envPath = project.ext.keyFiles.find { it.key == flavor }?.value
+    exec {
+        workingDir = rootProject.projectDir.path.replace("/android", "")
+        commandLine 'node', './scripts/prepare.js', envPath
     }
 }

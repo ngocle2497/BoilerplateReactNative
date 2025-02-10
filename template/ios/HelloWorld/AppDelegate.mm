@@ -2,6 +2,7 @@
 #import "RNBootSplash.h"
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTLinkingManager.h>
+#import "Keys.h"
 
 @implementation AppDelegate
 
@@ -22,8 +23,8 @@
 }
 
 - (void)customizeRootView:(RCTRootView *)rootView {
-  [super customizeRootView:rootView];
-  [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView]; // ⬅️ initialize the splash screen
+  NSString *bootsplash = [Keys publicFor:@"SPLASH_STORYBOARD_NAME"];
+  [RNBootSplash initWithStoryboard:bootsplash rootView:rootView];
 }
 
 - (NSURL *)bundleURL
