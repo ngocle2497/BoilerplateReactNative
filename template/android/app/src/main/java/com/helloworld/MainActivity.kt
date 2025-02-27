@@ -1,9 +1,9 @@
 package com.helloworld
-import com.zoontek.rnbootsplash.RNBootSplash
 
 import android.os.Build
 import android.os.Bundle
 
+import com.zoontek.rnbootsplash.RNBootSplash
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
@@ -13,7 +13,7 @@ import expo.modules.ReactActivityDelegateWrapper
 
 class MainActivity : ReactActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
-      RNBootSplash.init(this, R.style.BootTheme)
+    RNBootSplash.init(this, R.style.BootTheme)
     super.onCreate(null)
   }
 

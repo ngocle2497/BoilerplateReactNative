@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
+project.ext.IS_EXAMPLE = false;
 
 project.ext.keyFiles = [
         // Default key file when clean project
@@ -10,7 +11,6 @@ project.ext.keyFiles = [
         dev  : 'env/dev.json'
 ]
 apply from: project(':react-native-keys').projectDir.getPath() + "/RNKeys.gradle"
-
 
 def projectRoot = rootDir.getAbsoluteFile().getParentFile().getAbsolutePath()
 
@@ -76,6 +76,7 @@ react {
  * Set this to true to Run Proguard on Release builds to minify the Java bytecode.
  */
 def enableProguardInReleaseBuilds = (findProperty('android.enableProguardInReleaseBuilds') ?: false).toBoolean()
+
 
 
 /**
@@ -190,7 +191,6 @@ dependencies {
         implementation jscFlavor
     }
 }
-
 task prepare() {
     def flavor = project.keys.get("FLAVOR")
     def envPath = project.ext.keyFiles.find { it.key == flavor }?.value

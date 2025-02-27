@@ -10,14 +10,14 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;rm &quot;${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}&quot;&#10;source ~/.bash_profile&#10;ENV_PATH=&quot;env/dev.json&quot;&#10;export KEYSFILE=$ENV_PATH&#10;&#10;&quot;${SRCROOT}/../node_modules/react-native-keys/keysIOS.js&quot;&#10;&#10;&quot;${SRCROOT}/../scripts/prepare.js&quot; &quot;$ENV_PATH&quot;&#10;     &#10;">
+               scriptText = "rm &quot;${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}&quot;&#10;source ~/.bash_profile&#10;ENV_PATH=&quot;env/dev.json&quot;&#10;export KEYSFILE=$ENV_PATH&#10;&quot;${SRCROOT}/../node_modules/react-native-keys/keysIOS.js&quot;&#10;&#10;&quot;${SRCROOT}/../scripts/prepare.js&quot; &quot;$ENV_PATH&quot;&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
                      BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-                     BuildableName = "Helloworld.app"
-                     BlueprintName = "Helloworld"
-                     ReferencedContainer = "container:Helloworld.xcodeproj">
+                     BuildableName = "HelloWorld.app"
+                     BlueprintName = "HelloWorld"
+                     ReferencedContainer = "container:HelloWorld.xcodeproj">
                   </BuildableReference>
                </EnvironmentBuildable>
             </ActionContent>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "Helloworld.app"
-               BlueprintName = "Helloworld"
-               ReferencedContainer = "container:Helloworld.xcodeproj">
+               BuildableName = "HelloWorld.app"
+               BlueprintName = "HelloWorld"
+               ReferencedContainer = "container:HelloWorld.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -51,9 +51,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "HelloworldTests.xctest"
-               BlueprintName = "HelloworldTests"
-               ReferencedContainer = "container:Helloworld.xcodeproj">
+               BuildableName = "HelloWorldTests.xctest"
+               BlueprintName = "HelloWorldTests"
+               ReferencedContainer = "container:HelloWorld.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -73,9 +73,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Helloworld.app"
-            BlueprintName = "Helloworld"
-            ReferencedContainer = "container:Helloworld.xcodeproj">
+            BuildableName = "HelloWorld.app"
+            BlueprintName = "HelloWorld"
+            ReferencedContainer = "container:HelloWorld.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -90,9 +90,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Helloworld.app"
-            BlueprintName = "Helloworld"
-            ReferencedContainer = "container:Helloworld.xcodeproj">
+            BuildableName = "HelloWorld.app"
+            BlueprintName = "HelloWorld"
+            ReferencedContainer = "container:HelloWorld.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

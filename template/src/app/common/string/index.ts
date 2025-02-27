@@ -41,41 +41,6 @@ export const trimObject = (source: any) => {
   return newObject;
 };
 
-interface ResultHandleTagToArrayText {
-  text: string;
-  bold: boolean;
-}
-
-export const onHandleTagToArrayText = (
-  source = '',
-  char = '#',
-): Array<ResultHandleTagToArrayText> => {
-  const textSplit = source.split(' ');
-
-  const arrText: ResultHandleTagToArrayText[] = [];
-
-  textSplit.forEach((text: string, i: number) => {
-    const textData = { bold: false, text: text };
-
-    if (text.startsWith(char)) {
-      textData.bold = true;
-
-      arrText.push(textData);
-    } else {
-      arrText.push({ bold: false, text: text });
-    }
-
-    if (
-      (text === '' && i !== textSplit.length - 1) ||
-      i !== textSplit.length - 1
-    ) {
-      arrText.push({ bold: false, text: ' ' });
-    }
-  });
-
-  return arrText;
-};
-
 export const checkPasswordContainUserName = (
   username: string,
   password: string,

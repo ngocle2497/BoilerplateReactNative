@@ -12,6 +12,8 @@ import {
   BackHandler,
   EmitterSubscription,
   Keyboard,
+  Linking,
+  NativeEventSubscription,
   Platform,
 } from 'react-native';
 
@@ -135,14 +137,17 @@ function useDisableBackHandler(disabled: boolean, callback?: () => void) {
   }, [callback]);
 
   useEffect(() => {
+    let backHandler: NativeEventSubscription;
     if (disabled) {
-      BackHandler.addEventListener('hardwareBackPress', onBackPress);
-    } else {
-      BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+      backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+      );
     }
 
-    return () =>
-      BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    return () => {
+      backHandler?.remove();
+    };
   }, [disabled, onBackPress]);
 }
 
@@ -242,8 +247,48 @@ const useEventCallback = <Fn extends (...args: any[]) => ReturnType<Fn>>(
   return callbackMemoized;
 };
 
+const useLinkingOpened = <T = any>(callback: (data: T) => void) => {
+  // func
+  const extractUrlParams = useCallback((url: string) => {
+    const regex = /[?&]([^=#]+)=([^&#]*)/g;
+
+    const params = {} as any;
+
+    let match: RegExpExecArray | null;
+    while ((match = regex.exec(url))) {
+      try {
+        const [, key, value] = match;
+
+        params[key] = value;
+      } catch {}
+    }
+
+    return params;
+  }, []);
+
+  //effect
+  useEffect(() => {
+    Linking.getInitialURL().then(url => {
+      if (url) {
+        callback(extractUrlParams(url));
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = Linking.addEventListener('url', ({ url }) => {
+      callback(extractUrlParams(url));
+    });
+
+    return () => {
+      unsubscribe.remove();
+    };
+  }, [callback, extractUrlParams]);
+};
+
 export {
   useDidMount,
+  useLinkingOpened,
   useDisableBackHandler,
   useDismissKeyboard,
   useErrorMessageTranslation,

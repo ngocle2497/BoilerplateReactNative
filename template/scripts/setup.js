@@ -20,28 +20,29 @@ const { getAndroidHome } = require('./common');
 
     if (process.platform === 'darwin') {
       execSync('cd ios && touch tmp.xcconfig');
-        console.log(
-          '                  🧐🧐🧐🧐🧐 Installing Bundle dependencies!! 🧐🧐🧐🧐🧐',
-        );
 
-        execSync('bundle install', {
+      console.log(
+        '                  🧐🧐🧐🧐🧐 Installing Bundle dependencies!! 🧐🧐🧐🧐🧐',
+      );
+
+      execSync('bundle install', {
+        stdio: 'inherit',
+      });
+
+      console.log('bundle install Done!!✨✨✨✨✨');
+
+      console.log(
+        '                  🧐🧐🧐🧐🧐 Installing CocoaPods dependencies!! 🧐🧐🧐🧐🧐',
+      );
+
+      execSync(
+        'bundle exec pod install --project-directory=ios --repo-update',
+        {
           stdio: 'inherit',
-        });
+        },
+      );
 
-        console.log('bundle install Done!!✨✨✨✨✨');
-
-        console.log(
-          '                  🧐🧐🧐🧐🧐 Installing CocoaPods dependencies!! 🧐🧐🧐🧐🧐',
-        );
-
-        execSync(
-          'bundle exec pod install --project-directory=ios --repo-update',
-          {
-            stdio: 'inherit',
-          },
-        );
-
-        console.log('                      ✨✨✨✨✨ Pod done!!! ✨✨✨✨✨');
+      console.log('                      ✨✨✨✨✨ Pod done!!! ✨✨✨✨✨');
     }
   } catch {}
 })();

@@ -1,7 +1,7 @@
 {
   "name": "rn-boiler-template",
   "private": false,
-  "version": "1.76.0",
+  "version": "1.77.0",
   "description": "Clean and minimalist React Native template for a quick start with TypeScript and components",
   "scripts": {
     "test": "exit 0"
@@ -30,7 +30,7 @@
     "boilerplate",
     "starter"
   ],
-  "author": "MasonLe <lhngoc2497@gmail.com>",
+  "author": "NgocLe <lhngoc2497@gmail.com>",
   "license": "MIT",
   "licenses": [
     {

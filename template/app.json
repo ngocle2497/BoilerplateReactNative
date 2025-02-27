@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Helloworld",
-    "slug": "helloworld",
+    "name": "HelloWorld",
+    "slug": "HelloWorld",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
@@ -10,10 +10,10 @@
       "ios",
       "android"
     ],
-    "scheme": "Helloworld",
+    "scheme": "HelloWorld",
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.helloworld"
+      "bundleIdentifier": "com.HelloWorld"
     },
     "android": {
       "package": "com.helloworld"
