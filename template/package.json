@@ -48,7 +48,7 @@
     "react-native-keyboard-controller": "^1.16.6",
     "react-native-keys": "^0.7.11",
     "react-native-mmkv": "^3.2.0",
-    "react-native-reanimated": "3.16.6",
+    "react-native-reanimated": "3.16.7",
     "react-native-safe-area-context": "5.2.0",
     "react-native-screens": "4.9.1",
     "react-native-unistyles": "^2.31.0",

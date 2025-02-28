@@ -273,6 +273,7 @@ const useLinkingOpened = <T = any>(callback: (data: T) => void) => {
         callback(extractUrlParams(url));
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

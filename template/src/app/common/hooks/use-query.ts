@@ -20,6 +20,7 @@ interface FilterType {
   PageSize: number;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const useQuery = <T, K extends Record<string, string> = any>(
   initFilter: K,
   loadData: (filter: K & FilterType, loadEnd: (res: Array<T>) => void) => void,
