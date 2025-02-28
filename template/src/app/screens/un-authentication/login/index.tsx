@@ -66,8 +66,6 @@ export const Login = () => {
   };
 
   const handleChangeTheme = async () => {
-    await wait(300);
-
     opacity.value = 1;
 
     const overlay1 = await makeImageFromView(rootRef);
@@ -85,8 +83,6 @@ export const Login = () => {
     const overlay2 = await makeImageFromView(rootRef);
 
     image2.value = overlay2;
-
-    await wait(200);
 
     r.value = withTiming(height * 1.5, { duration: 1000 }, f => {
       if (f) {
@@ -126,7 +122,7 @@ export const Login = () => {
   // render
   return (
     <>
-      <View ref={rootRef} style={styles.root}>
+      <View collapsable={false} ref={rootRef} style={styles.root}>
         <Screen
           bottomInsetColor="transparent"
           scroll
@@ -209,14 +205,14 @@ export const Login = () => {
   );
 };
 
-const styleSheet = createStyleSheet(theme => ({
+const styleSheet = createStyleSheet(({ color, textPresets }) => ({
   colItem: {
     alignItems: 'flex-start',
     paddingVertical: 15,
     rowGap: 8,
   },
   root: {
-    backgroundColor: theme.color.background,
+    backgroundColor: color.background,
     flex: 1,
     paddingHorizontal: 15,
     paddingTop: 0,
@@ -228,7 +224,7 @@ const styleSheet = createStyleSheet(theme => ({
     paddingVertical: 15,
   },
   text: {
-    ...theme.textPresets.label,
-    color: theme.color.neutral500,
+    ...textPresets.label,
+    color: color.neutral500,
   },
 }));

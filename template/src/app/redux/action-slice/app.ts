@@ -6,7 +6,7 @@ const initialAppState: AppState = {
   /**
    * default true to load app
    */
-  loadingApp: false,
+  loadingApp: true,
 
   profile: {},
 

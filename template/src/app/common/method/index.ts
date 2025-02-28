@@ -14,10 +14,6 @@ export const onShowErrorBase = (msg: string) => {
   Alert.alert(msg);
 };
 
-export const checkKeyInObject = (T: Record<string, unknown>, key: string) => {
-  return Object.keys(T).includes(key);
-};
-
 export const logout = () => {
   dispatch(appActions.logout());
 
@@ -73,7 +69,7 @@ export const timeAgo = (
       check: day_diff === 0 && diff < 3600,
       result: {
         options: { count: Math.floor(diff / 60) },
-        title: 'date:minutes_ago',
+        title: 'date:minute_ago',
       },
     },
     {
@@ -84,7 +80,7 @@ export const timeAgo = (
       check: day_diff === 0 && diff < 86400,
       result: {
         options: { count: Math.floor(diff / 3600) },
-        title: 'date:hours_ago',
+        title: 'date:hour_ago',
       },
     },
     { check: day_diff === 1, result: { title: 'date:yesterday' } },
