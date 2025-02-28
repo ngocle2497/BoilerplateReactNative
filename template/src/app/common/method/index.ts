@@ -14,10 +14,6 @@ export const onShowErrorBase = (msg: string) => {
   Alert.alert(msg);
 };
 
-export const checkKeyInObject = (T: Record<string, unknown>, key: string) => {
-  return Object.keys(T).includes(key);
-};
-
 export const logout = () => {
   dispatch(appActions.logout());
 

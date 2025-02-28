@@ -47,11 +47,11 @@ Example `.bash_profile`:
 
 ## Base config (Now u can config on env)
 
-- Change App name `APP_DISPLAY_NAME` on `env/(dev.json/.prod)`
-- Change App id `BUNDLE_IDENTIFIER` on `env/(dev.json/.prod)`
-- Change App version `VERSION_NAME` on `env/(dev.json/.prod)`
-- Change App build number `VERSION_CODE` on `env/(dev.json/.prod)`
-- Change App URL `API_URL` on `env/(dev.json/.prod)`
+- Change App name `APP_DISPLAY_NAME` on `env/.dev`
+- Change App id `BUNDLE_IDENTIFIER` on `env/.dev`
+- Change App version `VERSION_NAME` on `env/.dev`
+- Change App build number `VERSION_CODE` on `env/.dev`
+- Change App URL `API_URL` on `env/.dev`
 
 ### Gen app icon and Change app icon by env
 

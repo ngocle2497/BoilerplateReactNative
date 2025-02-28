@@ -2,7 +2,7 @@
 
 :fireworks: Clean and minimalist React Native template for a quick start with TypeScript and so much more components.
 
-## Current version: 0.76.7
+## Current version: 0.77.1
 
 ## :star: Features
 
@@ -20,11 +20,11 @@
 
 ## Base config (Now u can config on env)
 
-- Change App name `APP_DISPLAY_NAME` on `env/(.dev/.prod)`
-- Change App id `BUNDLE_IDENTIFIER` on `env/(.dev/.prod)`
-- Change App version `VERSION_NAME` on `env/(.dev/.prod)`
-- Change App build number `VERSION_CODE` on `env/(.dev/.prod)`
-- Change App URL `API_URL` on `env/(.dev/.prod)`
+- Change App name `APP_DISPLAY_NAME` on `env/.dev`
+- Change App id `BUNDLE_IDENTIFIER` on `env/.dev`
+- Change App version `VERSION_NAME` on `env/.dev`
+- Change App build number `VERSION_CODE` on `env/.dev`
+- Change App URL `API_URL` on `env/.dev`
 
 ### Gen app icon and Change app icon by env
 
