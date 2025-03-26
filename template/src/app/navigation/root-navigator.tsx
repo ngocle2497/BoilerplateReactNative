@@ -2,19 +2,19 @@ import React, { useEffect } from 'react';
 
 import BootSplash from 'react-native-bootsplash';
 import { useStyles } from 'react-native-unistyles';
-import { useSelector } from 'react-redux';
 
 import { APP_SCREEN } from '@navigation/screen-types';
 import { createStaticNavigation, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { selectAppToken } from '@redux-selector/app';
 import { Home } from '@screens/authentication/home';
 import { Login } from '@screens/un-authentication/login';
+import { selectAppToken } from '@selectors/app';
+import { useAppStore } from '@stores/app';
 
 import { navigationRef } from './navigation-service';
 
 const useAppLoggedIn = () => {
-  return useSelector(selectAppToken) !== undefined;
+  return useAppStore(selectAppToken) !== undefined;
 };
 
 const useAppLoggedOut = () => {

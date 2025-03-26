@@ -2,6 +2,7 @@
 import { MMKV } from 'react-native-mmkv';
 
 import { APP_DISPLAY_NAME, PRIVATE_KEY_STORAGE } from '@env';
+import { StateStorage } from 'zustand/middleware';
 
 export const AppStorage = new MMKV({
   encryptionKey: PRIVATE_KEY_STORAGE,
@@ -80,26 +81,16 @@ export async function remove(key: string) {
   } catch {}
 }
 
-interface Storage {
-  getItem(key: string, ...args: Array<any>): any;
-  setItem(key: string, value: any, ...args: Array<any>): any;
-  removeItem(key: string, ...args: Array<any>): any;
-}
+export const zustandStorage: StateStorage = {
+  getItem: name => {
+    const value = AppStorage.getString(name);
 
-export const reduxPersistStorage: Storage = {
-  getItem: key => {
-    const value = AppStorage.getString(key);
-
-    return Promise.resolve(value);
+    return value ?? null;
   },
-  removeItem: key => {
-    AppStorage.delete(key);
-
-    return Promise.resolve();
+  removeItem: name => {
+    return AppStorage.delete(name);
   },
-  setItem: (key, value) => {
-    AppStorage.set(key, value);
-
-    return Promise.resolve(true);
+  setItem: (name, value) => {
+    return AppStorage.set(name, value);
   },
 };

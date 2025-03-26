@@ -15,6 +15,8 @@ export function navigateScreen<RouteName extends keyof RootStackParamList>(
         | [screen: RouteName, params?: RootStackParamList[RouteName]]
     : [screen: RouteName, params: RootStackParamList[RouteName]]
 ) {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
   navigationRef.navigate(arg[0], arg.length > 1 ? arg[1] : undefined);
 }
 

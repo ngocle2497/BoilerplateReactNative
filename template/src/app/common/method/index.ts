@@ -4,20 +4,8 @@ import { Alert, ColorValue, Linking } from 'react-native';
 
 import { processColor } from 'react-native-reanimated';
 
-import { appActions } from '@redux-slice/app';
-import { remove } from '@storage';
-
-import { MMKV_KEY } from '../constant';
-import { dispatch } from '../redux';
-
 export const onShowErrorBase = (msg: string) => {
   Alert.alert(msg);
-};
-
-export const logout = () => {
-  dispatch(appActions.logout());
-
-  remove(MMKV_KEY.APP_TOKEN);
 };
 
 export const openLinking = (url: string) => {

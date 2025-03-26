@@ -2,20 +2,12 @@
 import { createRef } from 'react';
 
 import { API_CONFIG } from '@common/constant';
-import { logout } from '@common/method';
 import { AxiosError, AxiosResponse, Method } from 'axios';
 
 const responseDefault: ResponseBase<Record<string, unknown>> = {
   code: -500,
   msg: 'error:have_error',
   status: false,
-};
-
-export const onPushLogout = async () => {
-  logout();
-  /**
-   * do something when logout
-   */
 };
 
 /**
