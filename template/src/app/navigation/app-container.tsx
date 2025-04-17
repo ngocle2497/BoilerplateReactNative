@@ -1,22 +1,21 @@
 import React, { useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
-
-import { dispatch, RXStore } from '@common/redux';
 import { SnackBar } from '@components/snack-bar';
 import { PortalHost } from '@gorhom/portal';
 import { RootNavigation } from '@navigation/root-navigator';
-import { selectAppConfig } from '@redux-selector/app';
-import { appActions } from '@redux-slice/app';
+import { selectAppLoading } from '@selectors/app';
+import { appServices } from '@services/app';
+import { useAppStore } from '@stores/app';
 import { StatusBar } from 'expo-status-bar';
+import { useShallow } from 'zustand/shallow';
 
 export const AppContainer = () => {
   // state
-  const { loadingApp } = useSelector(selectAppConfig);
+  const { loadingApp } = useAppStore(useShallow(selectAppLoading));
 
   // effect
   useEffect(() => {
-    dispatch(appActions.startLoadApp());
+    appServices.startLoadApp();
   }, []);
 
   // render
@@ -30,7 +29,6 @@ export const AppContainer = () => {
           <SnackBar />
         </>
       )}
-      <RXStore />
     </>
   );
 };

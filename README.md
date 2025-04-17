@@ -73,8 +73,7 @@ Options:
 - [zod](https://github.com/colinhacks/zod)
 - [react-native-bootsplash](https://github.com/zoontek/react-native-bootsplash)
 - [react-native-reanimated](https://github.com/software-mansion/react-native-reanimated#readme)
-- [redux](http://redux.js.org)
-- [redux-listener-middleware](https://redux-toolkit.js.org/api/createListenerMiddleware)
+- [zustand](https://zustand.docs.pmnd.rs/getting-started/introduction)
 - [expo-image](https://docs.expo.dev/versions/latest/sdk/image/)
 - [react-fast-compare](https://github.com/FormidableLabs/react-fast-compare)
 

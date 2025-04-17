@@ -2,10 +2,8 @@
 import { StyleSheet } from 'react-native';
 
 import { API_CONFIG } from '@common/constant';
-import { dispatch, getState } from '@common/redux';
 import { API_URL } from '@env';
-import { AppState } from '@model/app';
-import { appActions } from '@redux-slice/app';
+import { useAppStore } from '@stores/app';
 import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { ApiConstants } from './api';
@@ -14,7 +12,6 @@ import {
   handleErrorAxios,
   handleParameter,
   handleResponseAxios,
-  onPushLogout,
 } from './helper';
 
 const tokenKeyHeader = 'authorization';
@@ -43,7 +40,7 @@ AxiosInstance.interceptors.response.use(
         return Promise.reject(error as Error);
       }
 
-      dispatch(appActions.setToken(newToken));
+      useAppStore.getState().setToken(newToken);
 
       originalRequest.headers[tokenKeyHeader] = newToken;
 
@@ -73,7 +70,7 @@ async function refreshToken(): Promise<any> {
 
 // base
 function Request<T = Record<string, unknown>>(config: ParamsNetwork) {
-  const { token }: AppState = getState('app');
+  const { token } = useAppStore.getState();
 
   const defaultConfig: AxiosRequestConfig = {
     baseURL: API_URL,
@@ -105,7 +102,7 @@ function Request<T = Record<string, unknown>>(config: ParamsNetwork) {
         const result = handleErrorAxios(error);
 
         if (result.code === API_CONFIG.RESULT_CODE_PUSH_OUT) {
-          onPushLogout();
+          useAppStore.getState().logout();
 
           rs(null);
         } else {
@@ -128,7 +125,7 @@ async function Post<T>(params: ParamsNetwork) {
 type ParameterPostFormData = AxiosRequestConfig & ParamsNetwork;
 // post FormData
 async function PostFormData<T>(params: ParamsNetwork) {
-  const { token }: AppState = getState('app');
+  const { token } = useAppStore.getState();
 
   const headers: AxiosRequestConfig['headers'] = {
     'Content-Type': 'multipart/form-data',
