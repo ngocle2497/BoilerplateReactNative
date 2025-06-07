@@ -43,8 +43,6 @@ const RootStack = createNativeStackNavigator({
   },
   screenOptions: {
     freezeOnBlur: true,
-    navigationBarColor: '#ffffff',
-    statusBarTranslucent: true,
   },
 });
 

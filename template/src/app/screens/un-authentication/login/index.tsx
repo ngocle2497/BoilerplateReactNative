@@ -54,7 +54,7 @@ export const Login = () => {
 
   const image2 = useSharedValue<SkImage | null>(null);
 
-  const rootRef = useRef<View>(null);
+  const rootRef = useRef<any>(null);
 
   const { styles, theme } = useStyles(styleSheet);
 
@@ -124,9 +124,8 @@ export const Login = () => {
     <>
       <View collapsable={false} ref={rootRef} style={styles.root}>
         <Screen
-          bottomInsetColor="transparent"
           scroll
-          excludeEdges={['bottom']}
+          excludeEdges={['bottom', 'top']}
           statusBarStyle={barStyle}
           style={{ paddingHorizontal: 10, paddingVertical: 0 }}
           backgroundColor={'transparent'}>

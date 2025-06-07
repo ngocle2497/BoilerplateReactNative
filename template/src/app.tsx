@@ -12,6 +12,7 @@ import { useDidMount } from '@hooks';
 import { AppContainer } from '@navigation/app-container';
 import { useLoadFont } from '@theme/typography';
 import I18n from '@utils/i18n';
+
 import './app/themes/index';
 
 const styles = StyleSheet.create({
@@ -33,13 +34,7 @@ const KeyboardProvider = ({ children }: { children?: ReactNode }) => {
 
   // render
   return (
-    <>
-      {loading ? null : (
-        <RNKeyboardProvider statusBarTranslucent navigationBarTranslucent>
-          {children}
-        </RNKeyboardProvider>
-      )}
-    </>
+    <>{loading ? null : <RNKeyboardProvider>{children}</RNKeyboardProvider>}</>
   );
 };
 

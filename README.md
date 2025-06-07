@@ -2,7 +2,7 @@
 
 :fireworks: Clean and minimalist React Native template for a quick start with TypeScript and so much more components.
 
-## Current version: 0.77.1
+## Current version: 0.79.3
 
 ## :star: Features
 
@@ -25,15 +25,6 @@
 - Change App version `VERSION_NAME` on `env/.dev`
 - Change App build number `VERSION_CODE` on `env/.dev`
 - Change App URL `API_URL` on `env/.dev`
-
-### Gen app icon and Change app icon by env
-
-Build with: [rn-ml](https://github.com/ngocle2497/cli-tools)
-
-- Update app icon file from appicon folder
-- Run: `yarn app-icon` or `yarn app-icon:dev`
-  - Android: auto change flavor script
-  - IOS: Change ASSETCATALOG_COMPILER_APPICON_NAME to your respective App Icon Assets (in respective env file)
 
 ## :arrow_forward: Usage
 

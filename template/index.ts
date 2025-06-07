@@ -7,10 +7,10 @@ import { registerRootComponent } from 'expo';
 import 'intl-pluralrules';
 import 'react-native-gesture-handler';
 
-import { MyApp } from './src/app';
-
 import 'expo-dev-client';
 import './declare';
+
+import { MyApp } from './src/app';
 
 // @ts-ignore
 Text.defaultProps = Text.defaultProps || {

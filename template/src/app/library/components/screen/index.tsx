@@ -92,8 +92,6 @@ const InsetComponent = ({
     <>
       <FocusAwareStatusBar
         hidden={hiddenStatusBar}
-        backgroundColor={'transparent'}
-        translucent
         style={statusBarStyle ?? 'light'}
       />
       {!unsafe && edges.includes('top') && (

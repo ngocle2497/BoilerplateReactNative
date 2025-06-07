@@ -4,9 +4,7 @@
 
 import Keys from 'react-native-keys';
 
-export const APP_BUILD_VERSION = '1.0.0.2024.11.24.13.12';
-
-export const { DEFAULT_FALLBACK_LNG_I18n } = Keys;
+export const APP_BUILD_VERSION = '1.0.0.2025.06.07.13.31';
 
 export const { BUNDLE_IDENTIFIER } = Keys;
 
@@ -17,6 +15,8 @@ export const { VERSION_CODE } = Keys;
 export const { API_URL } = Keys;
 
 export const { APP_DISPLAY_NAME } = Keys;
+
+export const { CODE_SIGN_ENTITLEMENTS } = Keys;
 
 export const { WORKSPACE_NAME } = Keys;
 

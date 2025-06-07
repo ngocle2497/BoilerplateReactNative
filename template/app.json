@@ -6,17 +6,15 @@
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "platforms": [
-      "ios",
-      "android"
-    ],
+    "platforms": ["ios", "android"],
     "scheme": "HelloWorld",
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.HelloWorld"
     },
     "android": {
-      "package": "com.helloworld"
+      "package": "com.helloworld",
+      "edgeToEdgeEnabled": true
     },
     "plugins": [
       [

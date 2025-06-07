@@ -6,7 +6,6 @@ import { RootNavigation } from '@navigation/root-navigator';
 import { selectAppLoading } from '@selectors/app';
 import { appServices } from '@services/app';
 import { useAppStore } from '@stores/app';
-import { StatusBar } from 'expo-status-bar';
 import { useShallow } from 'zustand/shallow';
 
 export const AppContainer = () => {
@@ -21,7 +20,6 @@ export const AppContainer = () => {
   // render
   return (
     <>
-      <StatusBar translucent backgroundColor={'transparent'} />
       {!loadingApp && (
         <>
           <RootNavigation />
