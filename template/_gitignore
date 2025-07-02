@@ -79,6 +79,7 @@ yarn-error.log
 .expo
 dist/
 web-build/
+.vscode/
 
 # Sonar
 .scannerwork/

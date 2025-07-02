@@ -17,3 +17,4 @@ yarn.lock
 Gemfile.lock
 Podfile.lock
 local.properties
+.vscode/

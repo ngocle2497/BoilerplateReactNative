@@ -25,7 +25,7 @@
     "@shopify/flash-list": "1.7.6",
     "@shopify/react-native-skia": "2.0.2",
     "axios": "^1.9.0",
-    "expo": "~53.0.10",
+    "expo": "~53.0.16",
     "expo-dev-client": "~5.2.0",
     "expo-font": "~13.3.1",
     "expo-image": "~2.2.0",
@@ -39,7 +39,7 @@
     "react-freeze": "^1.0.4",
     "react-hook-form": "^7.57.0",
     "react-i18next": "^15.5.2",
-    "react-native": "0.79.3",
+    "react-native": "0.79.5",
     "react-native-bootsplash": "^6.3.8",
     "react-native-gesture-handler": "~2.24.0",
     "react-native-keyboard-controller": "^1.16.6",
@@ -59,10 +59,10 @@
     "@eslint/compat": "^1.1.1",
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.7.0",
-    "@react-native/babel-preset": "0.79.3",
-    "@react-native/eslint-config": "0.79.3",
-    "@react-native/metro-config": "0.79.3",
-    "@react-native/typescript-config": "0.79.3",
+    "@react-native/babel-preset": "0.79.5",
+    "@react-native/eslint-config": "0.79.5",
+    "@react-native/metro-config": "0.79.5",
+    "@react-native/typescript-config": "0.79.5",
     "@types/jest": "^29.5.11",
     "@types/node": "^18.14.6",
     "@types/react": "~19.0.10",
@@ -82,5 +82,18 @@
     "react-test-renderer": "19.0.0",
     "typescript": "~5.5.0"
   },
-  "private": true
+  "private": true,
+    "expo": {
+    "doctor": {
+      "reactNativeDirectoryCheck": {
+        "exclude": [
+          "@gorhom/portal",
+          "intl-pluralrules",
+          "moment",
+          "react-fast-compare",
+          "immer"
+        ]
+      }
+    }
+  }
 }
