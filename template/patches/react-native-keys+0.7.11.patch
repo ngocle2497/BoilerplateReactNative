@@ -1,0 +1,23 @@
+diff --git a/node_modules/react-native-keys/android/build.gradle b/node_modules/react-native-keys/android/build.gradle
+index 7d07aae..c6863f5 100644
+--- a/node_modules/react-native-keys/android/build.gradle
++++ b/node_modules/react-native-keys/android/build.gradle
+@@ -141,7 +141,8 @@ android {
+         abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
+         arguments '-DANDROID_STL=c++_shared',
+           "-DNODE_MODULES_DIR=${nodeModulesPath}",
+-          "-DREACT_NATIVE_MINOR_VERSION=${REACT_NATIVE_MINOR_VERSION}"
++          "-DREACT_NATIVE_MINOR_VERSION=${REACT_NATIVE_MINOR_VERSION}",
++          "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"
+       }
+     }
+   }
+@@ -160,7 +161,7 @@ android {
+       "**/libreact_nativemodule_core.so",
+       "**/libturbomodulejsijni.so",
+       "**/MANIFEST.MF",
+-      ""
++      "**/libreactnative.so"
+     ]
+     doNotStrip '**/*.so'
+   }
